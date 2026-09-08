@@ -1,0 +1,836 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CityEvent",
+  "oneOf": [
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema",
+        "eventId",
+        "workspace",
+        "source",
+        "order",
+        "occurredAt",
+        "observedAt",
+        "completeness",
+        "evidence",
+        "type",
+        "instance",
+        "profile",
+        "run",
+        "task",
+        "operation"
+      ],
+      "properties": {
+        "schema": {
+          "const": "agent-city.event.v1"
+        },
+        "eventId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "workspace": {
+          "const": "local-agent-city"
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "order": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "occurredAt": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "observedAt": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "completeness": {
+          "enum": [
+            "complete",
+            "partial",
+            "unknown"
+          ]
+        },
+        "evidence": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 24,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "recordId",
+              "hash",
+              "sourceSequence",
+              "origin"
+            ],
+            "properties": {
+              "recordId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 160
+              },
+              "hash": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              "sourceSequence": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "origin": {
+                "enum": [
+                  "canonical",
+                  "gateway-diagnostic"
+                ]
+              }
+            }
+          }
+        },
+        "type": {
+          "const": "operation.started"
+        },
+        "instance": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "profile": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "run": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "namespace",
+            "id"
+          ],
+          "properties": {
+            "namespace": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 160
+            },
+            "id": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 160
+            }
+          }
+        },
+        "task": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "namespace",
+            "id"
+          ],
+          "properties": {
+            "namespace": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 160
+            },
+            "id": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 160
+            }
+          }
+        },
+        "operation": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "attempt",
+            "capability",
+            "collection",
+            "outcome"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 160
+            },
+            "attempt": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "capability": {
+              "enum": [
+                "agent.run",
+                "rag.query",
+                "tool.execute",
+                "evaluation.run",
+                "agent.handoff",
+                "execution.run"
+              ]
+            },
+            "collection": {
+              "enum": [
+                "kujo-docs",
+                "repo-source",
+                "project-rag",
+                "previous-runs",
+                "external-research",
+                "unknown"
+              ]
+            },
+            "outcome": {
+              "enum": [
+                "unset",
+                "succeeded",
+                "failed",
+                "canceled",
+                "skipped",
+                "unknown"
+              ]
+            },
+            "relatedAgent": {
+              "type": "string",
+              "maxLength": 160
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema",
+        "eventId",
+        "workspace",
+        "source",
+        "order",
+        "occurredAt",
+        "observedAt",
+        "completeness",
+        "evidence",
+        "type",
+        "instance",
+        "profile",
+        "run",
+        "task",
+        "operation"
+      ],
+      "properties": {
+        "schema": {
+          "const": "agent-city.event.v1"
+        },
+        "eventId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "workspace": {
+          "const": "local-agent-city"
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "order": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "occurredAt": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "observedAt": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "completeness": {
+          "enum": [
+            "complete",
+            "partial",
+            "unknown"
+          ]
+        },
+        "evidence": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 24,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "recordId",
+              "hash",
+              "sourceSequence",
+              "origin"
+            ],
+            "properties": {
+              "recordId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 160
+              },
+              "hash": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              "sourceSequence": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "origin": {
+                "enum": [
+                  "canonical",
+                  "gateway-diagnostic"
+                ]
+              }
+            }
+          }
+        },
+        "type": {
+          "const": "operation.finished"
+        },
+        "instance": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "profile": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "run": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "namespace",
+            "id"
+          ],
+          "properties": {
+            "namespace": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 160
+            },
+            "id": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 160
+            }
+          }
+        },
+        "task": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "namespace",
+            "id"
+          ],
+          "properties": {
+            "namespace": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 160
+            },
+            "id": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 160
+            }
+          }
+        },
+        "operation": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "attempt",
+            "capability",
+            "collection",
+            "outcome"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 160
+            },
+            "attempt": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "capability": {
+              "enum": [
+                "agent.run",
+                "rag.query",
+                "tool.execute",
+                "evaluation.run",
+                "agent.handoff",
+                "execution.run"
+              ]
+            },
+            "collection": {
+              "enum": [
+                "kujo-docs",
+                "repo-source",
+                "project-rag",
+                "previous-runs",
+                "external-research",
+                "unknown"
+              ]
+            },
+            "outcome": {
+              "enum": [
+                "unset",
+                "succeeded",
+                "failed",
+                "canceled",
+                "skipped",
+                "unknown"
+              ]
+            },
+            "relatedAgent": {
+              "type": "string",
+              "maxLength": 160
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema",
+        "eventId",
+        "workspace",
+        "source",
+        "order",
+        "occurredAt",
+        "observedAt",
+        "completeness",
+        "evidence",
+        "type",
+        "instance",
+        "profile",
+        "run",
+        "task",
+        "operation"
+      ],
+      "properties": {
+        "schema": {
+          "const": "agent-city.event.v1"
+        },
+        "eventId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "workspace": {
+          "const": "local-agent-city"
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "order": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "occurredAt": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "observedAt": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "completeness": {
+          "enum": [
+            "complete",
+            "partial",
+            "unknown"
+          ]
+        },
+        "evidence": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 24,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "recordId",
+              "hash",
+              "sourceSequence",
+              "origin"
+            ],
+            "properties": {
+              "recordId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 160
+              },
+              "hash": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              "sourceSequence": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "origin": {
+                "enum": [
+                  "canonical",
+                  "gateway-diagnostic"
+                ]
+              }
+            }
+          }
+        },
+        "type": {
+          "const": "operation.failed"
+        },
+        "instance": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "profile": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "run": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "namespace",
+            "id"
+          ],
+          "properties": {
+            "namespace": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 160
+            },
+            "id": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 160
+            }
+          }
+        },
+        "task": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "namespace",
+            "id"
+          ],
+          "properties": {
+            "namespace": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 160
+            },
+            "id": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 160
+            }
+          }
+        },
+        "operation": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "attempt",
+            "capability",
+            "collection",
+            "outcome"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 160
+            },
+            "attempt": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "capability": {
+              "enum": [
+                "agent.run",
+                "rag.query",
+                "tool.execute",
+                "evaluation.run",
+                "agent.handoff",
+                "execution.run"
+              ]
+            },
+            "collection": {
+              "enum": [
+                "kujo-docs",
+                "repo-source",
+                "project-rag",
+                "previous-runs",
+                "external-research",
+                "unknown"
+              ]
+            },
+            "outcome": {
+              "enum": [
+                "unset",
+                "succeeded",
+                "failed",
+                "canceled",
+                "skipped",
+                "unknown"
+              ]
+            },
+            "relatedAgent": {
+              "type": "string",
+              "maxLength": 160
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema",
+        "eventId",
+        "workspace",
+        "source",
+        "order",
+        "occurredAt",
+        "observedAt",
+        "completeness",
+        "evidence",
+        "type",
+        "reason"
+      ],
+      "properties": {
+        "schema": {
+          "const": "agent-city.event.v1"
+        },
+        "eventId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "workspace": {
+          "const": "local-agent-city"
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "order": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "occurredAt": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "observedAt": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "completeness": {
+          "enum": [
+            "complete",
+            "partial",
+            "unknown"
+          ]
+        },
+        "evidence": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 24,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "recordId",
+              "hash",
+              "sourceSequence",
+              "origin"
+            ],
+            "properties": {
+              "recordId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 160
+              },
+              "hash": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              "sourceSequence": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "origin": {
+                "enum": [
+                  "canonical",
+                  "gateway-diagnostic"
+                ]
+              }
+            }
+          }
+        },
+        "type": {
+          "const": "source.gap"
+        },
+        "reason": {
+          "enum": [
+            "disconnect",
+            "overflow",
+            "schema",
+            "retention",
+            "manual-reset",
+            "reconciled"
+          ]
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema",
+        "eventId",
+        "workspace",
+        "source",
+        "order",
+        "occurredAt",
+        "observedAt",
+        "completeness",
+        "evidence",
+        "type",
+        "reason"
+      ],
+      "properties": {
+        "schema": {
+          "const": "agent-city.event.v1"
+        },
+        "eventId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "workspace": {
+          "const": "local-agent-city"
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "order": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "occurredAt": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "observedAt": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "completeness": {
+          "enum": [
+            "complete",
+            "partial",
+            "unknown"
+          ]
+        },
+        "evidence": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 24,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "recordId",
+              "hash",
+              "sourceSequence",
+              "origin"
+            ],
+            "properties": {
+              "recordId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 160
+              },
+              "hash": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              "sourceSequence": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "origin": {
+                "enum": [
+                  "canonical",
+                  "gateway-diagnostic"
+                ]
+              }
+            }
+          }
+        },
+        "type": {
+          "const": "source.reconciled"
+        },
+        "reason": {
+          "enum": [
+            "disconnect",
+            "overflow",
+            "schema",
+            "retention",
+            "manual-reset",
+            "reconciled"
+          ]
+        }
+      }
+    }
+  ]
+}
