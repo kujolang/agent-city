@@ -14,3 +14,5 @@ that case. The controlled test verifies convergence and one remaining open strea
 This was added after a real repair's browser observation timed out even though
 its canonical journal held the terminal events; the original timeout's exact
 cause remains unproven. See ../packaged-repair for the real outcome evidence.
+
+Health and initial snapshot fetches now have five-second deadlines. Disconnecting cancels a pending health request, preventing the single-flight guard from remaining stuck across replay. The hanging-request regression passed in 6,087 ms; its pre-fix failure is retained in pending-health-before.log. Fresh unmocked source/transport verification is recorded in ../live-convergence.

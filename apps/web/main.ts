@@ -111,7 +111,8 @@ try {
 }
 function renderDOM() {
   $("#health").textContent =
-    (replayMode ? "REPLAY" : health) + (truth.gap ? " · PARTIAL COVERAGE" : "");
+    (replayMode ? "REPLAY" : "SOURCE / " + health) +
+    (truth.gap ? " · PARTIAL COVERAGE" : "");
   $("#scene").textContent =
     renderer.scene.toUpperCase() +
     " / " +
@@ -119,11 +120,11 @@ function renderDOM() {
   $("#pause").textContent = paused ? "Resume animation" : "Pause animation";
   $("#notice").textContent = truth.gap
     ? "Coverage gap retained. Missing lifecycle observations are not reconstructed."
-    : "LIVE = current operation · RECENT = observed completed work · UNKNOWN = no source";
+    : "Feed status is source health. Activity: LIVE = running; RECENT = completed.";
   if (inspectedBuilding) {
     const state = buildingState(inspectedBuilding, truth, Date.now(), health);
     const rows = [
-      state.id.toUpperCase() + " / " + state.sourceHealth,
+      state.id.toUpperCase() + " / SOURCE " + state.sourceHealth,
       `${state.active} active · ${state.failures} retained failures · ${state.operations.length} observed operations`,
       "STATIONS: " +
         state.stations
@@ -348,8 +349,10 @@ document.querySelectorAll<HTMLButtonElement>("[data-scene]").forEach(
 );
 let connectionEpoch = 0;
 let snapshotAbort: AbortController | null = null;
+let healthAbort: AbortController | null = null;
 function disconnect() {
   connectionEpoch++;
+  healthAbort?.abort();
   snapshotAbort?.abort();
   snapshotAbort = null;
   stream?.close();
@@ -362,6 +365,7 @@ async function connect() {
   const current = () => epoch === connectionEpoch && !replayMode;
   const controller = new AbortController();
   snapshotAbort = controller;
+  const deadline = setTimeout(() => controller.abort(), 5000);
   let snap;
   try {
     const r = await fetch("/api/world/snapshot", { signal: controller.signal });
@@ -371,6 +375,7 @@ async function connect() {
     if (!current()) return;
     throw error;
   } finally {
+    clearTimeout(deadline);
     if (snapshotAbort === controller) snapshotAbort = null;
   }
   // A delayed response must never replace a newer connection or pinned replay.
@@ -436,8 +441,11 @@ setInterval(async () => {
   if (replayMode || checkingHealth) return;
   checkingHealth = true;
   const epoch = connectionEpoch;
+  const controller = new AbortController();
+  healthAbort = controller;
+  const deadline = setTimeout(() => controller.abort(), 5000);
   try {
-    const r = await fetch("/api/world/snapshot");
+    const r = await fetch("/api/world/snapshot", { signal: controller.signal });
     if (!r.ok) throw Error();
     const s = await r.json();
     if (replayMode || epoch !== connectionEpoch) return;
@@ -454,6 +462,8 @@ setInterval(async () => {
   } catch {
     if (!replayMode && epoch === connectionEpoch) health = "STALE";
   } finally {
+    clearTimeout(deadline);
+    if (healthAbort === controller) healthAbort = null;
     checkingHealth = false;
   }
   renderDOM();

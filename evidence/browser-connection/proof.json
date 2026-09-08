@@ -6,6 +6,8 @@
   "obsoleteCallbacksIgnored": true,
   "liveReconnectHasOneStream": true,
   "openButLaggingStreamResynchronized": true,
+  "hangingHealthRequestRecovered": true,
+  "hangingHealthRecoveryMs": 6087,
   "errors": [],
   "writes": [],
   "limitations": [

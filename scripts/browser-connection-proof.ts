@@ -166,6 +166,24 @@ try {
     ),
     1,
   );
+  // A server that accepts a health request but never answers must not wedge polling.
+  for (const route of held.splice(0)) await route.abort().catch(() => {});
+  hold = true;
+  await waitHeld(1);
+  hold = false;
+  const timeoutStart = Date.now();
+  snapshot.truth = { ...snapshot.truth, order: recoveredOrder + 1 };
+  await page.waitForFunction(
+    (order) => (window as any).agentCity.truth.order === order,
+    recoveredOrder + 1,
+    { timeout: 15000, polling: 100 },
+  );
+  const hangingHealthRecoveryMs = Date.now() - timeoutStart;
+  assert(
+    hangingHealthRecoveryMs >= 4000,
+    "Expected the held request to reach its cancellation deadline",
+  );
+  for (const route of held.splice(0)) await route.abort().catch(() => {});
   assert.deepEqual(errors, []);
   assert.deepEqual(writes, []);
   await page.screenshot({ path: out + "/recovered.png", fullPage: true });
@@ -180,6 +198,8 @@ try {
         obsoleteCallbacksIgnored: true,
         liveReconnectHasOneStream: true,
         openButLaggingStreamResynchronized: true,
+        hangingHealthRequestRecovered: true,
+        hangingHealthRecoveryMs,
         errors,
         writes,
         limitations: [

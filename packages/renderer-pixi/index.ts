@@ -339,7 +339,13 @@ export class CityRenderer {
     box(g, 0, 208, 256, 32, C.black);
     box(g, 0, 208, 256, 1, C.teal);
     text(g, "KUJO / " + this.scene, 8, 215, C.mint);
-    text(g, health, 204, 215, health === "LIVE" ? C.mint : C.gold);
+    text(
+      g,
+      health === "REPLAY" ? "REPLAY" : "FEED " + health,
+      196,
+      215,
+      health === "LIVE" ? C.mint : C.gold,
+    );
     text(
       g,
       this.follow
