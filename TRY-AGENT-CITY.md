@@ -93,3 +93,21 @@ not ambient dialogue. No eight-hour test is required to try the app.
 Current screenshots: `evidence/visual-revision/city.png` and
 `evidence/live-missions/live-1788876751607-/writing-6.png`.
 Remaining work and release limitations: `WORKING-EXPERIENCE.md`.
+
+## Startup troubleshooting
+
+Run `npm run doctor` (or `npm run doctor -- --json`) before starting to list
+missing dependencies and occupied service ports together. It does not run a
+model, change provider settings or stop other processes. A running Agent City
+will intentionally report its ports occupied; this is a check for starting a
+new launcher, not a verdict that an existing app is unhealthy.
+
+The launcher uses ports 5178 (web), 8791 (RAG), 7791 (Watchdog), 7792 (gateway),
+7793 (missions), and 8931 (MCP). It may reuse a responding local MCP health
+endpoint; tool authorization is still checked on an explicit invocation.
+`KUJO_BIN` accepts an executable path or a command available on PATH.
+
+This machine is running many other applications, as reported by the user.
+Short timing samples under that load are not isolated application capacity
+measurements. Functional correctness, missing events and failed source operations
+remain separate checks; a busy machine does not turn a failed operation into success.

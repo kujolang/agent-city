@@ -1,0 +1,20 @@
+PASS Node 24.20.0; Node 24 or newer is required.
+FAIL Kujo executable unavailable. Build ../kujo/target/release/kujo or set KUJO_BIN to an executable path.
+PASS node_modules/tsx/package.json
+PASS node_modules/vite/package.json
+PASS node_modules/pixi.js/package.json
+PASS ../agents-sdk/src/agents/runner.kujo
+PASS ../agents-sdk/src/agents/tracing/lifecycle.kujo
+PASS ../dispatch/src/core/runner.kujo
+PASS ../watchdog/dashboard_server.kujo
+PASS ../rag/main.kujo
+PASS ../rag/examples/kujo_docs
+PASS ../eval/main.kujo
+PASS ../mcp/server.kujo
+FAIL web: port 5178 is occupied. Stop its owning service yourself or the previous Agent City launcher with Ctrl+C; no process was stopped.
+PASS RAG: port 8791 available
+PASS Watchdog: port 7791 available
+FAIL gateway: port 7792 is occupied. Stop its owning service yourself or the previous Agent City launcher with Ctrl+C; no process was stopped.
+FAIL mission service: port 7793 is occupied. Stop its owning service yourself or the previous Agent City launcher with Ctrl+C; no process was stopped.
+PASS MCP: port 8931 available
+INFO Configure the model in Mission Command. This check does not contact a provider or execute a task.

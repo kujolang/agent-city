@@ -284,3 +284,16 @@ remain unqualified for 60 FPS; no throughput or long-duration claim follows.
 Baseline/after initial pixels match; separate short checks cover portal-follow
 identity, real building hit testing, aggregation and object removal. No world-core,
 source repository, runtime business behavior or eight-hour test changed.
+
+## Startup diagnostics checkpoint
+
+`npm run doctor` reports all missing prerequisites and occupied ports before a
+new launch. Both launch commands use it, KUJO_BIN resolves executable PATH entries,
+and gateway/control overrides feed the matching readiness/proxy URLs. The launcher
+waits for Mission Command before reporting readiness and preserves a failed/signal
+exit instead of treating a null child exit as success. Current occupied ports
+were left untouched; this is not a new full-stack startup proof.
+
+The user explicitly reported many other applications running on this host.
+Timing measurements remain load-dependent; functional failures and missing events
+are still evaluated independently. See `evidence/startup/README.md`.

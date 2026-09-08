@@ -1,0 +1,18 @@
+npm warn Unknown user config "python". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+
+> kujo-agent-city@0.2.0-rc.1 test
+> vitest run
+
+
+ RUN  v5.0.0 /Users/robertdevore/2026/Kujolang/kujo-repos/agent-city
+
+
+ Test Files  12 passed (12)
+      Tests  40 passed (40)
+   Start at  11:48:46
+   Duration  2.52s (import 44%, transform 29%, tests 23%, worker 3%)
+
+  Transform  transforming modules took 2.52s · 29% of tracked time, re-done on every run
+             persist transforms across runs with fsModuleCache: true
+             learn more: https://vitest.dev/guide/improving-performance#caching-between-reruns
+
