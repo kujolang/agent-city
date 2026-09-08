@@ -41,6 +41,7 @@ const sourcePaths = [
   "LICENSE",
   "README.md",
   "TRY-AGENT-CITY.md",
+  "WORKING-EXPERIENCE.md",
   "Start Agent City.command",
 ];
 const revisions: Record<string, string> = {};
