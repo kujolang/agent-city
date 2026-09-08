@@ -6,6 +6,7 @@ import {
   type Browser,
   type BrowserContext,
   type Page,
+  type Worker,
 } from "@playwright/test";
 import { createServer } from "vite";
 import { mkdir, mkdtemp, readFile, writeFile } from "node:fs/promises";
@@ -21,6 +22,27 @@ const out = "evidence/browser-visibility";
 await mkdir(".runtime", { recursive: true });
 const profile = await mkdtemp(".runtime/visibility-profile-");
 let windows: unknown;
+const nativeTabs = process.env.CITY_VISIBILITY_NATIVE_TABS === "1";
+let tabWorker: Worker | undefined;
+let nativeSourceTab: number | undefined;
+const extension = resolve(profile, "extension");
+if (nativeTabs) {
+  await mkdir(extension);
+  await writeFile(
+    resolve(extension, "manifest.json"),
+    JSON.stringify({
+      manifest_version: 3,
+      name: "Isolated visibility verification",
+      version: "1.0",
+      permissions: ["tabs"],
+      background: { service_worker: "worker.js" },
+    }),
+  );
+  await writeFile(
+    resolve(extension, "worker.js"),
+    "chrome.runtime.onInstalled.addListener(() => {});",
+  );
+}
 await mkdir(out, { recursive: true });
 const fixture = (
   await readFile("tests/fixtures/phase1-observations.jsonl", "utf8")
@@ -90,6 +112,12 @@ try {
   } else {
     context = await chromium.launchPersistentContext(profile, {
       headless: false,
+      args: nativeTabs
+        ? [
+            `--disable-extensions-except=${extension}`,
+            `--load-extension=${extension}`,
+          ]
+        : [],
       executablePath: await localChromiumPath(),
       viewport: { width: 1280, height: 900 },
       ignoreDefaultArgs: [
@@ -100,6 +128,10 @@ try {
     });
     browser = context.browser()!;
   }
+  if (nativeTabs)
+    tabWorker =
+      context.serviceWorkers()[0] ??
+      (await context.waitForEvent("serviceworker", { timeout: 10000 }));
   const page = await context.newPage(),
     errors: string[] = [];
   observedPage = page;
@@ -154,33 +186,68 @@ try {
   if (process.env.CITY_VISIBILITY_NO_DEFAULTS !== "1")
     await cdp.send("Emulation.setFocusEmulationEnabled", { enabled: false });
   const { targetInfo } = await cdp.send("Target.getTargetInfo");
-  const { targetId: backgroundTarget } = await cdp.send("Target.createTarget", {
-    url: "about:blank",
-    newWindow: false,
-    background: false,
-    browserContextId: targetInfo.browserContextId,
-  });
-  const sourceWindow = await cdp.send("Browser.getWindowForTarget", {
-    targetId: targetInfo.targetId,
-  });
-  const coverWindow = await cdp.send("Browser.getWindowForTarget", {
-    targetId: backgroundTarget,
-  });
-  windows = {
-    source: sourceWindow.windowId,
-    cover: coverWindow.windowId,
-    profile:
-      process.env.CITY_VISIBILITY_NO_DEFAULTS === "1"
-        ? "fresh persistent / CDP noDefaults"
-        : "fresh persistent",
-    sameWindow: sourceWindow.windowId === coverWindow.windowId,
-  };
-  assert.equal(
-    sourceWindow.windowId,
-    coverWindow.windowId,
-    "Native tabs must share one window",
-  );
-  await cdp.send("Target.activateTarget", { targetId: backgroundTarget });
+  if (nativeTabs) {
+    const tabs = await tabWorker!.evaluate(async () => {
+      const api = (globalThis as any).chrome;
+      const all = await api.tabs.query({});
+      const source = all.find((t: any) =>
+        t.url?.startsWith("http://127.0.0.1:18890"),
+      );
+      if (!source) throw new Error("Source tab missing");
+      const cover = await api.tabs.create({
+        windowId: source.windowId,
+        url: "about:blank",
+        active: true,
+      });
+      const current = await api.tabs.get(source.id);
+      return {
+        source: source.id,
+        cover: cover.id,
+        sourceWindow: source.windowId,
+        coverWindow: cover.windowId,
+        sourceActive: current.active,
+      };
+    });
+    nativeSourceTab = tabs.source;
+    windows = {
+      ...tabs,
+      method: "chrome.tabs.create active:true",
+      sameWindow: tabs.sourceWindow === tabs.coverWindow,
+    };
+    assert.equal(tabs.sourceWindow, tabs.coverWindow);
+    assert.equal(tabs.sourceActive, false, "Source tab still active");
+  } else {
+    const { targetId: backgroundTarget } = await cdp.send(
+      "Target.createTarget",
+      {
+        url: "about:blank",
+        newWindow: false,
+        background: false,
+        browserContextId: targetInfo.browserContextId,
+      },
+    );
+    const sourceWindow = await cdp.send("Browser.getWindowForTarget", {
+      targetId: targetInfo.targetId,
+    });
+    const coverWindow = await cdp.send("Browser.getWindowForTarget", {
+      targetId: backgroundTarget,
+    });
+    windows = {
+      source: sourceWindow.windowId,
+      cover: coverWindow.windowId,
+      profile:
+        process.env.CITY_VISIBILITY_NO_DEFAULTS === "1"
+          ? "fresh persistent / CDP noDefaults"
+          : "fresh persistent",
+      sameWindow: sourceWindow.windowId === coverWindow.windowId,
+    };
+    assert.equal(
+      sourceWindow.windowId,
+      coverWindow.windowId,
+      "Native tabs must share one window",
+    );
+    await cdp.send("Target.activateTarget", { targetId: backgroundTarget });
+  }
   await page.waitForFunction(
     () => document.visibilityState === "hidden",
     null,
@@ -232,8 +299,14 @@ try {
   assert.equal(hidden.order, truth.order);
   assert(hidden.queued > 0);
   const beforeResume = snapshots;
-  await cdp.send("Target.activateTarget", { targetId: targetInfo.targetId });
-  await page.bringToFront();
+  if (nativeTabs) {
+    await tabWorker!.evaluate(async (id) => {
+      await (globalThis as any).chrome.tabs.update(id, { active: true });
+    }, nativeSourceTab!);
+  } else {
+    await cdp.send("Target.activateTarget", { targetId: targetInfo.targetId });
+    await page.bringToFront();
+  }
   await page.waitForFunction(
     () =>
       document.visibilityState === "visible" &&
