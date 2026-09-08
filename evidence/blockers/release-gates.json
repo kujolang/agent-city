@@ -8,5 +8,5 @@
     "sourceIndependence": true,
     "watchdogStoreEpoch": true
   },
-  "soakStatus": "RUNNING"
+  "soakStatus": "STOPPED_BY_USER"
 }

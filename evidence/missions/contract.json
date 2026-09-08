@@ -1,0 +1,14 @@
+{
+  "kind": "SYNTHETIC PROVIDER CONTRACT; not live AI product proof",
+  "passed": true,
+  "calls": 4,
+  "observedRows": 7,
+  "startedBeforeControlledCompletion": true,
+  "reviewerHandoff": true,
+  "redirectsRejected": true,
+  "privateArtifact": true,
+  "metadataOnlySpool": true,
+  "providerFailureRetained": true,
+  "unauthorizedRequestsRejected": true,
+  "at": "2026-09-08T12:52:52.048Z"
+}

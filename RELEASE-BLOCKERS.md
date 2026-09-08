@@ -28,14 +28,12 @@ Upgrade Watchdog alongside City: older Watchdog exports without continuity metad
 
 Use `npm run replay -- evidence/blockers/replay.json` for the current implementation pin. The older replay bundle remains historical evidence and its exact source hash is expected to reject a changed implementation.
 
-## Active run / follow-up
+## Cancelled long run / follow-up
 
-Replacement soak started **2026-09-08 11:42:37 UTC**, PID **65887** at launch,
-City code `60f93ae`, Watchdog `a639d9a`. Check process ownership before using the
-PID. An early sample shows 25 instances, LIVE source health and an empty visual
-queue. This is progress, not an eight-hour pass. The earlier aborted attempt is
-preserved in `evidence/blockers/soak-aborted-heartbeat.json`.
+The user stopped the replacement soak on **2026-09-08 at 11:53:51 UTC**,
+after approximately 11 minutes. It did not qualify eight-hour reliability.
+`.runtime/soak-latest.json` records STOPPED_BY_USER. The automatic thread follow-up
+was paused. Do not restart either without a new explicit request.
 
-The thread follow-up `review-agent-city-eight-hour-soak` is scheduled to review
-actual completion and update the evidence/report. It must keep release status
-failed while the full-path throughput target remains unmet.
+The subsequent working-experience expansion is tracked in
+[WORKING-EXPERIENCE.md](WORKING-EXPERIENCE.md); it does not change release FAIL.

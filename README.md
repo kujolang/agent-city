@@ -1,5 +1,7 @@
 # Kujo Agent City
 
+**Working-experience expansion in progress:** [current capabilities and unfinished gates](WORKING-EXPERIENCE.md). Run `npm start` (Node 24+) or open `Start Agent City.command` on macOS. Model setup and explicit writing/code missions are now separate from the read-only Observer. Existing Observer notes below are historical where they say no task controls.
+
 A local, read-only Observer vertical slice. Real Kujo operations drive a small
 original pixel city; current truth updates independently of travel and room
 animation. The web UI cannot assign, stop, chat with, or reconfigure workers.
