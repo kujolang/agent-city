@@ -1,12 +1,19 @@
+import { startupChecks, formatStartupChecks } from "./startup-checks";
 import { spawn } from "node:child_process";
 import { mkdir, writeFile, readFile, open, stat } from "node:fs/promises";
 import { randomBytes } from "node:crypto";
 import { resolve } from "node:path";
 const root = resolve(import.meta.dirname, ".."),
   runtime = resolve(root, ".runtime");
+const startup = await startupChecks(root);
+if (!startup.ok) {
+  console.error(formatStartupChecks(startup));
+  process.exit(1);
+}
+const gatewayPort = Number(process.env.CITY_PORT || 7792);
+const controlPort = Number(process.env.CITY_CONTROL_PORT || 7793);
 await mkdir(runtime, { recursive: true });
-const kujo =
-  process.env.KUJO_BIN || resolve(root, "../kujo/target/release/kujo");
+const kujo = startup.kujo;
 await stat(kujo);
 let token;
 try {
@@ -19,6 +26,8 @@ const common = {
   ...process.env,
   KUJO_BIN: kujo,
   CITY_SOURCE_PREFIX: process.env.CITY_SOURCE_PREFIX || "review-",
+  CITY_GATEWAY_URL: `http://127.0.0.1:${gatewayPort}`,
+  CITY_CONTROL_URL: `http://127.0.0.1:${controlPort}`,
 };
 const children: ReturnType<typeof spawn>[] = [];
 const pids: Record<string, number> = {};
@@ -83,7 +92,9 @@ try {
       WDG_BACKUP_ENABLED: "false",
     },
   );
-  const existingMcp = await fetch("http://127.0.0.1:8931/mcp/v1/health")
+  const existingMcp = await fetch("http://127.0.0.1:8931/mcp/v1/health", {
+    signal: AbortSignal.timeout(1500),
+  })
     .then((r) => r.ok)
     .catch(() => false);
   if (!existingMcp)
@@ -109,18 +120,24 @@ try {
     ["--import", "tsx", "integrations/kujo/bridge.ts"],
     root,
   );
-  await launch("runner", process.execPath, ["--import", "tsx", "apps/runner/main.ts"], root);
+  await launch(
+    "runner",
+    process.execPath,
+    ["--import", "tsx", "apps/runner/main.ts"],
+    root,
+  );
   await launch(
     "web",
     process.execPath,
     ["node_modules/vite/bin/vite.js", "apps/web", "--host", "127.0.0.1"],
     root,
   );
-  await ready("http://127.0.0.1:7792/api/world/snapshot");
+  await ready(`http://127.0.0.1:${gatewayPort}/api/world/snapshot`);
+  await ready(`http://127.0.0.1:${controlPort}/control/status`);
   await ready("http://127.0.0.1:5178");
   await writeFile(resolve(runtime, "pids.json"), JSON.stringify(pids));
   console.log(
-    "Observer ready: http://127.0.0.1:5178 (read-only; run npm run proof separately for real work)",
+    "Agent City ready: http://127.0.0.1:5178 — use Mission Command for writing/code tasks; Follow observes actual executions.",
   );
 } catch (e) {
   console.error(e);

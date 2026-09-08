@@ -36,7 +36,8 @@
     "mission": "tsx scripts/mission.ts",
     "proof:mission-contract": "tsx scripts/mission-contract.ts",
     "start": "tsx scripts/start.ts",
-    "proof:mission-browser": "tsx scripts/mission-browser.ts"
+    "proof:mission-browser": "tsx scripts/mission-browser.ts",
+    "doctor": "tsx scripts/doctor.ts"
   },
   "dependencies": {
     "ajv": "8.20.0",

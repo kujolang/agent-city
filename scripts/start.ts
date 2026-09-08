@@ -1,23 +1,14 @@
+import { startupChecks, formatStartupChecks } from "./startup-checks";
 import { spawn } from "node:child_process";
 import { access, mkdir } from "node:fs/promises";
 import { resolve } from "node:path";
 const root = resolve(import.meta.dirname, "..");
-const kujo =
-  process.env.KUJO_BIN || resolve(root, "../kujo/target/release/kujo");
-if (Number(process.versions.node.split(".")[0]) < 24)
-  throw Error("Agent City requires Node 24 or newer");
-for (const repo of ["agents-sdk", "dispatch", "watchdog", "rag", "eval", "mcp"])
-  await access(resolve(root, "..", repo));
-await access(kujo);
-const occupied = await fetch("http://127.0.0.1:5178", {
-  signal: AbortSignal.timeout(1000),
-})
-  .then(() => true)
-  .catch(() => false);
-if (occupied)
-  throw Error(
-    "Port 5178 is already in use. Stop the previous Agent City launcher with Ctrl+C, then start again. No existing process was stopped.",
-  );
+const check = await startupChecks(root);
+if (!check.ok) {
+  console.error(formatStartupChecks(check));
+  process.exit(1);
+}
+const kujo = check.kujo;
 await mkdir(resolve(root, ".runtime"), { recursive: true });
 async function run(
   command: string,
@@ -62,4 +53,4 @@ const code = await run(
   root,
   { ...process.env, KUJO_BIN: kujo },
 );
-process.exitCode = code || 0;
+process.exitCode = code ?? 1;
