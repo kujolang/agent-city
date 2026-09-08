@@ -202,6 +202,13 @@ try {
     await page.screenshot({ path: resolve(out, scene + ".png") });
   }
   assert.deepEqual(errors, []);
+  const truthUnchangedAfterScenes =
+    (await page.evaluate(() => JSON.stringify((window as any).visualTruth))) ===
+    JSON.stringify(truth);
+  assert(
+    truthUnchangedAfterScenes,
+    "Room scenery changed recorded runtime truth",
+  );
   // Inspect the actual rendered opening in both rooms sharing the mezzanine.
   const ladderOpenings = await page.evaluate(() => {
     const r = (window as any).visualRenderer;
@@ -245,6 +252,7 @@ try {
         freshness,
         ladderOpenings,
         sameOrderSnapshotClearsPriorOutcomes: resetPixels === 0,
+        truthUnchangedAfterScenes,
         errors,
         at: new Date().toISOString(),
       },

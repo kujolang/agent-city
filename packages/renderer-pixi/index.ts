@@ -5,6 +5,9 @@ import {
   consoleDesk,
   briefingRoom,
   cableTray,
+  serviceFloor,
+  dispatchFixtures,
+  terminalRack,
   roomShell,
   roomFloor,
   plant,
@@ -406,16 +409,17 @@ export class CityRenderer {
     );
     roomShell(g);
     if (dispatch || meeting) {
+      if (dispatch) dispatchFixtures(g);
       const labels = dispatch
         ? ["INTAKE", "ASSIGN", "WORKFLOW", "RETRY", "BLOCK", "DONE"]
         : ["CONTEXT", "RELATION", "EVIDENCE"];
       labels.forEach((label, i) => {
         const x = dispatch ? 18 + i * 38 : 24 + i * 76;
-        box(g, x, 58, dispatch ? 32 : 64, dispatch ? 59 : 42, C.black);
-        box(g, x + 2, 60, dispatch ? 28 : 60, 1, C.blue);
-        text(g, label, x + 2, 43, C.gold);
-        if (dispatch)
-          for (let y = 70; y < 110; y += 12) box(g, x + 5, y, 21, 2, C.teal);
+        if (meeting) {
+          box(g, x, 58, 64, 42, C.black);
+          box(g, x + 2, 60, 60, 1, C.blue);
+        }
+        text(g, label, x + 2, dispatch ? 47 : 43, C.gold);
         if (dispatch) consoleDesk(g, x + 1, 145, 28);
       });
       if (meeting) {
@@ -429,6 +433,7 @@ export class CityRenderer {
           text(g, label, 190, 76 + i * 8, C.white),
         );
       }
+      if (dispatch) box(g, 16, 164, 217, 9, C.black);
       text(
         g,
         meeting ? "MEETING HALL / CONTEXT" : "SOURCE-OWNED TASK STATE",
@@ -437,6 +442,7 @@ export class CityRenderer {
         C.white,
       );
     } else if (dojo) {
+      serviceFloor(g, true);
       ["schema", "content", "policy", "skipped"].forEach((name, i) => {
         const x = 22 + i * 56;
         box(g, x, 62, 46, 90, C.black);
@@ -473,6 +479,7 @@ export class CityRenderer {
         if (ops.some((o) => o.status === "skipped"))
           text(g, "SKIP", x + 14, 120, C.gold);
       });
+      box(g, 44, 163, 168, 9, C.black);
       text(g, "ACTUAL CHECK OUTCOMES", 48, 165, C.white);
     } else if (library) {
       libraryArchitecture(g);
@@ -493,25 +500,13 @@ export class CityRenderer {
       libraryFixtures(g);
       mezzanine(g);
     } else if (mcp) {
-      for (let x = 24; x < 240; x += 40) {
-        box(g, x, 47, 27, 88, C.black);
-        for (let y = 52; y < 128; y += 15) {
-          box(g, x + 3, y, 20, 11, C.road);
-          box(
-            g,
-            x + 5,
-            y + 3,
-            3,
-            3,
-            Math.floor(tick / 12) % 2 ? C.teal : C.mint,
-          );
-          box(g, x + 12, y + 4, 9, 1, C.gold);
-        }
-      }
+      serviceFloor(g);
+      for (let x = 24; x < 240; x += 40) terminalRack(g, x);
       cableTray(g);
       const calls = Object.values(truth.agents)
         .flatMap((a) => Object.values(a.operations))
         .filter((o) => o.capability === "mcp.call");
+      box(g, 26, 141, 210, 20, C.black);
       text(
         g,
         calls.length ? "MCP / OBSERVED CALLS" : "NO LIVE SOURCE",

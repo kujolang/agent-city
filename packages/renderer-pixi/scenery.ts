@@ -345,6 +345,86 @@ export function cableTray(g: Graphics) {
   }
 }
 
+/** Passive service-room materials. No lamps encode health or task outcomes. */
+export function serviceFloor(g: Graphics, brass = false) {
+  rect(g, 16, 150, 224, 26, P.mortar);
+  for (let y = 150; y < 176; y += 8)
+    for (let x = 16; x < 240; x += 16) {
+      rect(
+        g,
+        x + 1,
+        y + 1,
+        14,
+        Math.min(6, 175 - y),
+        brass ? 0x766044 : 0x485565,
+      );
+      rect(g, x + 2, y + 1, 12, 1, brass ? 0x9d8557 : P.stone);
+      rect(g, x + 2, y + 3, 1, 1, P.mortar);
+    }
+}
+
+export function dispatchFixtures(g: Graphics) {
+  serviceFloor(g);
+  // Recessed routing cabinets: empty trays, engraved dividers and steel casings.
+  // The station names are projected separately; these are not workflow bars.
+  for (let x = 18; x < 230; x += 38) {
+    rect(g, x - 1, 56, 34, 65, P.ink);
+    rect(g, x, 57, 32, 63, P.stone);
+    rect(g, x + 1, 58, 30, 1, P.light);
+    rect(g, x + 2, 60, 28, 57, P.mortar);
+    for (let y = 64; y < 113; y += 16) {
+      rect(g, x + 4, y, 24, 12, P.ink);
+      rect(g, x + 5, y + 1, 22, 2, P.blue);
+      rect(g, x + 6, y + 3, 20, 6, 0x122038);
+      rect(g, x + 4, y + 10, 24, 2, P.stone);
+      rect(g, x + 14, y + 10, 5, 1, P.light);
+    }
+    for (const y of [59, 117]) {
+      rect(g, x + 1, y, 1, 1, P.ink);
+      rect(g, x + 30, y, 1, 1, P.ink);
+    }
+    // Shallow desk pedestals and empty chairs behind the character plane.
+    rect(g, x + 4, 157, 9, 17, P.ink);
+    rect(g, x + 5, 159, 7, 13, P.stone);
+    for (const y of [160, 165, 170]) rect(g, x + 7, y, 3, 1, P.light);
+    rect(g, x + 19, 150, 10, 16, P.ink);
+    rect(g, x + 20, 151, 8, 11, 0x414b77);
+    rect(g, x + 20, 166, 2, 9, P.stone);
+    rect(g, x + 27, 166, 2, 9, P.stone);
+  }
+  rect(g, 17, 123, 220, 4, P.ink);
+  rect(g, 17, 124, 220, 1, P.stone);
+  for (let x = 28; x < 233; x += 38) {
+    rect(g, x, 120, 3, 10, P.mortar);
+    rect(g, x, 121, 1, 8, P.light);
+  }
+}
+
+export function terminalRack(g: Graphics, x: number) {
+  // Original bolted chassis with vents, cable sockets and a recessed console.
+  rect(g, x - 2, 46, 26, 91, P.ink);
+  rect(g, x - 1, 47, 25, 88, P.stone);
+  rect(g, x, 48, 1, 86, P.light);
+  rect(g, x + 2, 49, 21, 83, P.ink);
+  for (let y = 51; y < 125; y += 15) {
+    rect(g, x + 3, y, 20, 13, P.mortar);
+    rect(g, x + 3, y, 20, 1, P.light);
+    for (let dx = 5; dx < 15; dx += 3) rect(g, x + dx, y + 3, 1, 5, P.ink);
+    rect(g, x + 17, y + 3, 5, 4, P.ink);
+    rect(g, x + 18, y + 4, 3, 1, P.blue);
+    rect(g, x + 5, y + 10, 16, 1, P.stone);
+    for (const dx of [0, 23]) rect(g, x + dx, y + 2, 1, 1, P.ink);
+  }
+  rect(g, x + 5, 84, 17, 11, P.ink);
+  rect(g, x + 7, 86, 13, 7, P.blue);
+  rect(g, x + 8, 86, 1, 6, P.glass);
+  rect(g, x + 8, 97, 12, 2, P.light);
+  for (const dx of [5, 21]) {
+    rect(g, x + dx, 137, 3, 6, P.stone);
+    rect(g, x + dx, 142, 6, 2, P.ink);
+  }
+}
+
 export function roomFloor(g: Graphics) {
   masonry(g, 8, 178, 240, 9, true);
   rect(g, 8, 176, 240, 2, P.light);
