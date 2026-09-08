@@ -1,0 +1,695 @@
+{
+  "job": {
+    "id": "mission-a6664f32-af62-410c-9bba-4069c582f243",
+    "kind": "code",
+    "useLocalDocs": false,
+    "useMcpDocs": false,
+    "status": "completed",
+    "startedAt": "2026-09-08T14:35:03.163Z",
+    "finishedAt": "2026-09-08T14:35:30.328Z"
+  },
+  "track": [
+    {
+      "key": "workshop:work:lower:running",
+      "id": "live-1788878052721-mission-a6664f32-af62-410c-9bba-4069c582f243:run-1788878104603-6704:coder",
+      "walker": {
+        "id": "live-1788878052721-mission-a6664f32-af62-410c-9bba-4069c582f243:run-1788878104603-6704:coder",
+        "scene": "workshop",
+        "x": 112,
+        "y": 160,
+        "phase": "work",
+        "age": 13,
+        "visit": null,
+        "queued": [],
+        "visits": 0,
+        "homeX": 112,
+        "packetUntil": 949,
+        "packetEvidence": [
+          "3c8a5257fff3c11a8ab7562133196403f88eda5a0738d2cbb9b0c13b71039310",
+          "956b4944856f2404827d26feb314cd7506ea7751c8cf329125b2f33c602561e2",
+          "7a65f592849cfe39eebded1b61256c7ab6d2f1bb076d4799cc19c1f3715fa897"
+        ],
+        "climbing": false,
+        "roomTarget": "workshop:112,160",
+        "roomPath": []
+      },
+      "truth": "running",
+      "at": 1788878105806
+    },
+    {
+      "key": "workshop:enter:lower:completed",
+      "id": "live-1788878052721-mission-a6664f32-af62-410c-9bba-4069c582f243:run-1788878104603-6704:coder",
+      "walker": {
+        "id": "live-1788878052721-mission-a6664f32-af62-410c-9bba-4069c582f243:run-1788878104603-6704:coder",
+        "scene": "workshop",
+        "x": 112,
+        "y": 160,
+        "phase": "enter",
+        "age": 0,
+        "visit": {
+          "capability": "artifact.created",
+          "destination": "workshop",
+          "station": "evidence-shelf",
+          "keys": [
+            "live-1788878052721-mission-a6664f32-af62-410c-9bba-4069c582f243:run-1788878104603-6704:save-reviewed-output:1"
+          ],
+          "first": 1788878126588,
+          "last": 1788878126588,
+          "collection": "unknown",
+          "evidence": [
+            "native:agent-city-sdk:a99f30ae7821d53f04b5664bc5faabdba8f8b87f621b9c64470fc4753c18a1a2"
+          ]
+        },
+        "queued": [],
+        "visits": 1,
+        "homeX": 112,
+        "packetUntil": 1386,
+        "packetEvidence": [
+          "3c8a5257fff3c11a8ab7562133196403f88eda5a0738d2cbb9b0c13b71039310",
+          "956b4944856f2404827d26feb314cd7506ea7751c8cf329125b2f33c602561e2",
+          "7a65f592849cfe39eebded1b61256c7ab6d2f1bb076d4799cc19c1f3715fa897",
+          "d0c3d4d229d30bfbd62af532020c765feb7a475c7043ce2ffd8778f2c908984f",
+          "3c632bef9c03fa5a0fa22557f96413e93ffdbab9f06d1f2237cf5e03d9e4d844"
+        ],
+        "climbing": false,
+        "roomTarget": "workshop:112,160",
+        "roomPath": []
+      },
+      "truth": "completed",
+      "at": 1788878127260
+    },
+    {
+      "key": "workshop:enter:ladder:completed",
+      "id": "live-1788878052721-mission-a6664f32-af62-410c-9bba-4069c582f243:run-1788878104603-6704:coder",
+      "walker": {
+        "id": "live-1788878052721-mission-a6664f32-af62-410c-9bba-4069c582f243:run-1788878104603-6704:coder",
+        "scene": "workshop",
+        "x": 224,
+        "y": 156,
+        "phase": "enter",
+        "age": 29,
+        "visit": {
+          "capability": "artifact.created",
+          "destination": "workshop",
+          "station": "evidence-shelf",
+          "keys": [
+            "live-1788878052721-mission-a6664f32-af62-410c-9bba-4069c582f243:run-1788878104603-6704:save-reviewed-output:1"
+          ],
+          "first": 1788878126588,
+          "last": 1788878126588,
+          "collection": "unknown",
+          "evidence": [
+            "native:agent-city-sdk:a99f30ae7821d53f04b5664bc5faabdba8f8b87f621b9c64470fc4753c18a1a2"
+          ]
+        },
+        "queued": [],
+        "visits": 1,
+        "homeX": 112,
+        "packetUntil": 1402,
+        "packetEvidence": [
+          "3c8a5257fff3c11a8ab7562133196403f88eda5a0738d2cbb9b0c13b71039310",
+          "956b4944856f2404827d26feb314cd7506ea7751c8cf329125b2f33c602561e2",
+          "7a65f592849cfe39eebded1b61256c7ab6d2f1bb076d4799cc19c1f3715fa897",
+          "d0c3d4d229d30bfbd62af532020c765feb7a475c7043ce2ffd8778f2c908984f",
+          "3c632bef9c03fa5a0fa22557f96413e93ffdbab9f06d1f2237cf5e03d9e4d844",
+          "c87a037a2d18a08e4ebaf86ba2a89fcb9d7e3a76dd14051ca8303ade33d901ac",
+          "3401d4e7c96aa20e84112febcb15cf4ae1cef7534526af5b7d0823916bf80e3b"
+        ],
+        "climbing": true,
+        "roomTarget": "workshop:68,96",
+        "roomPath": [
+          "224,152",
+          "224,148",
+          "224,144",
+          "224,140",
+          "224,136",
+          "224,132",
+          "224,128",
+          "224,124",
+          "224,120",
+          "224,116",
+          "224,112",
+          "224,108",
+          "224,104",
+          "224,100",
+          "224,96",
+          "220,96",
+          "216,96",
+          "212,96",
+          "208,96",
+          "204,96",
+          "200,96",
+          "196,96",
+          "192,96",
+          "188,96",
+          "184,96",
+          "180,96",
+          "176,96",
+          "172,96",
+          "168,96",
+          "164,96",
+          "160,96",
+          "156,96",
+          "152,96",
+          "148,96",
+          "144,96",
+          "140,96",
+          "136,96",
+          "132,96",
+          "128,96",
+          "124,96",
+          "120,96",
+          "116,96",
+          "112,96",
+          "108,96",
+          "104,96",
+          "100,96",
+          "96,96",
+          "92,96",
+          "88,96",
+          "84,96",
+          "80,96",
+          "76,96",
+          "72,96",
+          "68,96"
+        ]
+      },
+      "truth": "completed",
+      "at": 1788878128753
+    },
+    {
+      "key": "workshop:enter:upper:completed",
+      "id": "live-1788878052721-mission-a6664f32-af62-410c-9bba-4069c582f243:run-1788878104603-6704:coder",
+      "walker": {
+        "id": "live-1788878052721-mission-a6664f32-af62-410c-9bba-4069c582f243:run-1788878104603-6704:coder",
+        "scene": "workshop",
+        "x": 216,
+        "y": 96,
+        "phase": "enter",
+        "age": 46,
+        "visit": {
+          "capability": "artifact.created",
+          "destination": "workshop",
+          "station": "evidence-shelf",
+          "keys": [
+            "live-1788878052721-mission-a6664f32-af62-410c-9bba-4069c582f243:run-1788878104603-6704:save-reviewed-output:1"
+          ],
+          "first": 1788878126588,
+          "last": 1788878126588,
+          "collection": "unknown",
+          "evidence": [
+            "native:agent-city-sdk:a99f30ae7821d53f04b5664bc5faabdba8f8b87f621b9c64470fc4753c18a1a2"
+          ]
+        },
+        "queued": [],
+        "visits": 1,
+        "homeX": 112,
+        "packetUntil": 1402,
+        "packetEvidence": [
+          "3c8a5257fff3c11a8ab7562133196403f88eda5a0738d2cbb9b0c13b71039310",
+          "956b4944856f2404827d26feb314cd7506ea7751c8cf329125b2f33c602561e2",
+          "7a65f592849cfe39eebded1b61256c7ab6d2f1bb076d4799cc19c1f3715fa897",
+          "d0c3d4d229d30bfbd62af532020c765feb7a475c7043ce2ffd8778f2c908984f",
+          "3c632bef9c03fa5a0fa22557f96413e93ffdbab9f06d1f2237cf5e03d9e4d844",
+          "c87a037a2d18a08e4ebaf86ba2a89fcb9d7e3a76dd14051ca8303ade33d901ac",
+          "3401d4e7c96aa20e84112febcb15cf4ae1cef7534526af5b7d0823916bf80e3b"
+        ],
+        "climbing": false,
+        "roomTarget": "workshop:68,96",
+        "roomPath": [
+          "212,96",
+          "208,96",
+          "204,96",
+          "200,96",
+          "196,96",
+          "192,96",
+          "188,96",
+          "184,96",
+          "180,96",
+          "176,96",
+          "172,96",
+          "168,96",
+          "164,96",
+          "160,96",
+          "156,96",
+          "152,96",
+          "148,96",
+          "144,96",
+          "140,96",
+          "136,96",
+          "132,96",
+          "128,96",
+          "124,96",
+          "120,96",
+          "116,96",
+          "112,96",
+          "108,96",
+          "104,96",
+          "100,96",
+          "96,96",
+          "92,96",
+          "88,96",
+          "84,96",
+          "80,96",
+          "76,96",
+          "72,96",
+          "68,96"
+        ]
+      },
+      "truth": "completed",
+      "at": 1788878129603
+    }
+  ],
+  "artifact": {
+    "id": "mission-a6664f32-af62-410c-9bba-4069c582f243",
+    "kind": "code",
+    "content": "module.exports = {\n  sum: numbers => {\n    if (!Array.isArray(numbers) || !numbers.reduce((acc, val) => typeof val !== 'number' || val === Infinity || val === -Infinity ? false : acc + val, 0)) {\n      throw new TypeError('Invalid input');\n    }\n    return numbers.reduce((acc, val) => acc + val, 0);\n  }\n};\n",
+    "validation": {
+      "schema": "agent-city.code-check.v1",
+      "syntax": "valid",
+      "fenceRemoved": true,
+      "functionalTests": "failed",
+      "codeExecuted": true,
+      "checkedAt": "2026-09-08T14:35:27.506Z"
+    },
+    "functional": {
+      "schema": "agent-city.function-check.v1",
+      "status": "failed",
+      "environment": "disposable-chromium-module-worker",
+      "browserSandboxRequested": true,
+      "browser": "151.0.7922.34",
+      "codeExecuted": true,
+      "scope": "explicit JSON function cases only; no filesystem or network integrations",
+      "blockedRequests": 0,
+      "cases": [
+        {
+          "name": "empty",
+          "status": "failed",
+          "reason": "module-error",
+          "occurredAt": 1788878129815
+        },
+        {
+          "name": "mixed numbers",
+          "status": "failed",
+          "reason": "module-error",
+          "occurredAt": 1788878129828
+        },
+        {
+          "name": "reject numeric string",
+          "status": "failed",
+          "reason": "module-error",
+          "occurredAt": 1788878129837
+        },
+        {
+          "name": "reject null",
+          "status": "failed",
+          "reason": "module-error",
+          "occurredAt": 1788878129845
+        }
+      ],
+      "checkedAt": "2026-09-08T14:35:29.845Z"
+    },
+    "codeExecuted": true
+  },
+  "exchanges": {
+    "id": "mission-a6664f32-af62-410c-9bba-4069c582f243",
+    "records": [
+      {
+        "agent": "coder",
+        "content": "```javascript\nmodule.exports = {\n  sum: numbers => {\n    if (!Array.isArray(numbers) || !numbers.reduce((acc, val) => typeof val !== 'number' || val === Infinity || val === -Infinity ? false : acc + val, 0)) {\n      throw new TypeError('Invalid input');\n    }\n    return numbers.reduce((acc, val) => acc + val, 0);\n  }\n};\n```",
+        "kind": "model.response",
+        "occurredAtMs": 1788878114509,
+        "producer": "live-1788878052721-mission-a6664f32-af62-410c-9bba-4069c582f243",
+        "requestOrdinal": 1,
+        "run": "run-1788878104603-6704",
+        "schema": "agent-city.exchange.v1"
+      },
+      {
+        "agent": "reviewer",
+        "content": "```javascript\nmodule.exports = {\n  sum: numbers => {\n    if (!Array.isArray(numbers) || !numbers.reduce((acc, val) => typeof val !== 'number' || val === Infinity || val === -Infinity ? false : acc + val, 0)) {\n      throw new TypeError('Invalid input');\n    }\n    return numbers.reduce((acc, val) => acc + val, 0);\n  }\n};\n```",
+        "kind": "model.response",
+        "occurredAtMs": 1788878126390,
+        "producer": "live-1788878052721-mission-a6664f32-af62-410c-9bba-4069c582f243",
+        "requestOrdinal": 1,
+        "run": "run-1788878104603-6704-handoff-reviewer",
+        "schema": "agent-city.exchange.v1"
+      }
+    ],
+    "recordingComplete": true
+  },
+  "lifecycle": [
+    {
+      "agent_id": "coder",
+      "attempt": 1,
+      "capability": "dispatch.task",
+      "kind": "internal",
+      "metadata": {
+        "taskState": "queued"
+      },
+      "occurred_at_ms": 1788878104758,
+      "operation_id": "intake",
+      "outcome": "succeeded",
+      "phase": "finished",
+      "producer_instance": "live-1788878052721-mission-a6664f32-af62-410c-9bba-4069c582f243",
+      "run_id": "run-1788878104603-6704",
+      "schema": "kujo.lifecycle.v1",
+      "task_id": "run-1788878104603-6704:produce-artifact"
+    },
+    {
+      "agent_id": "coder",
+      "attempt": 1,
+      "capability": "dispatch.task",
+      "kind": "internal",
+      "metadata": {
+        "taskState": "assigned"
+      },
+      "occurred_at_ms": 1788878104759,
+      "operation_id": "assignment",
+      "outcome": "succeeded",
+      "phase": "finished",
+      "producer_instance": "live-1788878052721-mission-a6664f32-af62-410c-9bba-4069c582f243",
+      "run_id": "run-1788878104603-6704",
+      "schema": "kujo.lifecycle.v1",
+      "task_id": "run-1788878104603-6704:produce-artifact"
+    },
+    {
+      "agent_id": "coder",
+      "attempt": 1,
+      "capability": "dispatch.task",
+      "kind": "internal",
+      "metadata": {
+        "taskState": "running"
+      },
+      "occurred_at_ms": 1788878104795,
+      "operation_id": "task",
+      "outcome": "unset",
+      "phase": "started",
+      "producer_instance": "live-1788878052721-mission-a6664f32-af62-410c-9bba-4069c582f243",
+      "run_id": "run-1788878104603-6704",
+      "schema": "kujo.lifecycle.v1",
+      "task_id": "run-1788878104603-6704:produce-artifact"
+    },
+    {
+      "agent_id": "coder",
+      "attempt": 1,
+      "collection": "kujo-docs",
+      "kind": "agent",
+      "metadata": {
+        "relatedInstance": ""
+      },
+      "occurred_at_ms": 1788878105363,
+      "operation_id": "run",
+      "outcome": "unset",
+      "phase": "started",
+      "producer_instance": "live-1788878052721-mission-a6664f32-af62-410c-9bba-4069c582f243",
+      "profile": "city-coder",
+      "related_agent_id": "",
+      "run_id": "run-1788878104603-6704",
+      "schema": "kujo.lifecycle.v1",
+      "task_id": "run-1788878104603-6704:produce-artifact"
+    },
+    {
+      "agent_id": "coder",
+      "attempt": 1,
+      "collection": "unknown",
+      "kind": "handoff",
+      "metadata": {
+        "relatedInstance": "live-1788878052721-mission-a6664f32-af62-410c-9bba-4069c582f243:run-1788878104603-6704-handoff-reviewer:reviewer"
+      },
+      "occurred_at_ms": 1788878114588,
+      "operation_id": "reviewer",
+      "outcome": "unset",
+      "phase": "started",
+      "producer_instance": "live-1788878052721-mission-a6664f32-af62-410c-9bba-4069c582f243",
+      "profile": "unknown",
+      "related_agent_id": "reviewer",
+      "run_id": "run-1788878104603-6704",
+      "schema": "kujo.lifecycle.v1",
+      "task_id": "run-1788878104603-6704:produce-artifact"
+    },
+    {
+      "agent_id": "reviewer",
+      "attempt": 1,
+      "collection": "unknown",
+      "kind": "agent",
+      "metadata": {
+        "relatedInstance": ""
+      },
+      "occurred_at_ms": 1788878114590,
+      "operation_id": "run",
+      "outcome": "unset",
+      "phase": "started",
+      "producer_instance": "live-1788878052721-mission-a6664f32-af62-410c-9bba-4069c582f243",
+      "profile": "city-reviewer",
+      "related_agent_id": "",
+      "run_id": "run-1788878104603-6704-handoff-reviewer",
+      "schema": "kujo.lifecycle.v1",
+      "task_id": "run-1788878104603-6704:produce-artifact"
+    },
+    {
+      "agent_id": "reviewer",
+      "attempt": 1,
+      "collection": "unknown",
+      "kind": "agent",
+      "metadata": {
+        "relatedInstance": ""
+      },
+      "occurred_at_ms": 1788878126510,
+      "operation_id": "run",
+      "outcome": "succeeded",
+      "phase": "finished",
+      "producer_instance": "live-1788878052721-mission-a6664f32-af62-410c-9bba-4069c582f243",
+      "profile": "city-reviewer",
+      "related_agent_id": "",
+      "run_id": "run-1788878104603-6704-handoff-reviewer",
+      "schema": "kujo.lifecycle.v1",
+      "task_id": "run-1788878104603-6704:produce-artifact"
+    },
+    {
+      "agent_id": "coder",
+      "attempt": 1,
+      "collection": "unknown",
+      "kind": "handoff",
+      "metadata": {
+        "relatedInstance": "live-1788878052721-mission-a6664f32-af62-410c-9bba-4069c582f243:run-1788878104603-6704-handoff-reviewer:reviewer"
+      },
+      "occurred_at_ms": 1788878126512,
+      "operation_id": "reviewer",
+      "outcome": "succeeded",
+      "phase": "finished",
+      "producer_instance": "live-1788878052721-mission-a6664f32-af62-410c-9bba-4069c582f243",
+      "profile": "unknown",
+      "related_agent_id": "reviewer",
+      "run_id": "run-1788878104603-6704",
+      "schema": "kujo.lifecycle.v1",
+      "task_id": "run-1788878104603-6704:produce-artifact"
+    },
+    {
+      "agent_id": "coder",
+      "attempt": 1,
+      "collection": "kujo-docs",
+      "kind": "agent",
+      "metadata": {
+        "relatedInstance": ""
+      },
+      "occurred_at_ms": 1788878126586,
+      "operation_id": "run",
+      "outcome": "succeeded",
+      "phase": "finished",
+      "producer_instance": "live-1788878052721-mission-a6664f32-af62-410c-9bba-4069c582f243",
+      "profile": "city-coder",
+      "related_agent_id": "",
+      "run_id": "run-1788878104603-6704",
+      "schema": "kujo.lifecycle.v1",
+      "task_id": "run-1788878104603-6704:produce-artifact"
+    },
+    {
+      "agent_id": "coder",
+      "attempt": 1,
+      "capability": "artifact.created",
+      "kind": "internal",
+      "metadata": {
+        "artifactRef": "mission:run-1788878104603-6704:output"
+      },
+      "occurred_at_ms": 1788878126588,
+      "operation_id": "save-reviewed-output",
+      "outcome": "succeeded",
+      "phase": "finished",
+      "producer_instance": "live-1788878052721-mission-a6664f32-af62-410c-9bba-4069c582f243",
+      "profile": "city-coder",
+      "run_id": "run-1788878104603-6704",
+      "schema": "kujo.lifecycle.v1",
+      "task_id": "run-1788878104603-6704:produce-artifact"
+    },
+    {
+      "agent_id": "coder",
+      "attempt": 1,
+      "capability": "dispatch.task",
+      "kind": "internal",
+      "metadata": {
+        "taskState": "completed"
+      },
+      "occurred_at_ms": 1788878126870,
+      "operation_id": "task",
+      "outcome": "succeeded",
+      "phase": "finished",
+      "producer_instance": "live-1788878052721-mission-a6664f32-af62-410c-9bba-4069c582f243",
+      "run_id": "run-1788878104603-6704",
+      "schema": "kujo.lifecycle.v1",
+      "task_id": "run-1788878104603-6704:produce-artifact"
+    },
+    {
+      "agent_id": "coder",
+      "attempt": 1,
+      "capability": "dispatch.workflow",
+      "kind": "internal",
+      "metadata": {
+        "workflowState": "completed"
+      },
+      "occurred_at_ms": 1788878127303,
+      "operation_id": "workflow-state",
+      "outcome": "unknown",
+      "phase": "finished",
+      "producer_instance": "live-1788878052721-mission-a6664f32-af62-410c-9bba-4069c582f243",
+      "run_id": "run-1788878104603-6704",
+      "schema": "kujo.lifecycle.v1",
+      "task_id": "run-1788878104603-6704:produce-artifact"
+    },
+    {
+      "schema": "kujo.lifecycle.v1",
+      "producer_instance": "live-1788878052721-mission-a6664f32-af62-410c-9bba-4069c582f243",
+      "profile": "city-function-checker",
+      "run_id": "run-1788878104603-6704",
+      "agent_id": "function-checker",
+      "task_id": "run-1788878104603-6704:produce-artifact",
+      "operation_id": "run",
+      "attempt": 1,
+      "kind": "execution",
+      "phase": "started",
+      "outcome": "unset",
+      "occurred_at_ms": 1788878127512,
+      "metadata": {
+        "tool": "city.function-check"
+      }
+    },
+    {
+      "schema": "kujo.lifecycle.v1",
+      "producer_instance": "live-1788878052721-mission-a6664f32-af62-410c-9bba-4069c582f243",
+      "profile": "city-function-checker",
+      "run_id": "run-1788878104603-6704",
+      "agent_id": "function-checker",
+      "task_id": "run-1788878104603-6704:produce-artifact",
+      "operation_id": "function-suite",
+      "attempt": 1,
+      "kind": "evaluation",
+      "phase": "started",
+      "outcome": "unset",
+      "occurred_at_ms": 1788878127514,
+      "metadata": {
+        "tool": "city.function-check"
+      }
+    },
+    {
+      "schema": "kujo.lifecycle.v1",
+      "producer_instance": "live-1788878052721-mission-a6664f32-af62-410c-9bba-4069c582f243",
+      "profile": "city-function-checker",
+      "run_id": "run-1788878104603-6704",
+      "agent_id": "function-checker",
+      "task_id": "run-1788878104603-6704:produce-artifact",
+      "operation_id": "check-0",
+      "attempt": 1,
+      "kind": "evaluation",
+      "phase": "finished",
+      "outcome": "failed",
+      "occurred_at_ms": 1788878129815,
+      "metadata": {
+        "tool": "city.function-check"
+      }
+    },
+    {
+      "schema": "kujo.lifecycle.v1",
+      "producer_instance": "live-1788878052721-mission-a6664f32-af62-410c-9bba-4069c582f243",
+      "profile": "city-function-checker",
+      "run_id": "run-1788878104603-6704",
+      "agent_id": "function-checker",
+      "task_id": "run-1788878104603-6704:produce-artifact",
+      "operation_id": "check-1",
+      "attempt": 1,
+      "kind": "evaluation",
+      "phase": "finished",
+      "outcome": "failed",
+      "occurred_at_ms": 1788878129828,
+      "metadata": {
+        "tool": "city.function-check"
+      }
+    },
+    {
+      "schema": "kujo.lifecycle.v1",
+      "producer_instance": "live-1788878052721-mission-a6664f32-af62-410c-9bba-4069c582f243",
+      "profile": "city-function-checker",
+      "run_id": "run-1788878104603-6704",
+      "agent_id": "function-checker",
+      "task_id": "run-1788878104603-6704:produce-artifact",
+      "operation_id": "check-2",
+      "attempt": 1,
+      "kind": "evaluation",
+      "phase": "finished",
+      "outcome": "failed",
+      "occurred_at_ms": 1788878129837,
+      "metadata": {
+        "tool": "city.function-check"
+      }
+    },
+    {
+      "schema": "kujo.lifecycle.v1",
+      "producer_instance": "live-1788878052721-mission-a6664f32-af62-410c-9bba-4069c582f243",
+      "profile": "city-function-checker",
+      "run_id": "run-1788878104603-6704",
+      "agent_id": "function-checker",
+      "task_id": "run-1788878104603-6704:produce-artifact",
+      "operation_id": "check-3",
+      "attempt": 1,
+      "kind": "evaluation",
+      "phase": "finished",
+      "outcome": "failed",
+      "occurred_at_ms": 1788878129845,
+      "metadata": {
+        "tool": "city.function-check"
+      }
+    },
+    {
+      "schema": "kujo.lifecycle.v1",
+      "producer_instance": "live-1788878052721-mission-a6664f32-af62-410c-9bba-4069c582f243",
+      "profile": "city-function-checker",
+      "run_id": "run-1788878104603-6704",
+      "agent_id": "function-checker",
+      "task_id": "run-1788878104603-6704:produce-artifact",
+      "operation_id": "function-suite",
+      "attempt": 1,
+      "kind": "evaluation",
+      "phase": "finished",
+      "outcome": "failed",
+      "occurred_at_ms": 1788878130278,
+      "metadata": {
+        "tool": "city.function-check"
+      }
+    },
+    {
+      "schema": "kujo.lifecycle.v1",
+      "producer_instance": "live-1788878052721-mission-a6664f32-af62-410c-9bba-4069c582f243",
+      "profile": "city-function-checker",
+      "run_id": "run-1788878104603-6704",
+      "agent_id": "function-checker",
+      "task_id": "run-1788878104603-6704:produce-artifact",
+      "operation_id": "run",
+      "attempt": 1,
+      "kind": "execution",
+      "phase": "finished",
+      "outcome": "succeeded",
+      "occurred_at_ms": 1788878130279,
+      "metadata": {
+        "tool": "city.function-check"
+      }
+    }
+  ]
+}

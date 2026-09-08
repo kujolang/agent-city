@@ -4,8 +4,10 @@ import { mkdir, writeFile, readFile, open } from "node:fs/promises";
 import { resolve } from "node:path";
 import { randomBytes } from "node:crypto";
 import assert from "node:assert/strict";
+import { prepareMcpProof } from "./prepare-mcp-proof";
+import { localChromiumPath } from "../apps/runner/browser-path";
 
-// Explicit real-model proof. No fixture provider and no execution of generated code.
+// Real model and real local services; code execution requires explicit cases below.
 const root = resolve(import.meta.dirname, "..");
 const prefix = `live-${Date.now()}-`;
 const runtime = resolve(root, ".runtime", prefix);
@@ -30,6 +32,8 @@ const common = {
   CITY_WEB_ORIGIN: origin,
   WATCHDOG_URL: "http://127.0.0.1:19091",
   RAG_URL: "http://127.0.0.1:19095",
+  CITY_MCP_URL: "http://127.0.0.1:19096/mcp/v1",
+  CITY_MCP_TOKEN: token,
 };
 async function launch(
   name: string,
@@ -71,6 +75,17 @@ try {
   const tags = await (await fetch("http://127.0.0.1:11434/api/tags")).json();
   const installed = tags.models.find((m: any) => m.name === model);
   assert(installed, "Install the explicitly selected local model first");
+  const mcpRoot = await prepareMcpProof(resolve(runtime, "mcp"), 19096, token);
+  await launch("mcp", kujo, ["run", "server.kujo", "--interpreter"], mcpRoot);
+  await until(
+    async () =>
+      (
+        await fetch(common.CITY_MCP_URL + "/health", {
+          headers: { authorization: `Bearer ${token}` },
+        })
+      ).ok,
+    Boolean,
+  );
   const ragEnv = { KUJO_RAG_INDEX_PATH: resolve(runtime, "rag.json") };
   const ingest = await launch(
     "ingest",
@@ -174,7 +189,7 @@ try {
   await ready(origin);
   browser = await chromium.launch({
     headless: true,
-    executablePath: process.env.CHROMIUM_PATH,
+    executablePath: await localChromiumPath(process.env.CHROMIUM_PATH),
   });
   const page = await browser.newPage({
     viewport: { width: 1360, height: 1100 },
@@ -186,7 +201,7 @@ try {
   for (const [kind, prompt] of [
     [
       "writing",
-      "Using the supplied local Kujo docs, write a short 60-word explanation of module imports. Do not invent syntax.",
+      "Summarize the explicitly supplied MCP demo README in 50 words. Name only the example tools it actually lists. Do not infer features from unrelated context.",
     ],
     [
       "code",
@@ -198,6 +213,9 @@ try {
     await page.getByLabel("Task type").selectOption(kind);
     await page
       .getByLabel("Use indexed local Kujo docs")
+      .setChecked(kind === "writing");
+    await page
+      .getByLabel("Read local MCP demo README")
       .setChecked(kind === "writing");
     await page.getByLabel("Task", { exact: true }).fill(prompt);
     if (kind === "code") {
@@ -275,7 +293,11 @@ try {
       (s) =>
         ["completed", "failed"].includes(
           s.jobs.find((j: any) => j.id === job.id)?.status,
-        ),
+        ) &&
+        (kind !== "writing" ||
+          track.some(
+            (t) => t.walker?.scene === "mcp" && t.walker?.phase === "read",
+          )),
       250000,
     );
     const terminal = (await status()).jobs.find((j: any) => j.id === job.id);
@@ -305,6 +327,24 @@ try {
       JSON.stringify(receipt, null, 2),
     );
     assert.equal(terminal.status, "completed", `${kind} mission failed`);
+    if (kind === "writing") {
+      const mcp = spool.filter((e) => e.capability === "mcp.call");
+      assert.equal(mcp.length, 2);
+      assert.equal(mcp[0].phase, "started");
+      assert.equal(mcp[1].outcome, "succeeded");
+      assert.equal(mcp[1].metadata.server, "mcp-demo");
+      assert.equal(mcp[1].metadata.tool, "read_project_docs");
+      assert(
+        track.some(
+          (t) => t.walker?.scene === "mcp" && t.walker?.phase === "read",
+        ),
+      );
+    } else {
+      assert(
+        !spool.some((e) => e.capability === "mcp.call"),
+        "Unchecked MCP option must not invoke a tool",
+      );
+    }
     assert.equal(exchanges.records.length, 2);
     assert(
       spool.some((e) => e.agent_id === "reviewer" && e.phase === "finished"),
@@ -336,7 +376,9 @@ try {
         instances: Object.keys(state.truth.agents),
         truth: state.truth,
         jobs: receipts.length,
-        codeExecuted: false,
+        codeExecuted: receipts.some(
+          (r: any) => r.artifact?.codeExecuted === true,
+        ),
       },
       null,
       2,
