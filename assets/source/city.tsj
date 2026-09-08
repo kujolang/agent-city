@@ -1,0 +1,11 @@
+{
+  "type": "tileset",
+  "name": "original-city",
+  "tilewidth": 16,
+  "tileheight": 16,
+  "tilecount": 3,
+  "columns": 3,
+  "image": "tiles.svg",
+  "imagewidth": 48,
+  "imageheight": 16
+}

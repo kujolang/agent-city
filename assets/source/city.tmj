@@ -1,0 +1,484 @@
+{
+  "type": "map",
+  "version": "1.10",
+  "tiledversion": "1.11.2",
+  "orientation": "orthogonal",
+  "renderorder": "right-down",
+  "infinite": false,
+  "width": 16,
+  "height": 13,
+  "tilewidth": 16,
+  "tileheight": 16,
+  "tilesets": [
+    {
+      "firstgid": 1,
+      "source": "city.tsj"
+    }
+  ],
+  "layers": [
+    {
+      "type": "tilelayer",
+      "id": 1,
+      "name": "ground",
+      "width": 16,
+      "height": 13,
+      "data": [
+        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        2,
+        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        2,
+        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        2,
+        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        2,
+        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        2,
+        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        2,
+        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        2,
+        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        2,
+        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        2,
+        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        2
+      ]
+    },
+    {
+      "type": "objectgroup",
+      "id": 2,
+      "name": "semantics",
+      "objects": [
+        {
+          "id": 1,
+          "name": "dispatch",
+          "type": "semantic",
+          "x": 8,
+          "y": 16,
+          "width": 16,
+          "height": 16,
+          "properties": [
+            {
+              "name": "label",
+              "type": "string",
+              "value": "DISPATCH HQ"
+            },
+            {
+              "name": "kind",
+              "type": "string",
+              "value": "building"
+            },
+            {
+              "name": "live",
+              "type": "string",
+              "value": "connected"
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "name": "workshop",
+          "type": "semantic",
+          "x": 80,
+          "y": 16,
+          "width": 16,
+          "height": 16,
+          "properties": [
+            {
+              "name": "label",
+              "type": "string",
+              "value": "WORKSHOP"
+            },
+            {
+              "name": "kind",
+              "type": "string",
+              "value": "building"
+            },
+            {
+              "name": "live",
+              "type": "string",
+              "value": "connected"
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "name": "library",
+          "type": "semantic",
+          "x": 168,
+          "y": 16,
+          "width": 16,
+          "height": 16,
+          "properties": [
+            {
+              "name": "label",
+              "type": "string",
+              "value": "LIBRARY / RAG"
+            },
+            {
+              "name": "kind",
+              "type": "string",
+              "value": "building"
+            },
+            {
+              "name": "live",
+              "type": "string",
+              "value": "connected"
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "name": "meeting",
+          "type": "semantic",
+          "x": 8,
+          "y": 136,
+          "width": 16,
+          "height": 16,
+          "properties": [
+            {
+              "name": "label",
+              "type": "string",
+              "value": "MEETING"
+            },
+            {
+              "name": "kind",
+              "type": "string",
+              "value": "building"
+            },
+            {
+              "name": "live",
+              "type": "string",
+              "value": "NO LIVE SOURCE"
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "name": "dojo",
+          "type": "semantic",
+          "x": 88,
+          "y": 136,
+          "width": 16,
+          "height": 16,
+          "properties": [
+            {
+              "name": "label",
+              "type": "string",
+              "value": "DOJO / EVAL"
+            },
+            {
+              "name": "kind",
+              "type": "string",
+              "value": "building"
+            },
+            {
+              "name": "live",
+              "type": "string",
+              "value": "NO LIVE SOURCE"
+            }
+          ]
+        },
+        {
+          "id": 6,
+          "name": "mcp",
+          "type": "semantic",
+          "x": 168,
+          "y": 136,
+          "width": 16,
+          "height": 16,
+          "properties": [
+            {
+              "name": "label",
+              "type": "string",
+              "value": "MCP TERMINAL"
+            },
+            {
+              "name": "kind",
+              "type": "string",
+              "value": "building"
+            },
+            {
+              "name": "live",
+              "type": "string",
+              "value": "NO LIVE SOURCE"
+            }
+          ]
+        },
+        {
+          "id": 20,
+          "name": "workshop-door",
+          "type": "semantic",
+          "x": 96,
+          "y": 112,
+          "width": 16,
+          "height": 16,
+          "properties": [
+            {
+              "name": "target",
+              "type": "string",
+              "value": "workshop:exit"
+            },
+            {
+              "name": "kind",
+              "type": "string",
+              "value": "portal"
+            }
+          ]
+        },
+        {
+          "id": 21,
+          "name": "library-door",
+          "type": "semantic",
+          "x": 192,
+          "y": 112,
+          "width": 16,
+          "height": 16,
+          "properties": [
+            {
+              "name": "target",
+              "type": "string",
+              "value": "library:exit"
+            },
+            {
+              "name": "kind",
+              "type": "string",
+              "value": "portal"
+            }
+          ]
+        },
+        {
+          "id": 22,
+          "name": "mcp-door",
+          "type": "semantic",
+          "x": 208,
+          "y": 112,
+          "width": 16,
+          "height": 16,
+          "properties": [
+            {
+              "name": "target",
+              "type": "string",
+              "value": "mcp:exit"
+            },
+            {
+              "name": "kind",
+              "type": "string",
+              "value": "portal"
+            }
+          ]
+        },
+        {
+          "id": 23,
+          "name": "dojo-door",
+          "type": "semantic",
+          "x": 128,
+          "y": 112,
+          "width": 16,
+          "height": 16,
+          "properties": [
+            {
+              "name": "target",
+              "type": "string",
+              "value": "dojo:exit"
+            },
+            {
+              "name": "kind",
+              "type": "string",
+              "value": "portal"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
