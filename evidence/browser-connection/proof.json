@@ -1,0 +1,13 @@
+{
+  "kind": "Controlled browser transport regression using retained real replay data; no new source execution",
+  "browser": "151.0.7922.34",
+  "staleHealthCannotReplaceReplay": true,
+  "cancelledSnapshotCannotReplaceReplay": true,
+  "obsoleteCallbacksIgnored": true,
+  "liveReconnectHasOneStream": true,
+  "errors": [],
+  "writes": [],
+  "limitations": [
+    "DOM-only mode; does not qualify native hidden-tab suspension, browser UI zoom or renderer performance."
+  ]
+}

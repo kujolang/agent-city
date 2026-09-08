@@ -1,0 +1,16 @@
+npm warn Unknown user config "python". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+(node:54956) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+page.evaluate: TypeError: Cannot read properties of undefined (reading 'length')
+    at eval (eval at evaluate (:311:30), <anonymous>:1:25)
+    at UtilityScript.evaluate (<anonymous>:313:16)
+    at UtilityScript.<anonymous> (<anonymous>:1:44)
+    at <anonymous> (/Users/robertdevore/2026/Kujolang/kujo-repos/agent-city/scripts/browser-connection-proof.ts:129:16) {
+  log: []
+}
+
+Node.js v26.7.0

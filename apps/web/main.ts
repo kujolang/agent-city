@@ -346,12 +346,35 @@ document.querySelectorAll<HTMLButtonElement>("[data-scene]").forEach(
       building(b.dataset.scene!);
     }),
 );
+let connectionEpoch = 0;
+let snapshotAbort: AbortController | null = null;
+function disconnect() {
+  connectionEpoch++;
+  snapshotAbort?.abort();
+  snapshotAbort = null;
+  stream?.close();
+  stream = null;
+}
 async function connect() {
   if (replayMode) return;
-  stream?.close();
-  const r = await fetch("/api/world/snapshot");
-  if (!r.ok) throw Error("gateway unavailable");
-  const snap = await r.json();
+  disconnect();
+  const epoch = connectionEpoch;
+  const current = () => epoch === connectionEpoch && !replayMode;
+  const controller = new AbortController();
+  snapshotAbort = controller;
+  let snap;
+  try {
+    const r = await fetch("/api/world/snapshot", { signal: controller.signal });
+    if (!r.ok) throw Error("gateway unavailable");
+    snap = await r.json();
+  } catch (error) {
+    if (!current()) return;
+    throw error;
+  } finally {
+    if (snapshotAbort === controller) snapshotAbort = null;
+  }
+  // A delayed response must never replace a newer connection or pinned replay.
+  if (!current()) return;
   truth = snap.truth;
   events = snap.recent ?? [];
   health = snap.sourceHealth.status;
@@ -374,6 +397,7 @@ async function connect() {
     "/api/world/events?after=" + encodeURIComponent(snap.cursor),
   );
   stream.addEventListener("world", (event) => {
+    if (!current()) return;
     try {
       const e = JSON.parse((event as MessageEvent).data);
       validateEvent(e);
@@ -388,9 +412,14 @@ async function connect() {
     }
   });
   stream.addEventListener("reset", () => {
-    void connect();
+    if (!current()) return;
+    void connect().catch(() => {
+      health = "STALE";
+      renderDOM();
+    });
   });
   stream.onerror = () => {
+    if (!current()) return;
     health = "STALE";
     renderDOM();
   };
@@ -402,17 +431,23 @@ try {
   health = "STALE";
   renderDOM();
 }
+let checkingHealth = false;
 setInterval(async () => {
-  if (replayMode) return;
+  if (replayMode || checkingHealth) return;
+  checkingHealth = true;
+  const epoch = connectionEpoch;
   try {
     const r = await fetch("/api/world/snapshot");
     if (!r.ok) throw Error();
     const s = await r.json();
+    if (replayMode || epoch !== connectionEpoch) return;
     health = s.sourceHealth.status;
     lastGateway = performance.now();
     if (!stream || stream.readyState === EventSource.CLOSED) await connect();
   } catch {
-    health = "STALE";
+    if (!replayMode && epoch === connectionEpoch) health = "STALE";
+  } finally {
+    checkingHealth = false;
   }
   renderDOM();
 }, 1000);
@@ -440,8 +475,7 @@ archiveUI(
   (bundle) => {
     replayMode = true;
     missions.setReplay(true);
-    stream?.close();
-    stream = null;
+    disconnect();
     truth = bundle.snapshot;
     events = bundle.events;
     presentation = initialPresentation();
