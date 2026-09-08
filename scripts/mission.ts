@@ -12,8 +12,8 @@ import { randomUUID } from "node:crypto";
 
 const root = resolve(import.meta.dirname, "..");
 const [kind, promptFile] = process.argv.slice(2);
-if (!["writing", "code"].includes(kind) || !promptFile)
-  throw Error("Usage: npm run mission -- writing|code /path/to/task.txt");
+if (!["writing", "code", "kujo"].includes(kind) || !promptFile)
+  throw Error("Usage: npm run mission -- writing|code|kujo /path/to/task.txt");
 validateModelConfig({
   endpoint: process.env.CITY_MODEL_ENDPOINT || "",
   model: process.env.CITY_MODEL || "",
@@ -122,7 +122,7 @@ const child = spawn(
       CITY_RUN: id,
       CITY_TASK: id + ":task",
       CITY_PRODUCER: producer,
-      CITY_ACTOR: kind === "code" ? "coder" : "writer",
+      CITY_ACTOR: kind === "writing" ? "writer" : "coder",
       CITY_MISSION_KIND: kind,
       CITY_PROMPT_FILE: resolve(dir, "task.txt"),
       CITY_OUTPUT_FILE: output,
@@ -173,6 +173,71 @@ let validation:
       codeExecuted: boolean | null;
     })
   | null = null;
+if (code === 0 && kind === "kujo") {
+  const exchanges = (await readFile(resolve(dir, "exchanges.jsonl"), "utf8"))
+    .trim()
+    .split("\n")
+    .filter(Boolean)
+    .map((line) => JSON.parse(line));
+  const author = exchanges.find((entry) => entry.agent === "coder");
+  if (typeof author?.content !== "string")
+    throw Error("Kujo author response unavailable");
+  const fence = /^\s*```(?:kujo)?\s*\n([\s\S]*?)\n```\s*$/.exec(author.content);
+  await writeFile(
+    resolve(dir, "draft.kujo"),
+    fence ? fence[1] : author.content,
+    { mode: 0o600 },
+  );
+  const dispatch = JSON.parse(
+    await readFile(resolve(dir, "dispatch.json"), "utf8"),
+  );
+  const observe = checkObserver(
+    resolve(
+      root,
+      process.env.CITY_RUNTIME_DIR || ".runtime",
+      `spool-${producer}.jsonl`,
+    ),
+    producer,
+    dispatch.run_id,
+    dispatch.run_id + ":produce-artifact",
+    { profile: "city-kujo-checker", agent: "kujo-checker", tool: "kujo.check" },
+  );
+  await observe("kujo-static-check", "evaluation", "started", "unset");
+  const syntax = await new Promise<"valid" | "invalid" | "unavailable">(
+    (done) => {
+      const checker = spawn(
+        process.env.KUJO_BIN || resolve(root, "../kujo/target/release/kujo"),
+        ["check", resolve(dir, "draft.kujo"), "--quiet"],
+        { stdio: "ignore", timeout: 10000 },
+      );
+      checker.once("error", () => done("unavailable"));
+      checker.once("exit", (code, signal) =>
+        done(signal ? "unavailable" : code === 0 ? "valid" : "invalid"),
+      );
+    },
+  );
+  await observe(
+    "kujo-static-check",
+    "evaluation",
+    "finished",
+    syntax === "valid"
+      ? "succeeded"
+      : syntax === "invalid"
+        ? "failed"
+        : "unknown",
+  );
+  validation = {
+    schema: "agent-city.code-check.v1",
+    syntax,
+    fenceRemoved: Boolean(fence),
+    functionalTests: "not-run",
+    codeExecuted: false,
+    checkedAt: new Date().toISOString(),
+  };
+  await writeFile(resolve(dir, "validation.json"), JSON.stringify(validation), {
+    mode: 0o600,
+  });
+}
 if (code === 0 && kind === "code") {
   validation = await checkCodeArtifact(output);
   if (requestedContract) {

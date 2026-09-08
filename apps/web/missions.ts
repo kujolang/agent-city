@@ -5,11 +5,11 @@ export function mountMissions(host: HTMLElement) {
     <details><summary>Model connection</summary><form id="model-form">
     <label>Chat completions endpoint <input name="endpoint" type="url" required placeholder="Full HTTPS or local HTTP endpoint"></label>
     <label>Model <input name="model" required autocomplete="off"></label>
-    <label>API key <input name="apiKey" type="password" autocomplete="off" placeholder="Optional for local models"></label>
-    <p class="muted">Saved only in a private local configuration file. A blank key keeps the saved key only for the same endpoint.</p>
+    <label>API key <input name="apiKey" type="password" autocomplete="off" placeholder="Leave blank for local Ollama"></label>
+    <p class="muted">Local Ollama needs no API key. Remote providers may require one. This form alone does not sign in to Codex; the local Codex adapter uses your CLI login. Saved only in a private local configuration file. A blank key keeps the saved key only for the same endpoint.</p>
     <button type="submit">Save connection</button></form></details>
     <p id="continuation-status" role="status">New mission</p><button id="clear-continuation" type="button" hidden>Cancel follow-up</button>
-    <form id="mission-form"><label>Task type <select name="kind"><option value="writing">Writing + review</option><option value="code">Code + review</option></select></label>
+    <form id="mission-form"><label>Task type <select name="kind"><option value="writing">Writing + review</option><option value="code">JavaScript + review</option><option value="kujo">Kujo + senior review (real MCP)</option></select></label>
     <label><input type="checkbox" name="useLocalDocs"> Use indexed local Kujo docs</label>
     <label><input type="checkbox" name="useMcpDocs"> Read local MCP demo README</label>
     <label>Task <textarea name="prompt" rows="3" maxlength="16384" required placeholder="Describe the small task you want the agents to complete."></textarea></label>
@@ -128,7 +128,14 @@ export function mountMissions(host: HTMLElement) {
               output.textContent =
                 (artifact.kind === "code"
                   ? `SYNTAX: ${artifact.validation?.syntax?.toUpperCase() || "UNKNOWN"} · FUNCTIONAL TESTS: ${(artifact.validation?.functionalTests || "not-run").toUpperCase()} · ${artifact.codeExecuted === null ? "EXECUTION COVERAGE UNKNOWN" : artifact.codeExecuted ? "EXECUTED IN ISOLATED BROWSER" : "CODE NOT EXECUTED"}\n${artifact.validation?.fenceRemoved ? "Outer Markdown fence removed; original response retained above.\n" : ""}\n`
-                  : "MODEL-REVIEWED TEXT · FACTUAL ACCURACY AND TASK CONSTRAINTS NOT VERIFIED\n\n") +
+                  : artifact.kind === "kujo"
+                    ? `KUJO STATIC CHECK: ${artifact.validation?.syntax?.toUpperCase() || "UNKNOWN"} · CODE NOT EXECUTED\nSENIOR REVIEW · MODEL OPINION, NOT A TEST RESULT\n\n`
+                    : "MODEL-REVIEWED TEXT · FACTUAL ACCURACY AND TASK CONSTRAINTS NOT VERIFIED\n\n") +
+                (artifact.draft
+                  ? "KUJO AUTHOR DRAFT\n" +
+                    artifact.draft +
+                    "\n\nSENIOR REVIEW\n"
+                  : "") +
                 artifact.content +
                 (artifact.functional
                   ? "\n\nFUNCTION CHECKS\n" +

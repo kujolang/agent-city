@@ -6,6 +6,11 @@ export function checkObserver(
   producer: string,
   run: string,
   task: string,
+  identity = {
+    profile: "city-function-checker",
+    agent: "function-checker",
+    tool: "city.function-check",
+  },
 ) {
   return async (
     operation: string,
@@ -21,9 +26,9 @@ export function checkObserver(
         JSON.stringify({
           schema: "kujo.lifecycle.v1",
           producer_instance: producer,
-          profile: "city-function-checker",
+          profile: identity.profile,
           run_id: run,
-          agent_id: "function-checker",
+          agent_id: identity.agent,
           task_id: task,
           operation_id: operation,
           attempt: 1,
@@ -31,7 +36,7 @@ export function checkObserver(
           phase,
           outcome,
           occurred_at_ms: occurredAt,
-          metadata: { tool: "city.function-check" },
+          metadata: { tool: identity.tool },
         }) + "\n",
       );
     } catch {

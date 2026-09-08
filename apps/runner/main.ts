@@ -21,7 +21,7 @@ const origin = process.env.CITY_WEB_ORIGIN || "http://127.0.0.1:5178";
 const port = Number(process.env.CITY_CONTROL_PORT || 7793);
 type Job = {
   id: string;
-  kind: "writing" | "code";
+  kind: "writing" | "code" | "kujo";
   status: "running" | "completed" | "failed" | "unknown";
   startedAt: string;
   useLocalDocs?: boolean;
@@ -207,6 +207,13 @@ const server = createServer(async (req, res) => {
       }
       return send(200, {
         id,
+        draft:
+          job.kind === "kujo"
+            ? await readFile(
+                resolve(missionsRoot, job.id, "draft.kujo"),
+                "utf8",
+              )
+            : undefined,
         kind: job.kind,
         content: await readFile(file, "utf8"),
         validation,
@@ -280,7 +287,7 @@ const server = createServer(async (req, res) => {
       if (
         !data ||
         typeof data !== "object" ||
-        !["writing", "code"].includes(data.kind) ||
+        !["writing", "code", "kujo"].includes(data.kind) ||
         (data.useLocalDocs !== undefined &&
           typeof data.useLocalDocs !== "boolean") ||
         (data.useMcpDocs !== undefined &&
@@ -339,7 +346,7 @@ const server = createServer(async (req, res) => {
         id,
         kind: data.kind,
         useLocalDocs: data.useLocalDocs === true,
-        useMcpDocs: data.useMcpDocs === true,
+        useMcpDocs: data.kind === "kujo" || data.useMcpDocs === true,
         status: "running",
         startedAt: new Date().toISOString(),
         ...(context
@@ -362,7 +369,8 @@ const server = createServer(async (req, res) => {
             CITY_FUNCTION_CONTRACT_FILE: contractFile,
             CITY_CONTEXT_FILE: contextFile,
             CITY_USE_RAG: data.useLocalDocs === true ? "1" : "0",
-            CITY_USE_MCP: data.useMcpDocs === true ? "1" : "0",
+            CITY_USE_MCP:
+              data.kind === "kujo" || data.useMcpDocs === true ? "1" : "0",
             CITY_MODEL_ENDPOINT: config!.endpoint,
             CITY_MODEL: config!.model,
             CITY_MODEL_API_KEY: config!.apiKey,

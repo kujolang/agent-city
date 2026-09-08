@@ -3,7 +3,7 @@ import { resolve } from "node:path";
 
 export interface MissionIdentity {
   id: string;
-  kind: "writing" | "code";
+  kind: "writing" | "code" | "kujo";
   status: string;
 }
 
