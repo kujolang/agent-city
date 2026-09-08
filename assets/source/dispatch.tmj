@@ -240,7 +240,7 @@
       "objects": [
         {
           "id": 1,
-          "name": "servers",
+          "name": "intake",
           "type": "semantic",
           "x": 24,
           "y": 160,
@@ -266,7 +266,7 @@
         },
         {
           "id": 2,
-          "name": "abilities",
+          "name": "assignment",
           "type": "semantic",
           "x": 64,
           "y": 160,
@@ -292,7 +292,7 @@
         },
         {
           "id": 3,
-          "name": "approval-pending",
+          "name": "workflow",
           "type": "semantic",
           "x": 104,
           "y": 160,
@@ -318,7 +318,7 @@
         },
         {
           "id": 4,
-          "name": "tool-active",
+          "name": "retry",
           "type": "semantic",
           "x": 144,
           "y": 160,
@@ -344,7 +344,7 @@
         },
         {
           "id": 5,
-          "name": "result",
+          "name": "blocked",
           "type": "semantic",
           "x": 184,
           "y": 160,
@@ -370,7 +370,7 @@
         },
         {
           "id": 6,
-          "name": "failure",
+          "name": "completion",
           "type": "semantic",
           "x": 224,
           "y": 160,
@@ -406,7 +406,7 @@
             {
               "name": "target",
               "type": "string",
-              "value": "city:mcp-door"
+              "value": "city:dispatch-door"
             },
             {
               "name": "kind",

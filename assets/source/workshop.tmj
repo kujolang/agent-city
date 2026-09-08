@@ -253,9 +253,14 @@
               "value": "station"
             },
             {
+              "name": "slots",
+              "type": "string",
+              "value": "-6,0,6"
+            },
+            {
               "name": "live",
               "type": "string",
-              "value": "connected"
+              "value": "unbound"
             }
           ]
         },
@@ -274,9 +279,14 @@
               "value": "station"
             },
             {
+              "name": "slots",
+              "type": "string",
+              "value": "-6,0,6"
+            },
+            {
               "name": "live",
               "type": "string",
-              "value": "connected"
+              "value": "unbound"
             }
           ]
         },
@@ -295,9 +305,14 @@
               "value": "station"
             },
             {
+              "name": "slots",
+              "type": "string",
+              "value": "-6,0,6"
+            },
+            {
               "name": "live",
               "type": "string",
-              "value": "connected"
+              "value": "unbound"
             }
           ]
         },
@@ -316,9 +331,14 @@
               "value": "station"
             },
             {
+              "name": "slots",
+              "type": "string",
+              "value": "-6,0,6"
+            },
+            {
               "name": "live",
               "type": "string",
-              "value": "NO LIVE SOURCE"
+              "value": "unbound"
             }
           ]
         },

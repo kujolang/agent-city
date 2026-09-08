@@ -13,12 +13,21 @@ export interface Operation {
   finished: number | null;
   evidence: Array<CityEvent["evidence"][number]>;
   partial: boolean;
+  relatedAgent?: string;
+  metadata?: OperationEvent["operation"]["metadata"];
+  attempt?: number;
+  operationId?: string;
+  eventIds?: string[];
+  observedAt?: number;
 }
 export interface Agent {
   id: string;
   profile: string;
   run: OperationEvent["run"];
   task: OperationEvent["task"];
+  runAttempt?: number;
+  taskState?: string;
+  workflowState?: string;
   status: string;
   lastObserved: number;
   completeness: string;
@@ -71,6 +80,17 @@ export function reduceTruth(state: Truth, e: CityEvent): Truth {
     operations: {},
   });
   a.lastObserved = e.observedAt;
+  if (a.profile === "unknown" && e.profile !== "unknown") a.profile = e.profile;
+  if (
+    e.operation.capability === "dispatch.task" &&
+    e.operation.metadata?.taskState
+  )
+    a.taskState = e.operation.metadata.taskState;
+  if (
+    e.operation.capability === "dispatch.workflow" &&
+    e.operation.metadata?.workflowState
+  )
+    a.workflowState = e.operation.metadata.workflowState;
   const prior = a.operations[key],
     terminal = e.type !== "operation.started";
   if (
@@ -90,6 +110,12 @@ export function reduceTruth(state: Truth, e: CityEvent): Truth {
     evidence: [],
     partial: terminal,
   });
+  op.relatedAgent = e.operation.relatedAgent;
+  op.metadata = { ...op.metadata, ...e.operation.metadata };
+  op.attempt = e.operation.attempt;
+  op.operationId = e.operation.id;
+  op.observedAt = e.observedAt;
+  op.eventIds = [...(op.eventIds ?? []), e.eventId].slice(-24);
   op.evidence = [...op.evidence, ...e.evidence].slice(-24);
   if (terminal) {
     if (!op.started) a.completeness = "partial";
@@ -101,13 +127,14 @@ export function reduceTruth(state: Truth, e: CityEvent): Truth {
   }
   if (
     ["agent.run", "execution.run"].includes(e.operation.capability) &&
-    (terminal || a.status === "unknown")
-  )
-    a.status = terminal
-      ? e.operation.outcome === "succeeded"
-        ? "completed"
-        : e.operation.outcome
-      : "running";
+    e.operation.attempt >= (a.runAttempt ?? 0)
+  ) {
+    a.runAttempt = e.operation.attempt;
+    if (terminal)
+      a.status =
+        e.operation.outcome === "succeeded" ? "completed" : e.operation.outcome;
+    else if (op.status === "active") a.status = "running";
+  }
   if (Object.keys(a.operations).length > 256) {
     const oldest = Object.values(a.operations).find(
       (o) => o.status !== "active" && o.key !== key,
@@ -116,7 +143,14 @@ export function reduceTruth(state: Truth, e: CityEvent): Truth {
   }
   return s;
 }
-export type Scene = "city" | "workshop" | "library" | "mcp" | "dojo";
+export type Scene =
+  | "city"
+  | "workshop"
+  | "library"
+  | "mcp"
+  | "dojo"
+  | "dispatch"
+  | "meeting";
 export interface Visit {
   capability: string;
   keys: string[];
@@ -124,6 +158,8 @@ export interface Visit {
   last: number;
   collection: string;
   evidence: string[];
+  destination?: Scene;
+  station?: string;
 }
 export interface Walker {
   id: string;
@@ -135,6 +171,11 @@ export interface Walker {
   visit: Visit | null;
   queued: Visit[];
   visits: number;
+  homeX?: number;
+  path?: string[];
+  packetUntil?: number;
+  packetEvidence?: string[];
+  completedKeys?: string[];
 }
 export interface Presentation {
   seen: string[];
@@ -154,7 +195,10 @@ export function plan(p: Presentation, e: CityEvent): Presentation {
   const w = (s.walkers[ev.instance] ??= {
     id: ev.instance,
     scene: "workshop",
-    x: 48,
+    x:
+      [48, 80, 112, 144, 176].find(
+        (x) => !Object.values(s.walkers).some((o) => o.homeX === x),
+      ) ?? 208,
     y: 160,
     phase: "work",
     age: 0,
@@ -162,16 +206,33 @@ export function plan(p: Presentation, e: CityEvent): Presentation {
     queued: [],
     visits: 0,
   });
-  if (!["rag.query", "evaluation.run"].includes(ev.operation.capability))
+  w.homeX ??= w.x;
+  if (
+    [
+      "agent.handoff",
+      "relationship.message",
+      "dispatch.task",
+      "dispatch.workflow",
+    ].includes(ev.operation.capability)
+  ) {
+    // Async relationships stay at current stations. A packet is evidence, never dialogue.
+    w.packetUntil = s.tick + 36;
+    w.packetEvidence = [...(w.packetEvidence ?? []), ev.eventId].slice(-12);
     return s;
+  }
+  if (!destinations[ev.operation.capability]) return s;
   const key = [
     ev.run.namespace,
     ev.run.id,
     ev.operation.id,
     ev.operation.attempt,
   ].join(":");
+  if (w.completedKeys?.includes(key)) return s;
   const known = [w.visit, ...w.queued].find((v) => v?.keys.includes(key));
   if (known) {
+    known.evidence = [
+      ...new Set([...known.evidence, ...ev.evidence.map((r) => r.recordId)]),
+    ].slice(-128);
     if (ev.type !== "operation.started" && w.phase === "read") w.age = 0;
     return s;
   }
@@ -181,7 +242,8 @@ export function plan(p: Presentation, e: CityEvent): Presentation {
       v &&
       Math.abs(time - v.first) <= 4000 &&
       v.collection === ev.operation.collection &&
-      v.capability === ev.operation.capability,
+      v.capability === ev.operation.capability &&
+      v.station === stationFor(ev.operation),
   );
   if (open) {
     open.keys.push(key);
@@ -190,6 +252,8 @@ export function plan(p: Presentation, e: CityEvent): Presentation {
   } else {
     w.queued.push({
       capability: ev.operation.capability,
+      destination: destinations[ev.operation.capability],
+      station: stationFor(ev.operation),
       keys: [key],
       first: time,
       last: time,
@@ -200,85 +264,157 @@ export function plan(p: Presentation, e: CityEvent): Presentation {
   }
   return s;
 }
-export const stations: Record<string, number> = {
-  "kujo-docs": 48,
-  "repo-source": 88,
-  "project-rag": 128,
-  "previous-runs": 168,
-  "external-research": 208,
-  unknown: 128,
+export const destinations: Record<string, Scene> = {
+  "rag.query": "library",
+  "mcp.call": "mcp",
+  "evaluation.run": "dojo",
+  "dispatch.task": "dispatch",
+  "dispatch.workflow": "dispatch",
+  "tool.execute": "workshop",
+  "artifact.created": "workshop",
+  "workcell.execute": "workshop",
 };
+export function stationFor(op: OperationEvent["operation"]): string {
+  if (op.capability === "rag.query") return op.collection;
+  if (op.capability === "mcp.call")
+    return op.metadata?.approval === "pending"
+      ? "approval-pending"
+      : "tool-active";
+  if (op.capability === "evaluation.run")
+    return ["schema", "content", "policy", "skipped"].includes(op.id)
+      ? op.id
+      : "content";
+  if (op.capability === "dispatch.task")
+    return (
+      (
+        {
+          queued: "intake",
+          assigned: "assignment",
+          running: "assignment",
+          blocked: "blocked",
+          retrying: "retry",
+          completed: "completion",
+        } as Record<string, string>
+      )[op.metadata?.taskState ?? ""] ?? "workflow"
+    );
+  if (op.capability === "dispatch.workflow") return "workflow";
+  return op.capability === "artifact.created"
+    ? "evidence-shelf"
+    : op.capability === "workcell.execute"
+      ? "workcell-unavailable"
+      : "terminal";
+}
+export const stations: Record<string, number> = Object.fromEntries(
+  world.maps.library.objects
+    .filter((o) => o.kind === "station")
+    .map((o) => [o.id, o.x]),
+);
+function entrance(scene: Scene): { x: number; y: number } {
+  return (
+    world.maps.city.objects.find((o) => o.id === scene + "-door") ?? {
+      x: 96,
+      y: 112,
+    }
+  );
+}
+function move(w: Walker, x: number, y: number): boolean {
+  const dx = x - w.x,
+    dy = y - w.y;
+  if (dx) w.x += Math.sign(dx) * Math.min(4, Math.abs(dx));
+  else if (dy) w.y += Math.sign(dy) * Math.min(4, Math.abs(dy));
+  return w.x === x && w.y === y;
+}
+function cityPath(w: Walker, from: Scene, to: Scene) {
+  const a = entrance(from),
+    b = entrance(to);
+  w.scene = "city";
+  w.x = a.x;
+  w.y = a.y;
+  w.path = route(
+    world.graph,
+    a.x / 16 + "," + a.y / 16,
+    b.x / 16 + "," + b.y / 16,
+  ).slice(1);
+}
+function followPath(w: Walker): boolean {
+  if (!w.path?.length) return true;
+  const [x, y] = w.path[0].split(",").map(Number);
+  if (move(w, x * 16, y * 16)) w.path.shift();
+  return !w.path.length;
+}
 export function advance(p: Presentation, truth?: Truth): Presentation {
   const s = structuredClone(p);
   s.tick++;
-  for (const w of Object.values(s.walkers).sort((a, b) =>
-    a.id.localeCompare(b.id),
-  )) {
+  const walkers = Object.values(s.walkers).sort((a, b) =>
+    compareId(a.id, b.id),
+  );
+  for (const w of walkers) {
     w.age++;
+    if (w.phase === "work" && !w.queued.length && w.homeX !== undefined)
+      move(w, w.homeX, 160);
     if (w.phase === "work" && w.queued.length && w.age >= 4) {
       w.visit = w.queued.shift()!;
-      w.phase = "outbound";
-      w.scene = "city";
-      w.x = 96;
-      w.y = 112;
-      w.age = 0;
       w.visits++;
+      w.age = 0;
+      w.phase = w.visit.destination === w.scene ? "enter" : "outbound";
+      // Walk to the authored exit before using its reciprocal city portal.
     } else if (w.phase === "outbound") {
-      const destination = w.visit?.capability === "evaluation.run" ? 128 : 192;
-      const path = route(world.graph, "6,7", destination / 16 + ",7");
-      if (!path.length) continue;
-      const next =
-        path.map((n) => Number(n.split(",")[0]) * 16).find((x) => x > w.x) ??
-        destination;
-      w.x = Math.min(next, w.x + 4);
-      if (w.x === destination) {
-        w.phase = "enter";
-        w.scene = w.visit?.capability === "evaluation.run" ? "dojo" : "library";
+      const dest = w.visit?.destination ?? "library";
+      if (w.scene !== "city") {
+        if (move(w, 16, 160)) cityPath(w, w.scene, dest);
+      } else if (followPath(w)) {
+        w.scene = dest;
         w.x = 16;
         w.y = 160;
+        w.phase = "enter";
         w.age = 0;
       }
     } else if (w.phase === "enter") {
-      const target = stations[w.visit?.collection ?? "unknown"];
-      w.x = Math.min(target, w.x + 4);
-      if (w.x === target) {
+      const objects = world.maps[w.scene].objects;
+      const station =
+        objects.find(
+          (o) => o.kind === "station" && o.id === w.visit?.station,
+        ) ?? objects.find((o) => o.kind === "station");
+      // Stable, authored slots. Never use roster position (changes as agents arrive).
+      const slots = String((station as any)?.slots ?? "0")
+        .split(",")
+        .map(Number);
+      const slot = slots[parseInt(badge(w.id), 16) % slots.length];
+      const x = Math.max(16, Math.min(224, (station?.x ?? 128) + slot));
+      if (move(w, x, station?.y ?? 160)) {
         w.phase = "read";
         w.age = 0;
       }
     } else if (
       w.phase === "read" &&
-      w.age >= 28 &&
+      w.age >= 36 &&
       !w.visit?.keys.some(
         (k) => truth?.agents[w.id]?.operations[k]?.status === "active",
       )
     ) {
       w.phase = "return";
-      w.scene = "city";
-      w.x = w.visit?.capability === "evaluation.run" ? 128 : 192;
-      w.y = 112;
       w.age = 0;
     } else if (w.phase === "return") {
-      const path = route(
-        world.graph,
-        w.visit?.capability === "evaluation.run" ? "8,7" : "12,7",
-        "6,7",
-      );
-      if (!path.length) continue;
-      const next =
-        path.map((n) => Number(n.split(",")[0]) * 16).find((x) => x < w.x) ??
-        96;
-      w.x = Math.max(next, w.x - 4);
-      if (w.x === 96) {
-        w.phase = "work";
+      if (w.scene !== "city") {
+        if (move(w, 16, 160)) cityPath(w, w.scene, "workshop");
+      } else if (followPath(w)) {
         w.scene = "workshop";
-        w.x = 48;
+        w.x = 16;
         w.y = 160;
+        w.phase = "work";
         w.age = 0;
+        w.completedKeys = [
+          ...(w.completedKeys ?? []),
+          ...(w.visit?.keys ?? []),
+        ].slice(-256);
         w.visit = null;
       }
     }
   }
   return s;
+}
+export function compareId(a: string, b: string) {
+  return a < b ? -1 : a > b ? 1 : 0;
 }
 export function visualLabel(
   w: Walker | undefined,
@@ -293,9 +429,7 @@ export function visualLabel(
       (live ? "LIVE" : "RECENT") +
       " · " +
       w.visit.keys.length +
-      (w.visit.capability === "evaluation.run"
-        ? " evaluation observation"
-        : " retrieval") +
+      (" " + w.visit.capability) +
       (w.visit.keys.length === 1 ? "" : "s")
     );
   }
@@ -308,18 +442,39 @@ export function route(
   start: string,
   end: string,
 ): string[] {
-  const q = [[start]],
-    seen = new Set([start]);
-  while (q.length) {
-    const p = q.shift()!,
-      last = p.at(-1)!;
-    if (last === end) return p;
-    for (const n of [...(graph[last] ?? [])].sort()) {
-      if (!seen.has(n)) {
-        seen.add(n);
-        q.push([...p, n]);
-      }
+  if (!graph[start] || !graph[end]) return [];
+  const metric = (a: string, b: string) => {
+    if (!/^-?\d+,-?\d+$/.test(a) || !/^-?\d+,-?\d+$/.test(b)) return 0;
+    const [x, y] = a.split(",").map(Number),
+      [u, v] = b.split(",").map(Number);
+    // Unit graph edge cost; conservative heuristic for arbitrary authored graphs.
+    return Math.abs(x - u) + Math.abs(y - v);
+  };
+  const grid = Object.entries(graph).every(([a, ns]) =>
+    ns.every((b) => metric(a, b) <= 1),
+  );
+  const score: Record<string, number> = { [start]: 0 },
+    parent: Record<string, string> = {};
+  const open = [start];
+  while (open.length) {
+    open.sort(
+      (a, b) =>
+        score[a] +
+          (grid ? metric(a, end) : 0) -
+          (score[b] + (grid ? metric(b, end) : 0)) || compareId(a, b),
+    );
+    const n = open.shift()!;
+    if (n === end) {
+      const path = [n];
+      while (parent[path[0]]) path.unshift(parent[path[0]]);
+      return path;
     }
+    for (const next of [...graph[n]].sort(compareId))
+      if (score[next] === undefined || score[n] + 1 < score[next]) {
+        score[next] = score[n] + 1;
+        parent[next] = n;
+        if (!open.includes(next)) open.push(next);
+      }
   }
   return [];
 }
@@ -337,4 +492,132 @@ export function activityCounts(w: Walker, a: Agent) {
     succeeded: ops.filter((o) => o.status === "succeeded").length,
     failed: ops.filter((o) => o.status === "failed").length,
   };
+}
+
+export function buildingState(
+  scene: Scene,
+  truth: Truth,
+  now: number,
+  transport: string,
+) {
+  const capabilities = Object.keys(destinations).filter(
+    (k) => destinations[k] === scene,
+  );
+  if (scene === "workshop") capabilities.push("agent.run", "execution.run");
+  if (scene === "meeting")
+    capabilities.push("agent.handoff", "relationship.message");
+  const operations = Object.values(truth.agents).flatMap((a) =>
+    Object.values(a.operations)
+      .filter((o) => capabilities.includes(o.capability))
+      .map((o) => ({ instance: a.id, ...o })),
+  );
+  const last = Math.max(0, ...operations.map((o) => o.observedAt ?? 0));
+  return {
+    id: scene,
+    operations,
+    stations: world.maps[scene].objects
+      .filter((o) => o.kind === "station")
+      .map((station) => {
+        const linked = operations.filter((o) => {
+          if (scene === "meeting")
+            return (
+              station.id ===
+              (o.capability === "relationship.message"
+                ? "message-evidence"
+                : "context-transfer")
+            );
+          if (["agent.run", "execution.run"].includes(o.capability))
+            return station.id === "task-bench";
+          return (
+            stationFor({
+              id: o.operationId ?? "",
+              attempt: o.attempt ?? 1,
+              capability:
+                o.capability as OperationEvent["operation"]["capability"],
+              collection:
+                o.collection as OperationEvent["operation"]["collection"],
+              outcome: "unknown",
+              metadata: o.metadata,
+            }) === station.id
+          );
+        });
+        return {
+          ...station,
+          sourceHealth: linked.length
+            ? transport === "LIVE"
+              ? "OBSERVED"
+              : "STALE"
+            : "NO LIVE SOURCE",
+          operationCount: linked.length,
+        };
+      }),
+    sourceHealth: !operations.length
+      ? "NO LIVE SOURCE"
+      : transport !== "LIVE"
+        ? "STALE"
+        : now - last > 30000
+          ? operations.some((o) => o.status === "active")
+            ? "STALE"
+            : "RECENT"
+          : "LIVE",
+    active: operations.filter((o) => o.status === "active").length,
+    failures: operations.filter((o) => o.status === "failed").length,
+    completeness: truth.gap ? "partial" : "observed capabilities only",
+  };
+}
+export type Animation =
+  | "idle"
+  | "walk"
+  | "work"
+  | "read"
+  | "terminal"
+  | "talk"
+  | "wait"
+  | "blocked"
+  | "alert"
+  | "inspect"
+  | "carry"
+  | "ladder"
+  | "complete"
+  | "offline";
+export function animationFor(
+  w: Walker,
+  a: Agent | undefined,
+  tick: number,
+): Animation {
+  if (["outbound", "enter", "return"].includes(w.phase)) return "walk";
+  if (w.packetUntil && tick < w.packetUntil) return "inspect";
+  if (w.visit) {
+    const ops = w.visit.keys.map((k) => a?.operations[k]);
+    if (
+      ops.some(
+        (o) =>
+          o?.metadata?.approval === "pending" ||
+          o?.metadata?.taskState === "blocked",
+      )
+    )
+      return "blocked";
+    if (ops.some((o) => o?.status === "failed")) return "alert";
+    if (w.visit.capability === "workcell.execute") return "wait";
+    if (w.visit.destination === "library") return "read";
+    if (w.visit.destination === "mcp") return "terminal";
+    if (w.visit.capability === "artifact.created") return "inspect";
+    return "work";
+  }
+  // No inferred offline/presence, speech, carrying or ladder activity.
+  return "idle";
+}
+
+export function followComplete(
+  w: Walker | undefined,
+  a: Agent | undefined,
+): boolean {
+  return (
+    !!w &&
+    !!a &&
+    ["completed", "failed", "canceled", "skipped"].includes(a.status) &&
+    w.phase === "work" &&
+    !w.queued.length &&
+    w.age > 40
+  );
 }

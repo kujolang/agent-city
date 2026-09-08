@@ -253,9 +253,14 @@
               "value": "station"
             },
             {
+              "name": "slots",
+              "type": "string",
+              "value": "-6,0,6"
+            },
+            {
               "name": "live",
               "type": "string",
-              "value": "connected"
+              "value": "unbound"
             }
           ]
         },
@@ -263,7 +268,7 @@
           "id": 2,
           "name": "repo-source",
           "type": "semantic",
-          "x": 80,
+          "x": 88,
           "y": 160,
           "width": 16,
           "height": 16,
@@ -274,9 +279,14 @@
               "value": "station"
             },
             {
+              "name": "slots",
+              "type": "string",
+              "value": "-6,0,6"
+            },
+            {
               "name": "live",
               "type": "string",
-              "value": "connected"
+              "value": "unbound"
             }
           ]
         },
@@ -284,7 +294,7 @@
           "id": 3,
           "name": "project-rag",
           "type": "semantic",
-          "x": 112,
+          "x": 128,
           "y": 160,
           "width": 16,
           "height": 16,
@@ -295,9 +305,14 @@
               "value": "station"
             },
             {
+              "name": "slots",
+              "type": "string",
+              "value": "-6,0,6"
+            },
+            {
               "name": "live",
               "type": "string",
-              "value": "connected"
+              "value": "unbound"
             }
           ]
         },
@@ -305,7 +320,7 @@
           "id": 4,
           "name": "previous-runs",
           "type": "semantic",
-          "x": 144,
+          "x": 168,
           "y": 160,
           "width": 16,
           "height": 16,
@@ -316,9 +331,14 @@
               "value": "station"
             },
             {
+              "name": "slots",
+              "type": "string",
+              "value": "-6,0,6"
+            },
+            {
               "name": "live",
               "type": "string",
-              "value": "connected"
+              "value": "unbound"
             }
           ]
         },
@@ -326,7 +346,7 @@
           "id": 5,
           "name": "external-research",
           "type": "semantic",
-          "x": 176,
+          "x": 208,
           "y": 160,
           "width": 16,
           "height": 16,
@@ -337,9 +357,14 @@
               "value": "station"
             },
             {
+              "name": "slots",
+              "type": "string",
+              "value": "-6,0,6"
+            },
+            {
               "name": "live",
               "type": "string",
-              "value": "connected"
+              "value": "unbound"
             }
           ]
         },
@@ -358,9 +383,14 @@
               "value": "station"
             },
             {
+              "name": "slots",
+              "type": "string",
+              "value": "-6,0,6"
+            },
+            {
               "name": "live",
               "type": "string",
-              "value": "connected"
+              "value": "unbound"
             }
           ]
         },

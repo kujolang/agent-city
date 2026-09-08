@@ -240,7 +240,7 @@
       "objects": [
         {
           "id": 1,
-          "name": "servers",
+          "name": "context-transfer",
           "type": "semantic",
           "x": 24,
           "y": 160,
@@ -266,7 +266,7 @@
         },
         {
           "id": 2,
-          "name": "abilities",
+          "name": "relationships",
           "type": "semantic",
           "x": 64,
           "y": 160,
@@ -292,87 +292,9 @@
         },
         {
           "id": 3,
-          "name": "approval-pending",
+          "name": "message-evidence",
           "type": "semantic",
           "x": 104,
-          "y": 160,
-          "width": 16,
-          "height": 16,
-          "properties": [
-            {
-              "name": "kind",
-              "type": "string",
-              "value": "station"
-            },
-            {
-              "name": "slots",
-              "type": "string",
-              "value": "-6,0,6"
-            },
-            {
-              "name": "live",
-              "type": "string",
-              "value": "unbound"
-            }
-          ]
-        },
-        {
-          "id": 4,
-          "name": "tool-active",
-          "type": "semantic",
-          "x": 144,
-          "y": 160,
-          "width": 16,
-          "height": 16,
-          "properties": [
-            {
-              "name": "kind",
-              "type": "string",
-              "value": "station"
-            },
-            {
-              "name": "slots",
-              "type": "string",
-              "value": "-6,0,6"
-            },
-            {
-              "name": "live",
-              "type": "string",
-              "value": "unbound"
-            }
-          ]
-        },
-        {
-          "id": 5,
-          "name": "result",
-          "type": "semantic",
-          "x": 184,
-          "y": 160,
-          "width": 16,
-          "height": 16,
-          "properties": [
-            {
-              "name": "kind",
-              "type": "string",
-              "value": "station"
-            },
-            {
-              "name": "slots",
-              "type": "string",
-              "value": "-6,0,6"
-            },
-            {
-              "name": "live",
-              "type": "string",
-              "value": "unbound"
-            }
-          ]
-        },
-        {
-          "id": 6,
-          "name": "failure",
-          "type": "semantic",
-          "x": 224,
           "y": 160,
           "width": 16,
           "height": 16,
@@ -406,7 +328,7 @@
             {
               "name": "target",
               "type": "string",
-              "value": "city:mcp-door"
+              "value": "city:meeting-door"
             },
             {
               "name": "kind",

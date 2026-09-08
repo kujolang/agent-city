@@ -1,6 +1,14 @@
 import { readFile, writeFile } from "node:fs/promises";
 import { createHash } from "node:crypto";
-const names = ["city", "workshop", "library", "mcp", "dojo"];
+const names = [
+  "city",
+  "workshop",
+  "library",
+  "mcp",
+  "dojo",
+  "dispatch",
+  "meeting",
+];
 const maps: Record<string, any> = {};
 for (const name of names) {
   const m = JSON.parse(await readFile(`assets/source/${name}.tmj`, "utf8"));
@@ -48,7 +56,13 @@ for (const name of names) {
     )
       throw Error("portal is not on the navigation corridor");
   }
-  maps[name] = { width: m.width, height: m.height, cells, objects };
+  const navigation: Record<string, string[]> = {};
+  if (name !== "city")
+    for (let x = 16; x <= 224; x += 4)
+      navigation[x + ",160"] = [x - 4, x + 4]
+        .filter((n) => n >= 16 && n <= 224)
+        .map((n) => n + ",160");
+  maps[name] = { width: m.width, height: m.height, cells, objects, navigation };
 }
 for (const [name, m] of Object.entries(maps))
   for (const o of m.objects)
@@ -75,5 +89,5 @@ await writeFile(
   ) + "\n",
 );
 console.log(
-  "5 maps: reciprocal portals, IDs, bounds, supported tiles verified",
+  "7 maps: reciprocal portals, IDs, bounds, supported tiles verified",
 );
