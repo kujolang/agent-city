@@ -37,6 +37,7 @@ const sourcePaths = [
   "package.json",
   "package-lock.json",
   "tsconfig.json",
+  "vitest.config.ts",
   "LICENSE",
   "README.md",
   "TRY-AGENT-CITY.md",
