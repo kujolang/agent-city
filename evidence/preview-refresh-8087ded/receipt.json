@@ -1,0 +1,17 @@
+{
+  "source": "8087ded0af713ee2815574094a15f869a7daab08",
+  "archive": "/Users/robertdevore/2026/Kujolang/kujo-repos/agent-city/.runtime/bundles/agent-city-preview-darwin-x64-8087ded0af71.tar.gz",
+  "sha256": "e14c2b89ecd29d85e9bb48c35b281c1bb67441a41e246675ca5960bb316a526e",
+  "bytes": 16910458,
+  "manifestFiles": 1158,
+  "node": "v26.7.0",
+  "runtime": {
+    "version": "kujo 1.3.1",
+    "sha256": "319087dd77b69568d80657651c6153513e79ca97a3b76783aa257587b5a436c2",
+    "sourceCorrespondence": "Source revision recorded separately; binary build provenance not attested",
+    "selection": "verified preview reuse",
+    "originManifestSha256": "baf95ef8f6300807d23353c1f38eb416b56cfea1106a256158df313d905ad535"
+  },
+  "status": "PREVIEW / RELEASE GATES INCOMPLETE",
+  "contractCoverage": "Six-call packaged contract passed at 76914dd; final manifest differs only in apps/web/file-boundary.ts and WORKING-EXPERIENCE.md. Mission/producer/runtime inputs unchanged. See ../preview-refresh-76914dd/contract.json."
+}
