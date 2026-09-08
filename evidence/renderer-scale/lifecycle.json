@@ -1,0 +1,165 @@
+{
+  "kind": "SYNTHETIC renderer-only bounded profile; no source task or ingestion proof",
+  "at": "2026-09-08T15:36:38.455Z",
+  "browser": "151.0.7922.34",
+  "framesPerProfile": 2,
+  "profiles": [
+    {
+      "count": 5,
+      "rendered": 5,
+      "changedFrames": 0,
+      "pixels": "f337d72133131774ed8a417c1715e4f449021479efff3dd425b90b2c1fe3f656",
+      "drawMs": {
+        "p50": 8.300000011920929,
+        "p95": 8.300000011920929
+      },
+      "frameMs": {
+        "p50": 499.89999999999986,
+        "p95": 499.89999999999986
+      },
+      "stable": {
+        "objects": 28,
+        "actors": 5,
+        "actorsCreated": 5,
+        "actorsDestroyed": 0,
+        "buildingHits": 6,
+        "backgrounds": 1
+      },
+      "after": {
+        "objects": 14,
+        "actors": 0,
+        "actorsCreated": 10,
+        "actorsDestroyed": 10,
+        "buildingHits": 6,
+        "backgrounds": 2
+      },
+      "selectionWorked": true,
+      "offscreenActors": 0,
+      "removedActors": 0,
+      "immutable": true,
+      "transitions": {
+        "retained": true,
+        "stableHits": true,
+        "buildingCallback": true
+      }
+    },
+    {
+      "count": 25,
+      "rendered": 25,
+      "changedFrames": 0,
+      "pixels": "4db8c35a89e03a36ab7143c6d72fee9664844003546a9d187809ceffbfc55f36",
+      "drawMs": {
+        "p50": 9.300000011920929,
+        "p95": 9.300000011920929
+      },
+      "frameMs": {
+        "p50": 683.3,
+        "p95": 683.3
+      },
+      "stable": {
+        "objects": 88,
+        "actors": 25,
+        "actorsCreated": 25,
+        "actorsDestroyed": 0,
+        "buildingHits": 6,
+        "backgrounds": 1
+      },
+      "after": {
+        "objects": 14,
+        "actors": 0,
+        "actorsCreated": 50,
+        "actorsDestroyed": 50,
+        "buildingHits": 6,
+        "backgrounds": 2
+      },
+      "selectionWorked": true,
+      "offscreenActors": 0,
+      "removedActors": 0,
+      "immutable": true,
+      "transitions": {
+        "retained": true,
+        "stableHits": true,
+        "buildingCallback": true
+      }
+    },
+    {
+      "count": 100,
+      "rendered": 2,
+      "changedFrames": 0,
+      "pixels": "0683e957893092f962d885d7f336499a0533dc5f2960873f93fa14643e3c6f01",
+      "drawMs": {
+        "p50": 9.400000005960464,
+        "p95": 9.400000005960464
+      },
+      "frameMs": {
+        "p50": 1066.6,
+        "p95": 1066.6
+      },
+      "stable": {
+        "objects": 19,
+        "actors": 2,
+        "actorsCreated": 2,
+        "actorsDestroyed": 0,
+        "buildingHits": 6,
+        "backgrounds": 1
+      },
+      "after": {
+        "objects": 14,
+        "actors": 0,
+        "actorsCreated": 4,
+        "actorsDestroyed": 4,
+        "buildingHits": 6,
+        "backgrounds": 2
+      },
+      "selectionWorked": true,
+      "offscreenActors": 0,
+      "removedActors": 0,
+      "immutable": true,
+      "transitions": {
+        "retained": true,
+        "stableHits": true,
+        "buildingCallback": true
+      }
+    },
+    {
+      "count": 500,
+      "rendered": 2,
+      "changedFrames": 0,
+      "pixels": "d0cd28076b71c3ea7abd382af7635bc0d20a273732473f17122e76b02384cd8b",
+      "drawMs": {
+        "p50": 7.800000011920929,
+        "p95": 7.800000011920929
+      },
+      "frameMs": {
+        "p50": 733.4000000000001,
+        "p95": 733.4000000000001
+      },
+      "stable": {
+        "objects": 19,
+        "actors": 2,
+        "actorsCreated": 2,
+        "actorsDestroyed": 0,
+        "buildingHits": 6,
+        "backgrounds": 1
+      },
+      "after": {
+        "objects": 14,
+        "actors": 0,
+        "actorsCreated": 4,
+        "actorsDestroyed": 4,
+        "buildingHits": 6,
+        "backgrounds": 2
+      },
+      "selectionWorked": true,
+      "offscreenActors": 0,
+      "removedActors": 0,
+      "immutable": true,
+      "transitions": {
+        "retained": true,
+        "stableHits": true,
+        "buildingCallback": true
+      }
+    }
+  ],
+  "errors": []
+}

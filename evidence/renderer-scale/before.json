@@ -1,0 +1,89 @@
+{
+  "kind": "SYNTHETIC renderer-only bounded profile; no source task or ingestion proof",
+  "at": "2026-09-08T15:34:04.684Z",
+  "browser": "151.0.7922.34",
+  "framesPerProfile": 180,
+  "profiles": [
+    {
+      "count": 5,
+      "rendered": 5,
+      "changedFrames": 180,
+      "pixels": "f337d72133131774ed8a417c1715e4f449021479efff3dd425b90b2c1fe3f656",
+      "drawMs": {
+        "p50": 3.699999988079071,
+        "p95": 5
+      },
+      "frameMs": {
+        "p50": 83.29999999999927,
+        "p95": 83.40000000000146
+      },
+      "stable": null,
+      "after": null,
+      "selectionWorked": true,
+      "offscreenActors": 0,
+      "removedActors": 0,
+      "immutable": true
+    },
+    {
+      "count": 25,
+      "rendered": 25,
+      "changedFrames": 180,
+      "pixels": "4db8c35a89e03a36ab7143c6d72fee9664844003546a9d187809ceffbfc55f36",
+      "drawMs": {
+        "p50": 5.0999999940395355,
+        "p95": 8.099999994039536
+      },
+      "frameMs": {
+        "p50": 66.69999999999891,
+        "p95": 83.40000000000009
+      },
+      "stable": null,
+      "after": null,
+      "selectionWorked": true,
+      "offscreenActors": 0,
+      "removedActors": 0,
+      "immutable": true
+    },
+    {
+      "count": 100,
+      "rendered": 2,
+      "changedFrames": 180,
+      "pixels": "0683e957893092f962d885d7f336499a0533dc5f2960873f93fa14643e3c6f01",
+      "drawMs": {
+        "p50": 3.4000000059604645,
+        "p95": 4.5
+      },
+      "frameMs": {
+        "p50": 66.60000000000036,
+        "p95": 66.70000000000073
+      },
+      "stable": null,
+      "after": null,
+      "selectionWorked": true,
+      "offscreenActors": 0,
+      "removedActors": 0,
+      "immutable": true
+    },
+    {
+      "count": 500,
+      "rendered": 2,
+      "changedFrames": 180,
+      "pixels": "d0cd28076b71c3ea7abd382af7635bc0d20a273732473f17122e76b02384cd8b",
+      "drawMs": {
+        "p50": 3.699999988079071,
+        "p95": 4.700000017881393
+      },
+      "frameMs": {
+        "p50": 66.59999999999945,
+        "p95": 66.70000000000073
+      },
+      "stable": null,
+      "after": null,
+      "selectionWorked": true,
+      "offscreenActors": 0,
+      "removedActors": 0,
+      "immutable": true
+    }
+  ],
+  "errors": []
+}

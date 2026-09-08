@@ -1,0 +1,5 @@
+Renderer screenshot diagnostic did not finish after producing aggregate-5.png and aggregate-25.png.
+Observed test owner: Node PID 21967 and isolated Vite PID 23343; no Chromium child was present in the process inventory.
+Stopped only those owned processes with SIGTERM. No source mission or business service was stopped.
+Retry: CITY_RENDER_PROFILE=aggregate CITY_RENDER_FRAMES=2 npx tsx scripts/renderer-scale-proof.ts completed all four profiles, actual building clicks and screenshots.
+A hard 180-second diagnostic deadline now prevents an unbounded wait. Browser disappearance cause is not established.

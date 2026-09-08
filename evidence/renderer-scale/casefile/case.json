@@ -1,0 +1,90 @@
+{
+  "case": {
+    "created_at": 1788882156635,
+    "id": "2026-09-08-114231-cityrenderercapturestall",
+    "mode": "log",
+    "name": "cityrenderercapturestall",
+    "path": "/Users/robertdevore/2026/Kujolang/kujo-repos/agent-city/.casefile/2026-09-08-114231-cityrenderercapturestall"
+  },
+  "classification": {
+    "keywords": [
+      "actual"
+    ],
+    "severity": "medium",
+    "signals": [
+      "failure-keywords-detected",
+      "source-files-changed",
+      "from-log-only"
+    ],
+    "status": "unknown"
+  },
+  "command": {
+    "argv": [],
+    "display": "<from-log> .runtime/renderer-capture-failure.log",
+    "duration_ms": 0,
+    "exit_code": null
+  },
+  "environment": {
+    "arch": "x86_64",
+    "ci": null,
+    "composer": "Composer version 2.9.5 2026-01-29 11:40:53",
+    "cwd": "/Users/robertdevore/2026/Kujolang/kujo-repos/agent-city",
+    "go": "go version go1.25.3 darwin/amd64",
+    "node": "v24.20.0",
+    "npm": "11.19.0",
+    "os": "Darwin",
+    "package_manager": "npm",
+    "php": "PHP 8.4.16 (cli) (built: Dec 20 2025 09:42:27) (NTS clang 17.0.0)",
+    "pnpm": "Downloading the pnpm 12.3.4 binary for darwin-x64...",
+    "pytest": "pytest 8.4.1",
+    "python": "Python 3.10.5",
+    "shell": "zsh",
+    "yarn": null
+  },
+  "logs": {
+    "combined": "combined.log",
+    "stderr": "stderr.log",
+    "stdout": "stdout.log",
+    "truncated": false
+  },
+  "recommendations": {
+    "next_checks": [
+      "Review the captured logs in combined.log",
+      "Review changed files listed in git-diff-stat.txt and case.md",
+      "Run npm test (or your project test script)"
+    ]
+  },
+  "repository": {
+    "branch": "main",
+    "changed_files": [
+      {
+        "path": "WORKING-EXPERIENCE.md",
+        "status": "M"
+      },
+      {
+        "path": "apps/web/main.ts",
+        "status": "M"
+      },
+      {
+        "path": "packages/renderer-pixi/index.ts",
+        "status": "M"
+      },
+      {
+        "path": "evidence/renderer-scale/",
+        "status": "??"
+      },
+      {
+        "path": "scripts/renderer-scale-proof.ts",
+        "status": "??"
+      }
+    ],
+    "head": "ee07541543a87e5350a1a234985701b09e98af00",
+    "is_git_repo": true,
+    "root": "/Users/robertdevore/2026/Kujolang/kujo-repos/agent-city"
+  },
+  "security": {
+    "redaction_count": 0,
+    "redaction_enabled": true
+  },
+  "version": "1.0.0"
+}

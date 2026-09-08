@@ -268,3 +268,19 @@ and browser checks cover continuation identity/context, visible cases, keyboard,
 320px layout and DOM-only use. The controlled model and UI fixture are explicitly
 separate from the real Ollama proof. No sibling changes or eight-hour test.
 Full reference fidelity, packaging and outstanding release/reliability gates remain.
+
+## Bounded renderer reuse and scale checkpoint
+
+Visible character containers/sprites/marks and building hit targets now survive
+ordinary ticks. Offscreen/removed actors are released, with no retained cache for
+500 instances. Selected/followed execution identity survives scene changes. At high
+counts, buildings display explicitly labeled visual occupancy totals; these do not
+claim runtime activity. Read-only diagnostics count the complete display tree.
+
+`evidence/renderer-scale/README.md` records 5/25/100/500 synthetic profiles. Actor
+replacement fell from every measured frame to none. At 25 visible instances,
+draw p50/p95 changed from 5.1/8.1 ms to 3.1/4.1 ms. High headless frame intervals
+remain unqualified for 60 FPS; no throughput or long-duration claim follows.
+Baseline/after initial pixels match; separate short checks cover portal-follow
+identity, real building hit testing, aggregation and object removal. No world-core,
+source repository, runtime business behavior or eight-hour test changed.
