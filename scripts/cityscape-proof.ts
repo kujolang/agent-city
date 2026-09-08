@@ -54,7 +54,7 @@ try {
   await page.route("**/visual-proof", (route) =>
     route.fulfill({
       contentType: "text/html",
-      body: '<style>body{margin:0;background:#05080f;color:#a6d8a5;font:12px monospace}canvas{width:768px;height:720px;image-rendering:pixelated}p{margin:8px}</style><div id="world"></div><p>REPLAY / recorded real failed and passed attempts · renderer regression</p>',
+      body: '<meta charset="utf-8"><style>body{margin:0;background:#05080f;color:#a6d8a5;font:12px monospace}canvas{width:768px;height:720px;image-rendering:pixelated}p{margin:8px}</style><div id="world"></div><p>REPLAY / recorded real failed and passed attempts · renderer regression</p>',
     }),
   );
   await page.goto("http://127.0.0.1:18887/visual-proof");
@@ -146,7 +146,7 @@ try {
     0,
     "Same-order replacement snapshot retained old check results",
   );
-  for (const scene of ["city", "meeting", "dispatch"]) {
+  for (const scene of ["city", "meeting", "dispatch", "library"]) {
     await page.evaluate((scene) => {
       const r = (window as any).visualRenderer;
       r.scene = scene;

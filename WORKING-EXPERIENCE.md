@@ -297,3 +297,13 @@ were left untouched; this is not a new full-stack startup proof.
 The user explicitly reported many other applications running on this host.
 Timing measurements remain load-dependent; functional failures and missing events
 are still evaluated independently. See `evidence/startup/README.md`.
+
+## Library reference composition pass
+
+The Library adds original wood cabinets, steady reading lamps, open books,
+empty chairs, a decorative pixel globe, wall terminals and an upper walkway rail.
+These are static fixtures with no operation or participant claims. Existing station,
+portal and ladder coordinates remain unchanged. `evidence/cityscape/library.png`
+was visually inspected; typecheck/build and real-history Dojo pixel regression
+passed. The reference-led visual target remains incomplete; this is a room-detail
+pass, not final fidelity approval or new source execution evidence.
