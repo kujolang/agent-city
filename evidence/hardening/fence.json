@@ -1,0 +1,58 @@
+{
+  "config": {
+    "path": "fence.toml"
+  },
+  "ignored_violations": [],
+  "schema_version": 1,
+  "skipped_files": [],
+  "status": "passed",
+  "summary": {
+    "errors": 0,
+    "files_scanned": 64,
+    "ignored_violations": 0,
+    "imports_checked": 109,
+    "skipped_files": 0,
+    "violations": 0,
+    "warnings": 0
+  },
+  "version": "1.0.0",
+  "violations": [],
+  "zones": [
+    {
+      "errors": 0,
+      "files": 6,
+      "name": "gateway",
+      "warnings": 0
+    },
+    {
+      "errors": 0,
+      "files": 7,
+      "name": "integration",
+      "warnings": 0
+    },
+    {
+      "errors": 0,
+      "files": 3,
+      "name": "protocol",
+      "warnings": 0
+    },
+    {
+      "errors": 0,
+      "files": 3,
+      "name": "renderer",
+      "warnings": 0
+    },
+    {
+      "errors": 0,
+      "files": 42,
+      "name": "web",
+      "warnings": 0
+    },
+    {
+      "errors": 0,
+      "files": 3,
+      "name": "world",
+      "warnings": 0
+    }
+  ]
+}

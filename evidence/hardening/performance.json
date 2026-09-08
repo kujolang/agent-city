@@ -1,0 +1,110 @@
+{
+  "platform": "macOS-26.6.2-x86_64-i386-64bit",
+  "architecture": "x86_64",
+  "compressedAllJsBytes": 194995,
+  "compressedAllNonJsBytes": 2061,
+  "files": [
+    {
+      "path": "dist/index.html",
+      "bytes": 861,
+      "gzipBytes": 411
+    },
+    {
+      "path": "dist/assets/browserAll-BCwyYWzr.js",
+      "bytes": 42648,
+      "gzipBytes": 11028
+    },
+    {
+      "path": "dist/assets/canvasUtils-D3etLm6U.js",
+      "bytes": 6021,
+      "gzipBytes": 2012
+    },
+    {
+      "path": "dist/assets/index-AO7GlVLd.js",
+      "bytes": 186302,
+      "gzipBytes": 52372
+    },
+    {
+      "path": "dist/assets/CanvasRenderer-BrwUSYk5.js",
+      "bytes": 87960,
+      "gzipBytes": 27234
+    },
+    {
+      "path": "dist/assets/WebGLRenderer-oCwTNZau.js",
+      "bytes": 71311,
+      "gzipBytes": 19260
+    },
+    {
+      "path": "dist/assets/Geometry-DJhassP_.js",
+      "bytes": 104486,
+      "gzipBytes": 31475
+    },
+    {
+      "path": "dist/assets/init-BqYgwXZa.js",
+      "bytes": 15583,
+      "gzipBytes": 4885
+    },
+    {
+      "path": "dist/assets/RenderTargetSystem-Dmzk7LRJ.js",
+      "bytes": 76678,
+      "gzipBytes": 21569
+    },
+    {
+      "path": "dist/assets/CanvasPool-D1GESdDY.js",
+      "bytes": 756,
+      "gzipBytes": 425
+    },
+    {
+      "path": "dist/assets/getTextureBatchBindGroup-CH8WjV1x.js",
+      "bytes": 342,
+      "gzipBytes": 266
+    },
+    {
+      "path": "dist/assets/WebGPURenderer-CxKhntFA.js",
+      "bytes": 77,
+      "gzipBytes": 80
+    },
+    {
+      "path": "dist/assets/BufferResource-BOkD5hsv.js",
+      "bytes": 11037,
+      "gzipBytes": 2819
+    },
+    {
+      "path": "dist/assets/CanvasRenderer-BSxXmcTs.js",
+      "bytes": 77,
+      "gzipBytes": 80
+    },
+    {
+      "path": "dist/assets/index-C_lnTKld.css",
+      "bytes": 4933,
+      "gzipBytes": 1650
+    },
+    {
+      "path": "dist/assets/init-0U9_tTmE.js",
+      "bytes": 24679,
+      "gzipBytes": 8384
+    },
+    {
+      "path": "dist/assets/webworkerAll-CXUZJEk3.js",
+      "bytes": 54,
+      "gzipBytes": 60
+    },
+    {
+      "path": "dist/assets/WebGLRenderer-26Fo102t.js",
+      "bytes": 75,
+      "gzipBytes": 79
+    },
+    {
+      "path": "dist/assets/WebGPURenderer-Dt7PRhDJ.js",
+      "bytes": 45461,
+      "gzipBytes": 12967
+    }
+  ],
+  "decodedArtworkTextureBytes": 0,
+  "textureCaveat": "Procedural Graphics artwork, no raster asset textures; framebuffer/driver allocations not measured",
+  "soakHeapAfterWarmupBytes": 36954344,
+  "soakHeapFinalBytes": 27301828,
+  "memoryTrendCaveat": "No forced GC; 180-second stationary historical view cannot establish eight-hour stability",
+  "upstreamToVisibleMs": null,
+  "latencyCaveat": "Not remeasured for this candidate; browser inspector samples measure synchronous DOM update, not paint"
+}

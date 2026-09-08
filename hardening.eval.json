@@ -1,0 +1,1 @@
+{"name":"Agent City measured release gates","tests":[{"name":"Mandatory measured release gates","check":"command_succeeds","params":{"command":"node --import tsx scripts/release-gate.ts"}}]}

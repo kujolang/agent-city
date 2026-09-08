@@ -1,0 +1,609 @@
+{
+  "kind": "SYNTHETIC snapshots; no runtime proof",
+  "profiles": [
+    {
+      "count": 5,
+      "instances": 5,
+      "p50": 16.699999999999818,
+      "p95": 16.799999999999727,
+      "inspectorMs": 6.5,
+      "heap": 31200000,
+      "queue": 0
+    },
+    {
+      "count": 25,
+      "instances": 25,
+      "p50": 16.699999999999818,
+      "p95": 16.700000000000273,
+      "inspectorMs": 8.299999982118607,
+      "heap": 37300000,
+      "queue": 0
+    },
+    {
+      "count": 100,
+      "instances": 100,
+      "p50": 16.699999999999818,
+      "p95": 16.799999999999727,
+      "inspectorMs": 8.699999988079071,
+      "heap": 35100000,
+      "queue": 0
+    },
+    {
+      "count": 500,
+      "instances": 500,
+      "p50": 16.699999999999818,
+      "p95": 16.800000000000182,
+      "inspectorMs": 12,
+      "heap": 31200000,
+      "queue": 0
+    }
+  ],
+  "soak": {
+    "samples": [
+      {
+        "elapsed": 0.0012219289999993634,
+        "metrics": [
+          {
+            "name": "Documents",
+            "value": 4
+          },
+          {
+            "name": "Nodes",
+            "value": 287
+          },
+          {
+            "name": "TaskDuration",
+            "value": 0.000473
+          },
+          {
+            "name": "JSHeapUsedSize",
+            "value": 15101208
+          },
+          {
+            "name": "JSHeapTotalSize",
+            "value": 20971520
+          }
+        ],
+        "state": {
+          "health": "STALE",
+          "order": 48,
+          "rendererReady": true,
+          "queue": 0
+        }
+      },
+      {
+        "elapsed": 10.006363718000001,
+        "metrics": [
+          {
+            "name": "Documents",
+            "value": 1
+          },
+          {
+            "name": "Nodes",
+            "value": 3894
+          },
+          {
+            "name": "TaskDuration",
+            "value": 3.102245
+          },
+          {
+            "name": "JSHeapUsedSize",
+            "value": 27490904
+          },
+          {
+            "name": "JSHeapTotalSize",
+            "value": 48496640
+          }
+        ],
+        "state": {
+          "health": "STALE",
+          "order": 48,
+          "rendererReady": true,
+          "queue": 0
+        }
+      },
+      {
+        "elapsed": 20.032961937000003,
+        "metrics": [
+          {
+            "name": "Documents",
+            "value": 1
+          },
+          {
+            "name": "Nodes",
+            "value": 375
+          },
+          {
+            "name": "TaskDuration",
+            "value": 6.447837
+          },
+          {
+            "name": "JSHeapUsedSize",
+            "value": 21051344
+          },
+          {
+            "name": "JSHeapTotalSize",
+            "value": 76808192
+          }
+        ],
+        "state": {
+          "health": "STALE",
+          "order": 48,
+          "rendererReady": true,
+          "queue": 0
+        }
+      },
+      {
+        "elapsed": 30.039753453,
+        "metrics": [
+          {
+            "name": "Documents",
+            "value": 1
+          },
+          {
+            "name": "Nodes",
+            "value": 1479
+          },
+          {
+            "name": "TaskDuration",
+            "value": 10.431423
+          },
+          {
+            "name": "JSHeapUsedSize",
+            "value": 36954344
+          },
+          {
+            "name": "JSHeapTotalSize",
+            "value": 74973184
+          }
+        ],
+        "state": {
+          "health": "STALE",
+          "order": 48,
+          "rendererReady": true,
+          "queue": 0
+        }
+      },
+      {
+        "elapsed": 40.043450039,
+        "metrics": [
+          {
+            "name": "Documents",
+            "value": 1
+          },
+          {
+            "name": "Nodes",
+            "value": 2474
+          },
+          {
+            "name": "TaskDuration",
+            "value": 13.669954
+          },
+          {
+            "name": "JSHeapUsedSize",
+            "value": 42113740
+          },
+          {
+            "name": "JSHeapTotalSize",
+            "value": 75759616
+          }
+        ],
+        "state": {
+          "health": "STALE",
+          "order": 48,
+          "rendererReady": true,
+          "queue": 0
+        }
+      },
+      {
+        "elapsed": 50.048341107999995,
+        "metrics": [
+          {
+            "name": "Documents",
+            "value": 1
+          },
+          {
+            "name": "Nodes",
+            "value": 513
+          },
+          {
+            "name": "TaskDuration",
+            "value": 16.892086
+          },
+          {
+            "name": "JSHeapUsedSize",
+            "value": 29897416
+          },
+          {
+            "name": "JSHeapTotalSize",
+            "value": 74711040
+          }
+        ],
+        "state": {
+          "health": "STALE",
+          "order": 48,
+          "rendererReady": true,
+          "queue": 0
+        }
+      },
+      {
+        "elapsed": 60.054539772999995,
+        "metrics": [
+          {
+            "name": "Documents",
+            "value": 1
+          },
+          {
+            "name": "Nodes",
+            "value": 1321
+          },
+          {
+            "name": "TaskDuration",
+            "value": 20.056647
+          },
+          {
+            "name": "JSHeapUsedSize",
+            "value": 27290980
+          },
+          {
+            "name": "JSHeapTotalSize",
+            "value": 74186752
+          }
+        ],
+        "state": {
+          "health": "STALE",
+          "order": 48,
+          "rendererReady": true,
+          "queue": 0
+        }
+      },
+      {
+        "elapsed": 70.071164031,
+        "metrics": [
+          {
+            "name": "Documents",
+            "value": 1
+          },
+          {
+            "name": "Nodes",
+            "value": 3044
+          },
+          {
+            "name": "TaskDuration",
+            "value": 4.25271
+          },
+          {
+            "name": "JSHeapUsedSize",
+            "value": 25439220
+          },
+          {
+            "name": "JSHeapTotalSize",
+            "value": 83361792
+          }
+        ],
+        "state": {
+          "health": "STALE",
+          "order": 48,
+          "rendererReady": true,
+          "queue": 0
+        }
+      },
+      {
+        "elapsed": 80.079124162,
+        "metrics": [
+          {
+            "name": "Documents",
+            "value": 1
+          },
+          {
+            "name": "Nodes",
+            "value": 856
+          },
+          {
+            "name": "TaskDuration",
+            "value": 7.475737
+          },
+          {
+            "name": "JSHeapUsedSize",
+            "value": 22804060
+          },
+          {
+            "name": "JSHeapTotalSize",
+            "value": 78381056
+          }
+        ],
+        "state": {
+          "health": "STALE",
+          "order": 48,
+          "rendererReady": true,
+          "queue": 0
+        }
+      },
+      {
+        "elapsed": 90.096136413,
+        "metrics": [
+          {
+            "name": "Documents",
+            "value": 1
+          },
+          {
+            "name": "Nodes",
+            "value": 1960
+          },
+          {
+            "name": "TaskDuration",
+            "value": 10.898051
+          },
+          {
+            "name": "JSHeapUsedSize",
+            "value": 37755564
+          },
+          {
+            "name": "JSHeapTotalSize",
+            "value": 78381056
+          }
+        ],
+        "state": {
+          "health": "STALE",
+          "order": 48,
+          "rendererReady": true,
+          "queue": 0
+        }
+      },
+      {
+        "elapsed": 100.10221201200001,
+        "metrics": [
+          {
+            "name": "Documents",
+            "value": 1
+          },
+          {
+            "name": "Nodes",
+            "value": 3064
+          },
+          {
+            "name": "TaskDuration",
+            "value": 13.866334
+          },
+          {
+            "name": "JSHeapUsedSize",
+            "value": 22568892
+          },
+          {
+            "name": "JSHeapTotalSize",
+            "value": 78381056
+          }
+        ],
+        "state": {
+          "health": "STALE",
+          "order": 48,
+          "rendererReady": true,
+          "queue": 0
+        }
+      },
+      {
+        "elapsed": 110.107972642,
+        "metrics": [
+          {
+            "name": "Documents",
+            "value": 1
+          },
+          {
+            "name": "Nodes",
+            "value": 1201
+          },
+          {
+            "name": "TaskDuration",
+            "value": 17.143584
+          },
+          {
+            "name": "JSHeapUsedSize",
+            "value": 16152040
+          },
+          {
+            "name": "JSHeapTotalSize",
+            "value": 79167488
+          }
+        ],
+        "state": {
+          "health": "STALE",
+          "order": 48,
+          "rendererReady": true,
+          "queue": 0
+        }
+      },
+      {
+        "elapsed": 120.120497151,
+        "metrics": [
+          {
+            "name": "Documents",
+            "value": 1
+          },
+          {
+            "name": "Nodes",
+            "value": 1615
+          },
+          {
+            "name": "TaskDuration",
+            "value": 3.031466
+          },
+          {
+            "name": "JSHeapUsedSize",
+            "value": 47622304
+          },
+          {
+            "name": "JSHeapTotalSize",
+            "value": 92274688
+          }
+        ],
+        "state": {
+          "health": "STALE",
+          "order": 48,
+          "rendererReady": true,
+          "queue": 0
+        }
+      },
+      {
+        "elapsed": 130.13296955099997,
+        "metrics": [
+          {
+            "name": "Documents",
+            "value": 1
+          },
+          {
+            "name": "Nodes",
+            "value": 925
+          },
+          {
+            "name": "TaskDuration",
+            "value": 6.354011
+          },
+          {
+            "name": "JSHeapUsedSize",
+            "value": 26884724
+          },
+          {
+            "name": "JSHeapTotalSize",
+            "value": 87818240
+          }
+        ],
+        "state": {
+          "health": "STALE",
+          "order": 48,
+          "rendererReady": true,
+          "queue": 0
+        }
+      },
+      {
+        "elapsed": 140.13858879499998,
+        "metrics": [
+          {
+            "name": "Documents",
+            "value": 1
+          },
+          {
+            "name": "Nodes",
+            "value": 925
+          },
+          {
+            "name": "TaskDuration",
+            "value": 9.558804
+          },
+          {
+            "name": "JSHeapUsedSize",
+            "value": 26899988
+          },
+          {
+            "name": "JSHeapTotalSize",
+            "value": 87818240
+          }
+        ],
+        "state": {
+          "health": "STALE",
+          "order": 48,
+          "rendererReady": true,
+          "queue": 0
+        }
+      },
+      {
+        "elapsed": 150.145016736,
+        "metrics": [
+          {
+            "name": "Documents",
+            "value": 1
+          },
+          {
+            "name": "Nodes",
+            "value": 925
+          },
+          {
+            "name": "TaskDuration",
+            "value": 12.328513
+          },
+          {
+            "name": "JSHeapUsedSize",
+            "value": 26859576
+          },
+          {
+            "name": "JSHeapTotalSize",
+            "value": 87556096
+          }
+        ],
+        "state": {
+          "health": "STALE",
+          "order": 48,
+          "rendererReady": true,
+          "queue": 0
+        }
+      },
+      {
+        "elapsed": 160.149904565,
+        "metrics": [
+          {
+            "name": "Documents",
+            "value": 1
+          },
+          {
+            "name": "Nodes",
+            "value": 925
+          },
+          {
+            "name": "TaskDuration",
+            "value": 15.186722
+          },
+          {
+            "name": "JSHeapUsedSize",
+            "value": 25694856
+          },
+          {
+            "name": "JSHeapTotalSize",
+            "value": 87293952
+          }
+        ],
+        "state": {
+          "health": "STALE",
+          "order": 48,
+          "rendererReady": true,
+          "queue": 0
+        }
+      },
+      {
+        "elapsed": 170.156279725,
+        "metrics": [
+          {
+            "name": "Documents",
+            "value": 1
+          },
+          {
+            "name": "Nodes",
+            "value": 925
+          },
+          {
+            "name": "TaskDuration",
+            "value": 17.878283
+          },
+          {
+            "name": "JSHeapUsedSize",
+            "value": 27301828
+          },
+          {
+            "name": "JSHeapTotalSize",
+            "value": 87293952
+          }
+        ],
+        "state": {
+          "health": "STALE",
+          "order": 48,
+          "rendererReady": true,
+          "queue": 0
+        }
+      }
+    ],
+    "durationSeconds": 180.167649974,
+    "coverage": "Historical real journal with live health polling; no new producer activity. 8-hour live-like soak NOT completed. GPU allocation unavailable.",
+    "freezeResume": {
+      "truthUsable": true,
+      "kind": "CDP frozen/active; hidden-tab visibility not asserted"
+    }
+  }
+}

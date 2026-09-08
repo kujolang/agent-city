@@ -26,7 +26,12 @@
     "recovery": "tsx scripts/recovery-proof.ts",
     "format": "prettier --write \"apps/**/*.ts\" \"packages/**/*.ts\" \"integrations/**/*.ts\" \"scripts/*.ts\" \"tests/*.ts\"",
     "proof:phase1": "tsx scripts/phase1-proof.ts",
-    "workcell": "tsx integrations/kujo/workcell.ts"
+    "workcell": "tsx integrations/kujo/workcell.ts",
+    "stress": "tsx scripts/stress.ts",
+    "proof:hardening": "tsx scripts/browser-hardening.ts",
+    "soak": "tsx scripts/scale-soak.ts",
+    "replay": "tsx scripts/replay.ts",
+    "gate": "tsx scripts/release-gate.ts"
   },
   "dependencies": {
     "ajv": "8.20.0",
@@ -42,5 +47,6 @@
     "typescript": "5.9.3",
     "vite": "8.2.2",
     "vitest": "5.0.0"
-  }
+  },
+  "version": "0.2.0-rc.1"
 }

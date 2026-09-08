@@ -1,0 +1,14 @@
+name: agent-city-release-hardening
+goal: Qualify the existing read-only Observer with deterministic redacted replay and measured release gates.
+scope:
+  - Replay, archive, source incidents, bounded projections, recovery, browser evidence and performance.
+acceptance_criteria:
+  - Pinned normalized journal replays to identical semantic state without producer IO.
+  - Duplicate identity, malformed events and quota overflow never silently corrupt the journal.
+  - DOM truth remains available when rendering is disabled or lost.
+  - Sustain 1000 normalized metadata events per second for 60 seconds through the gateway.
+  - Record actual soak duration and do not claim eight hours from a shorter test.
+  - Source work succeeds with the gateway stopped.
+risks:
+  - Watchdog source-store epoch continuity is not yet established.
+  - Long-duration and end-to-end throughput qualification may remain failed or incomplete.

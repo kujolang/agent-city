@@ -1,0 +1,58 @@
+{
+  "browser": "151.0.7922.34",
+  "cases": [
+    {
+      "dpr": 1,
+      "width": 1280,
+      "keyboard": true,
+      "overflow": false,
+      "inspectorSynchronousMs": 0.5999999940395355,
+      "replayIsolated": true,
+      "frameMs": {
+        "p50": 16.699999999999818,
+        "p95": 16.800000000000182
+      },
+      "zoom": "CDP pageScaleFactor1.25; not browser UI zoom",
+      "reducedMotion": false
+    },
+    {
+      "dpr": 1.25,
+      "width": 1280,
+      "keyboard": true,
+      "overflow": false,
+      "inspectorSynchronousMs": 0.5999999940395355,
+      "replayIsolated": true,
+      "frameMs": {
+        "p50": 16.699999999999818,
+        "p95": 16.799999999999727
+      },
+      "zoom": "CDP pageScaleFactor1.25; not browser UI zoom",
+      "reducedMotion": false
+    },
+    {
+      "dpr": 2,
+      "width": 320,
+      "keyboard": true,
+      "overflow": false,
+      "inspectorSynchronousMs": 0.5,
+      "replayIsolated": true,
+      "frameMs": {
+        "p50": 16.699999999999818,
+        "p95": 16.799999999999272
+      },
+      "zoom": "CDP pageScaleFactor1.25; not browser UI zoom",
+      "reducedMotion": true
+    }
+  ],
+  "errors": [],
+  "contextLoss": {
+    "extensionAvailable": true,
+    "domUsable": true,
+    "rendererReady": true
+  },
+  "initializationFailure": {
+    "method": "Explicit DOM-only mode throws before renderer initialization; hardware exhaustion not tested",
+    "fallback": "Rendering disabled or unavailable. Current truth and evidence remain available below.",
+    "roster": 5
+  }
+}

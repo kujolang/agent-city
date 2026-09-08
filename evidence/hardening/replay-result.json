@@ -1,0 +1,8 @@
+{
+  "mode": "REPLAY",
+  "events": 47,
+  "instances": 5,
+  "semanticHash": "a03059a108c9d041ecec0a99a64c43f0b6be3d3383dc4c2d9048aa7649de6c58",
+  "bundleChecksum": "65f4b9e58c311b776aef1e52b23d8cfa8d2d185585f23375a3dee610231c1197",
+  "completeness": "observed journal; producer coverage not guaranteed"
+}

@@ -1,0 +1,11 @@
+{
+  "status": "FAIL",
+  "gates": {
+    "journalThroughput": false,
+    "endToEndStress": false,
+    "eightHourSoak": false,
+    "browser": true,
+    "sourceIndependence": true,
+    "watchdogStoreEpoch": false
+  }
+}

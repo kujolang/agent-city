@@ -1,0 +1,3 @@
+Spec wrapper: Validation output parse error
+Direct Kujo interpreter: Runtime Error: Unknown method: add_argument
+No successful Spec validation is claimed.

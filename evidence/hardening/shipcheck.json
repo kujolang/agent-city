@@ -1,0 +1,127 @@
+{
+  "checks": [
+    {
+      "detail": "",
+      "message": "Git repository detected",
+      "name": "git-repo",
+      "passed": 1,
+      "severity": "info"
+    },
+    {
+      "detail": "",
+      "message": "README found: README.md",
+      "name": "readme",
+      "passed": 1,
+      "severity": "info"
+    },
+    {
+      "detail": "",
+      "message": "LICENSE found: LICENSE",
+      "name": "license",
+      "passed": 1,
+      "severity": "info"
+    },
+    {
+      "detail": "",
+      "message": "Ignore files found: .gitignore",
+      "name": "ignore-files",
+      "passed": 1,
+      "severity": "info"
+    },
+    {
+      "detail": "",
+      "message": "Test directory found: tests/",
+      "name": "tests-exist",
+      "passed": 1,
+      "severity": "info"
+    },
+    {
+      "detail": "Add a lint script or Makefile target",
+      "message": "No lint command detected",
+      "name": "lint-command",
+      "passed": 0,
+      "severity": "warning"
+    },
+    {
+      "detail": "",
+      "message": "package.json scripts reference format",
+      "name": "format-command",
+      "passed": 1,
+      "severity": "info"
+    },
+    {
+      "detail": "Consider adding CI (e.g., .github/workflows/ci.yml)",
+      "message": "No CI configuration detected",
+      "name": "ci-config",
+      "passed": 0,
+      "severity": "warning"
+    },
+    {
+      "detail": "",
+      "message": "README has install/quickstart instructions",
+      "name": "readme-install",
+      "passed": 1,
+      "severity": "info"
+    },
+    {
+      "detail": "",
+      "message": "README has usage/examples",
+      "name": "readme-usage",
+      "passed": 1,
+      "severity": "info"
+    },
+    {
+      "detail": "Add examples to help users get started",
+      "message": "No examples/ or demo/ directory found",
+      "name": "examples",
+      "passed": 0,
+      "severity": "warning"
+    },
+    {
+      "detail": "Consider adding a docs/ directory",
+      "message": "No docs/ directory found",
+      "name": "docs",
+      "passed": 0,
+      "severity": "warning"
+    },
+    {
+      "detail": "",
+      "message": "package.json found with version field",
+      "name": "version-metadata",
+      "passed": 1,
+      "severity": "info"
+    },
+    {
+      "detail": "",
+      "message": "Changelog found: CHANGELOG.md",
+      "name": "changelog",
+      "passed": 1,
+      "severity": "info"
+    },
+    {
+      "detail": "Add kennel.toml for Kujo package metadata (if this is a Kujo project)",
+      "message": "No kennel.toml found",
+      "name": "kennel-manifest",
+      "passed": 0,
+      "severity": "warning"
+    },
+    {
+      "detail": "Define 'entry' in kennel.toml [kujo] section or add a main .kujo script",
+      "message": "No clear entry point detected",
+      "name": "entry-point",
+      "passed": 0,
+      "severity": "warning"
+    }
+  ],
+  "dir": ".",
+  "project_type": "node",
+  "summary": {
+    "failed_errors": 0,
+    "gate_passed": 1,
+    "passed": 10,
+    "total_checks": 16,
+    "warnings": 6
+  },
+  "tool": "shipcheck",
+  "version": "1.0.0"
+}

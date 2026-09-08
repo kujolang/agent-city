@@ -1,0 +1,109 @@
+{
+  "tests": {
+    "foreign-origin": 403,
+    "read-only": 405,
+    "malformed-evidence": 400,
+    "unknown-evidence": 404,
+    "expired-cursor": 409,
+    "sseReset": true,
+    "restart": {
+      "sameEpoch": true,
+      "instances": 5,
+      "order": 49
+    },
+    "cursorRecovery": {
+      "coverage": "Gateway journal restart tested; signed Watchdog store replacement remains unverified"
+    }
+  },
+  "source": "Historical real journal plus a new actual Dispatch/SDK/RAG operation with gateway stopped",
+  "realOperation": {
+    "producer": "hardening-outage-1788864620179",
+    "exitCode": 0,
+    "spoolBytes": 3706,
+    "gatewayStopped": true,
+    "scope": "Actual Dispatch/SDK local RAG completed; outage spool not asserted ingested by Watchdog in this test",
+    "observedLifecycle": [
+      {
+        "agent_id": "hardening-worker",
+        "run_id": "run-1788864620414-1343",
+        "operation_id": "intake",
+        "kind": "internal",
+        "phase": "finished",
+        "outcome": "succeeded",
+        "attempt": 1
+      },
+      {
+        "agent_id": "hardening-worker",
+        "run_id": "run-1788864620414-1343",
+        "operation_id": "assignment",
+        "kind": "internal",
+        "phase": "finished",
+        "outcome": "succeeded",
+        "attempt": 1
+      },
+      {
+        "agent_id": "hardening-worker",
+        "run_id": "run-1788864620414-1343",
+        "operation_id": "task",
+        "kind": "internal",
+        "phase": "started",
+        "outcome": "unset",
+        "attempt": 1
+      },
+      {
+        "agent_id": "hardening-worker",
+        "run_id": "run-1788864620414-1343",
+        "operation_id": "run",
+        "kind": "agent",
+        "phase": "started",
+        "outcome": "unset",
+        "attempt": 1
+      },
+      {
+        "agent_id": "hardening-worker",
+        "run_id": "run-1788864620414-1343",
+        "operation_id": "retrieval",
+        "kind": "retrieval",
+        "phase": "started",
+        "outcome": "unset",
+        "attempt": 1
+      },
+      {
+        "agent_id": "hardening-worker",
+        "run_id": "run-1788864620414-1343",
+        "operation_id": "retrieval",
+        "kind": "retrieval",
+        "phase": "finished",
+        "outcome": "succeeded",
+        "attempt": 1
+      },
+      {
+        "agent_id": "hardening-worker",
+        "run_id": "run-1788864620414-1343",
+        "operation_id": "run",
+        "kind": "agent",
+        "phase": "finished",
+        "outcome": "succeeded",
+        "attempt": 1
+      },
+      {
+        "agent_id": "hardening-worker",
+        "run_id": "run-1788864620414-1343",
+        "operation_id": "task",
+        "kind": "internal",
+        "phase": "finished",
+        "outcome": "succeeded",
+        "attempt": 1
+      },
+      {
+        "agent_id": "hardening-worker",
+        "run_id": "run-1788864620414-1343",
+        "operation_id": "workflow-state",
+        "kind": "internal",
+        "phase": "finished",
+        "outcome": "unknown",
+        "attempt": 1
+      }
+    ]
+  }
+}
