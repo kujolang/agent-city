@@ -358,8 +358,11 @@ export function roomFloor(g: Graphics) {
 }
 
 export function mezzanine(g: Graphics) {
-  rect(g, 16, 112, 224, 2, P.light);
-  masonry(g, 16, 114, 224, 7, true);
+  // Leave a real opening above the ladder instead of drawing a solid floor
+  // through the ascending character. The authored walking heights stay fixed.
+  rect(g, 16, 112, 206, 2, P.light);
+  masonry(g, 16, 114, 206, 7, true);
+  rect(g, 239, 112, 1, 9, P.light);
   for (const x of [32, 104, 184]) {
     rect(g, x, 122, 4, 54, P.mortar);
     rect(g, x, 122, 1, 54, P.stone);
@@ -403,6 +406,18 @@ export function books(g: Graphics, x: number, y: number, w: number, h: number) {
 
 /** Architectural scenery only: fixed tiles, cabinetry and ventilation. */
 export function libraryArchitecture(g: Graphics) {
+  // Native-resolution steel bays translate the concept's industrial framing
+  // onto the authored room, rather than stretching a misaligned bitmap.
+  for (const x of [17, 57, 97, 137, 177, 217]) {
+    rect(g, x, 45, 5, 66, P.ink);
+    rect(g, x + 1, 45, 3, 66, P.stone);
+    rect(g, x + 1, 45, 1, 66, P.light);
+    for (const y of [47, 73, 104]) {
+      rect(g, x, y, 5, 6, P.mortar);
+      rect(g, x, y, 5, 1, P.light);
+      rect(g, x + 2, y + 2, 1, 1, P.light);
+    }
+  }
   // Recessed wood wall panels make the book stacks part of the room.
   for (let x = 22; x < 215; x += 40) {
     rect(g, x, 46, 35, 65, 0x30221c);
@@ -427,6 +442,21 @@ export function libraryArchitecture(g: Graphics) {
     rect(g, x, 125, 10, 20, P.mortar);
     rect(g, x, 125, 10, 1, P.light);
     for (let y = 128; y < 143; y += 3) rect(g, x + 2, y, 6, 1, P.ink);
+  }
+  // Steady pendant lamps and exposed conduit are architecture, not activity.
+  for (const x of [93, 163]) {
+    rect(g, x, 124, 1, 20, P.light);
+    rect(g, x - 3, 144, 7, 2, P.stone);
+    rect(g, x - 5, 146, 11, 2, P.ink);
+    rect(g, x - 3, 148, 7, 1, 0xd9c99c);
+  }
+  for (const x of [23, 211]) {
+    rect(g, x, 123, 3, 51, P.ink);
+    rect(g, x + 1, 123, 1, 51, P.stone);
+    for (const y of [132, 160]) {
+      rect(g, x - 1, y, 5, 3, P.mortar);
+      rect(g, x - 1, y, 5, 1, P.light);
+    }
   }
 }
 

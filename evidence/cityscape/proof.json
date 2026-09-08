@@ -11,7 +11,17 @@
     "changedPixels": 432,
     "truthUnchanged": true
   },
+  "ladderOpenings": [
+    {
+      "scene": "library",
+      "open": true
+    },
+    {
+      "scene": "workshop",
+      "open": true
+    }
+  ],
   "sameOrderSnapshotClearsPriorOutcomes": true,
   "errors": [],
-  "at": "2026-09-08T18:25:38.465Z"
+  "at": "2026-09-08T18:37:22.779Z"
 }

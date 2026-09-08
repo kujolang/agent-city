@@ -202,6 +202,38 @@ try {
     await page.screenshot({ path: resolve(out, scene + ".png") });
   }
   assert.deepEqual(errors, []);
+  // Inspect the actual rendered opening in both rooms sharing the mezzanine.
+  const ladderOpenings = await page.evaluate(() => {
+    const r = (window as any).visualRenderer;
+    const results = [];
+    for (const scene of ["library", "workshop"]) {
+      r.scene = scene;
+      r.draw(
+        { tick: 0, seen: [], walkers: {} },
+        (window as any).visualTruth,
+        "REPLAY",
+      );
+      const { pixels, width } = r.app.renderer.extract.pixels({
+        target: r.app.stage,
+        frame: r.app.screen,
+      });
+      // y=113 is the light floor lip; x=230 is between ladder rails.
+      const floor = (113 * width + 210) * 4;
+      const opening = (113 * width + 230) * 4;
+      results.push({
+        scene,
+        open:
+          pixels[floor] !== pixels[opening] ||
+          pixels[floor + 1] !== pixels[opening + 1] ||
+          pixels[floor + 2] !== pixels[opening + 2],
+      });
+    }
+    return results;
+  });
+  assert(
+    ladderOpenings.every((room) => room.open),
+    "Floor spans ladder opening",
+  );
   await writeFile(
     resolve(out, "proof.json"),
     JSON.stringify(
@@ -211,6 +243,7 @@ try {
         browser: browser.version(),
         ...result,
         freshness,
+        ladderOpenings,
         sameOrderSnapshotClearsPriorOutcomes: resetPixels === 0,
         errors,
         at: new Date().toISOString(),
