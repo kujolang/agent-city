@@ -2,12 +2,14 @@
   "kind": "SYNTHETIC PROVIDER CONTRACT; not live AI product proof",
   "passed": true,
   "calls": 4,
-  "observedRows": 14,
+  "observedRows": 16,
   "startedBeforeControlledCompletion": true,
   "reviewerHandoff": true,
   "originalTaskReachesReviewer": true,
   "dispatchOwnedTaskState": true,
   "realLocalRag": true,
+  "realLocalMcp": true,
+  "mcpContextReachesBothModels": true,
   "redirectsRejected": true,
   "privateArtifact": true,
   "sourceQualifiedDraftAndReview": true,
@@ -16,5 +18,5 @@
   "metadataOnlySpool": true,
   "providerFailureRetained": true,
   "unauthorizedRequestsRejected": true,
-  "at": "2026-09-08T13:59:41.035Z"
+  "at": "2026-09-08T14:30:18.573Z"
 }

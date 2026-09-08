@@ -3,6 +3,7 @@ import { spawn } from "node:child_process";
 import { readFile, mkdir, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import assert from "node:assert/strict";
+import { prepareMcpProof } from "./prepare-mcp-proof";
 
 const root = resolve(import.meta.dirname, "..");
 const prefix = "fixture-control-" + Date.now() + "-";
@@ -62,6 +63,8 @@ function startService() {
       CITY_MODEL_ENDPOINT: "http://127.0.0.1:18996/v1/chat/completions",
       CITY_MODEL: "synthetic-contract-fixture",
       RAG_URL: "http://127.0.0.1:18995",
+      CITY_MCP_URL: "http://127.0.0.1:18994/mcp/v1",
+      CITY_MCP_TOKEN: "isolated-contract-mcp-token",
       CITY_MODEL_API_KEY: "fixture-secret-not-a-real-key",
     },
     stdio: "ignore",
@@ -82,7 +85,27 @@ async function until<T>(fn: () => Promise<T>, ok: (value: T) => boolean) {
   throw Error("Contract condition timed out");
 }
 let rag: ReturnType<typeof spawn> | null = null;
+let mcp: ReturnType<typeof spawn> | null = null;
 try {
+  const mcpRoot = await prepareMcpProof(
+    resolve(root, ".runtime", prefix, "mcp"),
+    18994,
+    "isolated-contract-mcp-token",
+  );
+  mcp = spawn(
+    resolve(root, "../kujo/target/release/kujo"),
+    ["run", "server.kujo", "--interpreter"],
+    { cwd: mcpRoot, stdio: "ignore" },
+  );
+  await until(
+    async () =>
+      (
+        await fetch("http://127.0.0.1:18994/mcp/v1/health", {
+          headers: { authorization: "Bearer isolated-contract-mcp-token" },
+        })
+      ).ok,
+    Boolean,
+  );
   const ragIndex = resolve(root, ".runtime", prefix, "rag.json");
   await mkdir(resolve(root, ".runtime", prefix), {
     recursive: true,
@@ -164,6 +187,7 @@ try {
     prompt:
       "Private fixture task do not put in telemetry: explain Kujo imports",
     useLocalDocs: true,
+    useMcpDocs: true,
   });
   assert.equal(accepted.status, 202);
   const job = await accepted.json();
@@ -214,6 +238,14 @@ try {
   );
   assert.equal(calls, 2);
   assert(
+    JSON.stringify(requests[0].messages).includes("Demo Documentation"),
+    "Actual MCP content must reach the writing model",
+  );
+  assert(
+    JSON.stringify(requests[1].messages).includes("Demo Documentation"),
+    "Actual MCP content must reach the reviewer",
+  );
+  assert(
     JSON.stringify(requests[1].messages).includes(
       "Private fixture task do not put in telemetry: explain Kujo imports",
     ),
@@ -232,6 +264,12 @@ try {
     ),
   );
   assert(rows.some((e) => e.capability === "artifact.created"));
+  const mcpRows = rows.filter((e) => e.capability === "mcp.call");
+  assert.equal(mcpRows.length, 2);
+  assert.equal(mcpRows[0].phase, "started");
+  assert.equal(mcpRows[1].outcome, "succeeded");
+  assert.equal(mcpRows[1].metadata.server, "mcp-demo");
+  assert(!JSON.stringify(rows).includes("Demo Documentation"));
   assert(
     rows.some(
       (e) =>
@@ -311,6 +349,8 @@ try {
     originalTaskReachesReviewer: true,
     dispatchOwnedTaskState: true,
     realLocalRag: true,
+    realLocalMcp: true,
+    mcpContextReachesBothModels: true,
     redirectsRejected: true,
     privateArtifact: true,
     sourceQualifiedDraftAndReview: true,
@@ -332,4 +372,5 @@ try {
   service.kill("SIGTERM");
   provider.close();
   rag?.kill("SIGTERM");
+  mcp?.kill("SIGTERM");
 }

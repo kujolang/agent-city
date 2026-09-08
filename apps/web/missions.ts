@@ -10,6 +10,7 @@ export function mountMissions(host: HTMLElement) {
     <button type="submit">Save connection</button></form></details>
     <form id="mission-form"><label>Task type <select name="kind"><option value="writing">Writing + review</option><option value="code">Code + review</option></select></label>
     <label><input type="checkbox" name="useLocalDocs"> Use indexed local Kujo docs</label>
+    <label><input type="checkbox" name="useMcpDocs"> Read local MCP demo README</label>
     <label>Task <textarea name="prompt" rows="3" maxlength="16384" required placeholder="Describe the small task you want the agents to complete."></textarea></label>
     <details><summary>Optional JavaScript function checks</summary><label>Function contract JSON <textarea name="functionContract" rows="4" placeholder='{"exportName":"sum","cases":[{"name":"empty","args":[[]],"equals":0}]}'></textarea></label><p class="muted">Explicitly runs the generated module in a disposable browser worker. JSON arguments/results only; no filesystem or network integrations. Requires installed Chromium. Each case gets 1.5 seconds.</p></details>
     <button type="submit" disabled>Start mission</button></form>
@@ -149,6 +150,7 @@ export function mountMissions(host: HTMLElement) {
           kind: fields.get("kind"),
           prompt: fields.get("prompt"),
           useLocalDocs: fields.has("useLocalDocs"),
+          useMcpDocs: fields.has("useMcpDocs"),
           ...(contract ? { functionContract } : {}),
         }),
       });

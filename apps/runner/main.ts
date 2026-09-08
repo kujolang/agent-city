@@ -21,6 +21,7 @@ type Job = {
   status: "running" | "completed" | "failed" | "unknown";
   startedAt: string;
   useLocalDocs?: boolean;
+  useMcpDocs?: boolean;
   finishedAt?: string;
 };
 let jobs: Job[] = [];
@@ -258,6 +259,8 @@ const server = createServer(async (req, res) => {
         !["writing", "code"].includes(data.kind) ||
         (data.useLocalDocs !== undefined &&
           typeof data.useLocalDocs !== "boolean") ||
+        (data.useMcpDocs !== undefined &&
+          typeof data.useMcpDocs !== "boolean") ||
         typeof data.prompt !== "string" ||
         !data.prompt.trim() ||
         Buffer.byteLength(data.prompt) > 16_384
@@ -287,6 +290,7 @@ const server = createServer(async (req, res) => {
         id,
         kind: data.kind,
         useLocalDocs: data.useLocalDocs === true,
+        useMcpDocs: data.useMcpDocs === true,
         status: "running",
         startedAt: new Date().toISOString(),
       };
@@ -302,6 +306,7 @@ const server = createServer(async (req, res) => {
             CITY_MISSION_ID: id,
             CITY_FUNCTION_CONTRACT_FILE: contractFile,
             CITY_USE_RAG: data.useLocalDocs === true ? "1" : "0",
+            CITY_USE_MCP: data.useMcpDocs === true ? "1" : "0",
             CITY_MODEL_ENDPOINT: config!.endpoint,
             CITY_MODEL: config!.model,
             CITY_MODEL_API_KEY: config!.apiKey,
