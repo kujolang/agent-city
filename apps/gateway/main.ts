@@ -259,6 +259,7 @@ const server = createServer(async (req, res) => {
     ![
       "http://127.0.0.1:5178",
       "http://localhost:5178",
+      process.env.CITY_WEB_ORIGIN || "http://127.0.0.1:5178",
       "http://127.0.0.1:" + (process.env.CITY_PORT || "7792"),
     ].includes(origin)
   )

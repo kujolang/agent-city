@@ -1,6 +1,6 @@
 import { validateModelConfig } from "../apps/runner/config";
 import { spawn } from "node:child_process";
-import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { mkdir, readFile, writeFile, rename } from "node:fs/promises";
 import { resolve } from "node:path";
 import { randomUUID } from "node:crypto";
 
@@ -22,6 +22,7 @@ if (!/^mission-[0-9a-f-]{36}$/.test(id))
 const dir = resolve(root, ".runtime/missions", id);
 await mkdir(dir, { recursive: true, mode: 0o700 });
 await writeFile(resolve(dir, "task.txt"), prompt, { mode: 0o600 });
+await writeFile(resolve(dir, "exchanges.jsonl"), "", { mode: 0o600 });
 const output = resolve(dir, kind === "code" ? "reviewed.mjs" : "reviewed.md");
 await writeFile(output, "", { mode: 0o600 });
 const producer = (process.env.CITY_SOURCE_PREFIX || "review-") + id;
@@ -29,19 +30,42 @@ if (producer.length > 80 || !/^[a-zA-Z0-9_.:-]+$/.test(producer))
   throw Error(
     "Source prefix must keep producer identity within 80 safe characters",
   );
+async function writeReceipt(data: unknown) {
+  await writeFile(resolve(dir, "receipt.tmp"), JSON.stringify(data, null, 2), {
+    mode: 0o600,
+  });
+  await rename(resolve(dir, "receipt.tmp"), resolve(dir, "receipt.json"));
+}
 const startedAt = new Date().toISOString();
-await writeFile(
-  resolve(dir, "receipt.json"),
-  JSON.stringify({ id, producer, kind, status: "running", startedAt }),
-  { mode: 0o600 },
-);
+await writeReceipt({
+  id,
+  producer,
+  kind,
+  status: "running",
+  startedAt,
+  hostPid: process.pid,
+});
 const child = spawn(
   process.env.KUJO_BIN || resolve(root, "../kujo/target/release/kujo"),
-  ["run", resolve(root, "integrations/kujo/mission.kujo"), "--interpreter"],
+  [
+    "run",
+    resolve(root, "integrations/kujo/dispatch-mission.kujo"),
+    "--interpreter",
+  ],
   {
-    cwd: resolve(root, "../agents-sdk"),
+    cwd: resolve(root, "../dispatch"),
+    detached: process.platform !== "win32",
     env: {
       ...process.env,
+      KUJO_BIN:
+        process.env.KUJO_BIN || resolve(root, "../kujo/target/release/kujo"),
+      CITY_MISSION_ID: id,
+      // Explicitly scoped to this generated private mission directory.
+      DISPATCH_ALLOW_ANY_OUTPUT_ROOT: "true",
+      CITY_SDK_ROOT: resolve(root, "../agents-sdk"),
+      CITY_SDK_EXAMPLE: resolve(root, "integrations/kujo/mission.kujo"),
+      CITY_DISPATCH_ROOT: resolve(dir, "dispatch"),
+      CITY_DISPATCH_RECEIPT: resolve(dir, "dispatch.json"),
       CITY_RUN: id,
       CITY_TASK: id + ":task",
       CITY_PRODUCER: producer,
@@ -49,7 +73,12 @@ const child = spawn(
       CITY_MISSION_KIND: kind,
       CITY_PROMPT_FILE: resolve(dir, "task.txt"),
       CITY_OUTPUT_FILE: output,
-      CITY_SPOOL: resolve(root, `.runtime/spool-${producer}.jsonl`),
+      CITY_EXCHANGE_FILE: resolve(dir, "exchanges.jsonl"),
+      CITY_SPOOL: resolve(
+        root,
+        process.env.CITY_RUNTIME_DIR || ".runtime",
+        `spool-${producer}.jsonl`,
+      ),
     },
     stdio: ["ignore", "pipe", "pipe"],
   },
@@ -62,8 +91,15 @@ child.stderr.on("data", (d) => {
 });
 let force: ReturnType<typeof setTimeout> | undefined;
 const stop = () => {
-  child.kill("SIGTERM");
-  force ??= setTimeout(() => child.kill("SIGKILL"), 5000);
+  const kill = (signal: NodeJS.Signals) => {
+    if (!child.pid) return;
+    try {
+      if (process.platform === "win32") child.kill(signal);
+      else process.kill(-child.pid, signal);
+    } catch {}
+  };
+  kill("SIGTERM");
+  force ??= setTimeout(() => kill("SIGKILL"), 5000);
 };
 process.once("SIGINT", stop);
 process.once("SIGTERM", stop);
@@ -79,26 +115,18 @@ const code = await new Promise<number | null>((ok, fail) => {
     process.removeListener("SIGINT", stop);
     process.removeListener("SIGTERM", stop);
   });
-await writeFile(
-  resolve(dir, "receipt.json"),
-  JSON.stringify(
-    {
-      id,
-      producer,
-      kind,
-      status: code === 0 ? "completed" : "failed",
-      code,
-      startedAt,
-      finishedAt: new Date().toISOString(),
-      output: code === 0 ? output : null,
-      execution:
-        "SDK model request and reviewer handoff; generated code is not executed",
-    },
-    null,
-    2,
-  ),
-  { mode: 0o600 },
-);
+await writeReceipt({
+  id,
+  producer,
+  kind,
+  status: code === 0 ? "completed" : "failed",
+  code,
+  startedAt,
+  finishedAt: new Date().toISOString(),
+  output: code === 0 ? output : null,
+  execution:
+    "Dispatch workflow, SDK model request and reviewer handoff; generated code is not executed",
+});
 if (code !== 0) {
   await writeFile(resolve(dir, "private-error.log"), diagnostic, {
     mode: 0o600,

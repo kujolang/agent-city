@@ -13,3 +13,5 @@ main{max-width:1500px;grid-template-columns:156px minmax(550px,1fr) 264px;gap:12
 .mission-panel{border:2px solid #347fea;background:#02050a;margin-top:14px;padding:12px}.mission-panel label{display:block;margin-bottom:8px}.mission-panel textarea{display:block;width:100%;resize:vertical;background:#000;color:#dce8ff;border:2px solid #9aaabe;padding:10px;font:inherit}.mission-panel textarea:focus-visible{outline:3px solid #fff18f}.mission-panel button:disabled{opacity:.55;cursor:default}#mission-jobs{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}#mission-jobs button{font-size:11px}#mission-artifact{max-height:360px;overflow:auto;line-height:1.6}
 
 .mission-panel input{width:100%;background:#000;color:#dce8ff;border:1px solid #7eafff;padding:7px;font:inherit}.mission-panel input:focus-visible{outline:3px solid #fff18f}.mission-panel details{padding:8px 0}.mission-panel details form{padding:12px 0}
+
+.mission-panel input[type=checkbox]{width:auto;margin-right:6px}

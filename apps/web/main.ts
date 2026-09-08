@@ -27,16 +27,23 @@ $("#app").innerHTML =
 const rosterRail = document.createElement("aside");
 rosterRail.className = "roster-rail";
 rosterRail.setAttribute("aria-label", "Observed agent roster");
-const rosterHeading = $("#roster").previousElementSibling!.previousElementSibling!;
+const rosterHeading =
+  $("#roster").previousElementSibling!.previousElementSibling!;
 const filterLabel = $("#filter").parentElement!;
 rosterRail.append(rosterHeading, filterLabel, $("#roster"));
 $("main").prepend(rosterRail);
 $("main > section").classList.add("world-column");
 $("main > aside:last-child").classList.add("inspector-rail");
 const missions = mountMissions($(".world-column"));
-matchMedia("(prefers-reduced-motion: reduce)").addEventListener("change", (event) => {
-  if (event.matches) { paused = true; renderDOM(); }
-});
+matchMedia("(prefers-reduced-motion: reduce)").addEventListener(
+  "change",
+  (event) => {
+    if (event.matches) {
+      paused = true;
+      renderDOM();
+    }
+  },
+);
 let replayMode = false;
 let rendererReady = false;
 let truth = initialTruth(),
@@ -78,14 +85,24 @@ try {
   renderer.app.canvas.addEventListener("webglcontextrestored", () => {
     rendererReady = true;
   });
+  let resizeFrame = 0;
   new ResizeObserver(() => {
-    const scale = Math.max(
-      1,
-      Math.min(3, Math.floor($("#canvas").clientWidth / 256), Math.max(1, Math.floor((innerHeight - 170) / 240))),
-    );
-    const canvas = $("#canvas canvas");
-    canvas.style.width = 256 * scale + "px";
-    canvas.style.height = 240 * scale + "px";
+    cancelAnimationFrame(resizeFrame);
+    resizeFrame = requestAnimationFrame(() => {
+      const scale = Math.max(
+        1,
+        Math.min(
+          3,
+          Math.floor($("#canvas").clientWidth / 256),
+          Math.max(1, Math.floor((innerHeight - 170) / 240)),
+        ),
+      );
+      const canvas = $("#canvas canvas");
+      const width = 256 * scale + "px",
+        height = 240 * scale + "px";
+      if (canvas.style.width !== width) canvas.style.width = width;
+      if (canvas.style.height !== height) canvas.style.height = height;
+    });
   }).observe($("#canvas"));
 } catch {
   $("#canvas").textContent =
@@ -143,7 +160,16 @@ function renderDOM() {
         )
         .map((a, i) => {
           const b = document.createElement("button");
-          b.textContent = `${badge(a.id)} ${a.profile === "local-eval-invocation" ? "VERIFY" : a.profile === "local-workcell-invocation" ? "WORKCELL" : a.profile === "local-mcp-worker" ? "MCP" : a.profile === "unknown" ? "UNKNOWN" : "DOCS"} · ${a.id.split(":").at(-1)}`;
+          const roles: Record<string, string> = {
+            "city-writer": "WRITER",
+            "city-coder": "CODER",
+            "city-reviewer": "REVIEWER",
+            "local-eval-invocation": "VERIFY",
+            "local-workcell-invocation": "WORKCELL",
+            "local-mcp-worker": "MCP",
+            "local-documentation-worker": "DOCS",
+          };
+          b.textContent = `${badge(a.id)} ${roles[a.profile] || "UNKNOWN"} · ${a.id.split(":").at(-1)}`;
           b.setAttribute("aria-pressed", String(a.id === selected));
           b.title = a.id;
           b.onclick = () => choose(a.id);

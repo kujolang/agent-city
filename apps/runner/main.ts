@@ -1,7 +1,7 @@
 import { validateModelConfig, type ModelConfig } from "./config";
 import { createServer } from "node:http";
 import { randomBytes, randomUUID } from "node:crypto";
-import { mkdir, readFile, writeFile, rename } from "node:fs/promises";
+import { mkdir, readFile, writeFile, rename, stat } from "node:fs/promises";
 import { resolve } from "node:path";
 import { spawn, type ChildProcess } from "node:child_process";
 
@@ -19,6 +19,7 @@ type Job = {
   kind: "writing" | "code";
   status: "running" | "completed" | "failed" | "unknown";
   startedAt: string;
+  useLocalDocs?: boolean;
   finishedAt?: string;
 };
 let jobs: Job[] = [];
@@ -28,11 +29,49 @@ try {
   if (e.code !== "ENOENT") throw e;
 }
 for (const job of jobs) if (job.status === "running") job.status = "unknown";
-async function save() {
-  await writeFile(resolve(dir, "jobs.tmp"), JSON.stringify(jobs), {
-    mode: 0o600,
-  });
-  await rename(resolve(dir, "jobs.tmp"), resolve(dir, "jobs.json"));
+let storageHealthy = true;
+let persistence = Promise.resolve();
+function save() {
+  const snapshot = JSON.stringify(jobs);
+  persistence = persistence
+    .then(async () => {
+      await writeFile(resolve(dir, "jobs.tmp"), snapshot, { mode: 0o600 });
+      await rename(resolve(dir, "jobs.tmp"), resolve(dir, "jobs.json"));
+    })
+    .catch((error) => {
+      storageHealthy = false;
+      throw error;
+    });
+  return persistence;
+}
+async function reconcile() {
+  let changed = false;
+  for (const job of jobs.filter((j) => j.status === "unknown")) {
+    try {
+      const receipt = JSON.parse(
+        await readFile(
+          resolve(root, ".runtime/missions", job.id, "receipt.json"),
+          "utf8",
+        ),
+      );
+      if (
+        receipt.id !== job.id ||
+        receipt.kind !== job.kind ||
+        typeof receipt.finishedAt !== "string"
+      )
+        continue;
+      if (receipt.status === "completed" && receipt.code === 0)
+        job.status = "completed";
+      else if (receipt.status === "failed" && receipt.code !== 0)
+        job.status = "failed";
+      else continue;
+      job.finishedAt = receipt.finishedAt;
+      changed = true;
+    } catch (e: any) {
+      if (e.code !== "ENOENT" && !(e instanceof SyntaxError)) throw e;
+    }
+  }
+  if (changed) await save();
 }
 await save();
 let active: ChildProcess | null = null;
@@ -67,16 +106,50 @@ const server = createServer(async (req, res) => {
   )
     return send(403, { error: "Local origin required" });
   try {
-    if (req.method === "GET" && req.url === "/control/status")
+    if (req.method === "GET" && req.url === "/control/status") {
+      await reconcile();
       return send(200, {
         configured: configured(),
         model: config?.model || null,
         endpoint: config?.endpoint || "",
         hasCredential: Boolean(config?.apiKey),
         token,
-        busy: Boolean(active) || submitting,
+        storageHealthy,
+        busy:
+          Boolean(active) ||
+          submitting ||
+          jobs.some((j) => j.status === "unknown"),
         jobs,
       });
+    }
+    if (req.method === "GET" && req.url?.startsWith("/control/exchanges/")) {
+      const id = req.url.slice("/control/exchanges/".length);
+      if (!jobs.some((j) => j.id === id))
+        return send(404, { error: "Mission not found" });
+      const file = resolve(root, ".runtime/missions", id, "exchanges.jsonl");
+      let rows: unknown[] = [],
+        complete = false;
+      try {
+        if ((await stat(file)).size > 2_097_152)
+          return send(413, {
+            error: "Exchange history exceeds local view limit",
+          });
+        const body = await readFile(file, "utf8");
+        const lines = body.split("\n");
+        lines.pop(); // Only complete appended records.
+        rows = lines.filter(Boolean).map((line) => JSON.parse(line));
+        complete = body === "" || body.endsWith("\n");
+        try {
+          await stat(file + ".gap");
+          complete = false;
+        } catch (e: any) {
+          if (e.code !== "ENOENT") throw e;
+        }
+      } catch (e: any) {
+        if (e.code !== "ENOENT") throw e;
+      }
+      return send(200, { id, records: rows, recordingComplete: complete });
+    }
     if (req.method === "GET" && req.url?.startsWith("/control/artifact/")) {
       const id = req.url.slice("/control/artifact/".length);
       const job = jobs.find((j) => j.id === id && j.status === "completed");
@@ -105,8 +178,15 @@ const server = createServer(async (req, res) => {
       !req.headers["content-type"]?.startsWith("application/json")
     )
       return send(403, { error: "Explicit local command token required" });
-    if (active || submitting)
-      return send(409, { error: "One mission is already running" });
+    if (!storageHealthy)
+      return send(503, {
+        error: "Mission history storage is unavailable; commands stopped",
+      });
+    await reconcile();
+    if (active || submitting || jobs.some((j) => j.status === "unknown"))
+      return send(409, {
+        error: "A mission is running or awaiting source recovery",
+      });
     submitting = true;
     let body = "";
     try {
@@ -151,6 +231,8 @@ const server = createServer(async (req, res) => {
         !data ||
         typeof data !== "object" ||
         !["writing", "code"].includes(data.kind) ||
+        (data.useLocalDocs !== undefined &&
+          typeof data.useLocalDocs !== "boolean") ||
         typeof data.prompt !== "string" ||
         !data.prompt.trim() ||
         Buffer.byteLength(data.prompt) > 16_384
@@ -164,6 +246,7 @@ const server = createServer(async (req, res) => {
       const job: Job = {
         id,
         kind: data.kind,
+        useLocalDocs: data.useLocalDocs === true,
         status: "running",
         startedAt: new Date().toISOString(),
       };
@@ -177,6 +260,7 @@ const server = createServer(async (req, res) => {
           env: {
             ...process.env,
             CITY_MISSION_ID: id,
+            CITY_USE_RAG: data.useLocalDocs === true ? "1" : "0",
             CITY_MODEL_ENDPOINT: config!.endpoint,
             CITY_MODEL: config!.model,
             CITY_MODEL_API_KEY: config!.apiKey,

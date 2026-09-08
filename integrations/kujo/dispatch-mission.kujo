@@ -1,0 +1,51 @@
+# Agent City mission workflow. Run from the Dispatch module root; no producer-repo edits.
+from src.workflows.workflow import create_workflow
+from src.core.step import create_step
+from src.core.state import create_run_state
+from src.core.runner import run_workflow
+from src.core.plugins import create_plugin, apply_plugin_to_runtime
+from src.agents.agent import create_agent
+from src.tools.tool import register_default_tools
+
+worker := create_agent("city-worker", "Mission worker", "Produce and review requested artifact", "Configured provider mission", {}, [], [], {"type": "dict"}, {})
+workflow := create_workflow({"id": "agent-city-mission", "name": "Agent City writing/code mission", "description": "Actual Dispatch-owned mission state", "memory_config": {}, "default_retry_policy": {}, "agents": {}, "tools": [], "steps": [create_step("produce-artifact", "Produce reviewed artifact", "agent", {"agent_id": "city-worker", "output_key": "artifact"})], "input_schema": {"type": "dict"}, "output_schema": {"type": "dict"}, "approval_config": {"auto_approve": true}})
+handler := func(agent, input, state, tools, context) {
+    result := spawn_process([env_or("KUJO_BIN", "kujo"), "run", env_or("CITY_SDK_EXAMPLE", "examples/agent_city_observer.kujo"), "--interpreter"], {"cwd": env_or("CITY_SDK_ROOT", "../agents-sdk"), "inherit_env": true, "env": {"CITY_ATTEMPT": to_string(context["attempt"]), "CITY_RUN": state["run_id"], "CITY_TASK": state["run_id"] + ":" + context["step_id"]}, "timeout_ms": 220000, "max_output_bytes": 65536})
+    if result.success == false { return {"ok": false, "error": {"code": "sdk_failed", "message": "SDK child failed", "retryable": false}} }
+    return {"ok": true, "data": {"sdk_run": state["run_id"], "task": "produce-artifact", "artifact": "created"}}
+}
+installed := apply_plugin_to_runtime(workflow, register_default_tools("examples/research-report/sources"), create_plugin("agent-city-observer", {"city-worker": worker}, {"city-worker": handler}, []))
+workflow = installed["workflow"]
+state := create_run_state(workflow, {"mission": env_or("CITY_MISSION_ID", ""), "kind": env_or("CITY_MISSION_KIND", "")}, env_or("CITY_DISPATCH_ROOT", "tests/tmp/agent-city-mission"), {"auto_approve": true, "interactive": false})
+write_file(env_or("CITY_DISPATCH_RECEIPT", ""), to_json({"mission_id":env_or("CITY_MISSION_ID", ""), "run_id":state["run_id"], "task_id":state["run_id"]+":produce-artifact", "status":state["status"]}), true)
+# Source-owned state adapter: no messages, inputs or outputs enter the spool.
+func city_dispatch_emit(run_value, op_value, phase_value, outcome_value, meta_value) {
+    try {
+        path := env_or("CITY_SPOOL", "")
+        observed_attempt := 1
+        if has_key(meta_value, "attempt") { observed_attempt = meta_value["attempt"] }
+        capability := "dispatch.task"
+        if op_value == "workflow-state" { capability = "dispatch.workflow" }
+        payload := to_json({"schema":"kujo.lifecycle.v1", "producer_instance":env_or("CITY_PRODUCER", ""), "run_id":run_value, "agent_id":env_or("CITY_ACTOR", "worker-1"), "task_id":run_value+":produce-artifact", "operation_id":op_value, "attempt":observed_attempt, "kind":"internal", "capability":capability, "phase":phase_value, "outcome":outcome_value, "occurred_at_ms":current_timestamp(), "metadata":meta_value})+"\n"
+        used := 0
+        if file_exists(path) { used = file_size(path) }
+        if used+len(payload)<=262144 { append_file(path,payload) } else { write_file(path+".gap","overflow",true) }
+    } except err { return false }
+    return true
+}
+city_dispatch_emit(state["run_id"], "intake", "finished", "succeeded", {"taskState":"queued"})
+city_dispatch_emit(state["run_id"], "assignment", "finished", "succeeded", {"taskState":"assigned"})
+city_hook := func(event) {
+    kind := event["event_type"]
+    if kind == "step_started" { city_dispatch_emit(event["run_id"], "task", "started", "unset", {"taskState":"running"}) }
+    if kind == "step_completed" { city_dispatch_emit(event["run_id"], "task", "finished", "succeeded", {"taskState":"completed"}) }
+    if kind == "step_failed" { city_dispatch_emit(event["run_id"], "task", "finished", "failed", {"taskState":"failed"}) }
+    if kind == "policy_denied" { city_dispatch_emit(event["run_id"], "policy-blocked", "finished", "failed", {"taskState":"blocked"}) }
+    if kind == "step_skipped" { city_dispatch_emit(event["run_id"], "task", "finished", "skipped", {"taskState":"skipped"}) }
+    if kind == "step_paused" { city_dispatch_emit(event["run_id"], "blocked", "finished", "unknown", {"taskState":"blocked"}) }
+}
+result := run_workflow(workflow, state, installed["tool_registry"], {"auto_approve": true, "interactive": false, "event_hook":city_hook, "on_attempt_observed":func(event) { if event["attempt"] > 1 { city_dispatch_emit(event["run_id"], "retry-"+to_string(event["attempt"]), "finished", "unknown", {"taskState":"retrying", "attempt":event["attempt"]}) } }})
+# Read actual persisted workflow state, independent of SDK success.
+city_dispatch_emit(state["run_id"], "workflow-state", "finished", "unknown", {"workflowState":result["run_state"]["status"]})
+write_file(env_or("CITY_DISPATCH_RECEIPT", ""), to_json({"mission_id":env_or("CITY_MISSION_ID", ""), "run_id":state["run_id"], "task_id":state["run_id"]+":produce-artifact", "status":result["run_state"]["status"], "ok":result["ok"]}), true)
+assert(result["ok"], "Dispatch mission failed")

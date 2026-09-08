@@ -10,10 +10,37 @@ import { spawn } from "node:child_process";
 import { resolve } from "node:path";
 import { createHash } from "node:crypto";
 const root = resolve(import.meta.dirname, "../.."),
-  runtime = resolve(root, ".runtime");
+  runtime = resolve(root, process.env.CITY_RUNTIME_DIR || ".runtime");
 const watchdog = resolve(root, "../watchdog"),
   kujo = process.env.KUJO_BIN || "kujo";
 const hash = (s: string) => createHash("sha256").update(s).digest("hex");
+export function bridgeMetadata(metadata: Record<string, unknown>) {
+  return Object.fromEntries(
+    Object.entries(metadata)
+      .filter(
+        ([k, v]) =>
+          [
+            "server",
+            "tool",
+            "invocation",
+            "resultCode",
+            "approval",
+            "taskState",
+            "workflowState",
+            "artifactRef",
+            "repoRef",
+            "workcellRef",
+            "relatedInstance",
+            "appearance",
+            "station",
+          ].includes(k) &&
+          typeof v === "string" &&
+          v.length > 0 &&
+          v.length <= 160,
+      )
+      .map(([k, v]) => ["kujo.meta." + k, v]),
+  );
+}
 export async function bridgeOnce() {
   await mkdir(resolve(runtime, "batches"), { recursive: true });
   const files = await readdir(resolve(runtime, "batches"));
@@ -128,30 +155,7 @@ export async function bridgeOnce() {
             "kujo.related.agent": e.related_agent_id || "",
             "kujo.profile.id": e.profile || "unknown",
             "kujo.task.binding": e.task_id ? "explicit" : "unknown",
-            ...Object.fromEntries(
-              Object.entries(e.metadata || {})
-                .filter(
-                  ([k, v]) =>
-                    [
-                      "server",
-                      "tool",
-                      "invocation",
-                      "resultCode",
-                      "approval",
-                      "taskState",
-                      "workflowState",
-                      "artifactRef",
-                      "repoRef",
-                      "workcellRef",
-                      "relatedInstance",
-                      "appearance",
-                      "station",
-                    ].includes(k) &&
-                    typeof v === "string" &&
-                    v.length <= 160,
-                )
-                .map(([k, v]) => ["kujo.meta." + k, v]),
-            ),
+            ...bridgeMetadata(e.metadata || {}),
           },
         };
         await writeFile(

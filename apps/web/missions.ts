@@ -9,10 +9,11 @@ export function mountMissions(host: HTMLElement) {
     <p class="muted">Saved only in a private local configuration file. A blank key keeps the saved key only for the same endpoint.</p>
     <button type="submit">Save connection</button></form></details>
     <form id="mission-form"><label>Task type <select name="kind"><option value="writing">Writing + review</option><option value="code">Code + review</option></select></label>
+    <label><input type="checkbox" name="useLocalDocs"> Use indexed local Kujo docs</label>
     <label>Task <textarea name="prompt" rows="3" maxlength="16384" required placeholder="Describe the small task you want the agents to complete."></textarea></label>
     <button type="submit" disabled>Start mission</button></form>
     <p class="muted">Sends your task to the configured model. The SDK hands the draft to a reviewer. Code is saved for review; it is not executed.</p>
-    <div id="mission-jobs" aria-label="Mission history"></div><pre id="mission-artifact" tabindex="0" aria-label="Selected mission output"></pre>`;
+    <div id="mission-jobs" aria-label="Mission history"></div><pre id="mission-exchanges" tabindex="0" aria-label="Observed agent responses"></pre><pre id="mission-artifact" tabindex="0" aria-label="Selected mission output"></pre>`;
   host.querySelector(".world")!.after(panel);
   const form = panel.querySelector<HTMLFormElement>("#mission-form")!;
   const modelForm = panel.querySelector<HTMLFormElement>("#model-form")!;
@@ -35,7 +36,15 @@ export function mountMissions(host: HTMLElement) {
         status.textContent = data.configured
           ? `MODEL / ${data.model}${data.busy ? " · Mission running" : " · Configured"}`
           : "MODEL NOT CONFIGURED · Open Model connection to configure your provider.";
-      submit.disabled = replay || pending || data.busy || !data.configured;
+      submit.disabled =
+        replay ||
+        pending ||
+        data.busy ||
+        !data.configured ||
+        !data.storageHealthy;
+      if (!data.storageHealthy)
+        status.textContent =
+          "MISSION STORAGE UNAVAILABLE · Commands disabled to preserve evidence.";
       if (replay)
         status.textContent =
           "REPLAY · Mission commands disabled. Return to Live to start new work.";
@@ -53,8 +62,33 @@ export function mountMissions(host: HTMLElement) {
         for (const job of data.jobs) {
           const button = document.createElement("button");
           button.textContent = `${job.kind} / ${job.status} / ${job.id.slice(-8)}`;
-          button.disabled = job.status !== "completed";
+
           button.onclick = async () => {
+            try {
+              const response = await fetch(
+                "/control/exchanges/" + encodeURIComponent(job.id),
+              );
+              if (!response.ok) throw Error();
+              const exchanges = await response.json();
+              panel.querySelector("#mission-exchanges")!.textContent =
+                (exchanges.recordingComplete
+                  ? "RECORDED MODEL RESPONSES"
+                  : "PARTIAL / UNKNOWN RESPONSE COVERAGE") +
+                "\n\n" +
+                exchanges.records
+                  .map(
+                    (entry: any) =>
+                      `${entry.producer}:${entry.run}:${entry.agent} / response ${entry.requestOrdinal}\n${entry.content}`,
+                  )
+                  .join("\n\n");
+            } catch {
+              panel.querySelector("#mission-exchanges")!.textContent =
+                "Response history unavailable; no dialogue inferred.";
+            }
+            if (job.status !== "completed") {
+              output.textContent = `Mission ${job.status}; no completed artifact claimed.`;
+              return;
+            }
             try {
               const response = await fetch(
                 "/control/artifact/" + encodeURIComponent(job.id),
@@ -92,6 +126,7 @@ export function mountMissions(host: HTMLElement) {
         body: JSON.stringify({
           kind: fields.get("kind"),
           prompt: fields.get("prompt"),
+          useLocalDocs: fields.has("useLocalDocs"),
         }),
       });
       const result = await response.json();

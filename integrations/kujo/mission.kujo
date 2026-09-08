@@ -1,3 +1,4 @@
+from src.agents.retrieval.rag_adapter import create_kujo_rag_provider, create_kujo_rag_http_transport
 # Run from the Agents SDK module root. This entry point has no offline fallback.
 # Prompts/results remain private mission files; the lifecycle spool is metadata only.
 from src.agents.ai.adapter import create_ai_sdk_adapter
@@ -24,6 +25,7 @@ if kind == "code" {
     instructions = "Write a small self-contained JavaScript module for the requested task. Return raw JavaScript only, without Markdown fences. Do not claim the code has been executed or tested."
     review = "Review the supplied JavaScript for correctness and edge cases. Return the corrected raw JavaScript only, without Markdown fences. Do not claim execution or passing tests."
 }
+response_counts := {}
 adapter := create_ai_sdk_adapter({"chat_completion_fn": func(client, messages, options) {
     headers := {"Content-Type": "application/json"}
     key := env_or("CITY_MODEL_API_KEY", "")
@@ -37,6 +39,15 @@ adapter := create_ai_sdk_adapter({"chat_completion_fn": func(client, messages, o
                 if has_key(body, "choices") && len(body["choices"]) > 0 {
                     content := body["choices"][0]["message"]["content"]
                     if type(content) == "string" && trim(content) != "" {
+                        # Authorship is an explicit per-agent binding passed through model_policy.
+                        author := options["city_author"]
+                        author_run := options["city_author_run"]
+                        ordinal := 1
+                        if has_key(response_counts, author) { ordinal = response_counts[author] + 1 }
+                        response_counts[author] := ordinal
+                        evidence := {"schema":"agent-city.exchange.v1", "producer":env_or("CITY_PRODUCER", ""), "run":author_run, "agent":author, "requestOrdinal":ordinal, "occurredAtMs":current_timestamp(), "kind":"model.response", "content":content}
+                        try { append_file(env_or("CITY_EXCHANGE_FILE", ""), to_json(evidence)+"\n") }
+                        except exchange_error { try { write_file(env_or("CITY_EXCHANGE_FILE", "")+".gap", "output-recording-failed", true) } except ignored { } }
                         return {"ok": true, "status_code": 200, "model": model, "output_text": content}
                     }
                 }
@@ -46,12 +57,16 @@ adapter := create_ai_sdk_adapter({"chat_completion_fn": func(client, messages, o
     } except err { return {"ok": false, "error": {"code": "provider_invalid_response", "message": "Model response could not be read"}} }
     return {"ok": false, "error": {"code": "provider_no_output", "message": "Model returned no usable text"}}
 }})
-reviewer := create_agent({"id": "reviewer", "instructions": review})
+use_docs := env_or("CITY_USE_RAG", "0") == "1"
+retrieval := {}
+if use_docs { retrieval = create_kujo_rag_provider({"namespace":"agent-city", "transport":create_kujo_rag_http_transport(env_or("RAG_URL", "http://127.0.0.1:8791"), {})}) }
+reviewer := create_agent({"id": "reviewer", "instructions": review, "model_policy":{"city_author":"reviewer", "city_author_run":run_id+"-handoff-reviewer"}})
 runner := create_agent_runner({"ai_adapter": adapter, "handoff_registry": {"reviewer": reviewer}})
-agent := create_agent({"id": actor, "instructions": instructions, "policy": {"handoff": {"target_agent_id": "reviewer"}}})
+agent := create_agent({"id": actor, "instructions": instructions, "model_policy":{"city_author":actor, "city_author_run":run_id}, "policy": {"handoff": {"target_agent_id": "reviewer"}, "retrieval":{"enabled":use_docs}}})
 result := run_agent(runner, agent, create_agent_run_request(read_file(env_or("CITY_PROMPT_FILE", "")), {"run_id": run_id}), {
     "producer_instance": env_or("CITY_PRODUCER", ""), "observation_profile": "city-" + actor,
-    "observation_task_id": task_id, "on_lifecycle": sink, "max_iterations": 8
+    "observation_task_id": task_id, "on_lifecycle": sink, "max_iterations": 8,
+    "retrieval_provider":retrieval, "observation_collection":"kujo-docs"
 })
 if result["status"] != "completed" {
     write_file(env_or("CITY_OUTPUT_FILE", "") + ".failure.json", to_json(result["error"]), true)
