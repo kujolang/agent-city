@@ -47,6 +47,15 @@ cached graph travel, real upstairs retrieval evidence and current replay pins.
 Linked from the main handoff; exact and conceptual retrieval both passed.
 No duplicate atomic note created. SignalBox: no captures warranted.
 
+## Live MCP and original character continuation
+
+Saved `2d14ed93-eb88-4c1f-9b86-a272e9fb9c13`: real MCP/Library travel proof,
+original authored character atlas/portraits, actual failed and repaired/pass code
+attempts, verification scope and remaining visual/release work. Updated prior MCP
+handoff `94eb2733-55fb-441b-b2ae-e01975ec716b` to supersede its pending-live-proof
+limitation and link this checkpoint. Exact ID and conceptual “Agent City character
+atlas” retrieval both passed. No duplicate atomic note. SignalBox: no captures warranted.
+
 ## MCP and local tryout continuation
 
 Saved handoff `94eb2733-55fb-441b-b2ae-e01975ec716b`: explicit MCP source-context
