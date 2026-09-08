@@ -31,6 +31,23 @@ for (const name of names) {
   for (const o of objects)
     if (o.x < 0 || o.x >= 256 || o.y < 0 || o.y >= 208)
       throw Error("unreachable semantic object");
+  for (const o of objects) {
+    if (
+      name !== "city" &&
+      o.kind === "station" &&
+      (o.y !== 160 ||
+        o.x < 16 ||
+        o.x > 224 ||
+        cells[11 * 16 + Math.floor(o.x / 16)] !== 3)
+    )
+      throw Error("station has no reachable supported floor");
+    if (
+      name === "city" &&
+      o.kind === "portal" &&
+      (o.y !== 112 || o.x % 16 !== 0 || cells[7 * 16 + o.x / 16] !== 2)
+    )
+      throw Error("portal is not on the navigation corridor");
+  }
   maps[name] = { width: m.width, height: m.height, cells, objects };
 }
 for (const [name, m] of Object.entries(maps))

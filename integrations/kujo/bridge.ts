@@ -1,4 +1,11 @@
-import { readFile, writeFile, readdir, mkdir, stat } from "node:fs/promises";
+import {
+  rename,
+  readFile,
+  writeFile,
+  readdir,
+  mkdir,
+  stat,
+} from "node:fs/promises";
 import { spawn } from "node:child_process";
 import { resolve } from "node:path";
 import { createHash } from "node:crypto";
@@ -178,10 +185,22 @@ export async function bridgeOnce() {
 }
 if (process.argv[1] === import.meta.filename) {
   for (;;) {
+    let status = "LIVE";
     try {
       await bridgeOnce();
     } catch (e) {
+      status = "STALE";
       console.error(String(e));
+    }
+    try {
+      const heartbeat = resolve(runtime, "bridge-health.json");
+      await writeFile(
+        heartbeat + ".tmp",
+        JSON.stringify({ status, observedAt: Date.now() }),
+      );
+      await rename(heartbeat + ".tmp", heartbeat);
+    } catch {
+      /* A missing/stale heartbeat is detected by the gateway. */
     }
     await new Promise((r) => setTimeout(r, 200));
   }

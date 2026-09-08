@@ -1,0 +1,231 @@
+{
+  "producer": "milestone-retrieval-1788838681734",
+  "execution": "milestone-retrieval-1788838681734:run-1788838682177-9649:worker-1",
+  "dispatchOutput": "{\"actor\":\"worker-1\",\"retrieval_reason\":\"applied\",\"run_id\":\"run-1788838682177-9649\",\"schema\":\"agent-city.proof.v1\",\"status\":\"completed\"}\n\n{\"dispatch_run\":\"run-1788838682177-9649\",\"ok\":true}\n",
+  "browser": "151.0.7922.34",
+  "gates": {
+    "realDispatch": true,
+    "realSdk": true,
+    "realRag": true,
+    "startBeforeControlledCompletion": true,
+    "identityAcrossPortal": true,
+    "truthIndependentOfAnimation": true
+  },
+  "before": {
+    "truth": {
+      "agents": {
+        "milestone-retrieval-1788838681734:run-1788838682177-9649:worker-1": {
+          "id": "milestone-retrieval-1788838681734:run-1788838682177-9649:worker-1",
+          "profile": "local-documentation-worker",
+          "run": {
+            "namespace": "milestone-retrieval-1788838681734",
+            "id": "run-1788838682177-9649"
+          },
+          "task": {
+            "namespace": "dispatch",
+            "id": "run-1788838682177-9649:retrieve-docs"
+          },
+          "status": "running",
+          "lastObserved": 1788838684254,
+          "completeness": "complete",
+          "operations": {
+            "milestone-retrieval-1788838681734:run-1788838682177-9649:run:1": {
+              "key": "milestone-retrieval-1788838681734:run-1788838682177-9649:run:1",
+              "capability": "agent.run",
+              "collection": "unknown",
+              "status": "active",
+              "started": 1788838683440,
+              "finished": null,
+              "evidence": [
+                {
+                  "origin": "canonical",
+                  "recordId": "native:agent-city-sdk:050c17e576ee879ac2b3c0f989b036fcb3765b35c54373b7e9004f655770adbe",
+                  "hash": "2a301bae4af291394e21d750d118deec59071756ad2ec96368a8dc7ebd685bac",
+                  "sourceSequence": 91
+                }
+              ],
+              "partial": false
+            },
+            "milestone-retrieval-1788838681734:run-1788838682177-9649:retrieval:1": {
+              "key": "milestone-retrieval-1788838681734:run-1788838682177-9649:retrieval:1",
+              "capability": "rag.query",
+              "collection": "kujo-docs",
+              "status": "active",
+              "started": 1788838683553,
+              "finished": null,
+              "evidence": [
+                {
+                  "origin": "canonical",
+                  "recordId": "native:agent-city-sdk:4ed33abdbff050bda2a9021e94a77cc75804b6e9f355232eb4b2f15208ae3f84",
+                  "hash": "b2eebc6953005ae74ac459a607218873513ea903bfdce6b321886c4a75c3c508",
+                  "sourceSequence": 92
+                }
+              ],
+              "partial": false
+            }
+          }
+        }
+      },
+      "seen": [
+        "f359076970d91ac866b8148d3a69cebabc5b68a1b36f8f0d034c9c573c1c2dc6",
+        "5674bafc4d4f85ec903cd3ff018beb8505d50af77726c7f0f5cdba2b0d23d9b8"
+      ],
+      "health": "LIVE",
+      "gap": false,
+      "order": 2
+    },
+    "presentation": {
+      "seen": [
+        "f359076970d91ac866b8148d3a69cebabc5b68a1b36f8f0d034c9c573c1c2dc6",
+        "5674bafc4d4f85ec903cd3ff018beb8505d50af77726c7f0f5cdba2b0d23d9b8"
+      ],
+      "tick": 75,
+      "walkers": {
+        "milestone-retrieval-1788838681734:run-1788838682177-9649:worker-1": {
+          "id": "milestone-retrieval-1788838681734:run-1788838682177-9649:worker-1",
+          "scene": "city",
+          "x": 168,
+          "y": 112,
+          "phase": "outbound",
+          "age": 18,
+          "visit": {
+            "capability": "rag.query",
+            "keys": [
+              "milestone-retrieval-1788838681734:run-1788838682177-9649:retrieval:1"
+            ],
+            "first": 1788838683553,
+            "last": 1788838683553,
+            "collection": "kujo-docs",
+            "evidence": [
+              "native:agent-city-sdk:4ed33abdbff050bda2a9021e94a77cc75804b6e9f355232eb4b2f15208ae3f84"
+            ]
+          },
+          "queued": [],
+          "visits": 1
+        }
+      }
+    },
+    "selected": "milestone-retrieval-1788838681734:run-1788838682177-9649:worker-1",
+    "scene": "city",
+    "follow": "milestone-retrieval-1788838681734:run-1788838682177-9649:worker-1",
+    "health": "LIVE",
+    "paused": false
+  },
+  "after": {
+    "truth": {
+      "agents": {
+        "milestone-retrieval-1788838681734:run-1788838682177-9649:worker-1": {
+          "id": "milestone-retrieval-1788838681734:run-1788838682177-9649:worker-1",
+          "profile": "local-documentation-worker",
+          "run": {
+            "namespace": "milestone-retrieval-1788838681734",
+            "id": "run-1788838682177-9649"
+          },
+          "task": {
+            "namespace": "dispatch",
+            "id": "run-1788838682177-9649:retrieve-docs"
+          },
+          "status": "completed",
+          "lastObserved": 1788838686085,
+          "completeness": "complete",
+          "operations": {
+            "milestone-retrieval-1788838681734:run-1788838682177-9649:run:1": {
+              "key": "milestone-retrieval-1788838681734:run-1788838682177-9649:run:1",
+              "capability": "agent.run",
+              "collection": "unknown",
+              "status": "succeeded",
+              "started": 1788838683440,
+              "finished": 1788838685555,
+              "evidence": [
+                {
+                  "origin": "canonical",
+                  "recordId": "native:agent-city-sdk:050c17e576ee879ac2b3c0f989b036fcb3765b35c54373b7e9004f655770adbe",
+                  "hash": "2a301bae4af291394e21d750d118deec59071756ad2ec96368a8dc7ebd685bac",
+                  "sourceSequence": 91
+                },
+                {
+                  "origin": "canonical",
+                  "recordId": "native:agent-city-sdk:a487fc2bdb467ca6d4bc717b17a3129c8f1ce22ddda1c3210ad737d0bab46842",
+                  "hash": "9a2882a43fcfb502882bbf628151ad441b106203bf506041770195f5bf45f12d",
+                  "sourceSequence": 94
+                }
+              ],
+              "partial": false
+            },
+            "milestone-retrieval-1788838681734:run-1788838682177-9649:retrieval:1": {
+              "key": "milestone-retrieval-1788838681734:run-1788838682177-9649:retrieval:1",
+              "capability": "rag.query",
+              "collection": "kujo-docs",
+              "status": "succeeded",
+              "started": 1788838683553,
+              "finished": 1788838685263,
+              "evidence": [
+                {
+                  "origin": "canonical",
+                  "recordId": "native:agent-city-sdk:4ed33abdbff050bda2a9021e94a77cc75804b6e9f355232eb4b2f15208ae3f84",
+                  "hash": "b2eebc6953005ae74ac459a607218873513ea903bfdce6b321886c4a75c3c508",
+                  "sourceSequence": 92
+                },
+                {
+                  "origin": "canonical",
+                  "recordId": "native:agent-city-sdk:7f7743842a76196d912c65e0d09ea20b6abc0f6ad226173e7d2677380203f911",
+                  "hash": "a2ff6bc80635e475f5475c2e1a5cebd9ff610d702c6a2a42edd8d98310b88153",
+                  "sourceSequence": 93
+                }
+              ],
+              "partial": false
+            }
+          }
+        }
+      },
+      "seen": [
+        "f359076970d91ac866b8148d3a69cebabc5b68a1b36f8f0d034c9c573c1c2dc6",
+        "5674bafc4d4f85ec903cd3ff018beb8505d50af77726c7f0f5cdba2b0d23d9b8",
+        "13b8d09b908ec747ff8b81657498725ba7b831903ff2bc02d4010e6ce650fb47",
+        "2d4601bb96e73c774f4cc60cb66dbf95629dc95f7c5f2a6e03e79e378466ad3a"
+      ],
+      "health": "LIVE",
+      "gap": false,
+      "order": 4
+    },
+    "presentation": {
+      "seen": [
+        "f359076970d91ac866b8148d3a69cebabc5b68a1b36f8f0d034c9c573c1c2dc6",
+        "5674bafc4d4f85ec903cd3ff018beb8505d50af77726c7f0f5cdba2b0d23d9b8",
+        "13b8d09b908ec747ff8b81657498725ba7b831903ff2bc02d4010e6ce650fb47",
+        "2d4601bb96e73c774f4cc60cb66dbf95629dc95f7c5f2a6e03e79e378466ad3a"
+      ],
+      "tick": 107,
+      "walkers": {
+        "milestone-retrieval-1788838681734:run-1788838682177-9649:worker-1": {
+          "id": "milestone-retrieval-1788838681734:run-1788838682177-9649:worker-1",
+          "scene": "library",
+          "x": 48,
+          "y": 160,
+          "phase": "read",
+          "age": 18,
+          "visit": {
+            "capability": "rag.query",
+            "keys": [
+              "milestone-retrieval-1788838681734:run-1788838682177-9649:retrieval:1"
+            ],
+            "first": 1788838683553,
+            "last": 1788838683553,
+            "collection": "kujo-docs",
+            "evidence": [
+              "native:agent-city-sdk:4ed33abdbff050bda2a9021e94a77cc75804b6e9f355232eb4b2f15208ae3f84"
+            ]
+          },
+          "queued": [],
+          "visits": 1
+        }
+      }
+    },
+    "selected": "milestone-retrieval-1788838681734:run-1788838682177-9649:worker-1",
+    "scene": "library",
+    "follow": "milestone-retrieval-1788838681734:run-1788838682177-9649:worker-1",
+    "health": "LIVE",
+    "paused": false
+  },
+  "errors": []
+}

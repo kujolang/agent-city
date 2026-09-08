@@ -30,7 +30,7 @@ export function normalize(
   )
     throw Error("canonical schema rejected");
   const r = wrapper.record,
-    a = r.attributes;
+    a = r.attributes ?? {};
   if (
     a["kujo.workspace.id"] !== "local-agent-city" ||
     r.source.producer !== "agent-city-sdk"

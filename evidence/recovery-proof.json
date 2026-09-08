@@ -1,0 +1,25 @@
+{
+  "producer": "milestone-outage-1788838767144",
+  "sourceExit": 0,
+  "sourceOutput": "{\"actor\":\"worker-outage\",\"retrieval_reason\":\"applied\",\"run_id\":\"run-1788838767571-5673\",\"schema\":\"agent-city.proof.v1\",\"status\":\"completed\"}\n\n{\"dispatch_run\":\"run-1788838767571-5673\",\"ok\":true}\n",
+  "gatewayUnavailableDuringExecution": true,
+  "retainedBefore": 4,
+  "retainedAfter": 5,
+  "coverage": {
+    "status": "LIVE",
+    "gap": true,
+    "lastSuccess": 1788838773015,
+    "lastError": "",
+    "coverage": "SDK run and pre-model retrieval; retained local journal; reconnect history partial"
+  },
+  "browser": "151.0.7922.34",
+  "frameP95Ms": 16.700000000000728,
+  "selectionToInspectorMs": 0.3999999761581421,
+  "dpr": [
+    1,
+    1.25,
+    2
+  ],
+  "mobileWidth": 320,
+  "reducedMotion": true
+}

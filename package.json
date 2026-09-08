@@ -12,7 +12,7 @@
   "scripts": {
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
-    "build": "vite build apps/web --outDir ../../dist",
+    "build": "vite build apps/web --outDir ../../dist --emptyOutDir",
     "dev": "vite apps/web --host 127.0.0.1",
     "gateway": "tsx apps/gateway/main.ts",
     "verify": "npm run typecheck && npm run boundaries && npm run maps && npm test && npm run build",
@@ -22,7 +22,9 @@
     "proof": "tsx scripts/browser-proof.ts",
     "bridge": "tsx integrations/kujo/bridge.ts",
     "local": "tsx scripts/local.ts",
-    "demo": "tsx scripts/demo.ts"
+    "demo": "tsx scripts/demo.ts",
+    "recovery": "tsx scripts/recovery-proof.ts",
+    "format": "prettier --write \"apps/**/*.ts\" \"packages/**/*.ts\" \"integrations/**/*.ts\" \"scripts/*.ts\" \"tests/*.ts\""
   },
   "dependencies": {
     "ajv": "8.20.0",

@@ -1,0 +1,15 @@
+{
+  "session": "milestone-1788838713496",
+  "receipts": [
+    {
+      "name": "real SDK handoff and local retrieval",
+      "code": 0,
+      "output": "{\"actor\":\"scout\",\"retrieval_reason\":\"empty_context\",\"run_id\":\"run-1788838713723-6597\",\"schema\":\"agent-city.proof.v1\",\"status\":\"completed\"}\n\n{\"dispatch_run\":\"run-1788838713723-6597\",\"ok\":true}\n"
+    },
+    {
+      "name": "real Eval failure and repair",
+      "code": 0,
+      "output": "Eval failure/repair proof: PASS\n"
+    }
+  ]
+}

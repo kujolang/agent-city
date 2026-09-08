@@ -1,0 +1,12 @@
+{
+  "bridgePaused": true,
+  "watchdogFeedStillReadable": true,
+  "status": {
+    "status": "STALE",
+    "gap": true,
+    "lastSuccess": 1788839272466,
+    "lastError": "Local observation bridge is stale or unavailable",
+    "coverage": "SDK run/retrieval/tool/handoff and Eval invocation/check results; retained local journal; reconnect history partial"
+  },
+  "truthOutcomesUnchanged": true
+}

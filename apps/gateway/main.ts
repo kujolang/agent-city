@@ -173,6 +173,23 @@ async function poll() {
         events.push(fault);
       }
     }
+    let bridgeHealthy = false;
+    try {
+      const heartbeat = JSON.parse(
+        await readFile(resolve(runtime, "bridge-health.json"), "utf8"),
+      );
+      bridgeHealthy =
+        heartbeat.status === "LIVE" &&
+        Date.now() - heartbeat.observedAt < 10000;
+    } catch {}
+    if (!bridgeHealthy) {
+      if (!gap) events.push(healthEvent("source.gap", "disconnect"));
+      store(events, page.next, page.sequence);
+      gap = true;
+      lastSuccess = Date.now();
+      lastError = "Local observation bridge is stale or unavailable";
+      return;
+    }
     if (gap) events.unshift(healthEvent("source.reconciled", "reconciled"));
     store(events, page.next, page.sequence);
     gap = false;
@@ -227,12 +244,12 @@ const server = createServer((req, res) => {
         .map((r) => JSON.parse(r.body)),
       sourceHealth: {
         status:
-          Date.now() - lastSuccess > 10000 ? "STALE" : gap ? "UNKNOWN" : "LIVE",
+          Date.now() - lastSuccess > 10000 ? "STALE" : gap ? "STALE" : "LIVE",
         gap: state.gap,
         lastSuccess,
         lastError,
         coverage:
-          "SDK run and pre-model retrieval; retained local journal; reconnect history partial",
+          "SDK run/retrieval/tool/handoff and Eval invocation/check results; retained local journal; reconnect history partial",
       },
       versions: { protocol: 1, core: 1, adapter: 1, world: 1 },
     });
@@ -282,7 +299,12 @@ const server = createServer((req, res) => {
     return;
   }
   if (url.pathname.startsWith("/api/evidence/")) {
-    const id = decodeURIComponent(url.pathname.slice(14));
+    let id: string;
+    try {
+      id = decodeURIComponent(url.pathname.slice(14));
+    } catch {
+      return send({ error: "invalid evidence ID" }, 400);
+    }
     const row = db.prepare("SELECT body FROM journal WHERE id=?").get(id) as
       | { body: string }
       | undefined;
