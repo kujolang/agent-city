@@ -150,6 +150,22 @@ try {
     ),
     1,
   );
+  // Simulate a lost stream delivery while EventSource still reports OPEN.
+  const recoveredOrder = snapshot.truth.order + 1;
+  snapshot.truth = { ...snapshot.truth, order: recoveredOrder };
+  await page.waitForFunction(
+    (order) => (window as any).agentCity.truth.order === order,
+    recoveredOrder,
+    { timeout: 5000 },
+  );
+  assert.equal(
+    await page.evaluate(
+      () =>
+        (window as any).proofSources.filter((s: any) => s.readyState !== 2)
+          .length,
+    ),
+    1,
+  );
   assert.deepEqual(errors, []);
   assert.deepEqual(writes, []);
   await page.screenshot({ path: out + "/recovered.png", fullPage: true });
@@ -163,6 +179,7 @@ try {
         cancelledSnapshotCannotReplaceReplay: true,
         obsoleteCallbacksIgnored: true,
         liveReconnectHasOneStream: true,
+        openButLaggingStreamResynchronized: true,
         errors,
         writes,
         limitations: [

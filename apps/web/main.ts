@@ -443,7 +443,14 @@ setInterval(async () => {
     if (replayMode || epoch !== connectionEpoch) return;
     health = s.sourceHealth.status;
     lastGateway = performance.now();
-    if (!stream || stream.readyState === EventSource.CLOSED) await connect();
+    // An apparently open SSE connection can still leave the browser behind.
+    // The journal snapshot is authoritative; reconnect atomically at its cursor.
+    if (
+      !stream ||
+      stream.readyState === EventSource.CLOSED ||
+      s.truth.order > truth.order
+    )
+      await connect();
   } catch {
     if (!replayMode && epoch === connectionEpoch) health = "STALE";
   } finally {

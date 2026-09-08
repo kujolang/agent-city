@@ -7,3 +7,10 @@ Fixed an asynchronous race in the actual web application: a snapshot or health p
 This is controlled transport regression evidence, not native hidden-tab, browser UI zoom, GPU or new live-source qualification. Those gates remain unchanged. The first harness attempt failed because its injected TypeScript class was transformed before browser serialization; raw browser JavaScript fixes the harness. The initial log is retained in harness-before.log. The subsequent run passed with zero page errors and zero writes.
 
 Verification: TypeScript, all 48 unit tests, production build, and bounded Chromium transport regression. No long-duration workload or soak was started. No sibling source changes.
+
+The regression now also covers an apparently OPEN stream falling behind the
+snapshot order. Periodic health checks reconnect at the authoritative cursor in
+that case. The controlled test verifies convergence and one remaining open stream.
+This was added after a real repair's browser observation timed out even though
+its canonical journal held the terminal events; the original timeout's exact
+cause remains unproven. See ../packaged-repair for the real outcome evidence.

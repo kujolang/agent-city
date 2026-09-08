@@ -5,6 +5,7 @@
   "cancelledSnapshotCannotReplaceReplay": true,
   "obsoleteCallbacksIgnored": true,
   "liveReconnectHasOneStream": true,
+  "openButLaggingStreamResynchronized": true,
   "errors": [],
   "writes": [],
   "limitations": [
