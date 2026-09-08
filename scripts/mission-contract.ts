@@ -316,7 +316,16 @@ try {
     );
   failProvider = true;
   assert.equal(
-    (await post({ kind: "code", prompt: "Private fixture code task" })).status,
+    (
+      await post({
+        kind: "code",
+        prompt: "Private fixture code task",
+        functionContract: {
+          exportName: "sum",
+          cases: [{ name: "empty", args: [[]], equals: 0 }],
+        },
+      })
+    ).status,
     202,
   );
   const end = await until(
@@ -324,6 +333,16 @@ try {
     (v) => v.jobs[0]?.status === "failed",
   );
   assert.equal(end.jobs[1].status, "completed");
+  assert(
+    JSON.stringify(requests[2].messages).includes("Required output contract"),
+  );
+  assert(
+    JSON.stringify(requests[2].messages).includes("named export function sum"),
+  );
+  const failedDetails = await (
+    await get("/control/mission/" + end.jobs[0].id)
+  ).json();
+  assert.equal(failedDetails.functionContract.exportName, "sum");
   failProvider = false;
   redirectProvider = true;
   assert.equal(
@@ -414,6 +433,8 @@ try {
     continuationContextReachesBothModels: true,
     continuationRetainsParentAndOriginalTask: true,
     continuationDoesNotRepeatPriorToolRequests: true,
+    requestedCheckContractReachesModel: true,
+    failedProviderRetainsRequestedCheckContract: true,
     at: new Date().toISOString(),
   };
   await mkdir(resolve(root, "evidence/missions"), { recursive: true });

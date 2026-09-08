@@ -107,6 +107,9 @@ const child = spawn(
         process.env.KUJO_BIN || resolve(root, "../kujo/target/release/kujo"),
       CITY_MISSION_ID: id,
       CITY_CONTEXT_FILE: context ? resolve(dir, "context.json") : "",
+      CITY_FUNCTION_CONTRACT_FILE: requestedContract
+        ? resolve(dir, "function-contract.json")
+        : "",
       // Explicitly scoped to this generated private mission directory.
       DISPATCH_ALLOW_ANY_OUTPUT_ROOT: "true",
       CITY_SDK_ROOT: resolve(root, "../agents-sdk"),

@@ -65,6 +65,13 @@ review := "Review the supplied draft for clarity and unsupported assertions. Ret
 if kind == "code" {
     instructions = "Write a small self-contained JavaScript module for the requested task. Return raw JavaScript only, without Markdown fences. Do not claim the code has been executed or tested."
     review = "Review the supplied JavaScript for correctness and edge cases. Return the corrected raw JavaScript only, without Markdown fences. Do not claim execution or passing tests."
+    if env_or("CITY_FUNCTION_CONTRACT_FILE", "") != "" {
+        contract_text := read_file(env_or("CITY_FUNCTION_CONTRACT_FILE", ""))
+        contract := parse_json(contract_text)
+        required := "\nRequired output contract: return an ES module with the named export function "+contract["exportName"]+". Include the export keyword. Do not use module.exports or CommonJS. The user supplied these exact cases; they are requirements, not a claim that tests have passed:\n"+contract_text
+        instructions = instructions + required
+        review = review + required + "\nThe final artifact MUST retain the required named export, including when revising an earlier function without one."
+    }
 }
 response_counts := {}
 adapter := create_ai_sdk_adapter({"chat_completion_fn": func(client, messages, options) {

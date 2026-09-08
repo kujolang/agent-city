@@ -21,5 +21,7 @@
   "continuationContextReachesBothModels": true,
   "continuationRetainsParentAndOriginalTask": true,
   "continuationDoesNotRepeatPriorToolRequests": true,
-  "at": "2026-09-08T15:03:58.881Z"
+  "requestedCheckContractReachesModel": true,
+  "failedProviderRetainsRequestedCheckContract": true,
+  "at": "2026-09-08T15:16:12.208Z"
 }
