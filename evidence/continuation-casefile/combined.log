@@ -1,0 +1,21 @@
+npm warn Unknown user config "python". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+writing: real model + Dispatch + SDK reviewer completed / mission-9d550c21-1c52-4bc6-8f61-2582104650f0
+code: real model + Dispatch + SDK reviewer completed / mission-f1a2ab98-3e93-4ee3-b230-8a978586f17d
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+'failed' !== 'passed'
+
+    at <anonymous> (/Users/robertdevore/2026/Kujolang/kujo-repos/agent-city/scripts/live-mission-proof.ts:440:12) {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: 'failed',
+  expected: 'passed',
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.20.0

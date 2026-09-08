@@ -9,7 +9,10 @@ import { localChromiumPath } from "../apps/runner/browser-path";
 
 // Real model and real local services; code execution requires explicit cases below.
 const root = resolve(import.meta.dirname, "..");
-const prefix = `live-${Date.now()}-`;
+const resume = process.env.CITY_PROOF_RESUME;
+if (resume && !/^live-[0-9]+-$/.test(resume))
+  throw Error("Invalid proof resume cohort");
+const prefix = resume || `live-${Date.now()}-`;
 const runtime = resolve(root, ".runtime", prefix);
 const out = resolve(root, "evidence/live-missions", prefix);
 const origin = "http://127.0.0.1:18890";
@@ -71,6 +74,17 @@ const ready = (url: string) =>
   until(async () => (await fetch(url)).ok, Boolean);
 let browser;
 const receipts: unknown[] = [];
+if (resume) {
+  for (const name of ["writing.json", "code.json", "continuation.json"]) {
+    const receipt = JSON.parse(await readFile(resolve(out, name), "utf8"));
+    receipts.push(receipt);
+    if (name === "continuation.json")
+      await writeFile(
+        resolve(out, `continuation-${receipt.job.id}.json`),
+        JSON.stringify(receipt, null, 2),
+      );
+  }
+}
 try {
   const tags = await (await fetch("http://127.0.0.1:11434/api/tags")).json();
   const installed = tags.models.find((m: any) => m.name === model);
@@ -198,18 +212,20 @@ try {
   page.on("pageerror", (e) => errors.push(e.message));
   await page.goto(origin);
   await page.waitForSelector("canvas");
-  for (const [kind, prompt] of [
-    [
-      "writing",
-      "Summarize the explicitly supplied MCP demo README in 50 words. Name only the example tools it actually lists. Do not infer features from unrelated context.",
-    ],
-    [
-      "code",
-      process.env.CITY_PROOF_CODE_TASK_FILE
-        ? await readFile(process.env.CITY_PROOF_CODE_TASK_FILE, "utf8")
-        : "Write a self-contained JavaScript module exporting function sum(values) that sums an array of finite numbers and throws TypeError for invalid input. No imports. Keep it short.",
-    ],
-  ]) {
+  for (const [kind, prompt] of resume
+    ? []
+    : [
+        [
+          "writing",
+          "Summarize the explicitly supplied MCP demo README in 50 words. Name only the example tools it actually lists. Do not infer features from unrelated context.",
+        ],
+        [
+          "code",
+          process.env.CITY_PROOF_CODE_TASK_FILE
+            ? await readFile(process.env.CITY_PROOF_CODE_TASK_FILE, "utf8")
+            : "Write a self-contained JavaScript module exporting function sum(values) that sums an array of finite numbers and throws TypeError for invalid input. No imports. Keep it short.",
+        ],
+      ]) {
     await page.getByLabel("Task type").selectOption(kind);
     await page
       .getByLabel("Use indexed local Kujo docs")
@@ -357,6 +373,124 @@ try {
       `${kind}: real model + Dispatch + SDK reviewer completed / ${job.id}`,
     );
   }
+  if (process.env.CITY_PROOF_CONTINUE === "1") {
+    const parent = [...receipts]
+      .reverse()
+      .find((r: any) => r.job.kind === "code") as any;
+    await page.locator(`[data-continue="${parent.job.id}"]`).click();
+    await page.waitForFunction(
+      (id) =>
+        document
+          .querySelector("#continuation-status")
+          ?.textContent?.includes(id),
+      parent.job.id,
+    );
+    assert(await page.getByLabel("Task type").isDisabled());
+    const contract = JSON.parse(
+      await page.getByLabel("Function contract JSON").inputValue(),
+    );
+    assert.equal(contract.cases.length, 4);
+    assert.equal(
+      await page.getByLabel("Read local MCP demo README").isChecked(),
+      false,
+    );
+    await page
+      .getByLabel("Task", { exact: true })
+      .fill(
+        process.env.CITY_PROOF_FOLLOWUP_TASK ||
+          "Repair the prior module using its recorded check failures. Return only an ES module with a named export function sum(values). Do not use module.exports. Validate Array.isArray, then every element with typeof number and Number.isFinite. Return 0 for an empty array and 5 for [2,-1,4]. Throw TypeError for null or numeric strings. Preserve the original requirements.",
+      );
+    const submit = page.getByRole("button", {
+      name: "Start mission",
+      exact: true,
+    });
+    await page.waitForFunction(
+      () =>
+        !(document.querySelector("#mission-form button") as HTMLButtonElement)
+          .disabled,
+    );
+    const responsePromise = page.waitForResponse(
+      (r) =>
+        r.url().endsWith("/control/missions") &&
+        r.request().method() === "POST",
+    );
+    await submit.click();
+    const response = await responsePromise;
+    assert.equal(response.status(), 202);
+    const job = await response.json();
+    const final = await until(
+      async () => (await fetch("http://127.0.0.1:19093/control/status")).json(),
+      (s) =>
+        s.jobs.some(
+          (j: any) =>
+            j.id === job.id && ["completed", "failed"].includes(j.status),
+        ),
+      250000,
+    );
+    const terminal = final.jobs.find((j: any) => j.id === job.id);
+    const artifact = await (
+      await fetch(`http://127.0.0.1:19093/control/artifact/${job.id}`)
+    ).json();
+    const context = JSON.parse(
+      await readFile(
+        resolve(root, ".runtime/missions", job.id, "context.json"),
+        "utf8",
+      ),
+    );
+    const exchanges = await (
+      await fetch(`http://127.0.0.1:19093/control/exchanges/${job.id}`)
+    ).json();
+    const lifecycle = (
+      await readFile(resolve(runtime, `spool-${prefix}${job.id}.jsonl`), "utf8")
+    )
+      .trim()
+      .split("\n")
+      .map((s) => JSON.parse(s));
+    const receipt = { job: terminal, artifact, context, exchanges, lifecycle };
+    receipts.push(receipt);
+    await writeFile(
+      resolve(out, "continuation.json"),
+      JSON.stringify(receipt, null, 2),
+    );
+    await writeFile(
+      resolve(out, `continuation-${job.id}.json`),
+      JSON.stringify(receipt, null, 2),
+    );
+    assert.equal(terminal.parentMissionId, parent.job.id);
+    assert.equal(
+      terminal.rootMissionId,
+      parent.job.rootMissionId || parent.job.id,
+    );
+    assert.equal(context.previousArtifact, parent.artifact.content);
+    assert.deepEqual(context.previousChecks, parent.artifact.functional);
+    assert.equal(terminal.status, "completed");
+    assert.equal(artifact.functional?.status, "passed");
+    assert.equal(exchanges.records.length, 2);
+    assert(!JSON.stringify(lifecycle).includes(parent.artifact.content));
+    assert(
+      !lifecycle.some(
+        (e) => e.capability === "mcp.call" || e.kind === "retrieval",
+      ),
+    );
+    await page
+      .locator("#mission-jobs button:not([data-continue])")
+      .filter({ hasText: job.id.slice(-8) })
+      .first()
+      .click();
+    await page.waitForFunction(() =>
+      document
+        .querySelector("#mission-artifact")
+        ?.textContent?.includes("FUNCTIONAL TESTS: PASSED"),
+    );
+    await page.locator(".mission-panel").scrollIntoViewIfNeeded();
+    await page.screenshot({
+      path: resolve(out, "continuation-output.png"),
+      fullPage: true,
+    });
+    console.log(
+      `Follow-up through actual UI: ${parent.job.id} -> ${job.id}; four cases passed`,
+    );
+  }
   const state = await page.evaluate(() => (window as any).agentCity);
   assert(Object.keys(state.truth.agents).length >= 4);
   assert.deepEqual(errors, []);
@@ -375,7 +509,10 @@ try {
         errors,
         instances: Object.keys(state.truth.agents),
         truth: state.truth,
-        jobs: receipts.length,
+        jobs: JSON.parse(
+          await readFile(resolve(runtime, "control/jobs.json"), "utf8"),
+        ).length,
+        receiptsInThisProof: receipts.length,
         codeExecuted: receipts.some(
           (r: any) => r.artifact?.codeExecuted === true,
         ),

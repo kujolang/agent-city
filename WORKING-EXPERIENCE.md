@@ -243,3 +243,28 @@ negative control proves prior outcomes clear even with the same event order.
 This is replay/rendering verification, not a new source execution claim.
 Seven-room browser/keyboard/320px/DOM-only and 35 tests/build pass. Full original
 reference fidelity, conversational/task continuation UX and release gates remain.
+
+## Mission continuation and actual repair
+
+Mission history now supports Continue / repair. Each submission starts a new
+execution with explicit parent/root mission identity, the original task, previous
+request, bounded actual prior output and actual check results. Context remains in
+private mission files, outside telemetry. Unknown/unfinished missions cannot be
+continued. The UI loads prior function cases visibly and clears retrieval options;
+the user request and source-qualified model responses remain inspectable.
+
+Explicit function contracts now reach both coder and reviewer model instructions,
+and remain available even when provider execution fails. A model can still ignore
+them; checks, rather than the response text, determine the recorded test outcome.
+
+Real cohort `evidence/live-missions/live-1788879939420-/` retains five missions:
+one writing/MCP mission, one failed code result, two failed follow-ups, and a final
+targeted repair passing all four cases. No failed attempt was overwritten. The
+final collection is LIVE but retains a gap from service restarts; this is not a
+gap-free reliability proof. See that directory's README for exact identities.
+
+36 tests, typecheck, boundaries, maps and build pass. Controlled source contracts
+and browser checks cover continuation identity/context, visible cases, keyboard,
+320px layout and DOM-only use. The controlled model and UI fixture are explicitly
+separate from the real Ollama proof. No sibling changes or eight-hour test.
+Full reference fidelity, packaging and outstanding release/reliability gates remain.

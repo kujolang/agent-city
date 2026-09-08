@@ -1,0 +1,491 @@
+{
+  "job": {
+    "id": "mission-d16b90e7-ffc8-4f18-a297-98383abaf5a1",
+    "kind": "code",
+    "useLocalDocs": false,
+    "useMcpDocs": false,
+    "status": "completed",
+    "startedAt": "2026-09-08T15:08:22.863Z",
+    "parentMissionId": "mission-f1a2ab98-3e93-4ee3-b230-8a978586f17d",
+    "rootMissionId": "mission-f1a2ab98-3e93-4ee3-b230-8a978586f17d",
+    "finishedAt": "2026-09-08T15:09:19.609Z"
+  },
+  "artifact": {
+    "id": "mission-d16b90e7-ffc8-4f18-a297-98383abaf5a1",
+    "kind": "code",
+    "content": "/**\n * Calculate the sum of a numeric array. Throws TypeError for invalid input.\n *\n * @param {number[]} values - The array of numbers to sum.\n * @returns {number} The sum of the array elements.\n */\nfunction sum(values) {\n    if (!Array.isArray(values) || !values.every(Number.isFinite)) {\n        throw new TypeError(\"Input array must contain only finite numbers.\");\n    }\n    return values.reduce((acc, curr) => acc + curr, 0);\n}\n",
+    "validation": {
+      "schema": "agent-city.code-check.v1",
+      "syntax": "valid",
+      "fenceRemoved": true,
+      "functionalTests": "failed",
+      "codeExecuted": true,
+      "checkedAt": "2026-09-08T15:09:16.761Z"
+    },
+    "functional": {
+      "schema": "agent-city.function-check.v1",
+      "status": "failed",
+      "environment": "disposable-chromium-module-worker",
+      "browserSandboxRequested": true,
+      "browser": "151.0.7922.34",
+      "codeExecuted": true,
+      "scope": "explicit JSON function cases only; no filesystem or network integrations",
+      "blockedRequests": 0,
+      "cases": [
+        {
+          "name": "empty",
+          "status": "failed",
+          "reason": "missing-export",
+          "occurredAt": 1788880159099
+        },
+        {
+          "name": "mixed numbers",
+          "status": "failed",
+          "reason": "missing-export",
+          "occurredAt": 1788880159131
+        },
+        {
+          "name": "reject numeric string",
+          "status": "failed",
+          "reason": "missing-export",
+          "occurredAt": 1788880159148
+        },
+        {
+          "name": "reject null",
+          "status": "failed",
+          "reason": "missing-export",
+          "occurredAt": 1788880159164
+        }
+      ],
+      "checkedAt": "2026-09-08T15:09:19.164Z"
+    },
+    "codeExecuted": true
+  },
+  "context": {
+    "schema": "agent-city.continuation.v1",
+    "parentMissionId": "mission-f1a2ab98-3e93-4ee3-b230-8a978586f17d",
+    "rootMissionId": "mission-f1a2ab98-3e93-4ee3-b230-8a978586f17d",
+    "originalTask": "Write a self-contained JavaScript module exporting function sum(values) that sums an array of finite numbers and throws TypeError for invalid input. No imports. Keep it short.",
+    "previousRequest": "Write a self-contained JavaScript module exporting function sum(values) that sums an array of finite numbers and throws TypeError for invalid input. No imports. Keep it short.",
+    "previousRuntimeStatus": "completed",
+    "previousArtifact": "/**\n * Sum an array of finite numbers. Throws TypeError for invalid input.\n *\n * @param {number[]} values Array of numbers.\n * @returns {number} Sum of array elements.\n */\nfunction sum(values) {\n    if (!Array.isArray(values) || !values.every(Number.isFinite)) {\n        throw new TypeError(\"Input array must contain only finite numbers.\");\n    }\n    return values.reduce((acc, curr) => acc + curr, 0);\n}\n\n// Example usage:\ntry {\n    console.log(sum([1, 2, 3])); // Output: 6\n    // Uncomment the following line to test for invalid input\n    // console.log(sum([1, 'a', 3])); // Throws TypeError\n} catch (error) {\n    console.error(error.message);\n}\n",
+    "previousChecks": {
+      "schema": "agent-city.function-check.v1",
+      "status": "failed",
+      "environment": "disposable-chromium-module-worker",
+      "browserSandboxRequested": true,
+      "browser": "151.0.7922.34",
+      "codeExecuted": true,
+      "scope": "explicit JSON function cases only; no filesystem or network integrations",
+      "blockedRequests": 0,
+      "cases": [
+        {
+          "name": "empty",
+          "status": "failed",
+          "reason": "missing-export",
+          "occurredAt": 1788880090248
+        },
+        {
+          "name": "mixed numbers",
+          "status": "failed",
+          "reason": "missing-export",
+          "occurredAt": 1788880090263
+        },
+        {
+          "name": "reject numeric string",
+          "status": "failed",
+          "reason": "missing-export",
+          "occurredAt": 1788880090289
+        },
+        {
+          "name": "reject null",
+          "status": "failed",
+          "reason": "missing-export",
+          "occurredAt": 1788880090304
+        }
+      ],
+      "checkedAt": "2026-09-08T15:08:10.304Z"
+    }
+  },
+  "exchanges": {
+    "id": "mission-d16b90e7-ffc8-4f18-a297-98383abaf5a1",
+    "records": [
+      {
+        "agent": "coder",
+        "content": "```javascript\n/**\n * Calculate the sum of a numeric array.\n * @param {number[]} values - The array of numbers to sum.\n * @returns {number} The sum of the array elements.\n */\nfunction sum(values) {\n    if (!Array.isArray(values) || !values.every(Number.isFinite)) {\n        throw new TypeError(\"Input array must contain only finite numbers.\");\n    }\n    return values.reduce((acc, curr) => acc + curr, 0);\n}\n```",
+        "kind": "model.response",
+        "occurredAtMs": 1788880129489,
+        "producer": "live-1788879939420-mission-d16b90e7-ffc8-4f18-a297-98383abaf5a1",
+        "requestOrdinal": 1,
+        "run": "run-1788880104403-5637",
+        "schema": "agent-city.exchange.v1"
+      },
+      {
+        "agent": "reviewer",
+        "content": "```javascript\n/**\n * Calculate the sum of a numeric array. Throws TypeError for invalid input.\n *\n * @param {number[]} values - The array of numbers to sum.\n * @returns {number} The sum of the array elements.\n */\nfunction sum(values) {\n    if (!Array.isArray(values) || !values.every(Number.isFinite)) {\n        throw new TypeError(\"Input array must contain only finite numbers.\");\n    }\n    return values.reduce((acc, curr) => acc + curr, 0);\n}\n```",
+        "kind": "model.response",
+        "occurredAtMs": 1788880155446,
+        "producer": "live-1788879939420-mission-d16b90e7-ffc8-4f18-a297-98383abaf5a1",
+        "requestOrdinal": 1,
+        "run": "run-1788880104403-5637-handoff-reviewer",
+        "schema": "agent-city.exchange.v1"
+      }
+    ],
+    "recordingComplete": true
+  },
+  "lifecycle": [
+    {
+      "agent_id": "coder",
+      "attempt": 1,
+      "capability": "dispatch.task",
+      "kind": "internal",
+      "metadata": {
+        "taskState": "queued"
+      },
+      "occurred_at_ms": 1788880104580,
+      "operation_id": "intake",
+      "outcome": "succeeded",
+      "phase": "finished",
+      "producer_instance": "live-1788879939420-mission-d16b90e7-ffc8-4f18-a297-98383abaf5a1",
+      "run_id": "run-1788880104403-5637",
+      "schema": "kujo.lifecycle.v1",
+      "task_id": "run-1788880104403-5637:produce-artifact"
+    },
+    {
+      "agent_id": "coder",
+      "attempt": 1,
+      "capability": "dispatch.task",
+      "kind": "internal",
+      "metadata": {
+        "taskState": "assigned"
+      },
+      "occurred_at_ms": 1788880104581,
+      "operation_id": "assignment",
+      "outcome": "succeeded",
+      "phase": "finished",
+      "producer_instance": "live-1788879939420-mission-d16b90e7-ffc8-4f18-a297-98383abaf5a1",
+      "run_id": "run-1788880104403-5637",
+      "schema": "kujo.lifecycle.v1",
+      "task_id": "run-1788880104403-5637:produce-artifact"
+    },
+    {
+      "agent_id": "coder",
+      "attempt": 1,
+      "capability": "dispatch.task",
+      "kind": "internal",
+      "metadata": {
+        "taskState": "running"
+      },
+      "occurred_at_ms": 1788880104609,
+      "operation_id": "task",
+      "outcome": "unset",
+      "phase": "started",
+      "producer_instance": "live-1788879939420-mission-d16b90e7-ffc8-4f18-a297-98383abaf5a1",
+      "run_id": "run-1788880104403-5637",
+      "schema": "kujo.lifecycle.v1",
+      "task_id": "run-1788880104403-5637:produce-artifact"
+    },
+    {
+      "agent_id": "coder",
+      "attempt": 1,
+      "collection": "kujo-docs",
+      "kind": "agent",
+      "metadata": {
+        "relatedInstance": ""
+      },
+      "occurred_at_ms": 1788880105270,
+      "operation_id": "run",
+      "outcome": "unset",
+      "phase": "started",
+      "producer_instance": "live-1788879939420-mission-d16b90e7-ffc8-4f18-a297-98383abaf5a1",
+      "profile": "city-coder",
+      "related_agent_id": "",
+      "run_id": "run-1788880104403-5637",
+      "schema": "kujo.lifecycle.v1",
+      "task_id": "run-1788880104403-5637:produce-artifact"
+    },
+    {
+      "agent_id": "coder",
+      "attempt": 1,
+      "collection": "unknown",
+      "kind": "handoff",
+      "metadata": {
+        "relatedInstance": "live-1788879939420-mission-d16b90e7-ffc8-4f18-a297-98383abaf5a1:run-1788880104403-5637-handoff-reviewer:reviewer"
+      },
+      "occurred_at_ms": 1788880129586,
+      "operation_id": "reviewer",
+      "outcome": "unset",
+      "phase": "started",
+      "producer_instance": "live-1788879939420-mission-d16b90e7-ffc8-4f18-a297-98383abaf5a1",
+      "profile": "unknown",
+      "related_agent_id": "reviewer",
+      "run_id": "run-1788880104403-5637",
+      "schema": "kujo.lifecycle.v1",
+      "task_id": "run-1788880104403-5637:produce-artifact"
+    },
+    {
+      "agent_id": "reviewer",
+      "attempt": 1,
+      "collection": "unknown",
+      "kind": "agent",
+      "metadata": {
+        "relatedInstance": ""
+      },
+      "occurred_at_ms": 1788880129590,
+      "operation_id": "run",
+      "outcome": "unset",
+      "phase": "started",
+      "producer_instance": "live-1788879939420-mission-d16b90e7-ffc8-4f18-a297-98383abaf5a1",
+      "profile": "city-reviewer",
+      "related_agent_id": "",
+      "run_id": "run-1788880104403-5637-handoff-reviewer",
+      "schema": "kujo.lifecycle.v1",
+      "task_id": "run-1788880104403-5637:produce-artifact"
+    },
+    {
+      "agent_id": "reviewer",
+      "attempt": 1,
+      "collection": "unknown",
+      "kind": "agent",
+      "metadata": {
+        "relatedInstance": ""
+      },
+      "occurred_at_ms": 1788880155611,
+      "operation_id": "run",
+      "outcome": "succeeded",
+      "phase": "finished",
+      "producer_instance": "live-1788879939420-mission-d16b90e7-ffc8-4f18-a297-98383abaf5a1",
+      "profile": "city-reviewer",
+      "related_agent_id": "",
+      "run_id": "run-1788880104403-5637-handoff-reviewer",
+      "schema": "kujo.lifecycle.v1",
+      "task_id": "run-1788880104403-5637:produce-artifact"
+    },
+    {
+      "agent_id": "coder",
+      "attempt": 1,
+      "collection": "unknown",
+      "kind": "handoff",
+      "metadata": {
+        "relatedInstance": "live-1788879939420-mission-d16b90e7-ffc8-4f18-a297-98383abaf5a1:run-1788880104403-5637-handoff-reviewer:reviewer"
+      },
+      "occurred_at_ms": 1788880155613,
+      "operation_id": "reviewer",
+      "outcome": "succeeded",
+      "phase": "finished",
+      "producer_instance": "live-1788879939420-mission-d16b90e7-ffc8-4f18-a297-98383abaf5a1",
+      "profile": "unknown",
+      "related_agent_id": "reviewer",
+      "run_id": "run-1788880104403-5637",
+      "schema": "kujo.lifecycle.v1",
+      "task_id": "run-1788880104403-5637:produce-artifact"
+    },
+    {
+      "agent_id": "coder",
+      "attempt": 1,
+      "collection": "kujo-docs",
+      "kind": "agent",
+      "metadata": {
+        "relatedInstance": ""
+      },
+      "occurred_at_ms": 1788880155727,
+      "operation_id": "run",
+      "outcome": "succeeded",
+      "phase": "finished",
+      "producer_instance": "live-1788879939420-mission-d16b90e7-ffc8-4f18-a297-98383abaf5a1",
+      "profile": "city-coder",
+      "related_agent_id": "",
+      "run_id": "run-1788880104403-5637",
+      "schema": "kujo.lifecycle.v1",
+      "task_id": "run-1788880104403-5637:produce-artifact"
+    },
+    {
+      "agent_id": "coder",
+      "attempt": 1,
+      "capability": "artifact.created",
+      "kind": "internal",
+      "metadata": {
+        "artifactRef": "mission:run-1788880104403-5637:output"
+      },
+      "occurred_at_ms": 1788880155731,
+      "operation_id": "save-reviewed-output",
+      "outcome": "succeeded",
+      "phase": "finished",
+      "producer_instance": "live-1788879939420-mission-d16b90e7-ffc8-4f18-a297-98383abaf5a1",
+      "profile": "city-coder",
+      "run_id": "run-1788880104403-5637",
+      "schema": "kujo.lifecycle.v1",
+      "task_id": "run-1788880104403-5637:produce-artifact"
+    },
+    {
+      "agent_id": "coder",
+      "attempt": 1,
+      "capability": "dispatch.task",
+      "kind": "internal",
+      "metadata": {
+        "taskState": "completed"
+      },
+      "occurred_at_ms": 1788880156049,
+      "operation_id": "task",
+      "outcome": "succeeded",
+      "phase": "finished",
+      "producer_instance": "live-1788879939420-mission-d16b90e7-ffc8-4f18-a297-98383abaf5a1",
+      "run_id": "run-1788880104403-5637",
+      "schema": "kujo.lifecycle.v1",
+      "task_id": "run-1788880104403-5637:produce-artifact"
+    },
+    {
+      "agent_id": "coder",
+      "attempt": 1,
+      "capability": "dispatch.workflow",
+      "kind": "internal",
+      "metadata": {
+        "workflowState": "completed"
+      },
+      "occurred_at_ms": 1788880156531,
+      "operation_id": "workflow-state",
+      "outcome": "unknown",
+      "phase": "finished",
+      "producer_instance": "live-1788879939420-mission-d16b90e7-ffc8-4f18-a297-98383abaf5a1",
+      "run_id": "run-1788880104403-5637",
+      "schema": "kujo.lifecycle.v1",
+      "task_id": "run-1788880104403-5637:produce-artifact"
+    },
+    {
+      "schema": "kujo.lifecycle.v1",
+      "producer_instance": "live-1788879939420-mission-d16b90e7-ffc8-4f18-a297-98383abaf5a1",
+      "profile": "city-function-checker",
+      "run_id": "run-1788880104403-5637",
+      "agent_id": "function-checker",
+      "task_id": "run-1788880104403-5637:produce-artifact",
+      "operation_id": "run",
+      "attempt": 1,
+      "kind": "execution",
+      "phase": "started",
+      "outcome": "unset",
+      "occurred_at_ms": 1788880156762,
+      "metadata": {
+        "tool": "city.function-check"
+      }
+    },
+    {
+      "schema": "kujo.lifecycle.v1",
+      "producer_instance": "live-1788879939420-mission-d16b90e7-ffc8-4f18-a297-98383abaf5a1",
+      "profile": "city-function-checker",
+      "run_id": "run-1788880104403-5637",
+      "agent_id": "function-checker",
+      "task_id": "run-1788880104403-5637:produce-artifact",
+      "operation_id": "function-suite",
+      "attempt": 1,
+      "kind": "evaluation",
+      "phase": "started",
+      "outcome": "unset",
+      "occurred_at_ms": 1788880156763,
+      "metadata": {
+        "tool": "city.function-check"
+      }
+    },
+    {
+      "schema": "kujo.lifecycle.v1",
+      "producer_instance": "live-1788879939420-mission-d16b90e7-ffc8-4f18-a297-98383abaf5a1",
+      "profile": "city-function-checker",
+      "run_id": "run-1788880104403-5637",
+      "agent_id": "function-checker",
+      "task_id": "run-1788880104403-5637:produce-artifact",
+      "operation_id": "check-0",
+      "attempt": 1,
+      "kind": "evaluation",
+      "phase": "finished",
+      "outcome": "failed",
+      "occurred_at_ms": 1788880159099,
+      "metadata": {
+        "tool": "city.function-check"
+      }
+    },
+    {
+      "schema": "kujo.lifecycle.v1",
+      "producer_instance": "live-1788879939420-mission-d16b90e7-ffc8-4f18-a297-98383abaf5a1",
+      "profile": "city-function-checker",
+      "run_id": "run-1788880104403-5637",
+      "agent_id": "function-checker",
+      "task_id": "run-1788880104403-5637:produce-artifact",
+      "operation_id": "check-1",
+      "attempt": 1,
+      "kind": "evaluation",
+      "phase": "finished",
+      "outcome": "failed",
+      "occurred_at_ms": 1788880159131,
+      "metadata": {
+        "tool": "city.function-check"
+      }
+    },
+    {
+      "schema": "kujo.lifecycle.v1",
+      "producer_instance": "live-1788879939420-mission-d16b90e7-ffc8-4f18-a297-98383abaf5a1",
+      "profile": "city-function-checker",
+      "run_id": "run-1788880104403-5637",
+      "agent_id": "function-checker",
+      "task_id": "run-1788880104403-5637:produce-artifact",
+      "operation_id": "check-2",
+      "attempt": 1,
+      "kind": "evaluation",
+      "phase": "finished",
+      "outcome": "failed",
+      "occurred_at_ms": 1788880159148,
+      "metadata": {
+        "tool": "city.function-check"
+      }
+    },
+    {
+      "schema": "kujo.lifecycle.v1",
+      "producer_instance": "live-1788879939420-mission-d16b90e7-ffc8-4f18-a297-98383abaf5a1",
+      "profile": "city-function-checker",
+      "run_id": "run-1788880104403-5637",
+      "agent_id": "function-checker",
+      "task_id": "run-1788880104403-5637:produce-artifact",
+      "operation_id": "check-3",
+      "attempt": 1,
+      "kind": "evaluation",
+      "phase": "finished",
+      "outcome": "failed",
+      "occurred_at_ms": 1788880159164,
+      "metadata": {
+        "tool": "city.function-check"
+      }
+    },
+    {
+      "schema": "kujo.lifecycle.v1",
+      "producer_instance": "live-1788879939420-mission-d16b90e7-ffc8-4f18-a297-98383abaf5a1",
+      "profile": "city-function-checker",
+      "run_id": "run-1788880104403-5637",
+      "agent_id": "function-checker",
+      "task_id": "run-1788880104403-5637:produce-artifact",
+      "operation_id": "function-suite",
+      "attempt": 1,
+      "kind": "evaluation",
+      "phase": "finished",
+      "outcome": "failed",
+      "occurred_at_ms": 1788880159574,
+      "metadata": {
+        "tool": "city.function-check"
+      }
+    },
+    {
+      "schema": "kujo.lifecycle.v1",
+      "producer_instance": "live-1788879939420-mission-d16b90e7-ffc8-4f18-a297-98383abaf5a1",
+      "profile": "city-function-checker",
+      "run_id": "run-1788880104403-5637",
+      "agent_id": "function-checker",
+      "task_id": "run-1788880104403-5637:produce-artifact",
+      "operation_id": "run",
+      "attempt": 1,
+      "kind": "execution",
+      "phase": "finished",
+      "outcome": "succeeded",
+      "occurred_at_ms": 1788880159575,
+      "metadata": {
+        "tool": "city.function-check"
+      }
+    }
+  ]
+}

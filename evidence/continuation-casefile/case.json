@@ -1,0 +1,153 @@
+{
+  "case": {
+    "created_at": 1788880888040,
+    "id": "2026-09-08-112123-citycontinuationmissingexport",
+    "mode": "log",
+    "name": "citycontinuationmissingexport",
+    "path": "/Users/robertdevore/2026/Kujolang/kujo-repos/agent-city/.casefile/2026-09-08-112123-citycontinuationmissingexport"
+  },
+  "classification": {
+    "keywords": [
+      "error",
+      "failed",
+      "exception",
+      "assertion",
+      "expected",
+      "actual"
+    ],
+    "severity": "high",
+    "signals": [
+      "failure-keywords-detected",
+      "source-files-changed",
+      "many-files-changed",
+      "ci-config-changed",
+      "from-log-only"
+    ],
+    "status": "unknown"
+  },
+  "command": {
+    "argv": [],
+    "display": "<from-log> .runtime/live-continuation.log",
+    "duration_ms": 0,
+    "exit_code": null
+  },
+  "environment": {
+    "arch": "x86_64",
+    "ci": null,
+    "composer": "Composer version 2.9.5 2026-01-29 11:40:53",
+    "cwd": "/Users/robertdevore/2026/Kujolang/kujo-repos/agent-city",
+    "go": "go version go1.25.3 darwin/amd64",
+    "node": "v24.20.0",
+    "npm": "11.19.0",
+    "os": "Darwin",
+    "package_manager": "npm",
+    "php": "PHP 8.4.16 (cli) (built: Dec 20 2025 09:42:27) (NTS clang 17.0.0)",
+    "pnpm": "Downloading the pnpm 12.3.4 binary for darwin-x64...",
+    "pytest": "pytest 8.4.1",
+    "python": "Python 3.10.5",
+    "shell": "zsh",
+    "yarn": null
+  },
+  "logs": {
+    "combined": "combined.log",
+    "stderr": "stderr.log",
+    "stdout": "stdout.log",
+    "truncated": false
+  },
+  "recommendations": {
+    "next_checks": [
+      "Review the captured logs in combined.log",
+      "Review changed files listed in git-diff-stat.txt and case.md",
+      "Run npm test (or your project test script)"
+    ]
+  },
+  "repository": {
+    "branch": "main",
+    "changed_files": [
+      {
+        "path": "TRY-AGENT-CITY.md",
+        "status": "M"
+      },
+      {
+        "path": "apps/web/missions.ts",
+        "status": "M"
+      },
+      {
+        "path": "evidence/missions/contract.json",
+        "status": "M"
+      },
+      {
+        "path": "evidence/visual-revision/browser.json",
+        "status": "M"
+      },
+      {
+        "path": "evidence/visual-revision/city.png",
+        "status": "M"
+      },
+      {
+        "path": "evidence/visual-revision/dispatch.png",
+        "status": "M"
+      },
+      {
+        "path": "evidence/visual-revision/dojo.png",
+        "status": "M"
+      },
+      {
+        "path": "evidence/visual-revision/library.png",
+        "status": "M"
+      },
+      {
+        "path": "evidence/visual-revision/mcp.png",
+        "status": "M"
+      },
+      {
+        "path": "evidence/visual-revision/meeting.png",
+        "status": "M"
+      },
+      {
+        "path": "evidence/visual-revision/mobile.png",
+        "status": "M"
+      },
+      {
+        "path": "evidence/visual-revision/workshop.png",
+        "status": "M"
+      },
+      {
+        "path": "integrations/kujo/mission.kujo",
+        "status": "M"
+      },
+      {
+        "path": "scripts/live-mission-proof.ts",
+        "status": "M"
+      },
+      {
+        "path": "scripts/mission-browser.ts",
+        "status": "M"
+      },
+      {
+        "path": "scripts/mission-contract.ts",
+        "status": "M"
+      },
+      {
+        "path": "scripts/mission.ts",
+        "status": "M"
+      },
+      {
+        "path": "evidence/live-missions/live-1788879939420-/",
+        "status": "??"
+      },
+      {
+        "path": "evidence/visual-revision/continuation-ui-fixture.png",
+        "status": "??"
+      }
+    ],
+    "head": "9b7a776bf3be9ca55e38460d3ea2907f0f17c670",
+    "is_git_repo": true,
+    "root": "/Users/robertdevore/2026/Kujolang/kujo-repos/agent-city"
+  },
+  "security": {
+    "redaction_count": 0,
+    "redaction_enabled": true
+  },
+  "version": "1.0.0"
+}
