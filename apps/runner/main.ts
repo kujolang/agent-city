@@ -1,5 +1,6 @@
 import { validateModelConfig, type ModelConfig } from "./config";
 import { validateFunctionContract } from "./function-check";
+import { missionDetails, continuationContext } from "./mission-context";
 import { createServer } from "node:http";
 import { randomBytes, randomUUID } from "node:crypto";
 import { mkdir, readFile, writeFile, rename, stat } from "node:fs/promises";
@@ -23,6 +24,8 @@ type Job = {
   useLocalDocs?: boolean;
   useMcpDocs?: boolean;
   finishedAt?: string;
+  parentMissionId?: string;
+  rootMissionId?: string;
 };
 let jobs: Job[] = [];
 try {
@@ -123,6 +126,23 @@ const server = createServer(async (req, res) => {
           jobs.some((j) => j.status === "unknown"),
         jobs,
       });
+    }
+    if (req.method === "GET" && req.url?.startsWith("/control/mission/")) {
+      const id = req.url.slice("/control/mission/".length);
+      const job = jobs.find((j) => j.id === id);
+      if (!job) return send(404, { error: "Mission not found" });
+      if (!["completed", "failed"].includes(job.status))
+        return send(409, { error: "Source mission has not finished" });
+      try {
+        return send(
+          200,
+          await missionDetails(resolve(root, ".runtime/missions"), job),
+        );
+      } catch {
+        return send(409, {
+          error: "Recorded task context is unavailable or exceeds local limits",
+        });
+      }
     }
     if (req.method === "GET" && req.url?.startsWith("/control/exchanges/")) {
       const id = req.url.slice("/control/exchanges/".length);
@@ -269,6 +289,32 @@ const server = createServer(async (req, res) => {
           error: "Choose writing/code and provide a task up to 16 KiB",
         });
       const id = "mission-" + randomUUID();
+      let contextFile = "";
+      let context: Awaited<ReturnType<typeof continuationContext>> | null =
+        null;
+      if (data.parentMissionId !== undefined) {
+        const parent = jobs.find((j) => j.id === data.parentMissionId);
+        if (!parent)
+          return send(404, {
+            error: "Prior mission is not in this local history",
+          });
+        if (parent.kind !== data.kind)
+          return send(400, {
+            error: "A continuation must keep the prior mission type",
+          });
+        try {
+          context = await continuationContext(
+            resolve(root, ".runtime/missions"),
+            parent,
+          );
+        } catch {
+          return send(409, {
+            error:
+              "Prior mission context is unavailable, unfinished or too large; no continuation started",
+          });
+        }
+        contextFile = resolve(dir, id + ".context.json");
+      }
       let contractFile = "";
       if (data.functionContract !== undefined) {
         if (data.kind !== "code")
@@ -285,6 +331,8 @@ const server = createServer(async (req, res) => {
         });
       }
       const prompt = resolve(dir, id + ".txt");
+      if (context)
+        await writeFile(contextFile, JSON.stringify(context), { mode: 0o600 });
       await writeFile(prompt, data.prompt, { mode: 0o600 });
       const job: Job = {
         id,
@@ -293,6 +341,12 @@ const server = createServer(async (req, res) => {
         useMcpDocs: data.useMcpDocs === true,
         status: "running",
         startedAt: new Date().toISOString(),
+        ...(context
+          ? {
+              parentMissionId: context.parentMissionId,
+              rootMissionId: context.rootMissionId,
+            }
+          : {}),
       };
       jobs = [job, ...jobs].slice(0, 100);
       await save();
@@ -305,6 +359,7 @@ const server = createServer(async (req, res) => {
             ...process.env,
             CITY_MISSION_ID: id,
             CITY_FUNCTION_CONTRACT_FILE: contractFile,
+            CITY_CONTEXT_FILE: contextFile,
             CITY_USE_RAG: data.useLocalDocs === true ? "1" : "0",
             CITY_USE_MCP: data.useMcpDocs === true ? "1" : "0",
             CITY_MODEL_ENDPOINT: config!.endpoint,

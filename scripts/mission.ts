@@ -27,6 +27,46 @@ if (!/^mission-[0-9a-f-]{36}$/.test(id))
   throw Error("Invalid mission identity");
 const dir = resolve(root, ".runtime/missions", id);
 await mkdir(dir, { recursive: true, mode: 0o700 });
+let context: any = null;
+if (process.env.CITY_CONTEXT_FILE) {
+  const body = await readFile(process.env.CITY_CONTEXT_FILE, "utf8");
+  if (Buffer.byteLength(body) > 131_072)
+    throw Error("Continuation context too large");
+  context = JSON.parse(body);
+  if (
+    context.schema !== "agent-city.continuation.v1" ||
+    !/^mission-[0-9a-f-]{36}$/.test(context.parentMissionId) ||
+    !/^mission-[0-9a-f-]{36}$/.test(context.rootMissionId) ||
+    typeof context.originalTask !== "string"
+  )
+    throw Error("Invalid continuation context");
+  await writeFile(resolve(dir, "context.json"), body, { mode: 0o600 });
+}
+await writeFile(
+  resolve(dir, "request.json"),
+  JSON.stringify({
+    prompt,
+    originalTask: context?.originalTask ?? prompt,
+    rootMissionId: context?.rootMissionId ?? id,
+    parentMissionId: context?.parentMissionId ?? null,
+  }),
+  { mode: 0o600 },
+);
+const requestedContract = process.env.CITY_FUNCTION_CONTRACT_FILE
+  ? validateFunctionContract(
+      JSON.parse(
+        await readFile(process.env.CITY_FUNCTION_CONTRACT_FILE, "utf8"),
+      ),
+    )
+  : null;
+if (requestedContract) {
+  if (kind !== "code") throw Error("Function checks require code");
+  await writeFile(
+    resolve(dir, "function-contract.json"),
+    JSON.stringify(requestedContract),
+    { mode: 0o600 },
+  );
+}
 await writeFile(resolve(dir, "task.txt"), prompt, { mode: 0o600 });
 await writeFile(resolve(dir, "exchanges.jsonl"), "", { mode: 0o600 });
 const output = resolve(dir, kind === "code" ? "reviewed.mjs" : "reviewed.md");
@@ -66,6 +106,7 @@ const child = spawn(
       KUJO_BIN:
         process.env.KUJO_BIN || resolve(root, "../kujo/target/release/kujo"),
       CITY_MISSION_ID: id,
+      CITY_CONTEXT_FILE: context ? resolve(dir, "context.json") : "",
       // Explicitly scoped to this generated private mission directory.
       DISPATCH_ALLOW_ANY_OUTPUT_ROOT: "true",
       CITY_SDK_ROOT: resolve(root, "../agents-sdk"),
@@ -128,17 +169,7 @@ let validation:
   | null = null;
 if (code === 0 && kind === "code") {
   validation = await checkCodeArtifact(output);
-  if (process.env.CITY_FUNCTION_CONTRACT_FILE) {
-    const contract = validateFunctionContract(
-      JSON.parse(
-        await readFile(process.env.CITY_FUNCTION_CONTRACT_FILE, "utf8"),
-      ),
-    );
-    await writeFile(
-      resolve(dir, "function-contract.json"),
-      JSON.stringify(contract),
-      { mode: 0o600 },
-    );
+  if (requestedContract) {
     const dispatch = JSON.parse(
       await readFile(resolve(dir, "dispatch.json"), "utf8"),
     );
@@ -157,7 +188,7 @@ if (code === 0 && kind === "code") {
     try {
       const functional = await checkFunctions(
         await readFile(output, "utf8"),
-        contract,
+        requestedContract,
       );
       await writeFile(
         resolve(dir, "functional.json"),

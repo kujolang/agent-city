@@ -339,6 +339,58 @@ try {
     4,
     "Provider redirects must not forward credentials to another URL",
   );
+  redirectProvider = false;
+  assert.equal((await get("/control/mission/not-in-this-history")).status, 404);
+  assert.equal(
+    (
+      await post({
+        kind: "writing",
+        prompt: "Continue",
+        parentMissionId: "not-in-this-history",
+      })
+    ).status,
+    404,
+  );
+  assert.equal(
+    (await post({ kind: "code", prompt: "Continue", parentMissionId: job.id }))
+      .status,
+    400,
+  );
+  const details = await (await get("/control/mission/" + job.id)).json();
+  assert.equal(
+    details.originalTask,
+    "Private fixture task do not put in telemetry: explain Kujo imports",
+  );
+  const continued = await post({
+    kind: "writing",
+    prompt: "Shorten the prior result",
+    parentMissionId: job.id,
+  });
+  assert.equal(continued.status, 202);
+  const followup = await continued.json();
+  const continuedState = await until(
+    async () => (await get()).json(),
+    (v) => v.jobs[0]?.id === followup.id && v.jobs[0].status === "completed",
+  );
+  assert.equal(continuedState.jobs[0].parentMissionId, job.id);
+  assert.equal(continuedState.jobs[0].rootMissionId, job.id);
+  assert.equal(calls, 6);
+  for (const request of requests.slice(-2)) {
+    const text = JSON.stringify(request.messages);
+    assert(text.includes("Private fixture reviewed output"));
+    assert(text.includes("Shorten the prior result"));
+    assert(text.includes("explain Kujo imports"));
+  }
+  const continuedSpool = await readFile(
+    resolve(root, `.runtime/spool-${prefix}${followup.id}.jsonl`),
+    "utf8",
+  );
+  assert(!continuedSpool.includes("Private fixture"));
+  assert(!continuedSpool.includes("Shorten the prior result"));
+  assert(
+    !continuedSpool.includes('"capability":"mcp.call"'),
+    "Follow-up must not silently re-invoke prior MCP request",
+  );
   const evidence = {
     kind: "SYNTHETIC PROVIDER CONTRACT; not live AI product proof",
     passed: true,
@@ -359,6 +411,9 @@ try {
     metadataOnlySpool: true,
     providerFailureRetained: true,
     unauthorizedRequestsRejected: true,
+    continuationContextReachesBothModels: true,
+    continuationRetainsParentAndOriginalTask: true,
+    continuationDoesNotRepeatPriorToolRequests: true,
     at: new Date().toISOString(),
   };
   await mkdir(resolve(root, "evidence/missions"), { recursive: true });
