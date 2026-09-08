@@ -1,6 +1,7 @@
 {
   "kind": "Fresh packaged full stack startup/shutdown; no model execution",
-  "source": "92152f679be6637c7cb7f7c7a51b51cfd4e09de2",
+  "missions": null,
+  "source": "bc0d65c6b6284b2457b3c6948832e3a9f41b99e6",
   "ports": {
     "web": 35178,
     "rag": 38791,
@@ -9,7 +10,7 @@
     "control": 37793,
     "mcp": 38931
   },
-  "readinessMs": 8436,
+  "readinessMs": 12454,
   "services": [
     "rag",
     "watchdog",
@@ -19,8 +20,9 @@
     "runner",
     "web"
   ],
-  "emptyTruth": true,
-  "modelConfigured": false,
+  "initialEmptyTruth": true,
+  "initialModelConfigured": false,
+  "modelConfiguredAfterProof": false,
   "offsetOriginValidation": true,
   "foreignOriginRejected": true,
   "rendererReady": true,
@@ -86,5 +88,5 @@
       "available": true
     }
   ],
-  "at": "2026-09-08T16:22:00.439Z"
+  "at": "2026-09-08T17:47:59.919Z"
 }

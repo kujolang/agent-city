@@ -1,3 +1,9 @@
+# Current fresh packaged stack verification
+
+Latest proof.json/fresh-stack.png are from the bc0d65c preview with Watchdog 314698b. All seven services started, the unconfigured roster stayed empty, origin checks and rendering passed, and all owned ports were released at shutdown. Readiness was 12,454 ms in this single loaded-host run. No model executed. See ../preview-refresh/README.md for artifact digest and extraction verification.
+
+## Historical launcher fixes
+
 # Fresh packaged stack verification
 
 `proof.json` records a fresh extraction of the darwin/x64 preview at Agent City
