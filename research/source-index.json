@@ -1,0 +1,500 @@
+[
+  {
+    "path": "agents-sdk/src/agents/core_types.kujo",
+    "head": "e0be75bb153296e0d2e93c7b4608a90abcb6f60e",
+    "sha256": "671f0fb78c12fc27a98a0daa5e57aed17720ca22919a680f6b6d2758d831228e",
+    "url": "https://github.com/kujolang/agents-sdk/blob/e0be75bb153296e0d2e93c7b4608a90abcb6f60e/src/agents/core_types.kujo"
+  },
+  {
+    "path": "agents-sdk/src/agents/events.kujo",
+    "head": "e0be75bb153296e0d2e93c7b4608a90abcb6f60e",
+    "sha256": "667b1f8e414d5bc493066ae1d3d0a0edab5c148bb7acb7c2f70dc8eb62e74a5e",
+    "url": "https://github.com/kujolang/agents-sdk/blob/e0be75bb153296e0d2e93c7b4608a90abcb6f60e/src/agents/events.kujo"
+  },
+  {
+    "path": "agents-sdk/src/agents/runner.kujo",
+    "head": "e0be75bb153296e0d2e93c7b4608a90abcb6f60e",
+    "sha256": "ba80f4a4b1a72df5323107682794fc7aa57625689376b8c45dfe0ebc20956363",
+    "url": "https://github.com/kujolang/agents-sdk/blob/e0be75bb153296e0d2e93c7b4608a90abcb6f60e/src/agents/runner.kujo"
+  },
+  {
+    "path": "agents-sdk/src/agents/runtime/clock_ids.kujo",
+    "head": "e0be75bb153296e0d2e93c7b4608a90abcb6f60e",
+    "sha256": "1b9557c92dadf89a60b1e5c1d992b89a258822b89f0b473c0f57c61ab6907a0b",
+    "url": "https://github.com/kujolang/agents-sdk/blob/e0be75bb153296e0d2e93c7b4608a90abcb6f60e/src/agents/runtime/clock_ids.kujo"
+  },
+  {
+    "path": "agents-sdk/src/agents/tracing/watchdog.kujo",
+    "head": "e0be75bb153296e0d2e93c7b4608a90abcb6f60e",
+    "sha256": "27715a600fc24ed544c66dd7701dc3ec41ed2e2cadb0f4acada9763b072c8d7e",
+    "url": "https://github.com/kujolang/agents-sdk/blob/e0be75bb153296e0d2e93c7b4608a90abcb6f60e/src/agents/tracing/watchdog.kujo"
+  },
+  {
+    "path": "agents-sdk/src/agents/retrieval/rag_adapter.kujo",
+    "head": "e0be75bb153296e0d2e93c7b4608a90abcb6f60e",
+    "sha256": "ada2e06badfcd1a9c0e12f3ecf26c7db70d434519d48a583abc4033faa538d07",
+    "url": "https://github.com/kujolang/agents-sdk/blob/e0be75bb153296e0d2e93c7b4608a90abcb6f60e/src/agents/retrieval/rag_adapter.kujo"
+  },
+  {
+    "path": "agents-sdk/src/agents/handoffs/handoff.kujo",
+    "head": "e0be75bb153296e0d2e93c7b4608a90abcb6f60e",
+    "sha256": "74851951087cd17c7f7bf914504c305b2e3895cd037430a34a3a6e9509c925be",
+    "url": "https://github.com/kujolang/agents-sdk/blob/e0be75bb153296e0d2e93c7b4608a90abcb6f60e/src/agents/handoffs/handoff.kujo"
+  },
+  {
+    "path": "agents-sdk/examples/rag_documentation_agent.kujo",
+    "head": "e0be75bb153296e0d2e93c7b4608a90abcb6f60e",
+    "sha256": "404b0aeb6139cfb054f3467a7ad5eafed8999ff968d7f6af1a3ca93d71337d9b",
+    "url": "https://github.com/kujolang/agents-sdk/blob/e0be75bb153296e0d2e93c7b4608a90abcb6f60e/examples/rag_documentation_agent.kujo"
+  },
+  {
+    "path": "agents-sdk/tests/runner_result_event_contract_tests.kujo",
+    "head": "e0be75bb153296e0d2e93c7b4608a90abcb6f60e",
+    "sha256": "716931cc8eceb6426bc2cb7d23347cccf404c697cfc34e161c1586d963645b42",
+    "url": "https://github.com/kujolang/agents-sdk/blob/e0be75bb153296e0d2e93c7b4608a90abcb6f60e/tests/runner_result_event_contract_tests.kujo"
+  },
+  {
+    "path": "agents-sdk/tests/arch_runtime_clock_ids_tests.kujo",
+    "head": "e0be75bb153296e0d2e93c7b4608a90abcb6f60e",
+    "sha256": "effdda972e47e9d1cda8fa8857efd212824f23f23e79d01370174119a1db8c70",
+    "url": "https://github.com/kujolang/agents-sdk/blob/e0be75bb153296e0d2e93c7b4608a90abcb6f60e/tests/arch_runtime_clock_ids_tests.kujo"
+  },
+  {
+    "path": "agents-sdk/tests/watchdog_telemetry_contract_tests.kujo",
+    "head": "e0be75bb153296e0d2e93c7b4608a90abcb6f60e",
+    "sha256": "31014c8ac88c61b771b4bacf32be12953b7db639e88c8cfadd1c6f09c2d42e22",
+    "url": "https://github.com/kujolang/agents-sdk/blob/e0be75bb153296e0d2e93c7b4608a90abcb6f60e/tests/watchdog_telemetry_contract_tests.kujo"
+  },
+  {
+    "path": "agents-sdk/tests/handoff_contract_tests.kujo",
+    "head": "e0be75bb153296e0d2e93c7b4608a90abcb6f60e",
+    "sha256": "4d12adb58c50c50d59178921e2c81659c9fcb15c5f6b6ef798ab2ba3a186deae",
+    "url": "https://github.com/kujolang/agents-sdk/blob/e0be75bb153296e0d2e93c7b4608a90abcb6f60e/tests/handoff_contract_tests.kujo"
+  },
+  {
+    "path": "kujo-agents/agent-registry.json",
+    "head": "65f23b8ee8fc535e3d929860742020976b121d43",
+    "sha256": "c159ecf101171e49a5cb79f5990808fdee955580877074972795779c894b221d",
+    "url": "https://github.com/kujolang/kujo-agents/blob/65f23b8ee8fc535e3d929860742020976b121d43/agent-registry.json"
+  },
+  {
+    "path": "kujo-agents/chain-of-command/general-commander/manifest.json",
+    "head": "65f23b8ee8fc535e3d929860742020976b121d43",
+    "sha256": "f1735d35831596d90b1e9ffae26fab4accaf093b1df15dcc370757597d6413d5",
+    "url": "https://github.com/kujolang/kujo-agents/blob/65f23b8ee8fc535e3d929860742020976b121d43/chain-of-command/general-commander/manifest.json"
+  },
+  {
+    "path": "dispatch/src/core/step.kujo",
+    "head": "83eea7d9d9c2a8c125bee8d64b13c1181f60c609",
+    "sha256": "a7bf6e81cd6ae2e833179986f01a7e77749d30505e177d1ef719e9d551c02d2f",
+    "url": "https://github.com/kujolang/dispatch/blob/83eea7d9d9c2a8c125bee8d64b13c1181f60c609/src/core/step.kujo"
+  },
+  {
+    "path": "dispatch/src/agents/agent.kujo",
+    "head": "83eea7d9d9c2a8c125bee8d64b13c1181f60c609",
+    "sha256": "b5954a9bec3dabd6ce115d6aea1f31503fb5ee3d0bc6d36563eee132ed44afc0",
+    "url": "https://github.com/kujolang/dispatch/blob/83eea7d9d9c2a8c125bee8d64b13c1181f60c609/src/agents/agent.kujo"
+  },
+  {
+    "path": "dispatch/src/core/runner.kujo",
+    "head": "83eea7d9d9c2a8c125bee8d64b13c1181f60c609",
+    "sha256": "83fa1930c5d8c5de439663e48db77b659bf3bac043efb6edd3ed381e7794c6b8",
+    "url": "https://github.com/kujolang/dispatch/blob/83eea7d9d9c2a8c125bee8d64b13c1181f60c609/src/core/runner.kujo"
+  },
+  {
+    "path": "dispatch/src/core/hooks.kujo",
+    "head": "83eea7d9d9c2a8c125bee8d64b13c1181f60c609",
+    "sha256": "29e7e77ad9a5056ad486e01fb036d1dbf4bce0f1bfc308569ec97ec75716967c",
+    "url": "https://github.com/kujolang/dispatch/blob/83eea7d9d9c2a8c125bee8d64b13c1181f60c609/src/core/hooks.kujo"
+  },
+  {
+    "path": "dispatch/src/core/trace.kujo",
+    "head": "83eea7d9d9c2a8c125bee8d64b13c1181f60c609",
+    "sha256": "7bd201c03a8769b3066724364b4ca5a480441cb7baee7b0c44b2fc28c73c2ae1",
+    "url": "https://github.com/kujolang/dispatch/blob/83eea7d9d9c2a8c125bee8d64b13c1181f60c609/src/core/trace.kujo"
+  },
+  {
+    "path": "dispatch/examples/workflows/documentation-query.json",
+    "head": "83eea7d9d9c2a8c125bee8d64b13c1181f60c609",
+    "sha256": "3beabbc1e5ff912823d47182bdd1a3b25bc1795c05da609f3f84639150de3f82",
+    "url": "https://github.com/kujolang/dispatch/blob/83eea7d9d9c2a8c125bee8d64b13c1181f60c609/examples/workflows/documentation-query.json"
+  },
+  {
+    "path": "dispatch/tests/dispatch_tests.kujo",
+    "head": "83eea7d9d9c2a8c125bee8d64b13c1181f60c609",
+    "sha256": "9f807ef845485ff0b6815a63a7b0b5368628d2d584461c293d2fd1a0fcc2271e",
+    "url": "https://github.com/kujolang/dispatch/blob/83eea7d9d9c2a8c125bee8d64b13c1181f60c609/tests/dispatch_tests.kujo"
+  },
+  {
+    "path": "dispatch/tests/operational_controls_tests.kujo",
+    "head": "83eea7d9d9c2a8c125bee8d64b13c1181f60c609",
+    "sha256": "1524c6d2a1ceb799b8721641eb970b682eab2b39999ba72699596d103569a7e4",
+    "url": "https://github.com/kujolang/dispatch/blob/83eea7d9d9c2a8c125bee8d64b13c1181f60c609/tests/operational_controls_tests.kujo"
+  },
+  {
+    "path": "dispatch/tests/hardening_tests.kujo",
+    "head": "83eea7d9d9c2a8c125bee8d64b13c1181f60c609",
+    "sha256": "cc79431dc81cd4bee44adc8b257778624754f45d02abb401cd04893240717ca5",
+    "url": "https://github.com/kujolang/dispatch/blob/83eea7d9d9c2a8c125bee8d64b13c1181f60c609/tests/hardening_tests.kujo"
+  },
+  {
+    "path": "relay/src/runtime.kujo",
+    "head": "01c44da192e0fa7f1135d3c047b16dd23421058d",
+    "sha256": "d5121e9e12957f2c9c20007d3d24450f11c666e629304d2addd5c6561b4856c8",
+    "url": "https://github.com/kujolang/relay/blob/01c44da192e0fa7f1135d3c047b16dd23421058d/src/runtime.kujo"
+  },
+  {
+    "path": "relay/src/contracts.kujo",
+    "head": "01c44da192e0fa7f1135d3c047b16dd23421058d",
+    "sha256": "4567d30861ed61d372e43b3d928218a92d1fea284971986e94125ceaeb61fc45",
+    "url": "https://github.com/kujolang/relay/blob/01c44da192e0fa7f1135d3c047b16dd23421058d/src/contracts.kujo"
+  },
+  {
+    "path": "relay/src/cli.kujo",
+    "head": "01c44da192e0fa7f1135d3c047b16dd23421058d",
+    "sha256": "cb005be8f2d606687bdaf20c9078fc318b149fcc504230b85d436c380407005d",
+    "url": "https://github.com/kujolang/relay/blob/01c44da192e0fa7f1135d3c047b16dd23421058d/src/cli.kujo"
+  },
+  {
+    "path": "relay/src/common.kujo",
+    "head": "01c44da192e0fa7f1135d3c047b16dd23421058d",
+    "sha256": "52bb0c9492b70c92f7c74e9e05a72ad4ebd4cf59299504ffcbecc9178ff9dbb9",
+    "url": "https://github.com/kujolang/relay/blob/01c44da192e0fa7f1135d3c047b16dd23421058d/src/common.kujo"
+  },
+  {
+    "path": "relay/src/registry.kujo",
+    "head": "01c44da192e0fa7f1135d3c047b16dd23421058d",
+    "sha256": "0ba138cccbab7e444fa20196dcab9d66a94bf17e50ce0a7d33736de0a0444a74",
+    "url": "https://github.com/kujolang/relay/blob/01c44da192e0fa7f1135d3c047b16dd23421058d/src/registry.kujo"
+  },
+  {
+    "path": "workcell/src/receipts/receipt.kujo",
+    "head": "af0665423417a0872303e69b7c22777c697361bb",
+    "sha256": "ef4cb6c89281cbfe6866bcf2e51bbbcb8bb9e566f3bf5d4034d05e2e53c3cb86",
+    "url": "https://github.com/kujolang/workcell/blob/af0665423417a0872303e69b7c22777c697361bb/src/receipts/receipt.kujo"
+  },
+  {
+    "path": "workcell/src/receipts/v2.kujo",
+    "head": "af0665423417a0872303e69b7c22777c697361bb",
+    "sha256": "fb51cd506bad7638da9f4068c4efdff5b372ec39ff871c60e4621f04244c315b",
+    "url": "https://github.com/kujolang/workcell/blob/af0665423417a0872303e69b7c22777c697361bb/src/receipts/v2.kujo"
+  },
+  {
+    "path": "workcell/src/domain/caller_context.kujo",
+    "head": "af0665423417a0872303e69b7c22777c697361bb",
+    "sha256": "7ffa423fe16826b3efe5c1ed426c1730cdfc75798a3da3de59c573b50d0434df",
+    "url": "https://github.com/kujolang/workcell/blob/af0665423417a0872303e69b7c22777c697361bb/src/domain/caller_context.kujo"
+  },
+  {
+    "path": "workcell-studio/docs/ARCHITECTURE.md",
+    "head": "e5f82f23eebaded5254ef586b37243559042106d",
+    "sha256": "30540ff42adaed9d78bfa50729d633e9b7be027a9f6b8bdf8a7ca1557bcadc41",
+    "url": "https://github.com/kujolang/workcell-studio/blob/e5f82f23eebaded5254ef586b37243559042106d/docs/ARCHITECTURE.md"
+  },
+  {
+    "path": "watchdog/docs/native-event-contract.md",
+    "head": "557b822294e70bfd4f42e1751fde5652f932c34c",
+    "sha256": "1279d7ce906872d10050565b865e4f238198fdff65ea6728441f097febd8e65f",
+    "url": "https://github.com/kujolang/watchdog/blob/557b822294e70bfd4f42e1751fde5652f932c34c/docs/native-event-contract.md"
+  },
+  {
+    "path": "watchdog/schemas/watchdog-native-event-v1.schema.json",
+    "head": "557b822294e70bfd4f42e1751fde5652f932c34c",
+    "sha256": "a81e00c155928c207e4cc82540c6da5113eefc901b79639bc2322ae196574aa2",
+    "url": "https://github.com/kujolang/watchdog/blob/557b822294e70bfd4f42e1751fde5652f932c34c/schemas/watchdog-native-event-v1.schema.json"
+  },
+  {
+    "path": "watchdog/schemas/telemetry-v2.schema.json",
+    "head": "557b822294e70bfd4f42e1751fde5652f932c34c",
+    "sha256": "a9254e6976613f20d440564f5e177afc5f2488e2a24d019f39c0c3e278d35a80",
+    "url": "https://github.com/kujolang/watchdog/blob/557b822294e70bfd4f42e1751fde5652f932c34c/schemas/telemetry-v2.schema.json"
+  },
+  {
+    "path": "watchdog/src/telemetry_native_adapter.kujo",
+    "head": "557b822294e70bfd4f42e1751fde5652f932c34c",
+    "sha256": "facafe18306c7ddf5476acb4a156487ea539288a1c93b340e74bb0d9a0a76f35",
+    "url": "https://github.com/kujolang/watchdog/blob/557b822294e70bfd4f42e1751fde5652f932c34c/src/telemetry_native_adapter.kujo"
+  },
+  {
+    "path": "watchdog/src/telemetry_repository.kujo",
+    "head": "557b822294e70bfd4f42e1751fde5652f932c34c",
+    "sha256": "7deec9a273ca69fd96367a8b32085b7eb3b0e6f7978b2990ce3ffe830141c3fe",
+    "url": "https://github.com/kujolang/watchdog/blob/557b822294e70bfd4f42e1751fde5652f932c34c/src/telemetry_repository.kujo"
+  },
+  {
+    "path": "watchdog/src/dashboard_server.kujo",
+    "head": "557b822294e70bfd4f42e1751fde5652f932c34c",
+    "sha256": "61d94e45e241ecc7737d85f493a39bb47163db9bac640d2de7394614715423f4",
+    "url": "https://github.com/kujolang/watchdog/blob/557b822294e70bfd4f42e1751fde5652f932c34c/src/dashboard_server.kujo"
+  },
+  {
+    "path": "watchdog/tests/telemetry_native_adapter_check.js",
+    "head": "557b822294e70bfd4f42e1751fde5652f932c34c",
+    "sha256": "581f5a053759ad8ce4d8eeabcce88f0a4e0b1f1daf73362f17707fc73f0248b3",
+    "url": "https://github.com/kujolang/watchdog/blob/557b822294e70bfd4f42e1751fde5652f932c34c/tests/telemetry_native_adapter_check.js"
+  },
+  {
+    "path": "watchdog/tests/telemetry_v2_identity_conflict_suite.js",
+    "head": "557b822294e70bfd4f42e1751fde5652f932c34c",
+    "sha256": "c79c39ece796c0dcf13cce92bd3a73ba8397437e92ca6e4d4f1dce507e05e2d6",
+    "url": "https://github.com/kujolang/watchdog/blob/557b822294e70bfd4f42e1751fde5652f932c34c/tests/telemetry_v2_identity_conflict_suite.js"
+  },
+  {
+    "path": "runledger/src/record.kujo",
+    "head": "92cb06344386fc0a78d92b1db92f417edb22b285",
+    "sha256": "0533d0e7a6954c68d3ce051208648eedeecc70bb8df1223680a686edcd480973",
+    "url": "https://github.com/kujolang/runledger/blob/92cb06344386fc0a78d92b1db92f417edb22b285/src/record.kujo"
+  },
+  {
+    "path": "rag/src/query_api.kujo",
+    "head": "85743f88c152d7c65f59d4697111faf85e36d8eb",
+    "sha256": "17cda5babbbe32ec710f7a8285600d4c2d39b2e685742f7e6b0116f5e0f7e67a",
+    "url": "https://github.com/kujolang/rag/blob/85743f88c152d7c65f59d4697111faf85e36d8eb/src/query_api.kujo"
+  },
+  {
+    "path": "rag/src/audit_log.kujo",
+    "head": "85743f88c152d7c65f59d4697111faf85e36d8eb",
+    "sha256": "c128c4e9479ba5a42af12ba979406cf65eb33353c3798f2bd682d6949de04078",
+    "url": "https://github.com/kujolang/rag/blob/85743f88c152d7c65f59d4697111faf85e36d8eb/src/audit_log.kujo"
+  },
+  {
+    "path": "rag/src/retrieval.kujo",
+    "head": "85743f88c152d7c65f59d4697111faf85e36d8eb",
+    "sha256": "f24db403ad5537bb2b1fa2fd4c703059ece99aec62368bb162b09e98825cbb37",
+    "url": "https://github.com/kujolang/rag/blob/85743f88c152d7c65f59d4697111faf85e36d8eb/src/retrieval.kujo"
+  },
+  {
+    "path": "rag/src/rag_engine.kujo",
+    "head": "85743f88c152d7c65f59d4697111faf85e36d8eb",
+    "sha256": "0332c52f3c50f6d9e141901203e1e9510314d3a4d87047a8dd2213f94de03285",
+    "url": "https://github.com/kujolang/rag/blob/85743f88c152d7c65f59d4697111faf85e36d8eb/src/rag_engine.kujo"
+  },
+  {
+    "path": "rag/openapi/kujo-rag-openapi.json",
+    "head": "85743f88c152d7c65f59d4697111faf85e36d8eb",
+    "sha256": "0c050ef79ead78a03d5bae7fca424201e14916146aa0d17845e4e6e935ed3419",
+    "url": "https://github.com/kujolang/rag/blob/85743f88c152d7c65f59d4697111faf85e36d8eb/openapi/kujo-rag-openapi.json"
+  },
+  {
+    "path": "eval/src/watchdog_telemetry.kujo",
+    "head": "7ad5caef1b718ab8a6ccdd02ef1b645af93ac133",
+    "sha256": "158436a098313f4aa2098bcb814b0b108e229a9637c80afd5c735229f52fc88f",
+    "url": "https://github.com/kujolang/eval/blob/7ad5caef1b718ab8a6ccdd02ef1b645af93ac133/src/watchdog_telemetry.kujo"
+  },
+  {
+    "path": "eval/tests/watchdog_telemetry_tests.kujo",
+    "head": "7ad5caef1b718ab8a6ccdd02ef1b645af93ac133",
+    "sha256": "d63d5741f2d2a555b20f4845574f2552080de96e0ba1b10a214366da7df9571d",
+    "url": "https://github.com/kujolang/eval/blob/7ad5caef1b718ab8a6ccdd02ef1b645af93ac133/tests/watchdog_telemetry_tests.kujo"
+  },
+  {
+    "path": "mcp/src/telemetry/watchdog.kujo",
+    "head": "20f1c83f702aa0a86595db5a824634c1dde96aaa",
+    "sha256": "9c0afd1f3440b4176f14b003b0b58ec7857b8e98e90af2749d9c85b13db1d6f1",
+    "url": "https://github.com/kujolang/mcp/blob/20f1c83f702aa0a86595db5a824634c1dde96aaa/src/telemetry/watchdog.kujo"
+  },
+  {
+    "path": "mcp/src/abilities/projection.kujo",
+    "head": "20f1c83f702aa0a86595db5a824634c1dde96aaa",
+    "sha256": "353ce0b39c19f07c58cb36809f4f03850454700381a08d8802048ce76d96edb5",
+    "url": "https://github.com/kujolang/mcp/blob/20f1c83f702aa0a86595db5a824634c1dde96aaa/src/abilities/projection.kujo"
+  },
+  {
+    "path": "mcp/src/abilities/gateway.kujo",
+    "head": "20f1c83f702aa0a86595db5a824634c1dde96aaa",
+    "sha256": "bbfa4def02f5c8dd5c9852252ef2d59066a3264796c5e5222c35f41b3a5331bb",
+    "url": "https://github.com/kujolang/mcp/blob/20f1c83f702aa0a86595db5a824634c1dde96aaa/src/abilities/gateway.kujo"
+  },
+  {
+    "path": "agents-sdk/src/agents/abilities/contract.kujo",
+    "head": "e0be75bb153296e0d2e93c7b4608a90abcb6f60e",
+    "sha256": "f721ddb802ed07d017bacba7fb819b7d4764826ceef0fbada51b22b34a63b70a",
+    "url": "https://github.com/kujolang/agents-sdk/blob/e0be75bb153296e0d2e93c7b4608a90abcb6f60e/src/agents/abilities/contract.kujo"
+  },
+  {
+    "path": "ability/src/contracts.kujo",
+    "head": "e5a74803c822de79e934d2bea82d615d8be3bbee",
+    "sha256": "baed37be870e67646ff6e2c8cd76b1d49b007f01008177576f2cbe23535b3b9a",
+    "url": "https://github.com/kujolang/ability/blob/e5a74803c822de79e934d2bea82d615d8be3bbee/src/contracts.kujo"
+  },
+  {
+    "path": "ability/src/runtime.kujo",
+    "head": "e5a74803c822de79e934d2bea82d615d8be3bbee",
+    "sha256": "15f4487483ea2e2131bae0b5b274db4fc86bb495163235ae9e69d682fda50fe3",
+    "url": "https://github.com/kujolang/ability/blob/e5a74803c822de79e934d2bea82d615d8be3bbee/src/runtime.kujo"
+  },
+  {
+    "path": "ability-gateway/README.md",
+    "head": "d7934e267826aba2525c042e56cc6e74a460e547",
+    "sha256": "95a8c0181f3b1445528b5765013562a520b7e4f13cca9d454b943286ee17cdcb",
+    "url": "https://github.com/kujolang/ability-gateway/blob/d7934e267826aba2525c042e56cc6e74a460e547/README.md"
+  },
+  {
+    "path": "ai-chat/lib/execution-journal.js",
+    "head": "18e8667505d79f72a96f0589c4e9160af6f7b944",
+    "sha256": "2a613dccb7c871dc0c997b53935c605fdab52e6b931b8fa112cb540d8ac1f5aa",
+    "url": "https://github.com/kujolang/ai-chat/blob/18e8667505d79f72a96f0589c4e9160af6f7b944/lib/execution-journal.js"
+  },
+  {
+    "path": "ai-chat/public/execution-replay.js",
+    "head": "18e8667505d79f72a96f0589c4e9160af6f7b944",
+    "sha256": "556ba499ff752cda173d969b72b7d9d38c5dc1d6aa099f7ce6ca451506f54963",
+    "url": "https://github.com/kujolang/ai-chat/blob/18e8667505d79f72a96f0589c4e9160af6f7b944/public/execution-replay.js"
+  },
+  {
+    "path": "ai-chat/tests/execution-replay.test.js",
+    "head": "18e8667505d79f72a96f0589c4e9160af6f7b944",
+    "sha256": "cf03096340fc7b78457e854c9e3f09272435a982309b3afe9bf5dd707b0061ab",
+    "url": "https://github.com/kujolang/ai-chat/blob/18e8667505d79f72a96f0589c4e9160af6f7b944/tests/execution-replay.test.js"
+  },
+  {
+    "path": "searchbridge/src/telemetry.kujo",
+    "head": "88aad1c0eacf2588dac305beb18eb0a3adbb53e2",
+    "sha256": "faa44417f62449293e0f86db2d63f6af769301a350e304006a8b281169891809",
+    "url": "https://github.com/kujolang/searchbridge/blob/88aad1c0eacf2588dac305beb18eb0a3adbb53e2/src/telemetry.kujo"
+  },
+  {
+    "path": "shipcheck/src/report.kujo",
+    "head": "111bfc83c832050877cb9d4fd82908aaf6d14749",
+    "sha256": "da1f75cb6ab9d3ce00da7b381f29d6743947f43c8308174d179e40c3303cb0ab",
+    "url": "https://github.com/kujolang/shipcheck/blob/111bfc83c832050877cb9d4fd82908aaf6d14749/src/report.kujo"
+  },
+  {
+    "path": "shipcheck/schemas/shipcheck-report.schema.json",
+    "head": "111bfc83c832050877cb9d4fd82908aaf6d14749",
+    "sha256": "96b7e85427dca763310b4d9de0df28d20e8c9d69f6de29ce89a36feeff92be01",
+    "url": "https://github.com/kujolang/shipcheck/blob/111bfc83c832050877cb9d4fd82908aaf6d14749/schemas/shipcheck-report.schema.json"
+  },
+  {
+    "path": "casefile/src/capture.kujo",
+    "head": "f26df300df0e9db570f7730341077084f5594f0d",
+    "sha256": "280bd10c9a7a8c907d245983e25e2178cb789889860146a7e28f119873a9492a",
+    "url": "https://github.com/kujolang/casefile/blob/f26df300df0e9db570f7730341077084f5594f0d/src/capture.kujo"
+  },
+  {
+    "path": "casefile/src/redactor.kujo",
+    "head": "f26df300df0e9db570f7730341077084f5594f0d",
+    "sha256": "c09b602b5ef3af1ef148641317fea70a36a0d814defde8404e29a7e0538e3cac",
+    "url": "https://github.com/kujolang/casefile/blob/f26df300df0e9db570f7730341077084f5594f0d/src/redactor.kujo"
+  },
+  {
+    "path": "site-kit/components/modal/modal.html",
+    "head": "9629c4cb2a42f62f80be6159c9d63a141ccbb696",
+    "sha256": "ad0c219b409690029d1408a231f4a635aa2f2f34448480f778ea2664b042630b",
+    "url": "https://github.com/kujolang/site-kit/blob/9629c4cb2a42f62f80be6159c9d63a141ccbb696/components/modal/modal.html"
+  },
+  {
+    "path": "leash/contracts/event.schema.json",
+    "head": "3e90f14b7abc6c23a89157fbd7cc98c6d4dbfcf8",
+    "sha256": "e5673b134e34ad60ccb262ae63088b9cc6ef92d428890db055932defd7fb61d5",
+    "url": "https://github.com/robertdevore/leash/blob/3e90f14b7abc6c23a89157fbd7cc98c6d4dbfcf8/contracts/event.schema.json"
+  },
+  {
+    "path": "kujo/README.md",
+    "head": "5dcbfcda2e48c2fe56dd2a4ecdb2d5947e18ff59",
+    "sha256": "0465537ef6d597739b404b003abc03ba3d79b96975b930d7046a6ae859d7e288",
+    "url": "https://github.com/kujolang/kujo/blob/5dcbfcda2e48c2fe56dd2a4ecdb2d5947e18ff59/README.md"
+  },
+  {
+    "path": "ai-sdk/README.md",
+    "head": "71bad1468fbc97eab830a27c185c032f07fd76cf",
+    "sha256": "6d32afff506c8d6a105fef6a9aad5bc64a1d6affd9798f2511c0705b08f552dc",
+    "url": "https://github.com/kujolang/ai-sdk/blob/71bad1468fbc97eab830a27c185c032f07fd76cf/README.md"
+  },
+  {
+    "path": "kennel/README.md",
+    "head": "fbef0ea0ed8b1b7eb037e45a2aa9d1a170c31b79",
+    "sha256": "752e83e6da16b53671fe38da1407a207e29eca8982a00a3bba7ae55ab4f74003",
+    "url": "https://github.com/kujolang/kennel/blob/fbef0ea0ed8b1b7eb037e45a2aa9d1a170c31b79/README.md"
+  },
+  {
+    "path": "spec/README.md",
+    "head": "1211f37a09314be7150734bf15a55e9b2ea6504d",
+    "sha256": "cb119f70328bd928b1291fd7c77a3439bd3cd7d4f178c4d1bf38eefabfbb8a41",
+    "url": "https://github.com/kujolang/spec/blob/1211f37a09314be7150734bf15a55e9b2ea6504d/README.md"
+  },
+  {
+    "path": "changebucket/README.md",
+    "head": "38d67aacee7258f3c84c2d8d8e9ae671df943c90",
+    "sha256": "3a459ad66f2260b16719657fddbf4945c94ceab9b0c7ba17cf9ace773e9e7ed0",
+    "url": "https://github.com/kujolang/changebucket/blob/38d67aacee7258f3c84c2d8d8e9ae671df943c90/README.md"
+  },
+  {
+    "path": "scent/README.md",
+    "head": "969f0fdc853c88cd051248a6ebcd9ce0434d9f43",
+    "sha256": "fdde4fb1d02b3b58c66992e569ed94b025062ee5d55742449336c414497804aa",
+    "url": "https://github.com/kujolang/scent/blob/969f0fdc853c88cd051248a6ebcd9ce0434d9f43/README.md"
+  },
+  {
+    "path": "fence/README.md",
+    "head": "fda049ed9aa55ba50c150b84bb9ca1bdf49af0dc",
+    "sha256": "48bed51739ddd42ee806d1af577772265efec1f4b4fca7a3f07fb424689ca646",
+    "url": "https://github.com/kujolang/fence/blob/fda049ed9aa55ba50c150b84bb9ca1bdf49af0dc/README.md"
+  },
+  {
+    "path": "muzzle/README.md",
+    "head": "ac40faf465486848509275cdd5f3af8096bbdeea",
+    "sha256": "b7f4236f6ba83dd535834a38ca5ca0207e233318757105ee62a76299710a6a1e",
+    "url": "https://github.com/kujolang/muzzle/blob/ac40faf465486848509275cdd5f3af8096bbdeea/README.md"
+  },
+  {
+    "path": "howl/README.md",
+    "head": "2a489084b8ebe5e1192eb7fdbaa3b3e19a52600e",
+    "sha256": "5f22055b75fae6e0227e71df53bb9302268e36e9830f4be8c948abfd152b0659",
+    "url": "https://github.com/kujolang/howl/blob/2a489084b8ebe5e1192eb7fdbaa3b3e19a52600e/README.md"
+  },
+  {
+    "path": "lens/README.md",
+    "head": "fd388efd4f55f3f844cf7de4fc541abfd07a6785",
+    "sha256": "fbf75bcff57c223969201b7a0ce526b4da8269110a55a6f872dabdd63395b97d",
+    "url": "https://github.com/kujolang/lens/blob/fd388efd4f55f3f844cf7de4fc541abfd07a6785/README.md"
+  },
+  {
+    "path": "site-kit/README.md",
+    "head": "9629c4cb2a42f62f80be6159c9d63a141ccbb696",
+    "sha256": "ca3e01d48bbedd78f88e617ae0e6a0c8d9586f0514f52182c7f1b1327b7ae260",
+    "url": "https://github.com/kujolang/site-kit/blob/9629c4cb2a42f62f80be6159c9d63a141ccbb696/README.md"
+  },
+  {
+    "path": "ssg/README.md",
+    "head": "e165dbc1b596ea759a2b9c2ff0b9ca988c333eea",
+    "sha256": "a18cea1536b68c0bf85a9550899f5bdcb68e4f44fc7f9b6f32e24be3ba97471a",
+    "url": "https://github.com/kujolang/ssg/blob/e165dbc1b596ea759a2b9c2ff0b9ca988c333eea/README.md"
+  },
+  {
+    "path": "totalrecall/README.md",
+    "head": "d79b2b3c25d349a7748f3f519a7818fb748ceccc",
+    "sha256": "10564c09b72c3d86be95338fc55e8e8f532d2c43b89c56d2470dc78742bf4362",
+    "url": "https://github.com/robertdevore/totalrecall/blob/d79b2b3c25d349a7748f3f519a7818fb748ceccc/README.md"
+  },
+  {
+    "path": "searchbridge/README.md",
+    "head": "88aad1c0eacf2588dac305beb18eb0a3adbb53e2",
+    "sha256": "6c2a3ac56facf786df0c6d2b3890ef957f6d2d62545e7175fcda0da82c63726e",
+    "url": "https://github.com/kujolang/searchbridge/blob/88aad1c0eacf2588dac305beb18eb0a3adbb53e2/README.md"
+  },
+  {
+    "path": "workcell-studio/README.md",
+    "head": "e5f82f23eebaded5254ef586b37243559042106d",
+    "sha256": "3d29586cd02ef3609ba605cc6c4ac7409677de7395c16adfff5eb0c06b74c65a",
+    "url": "https://github.com/kujolang/workcell-studio/blob/e5f82f23eebaded5254ef586b37243559042106d/README.md"
+  },
+  {
+    "path": "concord/README.md",
+    "head": "4ca511291b2c3cae2b3a2b838b2bbf03ac0b0503",
+    "sha256": "c7dad5faa3ce77705881713f8fbb3067e27dc7751cb58f26f42d6d40625f3d2f",
+    "url": "https://github.com/kujolang/concord/blob/4ca511291b2c3cae2b3a2b838b2bbf03ac0b0503/README.md"
+  },
+  {
+    "path": "packwrite/README.md",
+    "head": "3f0cbf4b5052677d22040cdf486adf2817b40a20",
+    "sha256": "f51483cfcacd42e180a2f5cc003f1a95b22a8f7a54f916fd3f557152120ce3b2",
+    "url": "https://github.com/kujolang/packwrite/blob/3f0cbf4b5052677d22040cdf486adf2817b40a20/README.md"
+  },
+  {
+    "path": "patchbrief/README.md",
+    "head": "321d961c19c4ee09713cf1f737ba5e112b0caa5b",
+    "sha256": "bbe777acd81efdf3fdb41ad0d324187c9041596a39e64637b7903abcfcdadee3",
+    "url": "https://github.com/kujolang/patchbrief/blob/321d961c19c4ee09713cf1f737ba5e112b0caa5b/README.md"
+  }
+]

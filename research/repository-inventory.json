@@ -1,0 +1,895 @@
+{
+  "inspectedAt": "2026-09-07",
+  "scope": "Immediate sibling Git repositories; discovery inventory, not claim all deeply reviewed",
+  "repositories": [
+    {
+      "repo": "ability",
+      "head": "e5a74803c822de79e934d2bea82d615d8be3bbee",
+      "branch": "main",
+      "remote": "git@github.com:kujolang/ability.git",
+      "dirty": false
+    },
+    {
+      "repo": "ability-gateway",
+      "head": "d7934e267826aba2525c042e56cc6e74a460e547",
+      "branch": "main",
+      "remote": "git@github.com:kujolang/ability-gateway.git",
+      "dirty": false
+    },
+    {
+      "repo": "agents-sdk",
+      "head": "e0be75bb153296e0d2e93c7b4608a90abcb6f60e",
+      "branch": "main",
+      "remote": "git@robertdevore-GitHub:kujolang/agents-sdk.git",
+      "dirty": true
+    },
+    {
+      "repo": "agents.kujolang.ai",
+      "head": "a0a121268fc701a850cb869db9487c9deabbb4a4",
+      "branch": "main",
+      "remote": "git@github.com:kujolang/agents.kujolang.ai.git",
+      "dirty": false
+    },
+    {
+      "repo": "ai-chat",
+      "head": "18e8667505d79f72a96f0589c4e9160af6f7b944",
+      "branch": "main",
+      "remote": "git@robertdevore-GitHub:kujolang/ai-chat.git",
+      "dirty": false
+    },
+    {
+      "repo": "ai-chat-tool-repair",
+      "head": "157da3c3757f1414804deac376133fdc39be4d51",
+      "branch": "",
+      "remote": "git@robertdevore-GitHub:kujolang/ai-chat.git",
+      "dirty": false
+    },
+    {
+      "repo": "ai-sdk",
+      "head": "71bad1468fbc97eab830a27c185c032f07fd76cf",
+      "branch": "main",
+      "remote": "git@robertdevore-GitHub:kujolang/ai-sdk.git",
+      "dirty": false
+    },
+    {
+      "repo": "anthropic",
+      "head": "84ad0efeedbb08675adc7e4cfed11ea4fdf88531",
+      "branch": "main",
+      "remote": "git@github.com:kujolang/anthropic.git",
+      "dirty": false
+    },
+    {
+      "repo": "assetworks",
+      "head": "32ce0b2542100092dc22fea6fc1affd97dd861dc",
+      "branch": "main",
+      "remote": "git@github.com:kujolang/assetworks.git",
+      "dirty": false
+    },
+    {
+      "repo": "azure-ai",
+      "head": "a11891ccc287b1d4b23f528c3f0501406e1b2da3",
+      "branch": "main",
+      "remote": "git@github.com:kujolang/azure-ai.git",
+      "dirty": false
+    },
+    {
+      "repo": "baseten",
+      "head": "5c6fc17afc6f18ad55526b770718a9228cbc1d35",
+      "branch": "main",
+      "remote": "git@github.com:kujolang/baseten.git",
+      "dirty": false
+    },
+    {
+      "repo": "bedrock",
+      "head": "ea2106405a75a352c9a5ccd081e779d92798dedf",
+      "branch": "main",
+      "remote": "git@github.com:kujolang/bedrock.git",
+      "dirty": false
+    },
+    {
+      "repo": "benchmarks-capsule",
+      "head": "067bb82d71547b8fd746539b2cf0d726b37d6239",
+      "branch": "main",
+      "remote": "",
+      "dirty": true
+    },
+    {
+      "repo": "benchmarks-capsule-v3",
+      "head": "HEAD",
+      "branch": "main",
+      "remote": "",
+      "dirty": true
+    },
+    {
+      "repo": "benchmarks-system",
+      "head": "65c92396f843694d27de26b6fee3f395c09ce5f2",
+      "branch": "main",
+      "remote": "",
+      "dirty": false
+    },
+    {
+      "repo": "bluepencil",
+      "head": "87a9c38e30cf5a629441291a320bd6de40405ca1",
+      "branch": "main",
+      "remote": "git@github.com:kujolang/bluepencil.git",
+      "dirty": false
+    },
+    {
+      "repo": "casefile",
+      "head": "f26df300df0e9db570f7730341077084f5594f0d",
+      "branch": "main",
+      "remote": "git@robertdevore-GitHub:kujolang/casefile.git",
+      "dirty": false
+    },
+    {
+      "repo": "cerebras",
+      "head": "9c3f463e63adc2ccd5d3e9d2b4fdeb2108783935",
+      "branch": "main",
+      "remote": "git@github.com:kujolang/cerebras.git",
+      "dirty": false
+    },
+    {
+      "repo": "changebucket",
+      "head": "38d67aacee7258f3c84c2d8d8e9ae671df943c90",
+      "branch": "main",
+      "remote": "git@robertdevore-GitHub:kujolang/changebucket.git",
+      "dirty": false
+    },
+    {
+      "repo": "cinch",
+      "head": "35b4384dc56a8c2b17a78db19b5d3843976ca8f3",
+      "branch": "main",
+      "remote": "git@robertdevore-GitHub:kujolang/cinch.git",
+      "dirty": false
+    },
+    {
+      "repo": "cloudflare-ai",
+      "head": "3a02c3ed018469879ea23f4bd9baacacb6984a5f",
+      "branch": "main",
+      "remote": "git@github.com:kujolang/cloudflare-ai.git",
+      "dirty": false
+    },
+    {
+      "repo": "cms",
+      "head": "b16d22ead14e86484d99ead07fc13a5ad3be49e8",
+      "branch": "main",
+      "remote": "git@robertdevore-GitHub:kujolang/cms.git",
+      "dirty": false
+    },
+    {
+      "repo": "cms-contact-form",
+      "head": "8f7e2aca428d4e45f92250acc8822869f3364e33",
+      "branch": "main",
+      "remote": "git@github.com:kujolang/cms-contact-form.git",
+      "dirty": false
+    },
+    {
+      "repo": "cms-example",
+      "head": "be778ae970a625fdb21e37b91a2e6244ef5521ae",
+      "branch": "main",
+      "remote": "git@github.com:kujolang/cms-example.git",
+      "dirty": false
+    },
+    {
+      "repo": "cms-experience",
+      "head": "662bd77ea1296cb15c705f274aa850b82c298ad7",
+      "branch": "main",
+      "remote": "git@github.com:kujolang/cms-experience.git",
+      "dirty": false
+    },
+    {
+      "repo": "cms-field-notes-theme",
+      "head": "68bc3155c994e5794ebc27b255dff95612ea4a0c",
+      "branch": "main",
+      "remote": "git@github.com:kujolang/cms-field-notes-theme.git",
+      "dirty": false
+    },
+    {
+      "repo": "cohere",
+      "head": "97f6e9008c532bb3d2c98866a589ebe3bd49f3c9",
+      "branch": "main",
+      "remote": "git@github.com:kujolang/cohere.git",
+      "dirty": false
+    },
+    {
+      "repo": "commerce",
+      "head": "ac5e3b5644062886acb3781aabb4ec6bf8ee920e",
+      "branch": "main",
+      "remote": "git@github.com:kujolang/commerce.git",
+      "dirty": false
+    },
+    {
+      "repo": "commerce.robertdevore.com",
+      "head": "66b20792f8ba66793a5ab55b39adce0f8b975aed",
+      "branch": "main",
+      "remote": "git@github.com:robertdevore/commerce.robertdevore.com.git",
+      "dirty": false
+    },
+    {
+      "repo": "concord",
+      "head": "4ca511291b2c3cae2b3a2b838b2bbf03ac0b0503",
+      "branch": "main",
+      "remote": "git@robertdevore-GitHub:kujolang/concord.git",
+      "dirty": false
+    },
+    {
+      "repo": "contentgraph",
+      "head": "5360f5f50f0f01a1e40648b9ad8863f00564cd1b",
+      "branch": "main",
+      "remote": "git@github.com:kujolang/contentgraph.git",
+      "dirty": false
+    },
+    {
+      "repo": "crud-api",
+      "head": "7ae446671b27128468ea0cc14c68f4e2ca11a989",
+      "branch": "main",
+      "remote": "git@robertdevore-GitHub:kujolang/crud-api.git",
+      "dirty": false
+    },
+    {
+      "repo": "deepinfra",
+      "head": "ff0032e18865ce5c57d94a23983ab028112903cb",
+      "branch": "main",
+      "remote": "git@github.com:kujolang/deepinfra.git",
+      "dirty": false
+    },
+    {
+      "repo": "deepseek",
+      "head": "792a39e2371042887110cba0932ab8fe1e5506c9",
+      "branch": "main",
+      "remote": "git@github.com:kujolang/deepseek.git",
+      "dirty": false
+    },
+    {
+      "repo": "diff-viewer-demo",
+      "head": "6d5beae3d7b82fc43be4b8b9a236999344fa0da9",
+      "branch": "main",
+      "remote": "",
+      "dirty": true
+    },
+    {
+      "repo": "diff-viewer-demo-fresh",
+      "head": "f545c377577a77fe987084b2b0be239d0c5b79b5",
+      "branch": "main",
+      "remote": "",
+      "dirty": true
+    },
+    {
+      "repo": "diff-viewer-inline-review-fresh",
+      "head": "42a0edc37186f9fdda09bfaa5e2a98353f0ab50b",
+      "branch": "main",
+      "remote": "",
+      "dirty": true
+    },
+    {
+      "repo": "diff-viewer-verified",
+      "head": "7b35d8fd5b013ac2d64b6d955c72e123135d9c9a",
+      "branch": "main",
+      "remote": "",
+      "dirty": true
+    },
+    {
+      "repo": "dispatch",
+      "head": "83eea7d9d9c2a8c125bee8d64b13c1181f60c609",
+      "branch": "main",
+      "remote": "git@robertdevore-GitHub:kujolang/dispatch.git",
+      "dirty": false
+    },
+    {
+      "repo": "docs.kujolang.ai",
+      "head": "8a78b84e247664623142955950bf7032f20f7399",
+      "branch": "main",
+      "remote": "git@robertdevore-GitHub:kujolang/docs.kujolang.ai",
+      "dirty": false
+    },
+    {
+      "repo": "dossier",
+      "head": "1d8ccee740820e25332ae8f25e422ca522a3ac0b",
+      "branch": "main",
+      "remote": "git@github.com:kujolang/dossier.git",
+      "dirty": false
+    },
+    {
+      "repo": "email",
+      "head": "d4dbe2724d0e6c9eb594c7f4fad2763a0c0dc6ca",
+      "branch": "main",
+      "remote": "git@github.com:kujolang/email.git",
+      "dirty": true
+    },
+    {
+      "repo": "eval",
+      "head": "7ad5caef1b718ab8a6ccdd02ef1b645af93ac133",
+      "branch": "main",
+      "remote": "git@robertdevore-GitHub:kujolang/eval.git",
+      "dirty": false
+    },
+    {
+      "repo": "fal",
+      "head": "94033188fb48aa806976a1fca65489ea63b473cb",
+      "branch": "main",
+      "remote": "git@github.com:kujolang/fal.git",
+      "dirty": false
+    },
+    {
+      "repo": "fence",
+      "head": "fda049ed9aa55ba50c150b84bb9ca1bdf49af0dc",
+      "branch": "fix/confined-output-runtime",
+      "remote": "git@robertdevore-GitHub:kujolang/fence.git",
+      "dirty": false
+    },
+    {
+      "repo": "fireworks",
+      "head": "199184b9a0dfbbb497ae04dbaac4ce5c2bce6e3a",
+      "branch": "main",
+      "remote": "git@github.com:kujolang/fireworks.git",
+      "dirty": false
+    },
+    {
+      "repo": "galleypack",
+      "head": "5a9ec247f943460aa759f1552ae14e48c7423d3e",
+      "branch": "main",
+      "remote": "git@github.com:kujolang/galleypack.git",
+      "dirty": false
+    },
+    {
+      "repo": "gemini",
+      "head": "c0c46486d98fd8bc716bedb538a438ebc7734503",
+      "branch": "main",
+      "remote": "git@github.com:kujolang/gemini.git",
+      "dirty": false
+    },
+    {
+      "repo": "groq",
+      "head": "e1bdc981c2167feedab5d879b97fa77327c008bb",
+      "branch": "main",
+      "remote": "git@github.com:kujolang/groq.git",
+      "dirty": false
+    },
+    {
+      "repo": "hermes-kujo-chain-of-command",
+      "head": "0f3266c36a7e8746651aa3b2edee7ff5126e3c8e",
+      "branch": "main",
+      "remote": "",
+      "dirty": false
+    },
+    {
+      "repo": "hermes-kujo-discord-agents",
+      "head": "549a5c9efb9a8faaae5118c72ce18a2b3d62a4d5",
+      "branch": "main",
+      "remote": "",
+      "dirty": true
+    },
+    {
+      "repo": "hermes-motoko-red-team",
+      "head": "6412dd966b8e246d01c47342aea3af584b326651",
+      "branch": "main",
+      "remote": "",
+      "dirty": false
+    },
+    {
+      "repo": "howl",
+      "head": "2a489084b8ebe5e1192eb7fdbaa3b3e19a52600e",
+      "branch": "main",
+      "remote": "git@robertdevore-GitHub:kujolang/howl.git",
+      "dirty": false
+    },
+    {
+      "repo": "huggingface",
+      "head": "cf6f72fd09bcc999c3c00c8c95761e1855c09dbb",
+      "branch": "main",
+      "remote": "git@robertdevore-GitHub:kujolang/huggingface.git",
+      "dirty": false
+    },
+    {
+      "repo": "intake",
+      "head": "e2140681bfef3ed02f1d09812c13c6ecd908d2df",
+      "branch": "main",
+      "remote": "git@robertdevore-GitHub:kujolang/intake.git",
+      "dirty": false
+    },
+    {
+      "repo": "kennel",
+      "head": "fbef0ea0ed8b1b7eb037e45a2aa9d1a170c31b79",
+      "branch": "main",
+      "remote": "git@robertdevore-GitHub:kujolang/kennel.git",
+      "dirty": false
+    },
+    {
+      "repo": "kennel-registry",
+      "head": "10e9786c04083db6a6eae4531ebce3b65340ceea",
+      "branch": "main",
+      "remote": "git@robertdevore-GitHub:kujolang/kennel-registry.git",
+      "dirty": false
+    },
+    {
+      "repo": "kujo",
+      "head": "5dcbfcda2e48c2fe56dd2a4ecdb2d5947e18ff59",
+      "branch": "main",
+      "remote": "git@robertdevore-GitHub:kujolang/kujo.git",
+      "dirty": false
+    },
+    {
+      "repo": "kujo-agents",
+      "head": "65f23b8ee8fc535e3d929860742020976b121d43",
+      "branch": "main",
+      "remote": "git@robertdevore-GitHub:kujolang/kujo-agents.git",
+      "dirty": false
+    },
+    {
+      "repo": "kujo-benchmark-ap-audit-20260811-021429",
+      "head": "196502cb17a0a5830f31efdafe584eda465cd070",
+      "branch": "main",
+      "remote": "/Users/robertdevore/2026/Kujolang/kujo-repos/kujo-benchmark-ap-audit-20260811-021429/.git/local-origin.git",
+      "dirty": false
+    },
+    {
+      "repo": "kujo-benchmark-ap-audit-20260811-025659",
+      "head": "b99268d2c3c3a5b560944ab4890ffbda4db253e2",
+      "branch": "main",
+      "remote": "",
+      "dirty": false
+    },
+    {
+      "repo": "kujo-benchmark-ap-audit-20260811-025724",
+      "head": "a876890ef18e701489027f6245a43d75a0ed1c47",
+      "branch": "main",
+      "remote": "",
+      "dirty": false
+    },
+    {
+      "repo": "kujo-benchmark-ap-audit-20260811-025727",
+      "head": "34394c26bf6cc1217474cfa74af88d93c9bb0da1",
+      "branch": "main",
+      "remote": "",
+      "dirty": false
+    },
+    {
+      "repo": "kujo-docs",
+      "head": "1f833d70dd5721c07eaf3e0d4dc066f60f13f288",
+      "branch": "main",
+      "remote": "git@robertdevore-GitHub:kujolang/docs.kujolang.ai.git",
+      "dirty": false
+    },
+    {
+      "repo": "kujo-fence-f12",
+      "head": "3cab46ee043b0e452950d7de358487b4c4a3bde8",
+      "branch": "fix/fence-confined-output",
+      "remote": "git@robertdevore-GitHub:kujolang/kujo.git",
+      "dirty": false
+    },
+    {
+      "repo": "kujo-hyperframes",
+      "head": "fa1c1c471d3f8d335aefd554763d8a9e5506bdc7",
+      "branch": "codex/kujo-trust-at-speed",
+      "remote": "git@robertdevore-GitHub:kujolang/kujo-hyperframes.git",
+      "dirty": true
+    },
+    {
+      "repo": "kujo-hyperframes-v1.3.0-video",
+      "head": "73a5872269f77343b41f42d983101231509581c9",
+      "branch": "codex/kujo-v1.3.0-release-video",
+      "remote": "git@robertdevore-GitHub:kujolang/kujo-hyperframes.git",
+      "dirty": false
+    },
+    {
+      "repo": "kujo-pi",
+      "head": "9d977bdda760830e3cb00c1e0e756ab2d9acfe1e",
+      "branch": "main",
+      "remote": "git@github.com:kujolang/kujo-pi.git",
+      "dirty": false
+    },
+    {
+      "repo": "kujo-pinned-web",
+      "head": "15e8d8f96eb6e20301a5b75aa92c1d20da1fc056",
+      "branch": "codex/markdown-doc-cleanup-pinned-web",
+      "remote": "git@robertdevore-GitHub:kujolang/kujo.git",
+      "dirty": false
+    },
+    {
+      "repo": "kujo-release-v1.3.0",
+      "head": "016039e98a76a45b02ba404a1515910ad3075cd6",
+      "branch": "codex/release-v1.3.0",
+      "remote": "git@robertdevore-GitHub:kujolang/kujo.git",
+      "dirty": false
+    },
+    {
+      "repo": "kujo-release-v1.3.1",
+      "head": "dc4803598d0421b31ecfd3f1027732589f1e8df1",
+      "branch": "codex/release-v1.3.1",
+      "remote": "git@robertdevore-GitHub:kujolang/kujo.git",
+      "dirty": false
+    },
+    {
+      "repo": "kujo-skills",
+      "head": "266b08e27b5d70005c593e5eb1d64ff0de2e60c5",
+      "branch": "main",
+      "remote": "git@robertdevore-GitHub:kujolang/kujo-skills.git",
+      "dirty": false
+    },
+    {
+      "repo": "kujo-ssg-webmcp",
+      "head": "76a2aa09984e6119e1d8f3982af663f1f8433dc3",
+      "branch": "main",
+      "remote": "git@github.com:robertdevore/kujo-ssg-webmcp.git",
+      "dirty": false
+    },
+    {
+      "repo": "kujo-upgrade-linux-race",
+      "head": "303828de5ba39343688dc309fcc35826fb880194",
+      "branch": "codex/upgrade-linux-race",
+      "remote": "git@robertdevore-GitHub:kujolang/kujo.git",
+      "dirty": false
+    },
+    {
+      "repo": "kujo-videoops",
+      "head": "fe74ae8ff4eb3765179f7cf573113bd9ebd7ba4a",
+      "branch": "main",
+      "remote": "git@github.com:kujolang/kujo-videoops.git",
+      "dirty": true
+    },
+    {
+      "repo": "kujo-workflows",
+      "head": "5df0458d4918215128e62597796a1d5eef98bb1e",
+      "branch": "main",
+      "remote": "git@robertdevore-GitHub:kujolang/kujo-workflows.git",
+      "dirty": false
+    },
+    {
+      "repo": "kujolang-mcp",
+      "head": "9009b7d9d4527bf2f57fd4d318061a72c48e31e6",
+      "branch": "main",
+      "remote": "git@github.com:kujolang/kujolang-mcp.git",
+      "dirty": false
+    },
+    {
+      "repo": "kujolang.ai-source",
+      "head": "HEAD",
+      "branch": "main",
+      "remote": "https://github.com/kujolang/kujolang.ai.git",
+      "dirty": true
+    },
+    {
+      "repo": "kujolang.ai-work",
+      "head": "078d3ae77861fef489445dfec0b446e341cbc019",
+      "branch": "main",
+      "remote": "git@robertdevore-GitHub:kujolang/kujolang.ai.git",
+      "dirty": false
+    },
+    {
+      "repo": "kujolang.ai.incomplete",
+      "head": "HEAD",
+      "branch": "main",
+      "remote": "git@robertdevore-GitHub:kujolang/kujolang.ai.git",
+      "dirty": false
+    },
+    {
+      "repo": "kujolang.ai.sparse",
+      "head": "HEAD",
+      "branch": "main",
+      "remote": "git@github.com:kujolang/kujolang.ai.git",
+      "dirty": false
+    },
+    {
+      "repo": "leash",
+      "head": "3e90f14b7abc6c23a89157fbd7cc98c6d4dbfcf8",
+      "branch": "main",
+      "remote": "git@github.com:robertdevore/leash.git",
+      "dirty": false
+    },
+    {
+      "repo": "lens",
+      "head": "fd388efd4f55f3f844cf7de4fc541abfd07a6785",
+      "branch": "main",
+      "remote": "git@robertdevore-GitHub:kujolang/lens.git",
+      "dirty": false
+    },
+    {
+      "repo": "mcp",
+      "head": "20f1c83f702aa0a86595db5a824634c1dde96aaa",
+      "branch": "main",
+      "remote": "git@robertdevore-GitHub:kujolang/mcp.git",
+      "dirty": false
+    },
+    {
+      "repo": "mistral",
+      "head": "d2126351f86cb4196ea5cc122f822fa66708148d",
+      "branch": "main",
+      "remote": "git@github.com:kujolang/mistral.git",
+      "dirty": false
+    },
+    {
+      "repo": "muzzle",
+      "head": "ac40faf465486848509275cdd5f3af8096bbdeea",
+      "branch": "main",
+      "remote": "git@robertdevore-GitHub:kujolang/muzzle.git",
+      "dirty": false
+    },
+    {
+      "repo": "nvidia-nim",
+      "head": "d706ea6c38ec28eaa52b952804d012da0041ca52",
+      "branch": "main",
+      "remote": "git@github.com:kujolang/nvidia-nim.git",
+      "dirty": false
+    },
+    {
+      "repo": "ollama",
+      "head": "3e1f86f9ca8533c4d18e1c005e28ad80d22539c5",
+      "branch": "main",
+      "remote": "git@robertdevore-GitHub:kujolang/ollama.git",
+      "dirty": false
+    },
+    {
+      "repo": "openai",
+      "head": "52620c3cce595ee6af5e2c303cc8c986955cfb0d",
+      "branch": "main",
+      "remote": "git@github.com:kujolang/openai.git",
+      "dirty": false
+    },
+    {
+      "repo": "openrouter",
+      "head": "7afd7c2a75214d63c06a841337df32bbb44fd2b9",
+      "branch": "main",
+      "remote": "git@github.com:kujolang/openrouter.git",
+      "dirty": false
+    },
+    {
+      "repo": "packwrite",
+      "head": "3f0cbf4b5052677d22040cdf486adf2817b40a20",
+      "branch": "main",
+      "remote": "git@robertdevore-GitHub:kujolang/packwrite.git",
+      "dirty": false
+    },
+    {
+      "repo": "paperclip",
+      "head": "7002e94aeddba3ed60fa18f3a6df41e8adf1cf9d",
+      "branch": "main",
+      "remote": "git@github.com:kujolang/paperclip.git",
+      "dirty": false
+    },
+    {
+      "repo": "patchbrief",
+      "head": "321d961c19c4ee09713cf1f737ba5e112b0caa5b",
+      "branch": "main",
+      "remote": "git@robertdevore-GitHub:kujolang/patchbrief.git",
+      "dirty": false
+    },
+    {
+      "repo": "perplexity",
+      "head": "459184fa4ba918b41b92fc75ce08aef3800ac68d",
+      "branch": "main",
+      "remote": "git@github.com:kujolang/perplexity.git",
+      "dirty": false
+    },
+    {
+      "repo": "presswire",
+      "head": "566469012efbf10e86d48f61fdd64cdd050dddd6",
+      "branch": "main",
+      "remote": "git@github.com:kujolang/presswire.git",
+      "dirty": false
+    },
+    {
+      "repo": "rag",
+      "head": "85743f88c152d7c65f59d4697111faf85e36d8eb",
+      "branch": "main",
+      "remote": "git@robertdevore-GitHub:kujolang/rag.git",
+      "dirty": false
+    },
+    {
+      "repo": "readersignal",
+      "head": "389ef125f1a274289b6b3f69810abc8fccf75641",
+      "branch": "main",
+      "remote": "git@github.com:kujolang/readersignal.git",
+      "dirty": false
+    },
+    {
+      "repo": "redact",
+      "head": "e1f3e1863c468433e1a4f426ad991c0fb7f33dac",
+      "branch": "main",
+      "remote": "git@robertdevore-GitHub:kujolang/redact.git",
+      "dirty": false
+    },
+    {
+      "repo": "relay",
+      "head": "01c44da192e0fa7f1135d3c047b16dd23421058d",
+      "branch": "refactor/repository-simplification-audit",
+      "remote": "git@robertdevore-GitHub:kujolang/relay.git",
+      "dirty": false
+    },
+    {
+      "repo": "replicate",
+      "head": "1598bc7d24c99039b3c050ef54da2811138334c2",
+      "branch": "main",
+      "remote": "git@github.com:kujolang/replicate.git",
+      "dirty": false
+    },
+    {
+      "repo": "runledger",
+      "head": "92cb06344386fc0a78d92b1db92f417edb22b285",
+      "branch": "main",
+      "remote": "git@robertdevore-GitHub:kujolang/runledger.git",
+      "dirty": false
+    },
+    {
+      "repo": "scent",
+      "head": "969f0fdc853c88cd051248a6ebcd9ce0434d9f43",
+      "branch": "main",
+      "remote": "git@robertdevore-GitHub:kujolang/scent.git",
+      "dirty": false
+    },
+    {
+      "repo": "scout",
+      "head": "70454d44b3c719bec08f9707b39c231da49b7886",
+      "branch": "main",
+      "remote": "git@robertdevore-GitHub:kujolang/scout.git",
+      "dirty": false
+    },
+    {
+      "repo": "searchbridge",
+      "head": "88aad1c0eacf2588dac305beb18eb0a3adbb53e2",
+      "branch": "main",
+      "remote": "git@github.com:kujolang/searchbridge.git",
+      "dirty": false
+    },
+    {
+      "repo": "shipcheck",
+      "head": "111bfc83c832050877cb9d4fd82908aaf6d14749",
+      "branch": "main",
+      "remote": "git@robertdevore-GitHub:kujolang/shipcheck.git",
+      "dirty": false
+    },
+    {
+      "repo": "site-kit",
+      "head": "9629c4cb2a42f62f80be6159c9d63a141ccbb696",
+      "branch": "main",
+      "remote": "git@robertdevore-GitHub:kujolang/site-kit.git",
+      "dirty": false
+    },
+    {
+      "repo": "sitekit-docs-template",
+      "head": "e8f0cf3fd5a1aed6d7e4c0df46e9863f4976a5fb",
+      "branch": "main",
+      "remote": "git@github.com:kujolang/sitekit-docs-template.git",
+      "dirty": false
+    },
+    {
+      "repo": "sitekit.kujolang.ai",
+      "head": "2e09ee3d7d2dacdf8acda5b7c573293a5be392a6",
+      "branch": "main",
+      "remote": "https://github.com/kujolang/sitekit.kujolang.ai.git",
+      "dirty": false
+    },
+    {
+      "repo": "siteprobe",
+      "head": "71a2071b60174cf755084e167ccc392710a104b8",
+      "branch": "main",
+      "remote": "git@github.com:kujolang/siteprobe.git",
+      "dirty": false
+    },
+    {
+      "repo": "source",
+      "head": "006c6e7db612ef794775ebe372a6ff8e4a17cb53",
+      "branch": "main",
+      "remote": "git@robertdevore-GitHub:kujolang/source.git",
+      "dirty": true
+    },
+    {
+      "repo": "spec",
+      "head": "1211f37a09314be7150734bf15a55e9b2ea6504d",
+      "branch": "main",
+      "remote": "git@robertdevore-GitHub:kujolang/spec.git",
+      "dirty": false
+    },
+    {
+      "repo": "ssg",
+      "head": "e165dbc1b596ea759a2b9c2ff0b9ca988c333eea",
+      "branch": "main",
+      "remote": "git@robertdevore-GitHub:kujolang/ssg.git",
+      "dirty": false
+    },
+    {
+      "repo": "stego-cipher-kujo",
+      "head": "87d82d0477b2ddaf41ba987e3d86eaac56edd98c",
+      "branch": "main",
+      "remote": "git@github.com:robertdevore/stego-cipher-kujo.git",
+      "dirty": false
+    },
+    {
+      "repo": "storydesk",
+      "head": "e3707994b564c5b746493393c697424cc8503209",
+      "branch": "main",
+      "remote": "git@github.com:kujolang/storydesk.git",
+      "dirty": false
+    },
+    {
+      "repo": "together",
+      "head": "81e77e2a424f9b9483386ffa5d1a9224f626bfa4",
+      "branch": "main",
+      "remote": "git@github.com:kujolang/together.git",
+      "dirty": false
+    },
+    {
+      "repo": "totalrecall",
+      "head": "d79b2b3c25d349a7748f3f519a7818fb748ceccc",
+      "branch": "main",
+      "remote": "git@github.com:robertdevore/totalrecall.git",
+      "dirty": false
+    },
+    {
+      "repo": "tribunal",
+      "head": "936c5e99b689e1675845fe23ef25ba8d6b9f6efc",
+      "branch": "main",
+      "remote": "git@github.com:kujolang/tribunal.git",
+      "dirty": false
+    },
+    {
+      "repo": "truthlens",
+      "head": "65c1ebec6ce1e1e007fb437059922e18f2e7e5cc",
+      "branch": "main",
+      "remote": "git@github.com:robertdevore/truthlens.git",
+      "dirty": false
+    },
+    {
+      "repo": "versionseal",
+      "head": "4c84f2607f60011c5800790347d7479ec07554e9",
+      "branch": "main",
+      "remote": "git@github.com:kujolang/versionseal.git",
+      "dirty": false
+    },
+    {
+      "repo": "vertex-ai",
+      "head": "677eb9bfffa141e8e96e4350352e3e001bd32068",
+      "branch": "main",
+      "remote": "git@github.com:kujolang/vertex-ai.git",
+      "dirty": false
+    },
+    {
+      "repo": "ward",
+      "head": "374416c79e7b9ef1f2a4ec7f447fa192625fd3a4",
+      "branch": "main",
+      "remote": "git@github.com:robertdevore/ward.git",
+      "dirty": false
+    },
+    {
+      "repo": "watchdog",
+      "head": "557b822294e70bfd4f42e1751fde5652f932c34c",
+      "branch": "main",
+      "remote": "git@robertdevore-GitHub:kujolang/watchdog.git",
+      "dirty": false
+    },
+    {
+      "repo": "watchdog-date-filters",
+      "head": "9b751b0946f7b79a7bf51c70b006d1405857e319",
+      "branch": "codex/dashboard-date-filters",
+      "remote": "git@robertdevore-GitHub:kujolang/watchdog.git",
+      "dirty": false
+    },
+    {
+      "repo": "workcell",
+      "head": "af0665423417a0872303e69b7c22777c697361bb",
+      "branch": "main",
+      "remote": "git@robertdevore-GitHub:kujolang/workcell.git",
+      "dirty": false
+    },
+    {
+      "repo": "workcell-studio",
+      "head": "e5f82f23eebaded5254ef586b37243559042106d",
+      "branch": "main",
+      "remote": "git@github.com:kujolang/workcell-studio.git",
+      "dirty": false
+    },
+    {
+      "repo": "xai",
+      "head": "d816a25d271d8221ee31461c877f354b2999d636",
+      "branch": "main",
+      "remote": "git@github.com:kujolang/xai.git",
+      "dirty": false
+    },
+    {
+      "repo": "zai",
+      "head": "798a5eaae177af1d267114657c8a1eb82d6bdc96",
+      "branch": "main",
+      "remote": "git@github.com:kujolang/zai.git",
+      "dirty": false
+    }
+  ]
+}
