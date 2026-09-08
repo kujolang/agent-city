@@ -1,0 +1,3 @@
+Repeated compilation SHA-256: 48ec75c92fa0defe2de5905120f8b8ac0eea9df000fc8385e92fd45aeba8c58a
+PNG bytes: 1084
+Decoded RGBA bytes: 32768

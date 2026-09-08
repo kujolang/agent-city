@@ -40,8 +40,13 @@ side/interior views, fourteen semantic pose slots and four frame slots use a
 280×1536 texture (1,720,320 decoded RGBA bytes; 23,712 PNG bytes). Some resting
 poses intentionally share frames. Owning a talk/complete/offline asset does not
 authorize its display: world-core still selects only evidence-supported poses.
-Static DOM portraits share these identity assets and do not communicate status.
+Static DOM portraits share profile palettes/accessories and do not communicate status.
 
 The city still needs more varied architecture and denser scenery to approach the
 full supplied reference direction. These assets are an implementation revision,
 not user approval of final visual fidelity.
+
+Dedicated 32×32 canine bust portraits are authored in portraits.json and compiled
+with `python3 scripts/compile-portraits.py`. Their 32×256 atlas uses 32,768 decoded
+RGBA bytes (1,084 PNG bytes). Seven known profiles and the unknown fallback share
+the world character palette IDs. No reference image pixels were sampled.

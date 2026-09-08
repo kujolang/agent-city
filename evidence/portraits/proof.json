@@ -1,0 +1,16 @@
+{
+  "kind": "Appearance-only DOM gallery; no execution instances or runtime claims",
+  "profiles": [
+    "city-writer",
+    "city-coder",
+    "city-reviewer",
+    "local-documentation-worker",
+    "local-mcp-worker",
+    "local-eval-invocation",
+    "local-workcell-invocation",
+    "unrecognized-profile"
+  ],
+  "portraitCount": 16,
+  "narrowOverflow": false,
+  "errors": []
+}

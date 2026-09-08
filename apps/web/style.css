@@ -16,5 +16,5 @@ main{max-width:1500px;grid-template-columns:156px minmax(550px,1fr) 264px;gap:12
 
 .mission-panel input[type=checkbox]{width:auto;margin-right:6px}
 
-/* Static identity portraits share the original character atlas. */
-.agent-portrait{display:block;float:left;width:40px;height:26px;flex-shrink:0;margin:0 5px 2px 0;background-repeat:no-repeat;background-color:#03070d;image-rendering:pixelated}.agent-portrait.large{float:none;width:120px;height:78px;margin:0 auto 10px;border-bottom:2px solid #347fea}.roster-rail button{min-height:48px}.roster-rail button::after{content:"";display:block;clear:both}
+/* Original static portraits share profile colors and accessories with world sprites. */
+.agent-portrait{display:block;float:left;width:32px;height:32px;flex-shrink:0;margin:0 5px 2px 0;background-repeat:no-repeat;background-color:#03070d;image-rendering:pixelated}.agent-portrait.large{float:none;width:96px;height:96px;margin:0 auto 10px;border-bottom:2px solid #347fea}.roster-rail button{min-height:48px}.roster-rail button::after{content:"";display:block;clear:both}
