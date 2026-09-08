@@ -1,5 +1,10 @@
 import { validateModelConfig } from "../apps/runner/config";
 import { checkCodeArtifact } from "../apps/runner/code-artifact";
+import {
+  checkFunctions,
+  validateFunctionContract,
+} from "../apps/runner/function-check";
+import { checkObserver } from "../apps/runner/check-observer";
 import { spawn } from "node:child_process";
 import { mkdir, readFile, writeFile, rename } from "node:fs/promises";
 import { resolve } from "node:path";
@@ -116,9 +121,79 @@ const code = await new Promise<number | null>((ok, fail) => {
     process.removeListener("SIGINT", stop);
     process.removeListener("SIGTERM", stop);
   });
-let validation = null;
+let validation:
+  | (Omit<Awaited<ReturnType<typeof checkCodeArtifact>>, "codeExecuted"> & {
+      codeExecuted: boolean | null;
+    })
+  | null = null;
 if (code === 0 && kind === "code") {
   validation = await checkCodeArtifact(output);
+  if (process.env.CITY_FUNCTION_CONTRACT_FILE) {
+    const contract = validateFunctionContract(
+      JSON.parse(
+        await readFile(process.env.CITY_FUNCTION_CONTRACT_FILE, "utf8"),
+      ),
+    );
+    await writeFile(
+      resolve(dir, "function-contract.json"),
+      JSON.stringify(contract),
+      { mode: 0o600 },
+    );
+    const dispatch = JSON.parse(
+      await readFile(resolve(dir, "dispatch.json"), "utf8"),
+    );
+    const observe = checkObserver(
+      resolve(
+        root,
+        process.env.CITY_RUNTIME_DIR || ".runtime",
+        `spool-${producer}.jsonl`,
+      ),
+      producer,
+      dispatch.run_id,
+      dispatch.run_id + ":produce-artifact",
+    );
+    await observe("run", "execution", "started", "unset");
+    await observe("function-suite", "evaluation", "started", "unset");
+    try {
+      const functional = await checkFunctions(
+        await readFile(output, "utf8"),
+        contract,
+      );
+      await writeFile(
+        resolve(dir, "functional.json"),
+        JSON.stringify(functional, null, 2),
+        { mode: 0o600 },
+      );
+      validation = {
+        ...validation,
+        functionalTests: functional.status,
+        codeExecuted: true,
+      };
+      for (const [index, result] of functional.cases.entries())
+        await observe(
+          "check-" + index,
+          "evaluation",
+          "finished",
+          result.status === "passed" ? "succeeded" : "failed",
+          result.occurredAt,
+        );
+      await observe(
+        "function-suite",
+        "evaluation",
+        "finished",
+        functional.status === "passed" ? "succeeded" : "failed",
+      );
+      await observe("run", "execution", "finished", "succeeded");
+    } catch {
+      validation = {
+        ...validation,
+        functionalTests: "unavailable",
+        codeExecuted: null,
+      };
+      await observe("function-suite", "evaluation", "finished", "failed");
+      await observe("run", "execution", "finished", "failed");
+    }
+  }
   await writeFile(resolve(dir, "validation.json"), JSON.stringify(validation), {
     mode: 0o600,
   });
@@ -134,7 +209,7 @@ await writeReceipt({
   finishedAt: new Date().toISOString(),
   output: code === 0 ? output : null,
   execution:
-    "Dispatch workflow, SDK model request and reviewer handoff; generated code is not executed",
+    "Dispatch workflow, SDK model request and reviewer handoff; optional explicit browser checks recorded in validation",
 });
 if (code !== 0) {
   await writeFile(resolve(dir, "private-error.log"), diagnostic, {

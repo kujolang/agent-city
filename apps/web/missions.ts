@@ -11,8 +11,9 @@ export function mountMissions(host: HTMLElement) {
     <form id="mission-form"><label>Task type <select name="kind"><option value="writing">Writing + review</option><option value="code">Code + review</option></select></label>
     <label><input type="checkbox" name="useLocalDocs"> Use indexed local Kujo docs</label>
     <label>Task <textarea name="prompt" rows="3" maxlength="16384" required placeholder="Describe the small task you want the agents to complete."></textarea></label>
+    <details><summary>Optional JavaScript function checks</summary><label>Function contract JSON <textarea name="functionContract" rows="4" placeholder='{"exportName":"sum","cases":[{"name":"empty","args":[[]],"equals":0}]}'></textarea></label><p class="muted">Explicitly runs the generated module in a disposable browser worker. JSON arguments/results only; no filesystem or network integrations. Requires installed Chromium. Each case gets 1.5 seconds.</p></details>
     <button type="submit" disabled>Start mission</button></form>
-    <p class="muted">Sends your task to the configured model. The SDK hands the draft to a reviewer. Code is saved for review; it is not executed.</p>
+    <p class="muted">Sends your task to the configured model. The SDK hands the draft to a reviewer. Code runs only when explicit function cases are supplied, in an isolated browser without host integrations.</p>
     <div id="mission-jobs" aria-label="Mission history"></div><pre id="mission-exchanges" tabindex="0" aria-label="Observed agent responses"></pre><pre id="mission-artifact" tabindex="0" aria-label="Selected mission output"></pre>`;
   host.querySelector(".world")!.after(panel);
   const form = panel.querySelector<HTMLFormElement>("#mission-form")!;
@@ -97,9 +98,15 @@ export function mountMissions(host: HTMLElement) {
               const artifact = await response.json();
               output.textContent =
                 (artifact.kind === "code"
-                  ? `SYNTAX: ${artifact.validation?.syntax?.toUpperCase() || "UNKNOWN"} · FUNCTIONAL TESTS: NOT RUN · CODE NOT EXECUTED\n${artifact.validation?.fenceRemoved ? "Outer Markdown fence removed; original response retained above.\n" : ""}\n`
+                  ? `SYNTAX: ${artifact.validation?.syntax?.toUpperCase() || "UNKNOWN"} · FUNCTIONAL TESTS: ${(artifact.validation?.functionalTests || "not-run").toUpperCase()} · ${artifact.codeExecuted === null ? "EXECUTION COVERAGE UNKNOWN" : artifact.codeExecuted ? "EXECUTED IN ISOLATED BROWSER" : "CODE NOT EXECUTED"}\n${artifact.validation?.fenceRemoved ? "Outer Markdown fence removed; original response retained above.\n" : ""}\n`
                   : "MODEL-REVIEWED TEXT · FACTUAL ACCURACY NOT VERIFIED\n\n") +
-                artifact.content;
+                artifact.content +
+                (artifact.functional
+                  ? "\n\nFUNCTION CHECKS\n" +
+                    artifact.functional.cases
+                      .map((c: any) => `${c.name}: ${c.status} / ${c.reason}`)
+                      .join("\n")
+                  : "");
             } catch {
               output.textContent = "Artifact unavailable; no result inferred.";
             }
@@ -121,6 +128,17 @@ export function mountMissions(host: HTMLElement) {
     submit.disabled = true;
     const fields = new FormData(form);
     try {
+      const contract = String(fields.get("functionContract") || "").trim();
+      let functionContract;
+      if (contract) {
+        try {
+          functionContract = JSON.parse(contract);
+        } catch {
+          status.textContent =
+            "Invalid function contract JSON. No mission submitted.";
+          return;
+        }
+      }
       const response = await fetch("/control/missions", {
         method: "POST",
         headers: {
@@ -131,6 +149,7 @@ export function mountMissions(host: HTMLElement) {
           kind: fields.get("kind"),
           prompt: fields.get("prompt"),
           useLocalDocs: fields.has("useLocalDocs"),
+          ...(contract ? { functionContract } : {}),
         }),
       });
       const result = await response.json();

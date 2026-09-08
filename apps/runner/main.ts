@@ -1,4 +1,5 @@
 import { validateModelConfig, type ModelConfig } from "./config";
+import { validateFunctionContract } from "./function-check";
 import { createServer } from "node:http";
 import { randomBytes, randomUUID } from "node:crypto";
 import { mkdir, readFile, writeFile, rename, stat } from "node:fs/promises";
@@ -161,10 +162,21 @@ const server = createServer(async (req, res) => {
         job.kind === "code" ? "reviewed.mjs" : "reviewed.md",
       );
       let validation = null;
+      let functional = null;
       try {
         validation = JSON.parse(
           await readFile(
             resolve(root, ".runtime/missions", job.id, "validation.json"),
+            "utf8",
+          ),
+        );
+      } catch (error: any) {
+        if (error.code !== "ENOENT") throw error;
+      }
+      try {
+        functional = JSON.parse(
+          await readFile(
+            resolve(root, ".runtime/missions", job.id, "functional.json"),
             "utf8",
           ),
         );
@@ -176,7 +188,8 @@ const server = createServer(async (req, res) => {
         kind: job.kind,
         content: await readFile(file, "utf8"),
         validation,
-        codeExecuted: false,
+        functional,
+        codeExecuted: validation ? validation.codeExecuted : false,
       });
     }
     if (
@@ -253,6 +266,21 @@ const server = createServer(async (req, res) => {
           error: "Choose writing/code and provide a task up to 16 KiB",
         });
       const id = "mission-" + randomUUID();
+      let contractFile = "";
+      if (data.functionContract !== undefined) {
+        if (data.kind !== "code")
+          return send(400, { error: "Function checks require a code mission" });
+        let contract;
+        try {
+          contract = validateFunctionContract(data.functionContract);
+        } catch {
+          return send(400, { error: "Invalid function check contract" });
+        }
+        contractFile = resolve(dir, id + ".checks.json");
+        await writeFile(contractFile, JSON.stringify(contract), {
+          mode: 0o600,
+        });
+      }
       const prompt = resolve(dir, id + ".txt");
       await writeFile(prompt, data.prompt, { mode: 0o600 });
       const job: Job = {
@@ -272,6 +300,7 @@ const server = createServer(async (req, res) => {
           env: {
             ...process.env,
             CITY_MISSION_ID: id,
+            CITY_FUNCTION_CONTRACT_FILE: contractFile,
             CITY_USE_RAG: data.useLocalDocs === true ? "1" : "0",
             CITY_MODEL_ENDPOINT: config!.endpoint,
             CITY_MODEL: config!.model,

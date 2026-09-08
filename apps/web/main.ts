@@ -164,6 +164,7 @@ function renderDOM() {
             "city-writer": "WRITER",
             "city-coder": "CODER",
             "city-reviewer": "REVIEWER",
+            "city-function-checker": "CHECKER",
             "local-eval-invocation": "VERIFY",
             "local-workcell-invocation": "WORKCELL",
             "local-mcp-worker": "MCP",
