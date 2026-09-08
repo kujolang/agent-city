@@ -1,0 +1,149 @@
+{
+  "startedAt": "2026-09-08T11:37:48.961Z",
+  "cityCommit": "e0dda18fb2c3a17f5963ce5a711c43e17ffabc99",
+  "watchdogCommit": "a639d9accc418a1d59f0f8c61b122250ab007145",
+  "pid": 63872,
+  "runtime": "/Users/robertdevore/2026/Kujolang/kujo-repos/agent-city/.runtime/pipeline-1788867468955",
+  "status": "ABORTED_FOR_TEST_HARNESS_FIX",
+  "samples": [
+    {
+      "at": "2026-09-08T11:37:52.395Z",
+      "metrics": [
+        {
+          "name": "Documents",
+          "value": 4
+        },
+        {
+          "name": "Nodes",
+          "value": 163
+        },
+        {
+          "name": "TaskDuration",
+          "value": 0.003263
+        },
+        {
+          "name": "JSHeapUsedSize",
+          "value": 15532416
+        }
+      ],
+      "browser": null,
+      "journalBytes": 4096
+    },
+    {
+      "at": "2026-09-08T11:38:52.415Z",
+      "metrics": [
+        {
+          "name": "Documents",
+          "value": 1
+        },
+        {
+          "name": "Nodes",
+          "value": 2138
+        },
+        {
+          "name": "TaskDuration",
+          "value": 22.760389
+        },
+        {
+          "name": "JSHeapUsedSize",
+          "value": 26721856
+        }
+      ],
+      "browser": {
+        "order": 304,
+        "health": "LIVE",
+        "instances": 25,
+        "queued": 0
+      },
+      "journalBytes": 4096
+    },
+    {
+      "at": "2026-09-08T11:39:52.417Z",
+      "metrics": [
+        {
+          "name": "Documents",
+          "value": 1
+        },
+        {
+          "name": "Nodes",
+          "value": 965
+        },
+        {
+          "name": "TaskDuration",
+          "value": 48.335801
+        },
+        {
+          "name": "JSHeapUsedSize",
+          "value": 34579684
+        }
+      ],
+      "browser": {
+        "order": 604,
+        "health": "LIVE",
+        "instances": 25,
+        "queued": 0
+      },
+      "journalBytes": 688128
+    },
+    {
+      "at": "2026-09-08T11:40:52.421Z",
+      "metrics": [
+        {
+          "name": "Documents",
+          "value": 1
+        },
+        {
+          "name": "Nodes",
+          "value": 965
+        },
+        {
+          "name": "TaskDuration",
+          "value": 77.20024
+        },
+        {
+          "name": "JSHeapUsedSize",
+          "value": 31302832
+        }
+      ],
+      "browser": {
+        "order": 904,
+        "health": "LIVE",
+        "instances": 25,
+        "queued": 0
+      },
+      "journalBytes": 688128
+    },
+    {
+      "at": "2026-09-08T11:41:52.421Z",
+      "metrics": [
+        {
+          "name": "Documents",
+          "value": 1
+        },
+        {
+          "name": "Nodes",
+          "value": 2069
+        },
+        {
+          "name": "TaskDuration",
+          "value": 104.391927
+        },
+        {
+          "name": "JSHeapUsedSize",
+          "value": 40482484
+        }
+      ],
+      "browser": {
+        "order": 1204,
+        "health": "LIVE",
+        "instances": 25,
+        "queued": 0
+      },
+      "journalBytes": 1744896
+    }
+  ],
+  "kind": "SYNTHETIC canonical HTTP intake \u2192 real Watchdog export \u2192 real gateway \u2192 SSE; no source business execution",
+  "maxSampleGapMs": 60019.29504,
+  "stoppedAt": "2026-09-08T11:42:20.056914+00:00",
+  "reason": "Synthetic heartbeat was written in place, occasionally exposing an empty file to the gateway. Restarting with atomic rename; this partial run is not an eight-hour proof."
+}

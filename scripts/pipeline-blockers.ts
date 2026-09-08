@@ -1,7 +1,7 @@
 import { randomBytes } from "node:crypto";
 import { chromium, type Browser } from "@playwright/test";
 import { spawn, spawnSync, type ChildProcess } from "node:child_process";
-import { mkdir, writeFile, readFile, stat } from "node:fs/promises";
+import { mkdir, writeFile, readFile, stat, rename } from "node:fs/promises";
 import { resolve } from "node:path";
 import { performance } from "node:perf_hooks";
 import { batch } from "./pipeline-fixture";
@@ -84,15 +84,20 @@ try {
   );
   await ready(base + "/healthz");
   await writeFile(resolve(runtime, "token"), testToken, { mode: 0o600 });
-  const heartbeat = () =>
-    writeFile(
-      resolve(runtime, "bridge-health.json"),
+  const heartbeat = async () => {
+    await writeFile(
+      resolve(runtime, "bridge-health.next"),
       JSON.stringify({
         status: "LIVE",
         observedAt: Date.now(),
         kind: "synthetic test feeder",
       }),
     );
+    await rename(
+      resolve(runtime, "bridge-health.next"),
+      resolve(runtime, "bridge-health.json"),
+    );
+  };
   await heartbeat();
   timer = setInterval(() => void heartbeat(), 1000);
   launch(process.execPath, ["--import", "tsx", "apps/gateway/main.ts"], root, {
