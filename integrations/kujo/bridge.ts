@@ -15,6 +15,21 @@ const root = resolve(import.meta.dirname, "../.."),
 const watchdog = resolve(root, "../watchdog"),
   kujo = process.env.KUJO_BIN || "kujo";
 const hash = (s: string) => createHash("sha256").update(s).digest("hex");
+// Compare metadata-only native inputs independently of JSON object key order.
+function stable(value: any): string {
+  if (Array.isArray(value)) return "[" + value.map(stable).join(",") + "]";
+  if (value !== null && typeof value === "object")
+    return (
+      "{" +
+      Object.keys(value)
+        .filter((k) => value[k] !== undefined)
+        .sort()
+        .map((k) => JSON.stringify(k) + ":" + stable(value[k]))
+        .join(",") +
+      "}"
+    );
+  return JSON.stringify(value) ?? "null";
+}
 export function bridgeMetadata(metadata: Record<string, unknown>) {
   return Object.fromEntries(
     Object.entries(metadata)
@@ -155,87 +170,110 @@ export async function bridgeOnce() {
       ].join(":");
       const key = hash(id),
         file = resolve(runtime, "batches", key + ".json");
+      const native = {
+        schema_version: "watchdog.native-event.v1",
+        event_id: key,
+        event_kind: e.capability ? "internal" : e.kind,
+        instantaneous: true,
+        trace_id: e.producer_instance + ":" + e.run_id,
+        name: e.kind + "." + e.phase,
+        status:
+          e.phase === "started"
+            ? "unset"
+            : e.outcome === "succeeded"
+              ? "ok"
+              : "error",
+        started_at_ms: e.occurred_at_ms,
+        references: [
+          {
+            type: "agent",
+            namespace: e.producer_instance,
+            id: e.agent_id,
+            relation: "actor",
+          },
+          {
+            type: "run",
+            namespace: e.producer_instance,
+            id: e.run_id,
+            relation: "groups",
+          },
+          {
+            type: "task",
+            namespace: e.task_id
+              ? e.profile === "local-eval-invocation"
+                ? "eval"
+                : "dispatch"
+              : "unknown",
+            id: e.task_id || "unknown",
+            relation: "groups",
+          },
+        ],
+        attributes: {
+          "kujo.lifecycle.phase": e.phase,
+          "kujo.operation.id": e.operation_id,
+          "kujo.operation.attempt": e.attempt,
+          "kujo.producer.instance": e.producer_instance,
+          "kujo.source.occurred_at_ms": e.occurred_at_ms,
+          "kujo.capability":
+            e.capability ||
+            (e.kind === "retrieval"
+              ? "rag.query"
+              : e.kind === "agent"
+                ? "agent.run"
+                : e.kind === "handoff"
+                  ? "agent.handoff"
+                  : e.kind === "evaluation"
+                    ? "evaluation.run"
+                    : e.kind === "execution"
+                      ? "execution.run"
+                      : "tool.execute"),
+          "kujo.lifecycle.outcome": e.outcome,
+          "kujo.workspace.id": "local-agent-city",
+          "kujo.collection.id": e.collection || "unknown",
+          "kujo.lifecycle.coverage": "paired",
+          "kujo.related.agent": e.related_agent_id || "",
+          "kujo.profile.id": e.profile || "unknown",
+          "kujo.task.binding": e.task_id ? "explicit" : "unknown",
+          ...bridgeMetadata(e.metadata || {}),
+        },
+      };
+      const payload = { batch_id: key, events: [native] };
+      try {
+        const retained = JSON.parse(await readFile(file + ".native", "utf8"));
+        if (stable(retained) !== stable(payload))
+          throw Error("conflicting lifecycle identity " + key);
+      } catch (error: any) {
+        if (error.code !== "ENOENT") throw error;
+        // Existing canonical evidence must never be rebound to a new input.
+        for (const retained of [file, file + ".sent"]) {
+          try {
+            await stat(retained);
+            throw Error("native identity evidence unavailable " + key);
+          } catch (missing: any) {
+            if (missing.code !== "ENOENT") throw missing;
+          }
+        }
+        const staged = file + ".native-" + randomUUID();
+        try {
+          await writeFile(staged, JSON.stringify(payload), { mode: 0o600 });
+          await rename(staged, file + ".native");
+        } finally {
+          await rm(staged, { force: true });
+        }
+      }
       try {
         await stat(file + ".sent");
         continue;
-      } catch {}
+      } catch (error: any) {
+        if (error.code !== "ENOENT") throw error;
+      }
       if (seen.has(key)) continue;
       seen.add(key);
       let needsNormalization = false;
       try {
         await readFile(file, "utf8");
-      } catch {
-        const native = {
-          schema_version: "watchdog.native-event.v1",
-          event_id: key,
-          event_kind: e.capability ? "internal" : e.kind,
-          instantaneous: true,
-          trace_id: e.producer_instance + ":" + e.run_id,
-          name: e.kind + "." + e.phase,
-          status:
-            e.phase === "started"
-              ? "unset"
-              : e.outcome === "succeeded"
-                ? "ok"
-                : "error",
-          started_at_ms: e.occurred_at_ms,
-          references: [
-            {
-              type: "agent",
-              namespace: e.producer_instance,
-              id: e.agent_id,
-              relation: "actor",
-            },
-            {
-              type: "run",
-              namespace: e.producer_instance,
-              id: e.run_id,
-              relation: "groups",
-            },
-            {
-              type: "task",
-              namespace: e.task_id
-                ? e.profile === "local-eval-invocation"
-                  ? "eval"
-                  : "dispatch"
-                : "unknown",
-              id: e.task_id || "unknown",
-              relation: "groups",
-            },
-          ],
-          attributes: {
-            "kujo.lifecycle.phase": e.phase,
-            "kujo.operation.id": e.operation_id,
-            "kujo.operation.attempt": e.attempt,
-            "kujo.producer.instance": e.producer_instance,
-            "kujo.source.occurred_at_ms": e.occurred_at_ms,
-            "kujo.capability":
-              e.capability ||
-              (e.kind === "retrieval"
-                ? "rag.query"
-                : e.kind === "agent"
-                  ? "agent.run"
-                  : e.kind === "handoff"
-                    ? "agent.handoff"
-                    : e.kind === "evaluation"
-                      ? "evaluation.run"
-                      : e.kind === "execution"
-                        ? "execution.run"
-                        : "tool.execute"),
-            "kujo.lifecycle.outcome": e.outcome,
-            "kujo.workspace.id": "local-agent-city",
-            "kujo.collection.id": e.collection || "unknown",
-            "kujo.lifecycle.coverage": "paired",
-            "kujo.related.agent": e.related_agent_id || "",
-            "kujo.profile.id": e.profile || "unknown",
-            "kujo.task.binding": e.task_id ? "explicit" : "unknown",
-            ...bridgeMetadata(e.metadata || {}),
-          },
-        };
-        await writeFile(
-          file + ".native",
-          JSON.stringify({ batch_id: key, events: [native] }),
-        );
+      } catch (error: any) {
+        if (error.code !== "ENOENT") throw error;
         needsNormalization = true;
       }
       pending.push({ file, needsNormalization });

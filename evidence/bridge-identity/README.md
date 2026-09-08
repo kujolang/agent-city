@@ -1,0 +1,9 @@
+# Bridge identity conflict — 2026-09-08
+
+Before this fix, bridgeOnce skipped a lifecycle row as soon as its hashed identity had a sent marker. A different outcome under that identity was silently ignored. The owned synthetic regression failed with `Missing expected rejection`; before.log retains the reproduction. No real producer data was altered.
+
+The bridge now constructs the metadata-only native input and compares it with retained .native evidence before sent/queued duplicate checks. JSON object key order does not affect comparison. A semantic mismatch throws an identity-conflict error containing only the hashed ID; the normal bridge loop reports STALE. The original canonical body and acknowledgment remain intact. Existing exported IDs are unchanged. Missing native evidence alongside a canonical body or sent marker is UNKNOWN/error rather than permission to rebind it. New native inputs are written through an atomic rename.
+
+Verification: TypeScript and all 52 tests pass. The expanded scripts/bridge-batch-proof.ts passes through the real Watchdog native adapter/intake/export and gateway with synthetic input: changed sent outcome rejected, reordered equivalent retry accepted, missing retained native/canonical evidence with a sent marker rejected, restoration resumes without new deliveries, 36/36 valid operations visible, one byte-identical HTTP retry, partial normalizer output recovery, and original delivery order/occurrence times preserved. See ../bridge-batch/proof.json. Owned test services stopped.
+
+This compares the redacted native semantic input, not discarded private/unsupported source fields. It does not change source execution, introduce a new event ID format or qualify the outstanding full-path performance gate. No model or soak ran. No sibling files changed. The 8087ded preview archive predates this source fix.

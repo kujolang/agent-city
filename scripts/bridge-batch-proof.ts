@@ -1,5 +1,5 @@
 import { createServer } from "node:http";
-import { mkdir, readFile, writeFile, readdir } from "node:fs/promises";
+import { mkdir, readFile, writeFile, readdir, rename } from "node:fs/promises";
 import { resolve } from "node:path";
 import assert from "node:assert/strict";
 import { spawn, type ChildProcess } from "node:child_process";
@@ -189,6 +189,50 @@ try {
   assert.equal(bodies.size, 36);
   assert.equal(requests, 37);
   assert.equal(await calls(), 5);
+  const completeRows = [...rows, JSON.stringify(event(35))];
+  await writeFile(
+    spool,
+    [...completeRows, JSON.stringify({ ...event(0), outcome: "failed" })].join(
+      "\n",
+    ) + "\n",
+  );
+  await assert.rejects(bridgeOnce(), /conflicting lifecycle identity/);
+  assert.equal(
+    requests,
+    37,
+    "Conflicting sent identity must not overwrite or resend prior truth",
+  );
+  const reordered = Object.fromEntries(Object.entries(event(0)).reverse());
+  await writeFile(
+    spool,
+    [...completeRows, JSON.stringify(reordered)].join("\n") + "\n",
+  );
+  await bridgeOnce();
+  assert.equal(
+    requests,
+    37,
+    "Equivalent JSON key order must remain an idempotent retry",
+  );
+  const nativeName = (await readdir(resolve(runtime, "batches"))).find((n) =>
+    n.endsWith(".native"),
+  )!;
+  const nativeFile = resolve(runtime, "batches", nativeName);
+  const canonicalFile = nativeFile.slice(0, -7);
+  await rename(nativeFile, nativeFile + ".held");
+  await rename(canonicalFile, canonicalFile + ".held");
+  try {
+    await assert.rejects(bridgeOnce(), /native identity evidence unavailable/);
+    assert.equal(
+      requests,
+      37,
+      "A sent marker cannot authorize rebinding missing evidence",
+    );
+  } finally {
+    await rename(nativeFile + ".held", nativeFile);
+    await rename(canonicalFile + ".held", canonicalFile);
+  }
+  await bridgeOnce();
+  assert.equal(requests, 37);
   let visible = 0;
   for (let i = 0; i < 100; i++) {
     const snapshot = await (
@@ -217,6 +261,9 @@ try {
     repeatedScanNoNewRequests: true,
     occurrenceTimesAndOperationsPreserved: true,
     operationDeliveryOrderPreserved: true,
+    conflictingSentIdentityRejected: true,
+    reorderedEquivalentRetryAccepted: true,
+    missingRetainedIdentityEvidenceRejected: true,
     httpRequestsIncludingRetry: requests,
     at: new Date().toISOString(),
   };

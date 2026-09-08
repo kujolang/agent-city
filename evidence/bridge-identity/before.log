@@ -1,0 +1,18 @@
+npm warn Unknown user config "python". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+(node:9470) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Missing expected rejection.
+    at async <anonymous> (/Users/robertdevore/2026/Kujolang/kujo-repos/agent-city/scripts/bridge-batch-proof.ts:194:3) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: undefined,
+  expected: /conflicting lifecycle identity/,
+  operator: 'rejects',
+  diff: 'simple'
+}
+
+Node.js v26.7.0
