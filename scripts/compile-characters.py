@@ -40,12 +40,15 @@ for role, (identity, coat, accent, accessory) in enumerate(source['palettes']):
                     rect(rows, 3, 6, 1, 3, 'A')
                 else:
                     rect(rows, 5, 5, 8, 1, 'A')
-                if pose == 'walk' and frame % 2:
-                    rect(rows, 3, 20, 11, 4, ' ')
-                    rect(rows, 3 if frame == 1 else 5, 20, 4, 3, 'C')
-                    rect(rows, 9 if frame == 1 else 11, 19, 3, 3, 'C')
-                    rect(rows, 2 if frame == 1 else 4, 23, 5, 1, 'B')
-                    rect(rows, 9 if frame == 1 else 11, 22, 4, 2, 'B')
+                if pose == 'walk':
+                    stride = source['walkSide' if mode else 'walkFront'][frame]
+                    assert len(stride) == 7 and all(len(row) == W for row in stride)
+                    rows[17:] = [list(row) for row in stride]
+                    # Counter-swing the visible forearm. No position or timing
+                    # lives in the asset; the deterministic planner owns both.
+                    if frame % 2:
+                        rect(rows, 12, 13, 3, 4, 'C')
+                        rect(rows, 13, 12 if frame == 1 else 15, 2, 2, 'F')
                 if pose in ['read', 'inspect', 'carry']:
                     rect(rows, 10, 12, 9, 7, '#')
                     rect(rows, 11, 13, 7, 5, 'H' if pose != 'carry' else 'A')

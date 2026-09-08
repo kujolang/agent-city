@@ -1,6 +1,6 @@
 {
   "license": "Original Kujo artwork authored for Agent City; no extracted reference pixels.",
-  "version": 1,
+  "version": 2,
   "width": 20,
   "height": 24,
   "poses": [
@@ -120,5 +120,81 @@
     "   #BBBB#BBBB#      ",
     "   #HHBB#HHBB#      ",
     "    #### ####       "
+  ],
+  "walkFront": [
+    [
+      "    #CA#AA#AC#      ",
+      "    #CA#  #AC#      ",
+      "    #CC#  #CC#      ",
+      "    #CA#  #AC#      ",
+      "   #BBB#  #BBB#     ",
+      "   #HHB#  #BHH#     ",
+      "    ###    ###      "
+    ],
+    [
+      "   #CCA# #ACC#      ",
+      "   #CCA#  #AC#      ",
+      "  #CCC#   #CC#      ",
+      "  #CCA#    #CC#     ",
+      " #BBBB#    #BB#     ",
+      " #HHBB#     ###     ",
+      "  ####              "
+    ],
+    [
+      "    #CCAACC#        ",
+      "    #CCAACC#        ",
+      "     #CCAC#         ",
+      "     #CCAC#         ",
+      "    #BBBBB#         ",
+      "    #HHBBB#         ",
+      "     #####          "
+    ],
+    [
+      "    #CA# #ACC#      ",
+      "    #CA#  #AC#      ",
+      "    #CC#  #CCC#     ",
+      "   #CC#   #ACC#     ",
+      "   #BB#   #BBBB#    ",
+      "    ###   #BBHH#    ",
+      "           ####     "
+    ]
+  ],
+  "walkSide": [
+    [
+      "    #CCA#ACC#       ",
+      "    #CCA#ACC#       ",
+      "    #CCC#ACC#       ",
+      "    #CCA#ACC#       ",
+      "   #BBBB#BBBB#      ",
+      "   #HHBB#HHBB#      ",
+      "    #### ####       "
+    ],
+    [
+      "   #CCA# #ACC#      ",
+      "   #CCA#  #ACC#     ",
+      "  #CCC#    #AC#     ",
+      " #CCC#     #AC#     ",
+      " #BBB#     #BBB#    ",
+      " #HBBB#    #HHBB#   ",
+      "  #####     #####   "
+    ],
+    [
+      "    #CCAACC#        ",
+      "     #CAACC#        ",
+      "      #CAC#         ",
+      "      #CAC#         ",
+      "     #BBBB#         ",
+      "     #HHBBB#        ",
+      "      #####         "
+    ],
+    [
+      "    #CCA#ACC#       ",
+      "     #CA#ACC#       ",
+      "     #CA# #ACC#     ",
+      "     #CA#  #CCC#    ",
+      "    #BBB#   #BBB#   ",
+      "    #HBBB#  #HHBB#  ",
+      "     #####   #####  "
+    ]
   ]
 }

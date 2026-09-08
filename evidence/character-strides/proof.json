@@ -1,0 +1,115 @@
+{
+  "kind": "Original asset inspection; not live agent proof",
+  "roles": [
+    {
+      "appearance": "writer-v1",
+      "modes": [
+        {
+          "side": false,
+          "uniqueFrames": 4
+        },
+        {
+          "side": true,
+          "uniqueFrames": 4
+        }
+      ]
+    },
+    {
+      "appearance": "coder-v1",
+      "modes": [
+        {
+          "side": false,
+          "uniqueFrames": 4
+        },
+        {
+          "side": true,
+          "uniqueFrames": 4
+        }
+      ]
+    },
+    {
+      "appearance": "reviewer-v1",
+      "modes": [
+        {
+          "side": false,
+          "uniqueFrames": 4
+        },
+        {
+          "side": true,
+          "uniqueFrames": 4
+        }
+      ]
+    },
+    {
+      "appearance": "docs-v1",
+      "modes": [
+        {
+          "side": false,
+          "uniqueFrames": 4
+        },
+        {
+          "side": true,
+          "uniqueFrames": 4
+        }
+      ]
+    },
+    {
+      "appearance": "network-v1",
+      "modes": [
+        {
+          "side": false,
+          "uniqueFrames": 4
+        },
+        {
+          "side": true,
+          "uniqueFrames": 4
+        }
+      ]
+    },
+    {
+      "appearance": "verify-v1",
+      "modes": [
+        {
+          "side": false,
+          "uniqueFrames": 4
+        },
+        {
+          "side": true,
+          "uniqueFrames": 4
+        }
+      ]
+    },
+    {
+      "appearance": "workcell-v1",
+      "modes": [
+        {
+          "side": false,
+          "uniqueFrames": 4
+        },
+        {
+          "side": true,
+          "uniqueFrames": 4
+        }
+      ]
+    },
+    {
+      "appearance": "unknown-v1",
+      "modes": [
+        {
+          "side": false,
+          "uniqueFrames": 4
+        },
+        {
+          "side": true,
+          "uniqueFrames": 4
+        }
+      ]
+    }
+  ],
+  "width": 280,
+  "height": 1536,
+  "errors": [],
+  "atlasSha256": "ef8005e2f8e31733a2abbfc643416dea2c1161ebd3ea72be28058105cfe0714a",
+  "pngBytes": 25411,
+  "decodedBytes": 1720320
+}
