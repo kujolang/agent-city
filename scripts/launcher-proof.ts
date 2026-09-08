@@ -1,5 +1,5 @@
 import { spawn } from "node:child_process";
-import { readFile, writeFile, mkdir } from "node:fs/promises";
+import { readFile, writeFile, mkdir, rm } from "node:fs/promises";
 import { resolve } from "node:path";
 import assert from "node:assert/strict";
 import { chromium, type Browser } from "@playwright/test";
@@ -47,6 +47,10 @@ let log = "",
 child.stdout.on("data", (b) => (log = (log + b).slice(-8000)));
 child.stderr.on("data", (b) => (log = (log + b).slice(-8000)));
 const started = Date.now();
+const privacyCanary = resolve(
+  localRuntime(app, { CITY_PORT_OFFSET: "30000" }),
+  `privacy-canary-${started}.txt`,
+);
 const deadline = setTimeout(
   () => {
     child.kill("SIGTERM");
@@ -64,6 +68,15 @@ try {
     await new Promise((r) => setTimeout(r, 200));
   }
   const readinessMs = Date.now() - started;
+  await writeFile(privacyCanary, "owned-preview-privacy-canary", {
+    flag: "wx",
+  });
+  for (const suffix of ["", "?raw", "?url"]) {
+    const denied = await fetch(`${url}/@fs${privacyCanary}${suffix}`);
+    assert.equal(denied.status, 403);
+    assert(!(await denied.text()).includes("owned-preview-privacy-canary"));
+  }
+  await rm(privacyCanary);
   const status = await (await fetch(url + "/control/status")).json();
   assert.equal(status.configured, false);
   assert.equal(status.busy, false);
@@ -163,6 +176,7 @@ try {
         offsetOriginValidation: true,
         foreignOriginRejected: true,
         rendererReady: true,
+        runtimeFileServingDenied: true,
         errors,
         exitCode: child.exitCode,
         released,
@@ -183,6 +197,7 @@ try {
     "Fresh packaged stack, offset-origin controls, canvas and shutdown: PASS",
   );
 } finally {
+  await rm(privacyCanary, { force: true });
   child.kill("SIGTERM");
   await browser?.close();
   clearTimeout(deadline);
