@@ -1,0 +1,31 @@
+{
+  "kind": "Controlled UI snapshot from retained real observations, no source execution",
+  "cases": [
+    {
+      "width": 1280,
+      "height": 600,
+      "keyboard": true,
+      "reducedMotion": true,
+      "startedOffscreen": true,
+      "worldTop": -0.15625,
+      "canvasTop": 47.78125,
+      "selectedIdentityUnchanged": true,
+      "truthUnchanged": true,
+      "overflow": false,
+      "errors": []
+    },
+    {
+      "width": 320,
+      "height": 600,
+      "keyboard": true,
+      "reducedMotion": true,
+      "startedOffscreen": true,
+      "worldTop": 0.34375,
+      "canvasTop": 40.390625,
+      "selectedIdentityUnchanged": true,
+      "truthUnchanged": true,
+      "overflow": false,
+      "errors": []
+    }
+  ]
+}

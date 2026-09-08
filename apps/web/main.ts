@@ -343,7 +343,12 @@ $("#filter").onchange = (e) => {
 $("#follow").onclick = () => {
   if (selected) {
     renderer.follow = renderer.follow ? null : selected;
-    if (renderer.follow) inspectedBuilding = null;
+    if (renderer.follow) {
+      inspectedBuilding = null;
+      // Following from Mission Command must reveal the world, including when
+      // the inspector is below it on a narrow screen. Never animate scrolling.
+      $(".world").scrollIntoView({ block: "start", behavior: "instant" });
+    }
     renderDOM();
   }
 };
