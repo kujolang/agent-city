@@ -1,0 +1,394 @@
+{
+  "session": "phase1-release-1788849720",
+  "receipts": [
+    {
+      "name": "SDK through Dispatch calls real Kujo MCP",
+      "code": 0,
+      "output": "{\"run_id\":\"run-1788849303229-8516\",\"server\":\"mcp-demo\",\"status\":\"completed\",\"tool\":\"read_project_docs\"}\n\n{\"dispatch_run\":\"run-1788849303229-8516\",\"ok\":true}\n"
+    },
+    {
+      "name": "SDK handoff and real RAG retrieval",
+      "code": 0,
+      "output": "{\"actor\":\"scout\",\"retrieval_reason\":\"empty_context\",\"run_id\":\"run-1788849313240-2574\",\"schema\":\"agent-city.proof.v1\",\"status\":\"completed\"}\n\n{\"dispatch_run\":\"run-1788849313240-2574\",\"ok\":true}\n"
+    },
+    {
+      "name": "Eval attempt 1 real content failure",
+      "code": 0,
+      "output": "Eval failure/repair proof: PASS\n"
+    },
+    {
+      "name": "Correct input and rerun Eval attempt 2",
+      "code": 0,
+      "output": "Eval failure/repair proof: PASS\n"
+    },
+    {
+      "name": "Real Workcell preflight with host guardrails preserved",
+      "code": 1,
+      "output": "(node:57038) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.\n(Use `node --trace-deprecation ...` to show where the warning was created)\n/Users/robertdevore/2026/Kujolang/kujo-repos/agent-city/integrations/kujo/workcell.ts:171\nif (result.code !== 0) throw Error(result.output);\n                             ^\n\nError: {\"backend\":{\"adapter_id\":\"docker\",\"provider_id\":\"\"},\"cancelled\":false,\"changed_files\":0,\"cleanup_status\":\"complete\",\"cost\":{\"class\":\"unknown\",\"status\":\"unknown\"},\"declared_artifacts\":0,\"error\":\"Docker daemon does not report AppArmor; rootful Docker requires both seccomp and AppArmor profiles\",\"exit_code\":4,\"ok\":false,\"output_dir\":\"/Users/robertdevore/2026/Kujolang/kujo-repos/agent-city/.runtime/workcell-source/.workcell/runs/wc-7f8cba2b6162427b811dc42933598eb2\",\"receipt_path\":\"/Users/robertdevore/2026/Kujolang/kujo-repos/agent-city/.runtime/workcell-source/.workcell/runs/wc-7f8cba2b6162427b811dc42933598eb2/receipt.json\",\"run_id\":\"wc-7f8cba2b6162427b811dc42933598eb2\",\"schema_version\":\"workcell-run-summary/v1\",\"stage\":\"preparing\",\"timed_out\":false,\"verification\":false}\n\n    at <anonymous> (/Users/robertdevore/2026/Kujolang/kujo-repos/agent-city/integrations/kujo/workcell.ts:171:30)\n\nNode.js v26.7.0\n"
+    }
+  ],
+  "ids": {
+    "mcpId": "phase1-release-1788849720-mcp:run-1788849303229-8516:mcp-worker",
+    "handoffId": "phase1-release-1788849720-handoff:run-1788849313240-2574:scout",
+    "evalId": "phase1-release-1788849720-eval:eval-1788849319462:verifier",
+    "workcellId": "phase1-release-1788849720-workcell:workcell-invocation-1788849323908:workcell-host"
+  },
+  "mcp": {
+    "agent": {
+      "id": "phase1-release-1788849720-mcp:run-1788849303229-8516:mcp-worker",
+      "profile": "local-mcp-worker",
+      "run": {
+        "namespace": "phase1-release-1788849720-mcp",
+        "id": "run-1788849303229-8516"
+      },
+      "task": {
+        "namespace": "dispatch",
+        "id": "run-1788849303229-8516:retrieve-docs"
+      },
+      "status": "completed",
+      "lastObserved": 1788849306632,
+      "completeness": "partial",
+      "operations": {
+        "phase1-release-1788849720-mcp:run-1788849303229-8516:intake:1": {
+          "key": "phase1-release-1788849720-mcp:run-1788849303229-8516:intake:1",
+          "capability": "dispatch.task",
+          "collection": "unknown",
+          "status": "succeeded",
+          "started": null,
+          "finished": 1788849303438,
+          "evidence": [
+            {
+              "origin": "canonical",
+              "recordId": "native:agent-city-sdk:de18eb5fd2145b3275ce13914dac093cd702e5a9202d5bb684833c3e6b29c98c",
+              "hash": "4ffafd7063681171085eac70a9dbde095d2ffd0b6962a6675e9434643315b9cd",
+              "sourceSequence": 180
+            }
+          ],
+          "partial": true,
+          "relatedAgent": "",
+          "metadata": {
+            "taskState": "queued"
+          },
+          "attempt": 1,
+          "operationId": "intake",
+          "observedAt": 1788849303957,
+          "eventIds": [
+            "179b62bf6d4c44c29489b4bcd8f3a3f30116c232d6d8b01205b5b04b0c8707ba"
+          ]
+        },
+        "phase1-release-1788849720-mcp:run-1788849303229-8516:assignment:1": {
+          "key": "phase1-release-1788849720-mcp:run-1788849303229-8516:assignment:1",
+          "capability": "dispatch.task",
+          "collection": "unknown",
+          "status": "succeeded",
+          "started": null,
+          "finished": 1788849303439,
+          "evidence": [
+            {
+              "origin": "canonical",
+              "recordId": "native:agent-city-sdk:7b41178cbc2a06f13b247695dc97c16e9c2a149c60cef6088b6ba86331eea2ad",
+              "hash": "d616731db8203fe127080e93ff752420db1508fc1b414ea80abab1d5559d9cad",
+              "sourceSequence": 181
+            }
+          ],
+          "partial": true,
+          "relatedAgent": "",
+          "metadata": {
+            "taskState": "assigned"
+          },
+          "attempt": 1,
+          "operationId": "assignment",
+          "observedAt": 1788849304238,
+          "eventIds": [
+            "39f8550be179cfbea326799d5816c28b125d33d47621bc90064b374f0f055a94"
+          ]
+        },
+        "phase1-release-1788849720-mcp:run-1788849303229-8516:task:1": {
+          "key": "phase1-release-1788849720-mcp:run-1788849303229-8516:task:1",
+          "capability": "dispatch.task",
+          "collection": "unknown",
+          "status": "succeeded",
+          "started": 1788849303509,
+          "finished": 1788849305204,
+          "evidence": [
+            {
+              "origin": "canonical",
+              "recordId": "native:agent-city-sdk:f7cc50d05432bab562bfb4aaf3efe0212f3e977f9ef5bdbf98d63e8b47850f56",
+              "hash": "fded1602e86ff3b7d5c0ecab3834c1e1cef21d9450854bea6fb192a24c791599",
+              "sourceSequence": 182
+            },
+            {
+              "origin": "canonical",
+              "recordId": "native:agent-city-sdk:0cb710fe2c2e26ce0e4c68be65b231f819cb12fc98d21a2ea37e7a20c6b190a1",
+              "hash": "1d227e147447ffaefb0634e902c9ef1705b3adecb0f35f79f637ca6e529cf28a",
+              "sourceSequence": 190
+            }
+          ],
+          "partial": false,
+          "relatedAgent": "",
+          "metadata": {
+            "taskState": "completed"
+          },
+          "attempt": 1,
+          "operationId": "task",
+          "observedAt": 1788849306370,
+          "eventIds": [
+            "2e3cd25fa4b76e4cb3851effba2c2dd8696fa79f818045b42928343911112ffb",
+            "8f5a97b2a1809fb2eb09c6b498765718b0519ca35ed7af45b5407a8e5d75dcef"
+          ]
+        },
+        "phase1-release-1788849720-mcp:run-1788849303229-8516:run:1": {
+          "key": "phase1-release-1788849720-mcp:run-1788849303229-8516:run:1",
+          "capability": "agent.run",
+          "collection": "unknown",
+          "status": "succeeded",
+          "started": 1788849304510,
+          "finished": 1788849304895,
+          "evidence": [
+            {
+              "origin": "canonical",
+              "recordId": "native:agent-city-sdk:6da841621ce141bff4e76d1ec60ea095838fe8e780cde2567bf8dcac87469ef4",
+              "hash": "a7022f81a10a9c0f4dc5850f66fef5c28c6c6c79f94b6719b3c6f3bd5a41d566",
+              "sourceSequence": 183
+            },
+            {
+              "origin": "canonical",
+              "recordId": "native:agent-city-sdk:29f69095f38695169f85f6b4f75f2432a6de6331b83a559ca59fd24588b9569f",
+              "hash": "be7ca30c85fab88013ee0ea0a84e65c285472a820eeb8a1a622600e66b0f339b",
+              "sourceSequence": 189
+            }
+          ],
+          "partial": false,
+          "relatedAgent": "",
+          "metadata": {
+            "relatedInstance": ""
+          },
+          "attempt": 1,
+          "operationId": "run",
+          "observedAt": 1788849306108,
+          "eventIds": [
+            "9fa0d37479afec1ee9cd0622b912edfa3b5d4cb33d4ac0f3a42b1c0fba9c587f",
+            "9273a9836831d27b1a765cd377312574c3e51a55a69ff099782670344ccb7ae8"
+          ]
+        },
+        "phase1-release-1788849720-mcp:run-1788849303229-8516:step-7:1": {
+          "key": "phase1-release-1788849720-mcp:run-1788849303229-8516:step-7:1",
+          "capability": "tool.execute",
+          "collection": "unknown",
+          "status": "succeeded",
+          "started": 1788849304745,
+          "finished": 1788849304795,
+          "evidence": [
+            {
+              "origin": "canonical",
+              "recordId": "native:agent-city-sdk:cf551cf24a112400b6fc676a226045f60c69b8b0f8f91691317a26631b47bcdd",
+              "hash": "b7a23acff8c1a90d522c1adb8a5fb102c1911111193543725e4488084a3f0e56",
+              "sourceSequence": 184
+            },
+            {
+              "origin": "canonical",
+              "recordId": "native:agent-city-sdk:d2fbad8a5fd430cd2e31a939e4d76907b6112863ff7b8e229f285d7c38fb5d57",
+              "hash": "d4e6e1e2fcaba9e8a167de8a9b762ef7f6d8faf31aaac4479722bcde31c6030d",
+              "sourceSequence": 188
+            }
+          ],
+          "partial": false,
+          "relatedAgent": "",
+          "metadata": {
+            "relatedInstance": ""
+          },
+          "attempt": 1,
+          "operationId": "step-7",
+          "observedAt": 1788849305844,
+          "eventIds": [
+            "c6bd467a6659f4e49b9a2addd42b01582ea13590747dd49f25bf4bc46943a923",
+            "bf844c986d97f54a24c6f782ecc868762f9464e35475cafe9e2aca1b9d889882"
+          ]
+        },
+        "phase1-release-1788849720-mcp:run-1788849303229-8516:mcp-docs:1": {
+          "key": "phase1-release-1788849720-mcp:run-1788849303229-8516:mcp-docs:1",
+          "capability": "mcp.call",
+          "collection": "unknown",
+          "status": "succeeded",
+          "started": 1788849304752,
+          "finished": 1788849304788,
+          "evidence": [
+            {
+              "origin": "canonical",
+              "recordId": "native:agent-city-sdk:59703bcd925c6052005338cad1b4d267d0901f8075002ed33f93bbd35dcd2382",
+              "hash": "35945384794789e317a797f52a4721741e410afbf66c49f791810027046785ca",
+              "sourceSequence": 185
+            },
+            {
+              "origin": "canonical",
+              "recordId": "native:agent-city-sdk:a8e647ef74a6f7009fc26632c0a966640b8790012089b61bc23c7c3208835d61",
+              "hash": "46ddfd99aec8b61d4a3ed09d5a095a9a2a179df3052cb71f9158e726ac866a94",
+              "sourceSequence": 186
+            }
+          ],
+          "partial": false,
+          "relatedAgent": "",
+          "metadata": {
+            "approval": "not-required",
+            "invocation": "run-1788849303229-8516:mcp-docs",
+            "server": "mcp-demo",
+            "station": "tool-active",
+            "tool": "read_project_docs",
+            "resultCode": "result-returned"
+          },
+          "attempt": 1,
+          "operationId": "mcp-docs",
+          "observedAt": 1788849305575,
+          "eventIds": [
+            "1023e83e1d64cd7286168f157c0456339ccb21ea6e49c426758b2d84836068ef",
+            "8646f7bb1f93ddca0031b60020092e907a5aac564a17afdc0efa9f1d3f167cd7"
+          ]
+        },
+        "phase1-release-1788849720-mcp:run-1788849303229-8516:mcp-receipt:1": {
+          "key": "phase1-release-1788849720-mcp:run-1788849303229-8516:mcp-receipt:1",
+          "capability": "artifact.created",
+          "collection": "unknown",
+          "status": "succeeded",
+          "started": null,
+          "finished": 1788849304790,
+          "evidence": [
+            {
+              "origin": "canonical",
+              "recordId": "native:agent-city-sdk:0ad0d493bdf4534c5919b359c4951b706c4946c12298b79488b24a3c78d8b626",
+              "hash": "5290bf2f23b0d2bcfb0dd722daaad5dd2deccb2feeb800b8c141b0779a0a1ed0",
+              "sourceSequence": 187
+            }
+          ],
+          "partial": true,
+          "relatedAgent": "",
+          "metadata": {
+            "artifactRef": "city-proof:mcp-receipt",
+            "repoRef": "kujolang/mcp"
+          },
+          "attempt": 1,
+          "operationId": "mcp-receipt",
+          "observedAt": 1788849305843,
+          "eventIds": [
+            "d1eb29faba6d04bea41db2345750897cdd85780170cead09ec5c7d20441d6aff"
+          ]
+        },
+        "phase1-release-1788849720-mcp:run-1788849303229-8516:workflow-state:1": {
+          "key": "phase1-release-1788849720-mcp:run-1788849303229-8516:workflow-state:1",
+          "capability": "dispatch.workflow",
+          "collection": "unknown",
+          "status": "unknown",
+          "started": null,
+          "finished": 1788849305753,
+          "evidence": [
+            {
+              "origin": "canonical",
+              "recordId": "native:agent-city-sdk:052f8eb2f9a30958d478b4f954777d80efdc0f058e50bbd105a6dc7b92ca385a",
+              "hash": "5ed4e22c4a4cf3e5b4b45ed98759d1c0de55031cd812d6622ad76579f02144fa",
+              "sourceSequence": 191
+            }
+          ],
+          "partial": true,
+          "relatedAgent": "",
+          "metadata": {
+            "workflowState": "completed"
+          },
+          "attempt": 1,
+          "operationId": "workflow-state",
+          "observedAt": 1788849306632,
+          "eventIds": [
+            "2cf1fbf3c2a572f698acaa2539965baf0d36f87c4a93c0bc35a9666e9e3633ee"
+          ]
+        }
+      },
+      "taskState": "completed",
+      "runAttempt": 1,
+      "workflowState": "completed"
+    },
+    "walker": {
+      "id": "phase1-release-1788849720-mcp:run-1788849303229-8516:mcp-worker",
+      "scene": "mcp",
+      "x": 144,
+      "y": 160,
+      "phase": "read",
+      "age": 0,
+      "visit": {
+        "capability": "mcp.call",
+        "destination": "mcp",
+        "station": "tool-active",
+        "keys": [
+          "phase1-release-1788849720-mcp:run-1788849303229-8516:mcp-docs:1"
+        ],
+        "first": 1788849304752,
+        "last": 1788849304752,
+        "collection": "unknown",
+        "evidence": [
+          "native:agent-city-sdk:59703bcd925c6052005338cad1b4d267d0901f8075002ed33f93bbd35dcd2382",
+          "native:agent-city-sdk:a8e647ef74a6f7009fc26632c0a966640b8790012089b61bc23c7c3208835d61"
+        ]
+      },
+      "queued": [
+        {
+          "capability": "artifact.created",
+          "destination": "workshop",
+          "station": "evidence-shelf",
+          "keys": [
+            "phase1-release-1788849720-mcp:run-1788849303229-8516:mcp-receipt:1"
+          ],
+          "first": 1788849304790,
+          "last": 1788849304790,
+          "collection": "unknown",
+          "evidence": [
+            "native:agent-city-sdk:0ad0d493bdf4534c5919b359c4951b706c4946c12298b79488b24a3c78d8b626"
+          ]
+        }
+      ],
+      "visits": 2,
+      "homeX": 48,
+      "packetUntil": 118,
+      "packetEvidence": [
+        "179b62bf6d4c44c29489b4bcd8f3a3f30116c232d6d8b01205b5b04b0c8707ba",
+        "39f8550be179cfbea326799d5816c28b125d33d47621bc90064b374f0f055a94",
+        "2e3cd25fa4b76e4cb3851effba2c2dd8696fa79f818045b42928343911112ffb",
+        "8f5a97b2a1809fb2eb09c6b498765718b0519ca35ed7af45b5407a8e5d75dcef",
+        "2cf1fbf3c2a572f698acaa2539965baf0d36f87c4a93c0bc35a9666e9e3633ee"
+      ],
+      "path": [],
+      "completedKeys": [
+        "phase1-release-1788849720-mcp:run-1788849303229-8516:step-7:1"
+      ]
+    },
+    "scene": "mcp"
+  },
+  "errors": [],
+  "gates": "real MCP, Dispatch task, handoff, Library, failure/repair retained, Workcell guarded invocation, portals, inspectors, filters, keyboard pause",
+  "workcell": {
+    "run": "workcell-invocation-1788849323908",
+    "producer": "phase1-release-1788849720-workcell",
+    "code": 4,
+    "output": "{\"backend\":{\"adapter_id\":\"docker\",\"provider_id\":\"\"},\"cancelled\":false,\"changed_files\":0,\"cleanup_status\":\"complete\",\"cost\":{\"class\":\"unknown\",\"status\":\"unknown\"},\"declared_artifacts\":0,\"error\":\"Docker daemon does not report AppArmor; rootful Docker requires both seccomp and AppArmor profiles\",\"exit_code\":4,\"ok\":false,\"output_dir\":\"/Users/robertdevore/2026/Kujolang/kujo-repos/agent-city/.runtime/workcell-source/.workcell/runs/wc-7f8cba2b6162427b811dc42933598eb2\",\"receipt_path\":\"/Users/robertdevore/2026/Kujolang/kujo-repos/agent-city/.runtime/workcell-source/.workcell/runs/wc-7f8cba2b6162427b811dc42933598eb2/receipt.json\",\"run_id\":\"wc-7f8cba2b6162427b811dc42933598eb2\",\"schema_version\":\"workcell-run-summary/v1\",\"stage\":\"preparing\",\"timed_out\":false,\"verification\":false}\n",
+    "summary": {
+      "backend": {
+        "adapter_id": "docker",
+        "provider_id": ""
+      },
+      "cancelled": false,
+      "changed_files": 0,
+      "cleanup_status": "complete",
+      "cost": {
+        "class": "unknown",
+        "status": "unknown"
+      },
+      "declared_artifacts": 0,
+      "error": "Docker daemon does not report AppArmor; rootful Docker requires both seccomp and AppArmor profiles",
+      "exit_code": 4,
+      "ok": false,
+      "output_dir": "/Users/robertdevore/2026/Kujolang/kujo-repos/agent-city/.runtime/workcell-source/.workcell/runs/wc-7f8cba2b6162427b811dc42933598eb2",
+      "receipt_path": "/Users/robertdevore/2026/Kujolang/kujo-repos/agent-city/.runtime/workcell-source/.workcell/runs/wc-7f8cba2b6162427b811dc42933598eb2/receipt.json",
+      "run_id": "wc-7f8cba2b6162427b811dc42933598eb2",
+      "schema_version": "workcell-run-summary/v1",
+      "stage": "preparing",
+      "timed_out": false,
+      "verification": false
+    }
+  }
+}

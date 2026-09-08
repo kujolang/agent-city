@@ -24,7 +24,9 @@
     "local": "tsx scripts/local.ts",
     "demo": "tsx scripts/demo.ts",
     "recovery": "tsx scripts/recovery-proof.ts",
-    "format": "prettier --write \"apps/**/*.ts\" \"packages/**/*.ts\" \"integrations/**/*.ts\" \"scripts/*.ts\" \"tests/*.ts\""
+    "format": "prettier --write \"apps/**/*.ts\" \"packages/**/*.ts\" \"integrations/**/*.ts\" \"scripts/*.ts\" \"tests/*.ts\"",
+    "proof:phase1": "tsx scripts/phase1-proof.ts",
+    "workcell": "tsx integrations/kujo/workcell.ts"
   },
   "dependencies": {
     "ajv": "8.20.0",

@@ -1,0 +1,14 @@
+{
+  "manifest": {
+    "bytes": 4287,
+    "files": 3,
+    "ok": true,
+    "schema_version": "workcell-manifest/v1"
+  },
+  "ok": true,
+  "receipt": {
+    "ok": true,
+    "schema_version": "workcell-receipt/v1"
+  },
+  "run_dir": "/Users/robertdevore/2026/Kujolang/kujo-repos/agent-city/.runtime/workcell-source/.workcell/runs/wc-7f8cba2b6162427b811dc42933598eb2"
+}

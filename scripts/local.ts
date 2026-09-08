@@ -83,6 +83,17 @@ try {
       WDG_BACKUP_ENABLED: "false",
     },
   );
+  const existingMcp = await fetch("http://127.0.0.1:8931/mcp/v1/health")
+    .then((r) => r.ok)
+    .catch(() => false);
+  if (!existingMcp)
+    await launch(
+      "mcp",
+      kujo,
+      ["run", "server.kujo", "--interpreter"],
+      resolve(root, "../mcp"),
+    );
+  await ready("http://127.0.0.1:8931/mcp/v1/health");
   await ready("http://127.0.0.1:8791/health");
   await ready("http://127.0.0.1:7791/readyz");
   await launch(
