@@ -76,11 +76,12 @@ export function facade(g: Graphics, x: number, y: number, id: string) {
     rect(g, x + dx + 1, y + 44, 2, 7, P.blue);
     rect(g, x + dx + 1, y + 44, 2, 2, P.glass);
   }
-  // All thresholds retain the authored original entrance coordinates.
-  rect(g, x + 25, y + 43, 16, 20, P.light);
-  rect(g, x + 27, y + 45, 12, 18, P.mortar);
-  rect(g, x + 29, y + 47, 8, 16, P.ink);
-  rect(g, x + 25, y + 61, 16, 1, P.light);
+  // Thresholds align with the authored grid portal and the walker footprint.
+  const door = Math.floor((x + 32) / 16) * 16;
+  rect(g, door, y + 43, 16, 20, P.light);
+  rect(g, door + 2, y + 45, 12, 18, P.mortar);
+  rect(g, door + 4, y + 47, 8, 16, P.ink);
+  rect(g, door, y + 61, 16, 1, P.light);
   plant(g, x + 1, y + 50);
   plant(g, x + 51, y + 50);
   const cx = x + 26,

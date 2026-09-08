@@ -1,0 +1,2968 @@
+{
+  "schema": "agent-city.replay.v1",
+  "versions": {
+    "protocol": "1",
+    "adapter": "1",
+    "core": "2",
+    "map": "1",
+    "coreHash": "d7bae472fc262f92e7246d11bd107f79e77735b17c80fdbfccf58e0e6683588d",
+    "mapHash": "d6a1e84fbb7997a487e8f33132e867d7eb425f3e04d52699904604b6ed8775e2"
+  },
+  "workspace": "local-agent-city",
+  "completeness": "observed journal; producer coverage not guaranteed",
+  "profileBindings": {
+    "phase1-release-1788849720-mcp:run-1788849303229-8516:mcp-worker": "local-mcp-worker",
+    "phase1-release-1788849720-handoff:run-1788849313240-2574:scout": "local-documentation-worker",
+    "phase1-release-1788849720-handoff:run-1788849313240-2574-handoff-docs-target:docs-target": "unknown",
+    "phase1-release-1788849720-eval:eval-1788849319462:verifier": "local-eval-invocation",
+    "phase1-release-1788849720-workcell:workcell-invocation-1788849323908:workcell-host": "local-workcell-invocation"
+  },
+  "causalReferences": [
+    {
+      "eventId": "3fd599793006f364a1cc31e330da42c6678d64a0d41b90be37f131573bbf690f",
+      "relatedInstance": "docs-target"
+    },
+    {
+      "eventId": "c81e6eb39426e08f2a35ec465c1da71048b967520cc123d23771cb9ef5481988",
+      "relatedInstance": "docs-target"
+    }
+  ],
+  "events": [
+    {
+      "schema": "agent-city.event.v1",
+      "eventId": "179b62bf6d4c44c29489b4bcd8f3a3f30116c232d6d8b01205b5b04b0c8707ba",
+      "workspace": "local-agent-city",
+      "source": "phase1-release-1788849720-mcp",
+      "order": 1,
+      "occurredAt": 1788849303438,
+      "observedAt": 1788849303957,
+      "completeness": "complete",
+      "type": "operation.finished",
+      "instance": "phase1-release-1788849720-mcp:run-1788849303229-8516:mcp-worker",
+      "profile": "unknown",
+      "run": {
+        "namespace": "phase1-release-1788849720-mcp",
+        "id": "run-1788849303229-8516"
+      },
+      "task": {
+        "namespace": "dispatch",
+        "id": "run-1788849303229-8516:retrieve-docs"
+      },
+      "operation": {
+        "id": "intake",
+        "attempt": 1,
+        "capability": "dispatch.task",
+        "collection": "unknown",
+        "relatedAgent": "",
+        "outcome": "succeeded",
+        "metadata": {
+          "taskState": "queued"
+        }
+      },
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:de18eb5fd2145b3275ce13914dac093cd702e5a9202d5bb684833c3e6b29c98c",
+          "hash": "4ffafd7063681171085eac70a9dbde095d2ffd0b6962a6675e9434643315b9cd",
+          "sourceSequence": 180
+        }
+      ]
+    },
+    {
+      "schema": "agent-city.event.v1",
+      "eventId": "39f8550be179cfbea326799d5816c28b125d33d47621bc90064b374f0f055a94",
+      "workspace": "local-agent-city",
+      "source": "phase1-release-1788849720-mcp",
+      "order": 2,
+      "occurredAt": 1788849303439,
+      "observedAt": 1788849304238,
+      "completeness": "complete",
+      "type": "operation.finished",
+      "instance": "phase1-release-1788849720-mcp:run-1788849303229-8516:mcp-worker",
+      "profile": "unknown",
+      "run": {
+        "namespace": "phase1-release-1788849720-mcp",
+        "id": "run-1788849303229-8516"
+      },
+      "task": {
+        "namespace": "dispatch",
+        "id": "run-1788849303229-8516:retrieve-docs"
+      },
+      "operation": {
+        "id": "assignment",
+        "attempt": 1,
+        "capability": "dispatch.task",
+        "collection": "unknown",
+        "relatedAgent": "",
+        "outcome": "succeeded",
+        "metadata": {
+          "taskState": "assigned"
+        }
+      },
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:7b41178cbc2a06f13b247695dc97c16e9c2a149c60cef6088b6ba86331eea2ad",
+          "hash": "d616731db8203fe127080e93ff752420db1508fc1b414ea80abab1d5559d9cad",
+          "sourceSequence": 181
+        }
+      ]
+    },
+    {
+      "schema": "agent-city.event.v1",
+      "eventId": "2e3cd25fa4b76e4cb3851effba2c2dd8696fa79f818045b42928343911112ffb",
+      "workspace": "local-agent-city",
+      "source": "phase1-release-1788849720-mcp",
+      "order": 3,
+      "occurredAt": 1788849303509,
+      "observedAt": 1788849304238,
+      "completeness": "complete",
+      "type": "operation.started",
+      "instance": "phase1-release-1788849720-mcp:run-1788849303229-8516:mcp-worker",
+      "profile": "unknown",
+      "run": {
+        "namespace": "phase1-release-1788849720-mcp",
+        "id": "run-1788849303229-8516"
+      },
+      "task": {
+        "namespace": "dispatch",
+        "id": "run-1788849303229-8516:retrieve-docs"
+      },
+      "operation": {
+        "id": "task",
+        "attempt": 1,
+        "capability": "dispatch.task",
+        "collection": "unknown",
+        "relatedAgent": "",
+        "outcome": "unset",
+        "metadata": {
+          "taskState": "running"
+        }
+      },
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:f7cc50d05432bab562bfb4aaf3efe0212f3e977f9ef5bdbf98d63e8b47850f56",
+          "hash": "fded1602e86ff3b7d5c0ecab3834c1e1cef21d9450854bea6fb192a24c791599",
+          "sourceSequence": 182
+        }
+      ]
+    },
+    {
+      "schema": "agent-city.event.v1",
+      "eventId": "9fa0d37479afec1ee9cd0622b912edfa3b5d4cb33d4ac0f3a42b1c0fba9c587f",
+      "workspace": "local-agent-city",
+      "source": "phase1-release-1788849720-mcp",
+      "order": 4,
+      "occurredAt": 1788849304510,
+      "observedAt": 1788849305029,
+      "completeness": "complete",
+      "type": "operation.started",
+      "instance": "phase1-release-1788849720-mcp:run-1788849303229-8516:mcp-worker",
+      "profile": "local-mcp-worker",
+      "run": {
+        "namespace": "phase1-release-1788849720-mcp",
+        "id": "run-1788849303229-8516"
+      },
+      "task": {
+        "namespace": "dispatch",
+        "id": "run-1788849303229-8516:retrieve-docs"
+      },
+      "operation": {
+        "id": "run",
+        "attempt": 1,
+        "capability": "agent.run",
+        "collection": "unknown",
+        "relatedAgent": "",
+        "outcome": "unset",
+        "metadata": {
+          "relatedInstance": ""
+        }
+      },
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:6da841621ce141bff4e76d1ec60ea095838fe8e780cde2567bf8dcac87469ef4",
+          "hash": "a7022f81a10a9c0f4dc5850f66fef5c28c6c6c79f94b6719b3c6f3bd5a41d566",
+          "sourceSequence": 183
+        }
+      ]
+    },
+    {
+      "schema": "agent-city.event.v1",
+      "eventId": "c6bd467a6659f4e49b9a2addd42b01582ea13590747dd49f25bf4bc46943a923",
+      "workspace": "local-agent-city",
+      "source": "phase1-release-1788849720-mcp",
+      "order": 5,
+      "occurredAt": 1788849304745,
+      "observedAt": 1788849305311,
+      "completeness": "complete",
+      "type": "operation.started",
+      "instance": "phase1-release-1788849720-mcp:run-1788849303229-8516:mcp-worker",
+      "profile": "local-mcp-worker",
+      "run": {
+        "namespace": "phase1-release-1788849720-mcp",
+        "id": "run-1788849303229-8516"
+      },
+      "task": {
+        "namespace": "dispatch",
+        "id": "run-1788849303229-8516:retrieve-docs"
+      },
+      "operation": {
+        "id": "step-7",
+        "attempt": 1,
+        "capability": "tool.execute",
+        "collection": "unknown",
+        "relatedAgent": "",
+        "outcome": "unset",
+        "metadata": {
+          "relatedInstance": ""
+        }
+      },
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:cf551cf24a112400b6fc676a226045f60c69b8b0f8f91691317a26631b47bcdd",
+          "hash": "b7a23acff8c1a90d522c1adb8a5fb102c1911111193543725e4488084a3f0e56",
+          "sourceSequence": 184
+        }
+      ]
+    },
+    {
+      "schema": "agent-city.event.v1",
+      "eventId": "1023e83e1d64cd7286168f157c0456339ccb21ea6e49c426758b2d84836068ef",
+      "workspace": "local-agent-city",
+      "source": "phase1-release-1788849720-mcp",
+      "order": 6,
+      "occurredAt": 1788849304752,
+      "observedAt": 1788849305574,
+      "completeness": "complete",
+      "type": "operation.started",
+      "instance": "phase1-release-1788849720-mcp:run-1788849303229-8516:mcp-worker",
+      "profile": "local-mcp-worker",
+      "run": {
+        "namespace": "phase1-release-1788849720-mcp",
+        "id": "run-1788849303229-8516"
+      },
+      "task": {
+        "namespace": "dispatch",
+        "id": "run-1788849303229-8516:retrieve-docs"
+      },
+      "operation": {
+        "id": "mcp-docs",
+        "attempt": 1,
+        "capability": "mcp.call",
+        "collection": "unknown",
+        "relatedAgent": "",
+        "outcome": "unset",
+        "metadata": {
+          "approval": "not-required",
+          "invocation": "run-1788849303229-8516:mcp-docs",
+          "server": "mcp-demo",
+          "station": "tool-active",
+          "tool": "read_project_docs"
+        }
+      },
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:59703bcd925c6052005338cad1b4d267d0901f8075002ed33f93bbd35dcd2382",
+          "hash": "35945384794789e317a797f52a4721741e410afbf66c49f791810027046785ca",
+          "sourceSequence": 185
+        }
+      ]
+    },
+    {
+      "schema": "agent-city.event.v1",
+      "eventId": "8646f7bb1f93ddca0031b60020092e907a5aac564a17afdc0efa9f1d3f167cd7",
+      "workspace": "local-agent-city",
+      "source": "phase1-release-1788849720-mcp",
+      "order": 7,
+      "occurredAt": 1788849304788,
+      "observedAt": 1788849305575,
+      "completeness": "complete",
+      "type": "operation.finished",
+      "instance": "phase1-release-1788849720-mcp:run-1788849303229-8516:mcp-worker",
+      "profile": "local-mcp-worker",
+      "run": {
+        "namespace": "phase1-release-1788849720-mcp",
+        "id": "run-1788849303229-8516"
+      },
+      "task": {
+        "namespace": "dispatch",
+        "id": "run-1788849303229-8516:retrieve-docs"
+      },
+      "operation": {
+        "id": "mcp-docs",
+        "attempt": 1,
+        "capability": "mcp.call",
+        "collection": "unknown",
+        "relatedAgent": "",
+        "outcome": "succeeded",
+        "metadata": {
+          "approval": "not-required",
+          "invocation": "run-1788849303229-8516:mcp-docs",
+          "resultCode": "result-returned",
+          "server": "mcp-demo",
+          "station": "tool-active",
+          "tool": "read_project_docs"
+        }
+      },
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:a8e647ef74a6f7009fc26632c0a966640b8790012089b61bc23c7c3208835d61",
+          "hash": "46ddfd99aec8b61d4a3ed09d5a095a9a2a179df3052cb71f9158e726ac866a94",
+          "sourceSequence": 186
+        }
+      ]
+    },
+    {
+      "schema": "agent-city.event.v1",
+      "eventId": "d1eb29faba6d04bea41db2345750897cdd85780170cead09ec5c7d20441d6aff",
+      "workspace": "local-agent-city",
+      "source": "phase1-release-1788849720-mcp",
+      "order": 8,
+      "occurredAt": 1788849304790,
+      "observedAt": 1788849305843,
+      "completeness": "complete",
+      "type": "operation.finished",
+      "instance": "phase1-release-1788849720-mcp:run-1788849303229-8516:mcp-worker",
+      "profile": "local-mcp-worker",
+      "run": {
+        "namespace": "phase1-release-1788849720-mcp",
+        "id": "run-1788849303229-8516"
+      },
+      "task": {
+        "namespace": "dispatch",
+        "id": "run-1788849303229-8516:retrieve-docs"
+      },
+      "operation": {
+        "id": "mcp-receipt",
+        "attempt": 1,
+        "capability": "artifact.created",
+        "collection": "unknown",
+        "relatedAgent": "",
+        "outcome": "succeeded",
+        "metadata": {
+          "artifactRef": "city-proof:mcp-receipt",
+          "repoRef": "kujolang/mcp"
+        }
+      },
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:0ad0d493bdf4534c5919b359c4951b706c4946c12298b79488b24a3c78d8b626",
+          "hash": "5290bf2f23b0d2bcfb0dd722daaad5dd2deccb2feeb800b8c141b0779a0a1ed0",
+          "sourceSequence": 187
+        }
+      ]
+    },
+    {
+      "schema": "agent-city.event.v1",
+      "eventId": "bf844c986d97f54a24c6f782ecc868762f9464e35475cafe9e2aca1b9d889882",
+      "workspace": "local-agent-city",
+      "source": "phase1-release-1788849720-mcp",
+      "order": 9,
+      "occurredAt": 1788849304795,
+      "observedAt": 1788849305844,
+      "completeness": "complete",
+      "type": "operation.finished",
+      "instance": "phase1-release-1788849720-mcp:run-1788849303229-8516:mcp-worker",
+      "profile": "local-mcp-worker",
+      "run": {
+        "namespace": "phase1-release-1788849720-mcp",
+        "id": "run-1788849303229-8516"
+      },
+      "task": {
+        "namespace": "dispatch",
+        "id": "run-1788849303229-8516:retrieve-docs"
+      },
+      "operation": {
+        "id": "step-7",
+        "attempt": 1,
+        "capability": "tool.execute",
+        "collection": "unknown",
+        "relatedAgent": "",
+        "outcome": "succeeded",
+        "metadata": {
+          "relatedInstance": ""
+        }
+      },
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:d2fbad8a5fd430cd2e31a939e4d76907b6112863ff7b8e229f285d7c38fb5d57",
+          "hash": "d4e6e1e2fcaba9e8a167de8a9b762ef7f6d8faf31aaac4479722bcde31c6030d",
+          "sourceSequence": 188
+        }
+      ]
+    },
+    {
+      "schema": "agent-city.event.v1",
+      "eventId": "9273a9836831d27b1a765cd377312574c3e51a55a69ff099782670344ccb7ae8",
+      "workspace": "local-agent-city",
+      "source": "phase1-release-1788849720-mcp",
+      "order": 10,
+      "occurredAt": 1788849304895,
+      "observedAt": 1788849306108,
+      "completeness": "complete",
+      "type": "operation.finished",
+      "instance": "phase1-release-1788849720-mcp:run-1788849303229-8516:mcp-worker",
+      "profile": "local-mcp-worker",
+      "run": {
+        "namespace": "phase1-release-1788849720-mcp",
+        "id": "run-1788849303229-8516"
+      },
+      "task": {
+        "namespace": "dispatch",
+        "id": "run-1788849303229-8516:retrieve-docs"
+      },
+      "operation": {
+        "id": "run",
+        "attempt": 1,
+        "capability": "agent.run",
+        "collection": "unknown",
+        "relatedAgent": "",
+        "outcome": "succeeded",
+        "metadata": {
+          "relatedInstance": ""
+        }
+      },
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:29f69095f38695169f85f6b4f75f2432a6de6331b83a559ca59fd24588b9569f",
+          "hash": "be7ca30c85fab88013ee0ea0a84e65c285472a820eeb8a1a622600e66b0f339b",
+          "sourceSequence": 189
+        }
+      ]
+    },
+    {
+      "schema": "agent-city.event.v1",
+      "eventId": "8f5a97b2a1809fb2eb09c6b498765718b0519ca35ed7af45b5407a8e5d75dcef",
+      "workspace": "local-agent-city",
+      "source": "phase1-release-1788849720-mcp",
+      "order": 11,
+      "occurredAt": 1788849305204,
+      "observedAt": 1788849306370,
+      "completeness": "complete",
+      "type": "operation.finished",
+      "instance": "phase1-release-1788849720-mcp:run-1788849303229-8516:mcp-worker",
+      "profile": "unknown",
+      "run": {
+        "namespace": "phase1-release-1788849720-mcp",
+        "id": "run-1788849303229-8516"
+      },
+      "task": {
+        "namespace": "dispatch",
+        "id": "run-1788849303229-8516:retrieve-docs"
+      },
+      "operation": {
+        "id": "task",
+        "attempt": 1,
+        "capability": "dispatch.task",
+        "collection": "unknown",
+        "relatedAgent": "",
+        "outcome": "succeeded",
+        "metadata": {
+          "taskState": "completed"
+        }
+      },
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:0cb710fe2c2e26ce0e4c68be65b231f819cb12fc98d21a2ea37e7a20c6b190a1",
+          "hash": "1d227e147447ffaefb0634e902c9ef1705b3adecb0f35f79f637ca6e529cf28a",
+          "sourceSequence": 190
+        }
+      ]
+    },
+    {
+      "schema": "agent-city.event.v1",
+      "eventId": "2cf1fbf3c2a572f698acaa2539965baf0d36f87c4a93c0bc35a9666e9e3633ee",
+      "workspace": "local-agent-city",
+      "source": "phase1-release-1788849720-mcp",
+      "order": 12,
+      "occurredAt": 1788849305753,
+      "observedAt": 1788849306632,
+      "completeness": "complete",
+      "type": "operation.finished",
+      "instance": "phase1-release-1788849720-mcp:run-1788849303229-8516:mcp-worker",
+      "profile": "unknown",
+      "run": {
+        "namespace": "phase1-release-1788849720-mcp",
+        "id": "run-1788849303229-8516"
+      },
+      "task": {
+        "namespace": "dispatch",
+        "id": "run-1788849303229-8516:retrieve-docs"
+      },
+      "operation": {
+        "id": "workflow-state",
+        "attempt": 1,
+        "capability": "dispatch.workflow",
+        "collection": "unknown",
+        "relatedAgent": "",
+        "outcome": "unknown",
+        "metadata": {
+          "workflowState": "completed"
+        }
+      },
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:052f8eb2f9a30958d478b4f954777d80efdc0f058e50bbd105a6dc7b92ca385a",
+          "hash": "5ed4e22c4a4cf3e5b4b45ed98759d1c0de55031cd812d6622ad76579f02144fa",
+          "sourceSequence": 191
+        }
+      ]
+    },
+    {
+      "schema": "agent-city.event.v1",
+      "eventId": "f241a6365397cb4b512d430430910a80603a28cf60b7608e7de2c139c732652b",
+      "workspace": "local-agent-city",
+      "source": "phase1-release-1788849720-handoff",
+      "order": 13,
+      "occurredAt": 1788849313460,
+      "observedAt": 1788849313938,
+      "completeness": "complete",
+      "type": "operation.finished",
+      "instance": "phase1-release-1788849720-handoff:run-1788849313240-2574:scout",
+      "profile": "unknown",
+      "run": {
+        "namespace": "phase1-release-1788849720-handoff",
+        "id": "run-1788849313240-2574"
+      },
+      "task": {
+        "namespace": "dispatch",
+        "id": "run-1788849313240-2574:retrieve-docs"
+      },
+      "operation": {
+        "id": "intake",
+        "attempt": 1,
+        "capability": "dispatch.task",
+        "collection": "unknown",
+        "relatedAgent": "",
+        "outcome": "succeeded",
+        "metadata": {
+          "taskState": "queued"
+        }
+      },
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:2edb638e2931ef96a8dd3fce10024da1b91ffbc5b2536f982a55634741ba102c",
+          "hash": "38e9781ca208a5555ec995d2b9876d8fce9b0b9279f0c82183566a14eba44085",
+          "sourceSequence": 192
+        }
+      ]
+    },
+    {
+      "schema": "agent-city.event.v1",
+      "eventId": "269a514402e4dfbb576553e0d76702dfc0c705b1bb5c852d8ef043ce6c603f8e",
+      "workspace": "local-agent-city",
+      "source": "phase1-release-1788849720-handoff",
+      "order": 14,
+      "occurredAt": 1788849313461,
+      "observedAt": 1788849313938,
+      "completeness": "complete",
+      "type": "operation.finished",
+      "instance": "phase1-release-1788849720-handoff:run-1788849313240-2574:scout",
+      "profile": "unknown",
+      "run": {
+        "namespace": "phase1-release-1788849720-handoff",
+        "id": "run-1788849313240-2574"
+      },
+      "task": {
+        "namespace": "dispatch",
+        "id": "run-1788849313240-2574:retrieve-docs"
+      },
+      "operation": {
+        "id": "assignment",
+        "attempt": 1,
+        "capability": "dispatch.task",
+        "collection": "unknown",
+        "relatedAgent": "",
+        "outcome": "succeeded",
+        "metadata": {
+          "taskState": "assigned"
+        }
+      },
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:cb5afc22e9b0af968b172154fac05a6bed25cec9204cd5b36d6cce37cd110345",
+          "hash": "ab5fc613db686a2728dd0c4b26a10945b5bc7d771e634858fdb5a6eee1426c18",
+          "sourceSequence": 193
+        }
+      ]
+    },
+    {
+      "schema": "agent-city.event.v1",
+      "eventId": "d5447149fe438d5fa5f0d9b7daf0959d60be880aab8569c47e9615b4dbf5bedb",
+      "workspace": "local-agent-city",
+      "source": "phase1-release-1788849720-handoff",
+      "order": 15,
+      "occurredAt": 1788849313521,
+      "observedAt": 1788849314201,
+      "completeness": "complete",
+      "type": "operation.started",
+      "instance": "phase1-release-1788849720-handoff:run-1788849313240-2574:scout",
+      "profile": "unknown",
+      "run": {
+        "namespace": "phase1-release-1788849720-handoff",
+        "id": "run-1788849313240-2574"
+      },
+      "task": {
+        "namespace": "dispatch",
+        "id": "run-1788849313240-2574:retrieve-docs"
+      },
+      "operation": {
+        "id": "task",
+        "attempt": 1,
+        "capability": "dispatch.task",
+        "collection": "unknown",
+        "relatedAgent": "",
+        "outcome": "unset",
+        "metadata": {
+          "taskState": "running"
+        }
+      },
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:5b7207b7a734ce8cef1fee8fbb6a1c83f266ec900e7b258977ca0588e677e478",
+          "hash": "e314f1140d158337f1713d1ebdc5136ee052b1f1cd4dbd2090fddf00e002327b",
+          "sourceSequence": 194
+        }
+      ]
+    },
+    {
+      "schema": "agent-city.event.v1",
+      "eventId": "93b91d7febd972daef9cc6c8d16ddd1f06168328057a4b58a7b0e99a99a680a8",
+      "workspace": "local-agent-city",
+      "source": "phase1-release-1788849720-handoff",
+      "order": 16,
+      "occurredAt": 1788849314491,
+      "observedAt": 1788849314729,
+      "completeness": "complete",
+      "type": "operation.started",
+      "instance": "phase1-release-1788849720-handoff:run-1788849313240-2574:scout",
+      "profile": "local-documentation-worker",
+      "run": {
+        "namespace": "phase1-release-1788849720-handoff",
+        "id": "run-1788849313240-2574"
+      },
+      "task": {
+        "namespace": "dispatch",
+        "id": "run-1788849313240-2574:retrieve-docs"
+      },
+      "operation": {
+        "id": "run",
+        "attempt": 1,
+        "capability": "agent.run",
+        "collection": "kujo-docs",
+        "relatedAgent": "",
+        "outcome": "unset",
+        "metadata": {
+          "relatedInstance": ""
+        }
+      },
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:575d55058b7348be55da78921731c321992b35d6747a3519a38733fc960b9d07",
+          "hash": "9c455b09dcfb38c023ecf6cf042f3d8a234cb528707ba280d944f22822fc42e8",
+          "sourceSequence": 195
+        }
+      ]
+    },
+    {
+      "schema": "agent-city.event.v1",
+      "eventId": "a5b19aa057fd2688b659f034a86549b114df4657486a47e5d980c6c87ead5869",
+      "workspace": "local-agent-city",
+      "source": "phase1-release-1788849720-handoff",
+      "order": 17,
+      "occurredAt": 1788849314578,
+      "observedAt": 1788849314992,
+      "completeness": "complete",
+      "type": "operation.started",
+      "instance": "phase1-release-1788849720-handoff:run-1788849313240-2574:scout",
+      "profile": "local-documentation-worker",
+      "run": {
+        "namespace": "phase1-release-1788849720-handoff",
+        "id": "run-1788849313240-2574"
+      },
+      "task": {
+        "namespace": "dispatch",
+        "id": "run-1788849313240-2574:retrieve-docs"
+      },
+      "operation": {
+        "id": "retrieval",
+        "attempt": 1,
+        "capability": "rag.query",
+        "collection": "kujo-docs",
+        "relatedAgent": "",
+        "outcome": "unset",
+        "metadata": {
+          "relatedInstance": ""
+        }
+      },
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:1a5ffbf86f255167a4c463d703cedf55fdaf3b6dc51fcc7c4a5a264c14343b22",
+          "hash": "5d6f2c8abddb8f7a62e877aed89b3616a36abd839c484e4d48d2f6e2d2fd32f8",
+          "sourceSequence": 196
+        }
+      ]
+    },
+    {
+      "schema": "agent-city.event.v1",
+      "eventId": "bcd5e779a6c777d15b9f283c0a9499b7de39d32184d2c7885585f2de3d2657c6",
+      "workspace": "local-agent-city",
+      "source": "phase1-release-1788849720-handoff",
+      "order": 18,
+      "occurredAt": 1788849315623,
+      "observedAt": 1788849315796,
+      "completeness": "complete",
+      "type": "operation.finished",
+      "instance": "phase1-release-1788849720-handoff:run-1788849313240-2574:scout",
+      "profile": "local-documentation-worker",
+      "run": {
+        "namespace": "phase1-release-1788849720-handoff",
+        "id": "run-1788849313240-2574"
+      },
+      "task": {
+        "namespace": "dispatch",
+        "id": "run-1788849313240-2574:retrieve-docs"
+      },
+      "operation": {
+        "id": "retrieval",
+        "attempt": 1,
+        "capability": "rag.query",
+        "collection": "kujo-docs",
+        "relatedAgent": "",
+        "outcome": "succeeded",
+        "metadata": {
+          "relatedInstance": ""
+        }
+      },
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:9f745013414396cf293ba1bd624f7674425ed808f03fe0ea757d5d35f52c10f9",
+          "hash": "d9c0a05f071ed4be654f2c4d7e4092c56110fc2572ea35585c5de1c296c92e5f",
+          "sourceSequence": 197
+        }
+      ]
+    },
+    {
+      "schema": "agent-city.event.v1",
+      "eventId": "3fd599793006f364a1cc31e330da42c6678d64a0d41b90be37f131573bbf690f",
+      "workspace": "local-agent-city",
+      "source": "phase1-release-1788849720-handoff",
+      "order": 19,
+      "occurredAt": 1788849315796,
+      "observedAt": 1788849316323,
+      "completeness": "complete",
+      "type": "operation.started",
+      "instance": "phase1-release-1788849720-handoff:run-1788849313240-2574:scout",
+      "profile": "unknown",
+      "run": {
+        "namespace": "phase1-release-1788849720-handoff",
+        "id": "run-1788849313240-2574"
+      },
+      "task": {
+        "namespace": "dispatch",
+        "id": "run-1788849313240-2574:retrieve-docs"
+      },
+      "operation": {
+        "id": "docs-target",
+        "attempt": 1,
+        "capability": "agent.handoff",
+        "collection": "unknown",
+        "relatedAgent": "docs-target",
+        "outcome": "unset",
+        "metadata": {
+          "relatedInstance": "phase1-release-1788849720-handoff:run-1788849313240-2574-handoff-docs-target:docs-target"
+        }
+      },
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:337e9ffe4eaa01eb63dc8cea54d0264ff5831818627a3b2d2f7d18f5f78c62f6",
+          "hash": "bec9020bf686bb1ed2e7f5bf8c303657669d24788d88fa8dbae5325cc4d61a97",
+          "sourceSequence": 198
+        }
+      ]
+    },
+    {
+      "schema": "agent-city.event.v1",
+      "eventId": "7c2771202e2cb8eda24702a009c22df40d384816b2cf6ccb10935a43491953cf",
+      "workspace": "local-agent-city",
+      "source": "phase1-release-1788849720-handoff",
+      "order": 20,
+      "occurredAt": 1788849315798,
+      "observedAt": 1788849316586,
+      "completeness": "complete",
+      "type": "operation.started",
+      "instance": "phase1-release-1788849720-handoff:run-1788849313240-2574-handoff-docs-target:docs-target",
+      "profile": "unknown",
+      "run": {
+        "namespace": "phase1-release-1788849720-handoff",
+        "id": "run-1788849313240-2574-handoff-docs-target"
+      },
+      "task": {
+        "namespace": "dispatch",
+        "id": "run-1788849313240-2574:retrieve-docs"
+      },
+      "operation": {
+        "id": "run",
+        "attempt": 1,
+        "capability": "agent.run",
+        "collection": "unknown",
+        "relatedAgent": "",
+        "outcome": "unset",
+        "metadata": {
+          "relatedInstance": ""
+        }
+      },
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:979b227fe37e5acda8dce66dfd54b95e1909fb193d9680402cf283abc5d38164",
+          "hash": "eee6d35fe85418a03d6b223f6fcbea629d955e7bac0cadec43b5cd712e5f2514",
+          "sourceSequence": 199
+        }
+      ]
+    },
+    {
+      "schema": "agent-city.event.v1",
+      "eventId": "1927445db16d4b33921b292838e804dfb3eb0cf8f07e0b81673ec6f2e203bcc9",
+      "workspace": "local-agent-city",
+      "source": "phase1-release-1788849720-handoff",
+      "order": 21,
+      "occurredAt": 1788849315890,
+      "observedAt": 1788849316586,
+      "completeness": "complete",
+      "type": "operation.started",
+      "instance": "phase1-release-1788849720-handoff:run-1788849313240-2574-handoff-docs-target:docs-target",
+      "profile": "unknown",
+      "run": {
+        "namespace": "phase1-release-1788849720-handoff",
+        "id": "run-1788849313240-2574-handoff-docs-target"
+      },
+      "task": {
+        "namespace": "dispatch",
+        "id": "run-1788849313240-2574:retrieve-docs"
+      },
+      "operation": {
+        "id": "retrieval",
+        "attempt": 1,
+        "capability": "rag.query",
+        "collection": "unknown",
+        "relatedAgent": "",
+        "outcome": "unset",
+        "metadata": {
+          "relatedInstance": ""
+        }
+      },
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:0638e6685818bc00a21c161762eae1094059bd0050e49c80e47348fa57e592a3",
+          "hash": "e0572fb7467f9fc52676ac9915d6e42fb4a7fdc4425d3e8d397c6822ec130fd4",
+          "sourceSequence": 200
+        }
+      ]
+    },
+    {
+      "schema": "agent-city.event.v1",
+      "eventId": "a3e1c3b6c2d0f00b526fcf6f7c884243017fd1f646149c6a31d521809d59df86",
+      "workspace": "local-agent-city",
+      "source": "phase1-release-1788849720-handoff",
+      "order": 22,
+      "occurredAt": 1788849317074,
+      "observedAt": 1788849317647,
+      "completeness": "complete",
+      "type": "operation.finished",
+      "instance": "phase1-release-1788849720-handoff:run-1788849313240-2574-handoff-docs-target:docs-target",
+      "profile": "unknown",
+      "run": {
+        "namespace": "phase1-release-1788849720-handoff",
+        "id": "run-1788849313240-2574-handoff-docs-target"
+      },
+      "task": {
+        "namespace": "dispatch",
+        "id": "run-1788849313240-2574:retrieve-docs"
+      },
+      "operation": {
+        "id": "retrieval",
+        "attempt": 1,
+        "capability": "rag.query",
+        "collection": "unknown",
+        "relatedAgent": "",
+        "outcome": "succeeded",
+        "metadata": {
+          "relatedInstance": ""
+        }
+      },
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:6afb108306ea8c4c42ac6ab5ede311a200020182c55c8269336484936d377d9b",
+          "hash": "ced19472e4bbdf78c4a844c6bf7c3594a676960bf83c94267c7a607d8767735a",
+          "sourceSequence": 201
+        }
+      ]
+    },
+    {
+      "schema": "agent-city.event.v1",
+      "eventId": "06cb260d552ccf0846d5becb5e7e943b32992a7a225c1c6e1cc4d3ff7936735c",
+      "workspace": "local-agent-city",
+      "source": "phase1-release-1788849720-handoff",
+      "order": 23,
+      "occurredAt": 1788849317356,
+      "observedAt": 1788849317910,
+      "completeness": "complete",
+      "type": "operation.finished",
+      "instance": "phase1-release-1788849720-handoff:run-1788849313240-2574-handoff-docs-target:docs-target",
+      "profile": "unknown",
+      "run": {
+        "namespace": "phase1-release-1788849720-handoff",
+        "id": "run-1788849313240-2574-handoff-docs-target"
+      },
+      "task": {
+        "namespace": "dispatch",
+        "id": "run-1788849313240-2574:retrieve-docs"
+      },
+      "operation": {
+        "id": "run",
+        "attempt": 1,
+        "capability": "agent.run",
+        "collection": "unknown",
+        "relatedAgent": "",
+        "outcome": "succeeded",
+        "metadata": {
+          "relatedInstance": ""
+        }
+      },
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:f515230e8605887e7001f402088c35e15eaa63a0ed655c88cb285ec5a1cb59a3",
+          "hash": "37166e0f16de742ebbdbc9d6bf1777b71b16ebc7f105083e5f2cf21a1df77b6a",
+          "sourceSequence": 202
+        }
+      ]
+    },
+    {
+      "schema": "agent-city.event.v1",
+      "eventId": "c81e6eb39426e08f2a35ec465c1da71048b967520cc123d23771cb9ef5481988",
+      "workspace": "local-agent-city",
+      "source": "phase1-release-1788849720-handoff",
+      "order": 24,
+      "occurredAt": 1788849317363,
+      "observedAt": 1788849318172,
+      "completeness": "complete",
+      "type": "operation.finished",
+      "instance": "phase1-release-1788849720-handoff:run-1788849313240-2574:scout",
+      "profile": "unknown",
+      "run": {
+        "namespace": "phase1-release-1788849720-handoff",
+        "id": "run-1788849313240-2574"
+      },
+      "task": {
+        "namespace": "dispatch",
+        "id": "run-1788849313240-2574:retrieve-docs"
+      },
+      "operation": {
+        "id": "docs-target",
+        "attempt": 1,
+        "capability": "agent.handoff",
+        "collection": "unknown",
+        "relatedAgent": "docs-target",
+        "outcome": "succeeded",
+        "metadata": {
+          "relatedInstance": "phase1-release-1788849720-handoff:run-1788849313240-2574-handoff-docs-target:docs-target"
+        }
+      },
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:6d3611933db02e88673096cf7feb591746d4e297ddc4803cf41ebb2b72a361a7",
+          "hash": "b896a3850580dd5d62fc38e03a417f374209f1a274ad176684bbad1e4560b5ce",
+          "sourceSequence": 203
+        }
+      ]
+    },
+    {
+      "schema": "agent-city.event.v1",
+      "eventId": "19eb219f1334310c65fcb325744d313de51bfcfee65a9062ecddd6488be316ac",
+      "workspace": "local-agent-city",
+      "source": "phase1-release-1788849720-handoff",
+      "order": 25,
+      "occurredAt": 1788849317525,
+      "observedAt": 1788849318172,
+      "completeness": "complete",
+      "type": "operation.finished",
+      "instance": "phase1-release-1788849720-handoff:run-1788849313240-2574:scout",
+      "profile": "local-documentation-worker",
+      "run": {
+        "namespace": "phase1-release-1788849720-handoff",
+        "id": "run-1788849313240-2574"
+      },
+      "task": {
+        "namespace": "dispatch",
+        "id": "run-1788849313240-2574:retrieve-docs"
+      },
+      "operation": {
+        "id": "run",
+        "attempt": 1,
+        "capability": "agent.run",
+        "collection": "kujo-docs",
+        "relatedAgent": "",
+        "outcome": "succeeded",
+        "metadata": {
+          "relatedInstance": ""
+        }
+      },
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:2f7fdde36e0b6ccf0e05fdaab4e22bf27b25479da43f4e3de700bfbc9a256dd5",
+          "hash": "2e9204cbff7bffeffcf863bce23cc86b4f1fe908770f9a8e2b432cd1694b26b3",
+          "sourceSequence": 204
+        }
+      ]
+    },
+    {
+      "schema": "agent-city.event.v1",
+      "eventId": "6dffb393bd0d503e4535aa1315bfc7abef5899ff980b96340d6a4993203b81eb",
+      "workspace": "local-agent-city",
+      "source": "phase1-release-1788849720-handoff",
+      "order": 26,
+      "occurredAt": 1788849317862,
+      "observedAt": 1788849318695,
+      "completeness": "complete",
+      "type": "operation.finished",
+      "instance": "phase1-release-1788849720-handoff:run-1788849313240-2574:scout",
+      "profile": "unknown",
+      "run": {
+        "namespace": "phase1-release-1788849720-handoff",
+        "id": "run-1788849313240-2574"
+      },
+      "task": {
+        "namespace": "dispatch",
+        "id": "run-1788849313240-2574:retrieve-docs"
+      },
+      "operation": {
+        "id": "task",
+        "attempt": 1,
+        "capability": "dispatch.task",
+        "collection": "unknown",
+        "relatedAgent": "",
+        "outcome": "succeeded",
+        "metadata": {
+          "taskState": "completed"
+        }
+      },
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:c95982eda1164da871aff2f1f5de6ca3082d7200b6bda26fb008e9546b39b55a",
+          "hash": "17fb71a957748a1c59aa953af92e2b0bd57cf3f9e4b69babed21a74363476eec",
+          "sourceSequence": 205
+        }
+      ]
+    },
+    {
+      "schema": "agent-city.event.v1",
+      "eventId": "5173b1aade3747b1f4a40aa6aeac64db844a2a9685c578486d895b1dd131f090",
+      "workspace": "local-agent-city",
+      "source": "phase1-release-1788849720-handoff",
+      "order": 27,
+      "occurredAt": 1788849318487,
+      "observedAt": 1788849318962,
+      "completeness": "complete",
+      "type": "operation.finished",
+      "instance": "phase1-release-1788849720-handoff:run-1788849313240-2574:scout",
+      "profile": "unknown",
+      "run": {
+        "namespace": "phase1-release-1788849720-handoff",
+        "id": "run-1788849313240-2574"
+      },
+      "task": {
+        "namespace": "dispatch",
+        "id": "run-1788849313240-2574:retrieve-docs"
+      },
+      "operation": {
+        "id": "workflow-state",
+        "attempt": 1,
+        "capability": "dispatch.workflow",
+        "collection": "unknown",
+        "relatedAgent": "",
+        "outcome": "unknown",
+        "metadata": {
+          "workflowState": "completed"
+        }
+      },
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:5160a34698716b4b8a64bd265a49621a0210c278bbc77dda937a102baeb95e0e",
+          "hash": "a751fa24d071ce6d916e21b0012772ba9d6694e1b9f816a23f60945b8e91eaf5",
+          "sourceSequence": 206
+        }
+      ]
+    },
+    {
+      "schema": "agent-city.event.v1",
+      "eventId": "5d79ce5584b43cd192bced8b12871140dc880b77a65ce4326bcddb8e6923b1ea",
+      "workspace": "local-agent-city",
+      "source": "phase1-release-1788849720-eval",
+      "order": 28,
+      "occurredAt": 1788849319658,
+      "observedAt": 1788849320272,
+      "completeness": "complete",
+      "type": "operation.started",
+      "instance": "phase1-release-1788849720-eval:eval-1788849319462:verifier",
+      "profile": "local-eval-invocation",
+      "run": {
+        "namespace": "phase1-release-1788849720-eval",
+        "id": "eval-1788849319462"
+      },
+      "task": {
+        "namespace": "eval",
+        "id": "eval-1788849319462:three-check-proof"
+      },
+      "operation": {
+        "id": "invocation",
+        "attempt": 1,
+        "capability": "execution.run",
+        "collection": "unknown",
+        "relatedAgent": "",
+        "outcome": "unset",
+        "metadata": {}
+      },
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:78c9985d2d26a74034ef688d4d34b77083e3e0253f587e9ddb8ac494a5cb93a6",
+          "hash": "aac682d10ed043a6ec98b22dec25a8e27957db7cfe4ed3db6a55510a18a738a1",
+          "sourceSequence": 207
+        }
+      ]
+    },
+    {
+      "schema": "agent-city.event.v1",
+      "eventId": "57229c5493566aa0f7dc82d3455ba7d9319c566c3fc070eeb0beeced800afa2a",
+      "workspace": "local-agent-city",
+      "source": "phase1-release-1788849720-eval",
+      "order": 29,
+      "occurredAt": 1788849319662,
+      "observedAt": 1788849320272,
+      "completeness": "complete",
+      "type": "operation.started",
+      "instance": "phase1-release-1788849720-eval:eval-1788849319462:verifier",
+      "profile": "local-eval-invocation",
+      "run": {
+        "namespace": "phase1-release-1788849720-eval",
+        "id": "eval-1788849319462"
+      },
+      "task": {
+        "namespace": "eval",
+        "id": "eval-1788849319462:three-check-proof"
+      },
+      "operation": {
+        "id": "suite",
+        "attempt": 1,
+        "capability": "evaluation.run",
+        "collection": "unknown",
+        "relatedAgent": "",
+        "outcome": "unset",
+        "metadata": {}
+      },
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:901b2de7bb98070ced154d7779afccc0ba9c752eb3c9e0fecb39793bdb39f471",
+          "hash": "4f3de7046b65100cd4f2bf28f3feac48d73486004b23515006fb436977626f7b",
+          "sourceSequence": 208
+        }
+      ]
+    },
+    {
+      "schema": "agent-city.event.v1",
+      "eventId": "dade66c5bad9980d06b4372c4d4fd624277df32a575ed4186c41493c36648e26",
+      "workspace": "local-agent-city",
+      "source": "phase1-release-1788849720-eval",
+      "order": 30,
+      "occurredAt": 1788849319926,
+      "observedAt": 1788849320555,
+      "completeness": "complete",
+      "type": "operation.failed",
+      "instance": "phase1-release-1788849720-eval:eval-1788849319462:verifier",
+      "profile": "local-eval-invocation",
+      "run": {
+        "namespace": "phase1-release-1788849720-eval",
+        "id": "eval-1788849319462"
+      },
+      "task": {
+        "namespace": "eval",
+        "id": "eval-1788849319462:three-check-proof"
+      },
+      "operation": {
+        "id": "suite",
+        "attempt": 1,
+        "capability": "evaluation.run",
+        "collection": "unknown",
+        "relatedAgent": "",
+        "outcome": "failed",
+        "metadata": {}
+      },
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:a52d0f16ddb642857377c0bf278efe4febcce80aeacda2a6206bc21ffefd42b3",
+          "hash": "028ba319aab09235e92a89476bf16b00bdca441f1a4d69de2c9b5e60a26bcd74",
+          "sourceSequence": 209
+        }
+      ]
+    },
+    {
+      "schema": "agent-city.event.v1",
+      "eventId": "3b18103c74a53c2e4c32dae24d0f6a4521c3966449f3d7c50c49a879488697c9",
+      "workspace": "local-agent-city",
+      "source": "phase1-release-1788849720-eval",
+      "order": 31,
+      "occurredAt": 1788849319964,
+      "observedAt": 1788849320555,
+      "completeness": "complete",
+      "type": "operation.finished",
+      "instance": "phase1-release-1788849720-eval:eval-1788849319462:verifier",
+      "profile": "local-eval-invocation",
+      "run": {
+        "namespace": "phase1-release-1788849720-eval",
+        "id": "eval-1788849319462"
+      },
+      "task": {
+        "namespace": "eval",
+        "id": "eval-1788849319462:three-check-proof"
+      },
+      "operation": {
+        "id": "schema",
+        "attempt": 1,
+        "capability": "evaluation.run",
+        "collection": "unknown",
+        "relatedAgent": "",
+        "outcome": "succeeded",
+        "metadata": {}
+      },
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:b610677c05ee0780ea0c4619f2d58477b746028b3941658125fba883adc52e01",
+          "hash": "13604349b35321972296528251b067e79f6c9ddb567110aaae1869ce35a676ec",
+          "sourceSequence": 210
+        }
+      ]
+    },
+    {
+      "schema": "agent-city.event.v1",
+      "eventId": "a6f9e0e2b7a0c2c8821f71e986baf73374ef0b1a0ba5d9cc78a5c00a2e362792",
+      "workspace": "local-agent-city",
+      "source": "phase1-release-1788849720-eval",
+      "order": 32,
+      "occurredAt": 1788849319965,
+      "observedAt": 1788849320842,
+      "completeness": "complete",
+      "type": "operation.failed",
+      "instance": "phase1-release-1788849720-eval:eval-1788849319462:verifier",
+      "profile": "local-eval-invocation",
+      "run": {
+        "namespace": "phase1-release-1788849720-eval",
+        "id": "eval-1788849319462"
+      },
+      "task": {
+        "namespace": "eval",
+        "id": "eval-1788849319462:three-check-proof"
+      },
+      "operation": {
+        "id": "content",
+        "attempt": 1,
+        "capability": "evaluation.run",
+        "collection": "unknown",
+        "relatedAgent": "",
+        "outcome": "failed",
+        "metadata": {}
+      },
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:b48e9461cd21b193c851f83a92e707e558327ab8b9f90b1f4d3b2614720f7ea2",
+          "hash": "e41b7312852a2ca3b9e5d63b77237de7eb11240f868dca371575acfe33456474",
+          "sourceSequence": 211
+        }
+      ]
+    },
+    {
+      "schema": "agent-city.event.v1",
+      "eventId": "984cc57e77fc39ee5c94acf114bb4ab21549533a95f04c4d46b006e0de39b067",
+      "workspace": "local-agent-city",
+      "source": "phase1-release-1788849720-eval",
+      "order": 33,
+      "occurredAt": 1788849319965,
+      "observedAt": 1788849320842,
+      "completeness": "complete",
+      "type": "operation.finished",
+      "instance": "phase1-release-1788849720-eval:eval-1788849319462:verifier",
+      "profile": "local-eval-invocation",
+      "run": {
+        "namespace": "phase1-release-1788849720-eval",
+        "id": "eval-1788849319462"
+      },
+      "task": {
+        "namespace": "eval",
+        "id": "eval-1788849319462:three-check-proof"
+      },
+      "operation": {
+        "id": "skipped",
+        "attempt": 1,
+        "capability": "evaluation.run",
+        "collection": "unknown",
+        "relatedAgent": "",
+        "outcome": "skipped",
+        "metadata": {}
+      },
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:61b5d1ad62ceb7e46b8e9e1cf83453e36587c1ea2864711ae7d2669dfcb02486",
+          "hash": "3bc6a50930541dc95fd543b60e20bfbc2dc559f33c7f8bd104d2cbd2abdb17aa",
+          "sourceSequence": 212
+        }
+      ]
+    },
+    {
+      "schema": "agent-city.event.v1",
+      "eventId": "a796adcb4a5213a0b5730986e4ae52cae6b31f3372ac3a95a599093f6cf2ce74",
+      "workspace": "local-agent-city",
+      "source": "phase1-release-1788849720-eval",
+      "order": 34,
+      "occurredAt": 1788849319966,
+      "observedAt": 1788849321110,
+      "completeness": "complete",
+      "type": "operation.finished",
+      "instance": "phase1-release-1788849720-eval:eval-1788849319462:verifier",
+      "profile": "local-eval-invocation",
+      "run": {
+        "namespace": "phase1-release-1788849720-eval",
+        "id": "eval-1788849319462"
+      },
+      "task": {
+        "namespace": "eval",
+        "id": "eval-1788849319462:three-check-proof"
+      },
+      "operation": {
+        "id": "policy",
+        "attempt": 1,
+        "capability": "evaluation.run",
+        "collection": "unknown",
+        "relatedAgent": "",
+        "outcome": "succeeded",
+        "metadata": {}
+      },
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:567f53283f224eeae0822754f7fb6fdb749c180e112512895588a00637754f28",
+          "hash": "f00bdc1228c357ff70f3947dd76fc22dd1c38dace8ad5638d88be8b547d8883e",
+          "sourceSequence": 213
+        }
+      ]
+    },
+    {
+      "schema": "agent-city.event.v1",
+      "eventId": "35943e0c85d0f4403338431aebaef2d43540826b30c171390965c64fc8e03d62",
+      "workspace": "local-agent-city",
+      "source": "phase1-release-1788849720-eval",
+      "order": 35,
+      "occurredAt": 1788849319966,
+      "observedAt": 1788849321110,
+      "completeness": "complete",
+      "type": "operation.finished",
+      "instance": "phase1-release-1788849720-eval:eval-1788849319462:verifier",
+      "profile": "local-eval-invocation",
+      "run": {
+        "namespace": "phase1-release-1788849720-eval",
+        "id": "eval-1788849319462"
+      },
+      "task": {
+        "namespace": "eval",
+        "id": "eval-1788849319462:three-check-proof"
+      },
+      "operation": {
+        "id": "invocation",
+        "attempt": 1,
+        "capability": "execution.run",
+        "collection": "unknown",
+        "relatedAgent": "",
+        "outcome": "succeeded",
+        "metadata": {}
+      },
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:3acfc25ed182e8f022e08cc80402acb58e1080774d76b80a609599dd3ef36822",
+          "hash": "bee776075ec03d3f172031cde5fa3dc32aef7f8d3bebfba40f000a138ebd1e69",
+          "sourceSequence": 214
+        }
+      ]
+    },
+    {
+      "schema": "agent-city.event.v1",
+      "eventId": "67618322a09f1430613b12cec087a5cc2393745e4efabf07522930f3a67a5e86",
+      "workspace": "local-agent-city",
+      "source": "phase1-release-1788849720-eval",
+      "order": 36,
+      "occurredAt": 1788849321408,
+      "observedAt": 1788849321890,
+      "completeness": "complete",
+      "type": "operation.started",
+      "instance": "phase1-release-1788849720-eval:eval-1788849319462:verifier",
+      "profile": "local-eval-invocation",
+      "run": {
+        "namespace": "phase1-release-1788849720-eval",
+        "id": "eval-1788849319462"
+      },
+      "task": {
+        "namespace": "eval",
+        "id": "eval-1788849319462:three-check-proof"
+      },
+      "operation": {
+        "id": "invocation",
+        "attempt": 2,
+        "capability": "execution.run",
+        "collection": "unknown",
+        "relatedAgent": "",
+        "outcome": "unset",
+        "metadata": {}
+      },
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:fd97e1310f948acdb66103370475966d55fa04cf2c217177fbd5b09304e2ad2e",
+          "hash": "627e665fed1124842f6dcc00016f8fa4bae2f91ec1dd8e0d35f8fb3ad0f553dd",
+          "sourceSequence": 215
+        }
+      ]
+    },
+    {
+      "schema": "agent-city.event.v1",
+      "eventId": "94dbedc9a85289be9ad5adb724c5e87dd7ed0c08871182754ec257ee6a5b8327",
+      "workspace": "local-agent-city",
+      "source": "phase1-release-1788849720-eval",
+      "order": 37,
+      "occurredAt": 1788849321412,
+      "observedAt": 1788849321891,
+      "completeness": "complete",
+      "type": "operation.started",
+      "instance": "phase1-release-1788849720-eval:eval-1788849319462:verifier",
+      "profile": "local-eval-invocation",
+      "run": {
+        "namespace": "phase1-release-1788849720-eval",
+        "id": "eval-1788849319462"
+      },
+      "task": {
+        "namespace": "eval",
+        "id": "eval-1788849319462:three-check-proof"
+      },
+      "operation": {
+        "id": "suite",
+        "attempt": 2,
+        "capability": "evaluation.run",
+        "collection": "unknown",
+        "relatedAgent": "",
+        "outcome": "unset",
+        "metadata": {}
+      },
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:9119c714e19062f2cc7a8b19a5d172e485ea38fea5d1d4832f401d6880e11a39",
+          "hash": "f1e6828bc49df0e84959ad606657082e4d74bd16c66bc9b291fbac80727206f8",
+          "sourceSequence": 216
+        }
+      ]
+    },
+    {
+      "schema": "agent-city.event.v1",
+      "eventId": "62e9a92d713c723f8862b09accee11f9085ba92e8696adc0ee50fda42f75f416",
+      "workspace": "local-agent-city",
+      "source": "phase1-release-1788849720-eval",
+      "order": 38,
+      "occurredAt": 1788849321716,
+      "observedAt": 1788849322445,
+      "completeness": "complete",
+      "type": "operation.finished",
+      "instance": "phase1-release-1788849720-eval:eval-1788849319462:verifier",
+      "profile": "local-eval-invocation",
+      "run": {
+        "namespace": "phase1-release-1788849720-eval",
+        "id": "eval-1788849319462"
+      },
+      "task": {
+        "namespace": "eval",
+        "id": "eval-1788849319462:three-check-proof"
+      },
+      "operation": {
+        "id": "suite",
+        "attempt": 2,
+        "capability": "evaluation.run",
+        "collection": "unknown",
+        "relatedAgent": "",
+        "outcome": "succeeded",
+        "metadata": {}
+      },
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:68df3b6c4fd03203e149d586a61865573cecb550fb88ce5b09281b9c87ed00ac",
+          "hash": "00f189fb93de8f17d6c9ddd739ef5c0d4299d0f371d07477b00565ad0349a01d",
+          "sourceSequence": 217
+        }
+      ]
+    },
+    {
+      "schema": "agent-city.event.v1",
+      "eventId": "9ad494c9893bf946e706d17299f7b5e668509cce97a60d75c25096578a774d25",
+      "workspace": "local-agent-city",
+      "source": "phase1-release-1788849720-eval",
+      "order": 39,
+      "occurredAt": 1788849321771,
+      "observedAt": 1788849322445,
+      "completeness": "complete",
+      "type": "operation.finished",
+      "instance": "phase1-release-1788849720-eval:eval-1788849319462:verifier",
+      "profile": "local-eval-invocation",
+      "run": {
+        "namespace": "phase1-release-1788849720-eval",
+        "id": "eval-1788849319462"
+      },
+      "task": {
+        "namespace": "eval",
+        "id": "eval-1788849319462:three-check-proof"
+      },
+      "operation": {
+        "id": "schema",
+        "attempt": 2,
+        "capability": "evaluation.run",
+        "collection": "unknown",
+        "relatedAgent": "",
+        "outcome": "succeeded",
+        "metadata": {}
+      },
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:899f60795ace3adb4b8caa8caebe500b36da53d4e676aa7b151c0217dc02f925",
+          "hash": "88cf531d313c79eb1026d2210f458ed7e1682195ede70b22f290a5e14e8a5cec",
+          "sourceSequence": 218
+        }
+      ]
+    },
+    {
+      "schema": "agent-city.event.v1",
+      "eventId": "fc21fce06d13b38bf17c053baa90f43494340ec21d24c2e01932bccc29edea5e",
+      "workspace": "local-agent-city",
+      "source": "phase1-release-1788849720-eval",
+      "order": 40,
+      "occurredAt": 1788849321772,
+      "observedAt": 1788849322724,
+      "completeness": "complete",
+      "type": "operation.finished",
+      "instance": "phase1-release-1788849720-eval:eval-1788849319462:verifier",
+      "profile": "local-eval-invocation",
+      "run": {
+        "namespace": "phase1-release-1788849720-eval",
+        "id": "eval-1788849319462"
+      },
+      "task": {
+        "namespace": "eval",
+        "id": "eval-1788849319462:three-check-proof"
+      },
+      "operation": {
+        "id": "content",
+        "attempt": 2,
+        "capability": "evaluation.run",
+        "collection": "unknown",
+        "relatedAgent": "",
+        "outcome": "succeeded",
+        "metadata": {}
+      },
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:cab3e1bafb513437e7594da38d47bcfd17c070c5f362f0ac3b5c5adaa6539e8b",
+          "hash": "f98d471dcfa8051a70898e950a9c1b90b4714f5e0de60c3e27092244bc3dd286",
+          "sourceSequence": 219
+        }
+      ]
+    },
+    {
+      "schema": "agent-city.event.v1",
+      "eventId": "e9734288832feb3123f6fe90febaea2284e17004393602f5640153cb516785a1",
+      "workspace": "local-agent-city",
+      "source": "phase1-release-1788849720-eval",
+      "order": 41,
+      "occurredAt": 1788849321772,
+      "observedAt": 1788849322725,
+      "completeness": "complete",
+      "type": "operation.finished",
+      "instance": "phase1-release-1788849720-eval:eval-1788849319462:verifier",
+      "profile": "local-eval-invocation",
+      "run": {
+        "namespace": "phase1-release-1788849720-eval",
+        "id": "eval-1788849319462"
+      },
+      "task": {
+        "namespace": "eval",
+        "id": "eval-1788849319462:three-check-proof"
+      },
+      "operation": {
+        "id": "skipped",
+        "attempt": 2,
+        "capability": "evaluation.run",
+        "collection": "unknown",
+        "relatedAgent": "",
+        "outcome": "skipped",
+        "metadata": {}
+      },
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:8ffa9076cfea365d82afde5406ede55a6d6c795082445e8d0d6be2e7270d3a9b",
+          "hash": "f7c56abd9dc5fbc952a0d7a63d9e6c6866e59a8ff6a4e7645242114b468c002b",
+          "sourceSequence": 220
+        }
+      ]
+    },
+    {
+      "schema": "agent-city.event.v1",
+      "eventId": "a77214127ae3f96cc1aaf023ca8cfecbc20034be7e911cdab5be9dbaf96f4d12",
+      "workspace": "local-agent-city",
+      "source": "phase1-release-1788849720-eval",
+      "order": 42,
+      "occurredAt": 1788849321773,
+      "observedAt": 1788849322989,
+      "completeness": "complete",
+      "type": "operation.finished",
+      "instance": "phase1-release-1788849720-eval:eval-1788849319462:verifier",
+      "profile": "local-eval-invocation",
+      "run": {
+        "namespace": "phase1-release-1788849720-eval",
+        "id": "eval-1788849319462"
+      },
+      "task": {
+        "namespace": "eval",
+        "id": "eval-1788849319462:three-check-proof"
+      },
+      "operation": {
+        "id": "policy",
+        "attempt": 2,
+        "capability": "evaluation.run",
+        "collection": "unknown",
+        "relatedAgent": "",
+        "outcome": "succeeded",
+        "metadata": {}
+      },
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:16cf0288e07ac6baf62a28cfc829feab4dc4f8eabf9e2cea8886689cbea23df8",
+          "hash": "2deb3818ad0fd7053167da74a442e1255cdb60d18ca4546608a23c7d7d7694a8",
+          "sourceSequence": 221
+        }
+      ]
+    },
+    {
+      "schema": "agent-city.event.v1",
+      "eventId": "58c7bc1d45464e850381cc6ad234ce8fbb2f85c556f9a1dfce0aa6c242b1654f",
+      "workspace": "local-agent-city",
+      "source": "phase1-release-1788849720-eval",
+      "order": 43,
+      "occurredAt": 1788849321773,
+      "observedAt": 1788849322990,
+      "completeness": "complete",
+      "type": "operation.finished",
+      "instance": "phase1-release-1788849720-eval:eval-1788849319462:verifier",
+      "profile": "local-eval-invocation",
+      "run": {
+        "namespace": "phase1-release-1788849720-eval",
+        "id": "eval-1788849319462"
+      },
+      "task": {
+        "namespace": "eval",
+        "id": "eval-1788849319462:three-check-proof"
+      },
+      "operation": {
+        "id": "invocation",
+        "attempt": 2,
+        "capability": "execution.run",
+        "collection": "unknown",
+        "relatedAgent": "",
+        "outcome": "succeeded",
+        "metadata": {}
+      },
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:f698c09eb44f48547f1b52849129eb98cbdf7696507125209eb0f07e50541584",
+          "hash": "c3691429e8c03c4c7dfcb7973b69f01e762381826863d1d0f529b79e485c8cb9",
+          "sourceSequence": 222
+        }
+      ]
+    },
+    {
+      "schema": "agent-city.event.v1",
+      "eventId": "c87d5e6b4b30abbdb1585d0609e528e291ed96d8a244691eb9e7c06b6a53504b",
+      "workspace": "local-agent-city",
+      "source": "phase1-release-1788849720-workcell",
+      "order": 44,
+      "occurredAt": 1788849324076,
+      "observedAt": 1788849324614,
+      "completeness": "complete",
+      "type": "operation.started",
+      "instance": "phase1-release-1788849720-workcell:workcell-invocation-1788849323908:workcell-host",
+      "profile": "local-workcell-invocation",
+      "run": {
+        "namespace": "phase1-release-1788849720-workcell",
+        "id": "workcell-invocation-1788849323908"
+      },
+      "task": {
+        "namespace": "unknown",
+        "id": "unknown"
+      },
+      "operation": {
+        "id": "invocation",
+        "attempt": 1,
+        "capability": "execution.run",
+        "collection": "unknown",
+        "relatedAgent": "",
+        "outcome": "unset",
+        "metadata": {}
+      },
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:4d832aa0da1c98263dc8743dcace4884d2d78c11d661625c1a5053b629e333bb",
+          "hash": "e181c51475dcf2c3ae9da23b3f44b4d1d0fa8d263e5d8763c3576de536ea966f",
+          "sourceSequence": 223
+        }
+      ]
+    },
+    {
+      "schema": "agent-city.event.v1",
+      "eventId": "aa9e5cf58139e0e8cfd25dc171fd93323a161223076f8a9233db91331ecf42f0",
+      "workspace": "local-agent-city",
+      "source": "phase1-release-1788849720-workcell",
+      "order": 45,
+      "occurredAt": 1788849324077,
+      "observedAt": 1788849324614,
+      "completeness": "complete",
+      "type": "operation.started",
+      "instance": "phase1-release-1788849720-workcell:workcell-invocation-1788849323908:workcell-host",
+      "profile": "local-workcell-invocation",
+      "run": {
+        "namespace": "phase1-release-1788849720-workcell",
+        "id": "workcell-invocation-1788849323908"
+      },
+      "task": {
+        "namespace": "unknown",
+        "id": "unknown"
+      },
+      "operation": {
+        "id": "workload",
+        "attempt": 1,
+        "capability": "workcell.execute",
+        "collection": "unknown",
+        "relatedAgent": "",
+        "outcome": "unset",
+        "metadata": {
+          "resultCode": "invoked"
+        }
+      },
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:76037a854bbe6d86d6c826d69db3f5533593fd4dcb380db3c14823205d33a278",
+          "hash": "60cd32bbf7d2f4d5464eabe9da7be9580aa01a5716eb9cfab6c73d5b765649c4",
+          "sourceSequence": 224
+        }
+      ]
+    },
+    {
+      "schema": "agent-city.event.v1",
+      "eventId": "746e7be8af07e63bcae2dbfc6cbe8c4629609c33486eb15f84cabdfd13972394",
+      "workspace": "local-agent-city",
+      "source": "phase1-release-1788849720-workcell",
+      "order": 46,
+      "occurredAt": 1788849328849,
+      "observedAt": 1788849329376,
+      "completeness": "complete",
+      "type": "operation.failed",
+      "instance": "phase1-release-1788849720-workcell:workcell-invocation-1788849323908:workcell-host",
+      "profile": "local-workcell-invocation",
+      "run": {
+        "namespace": "phase1-release-1788849720-workcell",
+        "id": "workcell-invocation-1788849323908"
+      },
+      "task": {
+        "namespace": "unknown",
+        "id": "unknown"
+      },
+      "operation": {
+        "id": "workload",
+        "attempt": 1,
+        "capability": "workcell.execute",
+        "collection": "unknown",
+        "relatedAgent": "",
+        "outcome": "failed",
+        "metadata": {
+          "resultCode": "preparing:exit-4",
+          "workcellRef": "wc-7f8cba2b6162427b811dc42933598eb2"
+        }
+      },
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:53f44eff5ece12895d6267460441f8264ee6d356d7bb96ea7e521fc5e620d573",
+          "hash": "bac53117a8e59be380e8641dc6faa35c42769d82e4d0bee1cb51398e245bc148",
+          "sourceSequence": 225
+        }
+      ]
+    },
+    {
+      "schema": "agent-city.event.v1",
+      "eventId": "4b6c8e75b5117b6d879f7b3871afd13598357a2568470f90d52900f88cb17328",
+      "workspace": "local-agent-city",
+      "source": "phase1-release-1788849720-workcell",
+      "order": 47,
+      "occurredAt": 1788849328852,
+      "observedAt": 1788849329376,
+      "completeness": "complete",
+      "type": "operation.failed",
+      "instance": "phase1-release-1788849720-workcell:workcell-invocation-1788849323908:workcell-host",
+      "profile": "local-workcell-invocation",
+      "run": {
+        "namespace": "phase1-release-1788849720-workcell",
+        "id": "workcell-invocation-1788849323908"
+      },
+      "task": {
+        "namespace": "unknown",
+        "id": "unknown"
+      },
+      "operation": {
+        "id": "invocation",
+        "attempt": 1,
+        "capability": "execution.run",
+        "collection": "unknown",
+        "relatedAgent": "",
+        "outcome": "failed",
+        "metadata": {}
+      },
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:c0f7a76007b0d8f4730c6ca536fb9eff4035610961ca4d427879086430e81020",
+          "hash": "15648b5a67736f2be3836f2ec7d86762cd2ed8514585aa7eec09c2085e609c3a",
+          "sourceSequence": 226
+        }
+      ]
+    }
+  ],
+  "snapshot": {
+    "agents": {
+      "phase1-release-1788849720-mcp:run-1788849303229-8516:mcp-worker": {
+        "id": "phase1-release-1788849720-mcp:run-1788849303229-8516:mcp-worker",
+        "profile": "local-mcp-worker",
+        "run": {
+          "namespace": "phase1-release-1788849720-mcp",
+          "id": "run-1788849303229-8516"
+        },
+        "task": {
+          "namespace": "dispatch",
+          "id": "run-1788849303229-8516:retrieve-docs"
+        },
+        "status": "completed",
+        "lastObserved": 1788849306632,
+        "completeness": "partial",
+        "operations": {
+          "phase1-release-1788849720-mcp:run-1788849303229-8516:intake:1": {
+            "key": "phase1-release-1788849720-mcp:run-1788849303229-8516:intake:1",
+            "capability": "dispatch.task",
+            "collection": "unknown",
+            "status": "succeeded",
+            "started": null,
+            "finished": 1788849303438,
+            "evidence": [
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:de18eb5fd2145b3275ce13914dac093cd702e5a9202d5bb684833c3e6b29c98c",
+                "hash": "4ffafd7063681171085eac70a9dbde095d2ffd0b6962a6675e9434643315b9cd",
+                "sourceSequence": 180
+              }
+            ],
+            "partial": true,
+            "relatedAgent": "",
+            "metadata": {
+              "taskState": "queued"
+            },
+            "attempt": 1,
+            "operationId": "intake",
+            "observedAt": 1788849303957,
+            "eventIds": [
+              "179b62bf6d4c44c29489b4bcd8f3a3f30116c232d6d8b01205b5b04b0c8707ba"
+            ]
+          },
+          "phase1-release-1788849720-mcp:run-1788849303229-8516:assignment:1": {
+            "key": "phase1-release-1788849720-mcp:run-1788849303229-8516:assignment:1",
+            "capability": "dispatch.task",
+            "collection": "unknown",
+            "status": "succeeded",
+            "started": null,
+            "finished": 1788849303439,
+            "evidence": [
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:7b41178cbc2a06f13b247695dc97c16e9c2a149c60cef6088b6ba86331eea2ad",
+                "hash": "d616731db8203fe127080e93ff752420db1508fc1b414ea80abab1d5559d9cad",
+                "sourceSequence": 181
+              }
+            ],
+            "partial": true,
+            "relatedAgent": "",
+            "metadata": {
+              "taskState": "assigned"
+            },
+            "attempt": 1,
+            "operationId": "assignment",
+            "observedAt": 1788849304238,
+            "eventIds": [
+              "39f8550be179cfbea326799d5816c28b125d33d47621bc90064b374f0f055a94"
+            ]
+          },
+          "phase1-release-1788849720-mcp:run-1788849303229-8516:task:1": {
+            "key": "phase1-release-1788849720-mcp:run-1788849303229-8516:task:1",
+            "capability": "dispatch.task",
+            "collection": "unknown",
+            "status": "succeeded",
+            "started": 1788849303509,
+            "finished": 1788849305204,
+            "evidence": [
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:f7cc50d05432bab562bfb4aaf3efe0212f3e977f9ef5bdbf98d63e8b47850f56",
+                "hash": "fded1602e86ff3b7d5c0ecab3834c1e1cef21d9450854bea6fb192a24c791599",
+                "sourceSequence": 182
+              },
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:0cb710fe2c2e26ce0e4c68be65b231f819cb12fc98d21a2ea37e7a20c6b190a1",
+                "hash": "1d227e147447ffaefb0634e902c9ef1705b3adecb0f35f79f637ca6e529cf28a",
+                "sourceSequence": 190
+              }
+            ],
+            "partial": false,
+            "relatedAgent": "",
+            "metadata": {
+              "taskState": "completed"
+            },
+            "attempt": 1,
+            "operationId": "task",
+            "observedAt": 1788849306370,
+            "eventIds": [
+              "2e3cd25fa4b76e4cb3851effba2c2dd8696fa79f818045b42928343911112ffb",
+              "8f5a97b2a1809fb2eb09c6b498765718b0519ca35ed7af45b5407a8e5d75dcef"
+            ]
+          },
+          "phase1-release-1788849720-mcp:run-1788849303229-8516:run:1": {
+            "key": "phase1-release-1788849720-mcp:run-1788849303229-8516:run:1",
+            "capability": "agent.run",
+            "collection": "unknown",
+            "status": "succeeded",
+            "started": 1788849304510,
+            "finished": 1788849304895,
+            "evidence": [
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:6da841621ce141bff4e76d1ec60ea095838fe8e780cde2567bf8dcac87469ef4",
+                "hash": "a7022f81a10a9c0f4dc5850f66fef5c28c6c6c79f94b6719b3c6f3bd5a41d566",
+                "sourceSequence": 183
+              },
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:29f69095f38695169f85f6b4f75f2432a6de6331b83a559ca59fd24588b9569f",
+                "hash": "be7ca30c85fab88013ee0ea0a84e65c285472a820eeb8a1a622600e66b0f339b",
+                "sourceSequence": 189
+              }
+            ],
+            "partial": false,
+            "relatedAgent": "",
+            "metadata": {
+              "relatedInstance": ""
+            },
+            "attempt": 1,
+            "operationId": "run",
+            "observedAt": 1788849306108,
+            "eventIds": [
+              "9fa0d37479afec1ee9cd0622b912edfa3b5d4cb33d4ac0f3a42b1c0fba9c587f",
+              "9273a9836831d27b1a765cd377312574c3e51a55a69ff099782670344ccb7ae8"
+            ]
+          },
+          "phase1-release-1788849720-mcp:run-1788849303229-8516:step-7:1": {
+            "key": "phase1-release-1788849720-mcp:run-1788849303229-8516:step-7:1",
+            "capability": "tool.execute",
+            "collection": "unknown",
+            "status": "succeeded",
+            "started": 1788849304745,
+            "finished": 1788849304795,
+            "evidence": [
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:cf551cf24a112400b6fc676a226045f60c69b8b0f8f91691317a26631b47bcdd",
+                "hash": "b7a23acff8c1a90d522c1adb8a5fb102c1911111193543725e4488084a3f0e56",
+                "sourceSequence": 184
+              },
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:d2fbad8a5fd430cd2e31a939e4d76907b6112863ff7b8e229f285d7c38fb5d57",
+                "hash": "d4e6e1e2fcaba9e8a167de8a9b762ef7f6d8faf31aaac4479722bcde31c6030d",
+                "sourceSequence": 188
+              }
+            ],
+            "partial": false,
+            "relatedAgent": "",
+            "metadata": {
+              "relatedInstance": ""
+            },
+            "attempt": 1,
+            "operationId": "step-7",
+            "observedAt": 1788849305844,
+            "eventIds": [
+              "c6bd467a6659f4e49b9a2addd42b01582ea13590747dd49f25bf4bc46943a923",
+              "bf844c986d97f54a24c6f782ecc868762f9464e35475cafe9e2aca1b9d889882"
+            ]
+          },
+          "phase1-release-1788849720-mcp:run-1788849303229-8516:mcp-docs:1": {
+            "key": "phase1-release-1788849720-mcp:run-1788849303229-8516:mcp-docs:1",
+            "capability": "mcp.call",
+            "collection": "unknown",
+            "status": "succeeded",
+            "started": 1788849304752,
+            "finished": 1788849304788,
+            "evidence": [
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:59703bcd925c6052005338cad1b4d267d0901f8075002ed33f93bbd35dcd2382",
+                "hash": "35945384794789e317a797f52a4721741e410afbf66c49f791810027046785ca",
+                "sourceSequence": 185
+              },
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:a8e647ef74a6f7009fc26632c0a966640b8790012089b61bc23c7c3208835d61",
+                "hash": "46ddfd99aec8b61d4a3ed09d5a095a9a2a179df3052cb71f9158e726ac866a94",
+                "sourceSequence": 186
+              }
+            ],
+            "partial": false,
+            "relatedAgent": "",
+            "metadata": {
+              "approval": "not-required",
+              "invocation": "run-1788849303229-8516:mcp-docs",
+              "server": "mcp-demo",
+              "station": "tool-active",
+              "tool": "read_project_docs",
+              "resultCode": "result-returned"
+            },
+            "attempt": 1,
+            "operationId": "mcp-docs",
+            "observedAt": 1788849305575,
+            "eventIds": [
+              "1023e83e1d64cd7286168f157c0456339ccb21ea6e49c426758b2d84836068ef",
+              "8646f7bb1f93ddca0031b60020092e907a5aac564a17afdc0efa9f1d3f167cd7"
+            ]
+          },
+          "phase1-release-1788849720-mcp:run-1788849303229-8516:mcp-receipt:1": {
+            "key": "phase1-release-1788849720-mcp:run-1788849303229-8516:mcp-receipt:1",
+            "capability": "artifact.created",
+            "collection": "unknown",
+            "status": "succeeded",
+            "started": null,
+            "finished": 1788849304790,
+            "evidence": [
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:0ad0d493bdf4534c5919b359c4951b706c4946c12298b79488b24a3c78d8b626",
+                "hash": "5290bf2f23b0d2bcfb0dd722daaad5dd2deccb2feeb800b8c141b0779a0a1ed0",
+                "sourceSequence": 187
+              }
+            ],
+            "partial": true,
+            "relatedAgent": "",
+            "metadata": {
+              "artifactRef": "city-proof:mcp-receipt",
+              "repoRef": "kujolang/mcp"
+            },
+            "attempt": 1,
+            "operationId": "mcp-receipt",
+            "observedAt": 1788849305843,
+            "eventIds": [
+              "d1eb29faba6d04bea41db2345750897cdd85780170cead09ec5c7d20441d6aff"
+            ]
+          },
+          "phase1-release-1788849720-mcp:run-1788849303229-8516:workflow-state:1": {
+            "key": "phase1-release-1788849720-mcp:run-1788849303229-8516:workflow-state:1",
+            "capability": "dispatch.workflow",
+            "collection": "unknown",
+            "status": "unknown",
+            "started": null,
+            "finished": 1788849305753,
+            "evidence": [
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:052f8eb2f9a30958d478b4f954777d80efdc0f058e50bbd105a6dc7b92ca385a",
+                "hash": "5ed4e22c4a4cf3e5b4b45ed98759d1c0de55031cd812d6622ad76579f02144fa",
+                "sourceSequence": 191
+              }
+            ],
+            "partial": true,
+            "relatedAgent": "",
+            "metadata": {
+              "workflowState": "completed"
+            },
+            "attempt": 1,
+            "operationId": "workflow-state",
+            "observedAt": 1788849306632,
+            "eventIds": [
+              "2cf1fbf3c2a572f698acaa2539965baf0d36f87c4a93c0bc35a9666e9e3633ee"
+            ]
+          }
+        },
+        "taskState": "completed",
+        "runAttempt": 1,
+        "workflowState": "completed"
+      },
+      "phase1-release-1788849720-handoff:run-1788849313240-2574:scout": {
+        "id": "phase1-release-1788849720-handoff:run-1788849313240-2574:scout",
+        "profile": "local-documentation-worker",
+        "run": {
+          "namespace": "phase1-release-1788849720-handoff",
+          "id": "run-1788849313240-2574"
+        },
+        "task": {
+          "namespace": "dispatch",
+          "id": "run-1788849313240-2574:retrieve-docs"
+        },
+        "status": "completed",
+        "lastObserved": 1788849318962,
+        "completeness": "partial",
+        "operations": {
+          "phase1-release-1788849720-handoff:run-1788849313240-2574:intake:1": {
+            "key": "phase1-release-1788849720-handoff:run-1788849313240-2574:intake:1",
+            "capability": "dispatch.task",
+            "collection": "unknown",
+            "status": "succeeded",
+            "started": null,
+            "finished": 1788849313460,
+            "evidence": [
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:2edb638e2931ef96a8dd3fce10024da1b91ffbc5b2536f982a55634741ba102c",
+                "hash": "38e9781ca208a5555ec995d2b9876d8fce9b0b9279f0c82183566a14eba44085",
+                "sourceSequence": 192
+              }
+            ],
+            "partial": true,
+            "relatedAgent": "",
+            "metadata": {
+              "taskState": "queued"
+            },
+            "attempt": 1,
+            "operationId": "intake",
+            "observedAt": 1788849313938,
+            "eventIds": [
+              "f241a6365397cb4b512d430430910a80603a28cf60b7608e7de2c139c732652b"
+            ]
+          },
+          "phase1-release-1788849720-handoff:run-1788849313240-2574:assignment:1": {
+            "key": "phase1-release-1788849720-handoff:run-1788849313240-2574:assignment:1",
+            "capability": "dispatch.task",
+            "collection": "unknown",
+            "status": "succeeded",
+            "started": null,
+            "finished": 1788849313461,
+            "evidence": [
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:cb5afc22e9b0af968b172154fac05a6bed25cec9204cd5b36d6cce37cd110345",
+                "hash": "ab5fc613db686a2728dd0c4b26a10945b5bc7d771e634858fdb5a6eee1426c18",
+                "sourceSequence": 193
+              }
+            ],
+            "partial": true,
+            "relatedAgent": "",
+            "metadata": {
+              "taskState": "assigned"
+            },
+            "attempt": 1,
+            "operationId": "assignment",
+            "observedAt": 1788849313938,
+            "eventIds": [
+              "269a514402e4dfbb576553e0d76702dfc0c705b1bb5c852d8ef043ce6c603f8e"
+            ]
+          },
+          "phase1-release-1788849720-handoff:run-1788849313240-2574:task:1": {
+            "key": "phase1-release-1788849720-handoff:run-1788849313240-2574:task:1",
+            "capability": "dispatch.task",
+            "collection": "unknown",
+            "status": "succeeded",
+            "started": 1788849313521,
+            "finished": 1788849317862,
+            "evidence": [
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:5b7207b7a734ce8cef1fee8fbb6a1c83f266ec900e7b258977ca0588e677e478",
+                "hash": "e314f1140d158337f1713d1ebdc5136ee052b1f1cd4dbd2090fddf00e002327b",
+                "sourceSequence": 194
+              },
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:c95982eda1164da871aff2f1f5de6ca3082d7200b6bda26fb008e9546b39b55a",
+                "hash": "17fb71a957748a1c59aa953af92e2b0bd57cf3f9e4b69babed21a74363476eec",
+                "sourceSequence": 205
+              }
+            ],
+            "partial": false,
+            "relatedAgent": "",
+            "metadata": {
+              "taskState": "completed"
+            },
+            "attempt": 1,
+            "operationId": "task",
+            "observedAt": 1788849318695,
+            "eventIds": [
+              "d5447149fe438d5fa5f0d9b7daf0959d60be880aab8569c47e9615b4dbf5bedb",
+              "6dffb393bd0d503e4535aa1315bfc7abef5899ff980b96340d6a4993203b81eb"
+            ]
+          },
+          "phase1-release-1788849720-handoff:run-1788849313240-2574:run:1": {
+            "key": "phase1-release-1788849720-handoff:run-1788849313240-2574:run:1",
+            "capability": "agent.run",
+            "collection": "kujo-docs",
+            "status": "succeeded",
+            "started": 1788849314491,
+            "finished": 1788849317525,
+            "evidence": [
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:575d55058b7348be55da78921731c321992b35d6747a3519a38733fc960b9d07",
+                "hash": "9c455b09dcfb38c023ecf6cf042f3d8a234cb528707ba280d944f22822fc42e8",
+                "sourceSequence": 195
+              },
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:2f7fdde36e0b6ccf0e05fdaab4e22bf27b25479da43f4e3de700bfbc9a256dd5",
+                "hash": "2e9204cbff7bffeffcf863bce23cc86b4f1fe908770f9a8e2b432cd1694b26b3",
+                "sourceSequence": 204
+              }
+            ],
+            "partial": false,
+            "relatedAgent": "",
+            "metadata": {
+              "relatedInstance": ""
+            },
+            "attempt": 1,
+            "operationId": "run",
+            "observedAt": 1788849318172,
+            "eventIds": [
+              "93b91d7febd972daef9cc6c8d16ddd1f06168328057a4b58a7b0e99a99a680a8",
+              "19eb219f1334310c65fcb325744d313de51bfcfee65a9062ecddd6488be316ac"
+            ]
+          },
+          "phase1-release-1788849720-handoff:run-1788849313240-2574:retrieval:1": {
+            "key": "phase1-release-1788849720-handoff:run-1788849313240-2574:retrieval:1",
+            "capability": "rag.query",
+            "collection": "kujo-docs",
+            "status": "succeeded",
+            "started": 1788849314578,
+            "finished": 1788849315623,
+            "evidence": [
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:1a5ffbf86f255167a4c463d703cedf55fdaf3b6dc51fcc7c4a5a264c14343b22",
+                "hash": "5d6f2c8abddb8f7a62e877aed89b3616a36abd839c484e4d48d2f6e2d2fd32f8",
+                "sourceSequence": 196
+              },
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:9f745013414396cf293ba1bd624f7674425ed808f03fe0ea757d5d35f52c10f9",
+                "hash": "d9c0a05f071ed4be654f2c4d7e4092c56110fc2572ea35585c5de1c296c92e5f",
+                "sourceSequence": 197
+              }
+            ],
+            "partial": false,
+            "relatedAgent": "",
+            "metadata": {
+              "relatedInstance": ""
+            },
+            "attempt": 1,
+            "operationId": "retrieval",
+            "observedAt": 1788849315796,
+            "eventIds": [
+              "a5b19aa057fd2688b659f034a86549b114df4657486a47e5d980c6c87ead5869",
+              "bcd5e779a6c777d15b9f283c0a9499b7de39d32184d2c7885585f2de3d2657c6"
+            ]
+          },
+          "phase1-release-1788849720-handoff:run-1788849313240-2574:docs-target:1": {
+            "key": "phase1-release-1788849720-handoff:run-1788849313240-2574:docs-target:1",
+            "capability": "agent.handoff",
+            "collection": "unknown",
+            "status": "succeeded",
+            "started": 1788849315796,
+            "finished": 1788849317363,
+            "evidence": [
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:337e9ffe4eaa01eb63dc8cea54d0264ff5831818627a3b2d2f7d18f5f78c62f6",
+                "hash": "bec9020bf686bb1ed2e7f5bf8c303657669d24788d88fa8dbae5325cc4d61a97",
+                "sourceSequence": 198
+              },
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:6d3611933db02e88673096cf7feb591746d4e297ddc4803cf41ebb2b72a361a7",
+                "hash": "b896a3850580dd5d62fc38e03a417f374209f1a274ad176684bbad1e4560b5ce",
+                "sourceSequence": 203
+              }
+            ],
+            "partial": false,
+            "relatedAgent": "docs-target",
+            "metadata": {
+              "relatedInstance": "phase1-release-1788849720-handoff:run-1788849313240-2574-handoff-docs-target:docs-target"
+            },
+            "attempt": 1,
+            "operationId": "docs-target",
+            "observedAt": 1788849318172,
+            "eventIds": [
+              "3fd599793006f364a1cc31e330da42c6678d64a0d41b90be37f131573bbf690f",
+              "c81e6eb39426e08f2a35ec465c1da71048b967520cc123d23771cb9ef5481988"
+            ]
+          },
+          "phase1-release-1788849720-handoff:run-1788849313240-2574:workflow-state:1": {
+            "key": "phase1-release-1788849720-handoff:run-1788849313240-2574:workflow-state:1",
+            "capability": "dispatch.workflow",
+            "collection": "unknown",
+            "status": "unknown",
+            "started": null,
+            "finished": 1788849318487,
+            "evidence": [
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:5160a34698716b4b8a64bd265a49621a0210c278bbc77dda937a102baeb95e0e",
+                "hash": "a751fa24d071ce6d916e21b0012772ba9d6694e1b9f816a23f60945b8e91eaf5",
+                "sourceSequence": 206
+              }
+            ],
+            "partial": true,
+            "relatedAgent": "",
+            "metadata": {
+              "workflowState": "completed"
+            },
+            "attempt": 1,
+            "operationId": "workflow-state",
+            "observedAt": 1788849318962,
+            "eventIds": [
+              "5173b1aade3747b1f4a40aa6aeac64db844a2a9685c578486d895b1dd131f090"
+            ]
+          }
+        },
+        "taskState": "completed",
+        "runAttempt": 1,
+        "workflowState": "completed"
+      },
+      "phase1-release-1788849720-handoff:run-1788849313240-2574-handoff-docs-target:docs-target": {
+        "id": "phase1-release-1788849720-handoff:run-1788849313240-2574-handoff-docs-target:docs-target",
+        "profile": "unknown",
+        "run": {
+          "namespace": "phase1-release-1788849720-handoff",
+          "id": "run-1788849313240-2574-handoff-docs-target"
+        },
+        "task": {
+          "namespace": "dispatch",
+          "id": "run-1788849313240-2574:retrieve-docs"
+        },
+        "status": "completed",
+        "lastObserved": 1788849317910,
+        "completeness": "complete",
+        "operations": {
+          "phase1-release-1788849720-handoff:run-1788849313240-2574-handoff-docs-target:run:1": {
+            "key": "phase1-release-1788849720-handoff:run-1788849313240-2574-handoff-docs-target:run:1",
+            "capability": "agent.run",
+            "collection": "unknown",
+            "status": "succeeded",
+            "started": 1788849315798,
+            "finished": 1788849317356,
+            "evidence": [
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:979b227fe37e5acda8dce66dfd54b95e1909fb193d9680402cf283abc5d38164",
+                "hash": "eee6d35fe85418a03d6b223f6fcbea629d955e7bac0cadec43b5cd712e5f2514",
+                "sourceSequence": 199
+              },
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:f515230e8605887e7001f402088c35e15eaa63a0ed655c88cb285ec5a1cb59a3",
+                "hash": "37166e0f16de742ebbdbc9d6bf1777b71b16ebc7f105083e5f2cf21a1df77b6a",
+                "sourceSequence": 202
+              }
+            ],
+            "partial": false,
+            "relatedAgent": "",
+            "metadata": {
+              "relatedInstance": ""
+            },
+            "attempt": 1,
+            "operationId": "run",
+            "observedAt": 1788849317910,
+            "eventIds": [
+              "7c2771202e2cb8eda24702a009c22df40d384816b2cf6ccb10935a43491953cf",
+              "06cb260d552ccf0846d5becb5e7e943b32992a7a225c1c6e1cc4d3ff7936735c"
+            ]
+          },
+          "phase1-release-1788849720-handoff:run-1788849313240-2574-handoff-docs-target:retrieval:1": {
+            "key": "phase1-release-1788849720-handoff:run-1788849313240-2574-handoff-docs-target:retrieval:1",
+            "capability": "rag.query",
+            "collection": "unknown",
+            "status": "succeeded",
+            "started": 1788849315890,
+            "finished": 1788849317074,
+            "evidence": [
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:0638e6685818bc00a21c161762eae1094059bd0050e49c80e47348fa57e592a3",
+                "hash": "e0572fb7467f9fc52676ac9915d6e42fb4a7fdc4425d3e8d397c6822ec130fd4",
+                "sourceSequence": 200
+              },
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:6afb108306ea8c4c42ac6ab5ede311a200020182c55c8269336484936d377d9b",
+                "hash": "ced19472e4bbdf78c4a844c6bf7c3594a676960bf83c94267c7a607d8767735a",
+                "sourceSequence": 201
+              }
+            ],
+            "partial": false,
+            "relatedAgent": "",
+            "metadata": {
+              "relatedInstance": ""
+            },
+            "attempt": 1,
+            "operationId": "retrieval",
+            "observedAt": 1788849317647,
+            "eventIds": [
+              "1927445db16d4b33921b292838e804dfb3eb0cf8f07e0b81673ec6f2e203bcc9",
+              "a3e1c3b6c2d0f00b526fcf6f7c884243017fd1f646149c6a31d521809d59df86"
+            ]
+          }
+        },
+        "runAttempt": 1
+      },
+      "phase1-release-1788849720-eval:eval-1788849319462:verifier": {
+        "id": "phase1-release-1788849720-eval:eval-1788849319462:verifier",
+        "profile": "local-eval-invocation",
+        "run": {
+          "namespace": "phase1-release-1788849720-eval",
+          "id": "eval-1788849319462"
+        },
+        "task": {
+          "namespace": "eval",
+          "id": "eval-1788849319462:three-check-proof"
+        },
+        "status": "completed",
+        "lastObserved": 1788849322990,
+        "completeness": "partial",
+        "operations": {
+          "phase1-release-1788849720-eval:eval-1788849319462:invocation:1": {
+            "key": "phase1-release-1788849720-eval:eval-1788849319462:invocation:1",
+            "capability": "execution.run",
+            "collection": "unknown",
+            "status": "succeeded",
+            "started": 1788849319658,
+            "finished": 1788849319966,
+            "evidence": [
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:78c9985d2d26a74034ef688d4d34b77083e3e0253f587e9ddb8ac494a5cb93a6",
+                "hash": "aac682d10ed043a6ec98b22dec25a8e27957db7cfe4ed3db6a55510a18a738a1",
+                "sourceSequence": 207
+              },
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:3acfc25ed182e8f022e08cc80402acb58e1080774d76b80a609599dd3ef36822",
+                "hash": "bee776075ec03d3f172031cde5fa3dc32aef7f8d3bebfba40f000a138ebd1e69",
+                "sourceSequence": 214
+              }
+            ],
+            "partial": false,
+            "relatedAgent": "",
+            "metadata": {},
+            "attempt": 1,
+            "operationId": "invocation",
+            "observedAt": 1788849321110,
+            "eventIds": [
+              "5d79ce5584b43cd192bced8b12871140dc880b77a65ce4326bcddb8e6923b1ea",
+              "35943e0c85d0f4403338431aebaef2d43540826b30c171390965c64fc8e03d62"
+            ]
+          },
+          "phase1-release-1788849720-eval:eval-1788849319462:suite:1": {
+            "key": "phase1-release-1788849720-eval:eval-1788849319462:suite:1",
+            "capability": "evaluation.run",
+            "collection": "unknown",
+            "status": "failed",
+            "started": 1788849319662,
+            "finished": 1788849319926,
+            "evidence": [
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:901b2de7bb98070ced154d7779afccc0ba9c752eb3c9e0fecb39793bdb39f471",
+                "hash": "4f3de7046b65100cd4f2bf28f3feac48d73486004b23515006fb436977626f7b",
+                "sourceSequence": 208
+              },
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:a52d0f16ddb642857377c0bf278efe4febcce80aeacda2a6206bc21ffefd42b3",
+                "hash": "028ba319aab09235e92a89476bf16b00bdca441f1a4d69de2c9b5e60a26bcd74",
+                "sourceSequence": 209
+              }
+            ],
+            "partial": false,
+            "relatedAgent": "",
+            "metadata": {},
+            "attempt": 1,
+            "operationId": "suite",
+            "observedAt": 1788849320555,
+            "eventIds": [
+              "57229c5493566aa0f7dc82d3455ba7d9319c566c3fc070eeb0beeced800afa2a",
+              "dade66c5bad9980d06b4372c4d4fd624277df32a575ed4186c41493c36648e26"
+            ]
+          },
+          "phase1-release-1788849720-eval:eval-1788849319462:schema:1": {
+            "key": "phase1-release-1788849720-eval:eval-1788849319462:schema:1",
+            "capability": "evaluation.run",
+            "collection": "unknown",
+            "status": "succeeded",
+            "started": null,
+            "finished": 1788849319964,
+            "evidence": [
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:b610677c05ee0780ea0c4619f2d58477b746028b3941658125fba883adc52e01",
+                "hash": "13604349b35321972296528251b067e79f6c9ddb567110aaae1869ce35a676ec",
+                "sourceSequence": 210
+              }
+            ],
+            "partial": true,
+            "relatedAgent": "",
+            "metadata": {},
+            "attempt": 1,
+            "operationId": "schema",
+            "observedAt": 1788849320555,
+            "eventIds": [
+              "3b18103c74a53c2e4c32dae24d0f6a4521c3966449f3d7c50c49a879488697c9"
+            ]
+          },
+          "phase1-release-1788849720-eval:eval-1788849319462:content:1": {
+            "key": "phase1-release-1788849720-eval:eval-1788849319462:content:1",
+            "capability": "evaluation.run",
+            "collection": "unknown",
+            "status": "failed",
+            "started": null,
+            "finished": 1788849319965,
+            "evidence": [
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:b48e9461cd21b193c851f83a92e707e558327ab8b9f90b1f4d3b2614720f7ea2",
+                "hash": "e41b7312852a2ca3b9e5d63b77237de7eb11240f868dca371575acfe33456474",
+                "sourceSequence": 211
+              }
+            ],
+            "partial": true,
+            "relatedAgent": "",
+            "metadata": {},
+            "attempt": 1,
+            "operationId": "content",
+            "observedAt": 1788849320842,
+            "eventIds": [
+              "a6f9e0e2b7a0c2c8821f71e986baf73374ef0b1a0ba5d9cc78a5c00a2e362792"
+            ]
+          },
+          "phase1-release-1788849720-eval:eval-1788849319462:skipped:1": {
+            "key": "phase1-release-1788849720-eval:eval-1788849319462:skipped:1",
+            "capability": "evaluation.run",
+            "collection": "unknown",
+            "status": "skipped",
+            "started": null,
+            "finished": 1788849319965,
+            "evidence": [
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:61b5d1ad62ceb7e46b8e9e1cf83453e36587c1ea2864711ae7d2669dfcb02486",
+                "hash": "3bc6a50930541dc95fd543b60e20bfbc2dc559f33c7f8bd104d2cbd2abdb17aa",
+                "sourceSequence": 212
+              }
+            ],
+            "partial": true,
+            "relatedAgent": "",
+            "metadata": {},
+            "attempt": 1,
+            "operationId": "skipped",
+            "observedAt": 1788849320842,
+            "eventIds": [
+              "984cc57e77fc39ee5c94acf114bb4ab21549533a95f04c4d46b006e0de39b067"
+            ]
+          },
+          "phase1-release-1788849720-eval:eval-1788849319462:policy:1": {
+            "key": "phase1-release-1788849720-eval:eval-1788849319462:policy:1",
+            "capability": "evaluation.run",
+            "collection": "unknown",
+            "status": "succeeded",
+            "started": null,
+            "finished": 1788849319966,
+            "evidence": [
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:567f53283f224eeae0822754f7fb6fdb749c180e112512895588a00637754f28",
+                "hash": "f00bdc1228c357ff70f3947dd76fc22dd1c38dace8ad5638d88be8b547d8883e",
+                "sourceSequence": 213
+              }
+            ],
+            "partial": true,
+            "relatedAgent": "",
+            "metadata": {},
+            "attempt": 1,
+            "operationId": "policy",
+            "observedAt": 1788849321110,
+            "eventIds": [
+              "a796adcb4a5213a0b5730986e4ae52cae6b31f3372ac3a95a599093f6cf2ce74"
+            ]
+          },
+          "phase1-release-1788849720-eval:eval-1788849319462:invocation:2": {
+            "key": "phase1-release-1788849720-eval:eval-1788849319462:invocation:2",
+            "capability": "execution.run",
+            "collection": "unknown",
+            "status": "succeeded",
+            "started": 1788849321408,
+            "finished": 1788849321773,
+            "evidence": [
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:fd97e1310f948acdb66103370475966d55fa04cf2c217177fbd5b09304e2ad2e",
+                "hash": "627e665fed1124842f6dcc00016f8fa4bae2f91ec1dd8e0d35f8fb3ad0f553dd",
+                "sourceSequence": 215
+              },
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:f698c09eb44f48547f1b52849129eb98cbdf7696507125209eb0f07e50541584",
+                "hash": "c3691429e8c03c4c7dfcb7973b69f01e762381826863d1d0f529b79e485c8cb9",
+                "sourceSequence": 222
+              }
+            ],
+            "partial": false,
+            "relatedAgent": "",
+            "metadata": {},
+            "attempt": 2,
+            "operationId": "invocation",
+            "observedAt": 1788849322990,
+            "eventIds": [
+              "67618322a09f1430613b12cec087a5cc2393745e4efabf07522930f3a67a5e86",
+              "58c7bc1d45464e850381cc6ad234ce8fbb2f85c556f9a1dfce0aa6c242b1654f"
+            ]
+          },
+          "phase1-release-1788849720-eval:eval-1788849319462:suite:2": {
+            "key": "phase1-release-1788849720-eval:eval-1788849319462:suite:2",
+            "capability": "evaluation.run",
+            "collection": "unknown",
+            "status": "succeeded",
+            "started": 1788849321412,
+            "finished": 1788849321716,
+            "evidence": [
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:9119c714e19062f2cc7a8b19a5d172e485ea38fea5d1d4832f401d6880e11a39",
+                "hash": "f1e6828bc49df0e84959ad606657082e4d74bd16c66bc9b291fbac80727206f8",
+                "sourceSequence": 216
+              },
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:68df3b6c4fd03203e149d586a61865573cecb550fb88ce5b09281b9c87ed00ac",
+                "hash": "00f189fb93de8f17d6c9ddd739ef5c0d4299d0f371d07477b00565ad0349a01d",
+                "sourceSequence": 217
+              }
+            ],
+            "partial": false,
+            "relatedAgent": "",
+            "metadata": {},
+            "attempt": 2,
+            "operationId": "suite",
+            "observedAt": 1788849322445,
+            "eventIds": [
+              "94dbedc9a85289be9ad5adb724c5e87dd7ed0c08871182754ec257ee6a5b8327",
+              "62e9a92d713c723f8862b09accee11f9085ba92e8696adc0ee50fda42f75f416"
+            ]
+          },
+          "phase1-release-1788849720-eval:eval-1788849319462:schema:2": {
+            "key": "phase1-release-1788849720-eval:eval-1788849319462:schema:2",
+            "capability": "evaluation.run",
+            "collection": "unknown",
+            "status": "succeeded",
+            "started": null,
+            "finished": 1788849321771,
+            "evidence": [
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:899f60795ace3adb4b8caa8caebe500b36da53d4e676aa7b151c0217dc02f925",
+                "hash": "88cf531d313c79eb1026d2210f458ed7e1682195ede70b22f290a5e14e8a5cec",
+                "sourceSequence": 218
+              }
+            ],
+            "partial": true,
+            "relatedAgent": "",
+            "metadata": {},
+            "attempt": 2,
+            "operationId": "schema",
+            "observedAt": 1788849322445,
+            "eventIds": [
+              "9ad494c9893bf946e706d17299f7b5e668509cce97a60d75c25096578a774d25"
+            ]
+          },
+          "phase1-release-1788849720-eval:eval-1788849319462:content:2": {
+            "key": "phase1-release-1788849720-eval:eval-1788849319462:content:2",
+            "capability": "evaluation.run",
+            "collection": "unknown",
+            "status": "succeeded",
+            "started": null,
+            "finished": 1788849321772,
+            "evidence": [
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:cab3e1bafb513437e7594da38d47bcfd17c070c5f362f0ac3b5c5adaa6539e8b",
+                "hash": "f98d471dcfa8051a70898e950a9c1b90b4714f5e0de60c3e27092244bc3dd286",
+                "sourceSequence": 219
+              }
+            ],
+            "partial": true,
+            "relatedAgent": "",
+            "metadata": {},
+            "attempt": 2,
+            "operationId": "content",
+            "observedAt": 1788849322724,
+            "eventIds": [
+              "fc21fce06d13b38bf17c053baa90f43494340ec21d24c2e01932bccc29edea5e"
+            ]
+          },
+          "phase1-release-1788849720-eval:eval-1788849319462:skipped:2": {
+            "key": "phase1-release-1788849720-eval:eval-1788849319462:skipped:2",
+            "capability": "evaluation.run",
+            "collection": "unknown",
+            "status": "skipped",
+            "started": null,
+            "finished": 1788849321772,
+            "evidence": [
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:8ffa9076cfea365d82afde5406ede55a6d6c795082445e8d0d6be2e7270d3a9b",
+                "hash": "f7c56abd9dc5fbc952a0d7a63d9e6c6866e59a8ff6a4e7645242114b468c002b",
+                "sourceSequence": 220
+              }
+            ],
+            "partial": true,
+            "relatedAgent": "",
+            "metadata": {},
+            "attempt": 2,
+            "operationId": "skipped",
+            "observedAt": 1788849322725,
+            "eventIds": [
+              "e9734288832feb3123f6fe90febaea2284e17004393602f5640153cb516785a1"
+            ]
+          },
+          "phase1-release-1788849720-eval:eval-1788849319462:policy:2": {
+            "key": "phase1-release-1788849720-eval:eval-1788849319462:policy:2",
+            "capability": "evaluation.run",
+            "collection": "unknown",
+            "status": "succeeded",
+            "started": null,
+            "finished": 1788849321773,
+            "evidence": [
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:16cf0288e07ac6baf62a28cfc829feab4dc4f8eabf9e2cea8886689cbea23df8",
+                "hash": "2deb3818ad0fd7053167da74a442e1255cdb60d18ca4546608a23c7d7d7694a8",
+                "sourceSequence": 221
+              }
+            ],
+            "partial": true,
+            "relatedAgent": "",
+            "metadata": {},
+            "attempt": 2,
+            "operationId": "policy",
+            "observedAt": 1788849322989,
+            "eventIds": [
+              "a77214127ae3f96cc1aaf023ca8cfecbc20034be7e911cdab5be9dbaf96f4d12"
+            ]
+          }
+        },
+        "runAttempt": 2
+      },
+      "phase1-release-1788849720-workcell:workcell-invocation-1788849323908:workcell-host": {
+        "id": "phase1-release-1788849720-workcell:workcell-invocation-1788849323908:workcell-host",
+        "profile": "local-workcell-invocation",
+        "run": {
+          "namespace": "phase1-release-1788849720-workcell",
+          "id": "workcell-invocation-1788849323908"
+        },
+        "task": {
+          "namespace": "unknown",
+          "id": "unknown"
+        },
+        "status": "failed",
+        "lastObserved": 1788849329376,
+        "completeness": "complete",
+        "operations": {
+          "phase1-release-1788849720-workcell:workcell-invocation-1788849323908:invocation:1": {
+            "key": "phase1-release-1788849720-workcell:workcell-invocation-1788849323908:invocation:1",
+            "capability": "execution.run",
+            "collection": "unknown",
+            "status": "failed",
+            "started": 1788849324076,
+            "finished": 1788849328852,
+            "evidence": [
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:4d832aa0da1c98263dc8743dcace4884d2d78c11d661625c1a5053b629e333bb",
+                "hash": "e181c51475dcf2c3ae9da23b3f44b4d1d0fa8d263e5d8763c3576de536ea966f",
+                "sourceSequence": 223
+              },
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:c0f7a76007b0d8f4730c6ca536fb9eff4035610961ca4d427879086430e81020",
+                "hash": "15648b5a67736f2be3836f2ec7d86762cd2ed8514585aa7eec09c2085e609c3a",
+                "sourceSequence": 226
+              }
+            ],
+            "partial": false,
+            "relatedAgent": "",
+            "metadata": {},
+            "attempt": 1,
+            "operationId": "invocation",
+            "observedAt": 1788849329376,
+            "eventIds": [
+              "c87d5e6b4b30abbdb1585d0609e528e291ed96d8a244691eb9e7c06b6a53504b",
+              "4b6c8e75b5117b6d879f7b3871afd13598357a2568470f90d52900f88cb17328"
+            ]
+          },
+          "phase1-release-1788849720-workcell:workcell-invocation-1788849323908:workload:1": {
+            "key": "phase1-release-1788849720-workcell:workcell-invocation-1788849323908:workload:1",
+            "capability": "workcell.execute",
+            "collection": "unknown",
+            "status": "failed",
+            "started": 1788849324077,
+            "finished": 1788849328849,
+            "evidence": [
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:76037a854bbe6d86d6c826d69db3f5533593fd4dcb380db3c14823205d33a278",
+                "hash": "60cd32bbf7d2f4d5464eabe9da7be9580aa01a5716eb9cfab6c73d5b765649c4",
+                "sourceSequence": 224
+              },
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:53f44eff5ece12895d6267460441f8264ee6d356d7bb96ea7e521fc5e620d573",
+                "hash": "bac53117a8e59be380e8641dc6faa35c42769d82e4d0bee1cb51398e245bc148",
+                "sourceSequence": 225
+              }
+            ],
+            "partial": false,
+            "relatedAgent": "",
+            "metadata": {
+              "resultCode": "preparing:exit-4",
+              "workcellRef": "wc-7f8cba2b6162427b811dc42933598eb2"
+            },
+            "attempt": 1,
+            "operationId": "workload",
+            "observedAt": 1788849329376,
+            "eventIds": [
+              "aa9e5cf58139e0e8cfd25dc171fd93323a161223076f8a9233db91331ecf42f0",
+              "746e7be8af07e63bcae2dbfc6cbe8c4629609c33486eb15f84cabdfd13972394"
+            ]
+          }
+        },
+        "runAttempt": 1
+      }
+    },
+    "seen": [
+      "179b62bf6d4c44c29489b4bcd8f3a3f30116c232d6d8b01205b5b04b0c8707ba",
+      "39f8550be179cfbea326799d5816c28b125d33d47621bc90064b374f0f055a94",
+      "2e3cd25fa4b76e4cb3851effba2c2dd8696fa79f818045b42928343911112ffb",
+      "9fa0d37479afec1ee9cd0622b912edfa3b5d4cb33d4ac0f3a42b1c0fba9c587f",
+      "c6bd467a6659f4e49b9a2addd42b01582ea13590747dd49f25bf4bc46943a923",
+      "1023e83e1d64cd7286168f157c0456339ccb21ea6e49c426758b2d84836068ef",
+      "8646f7bb1f93ddca0031b60020092e907a5aac564a17afdc0efa9f1d3f167cd7",
+      "d1eb29faba6d04bea41db2345750897cdd85780170cead09ec5c7d20441d6aff",
+      "bf844c986d97f54a24c6f782ecc868762f9464e35475cafe9e2aca1b9d889882",
+      "9273a9836831d27b1a765cd377312574c3e51a55a69ff099782670344ccb7ae8",
+      "8f5a97b2a1809fb2eb09c6b498765718b0519ca35ed7af45b5407a8e5d75dcef",
+      "2cf1fbf3c2a572f698acaa2539965baf0d36f87c4a93c0bc35a9666e9e3633ee",
+      "f241a6365397cb4b512d430430910a80603a28cf60b7608e7de2c139c732652b",
+      "269a514402e4dfbb576553e0d76702dfc0c705b1bb5c852d8ef043ce6c603f8e",
+      "d5447149fe438d5fa5f0d9b7daf0959d60be880aab8569c47e9615b4dbf5bedb",
+      "93b91d7febd972daef9cc6c8d16ddd1f06168328057a4b58a7b0e99a99a680a8",
+      "a5b19aa057fd2688b659f034a86549b114df4657486a47e5d980c6c87ead5869",
+      "bcd5e779a6c777d15b9f283c0a9499b7de39d32184d2c7885585f2de3d2657c6",
+      "3fd599793006f364a1cc31e330da42c6678d64a0d41b90be37f131573bbf690f",
+      "7c2771202e2cb8eda24702a009c22df40d384816b2cf6ccb10935a43491953cf",
+      "1927445db16d4b33921b292838e804dfb3eb0cf8f07e0b81673ec6f2e203bcc9",
+      "a3e1c3b6c2d0f00b526fcf6f7c884243017fd1f646149c6a31d521809d59df86",
+      "06cb260d552ccf0846d5becb5e7e943b32992a7a225c1c6e1cc4d3ff7936735c",
+      "c81e6eb39426e08f2a35ec465c1da71048b967520cc123d23771cb9ef5481988",
+      "19eb219f1334310c65fcb325744d313de51bfcfee65a9062ecddd6488be316ac",
+      "6dffb393bd0d503e4535aa1315bfc7abef5899ff980b96340d6a4993203b81eb",
+      "5173b1aade3747b1f4a40aa6aeac64db844a2a9685c578486d895b1dd131f090",
+      "5d79ce5584b43cd192bced8b12871140dc880b77a65ce4326bcddb8e6923b1ea",
+      "57229c5493566aa0f7dc82d3455ba7d9319c566c3fc070eeb0beeced800afa2a",
+      "dade66c5bad9980d06b4372c4d4fd624277df32a575ed4186c41493c36648e26",
+      "3b18103c74a53c2e4c32dae24d0f6a4521c3966449f3d7c50c49a879488697c9",
+      "a6f9e0e2b7a0c2c8821f71e986baf73374ef0b1a0ba5d9cc78a5c00a2e362792",
+      "984cc57e77fc39ee5c94acf114bb4ab21549533a95f04c4d46b006e0de39b067",
+      "a796adcb4a5213a0b5730986e4ae52cae6b31f3372ac3a95a599093f6cf2ce74",
+      "35943e0c85d0f4403338431aebaef2d43540826b30c171390965c64fc8e03d62",
+      "67618322a09f1430613b12cec087a5cc2393745e4efabf07522930f3a67a5e86",
+      "94dbedc9a85289be9ad5adb724c5e87dd7ed0c08871182754ec257ee6a5b8327",
+      "62e9a92d713c723f8862b09accee11f9085ba92e8696adc0ee50fda42f75f416",
+      "9ad494c9893bf946e706d17299f7b5e668509cce97a60d75c25096578a774d25",
+      "fc21fce06d13b38bf17c053baa90f43494340ec21d24c2e01932bccc29edea5e",
+      "e9734288832feb3123f6fe90febaea2284e17004393602f5640153cb516785a1",
+      "a77214127ae3f96cc1aaf023ca8cfecbc20034be7e911cdab5be9dbaf96f4d12",
+      "58c7bc1d45464e850381cc6ad234ce8fbb2f85c556f9a1dfce0aa6c242b1654f",
+      "c87d5e6b4b30abbdb1585d0609e528e291ed96d8a244691eb9e7c06b6a53504b",
+      "aa9e5cf58139e0e8cfd25dc171fd93323a161223076f8a9233db91331ecf42f0",
+      "746e7be8af07e63bcae2dbfc6cbe8c4629609c33486eb15f84cabdfd13972394",
+      "4b6c8e75b5117b6d879f7b3871afd13598357a2568470f90d52900f88cb17328"
+    ],
+    "health": "LIVE",
+    "gap": false,
+    "order": 47
+  },
+  "checksum": "1575ff8d58e12e4c2b36514f88c9949e6be0eb454641c740fed6757bb6e0da0b"
+}

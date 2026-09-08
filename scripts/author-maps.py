@@ -3,13 +3,13 @@ import json
 from pathlib import Path
 root=Path(__file__).resolve().parents[1]
 def obj(i,name,x,y,**props):return dict(id=i,name=name,type='semantic',x=x,y=y,width=16,height=16,properties=[dict(name=k,type='string',value=v) for k,v in props.items()])
-landmarks=[('dispatch','DISPATCH HQ',8,16),('workshop','WORKSHOP',80,16),('library','LIBRARY / RAG',168,16),('meeting','MEETING',8,136),('dojo','DOJO / EVAL',88,136),('mcp','MCP TERMINAL',168,136)]
+landmarks=[('dispatch','DISPATCH HQ',8,16),('workshop','WORKSHOP',80,16),('library','LIBRARY / RAG',168,16),('meeting','MEETING',8,128),('dojo','DOJO / EVAL',88,128),('mcp','MCP TERMINAL',168,128)]
 for scene in ['city','workshop','library','mcp','dojo','dispatch','meeting']:
  data=[1]*208
  if scene=='city':
-  data=[2 if y in [6,7] or x in [0,15] else 1 for y in range(13) for x in range(16)]
+  data=[2 if y in [6,7,12] or x in [0,15] or (y==5 and x in [2,7,12]) else 1 for y in range(13) for x in range(16)]
   objects=[obj(i+1,k,x,y,label=l,kind='building',live='unbound') for i,(k,l,x,y) in enumerate(landmarks)]
-  objects += [obj(20,'workshop-door',96,112,target='workshop:exit',kind='portal'),obj(21,'library-door',192,112,target='library:exit',kind='portal'),obj(22,'mcp-door',208,112,target='mcp:exit',kind='portal'),obj(23,'dojo-door',128,112,target='dojo:exit',kind='portal'),obj(24,'dispatch-door',32,112,target='dispatch:exit',kind='portal'),obj(25,'meeting-door',48,112,target='meeting:exit',kind='portal')]
+  objects += [obj(20+i,k+'-door',((x+32)//16)*16,y+64,target=k+':exit',kind='portal') for i,(k,l,x,y) in enumerate(landmarks)]
  else:
   data=[3 if y>=11 else 0 for y in range(13) for x in range(16)]
   names={'workshop':['task-bench','terminal','evidence-shelf','workcell-unavailable'],'library':['kujo-docs','repo-source','project-rag','previous-runs','external-research','unknown'],'mcp':['servers','abilities','approval-pending','tool-active','result','failure'],'dojo':['schema','content','policy','skipped'],'dispatch':['intake','assignment','workflow','retry','blocked','completion'],'meeting':['context-transfer','relationships','message-evidence']}[scene]

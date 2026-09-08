@@ -52,7 +52,9 @@ for (const name of names) {
     if (
       name === "city" &&
       o.kind === "portal" &&
-      (o.y !== 112 || o.x % 16 !== 0 || cells[7 * 16 + o.x / 16] !== 2)
+      (o.y % 16 !== 0 ||
+        o.x % 16 !== 0 ||
+        cells[(o.y / 16) * 16 + o.x / 16] !== 2)
     )
       throw Error("portal is not on the navigation corridor");
   }
@@ -75,10 +77,37 @@ for (const [name, m] of Object.entries(maps))
         throw Error("nonreciprocal portal");
     }
 const graph: Record<string, string[]> = {};
-for (let x = 0; x < 16; x++)
-  graph[x + ",7"] = [x - 1, x + 1]
-    .filter((n) => n >= 0 && n < 16)
-    .map((n) => n + ",7");
+for (let y = 0; y < 13; y++)
+  for (let x = 0; x < 16; x++) {
+    if (maps.city.cells[y * 16 + x] !== 2) continue;
+    graph[x + "," + y] = [
+      [x - 1, y],
+      [x + 1, y],
+      [x, y - 1],
+      [x, y + 1],
+    ]
+      .filter(
+        ([nx, ny]) =>
+          nx >= 0 &&
+          nx < 16 &&
+          ny >= 0 &&
+          ny < 13 &&
+          maps.city.cells[ny * 16 + nx] === 2,
+      )
+      .map(([nx, ny]) => nx + "," + ny)
+      .sort();
+  }
+const reached = new Set<string>(),
+  pending = [Object.keys(graph)[0]];
+while (pending.length) {
+  const point = pending.pop()!;
+  if (reached.has(point)) continue;
+  reached.add(point);
+  pending.push(...graph[point]);
+}
+for (const portal of maps.city.objects.filter((o: any) => o.kind === "portal"))
+  if (!reached.has(portal.x / 16 + "," + portal.y / 16))
+    throw Error("Disconnected city doorway: " + portal.id);
 const body = JSON.stringify({ maps, graph });
 await writeFile(
   "assets/compiled/world.json",

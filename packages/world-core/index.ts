@@ -369,7 +369,8 @@ function followPath(w: Walker): boolean {
   if (!w.path?.length) return true;
   const [x, y] = w.path[0].split(",").map(Number);
   if (move(w, x * 16, y * 16)) w.path.shift();
-  return !w.path.length;
+  // Render the reached doorway for one presentation tick before switching scenes.
+  return false;
 }
 export function advance(p: Presentation, truth?: Truth): Presentation {
   const s = structuredClone(p);
