@@ -1,0 +1,25 @@
+{
+  "kind": "SYNTHETIC stored receipts through actual read-only artifact endpoint; no model or artifact execution",
+  "results": [
+    {
+      "id": "missing-receipt",
+      "codeExecuted": null
+    },
+    {
+      "id": "missing-flag",
+      "codeExecuted": null
+    },
+    {
+      "id": "invalid-flag",
+      "codeExecuted": null
+    },
+    {
+      "id": "explicit-not-executed",
+      "codeExecuted": false
+    },
+    {
+      "id": "explicit-executed",
+      "codeExecuted": true
+    }
+  ]
+}

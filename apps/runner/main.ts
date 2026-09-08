@@ -206,7 +206,10 @@ const server = createServer(async (req, res) => {
         content: await readFile(file, "utf8"),
         validation,
         functional,
-        codeExecuted: validation ? validation.codeExecuted : false,
+        codeExecuted:
+          typeof validation?.codeExecuted === "boolean"
+            ? validation.codeExecuted
+            : null,
       });
     }
     if (
