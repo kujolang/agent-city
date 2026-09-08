@@ -1,6 +1,10 @@
 import { Application, Container, Graphics, Rectangle, Sprite } from "pixi.js";
 import {
   facade,
+  cityGround,
+  consoleDesk,
+  briefingRoom,
+  cableTray,
   roomShell,
   roomFloor,
   plant,
@@ -9,7 +13,13 @@ import {
 } from "./scenery";
 import { appearance } from "./appearance";
 import { CharacterAtlas } from "./characters";
-import { badge, animationFor, buildingState } from "../world-core/index";
+import {
+  badge,
+  animationFor,
+  buildingState,
+  stationFor,
+} from "../world-core/index";
+import type { OperationEvent } from "../world-core/index";
 import type { Presentation, Truth, Scene } from "../world-core/index";
 import world from "../../assets/compiled/world.json";
 const C = {
@@ -110,6 +120,8 @@ export class CityRenderer {
   private actors = new Container();
   private characters = new CharacterAtlas();
   private backgrounds = new Map<string, Graphics>();
+  private backgroundTruth?: Truth;
+  private truthRevision = 0;
   private backdrop = new Container();
   async init(
     host: HTMLElement,
@@ -145,6 +157,13 @@ export class CityRenderer {
       this.scene = p.walkers[this.follow].scene;
     const g = this.ink;
     g.clear();
+    // A replay/snapshot can replace truth without changing its numeric order.
+    // Pure reducers preserve reference identity between changes; ticks alone do
+    // not invalidate room geometry.
+    if (truth !== this.backgroundTruth) {
+      this.backgroundTruth = truth;
+      this.truthRevision++;
+    }
     for (const child of this.actors.removeChildren())
       child.destroy({ children: true });
 
@@ -154,7 +173,7 @@ export class CityRenderer {
       (this.scene === "dojo" ||
       this.scene === "mcp" ||
       this.scene === "workshop"
-        ? truth.order
+        ? this.truthRevision
         : 0);
     let bg = this.backgrounds.get(key);
     if (!bg) {
@@ -263,21 +282,7 @@ export class CityRenderer {
   }
   private city(g: Graphics, tick: number) {
     const m = world.maps.city;
-    for (let y = 0; y < 13; y++)
-      for (let x = 0; x < 16; x++) {
-        const road = m.cells[y * 16 + x] === 2;
-        box(g, x * 16, y * 16, 16, 16, road ? C.road : C.grass);
-        if (!road) {
-          box(g, x * 16, y * 16, 16, 16, 0x092b83);
-          for (let dy = 1; dy < 16; dy += 4)
-            for (let dx = 0; dx < 16; dx += 5)
-              box(g, x * 16 + dx, y * 16 + dy, 2, 1, 0x1d50b2);
-        } else {
-          for (const dy of [2, 9])
-            box(g, x * 16 + 3, y * 16 + dy, 1, 1, 0x414b59);
-        }
-      }
-    for (let x = 16; x < 240; x += 24) box(g, x, 111, 10, 2, C.gold);
+    cityGround(g, m.cells);
     for (const o of m.objects) {
       if (o.kind !== "building") continue;
       const x = o.x,
@@ -292,10 +297,6 @@ export class CityRenderer {
               ? "MCP TERMINAL"
               : o.id.toUpperCase();
       text(g, label, x + 5, y + 27, C.white);
-    }
-    for (const x of [42, 146, 226]) {
-      box(g, x, 118, 12, 4, C.black);
-      box(g, x + 2, 119, 8, 1, C.teal);
     }
     text(g, "AGENT CITY", 80, 3, C.white);
     box(g, 245, 91, 3, 8, Math.floor(tick / 15) % 2 ? C.mint : C.teal);
@@ -330,13 +331,14 @@ export class CityRenderer {
         : ["CONTEXT", "RELATION", "EVIDENCE"];
       labels.forEach((label, i) => {
         const x = dispatch ? 18 + i * 38 : 24 + i * 76;
-        box(g, x, 54, dispatch ? 32 : 64, 80, C.black);
-        box(g, x + 2, 58, dispatch ? 28 : 60, 3, C.blue);
+        box(g, x, 58, dispatch ? 32 : 64, dispatch ? 59 : 42, C.black);
+        box(g, x + 2, 60, dispatch ? 28 : 60, 1, C.blue);
         text(g, label, x + 2, 43, C.gold);
-        for (let y = 70; y < 120; y += 12)
+        for (let y = 70; y < (dispatch ? 110 : 96); y += 12)
           box(g, x + 5, y, dispatch ? 21 : 50, 2, C.teal);
-        box(g, x + 4, 140, dispatch ? 24 : 56, 7, C.blue);
+        if (dispatch) consoleDesk(g, x + 1, 145, 28);
       });
+      if (meeting) briefingRoom(g);
       text(
         g,
         meeting ? "ASYNC / NO CO-LOCATION CLAIM" : "SOURCE-OWNED TASK STATE",
@@ -348,13 +350,24 @@ export class CityRenderer {
       ["schema", "content", "policy", "skipped"].forEach((name, i) => {
         const x = 22 + i * 56;
         box(g, x, 62, 46, 90, C.black);
+        box(g, x - 2, 60, 50, 2, 0x9d6443);
+        box(g, x - 2, 60, 2, 94, 0x9d6443);
+        box(g, x + 46, 60, 2, 94, 0x6d412e);
         text(g, name, x + 4, 48, C.gold);
         const ops = Object.values(truth.agents)
           .flatMap((a) => Object.values(a.operations))
           .filter(
             (o) =>
               o.capability === "evaluation.run" &&
-              o.key.includes(":" + name + ":"),
+              stationFor({
+                id: o.operationId ?? "",
+                attempt: o.attempt ?? 1,
+                capability: "evaluation.run",
+                collection:
+                  o.collection as OperationEvent["operation"]["collection"],
+                outcome: "unknown",
+                metadata: o.metadata,
+              }) === name,
           );
         const failed = ops.some((o) => o.status === "failed"),
           passed = ops.some((o) => o.status === "succeeded");
@@ -403,6 +416,7 @@ export class CityRenderer {
           box(g, x + 12, y + 4, 9, 1, C.gold);
         }
       }
+      cableTray(g);
       const calls = Object.values(truth.agents)
         .flatMap((a) => Object.values(a.operations))
         .filter((o) => o.capability === "mcp.call");
