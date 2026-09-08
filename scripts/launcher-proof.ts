@@ -5,6 +5,7 @@ import assert from "node:assert/strict";
 import { chromium, type Browser } from "@playwright/test";
 import { localChromiumPath } from "../apps/runner/browser-path";
 import { portAvailable } from "./startup-checks";
+import { packagedMissions } from "./packaged-missions";
 import { localPorts, localRuntime } from "./local-ports";
 const root = resolve(import.meta.dirname, "..");
 assert(process.argv[2], "Provide the extracted bundle directory");
@@ -15,7 +16,11 @@ const manifest = JSON.parse(
 );
 const ports = localPorts({ CITY_PORT_OFFSET: "30000" }),
   url = `http://127.0.0.1:${ports.web}`;
-const out = resolve(root, "evidence/launcher");
+const real = process.env.CITY_LAUNCHER_REAL === "1";
+const out = resolve(
+  root,
+  real ? "evidence/packaged-missions" : "evidence/launcher",
+);
 await mkdir(out, { recursive: true });
 const originalPorts = await Promise.all(
   [5178, 7792, 7793].map(async (port) => ({
@@ -42,12 +47,15 @@ let log = "",
 child.stdout.on("data", (b) => (log = (log + b).slice(-8000)));
 child.stderr.on("data", (b) => (log = (log + b).slice(-8000)));
 const started = Date.now();
-const deadline = setTimeout(() => {
-  child.kill("SIGTERM");
-  void browser?.close();
-  console.error("Launcher diagnostic timed out");
-  setTimeout(() => process.exit(1), 3000);
-}, 180000);
+const deadline = setTimeout(
+  () => {
+    child.kill("SIGTERM");
+    void browser?.close();
+    console.error("Launcher diagnostic timed out");
+    setTimeout(() => process.exit(1), 3000);
+  },
+  real ? 480000 : 180000,
+);
 deadline.unref();
 try {
   while (!log.includes("Agent City ready:")) {
@@ -104,6 +112,7 @@ try {
     path: resolve(out, "fresh-stack.png"),
     fullPage: true,
   });
+  const missions = real ? await packagedMissions(page, url, out) : null;
   assert.deepEqual(errors, []);
   const pids = JSON.parse(
     await readFile(
@@ -140,7 +149,10 @@ try {
     resolve(out, "proof.json"),
     JSON.stringify(
       {
-        kind: "Fresh packaged full stack startup/shutdown; no model execution",
+        kind: real
+          ? "Fresh packaged stack with real local-model writing/code missions"
+          : "Fresh packaged full stack startup/shutdown; no model execution",
+        missions,
         source: manifest.sources["agent-city"],
         ports,
         readinessMs,
