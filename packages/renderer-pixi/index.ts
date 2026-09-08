@@ -11,6 +11,7 @@ import {
   mezzanine,
   books,
   libraryFixtures,
+  libraryArchitecture,
   workshopFixtures,
 } from "./scenery";
 import { appearance } from "./appearance";
@@ -463,6 +464,7 @@ export class CityRenderer {
       });
       text(g, "ACTUAL CHECK OUTCOMES", 48, 165, C.white);
     } else if (library) {
+      libraryArchitecture(g);
       ["DOCS", "REPO", "RAG", "RUNS", "EXT"].forEach((label, i) => {
         const x = 24 + i * 40;
         books(g, x, 49, 31, 52);

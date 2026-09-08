@@ -342,6 +342,9 @@ export function mezzanine(g: Graphics) {
 
 export function books(g: Graphics, x: number, y: number, w: number, h: number) {
   rect(g, x, y, w, h, 0x61432e);
+  rect(g, x, y, w, 1, 0xbb9565);
+  rect(g, x, y, 1, h, 0xa0784b);
+  rect(g, x + w - 1, y + 1, 1, h - 1, 0x30221c);
   rect(g, x + 2, y + 2, w - 4, h - 4, P.ink);
   for (let shelf = y + 4; shelf < y + h - 10; shelf += 15) {
     for (let col = 0; col < Math.floor((w - 5) / 4); col++) {
@@ -355,8 +358,40 @@ export function books(g: Graphics, x: number, y: number, w: number, h: number) {
         [P.blue, P.brick, 0xb59753, P.leaf, P.light][col % 5],
       );
       rect(g, x + 3 + col * 4, shelf + 12 - height, 2, 1, 0xc2b899);
+      rect(g, x + 3 + col * 4, shelf + 14 - height, 1, height - 3, 0x393c39);
+      if (col % 2 === 0) rect(g, x + 4 + col * 4, shelf + 9, 1, 1, 0xc2b899);
     }
     rect(g, x + 2, shelf + 11, w - 4, 2, 0xa0784b);
+    rect(g, x + 2, shelf + 13, w - 4, 1, 0x30221c);
+  }
+}
+
+/** Architectural scenery only: fixed tiles, cabinetry and ventilation. */
+export function libraryArchitecture(g: Graphics) {
+  // Recessed wood wall panels make the book stacks part of the room.
+  for (let x = 22; x < 215; x += 40) {
+    rect(g, x, 46, 35, 65, 0x30221c);
+    rect(g, x + 1, 47, 33, 1, 0xbb9565);
+    rect(g, x + 1, 48, 1, 62, 0x725037);
+    rect(g, x + 34, 48, 1, 62, P.ink);
+  }
+  // Lower-floor tiles stay behind all semantic stations and character feet.
+  rect(g, 16, 149, 206, 27, 0x3b4653);
+  for (let row = 0; row < 4; row++) {
+    const y = 149 + row * 7;
+    rect(g, 16, y, 206, 1, P.mortar);
+    for (let x = 16 + (row % 2) * 8; x < 221; x += 16) {
+      rect(g, x, y + 1, 1, 6, P.mortar);
+      rect(g, x + 2, y + 2, Math.min(10, 221 - x), 1, 0x505b68);
+    }
+  }
+  // Bolted header and service conduit: industrial framing, no status lights.
+  rect(g, 16, 122, 205, 2, P.ink);
+  rect(g, 16, 122, 205, 1, P.stone);
+  for (const x of [84, 155]) {
+    rect(g, x, 125, 10, 20, P.mortar);
+    rect(g, x, 125, 10, 1, P.light);
+    for (let y = 128; y < 143; y += 3) rect(g, x + 2, y, 6, 1, P.ink);
   }
 }
 
