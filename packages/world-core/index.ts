@@ -49,13 +49,19 @@ export const initialTruth = (): Truth => ({
 });
 export function reduceTruth(state: Truth, e: CityEvent): Truth {
   if (state.seen.includes(e.eventId)) return state;
-  const s = structuredClone(state);
+  const s: Truth = { ...state, agents: { ...state.agents }, seen: state.seen };
+  if ("instance" in e && s.agents[e.instance])
+    s.agents[e.instance] = {
+      ...s.agents[e.instance],
+      operations: { ...s.agents[e.instance].operations },
+    };
   s.seen = [...s.seen, e.eventId].slice(-2000);
   s.order = e.order;
   if (e.type === "source.gap") {
     s.gap = true;
     s.health = "STALE";
-    for (const a of Object.values(s.agents)) a.completeness = "partial";
+    for (const [id, a] of Object.entries(s.agents))
+      s.agents[id] = { ...a, completeness: "partial" };
     return s;
   }
   if (e.type === "source.reconciled") {
@@ -100,6 +106,7 @@ export function reduceTruth(state: Truth, e: CityEvent): Truth {
     prior.status !== e.operation.outcome
   )
     throw Error("contradictory terminal outcome");
+  if (prior) a.operations[key] = { ...prior };
   const op = (a.operations[key] ??= {
     key,
     capability: e.operation.capability,
@@ -118,7 +125,7 @@ export function reduceTruth(state: Truth, e: CityEvent): Truth {
   op.eventIds = [...(op.eventIds ?? []), e.eventId].slice(-24);
   op.evidence = [...op.evidence, ...e.evidence].slice(-24);
   if (terminal) {
-    if (!op.started) a.completeness = "partial";
+    if (op.started === null) a.completeness = "partial";
     op.status = e.operation.outcome;
     op.finished = e.occurredAt;
   } else {

@@ -40,6 +40,7 @@ export function validatePage(
   )
     throw Error("feed manifest mismatch");
   let previous = sourceSequence;
+  let retentionGap = false;
   for (const row of rows) {
     if (!Number.isSafeInteger(row.sequence) || row.sequence <= previous)
       throw Error("feed order mismatch");
@@ -48,9 +49,15 @@ export function validatePage(
       row.producer !== row.record.source.producer
     )
       throw Error("canonical wrapper identity mismatch");
+    if (row.sequence !== previous + 1) retentionGap = true;
     previous = row.sequence;
   }
   if (previous !== manifest.last_sequence_inclusive)
     throw Error("manifest sequence mismatch");
-  return { rows, next: manifest.next_cursor as string, sequence: previous };
+  return {
+    rows,
+    retentionGap,
+    next: manifest.next_cursor as string,
+    sequence: previous,
+  };
 }

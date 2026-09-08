@@ -1,3 +1,6 @@
+import { receipts } from "./receipts";
+import { Journal, sha } from "./journal";
+import { CORE_VERSION } from "../../packages/world-core/replay";
 import { boundedText, validatePage } from "./feed";
 import { createServer, type ServerResponse } from "node:http";
 import { DatabaseSync } from "node:sqlite";
@@ -15,23 +18,30 @@ const root = resolve(import.meta.dirname, "../.."),
   runtime = resolve(root, ".runtime");
 await mkdir(runtime, { recursive: true });
 const sourcePrefix = process.env.CITY_SOURCE_PREFIX || "";
-const db = new DatabaseSync(
+const journal = new Journal(
   process.env.CITY_DB || resolve(runtime, "city.sqlite"),
+  Number(process.env.CITY_JOURNAL_LIMIT || 1000000),
 );
-db.exec(
-  "PRAGMA journal_mode=WAL; CREATE TABLE IF NOT EXISTS journal(seq INTEGER PRIMARY KEY AUTOINCREMENT,id TEXT UNIQUE,hash TEXT,body TEXT); CREATE TABLE IF NOT EXISTS meta(key TEXT PRIMARY KEY,value TEXT);",
-);
-const get = (key: string) =>
-  (
-    db.prepare("SELECT value FROM meta WHERE key=?").get(key) as
-      | { value: string }
-      | undefined
-  )?.value;
-const set = (key: string, value: string) =>
-  db.prepare("INSERT OR REPLACE INTO meta VALUES(?,?)").run(key, value);
+const db = journal.db;
+const get = (key: string) => journal.get(key);
+const set = (key: string, value: string) => journal.set(key, value);
 const epoch = get("epoch") || randomUUID();
 set("epoch", epoch);
-let state: Truth = JSON.parse(get("truth") || JSON.stringify(initialTruth()));
+let state = journal.state;
+const versions = {
+  protocol: "1",
+  adapter: "1",
+  core: CORE_VERSION,
+  map: "1",
+  coreHash: sha(
+    await readFile(resolve(root, "packages/world-core/index.ts"), "utf8"),
+  ),
+  mapHash: sha(
+    JSON.parse(
+      await readFile(resolve(root, "assets/compiled/world.json"), "utf8"),
+    ),
+  ),
+};
 let sourceSequence = Number(get("sourceSequence") || 0);
 let sourceCursor = get("sourceCursor") || "",
   lastSuccess = 0,
@@ -55,48 +65,17 @@ function store(
   nextCursor?: string,
   nextSequence?: number,
 ) {
-  const accepted: CityEvent[] = [];
-  let next = state;
-  db.exec("BEGIN IMMEDIATE");
-  try {
-    for (const event of events) {
-      const hash = digest(
-          JSON.stringify({ ...event, order: 0, observedAt: 0 }),
-        ),
-        old = db
-          .prepare("SELECT hash FROM journal WHERE id=?")
-          .get(event.eventId) as { hash: string } | undefined;
-      if (old) {
-        if (old.hash !== hash) throw Error("record identity conflict");
-        continue;
-      }
-      event.order = next.order + 1;
-      validateEvent(event);
-      next = reduceTruth(next, event);
-      db.prepare("INSERT INTO journal(seq,id,hash,body) VALUES(?,?,?,?)").run(
-        event.order,
-        event.eventId,
-        hash,
-        JSON.stringify(event),
-      );
-      accepted.push(event);
-    }
-    set("truth", JSON.stringify(next));
-    if (nextCursor !== undefined) set("sourceCursor", nextCursor);
-    if (nextSequence !== undefined) set("sourceSequence", String(nextSequence));
-    db.prepare("DELETE FROM journal WHERE seq < ?").run(
-      Math.max(0, next.order - 10000),
-    );
-    db.exec("COMMIT");
-    state = next;
-    if (nextCursor !== undefined) sourceCursor = nextCursor;
-    if (nextSequence !== undefined) sourceSequence = nextSequence;
-  } catch (e) {
-    db.exec("ROLLBACK");
-    throw e;
-  }
+  const metadata: Record<string, string> = {};
+  if (nextCursor !== undefined) metadata.sourceCursor = nextCursor;
+  if (nextSequence !== undefined)
+    metadata.sourceSequence = String(nextSequence);
+  const accepted = journal.append(events, metadata);
+  state = journal.state;
+  if (nextCursor !== undefined) sourceCursor = nextCursor;
+  if (nextSequence !== undefined) sourceSequence = nextSequence;
   accepted.forEach(publish);
 }
+
 function healthEvent(
   type: "source.gap" | "source.reconciled",
   reason: "disconnect" | "schema" | "reconciled",
@@ -128,7 +107,9 @@ if (sourceCursor) {
   store([healthEvent("source.gap", "disconnect")]);
   gap = true;
 } // Conservatively mark every process reconnect; no continuity claim across restore.
+let backlog = false;
 async function poll() {
+  backlog = false;
   try {
     const token =
       process.env.WDG_API_AUTH_TOKEN ||
@@ -142,13 +123,24 @@ async function poll() {
         signal: AbortSignal.timeout(3000),
       },
     );
+    if (
+      (res.status === 400 || res.status === 409 || res.status === 410) &&
+      sourceCursor
+    ) {
+      store([healthEvent("source.gap", "disconnect")], "", 0);
+      gap = true;
+      lastError = "Watchdog cursor rejected; explicit gapped restart";
+      return;
+    }
     if (!res.ok) throw Error("Watchdog " + res.status);
     const page = validatePage(
       await boundedText(res),
       res.headers,
       sourceSequence,
     );
+    backlog = page.rows.length >= 100;
     const events: CityEvent[] = [];
+    if (page.retentionGap) events.push(healthEvent("source.gap", "schema"));
     for (const w of page.rows) {
       try {
         const e = normalize(
@@ -196,9 +188,14 @@ async function poll() {
     lastSuccess = Date.now();
     lastError = "";
   } catch (e) {
-    lastError = String(e);
+    lastError =
+      e instanceof Error ? e.message.slice(0, 160) : "Observation failure";
     if (!gap) {
-      store([healthEvent("source.gap", "disconnect")]);
+      try {
+        store([healthEvent("source.gap", "disconnect")]);
+      } catch {
+        /* Quota failure preserves journal; transport health remains stale. */
+      }
       gap = true;
     }
   }
@@ -217,7 +214,7 @@ const parseCursor = (s: string | null) => {
     ).n ?? 0;
   return n <= state.order && n >= min - 1 ? n : null;
 };
-const server = createServer((req, res) => {
+const server = createServer(async (req, res) => {
   const url = new URL(req.url || "/", "http://localhost");
   const send = (body: unknown, status = 200) => {
     res.writeHead(status, {
@@ -227,8 +224,67 @@ const server = createServer((req, res) => {
     });
     res.end(JSON.stringify(body));
   };
+  const origin = req.headers.origin;
+  if (
+    origin &&
+    ![
+      "http://127.0.0.1:5178",
+      "http://localhost:5178",
+      "http://127.0.0.1:" + (process.env.CITY_PORT || "7792"),
+    ].includes(origin)
+  )
+    return send({ error: "Origin denied" }, 403);
+  if (
+    !["127.0.0.1", "localhost"].includes((req.headers.host || "").split(":")[0])
+  )
+    return send({ error: "Host denied" }, 403);
   if (req.method !== "GET")
     return send({ error: "Observer Mode is read-only" }, 405);
+  if (url.pathname === "/api/archive/replay") {
+    if (state.order > 100000)
+      return send(
+        {
+          error:
+            "Replay export exceeds local response bound; use offline export",
+        },
+        413,
+      );
+    return send(
+      journal.bundle(versions, url.searchParams.get("run") || undefined),
+    );
+  }
+  if (url.pathname === "/api/archive/runs") {
+    const runs = db
+      .prepare(
+        `SELECT json_extract(body,'$.run.namespace') || ':' || json_extract(body,'$.run.id') AS id, COUNT(*) AS events, SUM(json_extract(body,'$.type')='operation.failed') AS failures, MIN(json_extract(body,'$.operation.attempt')) AS attemptMin, MAX(json_extract(body,'$.operation.attempt')) AS attemptMax, COUNT(DISTINCT json_extract(body,'$.operation.metadata.artifactRef')) AS artifactCount FROM journal WHERE json_extract(body,'$.run.id') IS NOT NULL GROUP BY id ORDER BY MAX(seq) DESC LIMIT 200`,
+      )
+      .all();
+    return send({
+      runs,
+      coverage:
+        "Latest 200 runs; inspect a run for individual attempts and artifact references",
+      ledger: await receipts(
+        process.env.CITY_LEDGER_DIR || resolve(runtime, "release-ledger"),
+      ),
+      correlation:
+        "Source run IDs; RunLedger receipts are external correlation evidence, not micro-events",
+    });
+  }
+  if (url.pathname === "/api/incidents")
+    return send({
+      health: gap || Date.now() - lastSuccess > 10000 ? "STALE" : "LIVE",
+      incidents: (
+        db
+          .prepare(
+            "SELECT body FROM journal WHERE json_extract(body,'$.type') IN ('source.gap','source.reconciled','operation.failed') OR json_extract(body,'$.operation.metadata.approval')='pending' ORDER BY seq DESC LIMIT 200",
+          )
+          .all() as { body: string }[]
+      )
+        .reverse()
+        .map((r) => JSON.parse(r.body)),
+      coverage:
+        "Only observed failures, gaps, recovery and explicit approval metadata; other alert/policy sources UNKNOWN",
+    });
   if (url.pathname === "/api/world/snapshot")
     return send({
       schema: "agent-city.snapshot.v1",
@@ -251,7 +307,7 @@ const server = createServer((req, res) => {
         coverage:
           "SDK run/retrieval/tool/handoff and Eval invocation/check results; retained local journal; reconnect history partial",
       },
-      versions: { protocol: 1, core: 1, adapter: 1, world: 1 },
+      versions,
     });
   if (
     url.pathname === "/api/world/events" ||
@@ -320,9 +376,14 @@ server.listen(Number(process.env.CITY_PORT || 7792), "127.0.0.1", () =>
   ),
 );
 setInterval(() => {
-  for (const c of clients) c.write(": heartbeat\n\n");
+  for (const c of clients) {
+    if (c.writableLength > 1024 * 1024) {
+      c.end();
+      clients.delete(c);
+    } else c.write(": heartbeat\n\n");
+  }
 }, 15000).unref();
 for (;;) {
   await poll();
-  await new Promise((r) => setTimeout(r, 250));
+  await new Promise((r) => setTimeout(r, backlog ? 0 : 250));
 }

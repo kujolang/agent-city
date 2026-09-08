@@ -31,11 +31,9 @@ export function normalize(
     throw Error("canonical schema rejected");
   const r = wrapper.record,
     a = r.attributes ?? {};
-  if (
-    a["kujo.workspace.id"] !== "local-agent-city" ||
-    r.source.producer !== "agent-city-sdk"
-  )
-    return null;
+  if (r.source.producer !== "agent-city-sdk") return null;
+  if (a["kujo.workspace.id"] !== "local-agent-city")
+    throw new UnboundObservation("unknown workspace binding");
   const source = a["kujo.producer.instance"];
   if (sourcePrefix && !String(source).startsWith(sourcePrefix)) return null;
   const get = (type: string) => r.references.find((x: any) => x.type === type);
@@ -64,6 +62,13 @@ export function normalize(
     expected[nativeKind] !== a["kujo.capability"]
   )
     throw new UnboundObservation("native capability mismatch");
+  for (const [key, value] of Object.entries(a)) {
+    if (
+      key.startsWith("kujo.meta.") &&
+      (typeof value !== "string" || !/^[a-zA-Z0-9_.:@-]{1,160}$/.test(value))
+    )
+      throw new UnboundObservation("unsafe metadata field");
+  }
   const phase = a["kujo.lifecycle.phase"];
   if (phase === "gap") {
     const e = {
