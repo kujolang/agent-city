@@ -48,7 +48,13 @@ export type CityEvent =
           | "tool.execute"
           | "evaluation.run"
           | "agent.handoff"
-          | "execution.run";
+          | "execution.run"
+          | "mcp.call"
+          | "dispatch.task"
+          | "dispatch.workflow"
+          | "artifact.created"
+          | "workcell.execute"
+          | "relationship.message";
         collection:
           | "kujo-docs"
           | "repo-source"
@@ -64,6 +70,21 @@ export type CityEvent =
           | "skipped"
           | "unknown";
         relatedAgent?: string;
+        metadata?: {
+          server?: string;
+          tool?: string;
+          invocation?: string;
+          resultCode?: string;
+          approval?: string;
+          taskState?: string;
+          workflowState?: string;
+          artifactRef?: string;
+          repoRef?: string;
+          workcellRef?: string;
+          relatedInstance?: string;
+          appearance?: string;
+          station?: string;
+        };
       };
     }
   | {
@@ -113,7 +134,13 @@ export type CityEvent =
           | "tool.execute"
           | "evaluation.run"
           | "agent.handoff"
-          | "execution.run";
+          | "execution.run"
+          | "mcp.call"
+          | "dispatch.task"
+          | "dispatch.workflow"
+          | "artifact.created"
+          | "workcell.execute"
+          | "relationship.message";
         collection:
           | "kujo-docs"
           | "repo-source"
@@ -129,6 +156,21 @@ export type CityEvent =
           | "skipped"
           | "unknown";
         relatedAgent?: string;
+        metadata?: {
+          server?: string;
+          tool?: string;
+          invocation?: string;
+          resultCode?: string;
+          approval?: string;
+          taskState?: string;
+          workflowState?: string;
+          artifactRef?: string;
+          repoRef?: string;
+          workcellRef?: string;
+          relatedInstance?: string;
+          appearance?: string;
+          station?: string;
+        };
       };
     }
   | {
@@ -178,7 +220,13 @@ export type CityEvent =
           | "tool.execute"
           | "evaluation.run"
           | "agent.handoff"
-          | "execution.run";
+          | "execution.run"
+          | "mcp.call"
+          | "dispatch.task"
+          | "dispatch.workflow"
+          | "artifact.created"
+          | "workcell.execute"
+          | "relationship.message";
         collection:
           | "kujo-docs"
           | "repo-source"
@@ -194,6 +242,21 @@ export type CityEvent =
           | "skipped"
           | "unknown";
         relatedAgent?: string;
+        metadata?: {
+          server?: string;
+          tool?: string;
+          invocation?: string;
+          resultCode?: string;
+          approval?: string;
+          taskState?: string;
+          workflowState?: string;
+          artifactRef?: string;
+          repoRef?: string;
+          workcellRef?: string;
+          relatedInstance?: string;
+          appearance?: string;
+          station?: string;
+        };
       };
     }
   | {

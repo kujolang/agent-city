@@ -177,7 +177,13 @@
                 "tool.execute",
                 "evaluation.run",
                 "agent.handoff",
-                "execution.run"
+                "execution.run",
+                "mcp.call",
+                "dispatch.task",
+                "dispatch.workflow",
+                "artifact.created",
+                "workcell.execute",
+                "relationship.message"
               ]
             },
             "collection": {
@@ -203,6 +209,64 @@
             "relatedAgent": {
               "type": "string",
               "maxLength": 160
+            },
+            "metadata": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "server": {
+                  "type": "string",
+                  "maxLength": 160
+                },
+                "tool": {
+                  "type": "string",
+                  "maxLength": 160
+                },
+                "invocation": {
+                  "type": "string",
+                  "maxLength": 160
+                },
+                "resultCode": {
+                  "type": "string",
+                  "maxLength": 160
+                },
+                "approval": {
+                  "type": "string",
+                  "maxLength": 160
+                },
+                "taskState": {
+                  "type": "string",
+                  "maxLength": 160
+                },
+                "workflowState": {
+                  "type": "string",
+                  "maxLength": 160
+                },
+                "artifactRef": {
+                  "type": "string",
+                  "maxLength": 160
+                },
+                "repoRef": {
+                  "type": "string",
+                  "maxLength": 160
+                },
+                "workcellRef": {
+                  "type": "string",
+                  "maxLength": 160
+                },
+                "relatedInstance": {
+                  "type": "string",
+                  "maxLength": 160
+                },
+                "appearance": {
+                  "type": "string",
+                  "maxLength": 160
+                },
+                "station": {
+                  "type": "string",
+                  "maxLength": 160
+                }
+              }
             }
           }
         }
@@ -383,7 +447,13 @@
                 "tool.execute",
                 "evaluation.run",
                 "agent.handoff",
-                "execution.run"
+                "execution.run",
+                "mcp.call",
+                "dispatch.task",
+                "dispatch.workflow",
+                "artifact.created",
+                "workcell.execute",
+                "relationship.message"
               ]
             },
             "collection": {
@@ -409,6 +479,64 @@
             "relatedAgent": {
               "type": "string",
               "maxLength": 160
+            },
+            "metadata": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "server": {
+                  "type": "string",
+                  "maxLength": 160
+                },
+                "tool": {
+                  "type": "string",
+                  "maxLength": 160
+                },
+                "invocation": {
+                  "type": "string",
+                  "maxLength": 160
+                },
+                "resultCode": {
+                  "type": "string",
+                  "maxLength": 160
+                },
+                "approval": {
+                  "type": "string",
+                  "maxLength": 160
+                },
+                "taskState": {
+                  "type": "string",
+                  "maxLength": 160
+                },
+                "workflowState": {
+                  "type": "string",
+                  "maxLength": 160
+                },
+                "artifactRef": {
+                  "type": "string",
+                  "maxLength": 160
+                },
+                "repoRef": {
+                  "type": "string",
+                  "maxLength": 160
+                },
+                "workcellRef": {
+                  "type": "string",
+                  "maxLength": 160
+                },
+                "relatedInstance": {
+                  "type": "string",
+                  "maxLength": 160
+                },
+                "appearance": {
+                  "type": "string",
+                  "maxLength": 160
+                },
+                "station": {
+                  "type": "string",
+                  "maxLength": 160
+                }
+              }
             }
           }
         }
@@ -589,7 +717,13 @@
                 "tool.execute",
                 "evaluation.run",
                 "agent.handoff",
-                "execution.run"
+                "execution.run",
+                "mcp.call",
+                "dispatch.task",
+                "dispatch.workflow",
+                "artifact.created",
+                "workcell.execute",
+                "relationship.message"
               ]
             },
             "collection": {
@@ -615,6 +749,64 @@
             "relatedAgent": {
               "type": "string",
               "maxLength": 160
+            },
+            "metadata": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "server": {
+                  "type": "string",
+                  "maxLength": 160
+                },
+                "tool": {
+                  "type": "string",
+                  "maxLength": 160
+                },
+                "invocation": {
+                  "type": "string",
+                  "maxLength": 160
+                },
+                "resultCode": {
+                  "type": "string",
+                  "maxLength": 160
+                },
+                "approval": {
+                  "type": "string",
+                  "maxLength": 160
+                },
+                "taskState": {
+                  "type": "string",
+                  "maxLength": 160
+                },
+                "workflowState": {
+                  "type": "string",
+                  "maxLength": 160
+                },
+                "artifactRef": {
+                  "type": "string",
+                  "maxLength": 160
+                },
+                "repoRef": {
+                  "type": "string",
+                  "maxLength": 160
+                },
+                "workcellRef": {
+                  "type": "string",
+                  "maxLength": 160
+                },
+                "relatedInstance": {
+                  "type": "string",
+                  "maxLength": 160
+                },
+                "appearance": {
+                  "type": "string",
+                  "maxLength": 160
+                },
+                "station": {
+                  "type": "string",
+                  "maxLength": 160
+                }
+              }
             }
           }
         }

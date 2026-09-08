@@ -67,7 +67,7 @@ export async function bridgeOnce() {
         const native = {
           schema_version: "watchdog.native-event.v1",
           event_id: key,
-          event_kind: e.kind,
+          event_kind: e.capability ? "internal" : e.kind,
           instantaneous: true,
           trace_id: e.producer_instance + ":" + e.run_id,
           name: e.kind + "." + e.phase,
@@ -109,7 +109,8 @@ export async function bridgeOnce() {
             "kujo.producer.instance": e.producer_instance,
             "kujo.source.occurred_at_ms": e.occurred_at_ms,
             "kujo.capability":
-              e.kind === "retrieval"
+              e.capability ||
+              (e.kind === "retrieval"
                 ? "rag.query"
                 : e.kind === "agent"
                   ? "agent.run"
@@ -119,15 +120,38 @@ export async function bridgeOnce() {
                       ? "evaluation.run"
                       : e.kind === "execution"
                         ? "execution.run"
-                        : "tool.execute",
+                        : "tool.execute"),
             "kujo.lifecycle.outcome": e.outcome,
             "kujo.workspace.id": "local-agent-city",
-            "kujo.collection.id":
-              e.kind === "retrieval" ? "kujo-docs" : "unknown",
+            "kujo.collection.id": e.collection || "unknown",
             "kujo.lifecycle.coverage": "paired",
             "kujo.related.agent": e.related_agent_id || "",
-            "kujo.profile.id": e.profile || "local-documentation-worker",
+            "kujo.profile.id": e.profile || "unknown",
             "kujo.task.binding": e.task_id ? "explicit" : "unknown",
+            ...Object.fromEntries(
+              Object.entries(e.metadata || {})
+                .filter(
+                  ([k, v]) =>
+                    [
+                      "server",
+                      "tool",
+                      "invocation",
+                      "resultCode",
+                      "approval",
+                      "taskState",
+                      "workflowState",
+                      "artifactRef",
+                      "repoRef",
+                      "workcellRef",
+                      "relatedInstance",
+                      "appearance",
+                      "station",
+                    ].includes(k) &&
+                    typeof v === "string" &&
+                    v.length <= 160,
+                )
+                .map(([k, v]) => ["kujo.meta." + k, v]),
+            ),
           },
         };
         await writeFile(

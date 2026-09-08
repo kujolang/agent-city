@@ -5,19 +5,28 @@ from src.watchdog_telemetry import watchdog_evaluation_events
 city_eval_root := env_or("CITY_EVAL_ROOT", "")
 city_eval_spool := env_or("CITY_SPOOL", "")
 city_eval_producer := env_or("CITY_PRODUCER", "")
-city_eval_run := "eval-" + to_string(current_timestamp())
+city_eval_run := env_or("CITY_EVAL_RUN", "eval-" + to_string(current_timestamp()))
+city_attempts := [1, 2]
+if env_or("CITY_EVAL_ATTEMPT", "") != "" { city_attempts = [to_int(env_or("CITY_EVAL_ATTEMPT", "1"))] }
 func city_eval_emit(kind_value, op_value, attempt_value, phase_value, outcome_value) {
-    append_file(city_eval_spool, to_json({"schema": "kujo.lifecycle.v1", "producer_instance": city_eval_producer, "profile": "local-eval-invocation", "run_id": city_eval_run, "agent_id": "verifier", "task_id": city_eval_run + ":three-check-proof", "operation_id": op_value, "attempt": attempt_value, "kind": kind_value, "phase": phase_value, "outcome": outcome_value, "occurred_at_ms": current_timestamp()}) + "\n")
+    try {
+    encoded := to_json({"schema": "kujo.lifecycle.v1", "producer_instance": city_eval_producer, "profile": "local-eval-invocation", "run_id": city_eval_run, "agent_id": "verifier", "task_id": city_eval_run + ":three-check-proof", "operation_id": op_value, "attempt": attempt_value, "kind": kind_value, "phase": phase_value, "outcome": outcome_value, "occurred_at_ms": current_timestamp()}) + "\n"
+    used := 0
+    if file_exists(city_eval_spool) { used = file_size(city_eval_spool) }
+    if used + len(encoded) <= 262144 { append_file(city_eval_spool, encoded) } else { write_file(city_eval_spool+".gap", "overflow", true) }
+    } except err { return false }
+    return true
 }
-city_eval_emit("execution", "invocation", 1, "started", "unset")
+city_eval_emit("execution", "invocation", city_attempts[0], "started", "unset")
 city_eval_results := []
-for city_eval_attempt in [1, 2] {
+for city_eval_attempt in city_attempts {
     city_eval_input := "BROKEN"
     if city_eval_attempt == 2 { city_eval_input = "VERIFIED" }
     write_file(city_eval_root + "/eval-input.txt", city_eval_input, true)
     city_eval_config := {"name": "Agent City three-check proof", "tests": [
         {"name": "schema", "check": "file_exists", "params": {"path": city_eval_root + "/eval-input.txt"}},
         {"name": "content", "check": "file_contains", "params": {"path": city_eval_root + "/eval-input.txt", "expected": "VERIFIED"}},
+        {"name": "skipped", "check":"file_exists", "skip":true, "params":{"path":city_eval_root+"/not-required"}},
         {"name": "policy", "check": "file_does_not_contain", "params": {"path": city_eval_root + "/eval-input.txt", "expected": "SECRET"}}
     ]}
     write_file(city_eval_root + "/eval-suite.json", to_json(city_eval_config), true)
@@ -35,11 +44,12 @@ for city_eval_attempt in [1, 2] {
     for city_eval_item in city_eval_data["test_results"] {
         city_eval_check_outcome := "failed"
         if city_eval_item["passed"] { city_eval_check_outcome = "succeeded" }
+        if city_eval_item["skipped"] { city_eval_check_outcome = "skipped" }
         city_eval_emit("evaluation", city_eval_item["name"], city_eval_attempt, "finished", city_eval_check_outcome)
     }
-    city_eval_results = push(city_eval_results, {"attempt": city_eval_attempt, "passed": city_eval_data["passed"], "failed": city_eval_data["failed"], "total": city_eval_data["total"]})
+    city_eval_results = push(city_eval_results, {"attempt": city_eval_attempt, "passed": city_eval_data["passed"], "failed": city_eval_data["failed"], "total": city_eval_data["total"], "skipped":city_eval_data["skipped"]})
 }
-assert(city_eval_results[0]["failed"] == 1 && city_eval_results[1]["failed"] == 0, "Expected actual failure followed by passing repaired check")
-city_eval_emit("execution", "invocation", 1, "finished", "succeeded")
-write_file(city_eval_root + "/eval-proof.json", to_json({"run_id": city_eval_run, "results": city_eval_results}), true)
+if len(city_attempts)==2 { assert(city_eval_results[0]["failed"] == 1 && city_eval_results[1]["failed"] == 0, "Expected actual failure followed by passing repaired check") }
+city_eval_emit("execution", "invocation", city_attempts[0], "finished", "succeeded")
+write_file(city_eval_root + "/eval-proof-" + to_string(city_attempts[0]) + ".json", to_json({"run_id": city_eval_run, "results": city_eval_results}), true)
 print("Eval failure/repair proof: PASS")

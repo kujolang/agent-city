@@ -108,7 +108,7 @@ export function normalize(
           ? "operation.failed"
           : "operation.finished",
     instance: source + ":" + run.id + ":" + actor.id,
-    profile: a["kujo.profile.id"] || "local-documentation-worker",
+    profile: a["kujo.profile.id"] || "unknown",
     run: { namespace: run.namespace, id: run.id },
     task:
       a["kujo.task.binding"] === "explicit"
@@ -121,6 +121,11 @@ export function normalize(
       collection: a["kujo.collection.id"] ?? "unknown",
       relatedAgent: a["kujo.related.agent"] ?? "",
       outcome,
+      metadata: Object.fromEntries(
+        Object.entries(a)
+          .filter(([k]) => k.startsWith("kujo.meta."))
+          .map(([k, v]) => [k.slice(10), v]),
+      ),
     },
     evidence: [
       {
