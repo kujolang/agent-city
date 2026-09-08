@@ -1,0 +1,13 @@
+{
+  "kind": "REPLAY of retained real model function-check outcomes; no new source execution",
+  "cohorts": [
+    "live-1788878052721-",
+    "live-1788878402902-"
+  ],
+  "browser": "151.0.7922.34",
+  "failedGlyphPixels": 34,
+  "passedGlyphPixels": 32,
+  "sameOrderSnapshotClearsPriorOutcomes": true,
+  "errors": [],
+  "at": "2026-09-08T14:55:09.795Z"
+}

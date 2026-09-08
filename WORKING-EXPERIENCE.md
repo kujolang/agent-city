@@ -221,3 +221,25 @@ DOM-only checks pass. The pinned 47-event semantic replay hash is unchanged.
 This closes the genuine-model MCP proof gap; varied city architecture, richer
 room scenery, broader conversational/task workflows and release hardening remain.
 No eight-hour soak was started; no sibling repositories were changed.
+
+## City architecture and truthful Dojo display
+
+The six plots now have distinct rooftop silhouettes: command tower/antenna,
+columned Library, skylit industrial Workshop, network rack house, tiered Dojo and
+meeting pavilion. Stone embankments, bridge decks, water texture and road paint
+follow the existing cells; portal coordinates and navigation graphs are unchanged.
+Dispatch consoles, empty meeting furniture and cable trays add original room detail.
+These static props do not represent participants, messages or operations.
+
+Dojo outcome display now uses world-core station mapping rather than matching
+literal station names inside operation IDs. This fixes missing function-check
+failure/pass history on the content station. Truth-dependent room backgrounds now
+invalidate on snapshot replacement, including different snapshots with equal order.
+
+`evidence/cityscape/proof.json` and `dojo-real-history.png` verify actual retained
+failed/pass function-check outcomes from the two preceding real-model cohorts.
+The renderer pixel check detects both labels; a clearly separate empty-snapshot
+negative control proves prior outcomes clear even with the same event order.
+This is replay/rendering verification, not a new source execution claim.
+Seven-room browser/keyboard/320px/DOM-only and 35 tests/build pass. Full original
+reference fidelity, conversational/task continuation UX and release gates remain.
