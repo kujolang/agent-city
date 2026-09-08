@@ -20,7 +20,7 @@
     },
     "rendererRecovery": {
       "status": "PASS",
-      "reason": "Recorded context-loss recovery and explicit renderer-init failure DOM fallback."
+      "reason": "Observed lost/restored WebGL context and explicit renderer-init failure DOM fallback; ready flag alone is insufficient."
     },
     "browserZoom": {
       "status": "NOT_QUALIFIED",
@@ -46,7 +46,8 @@
   ],
   "evidencePaths": {
     "stress": "evidence/blockers/stress.json",
-    "browser": "evidence/hardening/browser.json",
+    "browser": "evidence/portrait-app/browser.json",
+    "renderer": "evidence/portrait-app/context-check/browser.json",
     "recovery": "evidence/hardening/recovery.json",
     "pipeline": "evidence/blockers/pipeline.json",
     "continuity": "evidence/blockers/watchdog-continuity.log"

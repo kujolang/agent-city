@@ -16,6 +16,31 @@ const pipeline = {
   duplicates: 0,
 };
 describe("release evidence cannot overclaim qualification", () => {
+  it("requires observed context loss and restoration beyond an initialization flag", () => {
+    const renderer = {
+      contextLoss: {
+        extensionAvailable: true,
+        domUsable: true,
+        rendererReady: true,
+      },
+      initializationFailure: { fallback: "DOM fallback", roster: 3 },
+    };
+    expect(assessRelease({ renderer }).gates.rendererRecovery.status).toBe(
+      "FAIL",
+    );
+    expect(
+      assessRelease({
+        renderer: {
+          ...renderer,
+          contextLoss: {
+            ...renderer.contextLoss,
+            lossObserved: true,
+            contextRestored: true,
+          },
+        },
+      }).gates.rendererRecovery.status,
+    ).toBe("PASS");
+  });
   it("keeps cancelled long-duration coverage unqualified even with passing throughput", () => {
     const result = assessRelease({ stress, pipeline });
     expect(result.gates.journalThroughput.status).toBe("PASS");

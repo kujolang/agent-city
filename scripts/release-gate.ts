@@ -2,7 +2,8 @@ import { readFile, writeFile } from "node:fs/promises";
 import { assessRelease } from "./release-assessment.ts";
 const paths = {
   stress: "evidence/blockers/stress.json",
-  browser: "evidence/hardening/browser.json",
+  browser: "evidence/portrait-app/browser.json",
+  renderer: "evidence/portrait-app/context-check/browser.json",
   recovery: "evidence/hardening/recovery.json",
   pipeline: "evidence/blockers/pipeline.json",
   continuity: "evidence/blockers/watchdog-continuity.log",

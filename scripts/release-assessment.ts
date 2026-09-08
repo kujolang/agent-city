@@ -8,10 +8,12 @@ export function assessRelease(input: {
   stress?: RecordData;
   pipeline?: RecordData;
   browser?: RecordData;
+  renderer?: RecordData;
   recovery?: RecordData;
   continuity?: string;
 }) {
   const { stress: s, pipeline: p, browser: b, recovery: r } = input;
+  const gpu = input.renderer ?? b;
   const measured = (data: unknown, pass: boolean, reason: string): Gate => ({
     status: data == null ? "NOT_QUALIFIED" : pass ? "PASS" : "FAIL",
     reason,
@@ -62,14 +64,16 @@ export function assessRelease(input: {
       "Recorded Chromium DPR, narrow viewport, keyboard, reduced-motion and replay cases; not a blanket browser certification.",
     ),
     rendererRecovery: measured(
-      b,
-      b?.contextLoss?.extensionAvailable === true &&
-        b?.contextLoss?.domUsable === true &&
-        b?.contextLoss?.rendererReady === true &&
-        typeof b?.initializationFailure?.fallback === "string" &&
-        b.initializationFailure.fallback.length > 0 &&
-        atLeast(b?.initializationFailure?.roster, 1),
-      "Recorded context-loss recovery and explicit renderer-init failure DOM fallback.",
+      gpu,
+      gpu?.contextLoss?.extensionAvailable === true &&
+        gpu?.contextLoss?.lossObserved === true &&
+        gpu?.contextLoss?.contextRestored === true &&
+        gpu?.contextLoss?.domUsable === true &&
+        gpu?.contextLoss?.rendererReady === true &&
+        typeof gpu?.initializationFailure?.fallback === "string" &&
+        gpu.initializationFailure.fallback.length > 0 &&
+        atLeast(gpu?.initializationFailure?.roster, 1),
+      "Observed lost/restored WebGL context and explicit renderer-init failure DOM fallback; ready flag alone is insufficient.",
     ),
     browserZoom: {
       status: "NOT_QUALIFIED",

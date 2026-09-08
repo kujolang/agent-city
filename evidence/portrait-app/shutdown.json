@@ -1,0 +1,26 @@
+[
+  {
+    "port": 35178,
+    "available": true
+  },
+  {
+    "port": 38791,
+    "available": true
+  },
+  {
+    "port": 37791,
+    "available": true
+  },
+  {
+    "port": 37792,
+    "available": true
+  },
+  {
+    "port": 37793,
+    "available": true
+  },
+  {
+    "port": 38931,
+    "available": true
+  }
+]

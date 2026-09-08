@@ -1,15 +1,31 @@
+import { execFileSync } from "node:child_process";
+import { localChromiumPath } from "../apps/runner/browser-path";
 import { chromium } from "@playwright/test";
 import { mkdir, writeFile, readFile } from "node:fs/promises";
 import { performance } from "node:perf_hooks";
 import assert from "node:assert/strict";
-const executablePath =
-  process.env.CHROMIUM_PATH ||
-  "/Users/robertdevore/Library/Caches/ms-playwright/chromium_headless_shell-1234/chrome-headless-shell-mac-x64/chrome-headless-shell";
-await mkdir("evidence/hardening", { recursive: true });
+const executablePath = await localChromiumPath();
+const base = process.env.CITY_BROWSER_URL || "http://127.0.0.1:5178";
+const out = process.env.CITY_BROWSER_OUTPUT || "evidence/hardening";
+await mkdir(out, { recursive: true });
 const browser = await chromium.launch({ headless: true, executablePath });
-const results: any = { browser: browser.version(), cases: [], errors: [] };
+const results: any = {
+  browser: browser.version(),
+  source: execFileSync("git", ["rev-parse", "HEAD"], {
+    encoding: "utf8",
+  }).trim(),
+  at: new Date().toISOString(),
+  cases: [],
+  errors: [],
+};
+const deadline = setTimeout(() => {
+  void browser.close();
+  process.exitCode = 1;
+}, 90000);
 try {
-  for (const dpr of [1, 1.25, 2]) {
+  for (const dpr of process.env.CITY_BROWSER_CONTEXT_ONLY === "1"
+    ? [1]
+    : [1, 1.25, 2]) {
     const context = await browser.newContext({
       deviceScaleFactor: dpr,
       viewport: { width: dpr === 2 ? 320 : 1280, height: 1000 },
@@ -17,7 +33,7 @@ try {
     });
     const page = await context.newPage();
     page.on("pageerror", (e) => results.errors.push(e.message));
-    await page.goto("http://127.0.0.1:5178");
+    await page.goto(base);
     await page.waitForSelector("#roster button");
     await page.locator("#roster button").first().focus();
     await page.keyboard.press("Enter");
@@ -33,6 +49,7 @@ try {
     const overflow = await page.evaluate(
       () => document.documentElement.scrollWidth > innerWidth,
     );
+    assert.equal(overflow, false, "Application overflows viewport");
     await page.locator("#archive summary").click();
     await page.locator("#archive-refresh").click();
     await page.waitForSelector("#archive-run option", { state: "attached" });
@@ -47,7 +64,7 @@ try {
       order,
     );
     await page.screenshot({
-      path: `evidence/hardening/replay-dpr-${dpr}.png`,
+      path: `${out}/replay-dpr-${dpr}.png`,
       fullPage: true,
     });
     await page.locator("#archive-live").click();
@@ -87,12 +104,40 @@ try {
         const ext = gl?.getExtension("WEBGL_lose_context");
         if (!ext) return false;
         ext.loseContext();
-        setTimeout(() => ext.restoreContext(), 250);
+        (window as any).cityLossExtension = ext;
         return true;
       });
-      await page.waitForTimeout(700);
+      assert(loss, "WebGL context-loss extension unavailable");
+      await page.waitForFunction(
+        () => {
+          const c = document.querySelector("canvas");
+          const gl = c?.getContext("webgl2") || c?.getContext("webgl");
+          return gl?.isContextLost() === true;
+        },
+        null,
+        { timeout: 5000, polling: 100 },
+      );
+      await page.evaluate(() =>
+        (window as any).cityLossExtension.restoreContext(),
+      );
+      await page.waitForFunction(
+        () => {
+          const c = document.querySelector("canvas");
+          const gl = c?.getContext("webgl2") || c?.getContext("webgl");
+          return gl?.isContextLost() === false;
+        },
+        null,
+        { timeout: 5000, polling: 100 },
+      );
+      await page.waitForTimeout(250);
+      await page.screenshot({
+        path: out + "/context-restored.png",
+        fullPage: true,
+      });
       results.contextLoss = {
         extensionAvailable: loss,
+        lossObserved: true,
+        contextRestored: true,
         domUsable: (await page.locator("#roster button").count()) > 0,
         rendererReady: await page.evaluate(
           () => (window as any).agentCity.rendererReady,
@@ -101,10 +146,9 @@ try {
     }
     await context.close();
   }
-  const noGPU = await chromium.launch({ headless: true, executablePath });
-  const context = await noGPU.newContext();
+  const context = await browser.newContext();
   const page = await context.newPage();
-  await page.goto("http://127.0.0.1:5178?renderer=off");
+  await page.goto(base + "?renderer=off");
   await page.waitForSelector("#roster button");
   assert.equal(await page.locator("canvas").count(), 0);
   results.initializationFailure = {
@@ -114,16 +158,14 @@ try {
     roster: await page.locator("#roster button").count(),
   };
   await page.screenshot({
-    path: "evidence/hardening/renderer-fallback.png",
+    path: out + "/renderer-fallback.png",
     fullPage: true,
   });
   await context.close();
-  await noGPU.close();
+  assert.deepEqual(results.errors, []);
 } finally {
+  clearTimeout(deadline);
   await browser.close();
-  await writeFile(
-    "evidence/hardening/browser.json",
-    JSON.stringify(results, null, 2),
-  );
+  await writeFile(out + "/browser.json", JSON.stringify(results, null, 2));
 }
 console.log(JSON.stringify(results, null, 2));
