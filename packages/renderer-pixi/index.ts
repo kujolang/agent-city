@@ -115,6 +115,7 @@ export class CityRenderer {
       resolution: 1,
       autoDensity: false,
       roundPixels: true,
+      autoStart: false,
     });
     host.append(this.app.canvas);
     this.app.stage.addChild(this.layer);
@@ -171,10 +172,15 @@ export class CityRenderer {
         hit.on("pointertap", () => this.onBuilding(o.id));
         this.actors.addChild(hit);
       }
-    for (const [index, w] of Object.values(p.walkers)
+    const allWalkers = Object.values(p.walkers);
+    const aggregate = allWalkers.length > 25;
+    if (aggregate)
+      text(g, "AGGREGATE " + allWalkers.length + " INSTANCES", 8, 198, C.gold);
+    for (const [index, w] of allWalkers
       .sort((a, b) => a.id.localeCompare(b.id))
       .entries()) {
       if (w.scene !== this.scene) continue;
+      if (aggregate && w.id !== this.selected && w.id !== this.follow) continue;
       const actor = new Graphics(),
         selected = w.id === this.selected,
         offset = 0;
@@ -255,6 +261,7 @@ export class CityRenderer {
       C.white,
     );
     text(g, "P1", 236, 227, C.gold);
+    this.app.render();
   }
   private city(g: Graphics, tick: number) {
     const m = world.maps.city;

@@ -1,3 +1,4 @@
+import { archiveUI } from "./archive";
 import "./style.css";
 import { appearance } from "../../packages/renderer-pixi/appearance";
 import { CityRenderer } from "../../packages/renderer-pixi/index";
@@ -20,7 +21,9 @@ import {
 import { validateEvent, type CityEvent } from "../../packages/protocol/index";
 const $ = (s: string) => document.querySelector(s) as HTMLElement;
 $("#app").innerHTML =
-  `<header><div><h1>KUJO / AGENT CITY</h1><small>LOCAL OBSERVER · PHASE 1 / OBSERVER</small></div><div class="status" id="health">UNKNOWN</div></header><main><section><div class="world"><div class="strip"><span id="scene">CITY / OVERWORLD</span><span>256 × 240 · WEBGL</span></div><div id="canvas"></div><div id="notice">Connecting to canonical telemetry…</div><nav><button data-scene="city">City</button><button data-scene="workshop">Workshop</button><button data-scene="library">Library</button><button data-scene="mcp">MCP Terminal</button><button data-scene="dojo">Dojo</button><button data-scene="dispatch">Dispatch HQ</button><button data-scene="meeting">Meeting / Handoff</button><button id="pause">Pause animation</button></nav><section id="building" aria-label="Building inspector"></section></div><h3>OBSERVED EXECUTIONS</h3><label>Roster <select id="filter"><option value="all">All instances</option><option value="active">Active operations</option><option value="failed">Failure history</option><option value="completed">Completed executions</option></select></label><div class="roster" id="roster"></div><p class="muted">Original geometric Kujo artwork. Only observed execution instances appear. Offline model fixture; actual SDK execution and local RAG retrieval.</p><h3>CANONICAL ACTIVITY</h3><ul class="log" id="log"></ul></section><aside><h2>EXECUTION INSPECTOR</h2><p id="selection" class="muted">Select an observed execution.</p><button id="follow">Follow selected instance</button><h3>CURRENT TRUTH</h3><div class="truth" id="truth">UNKNOWN</div><dl id="details"></dl><h3>VISUAL ACTIVITY</h3><div class="label" id="visual">UNKNOWN</div><h3>OPERATIONS / ATTEMPTS</h3><div id="operations"></div><h3>EVIDENCE REFERENCES</h3><div class="evidence" id="evidence">UNKNOWN</div></aside></main><footer><span>READ-ONLY · No task assignment, chat, stop or tool controls.</span><span>Truth is immediate. Presentation is evidence-linked.</span></footer><dialog><button id="close">Close evidence</button><pre id="record"></pre></dialog>`;
+  `<header><div><h1>KUJO / AGENT CITY</h1><small>LOCAL OBSERVER · PHASE 1 / OBSERVER</small></div><div class="status" id="health">UNKNOWN</div></header><main><section><div class="world"><div class="strip"><span id="scene">CITY / OVERWORLD</span><span>256 × 240 · WEBGL</span></div><div id="canvas"></div><div id="notice">Connecting to canonical telemetry…</div><nav><button data-scene="city">City</button><button data-scene="workshop">Workshop</button><button data-scene="library">Library</button><button data-scene="mcp">MCP Terminal</button><button data-scene="dojo">Dojo</button><button data-scene="dispatch">Dispatch HQ</button><button data-scene="meeting">Meeting / Handoff</button><button id="pause">Pause animation</button></nav><section id="building" aria-label="Building inspector"></section></div><h3>OBSERVED EXECUTIONS</h3><label>Roster <select id="filter"><option value="all">All instances</option><option value="active">Active operations</option><option value="failed">Failure history</option><option value="completed">Completed executions</option></select></label><div class="roster" id="roster"></div><p class="muted">Original geometric Kujo artwork. Only observed execution instances appear. Offline model fixture; actual SDK execution and local RAG retrieval.</p><details id="archive"><summary>ARCHIVE / REPLAY / INCIDENTS</summary><section id="archive-body"></section></details><h3>CANONICAL ACTIVITY</h3><ul class="log" id="log"></ul></section><aside><h2>EXECUTION INSPECTOR</h2><p id="selection" class="muted">Select an observed execution.</p><button id="follow">Follow selected instance</button><h3>CURRENT TRUTH</h3><div class="truth" id="truth">UNKNOWN</div><dl id="details"></dl><h3>VISUAL ACTIVITY</h3><div class="label" id="visual">UNKNOWN</div><h3>OPERATIONS / ATTEMPTS</h3><div id="operations"></div><h3>EVIDENCE REFERENCES</h3><div class="evidence" id="evidence">UNKNOWN</div></aside></main><footer><span>READ-ONLY · No task assignment, chat, stop or tool controls.</span><span>Truth is immediate. Presentation is evidence-linked.</span></footer><dialog><button id="close">Close evidence</button><pre id="record"></pre></dialog>`;
+let replayMode = false;
+let rendererReady = false;
 let truth = initialTruth(),
   presentation = initialPresentation(),
   selected: string | null = null,
@@ -48,7 +51,18 @@ function building(id: string) {
   renderDOM();
 }
 try {
+  if (new URLSearchParams(location.search).get("renderer") === "off")
+    throw Error("Local DOM-only presentation requested");
   await renderer.init($("#canvas"), choose, building);
+  rendererReady = true;
+  renderer.app.canvas.addEventListener("webglcontextlost", () => {
+    rendererReady = false;
+    $("#notice").textContent =
+      "WebGL context lost; DOM truth remains available.";
+  });
+  renderer.app.canvas.addEventListener("webglcontextrestored", () => {
+    rendererReady = true;
+  });
   new ResizeObserver(() => {
     const scale = Math.max(
       1,
@@ -60,10 +74,11 @@ try {
   }).observe($("#canvas"));
 } catch {
   $("#canvas").textContent =
-    "WebGL unavailable. Current truth and evidence remain available below.";
+    "Rendering disabled or unavailable. Current truth and evidence remain available below.";
 }
 function renderDOM() {
-  $("#health").textContent = health + (truth.gap ? " · PARTIAL COVERAGE" : "");
+  $("#health").textContent =
+    (replayMode ? "REPLAY" : health) + (truth.gap ? " · PARTIAL COVERAGE" : "");
   $("#scene").textContent =
     renderer.scene.toUpperCase() +
     " / " +
@@ -285,6 +300,7 @@ document.querySelectorAll<HTMLButtonElement>("[data-scene]").forEach(
     }),
 );
 async function connect() {
+  if (replayMode) return;
   stream?.close();
   const r = await fetch("/api/world/snapshot");
   if (!r.ok) throw Error("gateway unavailable");
@@ -317,7 +333,7 @@ async function connect() {
       truth = reduceTruth(truth, e);
       presentation = plan(presentation, e);
       events = [...events, e].slice(-2000);
-      renderDOM();
+      if (!document.hidden) renderDOM();
     } catch {
       health = "UNKNOWN";
       stream?.close();
@@ -340,6 +356,7 @@ try {
   renderDOM();
 }
 setInterval(async () => {
+  if (replayMode) return;
   try {
     const r = await fetch("/api/world/snapshot");
     if (!r.ok) throw Error();
@@ -353,15 +370,59 @@ setInterval(async () => {
   renderDOM();
 }, 1000);
 setInterval(() => {
+  if (document.hidden) return;
   if (!paused) presentation = advance(presentation, truth);
   if (renderer.follow) {
     const a = truth.agents[renderer.follow],
       w = presentation.walkers[renderer.follow];
     if (followComplete(w, a)) renderer.follow = null;
   }
-  if (renderer.app.renderer) renderer.draw(presentation, truth, health);
+  if (rendererReady) {
+    try {
+      renderer.draw(presentation, truth, replayMode ? "REPLAY" : health);
+    } catch {
+      rendererReady = false;
+      $("#canvas").textContent =
+        "Renderer unavailable. DOM truth remains available.";
+    }
+  }
   if (presentation.tick % 4 === 0) renderDOM();
 }, 50);
+archiveUI(
+  $("#archive-body"),
+  (bundle) => {
+    replayMode = true;
+    stream?.close();
+    stream = null;
+    truth = bundle.snapshot;
+    events = bundle.events;
+    presentation = initialPresentation();
+    for (const e of events) presentation = plan(presentation, e);
+    health = "REPLAY";
+    selected = null;
+    renderer.selected = null;
+    renderer.follow = null;
+    rosterKey = operationKey = evidenceKey = "";
+    renderDOM();
+  },
+  () => {
+    replayMode = false;
+    presentation = initialPresentation();
+    void connect().catch(() => {
+      health = "STALE";
+      renderDOM();
+    });
+  },
+);
+document.addEventListener("visibilitychange", () => {
+  if (!document.hidden && !replayMode) {
+    presentation = initialPresentation();
+    void connect().catch(() => {
+      health = "STALE";
+      renderDOM();
+    });
+  }
+});
 // Read-only diagnostics for deterministic browser assertions; no source mutation.
 Object.defineProperty(window, "agentCity", {
   get: () => ({
@@ -372,5 +433,8 @@ Object.defineProperty(window, "agentCity", {
     follow: renderer.follow,
     health,
     paused,
+    replayMode,
+    rendererReady,
+    rendererObjects: rendererReady ? renderer.app.stage.children.length : 0,
   }),
 });
