@@ -128,7 +128,7 @@ export function mountMissions(host: HTMLElement) {
               output.textContent =
                 (artifact.kind === "code"
                   ? `SYNTAX: ${artifact.validation?.syntax?.toUpperCase() || "UNKNOWN"} · FUNCTIONAL TESTS: ${(artifact.validation?.functionalTests || "not-run").toUpperCase()} · ${artifact.codeExecuted === null ? "EXECUTION COVERAGE UNKNOWN" : artifact.codeExecuted ? "EXECUTED IN ISOLATED BROWSER" : "CODE NOT EXECUTED"}\n${artifact.validation?.fenceRemoved ? "Outer Markdown fence removed; original response retained above.\n" : ""}\n`
-                  : "MODEL-REVIEWED TEXT · FACTUAL ACCURACY NOT VERIFIED\n\n") +
+                  : "MODEL-REVIEWED TEXT · FACTUAL ACCURACY AND TASK CONSTRAINTS NOT VERIFIED\n\n") +
                 artifact.content +
                 (artifact.functional
                   ? "\n\nFUNCTION CHECKS\n" +
