@@ -104,3 +104,25 @@ test("checkpoints detect altered snapshots before serving truth", () => {
   expect(() => new Journal(path)).toThrow("Checkpoint checksum");
   rmSync(dir, { recursive: true });
 });
+
+test("batched reduction matches individual events across gaps, duplicates and attempts without mutating inputs", async () => {
+  const { reduceMany } = await import("../packages/world-core/index");
+  const sequence = [
+    ...events,
+    ...events.map((e, i) => ({
+      ...e,
+      eventId: "next-" + i,
+      order: events.length + i + 1,
+    })),
+  ];
+  const initial = initialTruth(),
+    before = sha(initial);
+  const individual = sequence.reduce(reduceTruth, initial);
+  for (const size of [1, 7, 25, 100]) {
+    let state = initial;
+    for (let i = 0; i < sequence.length; i += size)
+      state = reduceMany(state, sequence.slice(i, i + size));
+    expect(sha(state)).toBe(sha(individual));
+  }
+  expect(sha(initial)).toBe(before);
+});

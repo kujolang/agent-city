@@ -1,0 +1,22 @@
+{
+  "kind": "SYNTHETIC canonical HTTP intake → real Watchdog export → real gateway → SSE; no source business execution",
+  "offeredRate": 1100,
+  "accepted": 2200,
+  "visible": 2200,
+  "duplicates": 0,
+  "missing": 0,
+  "sendSeconds": 32.771770716,
+  "totalSeconds": 32.873362457,
+  "visibleEventsPerSecond": 66.92348562997503,
+  "intakeMs": {
+    "p50": 1485.146501999996,
+    "p95": 1534.1299099999997
+  },
+  "sourceHealth": {
+    "status": "LIVE",
+    "gap": false,
+    "lastSuccess": 1788866623369,
+    "lastError": "",
+    "coverage": "SDK run/retrieval/tool/handoff and Eval invocation/check results; retained local journal; reconnect history partial"
+  }
+}

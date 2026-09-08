@@ -3,7 +3,8 @@ import { readFile, mkdir, writeFile, stat } from "node:fs/promises";
 import { performance } from "node:perf_hooks";
 import type { CityEvent } from "../packages/protocol/index";
 await mkdir(".runtime", { recursive: true });
-await mkdir("evidence/hardening", { recursive: true });
+const output = process.env.CITY_EVIDENCE_DIR || "evidence/hardening";
+await mkdir(output, { recursive: true });
 const fixture: CityEvent[] = (
   await readFile("tests/fixtures/phase1-observations.jsonl", "utf8")
 )
@@ -17,7 +18,7 @@ const template = fixture.find(
     e.type === "operation.finished",
 )!;
 const duration = Number(process.env.STRESS_SECONDS || 60),
-  rate = 1000;
+  rate = Number(process.env.STRESS_RATE || 1100);
 const dbPath = ".runtime/stress-" + Date.now() + ".sqlite";
 const j = new Journal(dbPath);
 const start = performance.now(),
@@ -27,9 +28,9 @@ const start = performance.now(),
 let accepted = 0;
 let deadline = start;
 for (let sec = 0; sec < duration; sec++) {
-  for (let batch = 0; batch < 10; batch++) {
+  for (let batch = 0; batch < rate / 100; batch++) {
     const events = Array.from({ length: 100 }, (_, n) => {
-      const i = sec * 1000 + batch * 100 + n;
+      const i = sec * rate + batch * 100 + n;
       const actor = i % 25;
       if (!("operation" in template)) throw Error("fixture");
       return {
@@ -48,7 +49,7 @@ for (let sec = 0; sec < duration; sec++) {
     const t = performance.now();
     accepted += j.append(events).length;
     latencies.push(performance.now() - t);
-    deadline += 100;
+    deadline += 100000 / rate;
     await new Promise((r) =>
       setTimeout(r, Math.max(0, deadline - performance.now())),
     );
@@ -88,10 +89,7 @@ const result = {
     "Only bounded 25-instance journal projection workload",
   ],
 };
-await writeFile(
-  "evidence/hardening/stress.json",
-  JSON.stringify(result, null, 2),
-);
+await writeFile(output + "/stress.json", JSON.stringify(result, null, 2));
 console.log(
   JSON.stringify({ ...result, samples: [samples[0], samples.at(-1)] }, null, 2),
 );

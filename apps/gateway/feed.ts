@@ -56,8 +56,35 @@ export function validatePage(
     throw Error("manifest sequence mismatch");
   return {
     rows,
+    manifest,
     retentionGap,
     next: manifest.next_cursor as string,
     sequence: previous,
   };
+}
+
+export function continuity(
+  manifest: any,
+  prior: { epoch: string; sequence: number; anchor: string },
+) {
+  if (
+    typeof manifest.store_epoch !== "string" ||
+    !/^[a-f0-9]{32}$/.test(manifest.store_epoch) ||
+    !Number.isSafeInteger(manifest.store_last_sequence) ||
+    !Number.isSafeInteger(manifest.retained_first_sequence) ||
+    manifest.store_last_sequence < 0 ||
+    manifest.retained_first_sequence < 0 ||
+    manifest.retained_first_sequence > manifest.store_last_sequence ||
+    typeof manifest.cursor_anchor !== "string" ||
+    typeof manifest.next_anchor !== "string"
+  )
+    throw Error("Watchdog continuity metadata unavailable");
+  if (prior.epoch && manifest.store_epoch !== prior.epoch) return "replacement";
+  if (prior.sequence > manifest.store_last_sequence) return "rollback";
+  if (
+    prior.sequence &&
+    (!prior.epoch || manifest.cursor_anchor !== prior.anchor)
+  )
+    return "anchor";
+  return null;
 }

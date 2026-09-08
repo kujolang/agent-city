@@ -1,7 +1,7 @@
 import { receipts } from "./receipts";
 import { Journal, sha } from "./journal";
 import { CORE_VERSION } from "../../packages/world-core/replay";
-import { boundedText, validatePage } from "./feed";
+import { boundedText, validatePage, continuity } from "./feed";
 import { createServer, type ServerResponse } from "node:http";
 import { DatabaseSync } from "node:sqlite";
 import { mkdir, readFile } from "node:fs/promises";
@@ -15,7 +15,7 @@ import {
 } from "../../packages/world-core/index";
 import { validateEvent, type CityEvent } from "../../packages/protocol/index";
 const root = resolve(import.meta.dirname, "../.."),
-  runtime = resolve(root, ".runtime");
+  runtime = resolve(root, process.env.CITY_RUNTIME_DIR || ".runtime");
 await mkdir(runtime, { recursive: true });
 const sourcePrefix = process.env.CITY_SOURCE_PREFIX || "";
 const journal = new Journal(
@@ -43,6 +43,8 @@ const versions = {
   ),
 };
 let sourceSequence = Number(get("sourceSequence") || 0);
+let sourceEpoch = get("sourceEpoch") || "",
+  sourceAnchor = get("sourceAnchor") || "";
 let sourceCursor = get("sourceCursor") || "",
   lastSuccess = 0,
   lastError = "",
@@ -64,12 +66,21 @@ function store(
   events: CityEvent[],
   nextCursor?: string,
   nextSequence?: number,
+  identity?: { epoch: string; anchor: string },
 ) {
   const metadata: Record<string, string> = {};
   if (nextCursor !== undefined) metadata.sourceCursor = nextCursor;
   if (nextSequence !== undefined)
     metadata.sourceSequence = String(nextSequence);
+  if (identity) {
+    metadata.sourceEpoch = identity.epoch;
+    metadata.sourceAnchor = identity.anchor;
+  }
   const accepted = journal.append(events, metadata);
+  if (identity) {
+    sourceEpoch = identity.epoch;
+    sourceAnchor = identity.anchor;
+  }
   state = journal.state;
   if (nextCursor !== undefined) sourceCursor = nextCursor;
   if (nextSequence !== undefined) sourceSequence = nextSequence;
@@ -116,7 +127,7 @@ async function poll() {
       (await readFile(resolve(runtime, "token"), "utf8"));
     const res = await fetch(
       (process.env.WATCHDOG_URL || "http://127.0.0.1:7791") +
-        "/telemetry/v2/jsonl?limit=100&cursor=" +
+        "/telemetry/v2/jsonl?limit=200&cursor=" +
         sourceCursor.replace(/[^a-zA-Z0-9:]/g, (c) => encodeURIComponent(c)),
       {
         headers: { authorization: "Bearer " + token },
@@ -138,7 +149,25 @@ async function poll() {
       res.headers,
       sourceSequence,
     );
-    backlog = page.rows.length >= 100;
+    const discontinuity = continuity(page.manifest, {
+      epoch: sourceEpoch,
+      sequence: sourceSequence,
+      anchor: sourceAnchor,
+    });
+    if (discontinuity) {
+      store([healthEvent("source.gap", "schema")], "", 0, {
+        epoch: page.manifest.store_epoch,
+        anchor: "",
+      });
+      gap = true;
+      lastError = "Explicit source continuity reset: " + discontinuity;
+      return;
+    }
+    const identity = {
+      epoch: page.manifest.store_epoch,
+      anchor: page.manifest.next_anchor,
+    };
+    backlog = page.rows.length >= 200;
     const events: CityEvent[] = [];
     if (page.retentionGap) events.push(healthEvent("source.gap", "schema"));
     for (const w of page.rows) {
@@ -176,14 +205,14 @@ async function poll() {
     } catch {}
     if (!bridgeHealthy) {
       if (!gap) events.push(healthEvent("source.gap", "disconnect"));
-      store(events, page.next, page.sequence);
+      store(events, page.next, page.sequence, identity);
       gap = true;
       lastSuccess = Date.now();
       lastError = "Local observation bridge is stale or unavailable";
       return;
     }
     if (gap) events.unshift(healthEvent("source.reconciled", "reconciled"));
-    store(events, page.next, page.sequence);
+    store(events, page.next, page.sequence, identity);
     gap = false;
     lastSuccess = Date.now();
     lastError = "";

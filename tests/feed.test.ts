@@ -37,3 +37,22 @@ it("cancels oversized pages before retaining the complete body", async () => {
     "byte limit",
   );
 });
+
+it("requires owner store identity and detects replacement, rollback and missing/changed anchors", async () => {
+  const { continuity } = await import("../apps/gateway/feed");
+  const m = {
+    store_epoch: "a".repeat(32),
+    retained_first_sequence: 1,
+    store_last_sequence: 10,
+    cursor_anchor: "record-hash",
+    next_anchor: "next",
+  };
+  const p = { epoch: m.store_epoch, sequence: 5, anchor: "record-hash" };
+  expect(continuity(m, p)).toBeNull();
+  expect(continuity({ ...m, store_epoch: "b".repeat(32) }, p)).toBe(
+    "replacement",
+  );
+  expect(continuity({ ...m, store_last_sequence: 4 }, p)).toBe("rollback");
+  expect(continuity({ ...m, cursor_anchor: "" }, p)).toBe("anchor");
+  expect(() => continuity({}, p)).toThrow("metadata unavailable");
+});

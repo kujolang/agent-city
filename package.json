@@ -31,7 +31,8 @@
     "proof:hardening": "tsx scripts/browser-hardening.ts",
     "soak": "tsx scripts/scale-soak.ts",
     "replay": "tsx scripts/replay.ts",
-    "gate": "tsx scripts/release-gate.ts"
+    "gate": "tsx scripts/release-gate.ts",
+    "proof:pipeline": "tsx scripts/pipeline-blockers.ts"
   },
   "dependencies": {
     "ajv": "8.20.0",

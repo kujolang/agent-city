@@ -4,6 +4,7 @@ import { validateEvent, type CityEvent } from "../../packages/protocol/index";
 import {
   initialTruth,
   reduceTruth,
+  reduceMany,
   type Truth,
 } from "../../packages/world-core/index";
 import {
@@ -58,7 +59,7 @@ export class Journal {
     try {
       for (const raw of input) {
         validateEvent(raw);
-        const event = { ...raw, order: next.order + 1 };
+        const event = { ...raw, order: this.state.order + accepted.length + 1 };
         const hash = sha({ ...event, order: 0, observedAt: 0 });
         const old = find.get(event.eventId) as
           | { hash: string; body: string }
@@ -71,14 +72,15 @@ export class Journal {
             throw Error("record identity conflict");
           continue;
         }
-        if (next.order >= this.quota)
+        if (event.order > this.quota)
           throw Error(
             "Journal quota reached; ingestion paused, evidence retained",
           );
-        next = reduceTruth(next, event);
+
         insert.run(event.order, event.eventId, hash, JSON.stringify(event));
         accepted.push(event);
       }
+      next = reduceMany(this.state, accepted);
       if (
         Math.floor(next.order / 1000) !== Math.floor(this.state.order / 1000)
       ) {

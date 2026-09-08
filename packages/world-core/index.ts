@@ -48,14 +48,36 @@ export const initialTruth = (): Truth => ({
   order: 0,
 });
 export function reduceTruth(state: Truth, e: CityEvent): Truth {
-  if (state.seen.includes(e.eventId)) return state;
-  const s: Truth = { ...state, agents: { ...state.agents }, seen: state.seen };
-  if ("instance" in e && s.agents[e.instance])
-    s.agents[e.instance] = {
-      ...s.agents[e.instance],
-      operations: { ...s.agents[e.instance].operations },
-    };
-  s.seen = [...s.seen, e.eventId].slice(-2000);
+  return reduceMany(state, [e]);
+}
+/** Batch copy-on-write: clone each touched agent map once, retaining event-order semantics. */
+export function reduceMany(state: Truth, events: CityEvent[]): Truth {
+  const s: Truth = {
+    ...state,
+    agents: { ...state.agents },
+    seen: [...state.seen],
+  };
+  const seen = new Set(s.seen),
+    touched = new Set<string>();
+  let changed = false;
+  for (const e of events) {
+    if (seen.has(e.eventId)) continue;
+    changed = true;
+    if ("instance" in e && s.agents[e.instance] && !touched.has(e.instance)) {
+      s.agents[e.instance] = {
+        ...s.agents[e.instance],
+        operations: { ...s.agents[e.instance].operations },
+      };
+      touched.add(e.instance);
+    }
+    s.seen.push(e.eventId);
+    seen.add(e.eventId);
+    if (s.seen.length > 2000) seen.delete(s.seen.shift()!);
+    applyObservation(s, e);
+  }
+  return changed ? s : state;
+}
+function applyObservation(s: Truth, e: CityEvent): Truth {
   s.order = e.order;
   if (e.type === "source.gap") {
     s.gap = true;

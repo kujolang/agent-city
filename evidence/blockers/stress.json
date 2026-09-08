@@ -1,0 +1,383 @@
+{
+  "kind": "SYNTHETIC; direct production Journal API, not Watchdog HTTP or browser",
+  "targetRate": 1100,
+  "durationSeconds": 60.170150611,
+  "accepted": 66000,
+  "count": 66000,
+  "dropped": 0,
+  "eventsPerSecond": 1096.8893933254376,
+  "batch100Ms": {
+    "p50": 35.17689000000246,
+    "p95": 261.1661690000001
+  },
+  "cpuSeconds": 38.424541,
+  "sqliteBytes": 73052160,
+  "semanticHash": "863032ee3c211e6360a2319e1edc90fb26311c1ebbe24290b71abbd8a68f66a3",
+  "samples": [
+    {
+      "second": 1,
+      "heap": 19500104,
+      "rss": 109428736,
+      "order": 1100
+    },
+    {
+      "second": 2,
+      "heap": 20644808,
+      "rss": 116305920,
+      "order": 2200
+    },
+    {
+      "second": 3,
+      "heap": 25841392,
+      "rss": 141017088,
+      "order": 3300
+    },
+    {
+      "second": 4,
+      "heap": 29234072,
+      "rss": 148418560,
+      "order": 4400
+    },
+    {
+      "second": 5,
+      "heap": 22342936,
+      "rss": 189124608,
+      "order": 5500
+    },
+    {
+      "second": 6,
+      "heap": 54735088,
+      "rss": 201592832,
+      "order": 6600
+    },
+    {
+      "second": 7,
+      "heap": 59602016,
+      "rss": 204103680,
+      "order": 7700
+    },
+    {
+      "second": 8,
+      "heap": 53116792,
+      "rss": 270610432,
+      "order": 8800
+    },
+    {
+      "second": 9,
+      "heap": 44698960,
+      "rss": 278814720,
+      "order": 9900
+    },
+    {
+      "second": 10,
+      "heap": 102271952,
+      "rss": 315068416,
+      "order": 11000
+    },
+    {
+      "second": 11,
+      "heap": 91689536,
+      "rss": 323674112,
+      "order": 12100
+    },
+    {
+      "second": 12,
+      "heap": 20714800,
+      "rss": 329924608,
+      "order": 13200
+    },
+    {
+      "second": 13,
+      "heap": 81802984,
+      "rss": 345833472,
+      "order": 14300
+    },
+    {
+      "second": 14,
+      "heap": 57653704,
+      "rss": 334262272,
+      "order": 15400
+    },
+    {
+      "second": 15,
+      "heap": 50741552,
+      "rss": 340672512,
+      "order": 16500
+    },
+    {
+      "second": 16,
+      "heap": 24104696,
+      "rss": 335507456,
+      "order": 17600
+    },
+    {
+      "second": 17,
+      "heap": 68223568,
+      "rss": 336814080,
+      "order": 18700
+    },
+    {
+      "second": 18,
+      "heap": 61183696,
+      "rss": 339845120,
+      "order": 19800
+    },
+    {
+      "second": 19,
+      "heap": 52393936,
+      "rss": 341073920,
+      "order": 20900
+    },
+    {
+      "second": 20,
+      "heap": 109937496,
+      "rss": 361840640,
+      "order": 22000
+    },
+    {
+      "second": 21,
+      "heap": 84063816,
+      "rss": 353599488,
+      "order": 23100
+    },
+    {
+      "second": 22,
+      "heap": 71286520,
+      "rss": 353533952,
+      "order": 24200
+    },
+    {
+      "second": 23,
+      "heap": 47146888,
+      "rss": 341872640,
+      "order": 25300
+    },
+    {
+      "second": 24,
+      "heap": 108271176,
+      "rss": 357789696,
+      "order": 26400
+    },
+    {
+      "second": 25,
+      "heap": 60148808,
+      "rss": 336228352,
+      "order": 27500
+    },
+    {
+      "second": 26,
+      "heap": 45263704,
+      "rss": 338722816,
+      "order": 28600
+    },
+    {
+      "second": 27,
+      "heap": 36006392,
+      "rss": 339496960,
+      "order": 29700
+    },
+    {
+      "second": 28,
+      "heap": 81194328,
+      "rss": 341925888,
+      "order": 30800
+    },
+    {
+      "second": 29,
+      "heap": 71945992,
+      "rss": 342687744,
+      "order": 31900
+    },
+    {
+      "second": 30,
+      "heap": 62759920,
+      "rss": 353062912,
+      "order": 33000
+    },
+    {
+      "second": 31,
+      "heap": 31706496,
+      "rss": 339435520,
+      "order": 34100
+    },
+    {
+      "second": 32,
+      "heap": 93717696,
+      "rss": 355954688,
+      "order": 35200
+    },
+    {
+      "second": 33,
+      "heap": 67599720,
+      "rss": 342626304,
+      "order": 36300
+    },
+    {
+      "second": 34,
+      "heap": 50458592,
+      "rss": 336953344,
+      "order": 37400
+    },
+    {
+      "second": 35,
+      "heap": 35815008,
+      "rss": 339386368,
+      "order": 38500
+    },
+    {
+      "second": 36,
+      "heap": 79313160,
+      "rss": 340148224,
+      "order": 39600
+    },
+    {
+      "second": 37,
+      "heap": 71668928,
+      "rss": 342577152,
+      "order": 40700
+    },
+    {
+      "second": 38,
+      "heap": 62493304,
+      "rss": 343343104,
+      "order": 41800
+    },
+    {
+      "second": 39,
+      "heap": 38476640,
+      "rss": 333221888,
+      "order": 42900
+    },
+    {
+      "second": 40,
+      "heap": 95138704,
+      "rss": 354291712,
+      "order": 44000
+    },
+    {
+      "second": 41,
+      "heap": 84149728,
+      "rss": 353386496,
+      "order": 45100
+    },
+    {
+      "second": 42,
+      "heap": 58013336,
+      "rss": 340058112,
+      "order": 46200
+    },
+    {
+      "second": 43,
+      "heap": 41239680,
+      "rss": 330358784,
+      "order": 47300
+    },
+    {
+      "second": 44,
+      "heap": 26154072,
+      "rss": 333127680,
+      "order": 48400
+    },
+    {
+      "second": 45,
+      "heap": 69520288,
+      "rss": 333889536,
+      "order": 49500
+    },
+    {
+      "second": 46,
+      "heap": 62069552,
+      "rss": 336318464,
+      "order": 50600
+    },
+    {
+      "second": 47,
+      "heap": 52840240,
+      "rss": 337092608,
+      "order": 51700
+    },
+    {
+      "second": 48,
+      "heap": 28697944,
+      "rss": 330887168,
+      "order": 52800
+    },
+    {
+      "second": 49,
+      "heap": 73828208,
+      "rss": 333316096,
+      "order": 53900
+    },
+    {
+      "second": 50,
+      "heap": 74824816,
+      "rss": 350593024,
+      "order": 55000
+    },
+    {
+      "second": 51,
+      "heap": 48810560,
+      "rss": 337268736,
+      "order": 56100
+    },
+    {
+      "second": 52,
+      "heap": 31658216,
+      "rss": 330907648,
+      "order": 57200
+    },
+    {
+      "second": 53,
+      "heap": 86437152,
+      "rss": 347426816,
+      "order": 58300
+    },
+    {
+      "second": 54,
+      "heap": 60149384,
+      "rss": 334114816,
+      "order": 59400
+    },
+    {
+      "second": 55,
+      "heap": 52607880,
+      "rss": 336547840,
+      "order": 60500
+    },
+    {
+      "second": 56,
+      "heap": 96012912,
+      "rss": 337309696,
+      "order": 61600
+    },
+    {
+      "second": 57,
+      "heap": 19165664,
+      "rss": 330956800,
+      "order": 62700
+    },
+    {
+      "second": 58,
+      "heap": 64243712,
+      "rss": 333385728,
+      "order": 63800
+    },
+    {
+      "second": 59,
+      "heap": 54992840,
+      "rss": 334180352,
+      "order": 64900
+    },
+    {
+      "second": 60,
+      "heap": 112202376,
+      "rss": 354791424,
+      "order": 66000
+    }
+  ],
+  "limitations": [
+    "Does not measure canonical Watchdog export throughput",
+    "Does not measure SSE/browser delivery or GPU memory",
+    "Only bounded 25-instance journal projection workload"
+  ]
+}

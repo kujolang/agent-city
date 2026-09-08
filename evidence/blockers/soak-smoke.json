@@ -1,0 +1,88 @@
+{
+  "startedAt": "2026-09-08T11:32:02.640Z",
+  "cityCommit": "cd5ee4b1729bdf1e68730e83cba8cdf1b0b4d49c",
+  "watchdogCommit": "6cbd121d989967526058c58a63105b047fe3f000",
+  "pid": 61326,
+  "runtime": "/Users/robertdevore/2026/Kujolang/kujo-repos/agent-city/.runtime/pipeline-1788867122634",
+  "status": "COMPLETED",
+  "samples": [
+    {
+      "at": "2026-09-08T11:32:06.429Z",
+      "metrics": [
+        {
+          "name": "Documents",
+          "value": 4
+        },
+        {
+          "name": "Nodes",
+          "value": 163
+        },
+        {
+          "name": "TaskDuration",
+          "value": 0.002137
+        },
+        {
+          "name": "JSHeapUsedSize",
+          "value": 15512396
+        }
+      ],
+      "browser": null,
+      "journalBytes": 4096
+    },
+    {
+      "at": "2026-09-08T11:33:06.447Z",
+      "metrics": [
+        {
+          "name": "Documents",
+          "value": 1
+        },
+        {
+          "name": "Nodes",
+          "value": 413
+        },
+        {
+          "name": "TaskDuration",
+          "value": 25.959815
+        },
+        {
+          "name": "JSHeapUsedSize",
+          "value": 32835000
+        }
+      ],
+      "browser": {
+        "order": 2200,
+        "health": "LIVE",
+        "instances": 25,
+        "queued": 0
+      },
+      "journalBytes": 2400256
+    }
+  ],
+  "kind": "SYNTHETIC canonical HTTP intake → real Watchdog export → real gateway → SSE; no source business execution",
+  "maxSampleGapMs": 60016.314872,
+  "offeredRate": 50,
+  "accepted": 3000,
+  "visible": 3000,
+  "duplicates": 0,
+  "missing": 0,
+  "sendSeconds": 64.43769976200001,
+  "totalSeconds": 64.742081756,
+  "visibleEventsPerSecond": 46.33771294698867,
+  "intakeMs": {
+    "p50": 2129.9781189999994,
+    "p95": 2297.501716000006
+  },
+  "sourceHealth": {
+    "status": "LIVE",
+    "gap": false,
+    "lastSuccess": 1788867203677,
+    "lastError": "",
+    "coverage": "SDK run/retrieval/tool/handoff and Eval invocation/check results; retained local journal; reconnect history partial"
+  },
+  "browserFinal": {
+    "order": 3000,
+    "health": "LIVE",
+    "instances": 25
+  },
+  "browserCaughtUp": true
+}
