@@ -1,7 +1,7 @@
 {
   "status": "NOT_QUALIFIED",
   "browser": "151.0.7922.34",
-  "error": "TimeoutError: page.goto: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:18890/\", waiting until \"domcontentloaded\"\u001b[22m\n",
+  "error": "TimeoutError: page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:18890/\", waiting until \"load\"\u001b[22m\n",
   "observation": null,
   "reason": "A failure to reach native hidden state is not a passing resume test or proof of a product failure."
 }

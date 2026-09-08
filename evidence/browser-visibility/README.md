@@ -24,3 +24,11 @@ separate controlled connection/replay regression remains passing and narrower.
 
 No production code changed. Typecheck passes. Release qualification is unchanged;
 no eight-hour soak was started or scheduled.
+
+## Native-window / default-override investigation, 2026-09-08
+
+A fresh persistent profile confirmed matching native window IDs for source and cover tabs, but Chromium 151 still reported the source visible and emitted no visibility events. See persistent-window-failure.json. Thus separate windows do not explain that result.
+
+Installed Playwright types expose connectOverCDP noDefaults, and its implementation skips default focus emulation in that mode. A separately spawned Chrome with its own private profile and loopback CDP endpoint was tested twice: initial load stalled, then explicit bringToFront plus DOMContentLoaded still timed out. These are preserved in no-defaults-navigation-failure.json and no-defaults-foreground-failure.json. They do not establish a product failure or the original visibility cause.
+
+The diagnostic now records/asserts shared-window identity. Optional CITY_VISIBILITY_NO_DEFAULTS=1 reproduces the alternative attachment mode; the default uses the tested persistent-profile setup. Both are bounded to 60 seconds and close their owned browser. Do not repeat these unchanged runs on this host. Native visibility qualification requires an actual successful hidden/visible cycle in a different browser environment or a supervised manual test; controlled transport/recovery evidence does not substitute for it. No semantic events were injected in these failed runs. Typecheck passed; no product source changed.

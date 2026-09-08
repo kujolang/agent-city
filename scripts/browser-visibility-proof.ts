@@ -1,6 +1,14 @@
-import { chromium, type Browser, type Page } from "@playwright/test";
+import { spawn, type ChildProcess } from "node:child_process";
+import { resolve } from "node:path";
+import { portAvailable } from "./startup-checks";
+import {
+  chromium,
+  type Browser,
+  type BrowserContext,
+  type Page,
+} from "@playwright/test";
 import { createServer } from "vite";
-import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { mkdir, mkdtemp, readFile, writeFile } from "node:fs/promises";
 import assert from "node:assert/strict";
 import { localChromiumPath } from "../apps/runner/browser-path";
 import {
@@ -10,6 +18,9 @@ import {
 } from "../packages/world-core/index";
 
 const out = "evidence/browser-visibility";
+await mkdir(".runtime", { recursive: true });
+const profile = await mkdtemp(".runtime/visibility-profile-");
+let windows: unknown;
 await mkdir(out, { recursive: true });
 const fixture = (
   await readFile("tests/fixtures/phase1-observations.jsonl", "utf8")
@@ -36,25 +47,59 @@ const server = await createServer({
 });
 let browser: Browser | undefined;
 let observedPage: Page | undefined;
+let chromeProcess: ChildProcess | undefined;
 const deadline = setTimeout(() => {
   void browser?.close();
+  chromeProcess?.kill("SIGTERM");
   void server.close();
   process.exitCode = 1;
 }, 60000);
 try {
   await server.listen();
-  browser = await chromium.launch({
-    headless: false,
-    ignoreDefaultArgs: [
-      "--disable-background-timer-throttling",
-      "--disable-backgrounding-occluded-windows",
-      "--disable-renderer-backgrounding",
-    ],
-    executablePath: await localChromiumPath(),
-  });
-  const context = await browser.newContext({
-    viewport: { width: 1280, height: 900 },
-  });
+  let context: BrowserContext;
+  if (process.env.CITY_VISIBILITY_NO_DEFAULTS === "1") {
+    const debugPort = 18995;
+    assert(await portAvailable(debugPort), "Diagnostic CDP port occupied");
+    chromeProcess = spawn(
+      await localChromiumPath(),
+      [
+        "--remote-debugging-address=127.0.0.1",
+        "--remote-debugging-port=" + debugPort,
+        "--user-data-dir=" + resolve(profile),
+        "--no-first-run",
+        "--no-default-browser-check",
+        "about:blank",
+      ],
+      { stdio: "ignore" },
+    );
+    let debugReady = false;
+    for (let i = 0; i < 100; i++) {
+      debugReady = await fetch(`http://127.0.0.1:${debugPort}/json/version`, {
+        signal: AbortSignal.timeout(500),
+      })
+        .then((r) => r.ok)
+        .catch(() => false);
+      if (debugReady) break;
+      await new Promise((r) => setTimeout(r, 100));
+    }
+    assert(debugReady, "Isolated Chrome did not expose CDP");
+    browser = await chromium.connectOverCDP(`http://127.0.0.1:${debugPort}`, {
+      noDefaults: true,
+    });
+    context = browser.contexts()[0];
+  } else {
+    context = await chromium.launchPersistentContext(profile, {
+      headless: false,
+      executablePath: await localChromiumPath(),
+      viewport: { width: 1280, height: 900 },
+      ignoreDefaultArgs: [
+        "--disable-background-timer-throttling",
+        "--disable-backgrounding-occluded-windows",
+        "--disable-renderer-backgrounding",
+      ],
+    });
+    browser = context.browser()!;
+  }
   const page = await context.newPage(),
     errors: string[] = [];
   observedPage = page;
@@ -96,13 +141,18 @@ try {
       close() { this.readyState = 2; }
     };
   `);
-  await page.goto("http://127.0.0.1:18890");
+  await page.bringToFront();
+  await page.goto("http://127.0.0.1:18890", {
+    waitUntil: "domcontentloaded",
+    timeout: 15000,
+  });
   await page.waitForFunction(() => (window as any).agentCity?.rendererReady);
   await page.locator("#roster button").first().click();
   await page.locator("#follow").click();
   const cdp = await context.newCDPSession(page);
-  // Playwright enables focus emulation by default, keeping native pages visible.
-  await cdp.send("Emulation.setFocusEmulationEnabled", { enabled: false });
+  // The alternative CDP mode prevents default focus emulation at attachment.
+  if (process.env.CITY_VISIBILITY_NO_DEFAULTS !== "1")
+    await cdp.send("Emulation.setFocusEmulationEnabled", { enabled: false });
   const { targetInfo } = await cdp.send("Target.getTargetInfo");
   const { targetId: backgroundTarget } = await cdp.send("Target.createTarget", {
     url: "about:blank",
@@ -110,6 +160,26 @@ try {
     background: false,
     browserContextId: targetInfo.browserContextId,
   });
+  const sourceWindow = await cdp.send("Browser.getWindowForTarget", {
+    targetId: targetInfo.targetId,
+  });
+  const coverWindow = await cdp.send("Browser.getWindowForTarget", {
+    targetId: backgroundTarget,
+  });
+  windows = {
+    source: sourceWindow.windowId,
+    cover: coverWindow.windowId,
+    profile:
+      process.env.CITY_VISIBILITY_NO_DEFAULTS === "1"
+        ? "fresh persistent / CDP noDefaults"
+        : "fresh persistent",
+    sameWindow: sourceWindow.windowId === coverWindow.windowId,
+  };
+  assert.equal(
+    sourceWindow.windowId,
+    coverWindow.windowId,
+    "Native tabs must share one window",
+  );
   await cdp.send("Target.activateTarget", { targetId: backgroundTarget });
   await page.waitForFunction(
     () => document.visibilityState === "hidden",
@@ -195,6 +265,7 @@ try {
       {
         kind: "SYNTHETIC controlled transport, actual headed Chromium native tab visibility; no source execution",
         browser: browser.version(),
+        windows,
         hidden,
         resumed,
         hiddenTicksPaused: true,
@@ -228,6 +299,7 @@ try {
         browser: browser?.version(),
         error: String(error),
         observation,
+        windows,
         reason:
           "A failure to reach native hidden state is not a passing resume test or proof of a product failure.",
       },
@@ -240,5 +312,22 @@ try {
 } finally {
   clearTimeout(deadline);
   await browser?.close();
+  if (
+    chromeProcess &&
+    chromeProcess.exitCode === null &&
+    chromeProcess.signalCode === null
+  ) {
+    chromeProcess.kill("SIGTERM");
+    await new Promise<void>((done) => {
+      const timeout = setTimeout(() => {
+        chromeProcess?.kill("SIGKILL");
+        done();
+      }, 3000);
+      chromeProcess!.once("exit", () => {
+        clearTimeout(timeout);
+        done();
+      });
+    });
+  }
   await server.close();
 }
