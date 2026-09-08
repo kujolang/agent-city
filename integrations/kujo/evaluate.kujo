@@ -1,0 +1,45 @@
+# Run from the Eval repo. Actual file checks: failure, repair, then pass.
+from src.eval_core import run_suite
+from src.watchdog_telemetry import watchdog_evaluation_events
+
+city_eval_root := env_or("CITY_EVAL_ROOT", "")
+city_eval_spool := env_or("CITY_SPOOL", "")
+city_eval_producer := env_or("CITY_PRODUCER", "")
+city_eval_run := "eval-" + to_string(current_timestamp())
+func city_eval_emit(kind_value, op_value, attempt_value, phase_value, outcome_value) {
+    append_file(city_eval_spool, to_json({"schema": "kujo.lifecycle.v1", "producer_instance": city_eval_producer, "profile": "local-eval-invocation", "run_id": city_eval_run, "agent_id": "verifier", "task_id": city_eval_run + ":three-check-proof", "operation_id": op_value, "attempt": attempt_value, "kind": kind_value, "phase": phase_value, "outcome": outcome_value, "occurred_at_ms": current_timestamp()}) + "\n")
+}
+city_eval_emit("execution", "invocation", 1, "started", "unset")
+city_eval_results := []
+for city_eval_attempt in [1, 2] {
+    city_eval_input := "BROKEN"
+    if city_eval_attempt == 2 { city_eval_input = "VERIFIED" }
+    write_file(city_eval_root + "/eval-input.txt", city_eval_input, true)
+    city_eval_config := {"name": "Agent City three-check proof", "tests": [
+        {"name": "schema", "check": "file_exists", "params": {"path": city_eval_root + "/eval-input.txt"}},
+        {"name": "content", "check": "file_contains", "params": {"path": city_eval_root + "/eval-input.txt", "expected": "VERIFIED"}},
+        {"name": "policy", "check": "file_does_not_contain", "params": {"path": city_eval_root + "/eval-input.txt", "expected": "SECRET"}}
+    ]}
+    write_file(city_eval_root + "/eval-suite.json", to_json(city_eval_config), true)
+    city_eval_emit("evaluation", "suite", city_eval_attempt, "started", "unset")
+    city_eval_result := run_suite(city_eval_root + "/eval-suite.json", {"quiet": true})
+    assert(city_eval_result["ok"], "Eval invocation failed")
+    city_eval_data := city_eval_result["data"]
+    city_eval_outcome := "succeeded"
+    if city_eval_data["failed"] > 0 { city_eval_outcome = "failed" }
+    city_eval_emit("evaluation", "suite", city_eval_attempt, "finished", city_eval_outcome)
+    # Reuse owner's per-check status projector; preserve its output as evidence.
+    city_eval_projection := watchdog_evaluation_events(city_eval_data, {"trace_id": city_eval_run, "run_id": city_eval_run + ":" + to_string(city_eval_attempt)})
+    assert(city_eval_projection["ok"], "Eval native projection failed")
+    write_file(city_eval_root + "/eval-native-" + to_string(city_eval_attempt) + ".json", to_json(city_eval_projection), true)
+    for city_eval_item in city_eval_data["test_results"] {
+        city_eval_check_outcome := "failed"
+        if city_eval_item["passed"] { city_eval_check_outcome = "succeeded" }
+        city_eval_emit("evaluation", city_eval_item["name"], city_eval_attempt, "finished", city_eval_check_outcome)
+    }
+    city_eval_results = push(city_eval_results, {"attempt": city_eval_attempt, "passed": city_eval_data["passed"], "failed": city_eval_data["failed"], "total": city_eval_data["total"]})
+}
+assert(city_eval_results[0]["failed"] == 1 && city_eval_results[1]["failed"] == 0, "Expected actual failure followed by passing repaired check")
+city_eval_emit("execution", "invocation", 1, "finished", "succeeded")
+write_file(city_eval_root + "/eval-proof.json", to_json({"run_id": city_eval_run, "results": city_eval_results}), true)
+print("Eval failure/repair proof: PASS")

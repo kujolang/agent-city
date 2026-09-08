@@ -1,0 +1,6 @@
+# Run from Watchdog's module root. Reuses the canonical native adapter.
+from telemetry_native_adapter import watchdog_native_batch_normalize
+payload := parse_json(read_file(env_or("CITY_NATIVE_INPUT", "")))
+result := watchdog_native_batch_normalize("agent-city-sdk", "1", payload["batch_id"], payload["events"])
+assert(result["ok"], "Watchdog native normalization failed")
+write_file(env_or("CITY_CANONICAL_OUTPUT", ""), to_json(result["batch"]), true)
