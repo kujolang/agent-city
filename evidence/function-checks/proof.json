@@ -1,0 +1,135 @@
+{
+  "passed": true,
+  "realArtifact": "evidence/live-missions/live-1788874992421-/code.json",
+  "realFailure": {
+    "schema": "agent-city.function-check.v1",
+    "status": "failed",
+    "environment": "disposable-chromium-module-worker",
+    "browserSandboxRequested": true,
+    "browser": "151.0.7922.34",
+    "codeExecuted": true,
+    "scope": "explicit JSON function cases only; no filesystem or network integrations",
+    "blockedRequests": 0,
+    "cases": [
+      {
+        "name": "empty",
+        "status": "failed",
+        "reason": "missing-export",
+        "occurredAt": 1788875938213
+      },
+      {
+        "name": "numbers",
+        "status": "failed",
+        "reason": "missing-export",
+        "occurredAt": 1788875938224
+      },
+      {
+        "name": "reject string",
+        "status": "failed",
+        "reason": "missing-export",
+        "occurredAt": 1788875938237
+      },
+      {
+        "name": "reject null",
+        "status": "failed",
+        "reason": "missing-export",
+        "occurredAt": 1788875938248
+      }
+    ],
+    "checkedAt": "2026-09-08T13:58:58.248Z"
+  },
+  "syntheticCorrectnessControl": {
+    "schema": "agent-city.function-check.v1",
+    "status": "passed",
+    "environment": "disposable-chromium-module-worker",
+    "browserSandboxRequested": true,
+    "browser": "151.0.7922.34",
+    "codeExecuted": true,
+    "scope": "explicit JSON function cases only; no filesystem or network integrations",
+    "blockedRequests": 0,
+    "cases": [
+      {
+        "name": "empty",
+        "status": "passed",
+        "reason": "expectation-met",
+        "occurredAt": 1788875939863
+      },
+      {
+        "name": "numbers",
+        "status": "passed",
+        "reason": "expectation-met",
+        "occurredAt": 1788875939875
+      },
+      {
+        "name": "reject string",
+        "status": "passed",
+        "reason": "expectation-met",
+        "occurredAt": 1788875939887
+      },
+      {
+        "name": "reject null",
+        "status": "passed",
+        "reason": "expectation-met",
+        "occurredAt": 1788875939898
+      }
+    ],
+    "checkedAt": "2026-09-08T13:58:59.898Z"
+  },
+  "isolation": {
+    "schema": "agent-city.function-check.v1",
+    "status": "passed",
+    "environment": "disposable-chromium-module-worker",
+    "browserSandboxRequested": true,
+    "browser": "151.0.7922.34",
+    "codeExecuted": true,
+    "scope": "explicit JSON function cases only; no filesystem or network integrations",
+    "blockedRequests": 0,
+    "cases": [
+      {
+        "name": "no Node bindings or local service access",
+        "status": "passed",
+        "reason": "expectation-met",
+        "occurredAt": 1788875941463
+      }
+    ],
+    "checkedAt": "2026-09-08T13:59:01.463Z"
+  },
+  "loop": {
+    "schema": "agent-city.function-check.v1",
+    "status": "failed",
+    "environment": "disposable-chromium-module-worker",
+    "browserSandboxRequested": true,
+    "browser": "151.0.7922.34",
+    "codeExecuted": true,
+    "scope": "explicit JSON function cases only; no filesystem or network integrations",
+    "blockedRequests": 0,
+    "cases": [
+      {
+        "name": "bounded loop",
+        "status": "failed",
+        "reason": "timeout",
+        "occurredAt": 1788875944350
+      }
+    ],
+    "checkedAt": "2026-09-08T13:59:04.350Z"
+  },
+  "forgery": {
+    "schema": "agent-city.function-check.v1",
+    "status": "failed",
+    "environment": "disposable-chromium-module-worker",
+    "browserSandboxRequested": true,
+    "browser": "151.0.7922.34",
+    "codeExecuted": true,
+    "scope": "explicit JSON function cases only; no filesystem or network integrations",
+    "blockedRequests": 0,
+    "cases": [
+      {
+        "name": "module cannot impersonate harness",
+        "status": "failed",
+        "reason": "returned",
+        "occurredAt": 1788875945674
+      }
+    ],
+    "checkedAt": "2026-09-08T13:59:05.674Z"
+  }
+}

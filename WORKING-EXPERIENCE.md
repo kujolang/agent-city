@@ -134,3 +134,26 @@ validation. This is NOT a functional pass. Writing still contains unsupported
 claims. The prior failed/weak attempts remain retained. Current verification:
 33 tests, build and real/controlled runtime proofs pass. Safe functional tests,
 explicit output contracts and stronger grounded review remain open.
+
+## Isolated functional-check milestone
+
+Mission Command now accepts optional explicit function-case JSON for code tasks.
+With cases supplied, generated ES modules run in fresh disposable Chromium workers
+with network blocked and no Node bindings. Defaults without cases remain syntax
+checks only. Results are separate from runtime completion, and unknown execution
+coverage is explicit on checker failure. Installed Chromium revisions are reused
+when the configured Playwright revision is absent.
+
+Real mission `mission-02fd801a-1185-4331-b365-7b157d4af2db` failed the cases; subsequent
+repair mission `mission-6998b158-66e3-46f3-8dad-2db59c197e18` passed all four. The repair
+prompt used the actual preceding failure. Both cohorts are retained. An explicit
+function-checker execution emits individual/suite outcomes through Watchdog to
+semantic Dojo state; it is not mislabeled as another AI or as a Kujo Eval invocation.
+See `evidence/function-checks/README.md` for proof scope and limitations.
+
+34 unit tests/build and controlled recovery contracts pass; isolation/adversarial
+checks and real repaired code cases pass. DOM-only inspection shows actual case
+results and execution scope. Arbitrary projects, filesystem/network tools and a
+hard process-memory quota are outside this small-function execution capability.
+Full original game visuals, provider-backed MCP, broader grounded review and release
+hardening remain open. The eight-hour soak remains cancelled.

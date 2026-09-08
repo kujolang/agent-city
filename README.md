@@ -43,10 +43,22 @@ reviewer response and final artifact.
 Execution instances appear when actual work is observed. No decorative workers
 are preconfigured as live agents. The SDK creates the writer/coder and reviewer
 for each mission; profiles are appearances, not interchangeable identities.
-Code artifacts are **saved and reviewed, not executed**. A parser checks JavaScript
+By default code artifacts are **saved and reviewed, not executed**. A parser checks JavaScript
 syntax; this does not run imports, side effects or functional tests. A single
 outer Markdown code fence is removed when present; the original response remains
 in private response history. The output panel states the actual check status.
+To execute small ES modules, open **Optional JavaScript function checks** and supply
+explicit JSON cases, for example:
+
+```json
+{"exportName":"sum","cases":[{"name":"empty","args":[[]],"equals":0}]}
+```
+
+These run in disposable browser workers, with no network or Node bindings. Each
+case has a 1.5-second timeout. The output panel shows actual case outcomes; this is
+not host-project execution or a guarantee beyond the supplied cases. See
+[real failure/repair evidence](evidence/function-checks/README.md).
+
 Free-form group chat,
 manual character movement and game combat are not implemented.
 

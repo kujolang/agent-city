@@ -190,7 +190,9 @@ try {
     ],
     [
       "code",
-      "Write a self-contained JavaScript module exporting function sum(values) that sums an array of finite numbers and throws TypeError for invalid input. No imports. Keep it short.",
+      process.env.CITY_PROOF_CODE_TASK_FILE
+        ? await readFile(process.env.CITY_PROOF_CODE_TASK_FILE, "utf8")
+        : "Write a self-contained JavaScript module exporting function sum(values) that sums an array of finite numbers and throws TypeError for invalid input. No imports. Keep it short.",
     ],
   ]) {
     await page.getByLabel("Task type").selectOption(kind);
@@ -198,6 +200,26 @@ try {
       .getByLabel("Use indexed local Kujo docs")
       .setChecked(kind === "writing");
     await page.getByLabel("Task", { exact: true }).fill(prompt);
+    if (kind === "code") {
+      await page
+        .getByText("Optional JavaScript function checks", { exact: true })
+        .click();
+      await page.getByLabel("Function contract JSON").fill(
+        JSON.stringify({
+          exportName: "sum",
+          cases: [
+            { name: "empty", args: [[]], equals: 0 },
+            { name: "mixed numbers", args: [[2, -1, 4]], equals: 5 },
+            {
+              name: "reject numeric string",
+              args: [["2"]],
+              throws: "TypeError",
+            },
+            { name: "reject null", args: [null], throws: "TypeError" },
+          ],
+        }),
+      );
+    }
     await page.waitForFunction(
       () =>
         !(document.querySelector("#mission-form button") as HTMLButtonElement)
