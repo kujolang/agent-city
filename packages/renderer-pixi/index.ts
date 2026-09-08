@@ -1,4 +1,4 @@
-import { Application, Container, Graphics, Rectangle } from "pixi.js";
+import { Application, Container, Graphics, Rectangle, Sprite } from "pixi.js";
 import {
   facade,
   roomShell,
@@ -8,6 +8,7 @@ import {
   books,
 } from "./scenery";
 import { appearance } from "./appearance";
+import { CharacterAtlas } from "./characters";
 import { badge, animationFor, buildingState } from "../world-core/index";
 import type { Presentation, Truth, Scene } from "../world-core/index";
 import world from "../../assets/compiled/world.json";
@@ -107,6 +108,7 @@ export class CityRenderer {
   private layer = new Container();
   private ink = new Graphics();
   private actors = new Container();
+  private characters = new CharacterAtlas();
   private backgrounds = new Map<string, Graphics>();
   private backdrop = new Container();
   async init(
@@ -125,6 +127,7 @@ export class CityRenderer {
       roundPixels: true,
       autoStart: false,
     });
+    await this.characters.load();
     host.append(this.app.canvas);
     this.app.stage.addChild(this.layer);
     this.layer.addChild(this.backdrop, this.ink, this.actors);
@@ -142,7 +145,8 @@ export class CityRenderer {
       this.scene = p.walkers[this.follow].scene;
     const g = this.ink;
     g.clear();
-    for (const child of this.actors.removeChildren()) child.destroy();
+    for (const child of this.actors.removeChildren())
+      child.destroy({ children: true });
 
     const key =
       this.scene +
@@ -189,7 +193,7 @@ export class CityRenderer {
       .entries()) {
       if (w.scene !== this.scene) continue;
       if (aggregate && w.id !== this.selected && w.id !== this.follow) continue;
-      const actor = new Graphics(),
+      const actor = new Container(),
         selected = w.id === this.selected,
         offset = 0;
       const look = appearance(truth.agents[w.id]?.profile ?? "unknown"),
@@ -199,44 +203,24 @@ export class CityRenderer {
       const frames =
         w.scene === "city" ? look.overworld[pose] : look.sideview[pose];
       const frame = frames[Math.floor(p.tick / 5) % frames.length];
-      const step = ["outbound", "enter", "return"].includes(w.phase)
-        ? frame % 2
-        : 0;
-      if (selected) box(actor, -3, -22, 20, 2, C.gold);
-      box(actor, 2, -14, 10, 9, C.black);
-      box(actor, 4, -19, 7, 6, C.gold);
-      box(actor, 3, -20, 8, 3, look.accent);
-      box(actor, 3, -12, 9, 8, look.coat);
-      if (look.accessory === "headset") box(actor, 12, -18, 2, 6, look.accent);
-      if (look.accessory === "visor") box(actor, 5, -17, 8, 2, look.accent);
-      box(actor, 1, -10, 2, 5, C.gold);
-      box(actor, 12, -10, 2, 5, C.gold);
-      box(actor, 4, -4, 3, 4 + step, C.white);
-      box(actor, 9, -4, 3, 5 - step, C.white);
-      box(actor, 9, -17, 2, 2, C.black);
-      if (pose === "ladder") {
-        box(actor, 1, frame % 2 ? -17 : -12, 3, 5, C.gold);
-        box(actor, 12, frame % 2 ? -12 : -17, 3, 5, C.gold);
-        box(actor, 4, -4, 3, frame % 2 ? 2 : 5, look.coat);
-        box(actor, 9, -4, 3, frame % 2 ? 5 : 2, look.coat);
-      }
-      if (["read", "inspect", "carry"].includes(pose) && health !== "STALE") {
-        box(actor, 12, -10, 6, 5, C.white);
-        box(actor, 15, -10, 1, 5, C.teal);
-      }
-      if (["terminal", "work"].includes(pose))
-        box(actor, 13, -8 + (p.tick % 4 < 2 ? 0 : 1), 5, 2, look.accent);
+      const marks = new Graphics();
+      const sprite = new Sprite(
+        this.characters.frame(look.id, w.scene !== "city", pose, frame),
+      );
+      sprite.position.set(-2, -24);
+      actor.addChild(sprite, marks);
+      if (selected) box(marks, -3, -27, 22, 1, C.gold);
       if (pose === "alert" || pose === "blocked")
-        text(actor, "!", 6, -36, C.red);
+        text(marks, "!", 6, -41, C.red);
       if (w.packetUntil && p.tick < w.packetUntil) {
-        box(actor, 18 + (p.tick % 12), -25, 7, 5, C.blue);
-        box(actor, 20 + (p.tick % 12), -24, 3, 1, C.white);
+        box(marks, 18 + (p.tick % 12), -25, 7, 5, C.blue);
+        box(marks, 20 + (p.tick % 12), -24, 3, 1, C.white);
       }
-      text(actor, badge(w.id), 0, -29, C.gold);
+      text(marks, badge(w.id), 0, -34, C.gold);
       actor.position.set(x, y);
       actor.eventMode = "static";
       actor.cursor = "pointer";
-      actor.hitArea = new Rectangle(-5, -30, 25, 35);
+      actor.hitArea = new Rectangle(-5, -36, 27, 40);
       actor.on("pointertap", () => this.onSelect(w.id));
       this.actors.addChild(actor);
     }

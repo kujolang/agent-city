@@ -1,3 +1,4 @@
+import { portrait } from "./portraits";
 import { mountMissions } from "./missions";
 import { archiveUI } from "./archive";
 import "./style.css";
@@ -171,6 +172,7 @@ function renderDOM() {
             "local-documentation-worker": "DOCS",
           };
           b.textContent = `${badge(a.id)} ${roles[a.profile] || "UNKNOWN"} · ${a.id.split(":").at(-1)}`;
+          b.prepend(portrait(a.profile));
           b.setAttribute("aria-pressed", String(a.id === selected));
           b.title = a.id;
           b.onclick = () => choose(a.id);
@@ -180,7 +182,10 @@ function renderDOM() {
   }
   const a = selected ? truth.agents[selected] : undefined,
     w = selected ? presentation.walkers[selected] : undefined;
-  $("#selection").textContent = a ? a.id : "Select an observed execution.";
+  const portraitKey = a?.profile ?? "";
+  const selection = $("#selection");
+  selection.textContent = a ? a.id : "Select an observed execution.";
+  if (a) selection.prepend(portrait(portraitKey, true));
   $("#truth").textContent = a?.status.toUpperCase() || "UNKNOWN";
   $("#visual").textContent =
     visualLabel(w, a, health) +

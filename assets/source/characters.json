@@ -1,0 +1,124 @@
+{
+  "license": "Original Kujo artwork authored for Agent City; no extracted reference pixels.",
+  "version": 1,
+  "width": 20,
+  "height": 24,
+  "poses": [
+    "idle",
+    "walk",
+    "work",
+    "read",
+    "terminal",
+    "talk",
+    "wait",
+    "blocked",
+    "alert",
+    "inspect",
+    "carry",
+    "ladder",
+    "complete",
+    "offline"
+  ],
+  "palettes": [
+    [
+      "writer-v1",
+      "#388346",
+      "#b8de72",
+      "cap"
+    ],
+    [
+      "coder-v1",
+      "#b64b37",
+      "#eeb371",
+      "headset"
+    ],
+    [
+      "reviewer-v1",
+      "#784ca9",
+      "#c4a7f0",
+      "visor"
+    ],
+    [
+      "docs-v1",
+      "#397dcc",
+      "#65f2d0",
+      "cap"
+    ],
+    [
+      "network-v1",
+      "#6254c7",
+      "#ffc66d",
+      "headset"
+    ],
+    [
+      "verify-v1",
+      "#bd596a",
+      "#8ddf8b",
+      "visor"
+    ],
+    [
+      "workcell-v1",
+      "#956d35",
+      "#ffc66d",
+      "visor"
+    ],
+    [
+      "unknown-v1",
+      "#697b95",
+      "#bbc9dd",
+      "cap"
+    ]
+  ],
+  "front": [
+    "    ##      ##      ",
+    "   #FF#    #FF#     ",
+    "   #FS######SF#     ",
+    "    #SSSSSSSS#      ",
+    "   #SSFFFFFFSS#     ",
+    "   #F#LL##LL#F#     ",
+    "   #F#HL##HL#F#     ",
+    "    #FF####FF#      ",
+    "    #FFS##SFF#      ",
+    "     #FSSSSF#       ",
+    "    ##SSSSSS##      ",
+    "   #CA######AC#     ",
+    "  #CAACCCCCCAAC#    ",
+    "  #FCCACCCCACCF#    ",
+    "  #FFCCACCAACFF#    ",
+    "   #FCCCAAACCF#     ",
+    "    #CBBBBBBC#      ",
+    "    #CA#AA#AC#      ",
+    "    #CA#  #AC#      ",
+    "    #CC#  #CC#      ",
+    "    #CA#  #AC#      ",
+    "   #BBB#  #BBB#     ",
+    "   #HHB#  #BHH#     ",
+    "    ###    ###      "
+  ],
+  "side": [
+    "     ##             ",
+    "    #FF#            ",
+    "    #FS#####        ",
+    "    #SSSSSSS#       ",
+    "   #SSFFFFFSS#      ",
+    "   #F#LLLLLLL#      ",
+    "   #F#HLLHLLL#      ",
+    "    #FF####FF##     ",
+    "    #FFSSS##FFF#    ",
+    "     #FSSSSFFF#     ",
+    "    ##SSSSSS##      ",
+    "   #ACC#####C#      ",
+    "  #CAACCCCCACC#     ",
+    "  #CCAACCCCACF#     ",
+    "  #CCCAACCCACFF#    ",
+    "   #CCAACCCCFF#     ",
+    "    #CBBBBBBC#      ",
+    "    #CCA#ACC#       ",
+    "    #CCA#ACC#       ",
+    "    #CCC#ACC#       ",
+    "    #CCA#ACC#       ",
+    "   #BBBB#BBBB#      ",
+    "   #HHBB#HHBB#      ",
+    "    #### ####       "
+  ]
+}

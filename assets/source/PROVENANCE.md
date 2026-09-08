@@ -1,10 +1,10 @@
 # Original Agent City assets
 
-The maps, pixel glyphs, geometric worker, facades and interiors were authored for
+The maps, pixel glyphs, characters, facades and interiors were authored for
 Kujo Agent City during this implementation. No screenshot, sprite, map, logo,
 music, or image pixels from a protected game were copied or traced. The supplied
-visual pack was not available on disk; the user's written visual direction was
-used. These are clearly labeled original geometric placeholders.
+visual pack was unavailable during the initial placeholder pass; it was reattached
+and inspected for the subsequent revisions described below.
 
 Maps are editable finite orthogonal Tiled JSON (`*.tmj`, `city.tsj`); the initial
 files were authored as JSON, not exported from a running Tiled editor. The map
@@ -24,4 +24,24 @@ are not included in distributable assets. `renderer-pixi/scenery.ts` contains
 original integer pixel drawing instructions, not extracted image data.
 
 This is the first reference-led revision, not final visual fidelity approval.
-Multi-level rooms, richer characters and varied city topology remain unfinished.
+This historical first pass preceded the multi-level rooms and character revision.
+
+## Original character atlas — 2026-09-08
+
+`characters.json` contains hand-authored pixel silhouettes for original canine
+field engineers: ears/muzzle, protective goggles, boots, utility belts and
+profile-specific caps/headsets/visors. No turtle bodies, protected sprite pixels,
+weapons or logos were extracted. The role palette binds to stable appearance IDs;
+execution badges remain distinct identity information.
+
+`python3 scripts/compile-characters.py` deterministically builds the lossless
+`assets/compiled/characters.png` atlas. Eight palettes, separate front/city and
+side/interior views, fourteen semantic pose slots and four frame slots use a
+280×1536 texture (1,720,320 decoded RGBA bytes; 23,712 PNG bytes). Some resting
+poses intentionally share frames. Owning a talk/complete/offline asset does not
+authorize its display: world-core still selects only evidence-supported poses.
+Static DOM portraits share these identity assets and do not communicate status.
+
+The city still needs more varied architecture and denser scenery to approach the
+full supplied reference direction. These assets are an implementation revision,
+not user approval of final visual fidelity.

@@ -49,5 +49,5 @@ export const appearances: Record<string, Appearance> = {
 export function appearance(profile: string) {
   return appearances[profile] ?? appearances.unknown;
 }
-// Original procedural silhouettes; all semantic pose sets have explicit placeholder frames.
+// Original authored canine engineer atlas; palette IDs bind stable role appearance.
 // Pose selection is supplied by pure world-core. Merely owning a pose never claims its activity.
