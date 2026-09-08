@@ -19,3 +19,5 @@ Verification:
 - Fresh bundle launcher additionally checks an owned runtime canary using ordinary/raw/url filesystem requests. See the latest ../launcher/proof.json for the exact packaged source revision and result.
 
 Limits: developer source/asset directories are trusted inputs; concurrent malicious local filesystem mutation is outside this test. Previously extracted bundles remain obsolete and should not be used for private missions. Public release remains unqualified for the separately documented performance, visibility, writing-quality and visual-fidelity gates. No eight-hour soak was run.
+
+The fresh 76914dd extraction additionally exposed an ancestor-path compatibility regression: a `.runtime` folder above the application root was incorrectly denied. The final regression fixture is itself extracted beneath such a folder, and the private-data rule is scoped beneath the lexical/canonical application roots. Its private and legitimate controls pass. The failed artifact remains recorded under ../preview-refresh-76914dd/.

@@ -7,7 +7,9 @@ import { resolve } from "node:path";
 import { browserFileBoundary } from "../apps/web/file-boundary";
 
 test("browser file server denies private data and aliases while retaining modules and proxies", async () => {
-  const root = await mkdtemp(resolve(tmpdir(), "city-files-"));
+  const parent = await mkdtemp(resolve(tmpdir(), "city-files-"));
+  const root = resolve(parent, ".runtime/extracted/agent-city");
+  await mkdir(root, { recursive: true });
   const web = resolve(root, "apps/web");
   const marker = "owned-private-canary-never-serve";
   const paths = [
@@ -107,6 +109,6 @@ test("browser file server denies private data and aliases while retaining module
   } finally {
     await server.close();
     await new Promise<void>((done) => upstream.close(() => done()));
-    await rm(root, { recursive: true, force: true });
+    await rm(parent, { recursive: true, force: true });
   }
 }, 30000);

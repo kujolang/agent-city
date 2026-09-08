@@ -60,7 +60,7 @@ export function browserFileBoundary(
       ])
     : [];
   const privatePath = (p: string) =>
-    p.split(sep).includes(".runtime") ||
+    (within(p, root) && relative(root, p).split(sep).includes(".runtime")) ||
     privateDirectories.some((d) => within(p, d)) ||
     privateFiles.includes(p);
   const deny = [
@@ -70,7 +70,7 @@ export function browserFileBoundary(
     ".npmrc",
     ".yarnrc.yml",
     "**/.git/**",
-    "**/.runtime/**",
+    `${globLiteral(root)}/**/.runtime/**`,
     ...privateDirectories.flatMap((p) => [
       globLiteral(p),
       `${globLiteral(p)}/**`,
@@ -80,6 +80,7 @@ export function browserFileBoundary(
   const plugin: Plugin = {
     name: "agent-city-browser-file-boundary",
     async configureServer(server) {
+      const realRoot = await canonical(root);
       const realAllow = await Promise.all(allow.map(canonical));
       server.config.server.fs.allow.push(...realAllow);
       const realPrivateDirectories = await Promise.all(
@@ -114,6 +115,8 @@ export function browserFileBoundary(
             !isFileServingAllowed(server.config, actual) ||
             privatePath(file) ||
             privatePath(actual) ||
+            (within(actual, realRoot) &&
+              relative(realRoot, actual).split(sep).includes(".runtime")) ||
             realPrivateDirectories.some((d) => within(actual, d)) ||
             realPrivateFiles.includes(actual) ||
             !realAllow.some((d) => within(actual, d))

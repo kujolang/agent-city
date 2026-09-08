@@ -368,3 +368,13 @@ all six owned ports closed and existing listener state stayed unchanged. See
 43 tests and controlled isolated-store contracts passed. Earlier MCP readiness
 failure is retained in Casefile. This closes the fresh complete-stack startup
 verification gap; it does not close the remaining visual/release qualification.
+
+## Private preview file serving
+
+The 2026-09-08 browser boundary fix restricts Vite to browser inputs and blocks
+private runtime storage, including filesystem URLs and HTML/symlink aliases.
+Older extracted previews do not receive source updates automatically: do not use
+pre-fix bundles for private missions. See `evidence/browser-file-boundary/README.md`
+and the current `evidence/launcher/proof.json` for the verified packaged revision.
+Mission job records now retain bounded OS spawn/exit metadata without command
+arguments, prompts, keys or arbitrary error messages.
