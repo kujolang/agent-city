@@ -146,6 +146,42 @@ try {
     0,
     "Same-order replacement snapshot retained old check results",
   );
+  // A newer injected observation clock must age labels without inventing events.
+  const freshness = await page.evaluate(() => {
+    const r = (window as any).visualRenderer;
+    const t = (window as any).visualTruth;
+    const beforeTruth = JSON.stringify(t);
+    const latest = Math.max(
+      ...Object.values(t.agents).flatMap((a: any) =>
+        Object.values(a.operations).map((o: any) => o.observedAt ?? 0),
+      ),
+    );
+    const p = { tick: 0, seen: [], walkers: {} };
+    r.scene = "city";
+    r.draw(p, t, "LIVE", latest);
+    const recent = Array.from(
+      r.app.renderer.extract.pixels({
+        target: r.app.stage,
+        frame: r.app.screen,
+      }).pixels,
+    );
+    r.draw(p, t, "LIVE", latest + 60000);
+    const aged = Array.from(
+      r.app.renderer.extract.pixels({
+        target: r.app.stage,
+        frame: r.app.screen,
+      }).pixels,
+    );
+    return {
+      changedPixels: recent.filter((v, i) => v !== aged[i]).length,
+      truthUnchanged: beforeTruth === JSON.stringify(t),
+    };
+  });
+  assert(
+    freshness.changedPixels > 0,
+    "City source labels did not age with injected time",
+  );
+  assert(freshness.truthUnchanged, "Presentation aging mutated runtime truth");
   for (const scene of [
     "city",
     "meeting",
@@ -174,6 +210,7 @@ try {
         cohorts,
         browser: browser.version(),
         ...result,
+        freshness,
         sameOrderSnapshotClearsPriorOutcomes: resetPixels === 0,
         errors,
         at: new Date().toISOString(),

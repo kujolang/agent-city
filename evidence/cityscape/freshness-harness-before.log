@@ -1,0 +1,14 @@
+npm warn Unknown user config "python". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+page.evaluate: ReferenceError: __name is not defined
+    at eval (eval at evaluate (:311:30), <anonymous>:1:275)
+    at UtilityScript.evaluate (<anonymous>:313:16)
+    at UtilityScript.<anonymous> (<anonymous>:1:44)
+    at <anonymous> (/Users/robertdevore/2026/Kujolang/kujo-repos/agent-city/scripts/cityscape-proof.ts:150:32) {
+  log: []
+}
+
+Node.js v24.20.0

@@ -478,7 +478,12 @@ setInterval(() => {
   }
   if (rendererReady) {
     try {
-      renderer.draw(presentation, truth, replayMode ? "REPLAY" : health);
+      renderer.draw(
+        presentation,
+        truth,
+        replayMode ? "REPLAY" : health,
+        Date.now(),
+      );
     } catch {
       rendererReady = false;
       $("#canvas").textContent =

@@ -7,7 +7,11 @@
   "browser": "151.0.7922.34",
   "failedGlyphPixels": 34,
   "passedGlyphPixels": 32,
+  "freshness": {
+    "changedPixels": 432,
+    "truthUnchanged": true
+  },
   "sameOrderSnapshotClearsPriorOutcomes": true,
   "errors": [],
-  "at": "2026-09-08T18:00:41.279Z"
+  "at": "2026-09-08T18:25:38.465Z"
 }

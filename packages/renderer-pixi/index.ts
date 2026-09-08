@@ -190,7 +190,7 @@ export class CityRenderer {
   }
   private onSelect = (_id: string) => {};
   private onBuilding = (_id: string) => {};
-  draw(p: Presentation, truth: Truth, health: string) {
+  draw(p: Presentation, truth: Truth, health: string, observedNow?: number) {
     if (this.follow && p.walkers[this.follow])
       this.scene = p.walkers[this.follow].scene;
     const g = this.ink;
@@ -315,15 +315,16 @@ export class CityRenderer {
         const state = buildingState(
           o.id as Scene,
           truth,
-          Math.max(
-            ...Object.values(truth.agents).map((a) => a.lastObserved),
-            0,
-          ),
+          observedNow ??
+            Math.max(
+              ...Object.values(truth.agents).map((a) => a.lastObserved),
+              0,
+            ),
           health,
         );
         text(
           g,
-          state.operations.length ? state.sourceHealth : "NO SOURCE",
+          state.operations.length ? "SRC " + state.sourceHealth : "NO SOURCE",
           o.x + 8,
           Math.min(201, o.y + 68),
           state.operations.length ? C.blue : C.gold,
