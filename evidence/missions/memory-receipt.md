@@ -15,3 +15,17 @@ mission/reference checkpoint existed. No duplicate atomic notes were added.
 SignalBox: no captures warranted. The existing Watchdog performance finding
 already covers the surviving upstream issue; unfinished implementation work
 remains in WORKING-EXPERIENCE.md and the active goal.
+
+## Real local model continuation
+
+Merged the verified continuation into existing Agent Notes handoff
+`56f8de92-b6be-42a4-9779-0b4e6003069a`, preserving the old checkpoint with an
+explicit superseding state dated September 8. Saved: actual Ollama connection and
+model assumption; real writing/code run evidence; metadata quarantine fix;
+Dispatch/recovery/doorway verification; output-quality limitations; current startup
+path and remaining objective. The cancelled soak remains cancelled.
+
+Deduplication returned the existing handoff. Exact ID/content retrieval passed;
+concept search “Agent City live Ollama writing coding proof” returned the same ID.
+One handoff updated, zero duplicate notes created. SignalBox: no captures warranted;
+existing performance signal remains the relevant unresolved issue.
