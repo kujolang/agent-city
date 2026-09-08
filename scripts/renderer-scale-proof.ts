@@ -3,10 +3,12 @@ import { spawn } from "node:child_process";
 import { readFile, mkdir, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import assert from "node:assert/strict";
+import { availableParallelism, loadavg, platform, arch } from "node:os";
 import { localChromiumPath } from "../apps/runner/browser-path";
 
 const root = resolve(import.meta.dirname, "..");
 const label = process.env.CITY_RENDER_PROFILE || "current";
+const hostLoadBefore = loadavg();
 assert(/^[a-z0-9-]+$/.test(label));
 const out = resolve(root, "evidence/renderer-scale");
 await mkdir(out, { recursive: true });
@@ -126,20 +128,21 @@ try {
           .join("");
         const times: number[] = [],
           frames: number[] = [];
-        let changedFrames = 0,
-          prev = performance.now();
-        for (let i = 0; i < framesToMeasure; i++) {
-          await new Promise<void>((resolve) =>
-            requestAnimationFrame((t) => {
-              frames.push(t - prev);
-              prev = t;
-              resolve();
-            }),
+        let changedFrames = 0;
+        // Pixel readback above and initial scene/texture setup are not steady-state
+        // frame measurements. Use consecutive rAF timestamps after warm-up, never
+        // a performance.now() origin mixed with the first rAF timestamp.
+        let prev: number | undefined;
+        for (let i = -20; i < framesToMeasure; i++) {
+          const timestamp = await new Promise<number>((resolve) =>
+            requestAnimationFrame(resolve),
           );
-          p.tick = i;
+          if (i >= 0 && prev !== undefined) frames.push(timestamp - prev);
+          prev = timestamp;
+          p.tick = i + 20;
           const start = performance.now();
           r.draw(p, truth, "REPLAY");
-          times.push(performance.now() - start);
+          if (i >= 0) times.push(performance.now() - start);
           if (initial.some((v: any, j: number) => r.actors.children[j] !== v))
             changedFrames++;
         }
@@ -200,6 +203,7 @@ try {
         frames.sort((a, b) => a - b);
         return {
           count,
+          measuredFrames: frames.length,
           rendered: initial.length,
           changedFrames,
           pixels,
@@ -259,6 +263,22 @@ try {
         at: new Date().toISOString(),
         browser: browser.version(),
         framesPerProfile: framesToMeasure,
+        warmupFramesPerProfile: 20,
+        timingScope:
+          "Synthetic headless Chromium, one scene per count. Draw includes synchronous app.render submission; rAF intervals include browser/host scheduling. Neither measures GPU completion or upstream-to-visible latency.",
+        timingQualification:
+          framesToMeasure < 60
+            ? "INSUFFICIENT_SAMPLE_DIAGNOSTIC_ONLY"
+            : "BOUNDED_SAMPLE_NOT_RELEASE_CERTIFICATION",
+        host: {
+          platform: platform(),
+          arch: arch(),
+          node: process.version,
+          availableParallelism: availableParallelism(),
+          loadAverageBefore: hostLoadBefore,
+          loadAverageAfter: loadavg(),
+          note: "Shared busy user system; load averages describe host pressure, not causal attribution.",
+        },
         profiles,
         errors,
       },

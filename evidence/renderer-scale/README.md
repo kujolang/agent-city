@@ -4,6 +4,36 @@ Synthetic presentation snapshots only. No model, source task, Watchdog ingestion
 or eight-hour soak is part of this test. This does not close the full-path
 1,000 events/second gate or establish production release readiness.
 
+## Current bounded sample — September 8, 2026
+
+`bounded-60.json` measures the renderer from `880ac11` with the updated diagnostic
+in this commit: 20 warm-up frames, then 60 measured consecutive rAF intervals per
+count. Pixel extraction happens before warm-up. Unlike the previous diagnostic,
+the first interval does not mix a `performance.now()` origin with a rAF timestamp.
+The harness records host load and explicitly labels fewer than 60 samples as
+insufficient for timing estimates. This is a measurement correction, not a
+renderer speedup. The user reports substantial concurrent host activity.
+
+| Instances | Detailed sprites | Draw submission p50 / p95 ms | Frame interval p50 / p95 ms |
+| --- | --- | --- | --- |
+| 5 | 5 | 2.7 / 3.7 | 66.7 / 66.8 |
+| 25 | 25 | 3.1 / 4.5 | 66.6 / 83.3 |
+| 100 | 2 | 3.2 / 4.4 | 66.6 / 66.7 |
+| 500 | 2 | 3.4 / 4.1 | 66.7 / 83.3 |
+
+All profiles passed unchanged truth, retained actor identity, exact-instance
+selection, building hit tests, cross-scene follow retention and offscreen removal;
+no browser errors occurred. Typecheck passed. These synthetic, single-scene,
+headless measurements do not qualify 60 FPS, GPU completion, inspector latency,
+upstream latency, hidden-tab behavior, or long-running reliability. Host load
+provides context but does not establish the cause of slower frame intervals.
+
+Reproduce with
+`CITY_RENDER_PROFILE=bounded-60 CITY_RENDER_FRAMES=60 npx tsx scripts/renderer-scale-proof.ts`.
+The existing 180-second hard deadline remains in force; no soak ran.
+
+## Historical measurements
+
 The before measurement used the renderer at `ee07541`. `after.json` measures
 actor reuse before the subsequent aggregate-count label change, with 180 frames
 per profile in Chromium 151 on this host. These are wall-clock draw invocation
