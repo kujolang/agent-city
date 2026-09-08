@@ -149,6 +149,10 @@ function renderDOM() {
     Object.keys(truth.agents).join("|") + selected + rosterFilter + truth.order;
   if (nextRosterKey !== rosterKey) {
     rosterKey = nextRosterKey;
+    const roster = $("#roster");
+    const focusedInstance = roster.contains(document.activeElement)
+      ? (document.activeElement as HTMLElement).dataset.instance
+      : undefined;
     $("#roster").replaceChildren(
       ...Object.values(truth.agents)
         .filter(
@@ -176,10 +180,19 @@ function renderDOM() {
           b.prepend(portrait(a.profile));
           b.setAttribute("aria-pressed", String(a.id === selected));
           b.title = a.id;
+          b.dataset.instance = a.id;
           b.onclick = () => choose(a.id);
           return b;
         }),
     );
+    if (focusedInstance) {
+      const replacement = Array.from(roster.querySelectorAll("button")).find(
+        (button) => button.dataset.instance === focusedInstance,
+      );
+      // If filtering removes this execution, return to the filter control.
+      // Never silently focus another worker sharing its profile or name.
+      (replacement ?? $("#filter")).focus({ preventScroll: true });
+    }
   }
   const a = selected ? truth.agents[selected] : undefined,
     w = selected ? presentation.walkers[selected] : undefined;
