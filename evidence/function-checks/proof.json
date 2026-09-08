@@ -15,28 +15,28 @@
         "name": "empty",
         "status": "failed",
         "reason": "missing-export",
-        "occurredAt": 1788875938213
+        "occurredAt": 1788876271369
       },
       {
         "name": "numbers",
         "status": "failed",
         "reason": "missing-export",
-        "occurredAt": 1788875938224
+        "occurredAt": 1788876271382
       },
       {
         "name": "reject string",
         "status": "failed",
         "reason": "missing-export",
-        "occurredAt": 1788875938237
+        "occurredAt": 1788876271393
       },
       {
         "name": "reject null",
         "status": "failed",
         "reason": "missing-export",
-        "occurredAt": 1788875938248
+        "occurredAt": 1788876271404
       }
     ],
-    "checkedAt": "2026-09-08T13:58:58.248Z"
+    "checkedAt": "2026-09-08T14:04:31.404Z"
   },
   "syntheticCorrectnessControl": {
     "schema": "agent-city.function-check.v1",
@@ -52,28 +52,28 @@
         "name": "empty",
         "status": "passed",
         "reason": "expectation-met",
-        "occurredAt": 1788875939863
+        "occurredAt": 1788876272863
       },
       {
         "name": "numbers",
         "status": "passed",
         "reason": "expectation-met",
-        "occurredAt": 1788875939875
+        "occurredAt": 1788876272874
       },
       {
         "name": "reject string",
         "status": "passed",
         "reason": "expectation-met",
-        "occurredAt": 1788875939887
+        "occurredAt": 1788876272886
       },
       {
         "name": "reject null",
         "status": "passed",
         "reason": "expectation-met",
-        "occurredAt": 1788875939898
+        "occurredAt": 1788876272898
       }
     ],
-    "checkedAt": "2026-09-08T13:58:59.898Z"
+    "checkedAt": "2026-09-08T14:04:32.898Z"
   },
   "isolation": {
     "schema": "agent-city.function-check.v1",
@@ -89,10 +89,10 @@
         "name": "no Node bindings or local service access",
         "status": "passed",
         "reason": "expectation-met",
-        "occurredAt": 1788875941463
+        "occurredAt": 1788876274437
       }
     ],
-    "checkedAt": "2026-09-08T13:59:01.463Z"
+    "checkedAt": "2026-09-08T14:04:34.437Z"
   },
   "loop": {
     "schema": "agent-city.function-check.v1",
@@ -108,10 +108,10 @@
         "name": "bounded loop",
         "status": "failed",
         "reason": "timeout",
-        "occurredAt": 1788875944350
+        "occurredAt": 1788876277305
       }
     ],
-    "checkedAt": "2026-09-08T13:59:04.350Z"
+    "checkedAt": "2026-09-08T14:04:37.305Z"
   },
   "forgery": {
     "schema": "agent-city.function-check.v1",
@@ -127,9 +127,28 @@
         "name": "module cannot impersonate harness",
         "status": "failed",
         "reason": "returned",
-        "occurredAt": 1788875945674
+        "occurredAt": 1788876278551
       }
     ],
-    "checkedAt": "2026-09-08T13:59:05.674Z"
+    "checkedAt": "2026-09-08T14:04:38.551Z"
+  },
+  "serialization": {
+    "schema": "agent-city.function-check.v1",
+    "status": "failed",
+    "environment": "disposable-chromium-module-worker",
+    "browserSandboxRequested": true,
+    "browser": "151.0.7922.34",
+    "codeExecuted": true,
+    "scope": "explicit JSON function cases only; no filesystem or network integrations",
+    "blockedRequests": 0,
+    "cases": [
+      {
+        "name": "serialization failure is not function TypeError",
+        "status": "failed",
+        "reason": "result-not-bounded-json",
+        "occurredAt": 1788876279833
+      }
+    ],
+    "checkedAt": "2026-09-08T14:04:39.833Z"
   }
 }

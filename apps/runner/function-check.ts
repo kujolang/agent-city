@@ -114,14 +114,15 @@ export async function checkFunctions(
             new Blob([code], { type: "text/javascript" }),
           );
           // Intrinsics and reporting channel are captured before importing untrusted code.
-          const harness = `const report = self.postMessage.bind(self), stringify = JSON.stringify.bind(JSON), nonce = ${JSON.stringify(nonce)};
+          const harness = `const report = self.postMessage.bind(self), stringify = JSON.stringify.bind(JSON), finite = Number.isFinite.bind(Number), nonce = ${JSON.stringify(nonce)};
           try { const m = await import(${JSON.stringify(moduleURL)});
             if (typeof m[${JSON.stringify(exportName)}] !== 'function') report({nonce,kind:'missing-export'});
-            else { try { const value = await m[${JSON.stringify(exportName)}](...${JSON.stringify(args)});
-              const json = stringify(value);
+            else { let value, threw = false; try { value = await m[${JSON.stringify(exportName)}](...${JSON.stringify(args)}); }
+              catch(e) { threw = true; report({nonce,kind:'threw',name:typeof e?.name === 'string' ? e.name.slice(0,80) : 'unknown'}); }
+              if (!threw) { try { const json = stringify(value, (_key,v) => { if (typeof v === 'number' && !finite(v)) throw 0; return v; });
               if (typeof json !== 'string' || json.length > 16384) report({nonce,kind:'result-not-bounded-json'});
               else report({nonce,kind:'returned',json});
-            } catch(e) { report({nonce,kind:'threw',name:typeof e?.name === 'string' ? e.name.slice(0,80) : 'unknown'}); } }
+              } catch { report({nonce,kind:'result-not-bounded-json'}); } } }
           } catch(e) { report({nonce,kind:'module-error'}); }`;
           const workerURL = URL.createObjectURL(
             new Blob([harness], { type: "text/javascript" }),

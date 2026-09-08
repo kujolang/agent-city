@@ -29,3 +29,13 @@ Deduplication returned the existing handoff. Exact ID/content retrieval passed;
 concept search “Agent City live Ollama writing coding proof” returned the same ID.
 One handoff updated, zero duplicate notes created. SignalBox: no captures warranted;
 existing performance signal remains the relevant unresolved issue.
+
+## Isolated function-check continuation
+
+Saved focused Agent Notes handoff `a36a987c-f645-47d5-bbca-1bac18f9f540`: explicit
+browser execution boundary, genuine failed/repaired model attempts, observation
+flow, bounded/adversarial/DOM proofs and remaining scope. Linked it from existing
+handoff `56f8de92-b6be-42a4-9779-0b4e6003069a` as a scoped supersession of the earlier
+no-functional-execution limitation. Exact retrieval and concept query “Agent City
+isolated function” both returned the new note. No duplicated atomic note created.
+SignalBox: no captures warranted; existing performance issue remains tracked.

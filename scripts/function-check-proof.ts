@@ -75,6 +75,18 @@ const forgery = await checkFunctions(
   },
 );
 assert.equal(forgery.status, "failed");
+const serialization = await checkFunctions("export function run(){return 1n}", {
+  exportName: "run",
+  cases: [
+    {
+      name: "serialization failure is not function TypeError",
+      args: [],
+      throws: "TypeError",
+    },
+  ],
+});
+assert.equal(serialization.status, "failed");
+assert.equal(serialization.cases[0].reason, "result-not-bounded-json");
 await mkdir("evidence/function-checks", { recursive: true });
 await writeFile(
   "evidence/function-checks/proof.json",
@@ -87,6 +99,7 @@ await writeFile(
       isolation,
       loop,
       forgery,
+      serialization,
     },
     null,
     2,
