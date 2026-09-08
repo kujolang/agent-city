@@ -242,8 +242,8 @@
           "id": 1,
           "name": "kujo-docs",
           "type": "semantic",
-          "x": 48,
-          "y": 160,
+          "x": 32,
+          "y": 96,
           "width": 16,
           "height": 16,
           "properties": [
@@ -255,7 +255,7 @@
             {
               "name": "slots",
               "type": "string",
-              "value": "-6,0,6"
+              "value": "-4,0,4"
             },
             {
               "name": "live",
@@ -268,8 +268,8 @@
           "id": 2,
           "name": "repo-source",
           "type": "semantic",
-          "x": 88,
-          "y": 160,
+          "x": 72,
+          "y": 96,
           "width": 16,
           "height": 16,
           "properties": [
@@ -281,7 +281,7 @@
             {
               "name": "slots",
               "type": "string",
-              "value": "-6,0,6"
+              "value": "-4,0,4"
             },
             {
               "name": "live",
@@ -294,8 +294,8 @@
           "id": 3,
           "name": "project-rag",
           "type": "semantic",
-          "x": 128,
-          "y": 160,
+          "x": 112,
+          "y": 96,
           "width": 16,
           "height": 16,
           "properties": [
@@ -307,7 +307,7 @@
             {
               "name": "slots",
               "type": "string",
-              "value": "-6,0,6"
+              "value": "-4,0,4"
             },
             {
               "name": "live",
@@ -320,8 +320,8 @@
           "id": 4,
           "name": "previous-runs",
           "type": "semantic",
-          "x": 168,
-          "y": 160,
+          "x": 152,
+          "y": 96,
           "width": 16,
           "height": 16,
           "properties": [
@@ -333,7 +333,7 @@
             {
               "name": "slots",
               "type": "string",
-              "value": "-6,0,6"
+              "value": "-4,0,4"
             },
             {
               "name": "live",
@@ -346,8 +346,8 @@
           "id": 5,
           "name": "external-research",
           "type": "semantic",
-          "x": 208,
-          "y": 160,
+          "x": 192,
+          "y": 96,
           "width": 16,
           "height": 16,
           "properties": [
@@ -359,7 +359,7 @@
             {
               "name": "slots",
               "type": "string",
-              "value": "-6,0,6"
+              "value": "-4,0,4"
             },
             {
               "name": "live",
@@ -385,7 +385,7 @@
             {
               "name": "slots",
               "type": "string",
-              "value": "-6,0,6"
+              "value": "-4,0,4"
             },
             {
               "name": "live",
@@ -412,6 +412,48 @@
               "name": "kind",
               "type": "string",
               "value": "portal"
+            }
+          ]
+        },
+        {
+          "id": 30,
+          "name": "upper-walkway",
+          "type": "semantic",
+          "x": 16,
+          "y": 96,
+          "width": 16,
+          "height": 16,
+          "properties": [
+            {
+              "name": "kind",
+              "type": "string",
+              "value": "walkway"
+            },
+            {
+              "name": "span",
+              "type": "string",
+              "value": "208"
+            }
+          ]
+        },
+        {
+          "id": 31,
+          "name": "access-ladder",
+          "type": "semantic",
+          "x": 224,
+          "y": 96,
+          "width": 16,
+          "height": 16,
+          "properties": [
+            {
+              "name": "kind",
+              "type": "string",
+              "value": "ladder"
+            },
+            {
+              "name": "bottom",
+              "type": "string",
+              "value": "160"
             }
           ]
         }

@@ -202,6 +202,9 @@ export interface Walker {
   visits: number;
   homeX?: number;
   path?: string[];
+  roomPath?: string[];
+  roomTarget?: string;
+  climbing?: boolean;
   packetUntil?: number;
   packetEvidence?: string[];
   completedKeys?: string[];
@@ -354,6 +357,8 @@ function move(w: Walker, x: number, y: number): boolean {
   return w.x === x && w.y === y;
 }
 function cityPath(w: Walker, from: Scene, to: Scene) {
+  delete w.roomPath;
+  delete w.roomTarget;
   const a = entrance(from),
     b = entrance(to);
   w.scene = "city";
@@ -364,6 +369,23 @@ function cityPath(w: Walker, from: Scene, to: Scene) {
     a.x / 16 + "," + a.y / 16,
     b.x / 16 + "," + b.y / 16,
   ).slice(1);
+}
+function roomMove(w: Walker, x: number, y: number): boolean {
+  const target = `${w.scene}:${x},${y}`;
+  if (w.roomTarget !== target) {
+    w.roomTarget = target;
+    w.roomPath = route(
+      world.maps[w.scene].navigation,
+      `${w.x},${w.y}`,
+      `${x},${y}`,
+    ).slice(1);
+  }
+  const point = w.roomPath?.[0];
+  if (!point) return w.x === x && w.y === y;
+  const [nx, ny] = point.split(",").map(Number);
+  w.climbing = ny !== w.y;
+  if (move(w, nx, ny)) w.roomPath!.shift();
+  return w.x === x && w.y === y;
 }
 function followPath(w: Walker): boolean {
   if (!w.path?.length) return true;
@@ -379,9 +401,10 @@ export function advance(p: Presentation, truth?: Truth): Presentation {
     compareId(a.id, b.id),
   );
   for (const w of walkers) {
+    w.climbing = false;
     w.age++;
     if (w.phase === "work" && !w.queued.length && w.homeX !== undefined)
-      move(w, w.homeX, 160);
+      roomMove(w, w.homeX, 160);
     if (w.phase === "work" && w.queued.length && w.age >= 4) {
       w.visit = w.queued.shift()!;
       w.visits++;
@@ -391,7 +414,7 @@ export function advance(p: Presentation, truth?: Truth): Presentation {
     } else if (w.phase === "outbound") {
       const dest = w.visit?.destination ?? "library";
       if (w.scene !== "city") {
-        if (move(w, 16, 160)) cityPath(w, w.scene, dest);
+        if (roomMove(w, 16, 160)) cityPath(w, w.scene, dest);
       } else if (followPath(w)) {
         w.scene = dest;
         w.x = 16;
@@ -411,7 +434,7 @@ export function advance(p: Presentation, truth?: Truth): Presentation {
         .map(Number);
       const slot = slots[parseInt(badge(w.id), 16) % slots.length];
       const x = Math.max(16, Math.min(224, (station?.x ?? 128) + slot));
-      if (move(w, x, station?.y ?? 160)) {
+      if (roomMove(w, x, station?.y ?? 160)) {
         w.phase = "read";
         w.age = 0;
       }
@@ -426,7 +449,7 @@ export function advance(p: Presentation, truth?: Truth): Presentation {
       w.age = 0;
     } else if (w.phase === "return") {
       if (w.scene !== "city") {
-        if (move(w, 16, 160)) cityPath(w, w.scene, "workshop");
+        if (roomMove(w, 16, 160)) cityPath(w, w.scene, "workshop");
       } else if (followPath(w)) {
         w.scene = "workshop";
         w.x = 16;
@@ -615,6 +638,7 @@ export function animationFor(
   a: Agent | undefined,
   tick: number,
 ): Animation {
+  if (w.climbing) return "ladder";
   if (["outbound", "enter", "return"].includes(w.phase)) return "walk";
   if (w.packetUntil && tick < w.packetUntil) return "inspect";
   if (w.visit) {

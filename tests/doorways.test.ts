@@ -6,6 +6,7 @@ import {
   initialPresentation,
   plan,
   advance,
+  animationFor,
   type OperationEvent,
 } from "../packages/world-core/index";
 import type { CityEvent } from "../packages/protocol/index";
@@ -35,6 +36,54 @@ it("connects every doorway without routing through building interiors", () => {
         ).toBe(false);
       }
     }
+});
+
+it("real retrieval climbs only the authored ladder and returns without changing identity", () => {
+  const events: CityEvent[] = readFileSync(
+    "tests/fixtures/real-observations.jsonl",
+    "utf8",
+  )
+    .trim()
+    .split("\n")
+    .map((s) => JSON.parse(s));
+  const event = events.find(
+    (e) =>
+      e.type.startsWith("operation.") &&
+      (e as OperationEvent).operation.capability === "rag.query" &&
+      (e as OperationEvent).operation.collection === "kujo-docs",
+  ) as OperationEvent;
+  expect(event).toBeDefined();
+  function run() {
+    let p = plan(initialPresentation(), event),
+      climbed = 0,
+      readUpper = false,
+      returned = false;
+    const trace: Array<[string, number, number, string]> = [];
+    for (let tick = 0; tick < 1000; tick++) {
+      const w = p.walkers[event.instance];
+      expect(w.id).toBe(event.instance);
+      trace.push([w.scene, w.x, w.y, w.phase]);
+      if (w.scene === "library" && w.y !== 160 && w.y !== 96) {
+        expect(w.x).toBe(224);
+        expect(animationFor(w, undefined, p.tick)).toBe("ladder");
+        climbed++;
+      }
+      if (w.scene === "library" && w.phase === "read") {
+        expect(w.y).toBe(96);
+        readUpper = true;
+      }
+      if (readUpper && w.scene === "workshop" && w.phase === "work") {
+        returned = true;
+        break;
+      }
+      p = advance(p);
+    }
+    expect(climbed).toBeGreaterThan(0);
+    expect(readUpper).toBe(true);
+    expect(returned).toBe(true);
+    return trace;
+  }
+  expect(run()).toEqual(run());
 });
 
 it("a retained real retrieval reaches the Library threshold before changing scenes", () => {

@@ -255,7 +255,7 @@
             {
               "name": "slots",
               "type": "string",
-              "value": "-6,0,6"
+              "value": "-4,0,4"
             },
             {
               "name": "live",
@@ -281,7 +281,7 @@
             {
               "name": "slots",
               "type": "string",
-              "value": "-6,0,6"
+              "value": "-4,0,4"
             },
             {
               "name": "live",
@@ -307,7 +307,7 @@
             {
               "name": "slots",
               "type": "string",
-              "value": "-6,0,6"
+              "value": "-4,0,4"
             },
             {
               "name": "live",
@@ -333,7 +333,7 @@
             {
               "name": "slots",
               "type": "string",
-              "value": "-6,0,6"
+              "value": "-4,0,4"
             },
             {
               "name": "live",
@@ -359,7 +359,7 @@
             {
               "name": "slots",
               "type": "string",
-              "value": "-6,0,6"
+              "value": "-4,0,4"
             },
             {
               "name": "live",
@@ -385,7 +385,7 @@
             {
               "name": "slots",
               "type": "string",
-              "value": "-6,0,6"
+              "value": "-4,0,4"
             },
             {
               "name": "live",

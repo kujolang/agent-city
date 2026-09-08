@@ -43,10 +43,10 @@ for (const name of names) {
     if (
       name !== "city" &&
       o.kind === "station" &&
-      (o.y !== 160 ||
+      (![96, 160].includes(o.y) ||
         o.x < 16 ||
         o.x > 224 ||
-        cells[11 * 16 + Math.floor(o.x / 16)] !== 3)
+        (o.y === 160 && cells[11 * 16 + Math.floor(o.x / 16)] !== 3))
     )
       throw Error("station has no reachable supported floor");
     if (
@@ -64,6 +64,60 @@ for (const name of names) {
       navigation[x + ",160"] = [x - 4, x + 4]
         .filter((n) => n >= 16 && n <= 224)
         .map((n) => n + ",160");
+  const connect = (a: string, b: string) => {
+    navigation[a] ??= [];
+    navigation[b] ??= [];
+    if (!navigation[a].includes(b)) navigation[a].push(b);
+    if (!navigation[b].includes(a)) navigation[b].push(a);
+  };
+  for (const o of objects) {
+    if (o.kind === "walkway") {
+      const span = Number(o.span);
+      if (
+        !Number.isFinite(span) ||
+        span <= 0 ||
+        span % 4 ||
+        o.x % 4 ||
+        o.y % 4 ||
+        o.x + span > 240
+      )
+        throw Error("Invalid walkway");
+      for (let x = o.x; x < o.x + span; x += 4)
+        connect(`${x},${o.y}`, `${x + 4},${o.y}`);
+    }
+    if (o.kind === "ladder") {
+      const bottom = Number(o.bottom);
+      if (
+        !Number.isFinite(bottom) ||
+        bottom <= o.y ||
+        bottom > 160 ||
+        o.x % 4 ||
+        o.y % 4 ||
+        bottom % 4
+      )
+        throw Error("Invalid ladder");
+      for (let y = o.y; y < bottom; y += 4)
+        connect(`${o.x},${y}`, `${o.x},${y + 4}`);
+    }
+  }
+  if (name !== "city") {
+    const seen = new Set<string>(),
+      pending = ["16,160"];
+    while (pending.length) {
+      const key = pending.pop()!;
+      if (seen.has(key)) continue;
+      seen.add(key);
+      pending.push(...(navigation[key] || []));
+    }
+    for (const o of objects.filter((o: any) => o.kind === "station"))
+      for (const slot of String(o.slots || "0")
+        .split(",")
+        .map(Number)) {
+        if (!seen.has(`${Math.max(16, Math.min(224, o.x + slot))},${o.y}`))
+          throw Error("Unreachable station slot: " + name + ":" + o.id);
+      }
+    for (const edges of Object.values(navigation)) edges.sort();
+  }
   maps[name] = { width: m.width, height: m.height, cells, objects, navigation };
 }
 for (const [name, m] of Object.entries(maps))

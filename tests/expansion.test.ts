@@ -68,9 +68,9 @@ it("all six rooms have reciprocal doors, reachable stations and authored slots",
       route(world.graph, "6,7", door.x / 16 + ",7").length,
     ).toBeGreaterThan(0);
     for (const station of m.objects.filter((o) => o.kind === "station")) {
-      expect((station as any).slots).toBe("-6,0,6");
+      expect((station as any).slots).toBe("-4,0,4");
       expect(
-        route(m.navigation, "16,160", station.x + ",160").length,
+        route(m.navigation, "16,160", station.x + "," + station.y).length,
       ).toBeGreaterThan(0);
     }
   }

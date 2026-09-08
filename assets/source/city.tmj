@@ -396,90 +396,6 @@
         },
         {
           "id": 20,
-          "name": "workshop-door",
-          "type": "semantic",
-          "x": 112,
-          "y": 80,
-          "width": 16,
-          "height": 16,
-          "properties": [
-            {
-              "name": "target",
-              "type": "string",
-              "value": "workshop:exit"
-            },
-            {
-              "name": "kind",
-              "type": "string",
-              "value": "portal"
-            }
-          ]
-        },
-        {
-          "id": 21,
-          "name": "library-door",
-          "type": "semantic",
-          "x": 192,
-          "y": 80,
-          "width": 16,
-          "height": 16,
-          "properties": [
-            {
-              "name": "target",
-              "type": "string",
-              "value": "library:exit"
-            },
-            {
-              "name": "kind",
-              "type": "string",
-              "value": "portal"
-            }
-          ]
-        },
-        {
-          "id": 22,
-          "name": "mcp-door",
-          "type": "semantic",
-          "x": 192,
-          "y": 192,
-          "width": 16,
-          "height": 16,
-          "properties": [
-            {
-              "name": "target",
-              "type": "string",
-              "value": "mcp:exit"
-            },
-            {
-              "name": "kind",
-              "type": "string",
-              "value": "portal"
-            }
-          ]
-        },
-        {
-          "id": 23,
-          "name": "dojo-door",
-          "type": "semantic",
-          "x": 112,
-          "y": 192,
-          "width": 16,
-          "height": 16,
-          "properties": [
-            {
-              "name": "target",
-              "type": "string",
-              "value": "dojo:exit"
-            },
-            {
-              "name": "kind",
-              "type": "string",
-              "value": "portal"
-            }
-          ]
-        },
-        {
-          "id": 24,
           "name": "dispatch-door",
           "type": "semantic",
           "x": 32,
@@ -500,7 +416,49 @@
           ]
         },
         {
-          "id": 25,
+          "id": 21,
+          "name": "workshop-door",
+          "type": "semantic",
+          "x": 112,
+          "y": 80,
+          "width": 16,
+          "height": 16,
+          "properties": [
+            {
+              "name": "target",
+              "type": "string",
+              "value": "workshop:exit"
+            },
+            {
+              "name": "kind",
+              "type": "string",
+              "value": "portal"
+            }
+          ]
+        },
+        {
+          "id": 22,
+          "name": "library-door",
+          "type": "semantic",
+          "x": 192,
+          "y": 80,
+          "width": 16,
+          "height": 16,
+          "properties": [
+            {
+              "name": "target",
+              "type": "string",
+              "value": "library:exit"
+            },
+            {
+              "name": "kind",
+              "type": "string",
+              "value": "portal"
+            }
+          ]
+        },
+        {
+          "id": 23,
           "name": "meeting-door",
           "type": "semantic",
           "x": 32,
@@ -512,6 +470,48 @@
               "name": "target",
               "type": "string",
               "value": "meeting:exit"
+            },
+            {
+              "name": "kind",
+              "type": "string",
+              "value": "portal"
+            }
+          ]
+        },
+        {
+          "id": 24,
+          "name": "dojo-door",
+          "type": "semantic",
+          "x": 112,
+          "y": 192,
+          "width": 16,
+          "height": 16,
+          "properties": [
+            {
+              "name": "target",
+              "type": "string",
+              "value": "dojo:exit"
+            },
+            {
+              "name": "kind",
+              "type": "string",
+              "value": "portal"
+            }
+          ]
+        },
+        {
+          "id": 25,
+          "name": "mcp-door",
+          "type": "semantic",
+          "x": 192,
+          "y": 192,
+          "width": 16,
+          "height": 16,
+          "properties": [
+            {
+              "name": "target",
+              "type": "string",
+              "value": "mcp:exit"
             },
             {
               "name": "kind",
