@@ -109,6 +109,7 @@ try {
     ["--import", "tsx", "integrations/kujo/bridge.ts"],
     root,
   );
+  await launch("runner", process.execPath, ["--import", "tsx", "apps/runner/main.ts"], root);
   await launch(
     "web",
     process.execPath,

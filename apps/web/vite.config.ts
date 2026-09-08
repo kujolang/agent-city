@@ -4,7 +4,7 @@ export default defineConfig({
     host: "127.0.0.1",
     port: 5178,
     strictPort: true,
-    proxy: { "/api": process.env.CITY_GATEWAY_URL || "http://127.0.0.1:7792" },
+    proxy: { "/control": process.env.CITY_CONTROL_URL || "http://127.0.0.1:7793", "/api": process.env.CITY_GATEWAY_URL || "http://127.0.0.1:7792" },
   },
   build: { chunkSizeWarningLimit: 800 },
 });

@@ -1,0 +1,64 @@
+# Run from the Agents SDK module root. This entry point has no offline fallback.
+# Prompts/results remain private mission files; the lifecycle spool is metadata only.
+from src.agents.ai.adapter import create_ai_sdk_adapter
+from src.agents.runner import create_agent_runner, run_agent
+from src.agents.core_types import create_agent, create_agent_run_request
+from src.agents.tracing.lifecycle import create_lifecycle_spool
+
+endpoint := env_or("CITY_MODEL_ENDPOINT", "")
+model := env_or("CITY_MODEL", "")
+assert(endpoint != "" && model != "", "Configure a model endpoint and model before running a mission")
+raw_sink := create_lifecycle_spool(env_or("CITY_SPOOL", ""), 262144)
+# Explicit role binding for the reviewer defined below, not a display-name guess.
+sink := func(event) {
+    if event["agent_id"] == "reviewer" { event["profile"] := "city-reviewer" }
+    return raw_sink(event)
+}
+kind := env_or("CITY_MISSION_KIND", "writing")
+actor := env_or("CITY_ACTOR", "writer")
+run_id := env_or("CITY_RUN", "")
+task_id := env_or("CITY_TASK", "")
+instructions := "Write the requested content accurately. Return only the finished draft. Do not claim to have searched, used tools, or verified facts when you have not."
+review := "Review the supplied draft for clarity and unsupported assertions. Return a corrected finished draft. Do not invent research or claim tool use."
+if kind == "code" {
+    instructions = "Write a small self-contained JavaScript module for the requested task. Return raw JavaScript only, without Markdown fences. Do not claim the code has been executed or tested."
+    review = "Review the supplied JavaScript for correctness and edge cases. Return the corrected raw JavaScript only, without Markdown fences. Do not claim execution or passing tests."
+}
+adapter := create_ai_sdk_adapter({"chat_completion_fn": func(client, messages, options) {
+    headers := {"Content-Type": "application/json"}
+    key := env_or("CITY_MODEL_API_KEY", "")
+    if key != "" { headers["Authorization"] := "Bearer " + key }
+    try {
+        wire := http_request(endpoint, {"method": "POST", "headers": headers, "body": to_json({"model": model, "messages": messages, "stream": false, "max_tokens": 2048}), "timeout": 90, "redirects": "none", "max_response_bytes": 262144})
+        match wire {
+            case Ok(response): {
+                if response["_status"] < 200 || response["_status"] >= 300 { return {"ok": false, "status_code": response["_status"], "error": {"code": "provider_http_error", "message": "Model provider rejected the request"}} }
+                body := parse_json(response["_body"])
+                if has_key(body, "choices") && len(body["choices"]) > 0 {
+                    content := body["choices"][0]["message"]["content"]
+                    if type(content) == "string" && trim(content) != "" {
+                        return {"ok": true, "status_code": 200, "model": model, "output_text": content}
+                    }
+                }
+            }
+            case Err(error): { return {"ok": false, "error": {"code": "provider_unavailable", "message": "Model request failed"}} }
+        }
+    } except err { return {"ok": false, "error": {"code": "provider_invalid_response", "message": "Model response could not be read"}} }
+    return {"ok": false, "error": {"code": "provider_no_output", "message": "Model returned no usable text"}}
+}})
+reviewer := create_agent({"id": "reviewer", "instructions": review})
+runner := create_agent_runner({"ai_adapter": adapter, "handoff_registry": {"reviewer": reviewer}})
+agent := create_agent({"id": actor, "instructions": instructions, "policy": {"handoff": {"target_agent_id": "reviewer"}}})
+result := run_agent(runner, agent, create_agent_run_request(read_file(env_or("CITY_PROMPT_FILE", "")), {"run_id": run_id}), {
+    "producer_instance": env_or("CITY_PRODUCER", ""), "observation_profile": "city-" + actor,
+    "observation_task_id": task_id, "on_lifecycle": sink, "max_iterations": 8
+})
+if result["status"] != "completed" {
+    write_file(env_or("CITY_OUTPUT_FILE", "") + ".failure.json", to_json(result["error"]), true)
+}
+assert(result["status"] == "completed", "Mission did not complete; inspect observed failure metadata")
+output := result["output"]["text"]
+assert(type(output) == "string" && trim(output) != "", "Mission produced no artifact")
+write_file(env_or("CITY_OUTPUT_FILE", ""), output, true)
+sink({"schema": "kujo.lifecycle.v1", "producer_instance": env_or("CITY_PRODUCER", ""), "profile": "city-" + actor, "run_id": run_id, "agent_id": actor, "task_id": task_id, "operation_id": "save-reviewed-output", "attempt": 1, "kind": "internal", "capability": "artifact.created", "phase": "finished", "outcome": "succeeded", "occurred_at_ms": current_timestamp(), "metadata": {"artifactRef": "mission:" + run_id + ":output"}})
+print(to_json({"run_id": run_id, "status": result["status"], "artifact": "mission:" + run_id + ":output"}))

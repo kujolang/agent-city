@@ -32,7 +32,11 @@
     "soak": "tsx scripts/scale-soak.ts",
     "replay": "tsx scripts/replay.ts",
     "gate": "tsx scripts/release-gate.ts",
-    "proof:pipeline": "tsx scripts/pipeline-blockers.ts"
+    "proof:pipeline": "tsx scripts/pipeline-blockers.ts",
+    "mission": "tsx scripts/mission.ts",
+    "proof:mission-contract": "tsx scripts/mission-contract.ts",
+    "start": "tsx scripts/start.ts",
+    "proof:mission-browser": "tsx scripts/mission-browser.ts"
   },
   "dependencies": {
     "ajv": "8.20.0",

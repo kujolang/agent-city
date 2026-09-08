@@ -1,3 +1,4 @@
+import { mountMissions } from "./missions";
 import { archiveUI } from "./archive";
 import "./style.css";
 import { appearance } from "../../packages/renderer-pixi/appearance";
@@ -21,7 +22,21 @@ import {
 import { validateEvent, type CityEvent } from "../../packages/protocol/index";
 const $ = (s: string) => document.querySelector(s) as HTMLElement;
 $("#app").innerHTML =
-  `<header><div><h1>KUJO / AGENT CITY</h1><small>LOCAL OBSERVER · PHASE 1 / OBSERVER</small></div><div class="status" id="health">UNKNOWN</div></header><main><section><div class="world"><div class="strip"><span id="scene">CITY / OVERWORLD</span><span>256 × 240 · WEBGL</span></div><div id="canvas"></div><div id="notice">Connecting to canonical telemetry…</div><nav><button data-scene="city">City</button><button data-scene="workshop">Workshop</button><button data-scene="library">Library</button><button data-scene="mcp">MCP Terminal</button><button data-scene="dojo">Dojo</button><button data-scene="dispatch">Dispatch HQ</button><button data-scene="meeting">Meeting / Handoff</button><button id="pause">Pause animation</button></nav><section id="building" aria-label="Building inspector"></section></div><h3>OBSERVED EXECUTIONS</h3><label>Roster <select id="filter"><option value="all">All instances</option><option value="active">Active operations</option><option value="failed">Failure history</option><option value="completed">Completed executions</option></select></label><div class="roster" id="roster"></div><p class="muted">Original geometric Kujo artwork. Only observed execution instances appear. Offline model fixture; actual SDK execution and local RAG retrieval.</p><details id="archive"><summary>ARCHIVE / REPLAY / INCIDENTS</summary><section id="archive-body"></section></details><h3>CANONICAL ACTIVITY</h3><ul class="log" id="log"></ul></section><aside><h2>EXECUTION INSPECTOR</h2><p id="selection" class="muted">Select an observed execution.</p><button id="follow">Follow selected instance</button><h3>CURRENT TRUTH</h3><div class="truth" id="truth">UNKNOWN</div><dl id="details"></dl><h3>VISUAL ACTIVITY</h3><div class="label" id="visual">UNKNOWN</div><h3>OPERATIONS / ATTEMPTS</h3><div id="operations"></div><h3>EVIDENCE REFERENCES</h3><div class="evidence" id="evidence">UNKNOWN</div></aside></main><footer><span>READ-ONLY · No task assignment, chat, stop or tool controls.</span><span>Truth is immediate. Presentation is evidence-linked.</span></footer><dialog><button id="close">Close evidence</button><pre id="record"></pre></dialog>`;
+  `<header><div><h1>KUJO / AGENT CITY</h1><small>LOCAL MISSIONS · LIVE OBSERVER</small></div><div class="status" id="health">UNKNOWN</div></header><main><section><div class="world"><div class="strip"><span id="scene">CITY / OVERWORLD</span><span>256 × 240 · WEBGL</span></div><div id="canvas"></div><div id="notice">Connecting to canonical telemetry…</div><nav><button data-scene="city">City</button><button data-scene="workshop">Workshop</button><button data-scene="library">Library</button><button data-scene="mcp">MCP Terminal</button><button data-scene="dojo">Dojo</button><button data-scene="dispatch">Dispatch HQ</button><button data-scene="meeting">Meeting / Handoff</button><button id="pause">Pause animation</button></nav><section id="building" aria-label="Building inspector"></section></div><h3>OBSERVED EXECUTIONS</h3><label>Roster <select id="filter"><option value="all">All instances</option><option value="active">Active operations</option><option value="failed">Failure history</option><option value="completed">Completed executions</option></select></label><div class="roster" id="roster"></div><p class="muted">Original Kujo pixel artwork. Only observed execution instances appear. Historical demo runs use offline models. New missions use the configured provider.</p><details id="archive"><summary>ARCHIVE / REPLAY / INCIDENTS</summary><section id="archive-body"></section></details><h3>CANONICAL ACTIVITY</h3><ul class="log" id="log"></ul></section><aside><h2>EXECUTION INSPECTOR</h2><p id="selection" class="muted">Select an observed execution.</p><button id="follow">Follow selected instance</button><h3>CURRENT TRUTH</h3><div class="truth" id="truth">UNKNOWN</div><dl id="details"></dl><h3>VISUAL ACTIVITY</h3><div class="label" id="visual">UNKNOWN</div><h3>OPERATIONS / ATTEMPTS</h3><div id="operations"></div><h3>EVIDENCE REFERENCES</h3><div class="evidence" id="evidence">UNKNOWN</div></aside></main><footer><span>Local mission commands · Read-only telemetry and replay.</span><span>Truth is immediate. Presentation is evidence-linked.</span></footer><dialog><button id="close">Close evidence</button><pre id="record"></pre></dialog>`;
+// Keep the world central and the live roster in a compact command-centre rail.
+const rosterRail = document.createElement("aside");
+rosterRail.className = "roster-rail";
+rosterRail.setAttribute("aria-label", "Observed agent roster");
+const rosterHeading = $("#roster").previousElementSibling!.previousElementSibling!;
+const filterLabel = $("#filter").parentElement!;
+rosterRail.append(rosterHeading, filterLabel, $("#roster"));
+$("main").prepend(rosterRail);
+$("main > section").classList.add("world-column");
+$("main > aside:last-child").classList.add("inspector-rail");
+const missions = mountMissions($(".world-column"));
+matchMedia("(prefers-reduced-motion: reduce)").addEventListener("change", (event) => {
+  if (event.matches) { paused = true; renderDOM(); }
+});
 let replayMode = false;
 let rendererReady = false;
 let truth = initialTruth(),
@@ -66,7 +81,7 @@ try {
   new ResizeObserver(() => {
     const scale = Math.max(
       1,
-      Math.min(3, Math.floor($("#canvas").clientWidth / 256)),
+      Math.min(3, Math.floor($("#canvas").clientWidth / 256), Math.max(1, Math.floor((innerHeight - 170) / 240))),
     );
     const canvas = $("#canvas canvas");
     canvas.style.width = 256 * scale + "px";
@@ -392,6 +407,7 @@ archiveUI(
   $("#archive-body"),
   (bundle) => {
     replayMode = true;
+    missions.setReplay(true);
     stream?.close();
     stream = null;
     truth = bundle.snapshot;
@@ -407,6 +423,7 @@ archiveUI(
   },
   () => {
     replayMode = false;
+    missions.setReplay(false);
     presentation = initialPresentation();
     void connect().catch(() => {
       health = "STALE";
