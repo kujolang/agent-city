@@ -1,0 +1,14 @@
+npm warn Unknown user config "python". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+(node:64379) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+page.waitForFunction: Timeout 10000ms exceeded.
+    at <anonymous> (/Users/robertdevore/2026/Kujolang/kujo-repos/agent-city/scripts/browser-visibility-proof.ts:102:14) {
+  log: [],
+  name: 'TimeoutError'
+}
+
+Node.js v26.7.0

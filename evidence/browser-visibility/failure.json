@@ -1,0 +1,11 @@
+{
+  "status": "NOT_QUALIFIED",
+  "browser": "151.0.7922.34",
+  "error": "TimeoutError: page.waitForFunction: Timeout 10000ms exceeded.",
+  "observation": {
+    "visibility": "visible",
+    "events": [],
+    "order": 1
+  },
+  "reason": "A failure to reach native hidden state is not a passing resume test or proof of a product failure."
+}
