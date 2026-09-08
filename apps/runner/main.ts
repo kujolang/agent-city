@@ -13,6 +13,9 @@ const dir = resolve(
   process.env.CITY_CONTROL_DIR || resolve(root, ".runtime/control"),
 );
 await mkdir(dir, { recursive: true, mode: 0o700 });
+const missionsRoot = resolve(
+  process.env.CITY_MISSIONS_DIR || resolve(root, ".runtime/missions"),
+);
 const token = randomBytes(32).toString("hex");
 const origin = process.env.CITY_WEB_ORIGIN || "http://127.0.0.1:5178";
 const port = Number(process.env.CITY_CONTROL_PORT || 7793);
@@ -54,10 +57,7 @@ async function reconcile() {
   for (const job of jobs.filter((j) => j.status === "unknown")) {
     try {
       const receipt = JSON.parse(
-        await readFile(
-          resolve(root, ".runtime/missions", job.id, "receipt.json"),
-          "utf8",
-        ),
+        await readFile(resolve(missionsRoot, job.id, "receipt.json"), "utf8"),
       );
       if (
         receipt.id !== job.id ||
@@ -134,10 +134,7 @@ const server = createServer(async (req, res) => {
       if (!["completed", "failed"].includes(job.status))
         return send(409, { error: "Source mission has not finished" });
       try {
-        return send(
-          200,
-          await missionDetails(resolve(root, ".runtime/missions"), job),
-        );
+        return send(200, await missionDetails(missionsRoot, job));
       } catch {
         return send(409, {
           error: "Recorded task context is unavailable or exceeds local limits",
@@ -148,7 +145,7 @@ const server = createServer(async (req, res) => {
       const id = req.url.slice("/control/exchanges/".length);
       if (!jobs.some((j) => j.id === id))
         return send(404, { error: "Mission not found" });
-      const file = resolve(root, ".runtime/missions", id, "exchanges.jsonl");
+      const file = resolve(missionsRoot, id, "exchanges.jsonl");
       let rows: unknown[] = [],
         complete = false;
       try {
@@ -177,8 +174,7 @@ const server = createServer(async (req, res) => {
       const job = jobs.find((j) => j.id === id && j.status === "completed");
       if (!job) return send(404, { error: "Completed mission not found" });
       const file = resolve(
-        root,
-        ".runtime/missions",
+        missionsRoot,
         job.id,
         job.kind === "code" ? "reviewed.mjs" : "reviewed.md",
       );
@@ -187,7 +183,7 @@ const server = createServer(async (req, res) => {
       try {
         validation = JSON.parse(
           await readFile(
-            resolve(root, ".runtime/missions", job.id, "validation.json"),
+            resolve(missionsRoot, job.id, "validation.json"),
             "utf8",
           ),
         );
@@ -197,7 +193,7 @@ const server = createServer(async (req, res) => {
       try {
         functional = JSON.parse(
           await readFile(
-            resolve(root, ".runtime/missions", job.id, "functional.json"),
+            resolve(missionsRoot, job.id, "functional.json"),
             "utf8",
           ),
         );
@@ -303,10 +299,7 @@ const server = createServer(async (req, res) => {
             error: "A continuation must keep the prior mission type",
           });
         try {
-          context = await continuationContext(
-            resolve(root, ".runtime/missions"),
-            parent,
-          );
+          context = await continuationContext(missionsRoot, parent);
         } catch {
           return send(409, {
             error:

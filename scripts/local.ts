@@ -1,18 +1,32 @@
+import { localPorts, localRuntime } from "./local-ports";
+import { prepareMcpProof as prepareLocalMcp } from "./prepare-mcp-proof";
 import { startupChecks, formatStartupChecks } from "./startup-checks";
 import { spawn } from "node:child_process";
 import { mkdir, writeFile, readFile, open, stat } from "node:fs/promises";
 import { randomBytes } from "node:crypto";
 import { resolve } from "node:path";
 const root = resolve(import.meta.dirname, ".."),
-  runtime = resolve(root, ".runtime");
+  runtime = localRuntime(root);
 const startup = await startupChecks(root);
 if (!startup.ok) {
   console.error(formatStartupChecks(startup));
   process.exit(1);
 }
-const gatewayPort = Number(process.env.CITY_PORT || 7792);
-const controlPort = Number(process.env.CITY_CONTROL_PORT || 7793);
+const ports = localPorts();
+const gatewayPort = ports.gateway,
+  controlPort = ports.control;
+
 await mkdir(runtime, { recursive: true });
+let mcpToken = process.env.CITY_MCP_TOKEN;
+if (!mcpToken) {
+  try {
+    mcpToken = await readFile(resolve(runtime, "mcp-token"), "utf8");
+  } catch (error: any) {
+    if (error.code !== "ENOENT") throw error;
+    mcpToken = randomBytes(32).toString("hex");
+    await writeFile(resolve(runtime, "mcp-token"), mcpToken, { mode: 0o600 });
+  }
+}
 const kujo = startup.kujo;
 await stat(kujo);
 let token;
@@ -25,12 +39,25 @@ try {
 const common = {
   ...process.env,
   KUJO_BIN: kujo,
+  CITY_RUNTIME_DIR: runtime,
+  CITY_CONTROL_DIR: resolve(runtime, "control"),
+  CITY_MISSIONS_DIR: resolve(runtime, "missions"),
   CITY_SOURCE_PREFIX: process.env.CITY_SOURCE_PREFIX || "review-",
   CITY_GATEWAY_URL: `http://127.0.0.1:${gatewayPort}`,
   CITY_CONTROL_URL: `http://127.0.0.1:${controlPort}`,
+  CITY_PORT: String(ports.gateway),
+  CITY_CONTROL_PORT: String(ports.control),
+  CITY_WEB_PORT: String(ports.web),
+  CITY_WEB_ORIGIN: `http://127.0.0.1:${ports.web}`,
+  RAG_URL: `http://127.0.0.1:${ports.rag}`,
+  WATCHDOG_URL: `http://127.0.0.1:${ports.watchdog}`,
+  CITY_MCP_URL: `http://127.0.0.1:${ports.mcp}/mcp/v1`,
+  CITY_MCP_TOKEN: mcpToken,
 };
 const children: ReturnType<typeof spawn>[] = [];
 const pids: Record<string, number> = {};
+process.on("SIGINT", stop);
+process.on("SIGTERM", stop);
 async function launch(
   name: string,
   command: string,
@@ -72,7 +99,7 @@ try {
       "--host",
       "127.0.0.1",
       "--port",
-      "8791",
+      String(ports.rag),
     ],
     resolve(root, "../rag"),
     { KUJO_RAG_INDEX_PATH: resolve(runtime, "rag.json") },
@@ -83,30 +110,34 @@ try {
     ["run", "dashboard_server.kujo", "--interpreter"],
     resolve(root, "../watchdog"),
     {
-      WDG_PORT: "7791",
+      WDG_PORT: String(ports.watchdog),
       WDG_DB_PATH: resolve(runtime, "watchdog.db"),
       WDG_API_AUTH_MODE: "token",
       WDG_API_AUTH_TOKEN: token,
       WDG_PROXY_AUTHZ_MODE: "token",
-      WDG_PROXY_AUTHZ_TOKEN: token,
+      WDG_PROXY_AUTHZ_TOKEN: randomBytes(32).toString("hex"),
       WDG_BACKUP_ENABLED: "false",
     },
   );
-  const existingMcp = await fetch("http://127.0.0.1:8931/mcp/v1/health", {
-    signal: AbortSignal.timeout(1500),
-  })
+  const existingMcp = await fetch(
+    `http://127.0.0.1:${ports.mcp}/mcp/v1/health`,
+    {
+      signal: AbortSignal.timeout(1500),
+    },
+  )
     .then((r) => r.ok)
     .catch(() => false);
-  if (!existingMcp)
-    await launch(
-      "mcp",
-      kujo,
-      ["run", "server.kujo", "--interpreter"],
-      resolve(root, "../mcp"),
+  if (!existingMcp) {
+    const mcpRoot = await prepareLocalMcp(
+      resolve(runtime, "mcp"),
+      ports.mcp,
+      mcpToken,
     );
-  await ready("http://127.0.0.1:8931/mcp/v1/health");
-  await ready("http://127.0.0.1:8791/health");
-  await ready("http://127.0.0.1:7791/readyz");
+    await launch("mcp", kujo, ["run", "server.kujo", "--interpreter"], mcpRoot);
+  }
+  await ready(`http://127.0.0.1:${ports.mcp}/mcp/v1/health`);
+  await ready(`http://127.0.0.1:${ports.rag}/health`);
+  await ready(`http://127.0.0.1:${ports.watchdog}/readyz`);
   await launch(
     "gateway",
     process.execPath,
@@ -134,10 +165,10 @@ try {
   );
   await ready(`http://127.0.0.1:${gatewayPort}/api/world/snapshot`);
   await ready(`http://127.0.0.1:${controlPort}/control/status`);
-  await ready("http://127.0.0.1:5178");
+  await ready(`http://127.0.0.1:${ports.web}`);
   await writeFile(resolve(runtime, "pids.json"), JSON.stringify(pids));
   console.log(
-    "Agent City ready: http://127.0.0.1:5178 — use Mission Command for writing/code tasks; Follow observes actual executions.",
+    `Agent City ready: http://127.0.0.1:${ports.web} — use Mission Command for writing/code tasks; Follow observes actual executions.`,
   );
 } catch (e) {
   console.error(e);
@@ -151,6 +182,5 @@ function stop() {
     process.exit(0);
   }, 300);
 }
-process.on("SIGINT", stop);
-process.on("SIGTERM", stop);
+
 await new Promise(() => {});

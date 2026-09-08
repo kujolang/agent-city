@@ -91,3 +91,38 @@ test("rejects duplicate configured service ports before launch", async () => {
     await rm(root, { recursive: true, force: true });
   }
 });
+
+test("a complete port offset stays consistent and is range checked", async () => {
+  const { localPorts } = await import("../scripts/local-ports");
+  expect(localPorts({ CITY_PORT_OFFSET: "30000" })).toEqual({
+    web: 35178,
+    rag: 38791,
+    watchdog: 37791,
+    gateway: 37792,
+    control: 37793,
+    mcp: 38931,
+  });
+  expect(() => localPorts({ CITY_PORT_OFFSET: "56605" })).toThrow(
+    "CITY_PORT_OFFSET",
+  );
+  expect(() => localPorts({ CITY_PORT_OFFSET: "0.5" })).toThrow(
+    "CITY_PORT_OFFSET",
+  );
+  expect(
+    localPorts({ CITY_PORT_OFFSET: "30000", CITY_PORT: "40000" }).gateway,
+  ).toBe(40000);
+});
+
+test("offset launchers isolate runtime data while keeping the default location compatible", async () => {
+  const { localRuntime } = await import("../scripts/local-ports");
+  expect(localRuntime("/city", {})).toBe("/city/.runtime");
+  expect(localRuntime("/city", { CITY_PORT_OFFSET: "30000" })).toBe(
+    "/city/.runtime/instances/30000",
+  );
+  expect(
+    localRuntime("/city", {
+      CITY_PORT_OFFSET: "30000",
+      CITY_RUNTIME_DIR: "/chosen",
+    }),
+  ).toBe("/chosen");
+});

@@ -59,6 +59,7 @@ function startService() {
       ...process.env,
       CITY_CONTROL_PORT: "18997",
       CITY_CONTROL_DIR: resolve(root, ".runtime", prefix),
+      CITY_MISSIONS_DIR: resolve(root, ".runtime", prefix, "missions"),
       CITY_SOURCE_PREFIX: prefix,
       CITY_MODEL_ENDPOINT: "http://127.0.0.1:18996/v1/chat/completions",
       CITY_MODEL: "synthetic-contract-fixture",
@@ -279,7 +280,7 @@ try {
   );
   const dispatch = JSON.parse(
     await readFile(
-      resolve(root, ".runtime/missions", job.id, "dispatch.json"),
+      resolve(root, ".runtime", prefix, "missions", job.id, "dispatch.json"),
       "utf8",
     ),
   );

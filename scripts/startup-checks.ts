@@ -1,3 +1,4 @@
+import { localPorts } from "./local-ports";
 import { access, stat } from "node:fs/promises";
 import { constants } from "node:fs";
 import { createServer } from "node:net";
@@ -90,16 +91,23 @@ export async function startupChecks(
       });
     }
   }
+  let ports;
+  try {
+    ports = localPorts(env);
+  } catch (e) {
+    checks.push({ id: "ports", status: "FAIL", message: (e as Error).message });
+    return { ok: false, kujo, checks };
+  }
   const seenPorts = new Map<number, string>();
   if (inspectPorts)
     for (const [name, raw] of [
-      ["web", "5178"],
-      ["RAG", "8791"],
-      ["Watchdog", "7791"],
-      ["gateway", env.CITY_PORT || "7792"],
-      ["mission service", env.CITY_CONTROL_PORT || "7793"],
-      ["MCP", "8931"],
-    ]) {
+      ["web", ports.web],
+      ["RAG", ports.rag],
+      ["Watchdog", ports.watchdog],
+      ["gateway", ports.gateway],
+      ["mission service", ports.control],
+      ["MCP", ports.mcp],
+    ] as [string, number][]) {
       const port = Number(raw);
       if (!Number.isInteger(port) || port < 1 || port > 65535) {
         checks.push({
@@ -130,6 +138,7 @@ export async function startupChecks(
         // Existing local MCP reuse is the launcher's documented behavior; no model call.
         if (
           name === "MCP" &&
+          !Number(env.CITY_PORT_OFFSET || 0) &&
           (await fetch(`http://127.0.0.1:${port}/mcp/v1/health`, {
             signal: AbortSignal.timeout(1500),
           })

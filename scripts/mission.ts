@@ -25,7 +25,10 @@ if (!prompt.trim() || Buffer.byteLength(prompt) > 16_384)
 const id = process.env.CITY_MISSION_ID || "mission-" + randomUUID();
 if (!/^mission-[0-9a-f-]{36}$/.test(id))
   throw Error("Invalid mission identity");
-const dir = resolve(root, ".runtime/missions", id);
+const dir = resolve(
+  process.env.CITY_MISSIONS_DIR || resolve(root, ".runtime/missions"),
+  id,
+);
 await mkdir(dir, { recursive: true, mode: 0o700 });
 let context: any = null;
 if (process.env.CITY_CONTEXT_FILE) {

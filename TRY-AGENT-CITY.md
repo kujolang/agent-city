@@ -111,3 +111,19 @@ This machine is running many other applications, as reported by the user.
 Short timing samples under that load are not isolated application capacity
 measurements. Functional correctness, missing events and failed source operations
 remain separate checks; a busy machine does not turn a failed operation into success.
+
+## Run a separate local instance
+
+If default ports belong to another running copy, use a complete port offset:
+
+```sh
+CITY_PORT_OFFSET=30000 npm start
+```
+
+Open http://127.0.0.1:35178. All six service ports move together. This instance
+uses `.runtime/instances/30000` for its index, telemetry, model settings and
+mission history, so it does not reuse the default instance's private state.
+Configure its model separately in Mission Command. Ctrl+C stops its launcher.
+The same offset must be used with `npm run doctor` when checking that instance.
+Offsets must be integers from 0 to 56604; no occupied process is killed or reused
+for an offset instance. Choose a free range; ports are checked before launch.
