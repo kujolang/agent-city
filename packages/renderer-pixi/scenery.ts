@@ -429,12 +429,37 @@ export function roomFloor(g: Graphics) {
   masonry(g, 8, 178, 240, 9, true);
   rect(g, 8, 176, 240, 2, P.light);
   rect(g, 8, 188, 240, 20, P.ink);
-  for (let x = 20; x < 244; x += 40) {
-    rect(g, x, 188, 4, 20, P.mortar);
-    rect(g, x, 188, 1, 20, P.light);
+  // Cutaway service void: shaded ducts, pipe collars and bolted steel supports.
+  // These stay below the authored walking floor and carry no operation state.
+  for (let x = 28; x < 236; x += 40) {
+    rect(g, x, 190, 25, 6, 0x162337);
+    rect(g, x, 190, 25, 1, P.stone);
+    rect(g, x + 1, 191, 23, 1, P.light);
+    rect(g, x, 195, 25, 1, P.mortar);
+    for (const dx of [3, 19]) {
+      rect(g, x + dx, 189, 3, 8, P.stone);
+      rect(g, x + dx, 189, 1, 8, P.light);
+      rect(g, x + dx + 2, 190, 1, 6, P.ink);
+    }
+    rect(g, x + 11, 196, 5, 10, P.mortar);
+    rect(g, x + 11, 196, 1, 10, P.stone);
+    rect(g, x + 12, 205, 14, 2, P.stone);
+    rect(g, x + 13, 206, 13, 1, P.mortar);
   }
-  rect(g, 8, 197, 240, 3, P.mortar);
+  for (let x = 20; x < 244; x += 40) {
+    rect(g, x - 1, 188, 6, 20, P.ink);
+    rect(g, x, 188, 4, 20, P.stone);
+    rect(g, x + 1, 189, 2, 18, P.mortar);
+    for (const y of [189, 204]) {
+      rect(g, x - 2, y, 8, 3, P.stone);
+      rect(g, x - 1, y, 6, 1, P.light);
+      rect(g, x, y + 1, 1, 1, P.ink);
+      rect(g, x + 3, y + 1, 1, 1, P.ink);
+    }
+  }
+  rect(g, 8, 197, 240, 4, P.ink);
   rect(g, 8, 197, 240, 1, P.stone);
+  rect(g, 8, 199, 240, 1, P.mortar);
 }
 
 export function mezzanine(g: Graphics) {
