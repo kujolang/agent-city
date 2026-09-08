@@ -254,7 +254,7 @@ try {
         }
         if (actor) {
           const walker = state.presentation.walkers[actor.id];
-          const key = `${state.scene}:${walker?.phase}:${actor.status}`;
+          const key = `${state.scene}:${walker?.phase}:${walker?.climbing ? "ladder" : walker?.y === 96 ? "upper" : "lower"}:${actor.status}`;
           if (!seen.has(key)) {
             seen.add(key);
             track.push({
@@ -264,6 +264,7 @@ try {
               truth: actor.status,
               at: Date.now(),
             });
+            await page.evaluate(() => window.scrollTo(0, 0));
             await page.screenshot({
               path: resolve(out, `${kind}-${track.length}.png`),
             });

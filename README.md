@@ -84,7 +84,7 @@ Watchdog native adapter is the observation seam; no universal broker is added.
 
 ```sh
 npm run verify
-npm run replay -- evidence/missions/replay.json
+npm run replay -- evidence/world-levels/replay.json
 npm run proof:mission-contract # synthetic provider; real SDK/Dispatch/RAG
 npm run proof:mission-browser
 ```
@@ -135,7 +135,7 @@ observations. Reference images and protected game sprites are not embedded.
 Release qualification currently **FAILS**. See [bounded blocker update](RELEASE-BLOCKERS.md) and [measured hardening report](RELEASE-HARDENING.md) before treating this as a release-ready application.
 
 - Open **Archive / Replay / Incidents**, browse a run, inspect its attempts or replay its pinned journal. Return to Live explicitly.
-- `npm run replay -- evidence/missions/replay.json` verifies a pinned redacted bundle offline without source execution.
+- `npm run replay -- evidence/world-levels/replay.json` verifies a pinned redacted bundle offline without source execution.
 - `npm run stress`, `npm run proof:hardening`, and `npm run soak` write bounded synthetic/browser evidence. The default soak is only 180 seconds; `SOAK_SECONDS=28800 npm run soak` requests eight hours, but its current stationary workload is not a substitute for a live ingestion soak.
 - `npm run gate` intentionally exits nonzero while mandatory release gates remain incomplete.
 - `?renderer=off` selects DOM-only presentation. `CITY_LEDGER_DIR` selects an explicit local RunLedger directory; raw receipt prompts/notes/output are excluded.

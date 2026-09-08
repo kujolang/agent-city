@@ -157,3 +157,20 @@ results and execution scope. Arbitrary projects, filesystem/network tools and a
 hard process-memory quota are outside this small-function execution capability.
 Full original game visuals, provider-backed MCP, broader grounded review and release
 hardening remain open. The eight-hour soak remains cancelled.
+
+## Authored multi-level Library and Workshop
+
+Both rooms now have real upper walkways and ladders. Station slots are aligned to
+the interior navigation graph; travel uses cached routes instead of axis shortcuts.
+Ladder animation comes only from actual vertical presentation movement. Library
+source classifications choose their authored upper sections; unknown retrieval
+stays at the lower query terminal. Deterministic real-event tests verify ascent,
+upper station arrival, descent, Workshop return and persistent execution identity.
+
+Fresh real model cohort `evidence/live-missions/live-1788876751607-` records upper
+Library travel while current truth remains independent, including completed truth
+during descent. 35 tests/build and seven-room/browser/keyboard/320px/DOM checks pass.
+Current replay command: `npm run replay -- evidence/world-levels/replay.json`;
+its semantic hash remains unchanged. Older pinned bundles are preserved.
+The original-reference visual target is still not complete, particularly characters
+and city variation. No soak restarted; no sibling source changes.
