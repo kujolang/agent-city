@@ -1,0 +1,14 @@
+npm warn Unknown user config "python". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+/Users/robertdevore/2026/Kujolang/kujo-repos/agent-city/scripts/launcher-proof.ts:55
+      throw Error("Launcher stopped before ready: " + log);
+            ^
+
+Error: Launcher stopped before ready: {"command":"ingest","errors":[],"index_path":"/Users/robertdevore/2026/Kujolang/kujo-repos/agent-city/.runtime/bundle-extracted/agent-city-preview-darwin-x64-3dc8efc54197/agent-city/.runtime/instances/30000/rag__agent-city.json","namespace":"agent-city","ok":true,"path":"./examples/kujo_docs","recursive":true,"stats":{"docs_loaded":4,"errors":0,"files_seen":4,"total_bytes_estimate":638},"summary":{"chunks":4,"documents":4,"incremental":{"deleted_docs":0,"reindexed_docs":4,"unchanged_docs":0},"provider":"hash","schema_version":2,"updated_at":1788884009507}}
+Starting Agent City at http://127.0.0.1:35178. Configure your model in Mission Command. Ctrl+C stops the launcher.
+Error: Service failed: http://127.0.0.1:38931/mcp/v1/health
+    at ready (/Users/robertdevore/2026/Kujolang/kujo-repos/agent-city/.runtime/bundle-extracted/agent-city-preview-darwin-x64-3dc8efc54197/agent-city/scripts/local.ts:88:9)
+    at async <anonymous> (/Users/robertdevore/2026/Kujolang/kujo-repos/agent-city/.runtime/bundle-extracted/agent-city-preview-darwin-x64-3dc8efc54197/agent-city/scripts/local.ts:138:3)
+
+    at <anonymous> (/Users/robertdevore/2026/Kujolang/kujo-repos/agent-city/scripts/launcher-proof.ts:55:13)
+
+Node.js v24.20.0

@@ -319,3 +319,19 @@ See `evidence/local-bundle/README.md` for artifact digest, revisions and limits.
 This removes the need to manually arrange sibling source checkouts for this
 preview. Node, npm installation and a model remain prerequisites. Default-port
 full startup was not rerun over existing listeners. It is not a qualified release.
+
+## Complete isolated launcher proof
+
+`CITY_PORT_OFFSET=30000 npm start` now starts the full stack at 35178 with private
+runtime, control and mission state under `.runtime/instances/30000`. Gateway/web
+proxy origins follow the configured ports. The launcher forwards shutdown during
+startup as well as after readiness. Owned MCP uses a separate persisted token;
+readiness sends it. Watchdog now supports WDG_HOST through a small independent
+producer change, and City binds it to loopback.
+
+A fresh packaged launch passed canvas, origin validation and shutdown checks;
+all six owned ports closed and existing listener state stayed unchanged. See
+`evidence/launcher/README.md` for the fixed preview archive and actual measurements.
+43 tests and controlled isolated-store contracts passed. Earlier MCP readiness
+failure is retained in Casefile. This closes the fresh complete-stack startup
+verification gap; it does not close the remaining visual/release qualification.

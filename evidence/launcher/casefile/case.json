@@ -1,0 +1,69 @@
+{
+  "case": {
+    "created_at": 1788884525520,
+    "id": "2026-09-08-122158-citylaunchermcpauth",
+    "mode": "log",
+    "name": "citylaunchermcpauth",
+    "path": "/Users/robertdevore/2026/Kujolang/kujo-repos/agent-city/.casefile/2026-09-08-122158-citylaunchermcpauth"
+  },
+  "classification": {
+    "keywords": [
+      "error",
+      "failed"
+    ],
+    "severity": "medium",
+    "signals": [
+      "failure-keywords-detected",
+      "from-log-only",
+      "redaction-triggered"
+    ],
+    "status": "unknown"
+  },
+  "command": {
+    "argv": [],
+    "display": "<from-log> .runtime/launcher-proof.log",
+    "duration_ms": 0,
+    "exit_code": null
+  },
+  "environment": {
+    "arch": "x86_64",
+    "ci": null,
+    "composer": "Composer version 2.9.5 2026-01-29 11:40:53",
+    "cwd": "/Users/robertdevore/2026/Kujolang/kujo-repos/agent-city",
+    "go": "go version go1.25.3 darwin/amd64",
+    "node": "v24.20.0",
+    "npm": "11.19.0",
+    "os": "Darwin",
+    "package_manager": "npm",
+    "php": "PHP 8.4.16 (cli) (built: Dec 20 2025 09:42:27) (NTS clang 17.0.0)",
+    "pnpm": "Downloading the pnpm 12.3.4 binary for darwin-x64...",
+    "pytest": null,
+    "python": "Python 3.10.5",
+    "shell": "zsh",
+    "yarn": null
+  },
+  "logs": {
+    "combined": "combined.log",
+    "stderr": "stderr.log",
+    "stdout": "stdout.log",
+    "truncated": false
+  },
+  "recommendations": {
+    "next_checks": [
+      "Review the captured logs in combined.log",
+      "Run npm test (or your project test script)"
+    ]
+  },
+  "repository": {
+    "branch": "main",
+    "changed_files": [],
+    "head": "92152f679be6637c7cb7f7c7a51b51cfd4e09de2",
+    "is_git_repo": true,
+    "root": "/Users/robertdevore/2026/Kujolang/kujo-repos/agent-city"
+  },
+  "security": {
+    "redaction_count": 1,
+    "redaction_enabled": true
+  },
+  "version": "1.0.0"
+}
