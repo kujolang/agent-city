@@ -5,10 +5,11 @@ import {
   readdir,
   mkdir,
   stat,
+  rm,
 } from "node:fs/promises";
 import { spawn } from "node:child_process";
 import { resolve } from "node:path";
-import { createHash } from "node:crypto";
+import { createHash, randomUUID } from "node:crypto";
 const root = resolve(import.meta.dirname, "../.."),
   runtime = resolve(root, process.env.CITY_RUNTIME_DIR || ".runtime");
 const watchdog = resolve(root, "../watchdog"),
@@ -48,6 +49,77 @@ export async function bridgeOnce() {
     throw Error(
       "bridge session quota reached; retain evidence and start a new explicit session",
     );
+  const seen = new Set<string>();
+  const pending: { file: string; needsNormalization: boolean }[] = [];
+  const flush = async () => {
+    const invocation = randomUUID();
+    const jobs = pending
+      .filter((p) => p.needsNormalization)
+      .map((p) => ({
+        input: p.file + ".native",
+        output: p.file + ".normalized-" + invocation,
+      }));
+    if (jobs.length) {
+      const work = resolve(runtime, "normalize-work-" + invocation + ".json");
+      await writeFile(work, JSON.stringify(jobs), { mode: 0o600 });
+      try {
+        await new Promise<void>((ok, fail) => {
+          const child = spawn(
+            kujo,
+            [
+              "run",
+              resolve(root, "integrations/kujo/normalize.kujo"),
+              "--interpreter",
+            ],
+            {
+              cwd: watchdog,
+              env: { ...process.env, CITY_NORMALIZE_WORK: work },
+              stdio: "ignore",
+            },
+          );
+          child.once("error", fail);
+          child.once("exit", (code) =>
+            code === 0 ? ok() : fail(Error("native adapter failed " + code)),
+          );
+        });
+        for (const item of pending.filter((p) => p.needsNormalization)) {
+          // A killed adapter cannot leave a partial durable canonical retry body.
+          JSON.parse(
+            await readFile(item.file + ".normalized-" + invocation, "utf8"),
+          );
+          await rename(item.file + ".normalized-" + invocation, item.file);
+        }
+      } finally {
+        await rm(work, { force: true });
+        for (const job of jobs) await rm(job.output, { force: true });
+      }
+    }
+    for (const { file } of pending) {
+      const body = await readFile(file, "utf8");
+      const res = await fetch(
+        (process.env.WATCHDOG_URL || "http://127.0.0.1:7791") +
+          "/telemetry/v2/batches",
+        {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+            authorization:
+              "Bearer " +
+              (process.env.WDG_API_AUTH_TOKEN ||
+                (await readFile(resolve(runtime, "token"), "utf8"))),
+          },
+          body,
+          signal: AbortSignal.timeout(3000),
+        },
+      );
+      if (!res.ok)
+        throw Error(
+          "canonical intake " + res.status + ": " + (await res.text()),
+        );
+      await writeFile(file + ".sent", hash(body));
+    }
+    pending.length = 0;
+  };
   for (const name of (await readdir(runtime))
     .filter((n) => /^spool-.*\.jsonl$/.test(n))
     .sort()) {
@@ -87,9 +159,11 @@ export async function bridgeOnce() {
         await stat(file + ".sent");
         continue;
       } catch {}
-      let body: string;
+      if (seen.has(key)) continue;
+      seen.add(key);
+      let needsNormalization = false;
       try {
-        body = await readFile(file, "utf8");
+        await readFile(file, "utf8");
       } catch {
         const native = {
           schema_version: "watchdog.native-event.v1",
@@ -162,53 +236,12 @@ export async function bridgeOnce() {
           file + ".native",
           JSON.stringify({ batch_id: key, events: [native] }),
         );
-        await new Promise<void>((ok, fail) => {
-          const p = spawn(
-            kujo,
-            [
-              "run",
-              resolve(root, "integrations/kujo/normalize.kujo"),
-              "--interpreter",
-            ],
-            {
-              cwd: watchdog,
-              env: {
-                ...process.env,
-                CITY_NATIVE_INPUT: file + ".native",
-                CITY_CANONICAL_OUTPUT: file,
-              },
-              stdio: "ignore",
-            },
-          );
-          p.on("error", fail);
-          p.on("exit", (code) =>
-            code === 0 ? ok() : fail(Error("native adapter failed " + code)),
-          );
-        });
-        body = await readFile(file, "utf8");
+        needsNormalization = true;
       }
-      const res = await fetch(
-        (process.env.WATCHDOG_URL || "http://127.0.0.1:7791") +
-          "/telemetry/v2/batches",
-        {
-          method: "POST",
-          headers: {
-            "content-type": "application/json",
-            authorization:
-              "Bearer " +
-              (process.env.WDG_API_AUTH_TOKEN ||
-                (await readFile(resolve(runtime, "token"), "utf8"))),
-          },
-          body,
-          signal: AbortSignal.timeout(3000),
-        },
-      );
-      if (!res.ok)
-        throw Error(
-          "canonical intake " + res.status + ": " + (await res.text()),
-        );
-      await writeFile(file + ".sent", hash(body));
+      pending.push({ file, needsNormalization });
+      if (pending.length === 16) await flush();
     }
+    await flush();
   }
 }
 if (process.argv[1] === import.meta.filename) {
