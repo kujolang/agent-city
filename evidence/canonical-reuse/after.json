@@ -1,0 +1,29 @@
+{
+  "startedAt": "2026-09-08T17:37:18.364Z",
+  "cityCommit": "97d9811d52729ed752d2dfb3e915b585100f4c52",
+  "watchdogCommit": "cdd4d9bee10fdfa2592309347a5b131cdc88bed3",
+  "pid": 45174,
+  "runtime": "/Users/robertdevore/2026/Kujolang/kujo-repos/agent-city/.runtime/pipeline-1788889038333",
+  "status": "COMPLETED",
+  "samples": [],
+  "kind": "SYNTHETIC canonical HTTP intake → real Watchdog export → real gateway → SSE; no source business execution",
+  "offeredRate": 300,
+  "accepted": 300,
+  "visible": 300,
+  "duplicates": 0,
+  "missing": 0,
+  "sendSeconds": 3.9291699459999982,
+  "totalSeconds": 4.031198304999998,
+  "visibleEventsPerSecond": 74.41955897528095,
+  "intakeMs": {
+    "p50": 1322.9486350000006,
+    "p95": 1329.0630339999989
+  },
+  "sourceHealth": {
+    "status": "LIVE",
+    "gap": false,
+    "lastSuccess": 1788889059300,
+    "lastError": "",
+    "coverage": "SDK run/retrieval/tool/handoff and Eval invocation/check results; retained local journal; reconnect history partial"
+  }
+}
