@@ -421,3 +421,70 @@ export function libraryFixtures(g: Graphics) {
     rect(g, x + 3, 142, 15, 2, P.light);
   }
 }
+
+/** Original workshop equipment, drawn behind evidence-driven agents and labels. */
+export function workshopFixtures(g: Graphics) {
+  // Utility trunk and bolted brackets connect the upper room visually.
+  rect(g, 18, 34, 217, 3, P.ink);
+  rect(g, 18, 34, 217, 1, P.light);
+  for (const x of [24, 104, 210]) {
+    rect(g, x, 34, 5, 5, P.mortar);
+    rect(g, x + 2, 35, 1, 1, P.light);
+  }
+  for (const x of [20, 212]) {
+    rect(g, x, 45, 4, 62, P.ink);
+    rect(g, x + 1, 45, 2, 62, P.stone);
+    rect(g, x + 1, 46, 1, 60, P.light);
+    for (const y of [54, 92]) rect(g, x - 1, y, 6, 3, P.mortar);
+  }
+  // Steel lockers and small component drawers beside the evidence shelf.
+  for (const x of [28, 40]) {
+    rect(g, x, 52, 11, 54, P.ink);
+    rect(g, x + 1, 53, 9, 51, P.stone);
+    rect(g, x + 2, 54, 1, 49, P.light);
+    for (const y of [57, 60, 63]) rect(g, x + 4, y, 5, 1, P.mortar);
+    rect(g, x + 7, 80, 1, 6, P.ink);
+  }
+  rect(g, 100, 76, 25, 30, P.ink);
+  for (let y = 78; y < 104; y += 8) {
+    rect(g, 102, y, 21, 6, P.stone);
+    rect(g, 103, y, 19, 1, P.light);
+    rect(g, 110, y + 3, 6, 1, P.ink);
+  }
+  // Bay frame and static safety paint do not assert a Workcell execution.
+  rect(g, 130, 44, 77, 64, P.ink);
+  for (const x of [131, 202]) {
+    rect(g, x, 45, 4, 62, P.stone);
+    rect(g, x, 45, 1, 62, P.light);
+    for (const y of [48, 71, 101]) rect(g, x + 2, y, 1, 2, P.ink);
+  }
+  rect(g, 134, 45, 69, 3, P.light);
+  rect(g, 134, 105, 69, 4, 0xc3a556);
+  for (let x = 134; x < 201; x += 8) {
+    rect(g, x, 105, 3, 2, P.ink);
+    rect(g, x + 2, 107, 3, 2, P.ink);
+  }
+  // Quiet pegboards with original hand-tool silhouettes above the work desks.
+  for (const x of [47, 127]) {
+    rect(g, x, 135, 49, 25, 0x5c4535);
+    rect(g, x + 1, 136, 47, 23, 0x302b29);
+    for (let dx = 4; dx < 47; dx += 5)
+      for (let y = 139; y < 158; y += 5) rect(g, x + dx, y, 1, 1, P.stone);
+    rect(g, x + 3, 139, 2, 12, P.light);
+    rect(g, x + 1, 138, 6, 3, P.stone);
+    rect(g, x + 41, 142, 2, 12, 0xc3a556);
+    rect(g, x + 39, 139, 6, 4, P.light);
+  }
+  // Rolling tool chest at the room edge, away from the authored ladder.
+  rect(g, 184, 146, 29, 27, P.ink);
+  rect(g, 185, 147, 27, 23, P.brick);
+  rect(g, 184, 145, 29, 2, P.light);
+  for (const y of [149, 155, 161]) {
+    rect(g, 187, y, 23, 5, P.rust);
+    rect(g, 194, y + 2, 9, 1, P.ink);
+  }
+  for (const x of [188, 207]) {
+    rect(g, x, 171, 3, 4, P.ink);
+    rect(g, x + 1, 172, 1, 2, P.stone);
+  }
+}

@@ -146,7 +146,14 @@ try {
     0,
     "Same-order replacement snapshot retained old check results",
   );
-  for (const scene of ["city", "meeting", "dispatch", "library"]) {
+  for (const scene of [
+    "city",
+    "meeting",
+    "dispatch",
+    "library",
+    "workshop",
+    "mcp",
+  ]) {
     await page.evaluate((scene) => {
       const r = (window as any).visualRenderer;
       r.scene = scene;

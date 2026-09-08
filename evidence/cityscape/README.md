@@ -14,3 +14,12 @@ with the same numeric order verifies old results cannot survive a replay reset.
 256×240 logical resolution. Empty chairs/equipment are scenery, not invented agents
 or task activity. Full DOM UI screenshots and accessibility checks remain in
 `../visual-revision`. No final reference-fidelity approval or release claim.
+
+Workshop pass (2026-09-08): `workshop.png` shows original conduit, bracketed
+Workcell bay, static safety paint, lockers, component drawers, pegboards and rolling
+tool storage. These are renderer-only fixtures behind existing stations/agents;
+no map, route, portal, operation, or status logic changed. `mcp.png` also records
+the existing MCP room for comparison. TypeScript and the Pixi browser proof passed;
+Workshop screenshot inspected for readable station labels and unobstructed ladder.
+The retained real Dojo FAIL/PASS checks and empty-snapshot negative control still
+pass. This art pass does not establish final reference fidelity.

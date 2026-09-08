@@ -11,6 +11,7 @@ import {
   mezzanine,
   books,
   libraryFixtures,
+  workshopFixtures,
 } from "./scenery";
 import { appearance } from "./appearance";
 import { CharacterAtlas } from "./characters";
@@ -512,6 +513,7 @@ export class CityRenderer {
         (v, i) => text(g, v, 24 + i * 40, 38, C.gold),
       );
     } else {
+      workshopFixtures(g);
       books(g, 55, 50, 39, 52);
       text(g, "EVIDENCE", 51, 39, C.gold);
       box(g, 134, 48, 69, 57, C.black);
