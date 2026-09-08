@@ -77,10 +77,10 @@ async function launch(
   child.on("error", (e) => console.error(name, e.message));
   return child;
 }
-async function ready(url: string) {
+async function ready(url: string, headers: HeadersInit = {}) {
   for (let i = 0; i < 200; i++) {
     try {
-      const r = await fetch(url, { signal: AbortSignal.timeout(500) });
+      const r = await fetch(url, { signal: AbortSignal.timeout(500), headers });
       if (r.ok) return;
     } catch {}
     await new Promise((r) => setTimeout(r, 100));
@@ -111,6 +111,7 @@ try {
     resolve(root, "../watchdog"),
     {
       WDG_PORT: String(ports.watchdog),
+      WDG_HOST: "127.0.0.1",
       WDG_DB_PATH: resolve(runtime, "watchdog.db"),
       WDG_API_AUTH_MODE: "token",
       WDG_API_AUTH_TOKEN: token,
@@ -135,7 +136,9 @@ try {
     );
     await launch("mcp", kujo, ["run", "server.kujo", "--interpreter"], mcpRoot);
   }
-  await ready(`http://127.0.0.1:${ports.mcp}/mcp/v1/health`);
+  await ready(`http://127.0.0.1:${ports.mcp}/mcp/v1/health`, {
+    authorization: `Bearer ${mcpToken}`,
+  });
   await ready(`http://127.0.0.1:${ports.rag}/health`);
   await ready(`http://127.0.0.1:${ports.watchdog}/readyz`);
   await launch(

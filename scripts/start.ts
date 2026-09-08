@@ -40,7 +40,7 @@ async function run(
   });
 }
 try {
-  await access(resolve(runtime, "rag.json"));
+  await access(resolve(runtime, "rag__agent-city.json"));
 } catch {
   const code = await run(
     kujo,
