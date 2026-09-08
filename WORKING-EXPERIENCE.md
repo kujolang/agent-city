@@ -3,6 +3,29 @@
 The active objective is the complete local game-like agent experience described
 by the user, not merely a passing Observer demo. **Not complete or release ready.**
 
+## Latest verified checkpoint
+
+The current application includes original role portraits and four-frame walking
+cycles, corrected Library/Workshop ladder openings, source labels that age with
+injected observation time, keyboard focus preserved by execution ID, and Follow
+scrolling the world into view. Native Chromium tab zoom at 125%/200%, reduced
+motion, narrow layout and WebGL loss/restoration have bounded evidence in the
+repository. The artwork is still materially simpler than the supplied references.
+
+Real code failure and later passing function checks are retained. Two additional
+real writing continuations completed runtime execution but failed the requested
+three-sentence constraint. Historical context now precedes the current reviewer
+draft; the writing UI explicitly says factual accuracy and task constraints are
+unverified. The existing local 1.5B model is not a demonstrated reliable writing
+configuration. No stronger model has been downloaded or selected on the user's
+behalf. See repository evidence under `evidence/writing-context-order`.
+
+Overall release remains FAIL for full-path throughput. Native hidden-tab recovery
+remains unqualified on this automation host; multiple distinct controls failed to
+produce a native hidden state, so the unchanged setup should not be retried.
+The eight-hour soak remains explicitly cancelled. Preview packaging and startup
+verification do not turn these open gates into a production-readiness claim.
+
 ## Current implementation
 
 - The five references supplied September 8 are now recorded by SHA-256 in
