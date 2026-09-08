@@ -5,6 +5,7 @@ import { mkdir, writeFile, readFile, stat, rename } from "node:fs/promises";
 import { resolve } from "node:path";
 import { performance } from "node:perf_hooks";
 import { batch } from "./pipeline-fixture";
+import { portAvailable } from "./startup-checks";
 const root = resolve(import.meta.dirname, ".."),
   runtime = resolve(root, ".runtime/pipeline-" + Date.now());
 await mkdir(runtime, { recursive: true });
@@ -65,11 +66,16 @@ let browser: Browser | undefined;
 let timer: ReturnType<typeof setInterval> | undefined;
 let abort = new AbortController();
 try {
+  for (const requiredPort of [port, 18992, ...(isSoak ? [18888] : [])]) {
+    if (!(await portAvailable(requiredPort)))
+      throw Error("Test port occupied: " + requiredPort);
+  }
   launch(
     kujo,
     ["run", "--interpreter", "dashboard_server.kujo"],
     resolve(root, "../watchdog"),
     {
+      WDG_HOST: "127.0.0.1",
       WDG_PORT: String(port),
       WDG_DB_PATH: resolve(runtime, "watchdog.sqlite"),
       WDG_API_AUTH_MODE: "token",

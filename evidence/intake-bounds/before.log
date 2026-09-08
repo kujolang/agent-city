@@ -1,0 +1,6 @@
+AssertionError [ERR_ASSERTION]: malformed or oversized raw batch was silently reduced
+
+200 !== 400
+
+    at run (/Users/robertdevore/2026/Kujolang/kujo-repos/watchdog/tests/telemetry_v2_api_suite.js:92:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
