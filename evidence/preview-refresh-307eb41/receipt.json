@@ -1,0 +1,18 @@
+{
+  "directory": "/Users/robertdevore/2026/Kujolang/kujo-repos/agent-city/.runtime/bundles/agent-city-preview-darwin-x64-307eb4189f66",
+  "archive": "/Users/robertdevore/2026/Kujolang/kujo-repos/agent-city/.runtime/bundles/agent-city-preview-darwin-x64-307eb4189f66.tar.gz",
+  "sha256": "a531b5627c522afd2c7d59616343b42e8f4129e681f37652302230e7a65bf585",
+  "bytes": 16909537,
+  "files": 1157,
+  "sources": {
+    "agent-city": "307eb4189f66c1b33dfa10ae6ce2bb2c398fa95a",
+    "agents-sdk": "bb2202d8b54f44717b1b1f0157a6774f2027cea1",
+    "dispatch": "dcffd8f8c3fb9bac1e66bc5a0ad6a5d078c88019",
+    "watchdog": "314698b0502c5d2139df46b7523482c6d089b6ff",
+    "rag": "85743f88c152d7c65f59d4697111faf85e36d8eb",
+    "eval": "7ad5caef1b718ab8a6ccdd02ef1b645af93ac133",
+    "mcp": "20f1c83f702aa0a86595db5a824634c1dde96aaa",
+    "kujo": "5dcbfcda2e48c2fe56dd2a4ecdb2d5947e18ff59"
+  },
+  "status": "PREVIEW / RELEASE GATES INCOMPLETE"
+}
