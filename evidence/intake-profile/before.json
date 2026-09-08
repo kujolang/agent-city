@@ -1,0 +1,80 @@
+{
+  "kind": "SYNTHETIC isolated instrumented Watchdog copy; no model or source business execution",
+  "watchdogCommit": "52d581f5fc9bb5865db1919fba7724c6dbbb8fb4",
+  "sources": {
+    "dashboard_server.kujo": "f001f0e1dc5e9b84e1759d008ba833d1503f9f4683918915b6ec22af8b046351",
+    "telemetry_repository.kujo": "7153fdba58341c144615a074bf36d22984c53f4c638e4d52da8e3ea7159fc393"
+  },
+  "requests": [
+    2489.8955639999995,
+    1669.9936959999995,
+    1477.9318650000005
+  ],
+  "phases": [
+    {
+      "milliseconds": 675,
+      "phase": "privacy"
+    },
+    {
+      "milliseconds": 386,
+      "phase": "validation"
+    },
+    {
+      "milliseconds": 368,
+      "phase": "validation"
+    },
+    {
+      "milliseconds": 6,
+      "phase": "parent_graph"
+    },
+    {
+      "milliseconds": 911,
+      "phase": "identity_and_rows"
+    },
+    {
+      "milliseconds": 523,
+      "phase": "privacy"
+    },
+    {
+      "milliseconds": 242,
+      "phase": "validation"
+    },
+    {
+      "milliseconds": 259,
+      "phase": "validation"
+    },
+    {
+      "milliseconds": 6,
+      "phase": "parent_graph"
+    },
+    {
+      "milliseconds": 581,
+      "phase": "identity_and_rows"
+    },
+    {
+      "milliseconds": 410,
+      "phase": "privacy"
+    },
+    {
+      "milliseconds": 236,
+      "phase": "validation"
+    },
+    {
+      "milliseconds": 228,
+      "phase": "validation"
+    },
+    {
+      "milliseconds": 6,
+      "phase": "parent_graph"
+    },
+    {
+      "milliseconds": 546,
+      "phase": "identity_and_rows"
+    }
+  ],
+  "limitations": [
+    "Three 100-record batches; wall-clock timing includes host contention and diagnostic overhead",
+    "No gateway, exporter or browser; phase timings are not end-to-end throughput",
+    "Validation appears twice because API and repository each validate"
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "kind": "SYNTHETIC isolated instrumented Watchdog copy; no model or source business execution",
+  "watchdogCommit": "52d581f5fc9bb5865db1919fba7724c6dbbb8fb4",
+  "sources": {
+    "dashboard_server.kujo": "d71cc46dd5cf972da0995315e84f9bdde0f1d940af45c6dca9f12070cc284849",
+    "telemetry_repository.kujo": "7153fdba58341c144615a074bf36d22984c53f4c638e4d52da8e3ea7159fc393"
+  },
+  "requests": [
+    1167.9400059999998,
+    1197.4723019999997,
+    1177.1001639999995
+  ],
+  "phases": [
+    {
+      "milliseconds": 381,
+      "phase": "privacy"
+    },
+    {
+      "milliseconds": 218,
+      "phase": "validation"
+    },
+    {
+      "milliseconds": 9,
+      "phase": "parent_graph"
+    },
+    {
+      "milliseconds": 492,
+      "phase": "identity_and_rows"
+    },
+    {
+      "milliseconds": 416,
+      "phase": "privacy"
+    },
+    {
+      "milliseconds": 235,
+      "phase": "validation"
+    },
+    {
+      "milliseconds": 7,
+      "phase": "parent_graph"
+    },
+    {
+      "milliseconds": 485,
+      "phase": "identity_and_rows"
+    },
+    {
+      "milliseconds": 405,
+      "phase": "privacy"
+    },
+    {
+      "milliseconds": 217,
+      "phase": "validation"
+    },
+    {
+      "milliseconds": 6,
+      "phase": "parent_graph"
+    },
+    {
+      "milliseconds": 506,
+      "phase": "identity_and_rows"
+    }
+  ],
+  "limitations": [
+    "Three 100-record batches; wall-clock timing includes host contention and diagnostic overhead",
+    "No gateway, exporter or browser; phase timings are not end-to-end throughput",
+    "Phase rows record actual calls; no validation or privacy work is bypassed"
+  ]
+}
