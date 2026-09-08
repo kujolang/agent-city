@@ -1,0 +1,25 @@
+{
+  "at": "2026-09-08T20:36:56.195Z",
+  "scope": "Read-only DOM comparison of retained real phase1 observations through current Journal exports; routed transport, no new live execution",
+  "selected": "phase1-release-1788849720-eval:eval-1788849319462",
+  "compared": "phase1-release-1788849720-mcp:run-1788849303229-8516",
+  "eventCounts": [
+    16,
+    12
+  ],
+  "bothTimelinesExact": true,
+  "failureAndPassRetained": true,
+  "keyboard": true,
+  "width320NoOverflow": true,
+  "checksumRejection": true,
+  "explicitReplayOnly": true,
+  "requests": [
+    "GET http://127.0.0.1:18889/api/archive/runs",
+    "GET http://127.0.0.1:18889/api/archive/replay?run=phase1-release-1788849720-eval%3Aeval-1788849319462",
+    "GET http://127.0.0.1:18889/api/archive/replay?run=phase1-release-1788849720-mcp%3Arun-1788849303229-8516",
+    "GET http://127.0.0.1:18889/api/archive/replay?run=phase1-release-1788849720-eval%3Aeval-1788849319462",
+    "GET http://127.0.0.1:18889/api/archive/replay?run=phase1-release-1788849720-mcp%3Arun-1788849303229-8516",
+    "GET http://127.0.0.1:18889/api/archive/replay?run=phase1-release-1788849720-eval%3Aeval-1788849319462"
+  ],
+  "errors": []
+}

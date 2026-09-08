@@ -1,0 +1,30 @@
+[
+  {
+    "tag": "LABEL",
+    "id": "",
+    "class": "",
+    "right": 485,
+    "width": 473
+  },
+  {
+    "tag": "SELECT",
+    "id": "archive-run",
+    "class": "",
+    "right": 485,
+    "width": 473
+  },
+  {
+    "tag": "LABEL",
+    "id": "",
+    "class": "",
+    "right": 485,
+    "width": 473
+  },
+  {
+    "tag": "SELECT",
+    "id": "archive-compare",
+    "class": "",
+    "right": 485,
+    "width": 473
+  }
+]

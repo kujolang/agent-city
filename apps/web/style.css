@@ -16,5 +16,7 @@ main{max-width:1500px;grid-template-columns:156px minmax(550px,1fr) 264px;gap:12
 
 .mission-panel input[type=checkbox]{width:auto;margin-right:6px}
 
+.archive-runs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:8px}.archive-run-panel{min-width:0;border:2px solid #347fea;background:#02050a;padding:10px;overflow-wrap:anywhere}.archive-run-panel h4{margin:0;color:#91baff}.archive-run-panel ol{max-height:260px;overflow:auto;padding-left:22px;font-size:11px}.archive-run-panel pre{max-height:240px;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere}.archive-run-panel details{border-top:1px solid #225dc9;padding:5px 0}
+
 /* Original static portraits share profile colors and accessories with world sprites. */
 .agent-portrait{display:block;float:left;width:32px;height:32px;flex-shrink:0;margin:0 5px 2px 0;background-repeat:no-repeat;background-color:#03070d;image-rendering:pixelated}.agent-portrait.large{float:none;width:96px;height:96px;margin:0 auto 10px;border-bottom:2px solid #347fea}.roster-rail button{min-height:48px}.roster-rail button::after{content:"";display:block;clear:both}
