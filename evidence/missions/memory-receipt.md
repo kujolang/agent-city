@@ -39,3 +39,10 @@ handoff `56f8de92-b6be-42a4-9779-0b4e6003069a` as a scoped supersession of the e
 no-functional-execution limitation. Exact retrieval and concept query “Agent City
 isolated function” both returned the new note. No duplicated atomic note created.
 SignalBox: no captures warranted; existing performance issue remains tracked.
+
+## Authored upper rooms continuation
+
+Saved focused Agent Notes handoff `bb76acf5-a769-4d02-9062-7d607d9b6e6d` for Library/Workshop topology,
+cached graph travel, real upstairs retrieval evidence and current replay pins.
+Linked from the main handoff; exact and conceptual retrieval both passed.
+No duplicate atomic note created. SignalBox: no captures warranted.
