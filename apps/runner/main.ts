@@ -160,10 +160,22 @@ const server = createServer(async (req, res) => {
         job.id,
         job.kind === "code" ? "reviewed.mjs" : "reviewed.md",
       );
+      let validation = null;
+      try {
+        validation = JSON.parse(
+          await readFile(
+            resolve(root, ".runtime/missions", job.id, "validation.json"),
+            "utf8",
+          ),
+        );
+      } catch (error: any) {
+        if (error.code !== "ENOENT") throw error;
+      }
       return send(200, {
         id,
         kind: job.kind,
         content: await readFile(file, "utf8"),
+        validation,
         codeExecuted: false,
       });
     }

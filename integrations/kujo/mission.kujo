@@ -19,6 +19,7 @@ kind := env_or("CITY_MISSION_KIND", "writing")
 actor := env_or("CITY_ACTOR", "writer")
 run_id := env_or("CITY_RUN", "")
 task_id := env_or("CITY_TASK", "")
+task_text := read_file(env_or("CITY_PROMPT_FILE", ""))
 instructions := "Write the requested content accurately. Return only the finished draft. Do not claim to have searched, used tools, or verified facts when you have not."
 review := "Review the supplied draft for clarity and unsupported assertions. Return a corrected finished draft. Do not invent research or claim tool use."
 if kind == "code" {
@@ -60,10 +61,10 @@ adapter := create_ai_sdk_adapter({"chat_completion_fn": func(client, messages, o
 use_docs := env_or("CITY_USE_RAG", "0") == "1"
 retrieval := {}
 if use_docs { retrieval = create_kujo_rag_provider({"namespace":"agent-city", "transport":create_kujo_rag_http_transport(env_or("RAG_URL", "http://127.0.0.1:8791"), {})}) }
-reviewer := create_agent({"id": "reviewer", "instructions": review, "model_policy":{"city_author":"reviewer", "city_author_run":run_id+"-handoff-reviewer"}})
+reviewer := create_agent({"id": "reviewer", "instructions": review+"\nThe original user task follows. Check every explicit requirement against the draft; do not replace the task with a different one.\n<original_task>\n"+task_text+"\n</original_task>", "model_policy":{"city_author":"reviewer", "city_author_run":run_id+"-handoff-reviewer"}})
 runner := create_agent_runner({"ai_adapter": adapter, "handoff_registry": {"reviewer": reviewer}})
 agent := create_agent({"id": actor, "instructions": instructions, "model_policy":{"city_author":actor, "city_author_run":run_id}, "policy": {"handoff": {"target_agent_id": "reviewer"}, "retrieval":{"enabled":use_docs}}})
-result := run_agent(runner, agent, create_agent_run_request(read_file(env_or("CITY_PROMPT_FILE", "")), {"run_id": run_id}), {
+result := run_agent(runner, agent, create_agent_run_request(task_text, {"run_id": run_id}), {
     "producer_instance": env_or("CITY_PRODUCER", ""), "observation_profile": "city-" + actor,
     "observation_task_id": task_id, "on_lifecycle": sink, "max_iterations": 8,
     "retrieval_provider":retrieval, "observation_collection":"kujo-docs"

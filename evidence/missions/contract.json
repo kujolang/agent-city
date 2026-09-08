@@ -5,6 +5,7 @@
   "observedRows": 14,
   "startedBeforeControlledCompletion": true,
   "reviewerHandoff": true,
+  "originalTaskReachesReviewer": true,
   "dispatchOwnedTaskState": true,
   "realLocalRag": true,
   "redirectsRejected": true,
@@ -15,5 +16,5 @@
   "metadataOnlySpool": true,
   "providerFailureRetained": true,
   "unauthorizedRequestsRejected": true,
-  "at": "2026-09-08T13:18:57.334Z"
+  "at": "2026-09-08T13:43:08.036Z"
 }

@@ -1,4 +1,5 @@
 import { validateModelConfig } from "../apps/runner/config";
+import { checkCodeArtifact } from "../apps/runner/code-artifact";
 import { spawn } from "node:child_process";
 import { mkdir, readFile, writeFile, rename } from "node:fs/promises";
 import { resolve } from "node:path";
@@ -115,11 +116,19 @@ const code = await new Promise<number | null>((ok, fail) => {
     process.removeListener("SIGINT", stop);
     process.removeListener("SIGTERM", stop);
   });
+let validation = null;
+if (code === 0 && kind === "code") {
+  validation = await checkCodeArtifact(output);
+  await writeFile(resolve(dir, "validation.json"), JSON.stringify(validation), {
+    mode: 0o600,
+  });
+}
 await writeReceipt({
   id,
   producer,
   kind,
   status: code === 0 ? "completed" : "failed",
+  validation,
   code,
   startedAt,
   finishedAt: new Date().toISOString(),

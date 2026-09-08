@@ -95,7 +95,11 @@ export function mountMissions(host: HTMLElement) {
               );
               if (!response.ok) throw Error();
               const artifact = await response.json();
-              output.textContent = artifact.content;
+              output.textContent =
+                (artifact.kind === "code"
+                  ? `SYNTAX: ${artifact.validation?.syntax?.toUpperCase() || "UNKNOWN"} · FUNCTIONAL TESTS: NOT RUN · CODE NOT EXECUTED\n${artifact.validation?.fenceRemoved ? "Outer Markdown fence removed; original response retained above.\n" : ""}\n`
+                  : "MODEL-REVIEWED TEXT · FACTUAL ACCURACY NOT VERIFIED\n\n") +
+                artifact.content;
             } catch {
               output.textContent = "Artifact unavailable; no result inferred.";
             }

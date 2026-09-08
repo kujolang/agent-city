@@ -7,6 +7,7 @@ import assert from "node:assert/strict";
 const root = resolve(import.meta.dirname, "..");
 const prefix = "fixture-control-" + Date.now() + "-";
 const origin = "http://127.0.0.1:5178";
+const requests: any[] = [];
 let calls = 0,
   failProvider = false,
   redirectProvider = false,
@@ -15,8 +16,12 @@ const barrier = new Promise<void>((r) => {
   release = r;
 });
 const provider = createServer((req, res) => {
-  req.resume();
+  let requestBody = "";
+  req.on("data", (chunk) => {
+    requestBody += chunk;
+  });
   req.on("end", async () => {
+    requests.push(JSON.parse(requestBody));
     calls++;
     if (calls === 1) await barrier;
     if (redirectProvider && req.url !== "/redirected") {
@@ -208,6 +213,12 @@ try {
     (v) => v.jobs[0]?.status === "completed",
   );
   assert.equal(calls, 2);
+  assert(
+    JSON.stringify(requests[1].messages).includes(
+      "Private fixture task do not put in telemetry: explain Kujo imports",
+    ),
+    "Reviewer must retain the original task requirements",
+  );
   const rows = (await readFile(spool, "utf8"))
     .trim()
     .split("\n")
@@ -297,6 +308,7 @@ try {
     observedRows: rows.length,
     startedBeforeControlledCompletion: true,
     reviewerHandoff: true,
+    originalTaskReachesReviewer: true,
     dispatchOwnedTaskState: true,
     realLocalRag: true,
     redirectsRejected: true,
