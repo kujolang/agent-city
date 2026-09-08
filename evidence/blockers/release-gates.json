@@ -23,8 +23,8 @@
       "reason": "Observed lost/restored WebGL context and explicit renderer-init failure DOM fallback; ready flag alone is insufficient."
     },
     "browserZoom": {
-      "status": "NOT_QUALIFIED",
-      "reason": "CDP pageScaleFactor evidence does not verify browser UI zoom."
+      "status": "PASS",
+      "reason": "Native Chromium tab zoom at 100/125/200%, keyboard roster and no overflow; not browser-menu interaction. CDP page scaling alone cannot qualify."
     },
     "hiddenTabResume": {
       "status": "NOT_QUALIFIED",
@@ -48,6 +48,7 @@
     "stress": "evidence/blockers/stress.json",
     "browser": "evidence/portrait-app/browser.json",
     "renderer": "evidence/portrait-app/context-check/browser.json",
+    "zoom": "evidence/browser-zoom/proof.json",
     "recovery": "evidence/hardening/recovery.json",
     "pipeline": "evidence/blockers/pipeline.json",
     "continuity": "evidence/blockers/watchdog-continuity.log"

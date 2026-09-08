@@ -9,6 +9,7 @@ export function assessRelease(input: {
   pipeline?: RecordData;
   browser?: RecordData;
   renderer?: RecordData;
+  zoom?: RecordData;
   recovery?: RecordData;
   continuity?: string;
 }) {
@@ -75,10 +76,28 @@ export function assessRelease(input: {
         atLeast(gpu?.initializationFailure?.roster, 1),
       "Observed lost/restored WebGL context and explicit renderer-init failure DOM fallback; ready flag alone is insufficient.",
     ),
-    browserZoom: {
-      status: "NOT_QUALIFIED",
-      reason: "CDP pageScaleFactor evidence does not verify browser UI zoom.",
-    },
+    browserZoom: measured(
+      input.zoom,
+      input.zoom?.method === "chrome.tabs.setZoom" &&
+        Array.isArray(input.zoom?.errors) &&
+        input.zoom.errors.length === 0 &&
+        input.zoom?.restored === true &&
+        Array.isArray(input.zoom?.cases) &&
+        [1, 1.25, 2].every((factor) =>
+          input.zoom?.cases?.some(
+            (c: RecordData) =>
+              c?.factor === factor &&
+              c.actual === factor &&
+              c.keyboard === true &&
+              c.focused === true &&
+              c.overflow === false &&
+              atLeast(c.roster, 1) &&
+              finite(c.dpr) &&
+              Math.abs(c.dpr / input.zoom!.baseline?.dpr - factor) < 0.02,
+          ),
+        ),
+      "Native Chromium tab zoom at 100/125/200%, keyboard roster and no overflow; not browser-menu interaction. CDP page scaling alone cannot qualify.",
+    ),
     hiddenTabResume: {
       status: "NOT_QUALIFIED",
       reason:

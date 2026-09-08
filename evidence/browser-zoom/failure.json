@@ -1,0 +1,10 @@
+{
+  "method": "chrome.tabs.setZoom",
+  "source": "3cbce979d9ed3ab0b88ae0ecf2e2676edd5eff7b",
+  "at": "2026-09-08T18:40:40.518Z",
+  "cases": [],
+  "errors": [],
+  "scope": "Actual browser tab zoom, isolated Chromium profile, retained real observations; no new agent execution. Not a browser-menu interaction test.",
+  "browser": "151.0.7922.34",
+  "failure": "AssertionError [ERR_ASSERTION]: Keyboard roster unusable"
+}

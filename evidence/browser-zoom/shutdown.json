@@ -1,0 +1,29 @@
+{
+  "launcherExit": 0,
+  "ports": [
+    {
+      "port": 35178,
+      "free": true
+    },
+    {
+      "port": 38791,
+      "free": true
+    },
+    {
+      "port": 37791,
+      "free": true
+    },
+    {
+      "port": 37792,
+      "free": true
+    },
+    {
+      "port": 37793,
+      "free": true
+    },
+    {
+      "port": 38931,
+      "free": true
+    }
+  ]
+}

@@ -16,6 +16,37 @@ const pipeline = {
   duplicates: 0,
 };
 describe("release evidence cannot overclaim qualification", () => {
+  it("requires applied native zoom, layout and keyboard evidence", () => {
+    const zoom = {
+      method: "chrome.tabs.setZoom",
+      errors: [],
+      restored: true,
+      baseline: { dpr: 1 },
+      cases: [1, 1.25, 2].map((factor) => ({
+        factor,
+        actual: factor,
+        dpr: factor,
+        keyboard: true,
+        focused: true,
+        overflow: false,
+        roster: 3,
+      })),
+    };
+    expect(assessRelease({ zoom }).gates.browserZoom.status).toBe("PASS");
+    for (const change of [
+      { method: "CDP pageScaleFactor" },
+      { restored: false },
+      { baseline: { dpr: 2 } },
+      { cases: zoom.cases.slice(0, 1) },
+      { cases: {} },
+      { cases: [null] },
+    ]) {
+      expect(
+        assessRelease({ zoom: { ...zoom, ...change } }).gates.browserZoom
+          .status,
+      ).toBe("FAIL");
+    }
+  });
   it("requires observed context loss and restoration beyond an initialization flag", () => {
     const renderer = {
       contextLoss: {

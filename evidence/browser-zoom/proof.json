@@ -1,0 +1,59 @@
+{
+  "method": "chrome.tabs.setZoom",
+  "source": "b015d673015ae0a573fd4422bb390172b844b09a",
+  "at": "2026-09-08T18:46:23.573Z",
+  "cases": [
+    {
+      "factor": 1,
+      "actual": 1,
+      "dpr": 1,
+      "width": 1280,
+      "overflow": false,
+      "focused": true,
+      "focusedInstance": "convergence-1788888381276-sdk:run-1788888393634-9552:scout",
+      "roster": 3,
+      "keyboard": true
+    },
+    {
+      "factor": 1.25,
+      "actual": 1.25,
+      "dpr": 1.25,
+      "width": 1024,
+      "overflow": false,
+      "focused": true,
+      "focusedInstance": "convergence-1788888381276-sdk:run-1788888393634-9552:scout",
+      "roster": 3,
+      "keyboard": true
+    },
+    {
+      "factor": 2,
+      "actual": 2,
+      "dpr": 2,
+      "width": 640,
+      "overflow": false,
+      "focused": true,
+      "focusedInstance": "convergence-1788888381276-sdk:run-1788888393634-9552:scout",
+      "roster": 3,
+      "keyboard": true
+    },
+    {
+      "factor": 1,
+      "actual": 1,
+      "dpr": 1,
+      "width": 1280,
+      "overflow": false,
+      "focused": true,
+      "focusedInstance": "convergence-1788888381276-sdk:run-1788888393634-9552:scout",
+      "roster": 3,
+      "keyboard": true
+    }
+  ],
+  "errors": [],
+  "scope": "Actual browser tab zoom, isolated Chromium profile, retained real observations; no new agent execution. Not a browser-menu interaction test.",
+  "browser": "151.0.7922.34",
+  "baseline": {
+    "dpr": 1,
+    "width": 1280
+  },
+  "restored": true
+}

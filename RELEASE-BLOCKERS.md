@@ -1,6 +1,6 @@
 # Bounded blocker fixes — 2026-09-08
 
-Release remains **FAIL** until full-path throughput and long-duration qualification pass. This pass deliberately avoids a broad Kujo/Watchdog performance rewrite.
+Release remains **FAIL** because the measured full-path throughput target failed. Long-duration reliability is unqualified: the user cancelled the eight-hour soak. Do not restart or schedule it without a new explicit request. This document preserves historical measurements; the current recorded gate assessment is [release-gates.json](evidence/blockers/release-gates.json).
 
 ## Fixed
 
@@ -18,9 +18,7 @@ A browser-connected smoke test offered 50/sec and delivered all 3,000 records in
 
 The new live-like harness supports eight hours of ongoing synthetic canonical HTTP intake through the real Watchdog/gateway/SSE and Chromium application. It records heap, DOM objects, queue sizes, journal growth, browser catch-up and periodic forced disconnect/recovery. It uses isolated databases, random local test credentials and disabled exporters. At 5 events/sec, the expected corpus is 144,000 metadata observations, including explicitly failed attempts.
 
-The long run writes `.runtime/soak-latest.json` and is **not complete merely because it starts**. `npm run gate` checks its actual completion, counts, browser catch-up and sampling continuity. Progress stays in ignored runtime storage so the working tree remains clean. A process-start resource limit occurred during an earlier smoke launch; a subsequent serialized smoke succeeded. Machine sleep, process loss or missing samples must be reported honestly.
-
-Run manually: `PIPELINE_SOAK=1 PIPELINE_SECONDS=28800 PIPELINE_RATE=5 npm run proof:pipeline`.
+The cancelled run wrote `.runtime/soak-latest.json`. The current `npm run gate` reports the soak as NOT_QUALIFIED due to cancellation; it does not read that file to claim completion or start any workload. A process-start resource limit occurred during an earlier smoke launch; a subsequent serialized smoke succeeded. Machine sleep, process loss or missing samples must be reported honestly. The eight-hour invocation is intentionally omitted from this startup guidance because the user explicitly cancelled it.
 
 ## Operating changes
 
