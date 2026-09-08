@@ -300,7 +300,11 @@ try {
   assert(!JSON.stringify(rows).includes("fixture-secret"));
   const artifact = await (await get("/control/artifact/" + job.id)).json();
   assert.equal(artifact.content, "Private fixture reviewed output");
-  assert.equal(artifact.codeExecuted, false);
+  assert.equal(artifact.kind, "writing");
+  assert.equal(artifact.validation, null);
+  // A writing artifact has no code-execution receipt. Preserve unknown coverage
+  // instead of treating a missing receipt as an explicit negative assertion.
+  assert.equal(artifact.codeExecuted, null);
   const exchanges = await (await get("/control/exchanges/" + job.id)).json();
   assert.equal(exchanges.recordingComplete, true);
   assert.equal(exchanges.records.length, 2);
