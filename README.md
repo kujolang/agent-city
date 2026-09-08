@@ -8,6 +8,53 @@ service for explicit writing/code requests and SDK reviewer handoffs.
 
 ## Start and try it
 
+### Kujo author → senior review with your Codex subscription
+
+This local adapter uses the installed Codex CLI and its existing ChatGPT login.
+It does not copy OAuth credentials or use an OpenAI Platform API key. It is a
+bounded text-provider adapter, not an import of all Codex tools, skills or teams.
+Codex owns authentication and account usage limits. Calls use an empty temporary
+working directory, read-only sandbox, and disabled shell/apps/browser/web search;
+the adapter does not load user config and uses the CLI default model. Temporary
+response files are removed after each request. The signed-in CLI must support
+the flags in `scripts/codex-provider.ts` (verified with 0.144.4).
+
+Terminal 1:
+
+```sh
+cd /Users/robertdevore/2026/Kujolang/kujo-repos/agent-city
+CITY_PORT_OFFSET=1000 npm start
+```
+
+Terminal 2, after the app is ready:
+
+```sh
+cd /Users/robertdevore/2026/Kujolang/kujo-repos/agent-city
+codex login status
+npm run provider:codex
+```
+
+If needed, `codex login` opens the normal ChatGPT sign-in. The adapter listens on
+loopback port 6179 and configures the app at http://127.0.0.1:6178 automatically,
+using a generated private local bridge credential. Do not enter a subscription
+password or copy a Codex token into the model form. Restart the adapter after
+restarting the app; it refreshes its local credential. Ctrl+C stops each terminal.
+
+Choose **Kujo + senior review (real MCP)** and submit a small script request.
+This mode always reads the actual public `kujolang-mcp` catalog with
+`get_catalog_item(slug: kujo)`; it does not use the demo README checkbox. The catalog
+provides project metadata, not a complete syntax manual or execution service.
+The author draft is saved as private `draft.kujo`; the separate senior reviewer
+returns a graded `reviewed.md`. A subsequent `kujo check` validates the draft
+without executing it, with its own observed Dojo activity. Grades remain model
+opinions, separate from that actual compiler check. No `.kujo` program is run.
+
+Verified real mission: `mission-42cf14f1-9892-4cc7-b952-e603a7721061`.
+See [live evidence](evidence/kujo-author-review-codex-checked/README.md).
+Custom team import from the 85 local catalog pages remains unimplemented.
+
+### Ollama or another chat-completions provider
+
 Requirements: Node 24+, installed npm dependencies, the Kujo 1.3.1 repository
 binary, and sibling `agents-sdk`, `dispatch`, `watchdog`, `rag`, `eval`, `mcp`
 repositories. This is a local development application, not a standalone public

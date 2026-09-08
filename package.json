@@ -36,6 +36,7 @@
     "mission": "tsx scripts/mission.ts",
     "proof:mission-contract": "tsx scripts/mission-contract.ts",
     "start": "tsx scripts/start.ts",
+    "provider:codex": "tsx scripts/codex-provider.ts",
     "proof:mission-browser": "tsx scripts/mission-browser.ts",
     "doctor": "tsx scripts/doctor.ts",
     "package:local": "tsx scripts/package-local.ts",

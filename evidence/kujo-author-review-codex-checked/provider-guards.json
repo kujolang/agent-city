@@ -1,0 +1,17 @@
+{
+  "results": [
+    {
+      "name": "unauthenticated",
+      "status": 401
+    },
+    {
+      "name": "browser-origin",
+      "status": 403
+    },
+    {
+      "name": "empty-messages",
+      "status": 502
+    }
+  ],
+  "modelInvocations": 0
+}
