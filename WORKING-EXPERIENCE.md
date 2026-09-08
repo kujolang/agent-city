@@ -34,21 +34,19 @@ by the user, not merely a passing Observer demo. **Not complete or release ready
   renderer, keyboard setup, 320px layout and DOM-only task form. Retained source
   truth is displayed honestly as stale where appropriate.
 - `npm run verify`: TypeScript, architectural boundary, maps, tests and build.
-- `npm run replay -- evidence/blockers/replay.json`: pinned real semantic hash
+- `npm run replay -- evidence/missions/replay.json`: pinned real semantic hash
   `a03059a108c9d041ecec0a99a64c43f0b6be3d3383dc4c2d9048aa7649de6c58`.
 
 ## Completion requirements still open
 
-- [ ] Configure an actual model and record writing and coding missions through
+- [x] Configure an actual model and record writing and coding missions through
   Watchdog/gateway into the visible city; fixture calls cannot satisfy this.
-- [ ] Bring new mission intake/assignment through actual Dispatch task state.
+- [x] Bring new mission intake/assignment through actual Dispatch task state (real engine contract and persisted owner receipt verified).
 - [ ] Demonstrate retrieval/tool use in these provider-backed missions. Current
-  new mission entry point generates/reviews text; earlier Observer demos remain
-  the evidence for real RAG/MCP activity.
+  new mission supports opt-in local-doc retrieval, verified against an actual isolated Kujo RAG server with fixture model responses. MCP in a provider-backed mission remains open.
 - [ ] Run generated code and meaningful checks inside a supported isolation
   boundary. Current code outputs are reviewed files, **not executed/tested code**.
-- [ ] Preserve and display the actual intermediate draft/review exchange with
-  source-qualified authorship. Do not invent conversation from handoff metadata.
+- [x] Preserve/display draft and reviewer responses with explicit source-qualified authorship. Controlled response tests pass; live-model content proof remains open.
 - [ ] Finish reference-led city variation, multi-level interiors, character art,
   accessible compact controls and visual review against all five images.
 - [ ] Verify end-to-end task controls in Chromium, interruption/restart behavior,
@@ -56,14 +54,61 @@ by the user, not merely a passing Observer demo. **Not complete or release ready
 - [ ] Resolve full-path throughput and outstanding reliability gates. The user
   cancelled the eight-hour test; do not restart it or schedule another silently.
 
-No live model credentials were found in this task's environment. The user was
-asked which provider to use; that answer remains pending. They can configure a
-compatible chat-completions endpoint/model/key in the local application.
+No cloud credentials were supplied. After the optional provider question remained
+unanswered, the existing local Ollama service was used with the downloaded
+`qwen2.5-coder:1.5b-instruct` model. The connection is saved privately for the next
+normal launcher startup. This was an implementation assumption, not an explicit
+user choice of model. A different compatible provider can be configured in-app.
 
 ## Scope and limits
 
 Local host only; no public multi-user hosting claim. Last 100 command receipts
 are browsable; private output files remain retained. Service restart marks
-previous running receipts UNKNOWN rather than inventing an execution outcome.
+previous running receipts UNKNOWN rather than inventing an execution outcome, then reconciles them only from atomic owner completion receipts. New admission remains blocked while recovery is unresolved.
 Existing Observer proof scripts remain explicitly offline-model demonstrations.
 The active Codex goal stays open until the full requested experience is proven.
+
+## Runtime / navigation continuation
+
+Dispatch intake, SDK execution, local RAG and the reviewer now share source-owned
+run/task references. Model response records use explicit per-agent model-policy
+bindings, not names inferred from text. They stay in private mission files; the
+metadata spool contains neither prompts nor response text.
+
+The controller was killed during a held model request in the contract test. The
+source continued; a restarted controller kept the same mission UNKNOWN/busy until
+the actual atomic receipt reported completion. History storage failures disable
+commands. These checks remain explicitly synthetic-provider tests.
+
+City entrances now meet the drawn thresholds. The navigation graph is compiled
+from authored street/walkway cells, includes the lower street, and checks doorway
+connectivity. A retained real retrieval test confirms identity and a visible
+threshold tick before the Library scene transition. Old replay bundles retain
+their previous map/core pins; the same 47-event real corpus is repinned at
+`evidence/missions/replay.json`, with unchanged semantic truth hash.
+
+## Genuine local model checkpoint
+
+`evidence/live-missions/live-1788874461949-/proof.json` records two real local-model
+missions, four completed source-qualified execution instances, LIVE collection,
+no observation gap and no browser errors. The writing track records city travel,
+Library entry/read/return, Workshop return and completion; the same instance
+survives every scene. Draft/reviewer texts are actual provider output.
+
+The first attempt at `live-1788874278501-` failed the browser acceptance check:
+empty optional `relatedInstance` metadata caused gateway quarantine. The bridge
+now omits empty optional values; strict gateway validation remains intact. The
+failure is retained in Casefile `2026-09-08-093418-citylivemetadatagap`. No sibling
+repository edits were required. A regression test covers the empty field.
+
+**Runtime success does not mean output quality passed.** The small model's writing
+added unsupported module claims, and its code response included Markdown fences
+and omitted the requested export. Both raw responses are retained. These artifacts
+need review; they are not validated content or tested code. Robust output contracts,
+task-aware review and supported isolated code checks remain required before calling
+the requested writing/coding experience complete.
+
+Current verification: 31 tests, typecheck, boundaries, authored maps and build pass;
+47-event replay hash unchanged; seven-room browser proof, keyboard setup, 320px
+layout and DOM-only controls pass. ResizeObserver canvas writes are deferred to
+animation frames to avoid resizing during observer delivery.

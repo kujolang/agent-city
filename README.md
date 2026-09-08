@@ -2,101 +2,85 @@
 
 **Working-experience expansion in progress:** [current capabilities and unfinished gates](WORKING-EXPERIENCE.md). Run `npm start` (Node 24+) or open `Start Agent City.command` on macOS. Model setup and explicit writing/code missions are now separate from the read-only Observer. Existing Observer notes below are historical where they say no task controls.
 
-A local, read-only Observer vertical slice. Real Kujo operations drive a small
-original pixel city; current truth updates independently of travel and room
-animation. The web UI cannot assign, stop, chat with, or reconfigure workers.
+Agent City observes real Kujo work in a small original pixel city. The Observer
+and replay gateway remain read-only; **Mission Command** is a separate local
+service for explicit writing/code requests and SDK reviewer handoffs.
 
-[Build report and gates](BUILD-RESULT.md) · [Library proof](evidence/03-library-truth.png) · [Video](evidence/vertical-slice.webm)
+## Start and try it
 
-## Run locally
-
-Use Node 24+ and the Kujo **1.3.1** repository binary. The shell's older `kujo`
-may not satisfy SDK context contracts. Keep `agents-sdk`, `dispatch`, `watchdog`,
-`rag`, `eval`, and `kujo` as siblings. Required source changes are pinned in the
-build report. No provider credentials or paid model call is required.
+Requirements: Node 24+, installed npm dependencies, the Kujo 1.3.1 repository
+binary, and sibling `agents-sdk`, `dispatch`, `watchdog`, `rag`, `eval`, `mcp`
+repositories. This is a local development application, not a standalone public
+release.
 
 ```sh
-npm ci
-mkdir -p .runtime
-export KUJO_BIN="$(cd ../kujo && pwd)/target/release/kujo"
-(cd ../rag && KUJO_RAG_INDEX_PATH=../agent-city/.runtime/rag.json "$KUJO_BIN" run main.kujo --interpreter ingest --path ./examples/kujo_docs --recursive true --namespace agent-city)
-npm run local
+cd /Users/robertdevore/2026/Kujolang/kujo-repos/agent-city
+npm start
 ```
 
-Open **http://127.0.0.1:5178**. The supervisor starts the local RAG service,
-Watchdog, canonical bridge, gateway and Vite. Watchdog requires the generated
-private token for intake/export and proxy access; the gateway listens only on
-loopback. Local state, tokens, spools and databases stay under ignored
-`.runtime/`. The source journal must remain retained during a review session.
-Stop the supervisor with Ctrl+C. If a recovery test has replaced its gateway,
-the replacement PID is recorded in `.runtime/pids.json`.
+Or double-click **Start Agent City.command**. Open **http://127.0.0.1:5178**.
+If the launcher reports the port is occupied, stop your previous launcher with
+Ctrl+C first. It does not kill existing processes. Ctrl+C stops the new launcher.
 
-In another terminal, explicitly run the real proofs:
+In **Mission Command → Model connection**, use a compatible chat-completions
+endpoint/model/key. For the local Ollama model installed on this machine:
 
-```sh
-npx playwright install chromium
-npm run proof          # Dispatch -> SDK -> real RAG, controlled test barrier
-npm run demo           # actual SDK child handoff and Eval failure/repair
-npm run recovery       # stops the gateway; proves real work still completes
-```
+- Endpoint: `http://127.0.0.1:11434/v1/chat/completions`
+- Model: `qwen2.5-coder:1.5b-instruct`
+- API key: leave blank.
 
-`CHROMIUM_PATH` may select an already installed browser. The browser version is
-recorded in proof receipts. The proof scripts are development commands; they
-are not exposed as city controls. `CITY_SOURCE_PREFIX` scopes a review cohort;
-`CITY_DB` selects a separate derived projection. Use matching values in the
-supervisor and proof commands. Defaults are `review-` and `.runtime/review.sqlite`.
-The completed session uses `milestone-` and `.runtime/milestone.sqlite`.
+Ollama must be running. This small model is suitable for trying the workflow;
+model output still needs review. No quality guarantee follows from a successful
+runtime receipt.
 
-## What is implemented
+Choose **Writing + review** or **Code + review**, enter a small task and press
+**Start mission**. Optionally select **Use indexed local Kujo docs**; the starter
+index contains four short example documents, not the full ecosystem manual.
+Select the resulting WRITER or CODER execution in the roster, then **Follow
+selected instance**. Click a mission-history entry to read the recorded draft,
+reviewer response and final artifact.
 
-- Strict JSON Schema with generated TypeScript, immutable evidence references,
-  distinct run/operation/attempt/task/profile/execution identity.
-- Watchdog canonical feed validation: schema, checksum, manifest, cursor,
-  ordering, wrapper identity and bounded pages. Transactional SQLite journal,
-  consistent snapshot, paged history, resumable SSE and metadata evidence links.
-- Pure reducer, terminal monotonicity, retry evidence, deterministic graph
-  navigation, 20 Hz presentation and four-second activity compression.
-- Original 256×240 PixiJS 8/WebGL world, 16×16 cells, 32-pixel HUD,
-  Tiled JSON source and validated compiled maps. Workshop, Library, MCP Terminal
-  and Dojo interiors; all six required city landmarks.
-- Instance selection, Follow, scene inspection, pause/reduced motion, DOM truth,
-  recent visual activity and evidence. No business controls.
-- Real SDK lifecycle observation with bounded local spools and fail-open sink;
-  actual Dispatch handler, RAG retrieval, child handoff and Eval results.
+Execution instances appear when actual work is observed. No decorative workers
+are preconfigured as live agents. The SDK creates the writer/coder and reviewer
+for each mission; profiles are appearances, not interchangeable identities.
+Code artifacts are **saved and reviewed, not executed**. Free-form group chat,
+manual character movement and game combat are not implemented.
 
-LIVE denotes observed current activity or collection health. RECENT denotes
-observed completed work shown after it finished. UNKNOWN is explicit when no
-owner identity, current presence, task status or capability source is available.
-STALE denotes interrupted observation. REPLAY is tested offline; a replay UI is
-not implemented and loading a snapshot does not invent historical live travel.
+## Truth and privacy
 
-A healthy HTTP feed alone does not establish healthy collection: bridge
-heartbeats and spool overflow also affect coverage. Reconnect marks retained
-history partial; current terminal outcomes remain intact. This local slice does
-**not** claim lossless continuity through Watchdog restore/retention changes.
+Runtime truth updates independently of travel. LIVE is current observation;
+RECENT is completed work being presented; UNKNOWN and STALE are explicit.
+Follow keeps one execution identity through portals. Retained history does not
+invent new live travel after reload. Replay never runs source work and disables
+mission commands.
 
-## Packages and verification
+Provider credentials stay in private local server configuration. Raw mission
+prompts and model output are stored in private mission files for explicitly
+requested inspection, not broadcast in canonical telemetry/SSE. The local
+Watchdog token remains server-side. `.runtime/` is ignored by Git.
 
-`packages/protocol` owns semantic validation/types. `packages/world-core` owns
-pure truth and presentation. `packages/renderer-pixi` projects those states.
-`apps/gateway` owns the derived journal and read endpoints. `apps/web` composes
-Pixi and readable DOM. `integrations/kujo` reuses Watchdog's native normalizer.
-No separate orchestration engine or general event broker is introduced.
+`packages/protocol` owns validation/types; `world-core` owns pure deterministic
+truth/presentation; `renderer-pixi` projects it. `apps/gateway` owns the derived
+journal and read endpoints. `apps/runner` owns local commands. The existing
+Watchdog native adapter is the observation seam; no universal broker is added.
+
+## Check the build
 
 ```sh
-npm run generate
-npm run maps
 npm run verify
+npm run replay -- evidence/missions/replay.json
+npm run proof:mission-contract # synthetic provider; real SDK/Dispatch/RAG
+npm run proof:mission-browser
 ```
 
-The test suite includes synthetic adversarial cases and a retained real trace.
-Only actual producer runs are used for the visual acceptance proof. Maps were
-authored as Tiled-compatible JSON; no Tiled GUI session is claimed. Artwork is
-original geometric placeholder art; see [provenance](assets/source/PROVENANCE.md).
+`CHROMIUM_PATH` selects an installed Chromium executable when needed. The real
+local-model proof is `npx tsx scripts/live-mission-proof.ts`; it makes actual model
+calls, uses isolated service ports and retains evidence under `evidence/live-missions`.
 
-The implementation stops at this Observer vertical slice. Full production
-hardening, MCP live instrumentation, replay UI and broader source coverage are
-explicit later gates in the [build report](BUILD-RESULT.md).
+See [current unfinished requirements](WORKING-EXPERIENCE.md),
+[original slice evidence](BUILD-RESULT.md), and the historical reports below.
+The five supplied visual references are the target. Current original artwork is
+still an early approximation, not an approved visual match.
 
 ## Phase 1 Observer expansion
 
@@ -135,7 +119,7 @@ observations. Reference images and protected game sprites are not embedded.
 Release qualification currently **FAILS**. See [bounded blocker update](RELEASE-BLOCKERS.md) and [measured hardening report](RELEASE-HARDENING.md) before treating this as a release-ready application.
 
 - Open **Archive / Replay / Incidents**, browse a run, inspect its attempts or replay its pinned journal. Return to Live explicitly.
-- `npm run replay -- evidence/blockers/replay.json` verifies a pinned redacted bundle offline without source execution.
+- `npm run replay -- evidence/missions/replay.json` verifies a pinned redacted bundle offline without source execution.
 - `npm run stress`, `npm run proof:hardening`, and `npm run soak` write bounded synthetic/browser evidence. The default soak is only 180 seconds; `SOAK_SECONDS=28800 npm run soak` requests eight hours, but its current stationary workload is not a substitute for a live ingestion soak.
 - `npm run gate` intentionally exits nonzero while mandatory release gates remain incomplete.
 - `?renderer=off` selects DOM-only presentation. `CITY_LEDGER_DIR` selects an explicit local RunLedger directory; raw receipt prompts/notes/output are excluded.

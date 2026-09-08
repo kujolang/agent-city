@@ -1,0 +1,562 @@
+{
+  "job": {
+    "id": "mission-94a377e8-5c30-4042-8702-114f881fc89e",
+    "kind": "writing",
+    "useLocalDocs": true,
+    "status": "completed",
+    "startedAt": "2026-09-08T13:34:28.913Z",
+    "finishedAt": "2026-09-08T13:34:44.352Z"
+  },
+  "track": [
+    {
+      "key": "city:outbound:running",
+      "id": "live-1788874461949-mission-94a377e8-5c30-4042-8702-114f881fc89e:run-1788874469382-8470:writer",
+      "walker": {
+        "id": "live-1788874461949-mission-94a377e8-5c30-4042-8702-114f881fc89e:run-1788874469382-8470:writer",
+        "scene": "workshop",
+        "x": 40,
+        "y": 160,
+        "phase": "outbound",
+        "age": 2,
+        "visit": {
+          "capability": "rag.query",
+          "destination": "library",
+          "station": "kujo-docs",
+          "keys": [
+            "live-1788874461949-mission-94a377e8-5c30-4042-8702-114f881fc89e:run-1788874469382-8470:retrieval:1"
+          ],
+          "first": 1788874470171,
+          "last": 1788874470171,
+          "collection": "kujo-docs",
+          "evidence": [
+            "native:agent-city-sdk:342e89de6a99a69a6728c02bfe76ae9dd76254fbde757f9e0627bafc4de3585b"
+          ]
+        },
+        "queued": [],
+        "visits": 1,
+        "homeX": 48,
+        "packetUntil": 67,
+        "packetEvidence": [
+          "7e1d62cb3e5b276a60d4f2e4645200ce75d14425d71e256fdb7860a5c1a43553",
+          "c548cfe3703a37a4f2af602678fdf40f03d69d7f92e55c9ca8adde528dea27d5",
+          "02fd24169c023a63e46e4c4333a77fe514470f92e271bf80bfb2dc8eae4f4160"
+        ]
+      },
+      "truth": "running",
+      "at": 1788874470649
+    },
+    {
+      "key": "library:enter:running",
+      "id": "live-1788874461949-mission-94a377e8-5c30-4042-8702-114f881fc89e:run-1788874469382-8470:writer",
+      "walker": {
+        "id": "live-1788874461949-mission-94a377e8-5c30-4042-8702-114f881fc89e:run-1788874469382-8470:writer",
+        "scene": "library",
+        "x": 32,
+        "y": 160,
+        "phase": "enter",
+        "age": 4,
+        "visit": {
+          "capability": "rag.query",
+          "destination": "library",
+          "station": "kujo-docs",
+          "keys": [
+            "live-1788874461949-mission-94a377e8-5c30-4042-8702-114f881fc89e:run-1788874469382-8470:retrieval:1"
+          ],
+          "first": 1788874470171,
+          "last": 1788874470171,
+          "collection": "kujo-docs",
+          "evidence": [
+            "native:agent-city-sdk:342e89de6a99a69a6728c02bfe76ae9dd76254fbde757f9e0627bafc4de3585b",
+            "native:agent-city-sdk:09acb41a068c853f061f7710480be3de05fc9ee671743007577c0e96b54eb00b"
+          ]
+        },
+        "queued": [],
+        "visits": 1,
+        "homeX": 48,
+        "packetUntil": 67,
+        "packetEvidence": [
+          "7e1d62cb3e5b276a60d4f2e4645200ce75d14425d71e256fdb7860a5c1a43553",
+          "c548cfe3703a37a4f2af602678fdf40f03d69d7f92e55c9ca8adde528dea27d5",
+          "02fd24169c023a63e46e4c4333a77fe514470f92e271bf80bfb2dc8eae4f4160"
+        ],
+        "path": []
+      },
+      "truth": "running",
+      "at": 1788874472530
+    },
+    {
+      "key": "library:read:running",
+      "id": "live-1788874461949-mission-94a377e8-5c30-4042-8702-114f881fc89e:run-1788874469382-8470:writer",
+      "walker": {
+        "id": "live-1788874461949-mission-94a377e8-5c30-4042-8702-114f881fc89e:run-1788874469382-8470:writer",
+        "scene": "library",
+        "x": 54,
+        "y": 160,
+        "phase": "read",
+        "age": 0,
+        "visit": {
+          "capability": "rag.query",
+          "destination": "library",
+          "station": "kujo-docs",
+          "keys": [
+            "live-1788874461949-mission-94a377e8-5c30-4042-8702-114f881fc89e:run-1788874469382-8470:retrieval:1"
+          ],
+          "first": 1788874470171,
+          "last": 1788874470171,
+          "collection": "kujo-docs",
+          "evidence": [
+            "native:agent-city-sdk:342e89de6a99a69a6728c02bfe76ae9dd76254fbde757f9e0627bafc4de3585b",
+            "native:agent-city-sdk:09acb41a068c853f061f7710480be3de05fc9ee671743007577c0e96b54eb00b"
+          ]
+        },
+        "queued": [],
+        "visits": 1,
+        "homeX": 48,
+        "packetUntil": 67,
+        "packetEvidence": [
+          "7e1d62cb3e5b276a60d4f2e4645200ce75d14425d71e256fdb7860a5c1a43553",
+          "c548cfe3703a37a4f2af602678fdf40f03d69d7f92e55c9ca8adde528dea27d5",
+          "02fd24169c023a63e46e4c4333a77fe514470f92e271bf80bfb2dc8eae4f4160"
+        ],
+        "path": []
+      },
+      "truth": "running",
+      "at": 1788874472874
+    },
+    {
+      "key": "library:return:running",
+      "id": "live-1788874461949-mission-94a377e8-5c30-4042-8702-114f881fc89e:run-1788874469382-8470:writer",
+      "walker": {
+        "id": "live-1788874461949-mission-94a377e8-5c30-4042-8702-114f881fc89e:run-1788874469382-8470:writer",
+        "scene": "library",
+        "x": 46,
+        "y": 160,
+        "phase": "return",
+        "age": 2,
+        "visit": {
+          "capability": "rag.query",
+          "destination": "library",
+          "station": "kujo-docs",
+          "keys": [
+            "live-1788874461949-mission-94a377e8-5c30-4042-8702-114f881fc89e:run-1788874469382-8470:retrieval:1"
+          ],
+          "first": 1788874470171,
+          "last": 1788874470171,
+          "collection": "kujo-docs",
+          "evidence": [
+            "native:agent-city-sdk:342e89de6a99a69a6728c02bfe76ae9dd76254fbde757f9e0627bafc4de3585b",
+            "native:agent-city-sdk:09acb41a068c853f061f7710480be3de05fc9ee671743007577c0e96b54eb00b"
+          ]
+        },
+        "queued": [],
+        "visits": 1,
+        "homeX": 48,
+        "packetUntil": 67,
+        "packetEvidence": [
+          "7e1d62cb3e5b276a60d4f2e4645200ce75d14425d71e256fdb7860a5c1a43553",
+          "c548cfe3703a37a4f2af602678fdf40f03d69d7f92e55c9ca8adde528dea27d5",
+          "02fd24169c023a63e46e4c4333a77fe514470f92e271bf80bfb2dc8eae4f4160"
+        ],
+        "path": []
+      },
+      "truth": "running",
+      "at": 1788874474717
+    },
+    {
+      "key": "city:return:running",
+      "id": "live-1788874461949-mission-94a377e8-5c30-4042-8702-114f881fc89e:run-1788874469382-8470:writer",
+      "walker": {
+        "id": "live-1788874461949-mission-94a377e8-5c30-4042-8702-114f881fc89e:run-1788874469382-8470:writer",
+        "scene": "city",
+        "x": 192,
+        "y": 80,
+        "phase": "return",
+        "age": 10,
+        "visit": {
+          "capability": "rag.query",
+          "destination": "library",
+          "station": "kujo-docs",
+          "keys": [
+            "live-1788874461949-mission-94a377e8-5c30-4042-8702-114f881fc89e:run-1788874469382-8470:retrieval:1"
+          ],
+          "first": 1788874470171,
+          "last": 1788874470171,
+          "collection": "kujo-docs",
+          "evidence": [
+            "native:agent-city-sdk:342e89de6a99a69a6728c02bfe76ae9dd76254fbde757f9e0627bafc4de3585b",
+            "native:agent-city-sdk:09acb41a068c853f061f7710480be3de05fc9ee671743007577c0e96b54eb00b"
+          ]
+        },
+        "queued": [],
+        "visits": 1,
+        "homeX": 48,
+        "packetUntil": 162,
+        "packetEvidence": [
+          "7e1d62cb3e5b276a60d4f2e4645200ce75d14425d71e256fdb7860a5c1a43553",
+          "c548cfe3703a37a4f2af602678fdf40f03d69d7f92e55c9ca8adde528dea27d5",
+          "02fd24169c023a63e46e4c4333a77fe514470f92e271bf80bfb2dc8eae4f4160",
+          "5f75f6684511b023e23173be1fbba0fa83264904b41a326ac1135f97ed24fc29"
+        ],
+        "path": [
+          "12,6",
+          "11,6",
+          "10,6",
+          "9,6",
+          "8,6",
+          "7,6",
+          "7,5"
+        ]
+      },
+      "truth": "running",
+      "at": 1788874475104
+    },
+    {
+      "key": "workshop:work:running",
+      "id": "live-1788874461949-mission-94a377e8-5c30-4042-8702-114f881fc89e:run-1788874469382-8470:writer",
+      "walker": {
+        "id": "live-1788874461949-mission-94a377e8-5c30-4042-8702-114f881fc89e:run-1788874469382-8470:writer",
+        "scene": "workshop",
+        "x": 32,
+        "y": 160,
+        "phase": "work",
+        "age": 4,
+        "visit": null,
+        "queued": [],
+        "visits": 1,
+        "homeX": 48,
+        "packetUntil": 162,
+        "packetEvidence": [
+          "7e1d62cb3e5b276a60d4f2e4645200ce75d14425d71e256fdb7860a5c1a43553",
+          "c548cfe3703a37a4f2af602678fdf40f03d69d7f92e55c9ca8adde528dea27d5",
+          "02fd24169c023a63e46e4c4333a77fe514470f92e271bf80bfb2dc8eae4f4160",
+          "5f75f6684511b023e23173be1fbba0fa83264904b41a326ac1135f97ed24fc29"
+        ],
+        "path": [],
+        "completedKeys": [
+          "live-1788874461949-mission-94a377e8-5c30-4042-8702-114f881fc89e:run-1788874469382-8470:retrieval:1"
+        ]
+      },
+      "truth": "running",
+      "at": 1788874476756
+    },
+    {
+      "key": "workshop:work:completed",
+      "id": "live-1788874461949-mission-94a377e8-5c30-4042-8702-114f881fc89e:run-1788874469382-8470:writer",
+      "walker": {
+        "id": "live-1788874461949-mission-94a377e8-5c30-4042-8702-114f881fc89e:run-1788874469382-8470:writer",
+        "scene": "workshop",
+        "x": 48,
+        "y": 160,
+        "phase": "work",
+        "age": 155,
+        "visit": null,
+        "queued": [],
+        "visits": 1,
+        "homeX": 48,
+        "packetUntil": 341,
+        "packetEvidence": [
+          "7e1d62cb3e5b276a60d4f2e4645200ce75d14425d71e256fdb7860a5c1a43553",
+          "c548cfe3703a37a4f2af602678fdf40f03d69d7f92e55c9ca8adde528dea27d5",
+          "02fd24169c023a63e46e4c4333a77fe514470f92e271bf80bfb2dc8eae4f4160",
+          "5f75f6684511b023e23173be1fbba0fa83264904b41a326ac1135f97ed24fc29",
+          "b1eb99f2b60514fd16910cc9af412162125780f2eb7d024fe257dcccfdd2ada2"
+        ],
+        "path": [],
+        "completedKeys": [
+          "live-1788874461949-mission-94a377e8-5c30-4042-8702-114f881fc89e:run-1788874469382-8470:retrieval:1"
+        ]
+      },
+      "truth": "completed",
+      "at": 1788874484330
+    }
+  ],
+  "artifact": {
+    "id": "mission-94a377e8-5c30-4042-8702-114f881fc89e",
+    "kind": "writing",
+    "content": "Indeed, Kujo incorporates a diverse module lineup for the language features it needs, including the math module to support mathematical computations and operations. Additionally, Kujo includes the arrays module to facilitate array manipulation and storage. While the exact modules Kujo uses and features can vary depending on the specific requirements and constraints of the project, these are common modules used for basic programming tasks such as data manipulation and algebra.",
+    "codeExecuted": false
+  },
+  "exchanges": {
+    "id": "mission-94a377e8-5c30-4042-8702-114f881fc89e",
+    "records": [
+      {
+        "agent": "writer",
+        "content": "Kujo uses a variety of import modules for language features, including additional modules like math, arrays, and more.",
+        "kind": "model.response",
+        "occurredAtMs": 1788874474506,
+        "producer": "live-1788874461949-mission-94a377e8-5c30-4042-8702-114f881fc89e",
+        "requestOrdinal": 1,
+        "run": "run-1788874469382-8470",
+        "schema": "agent-city.exchange.v1"
+      },
+      {
+        "agent": "reviewer",
+        "content": "Indeed, Kujo incorporates a diverse module lineup for the language features it needs, including the math module to support mathematical computations and operations. Additionally, Kujo includes the arrays module to facilitate array manipulation and storage. While the exact modules Kujo uses and features can vary depending on the specific requirements and constraints of the project, these are common modules used for basic programming tasks such as data manipulation and algebra.",
+        "kind": "model.response",
+        "occurredAtMs": 1788874483532,
+        "producer": "live-1788874461949-mission-94a377e8-5c30-4042-8702-114f881fc89e",
+        "requestOrdinal": 1,
+        "run": "run-1788874469382-8470-handoff-reviewer",
+        "schema": "agent-city.exchange.v1"
+      }
+    ],
+    "recordingComplete": true
+  },
+  "lifecycle": [
+    {
+      "agent_id": "writer",
+      "attempt": 1,
+      "capability": "dispatch.task",
+      "kind": "internal",
+      "metadata": {
+        "taskState": "queued"
+      },
+      "occurred_at_ms": 1788874469532,
+      "operation_id": "intake",
+      "outcome": "succeeded",
+      "phase": "finished",
+      "producer_instance": "live-1788874461949-mission-94a377e8-5c30-4042-8702-114f881fc89e",
+      "run_id": "run-1788874469382-8470",
+      "schema": "kujo.lifecycle.v1",
+      "task_id": "run-1788874469382-8470:produce-artifact"
+    },
+    {
+      "agent_id": "writer",
+      "attempt": 1,
+      "capability": "dispatch.task",
+      "kind": "internal",
+      "metadata": {
+        "taskState": "assigned"
+      },
+      "occurred_at_ms": 1788874469532,
+      "operation_id": "assignment",
+      "outcome": "succeeded",
+      "phase": "finished",
+      "producer_instance": "live-1788874461949-mission-94a377e8-5c30-4042-8702-114f881fc89e",
+      "run_id": "run-1788874469382-8470",
+      "schema": "kujo.lifecycle.v1",
+      "task_id": "run-1788874469382-8470:produce-artifact"
+    },
+    {
+      "agent_id": "writer",
+      "attempt": 1,
+      "capability": "dispatch.task",
+      "kind": "internal",
+      "metadata": {
+        "taskState": "running"
+      },
+      "occurred_at_ms": 1788874469570,
+      "operation_id": "task",
+      "outcome": "unset",
+      "phase": "started",
+      "producer_instance": "live-1788874461949-mission-94a377e8-5c30-4042-8702-114f881fc89e",
+      "run_id": "run-1788874469382-8470",
+      "schema": "kujo.lifecycle.v1",
+      "task_id": "run-1788874469382-8470:produce-artifact"
+    },
+    {
+      "agent_id": "writer",
+      "attempt": 1,
+      "collection": "kujo-docs",
+      "kind": "agent",
+      "metadata": {
+        "relatedInstance": ""
+      },
+      "occurred_at_ms": 1788874470127,
+      "operation_id": "run",
+      "outcome": "unset",
+      "phase": "started",
+      "producer_instance": "live-1788874461949-mission-94a377e8-5c30-4042-8702-114f881fc89e",
+      "profile": "city-writer",
+      "related_agent_id": "",
+      "run_id": "run-1788874469382-8470",
+      "schema": "kujo.lifecycle.v1",
+      "task_id": "run-1788874469382-8470:produce-artifact"
+    },
+    {
+      "agent_id": "writer",
+      "attempt": 1,
+      "collection": "kujo-docs",
+      "kind": "retrieval",
+      "metadata": {
+        "relatedInstance": ""
+      },
+      "occurred_at_ms": 1788874470171,
+      "operation_id": "retrieval",
+      "outcome": "unset",
+      "phase": "started",
+      "producer_instance": "live-1788874461949-mission-94a377e8-5c30-4042-8702-114f881fc89e",
+      "profile": "city-writer",
+      "related_agent_id": "",
+      "run_id": "run-1788874469382-8470",
+      "schema": "kujo.lifecycle.v1",
+      "task_id": "run-1788874469382-8470:produce-artifact"
+    },
+    {
+      "agent_id": "writer",
+      "attempt": 1,
+      "collection": "kujo-docs",
+      "kind": "retrieval",
+      "metadata": {
+        "relatedInstance": ""
+      },
+      "occurred_at_ms": 1788874470758,
+      "operation_id": "retrieval",
+      "outcome": "succeeded",
+      "phase": "finished",
+      "producer_instance": "live-1788874461949-mission-94a377e8-5c30-4042-8702-114f881fc89e",
+      "profile": "city-writer",
+      "related_agent_id": "",
+      "run_id": "run-1788874469382-8470",
+      "schema": "kujo.lifecycle.v1",
+      "task_id": "run-1788874469382-8470:produce-artifact"
+    },
+    {
+      "agent_id": "writer",
+      "attempt": 1,
+      "collection": "unknown",
+      "kind": "handoff",
+      "metadata": {
+        "relatedInstance": "live-1788874461949-mission-94a377e8-5c30-4042-8702-114f881fc89e:run-1788874469382-8470-handoff-reviewer:reviewer"
+      },
+      "occurred_at_ms": 1788874474570,
+      "operation_id": "reviewer",
+      "outcome": "unset",
+      "phase": "started",
+      "producer_instance": "live-1788874461949-mission-94a377e8-5c30-4042-8702-114f881fc89e",
+      "profile": "unknown",
+      "related_agent_id": "reviewer",
+      "run_id": "run-1788874469382-8470",
+      "schema": "kujo.lifecycle.v1",
+      "task_id": "run-1788874469382-8470:produce-artifact"
+    },
+    {
+      "agent_id": "reviewer",
+      "attempt": 1,
+      "collection": "unknown",
+      "kind": "agent",
+      "metadata": {
+        "relatedInstance": ""
+      },
+      "occurred_at_ms": 1788874474571,
+      "operation_id": "run",
+      "outcome": "unset",
+      "phase": "started",
+      "producer_instance": "live-1788874461949-mission-94a377e8-5c30-4042-8702-114f881fc89e",
+      "profile": "city-reviewer",
+      "related_agent_id": "",
+      "run_id": "run-1788874469382-8470-handoff-reviewer",
+      "schema": "kujo.lifecycle.v1",
+      "task_id": "run-1788874469382-8470:produce-artifact"
+    },
+    {
+      "agent_id": "reviewer",
+      "attempt": 1,
+      "collection": "unknown",
+      "kind": "agent",
+      "metadata": {
+        "relatedInstance": ""
+      },
+      "occurred_at_ms": 1788874483637,
+      "operation_id": "run",
+      "outcome": "succeeded",
+      "phase": "finished",
+      "producer_instance": "live-1788874461949-mission-94a377e8-5c30-4042-8702-114f881fc89e",
+      "profile": "city-reviewer",
+      "related_agent_id": "",
+      "run_id": "run-1788874469382-8470-handoff-reviewer",
+      "schema": "kujo.lifecycle.v1",
+      "task_id": "run-1788874469382-8470:produce-artifact"
+    },
+    {
+      "agent_id": "writer",
+      "attempt": 1,
+      "collection": "unknown",
+      "kind": "handoff",
+      "metadata": {
+        "relatedInstance": "live-1788874461949-mission-94a377e8-5c30-4042-8702-114f881fc89e:run-1788874469382-8470-handoff-reviewer:reviewer"
+      },
+      "occurred_at_ms": 1788874483638,
+      "operation_id": "reviewer",
+      "outcome": "succeeded",
+      "phase": "finished",
+      "producer_instance": "live-1788874461949-mission-94a377e8-5c30-4042-8702-114f881fc89e",
+      "profile": "unknown",
+      "related_agent_id": "reviewer",
+      "run_id": "run-1788874469382-8470",
+      "schema": "kujo.lifecycle.v1",
+      "task_id": "run-1788874469382-8470:produce-artifact"
+    },
+    {
+      "agent_id": "writer",
+      "attempt": 1,
+      "collection": "kujo-docs",
+      "kind": "agent",
+      "metadata": {
+        "relatedInstance": ""
+      },
+      "occurred_at_ms": 1788874483696,
+      "operation_id": "run",
+      "outcome": "succeeded",
+      "phase": "finished",
+      "producer_instance": "live-1788874461949-mission-94a377e8-5c30-4042-8702-114f881fc89e",
+      "profile": "city-writer",
+      "related_agent_id": "",
+      "run_id": "run-1788874469382-8470",
+      "schema": "kujo.lifecycle.v1",
+      "task_id": "run-1788874469382-8470:produce-artifact"
+    },
+    {
+      "agent_id": "writer",
+      "attempt": 1,
+      "capability": "artifact.created",
+      "kind": "internal",
+      "metadata": {
+        "artifactRef": "mission:run-1788874469382-8470:output"
+      },
+      "occurred_at_ms": 1788874483698,
+      "operation_id": "save-reviewed-output",
+      "outcome": "succeeded",
+      "phase": "finished",
+      "producer_instance": "live-1788874461949-mission-94a377e8-5c30-4042-8702-114f881fc89e",
+      "profile": "city-writer",
+      "run_id": "run-1788874469382-8470",
+      "schema": "kujo.lifecycle.v1",
+      "task_id": "run-1788874469382-8470:produce-artifact"
+    },
+    {
+      "agent_id": "writer",
+      "attempt": 1,
+      "capability": "dispatch.task",
+      "kind": "internal",
+      "metadata": {
+        "taskState": "completed"
+      },
+      "occurred_at_ms": 1788874483904,
+      "operation_id": "task",
+      "outcome": "succeeded",
+      "phase": "finished",
+      "producer_instance": "live-1788874461949-mission-94a377e8-5c30-4042-8702-114f881fc89e",
+      "run_id": "run-1788874469382-8470",
+      "schema": "kujo.lifecycle.v1",
+      "task_id": "run-1788874469382-8470:produce-artifact"
+    },
+    {
+      "agent_id": "writer",
+      "attempt": 1,
+      "capability": "dispatch.workflow",
+      "kind": "internal",
+      "metadata": {
+        "workflowState": "completed"
+      },
+      "occurred_at_ms": 1788874484313,
+      "operation_id": "workflow-state",
+      "outcome": "unknown",
+      "phase": "finished",
+      "producer_instance": "live-1788874461949-mission-94a377e8-5c30-4042-8702-114f881fc89e",
+      "run_id": "run-1788874469382-8470",
+      "schema": "kujo.lifecycle.v1",
+      "task_id": "run-1788874469382-8470:produce-artifact"
+    }
+  ]
+}
