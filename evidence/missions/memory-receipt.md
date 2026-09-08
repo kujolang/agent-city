@@ -47,6 +47,14 @@ cached graph travel, real upstairs retrieval evidence and current replay pins.
 Linked from the main handoff; exact and conceptual retrieval both passed.
 No duplicate atomic note created. SignalBox: no captures warranted.
 
+## Cityscape and Dojo replay continuation
+
+Saved `4c746cae-5ba8-4d23-9177-d62aabdc744b`: original building/room revision,
+resolved generic-check display and same-order replay cache bugs, real-history
+rendering proof, and remaining work. Linked from the main handoff. Exact retrieval
+and concept query “Agent City cityscape” passed. No duplicate atomic note.
+SignalBox: no captures warranted for resolved bugs or already-tracked release work.
+
 ## Live MCP and original character continuation
 
 Saved `2d14ed93-eb88-4c1f-9b86-a272e9fb9c13`: real MCP/Library travel proof,
