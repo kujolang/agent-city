@@ -10,6 +10,7 @@ import {
   plant,
   mezzanine,
   books,
+  libraryFixtures,
 } from "./scenery";
 import { appearance } from "./appearance";
 import { CharacterAtlas } from "./characters";
@@ -469,6 +470,7 @@ export class CityRenderer {
       box(g, 121, 142, 17, 13, C.blue);
       for (let y = 145; y < 153; y += 3) box(g, 123, y, 11, 1, C.white);
       text(g, "QUERY", 113, 128, C.gold);
+      libraryFixtures(g);
       mezzanine(g);
     } else if (mcp) {
       for (let x = 24; x < 240; x += 40) {

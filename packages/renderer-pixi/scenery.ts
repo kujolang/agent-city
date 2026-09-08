@@ -359,3 +359,65 @@ export function books(g: Graphics, x: number, y: number, w: number, h: number) {
     rect(g, x + 2, shelf + 11, w - 4, 2, 0xa0784b);
   }
 }
+
+/** Original Library fixtures: book cabinets, globe, reading desks and lamps.
+ * Empty furniture and decorative cartography carry no execution semantics. */
+export function libraryFixtures(g: Graphics) {
+  // Dark wood end panels and metal shelf brackets frame the knowledge floor.
+  for (const x of [18, 216]) {
+    rect(g, x, 46, 4, 64, 0x513727);
+    rect(g, x, 46, 1, 64, 0xad8358);
+    for (const y of [50, 78, 105]) rect(g, x + 1, y, 2, 2, P.light);
+  }
+  for (let x = 24; x < 210; x += 40) {
+    rect(g, x, 100, 31, 10, 0x725037);
+    rect(g, x + 2, 102, 27, 6, 0x402e25);
+    rect(g, x + 14, 104, 3, 1, 0xc0a565);
+  }
+  // A stepped pixel globe on its brass stand, not a live geographic display.
+  rect(g, 123, 77, 3, 24, 0x9d8557);
+  rect(g, 116, 99, 18, 3, 0x9d8557);
+  rect(g, 116, 64, 18, 3, P.ink);
+  rect(g, 112, 67, 26, 17, P.ink);
+  rect(g, 116, 84, 18, 4, P.ink);
+  rect(g, 116, 67, 18, 17, P.blue);
+  rect(g, 114, 70, 22, 10, P.blue);
+  rect(g, 118, 68, 5, 4, P.green);
+  rect(g, 121, 71, 5, 5, P.leaf);
+  rect(g, 124, 75, 4, 8, P.green);
+  rect(g, 130, 70, 4, 3, P.leaf);
+  rect(g, 115, 71, 1, 7, P.glass);
+  // Upper walkway safety rail, leaving the authored ladder opening clear.
+  rect(g, 20, 108, 198, 1, P.light);
+  for (let x = 20; x < 219; x += 11) rect(g, x, 109, 1, 3, P.stone);
+  // Reading tables sit behind characters at the lower-floor footprint.
+  for (const x of [46, 168]) {
+    rect(g, x + 8, 145, 12, 25, P.ink);
+    rect(g, x + 10, 147, 8, 14, 0x4c4268);
+    rect(g, x, 158, 43, 4, 0xac8156);
+    rect(g, x, 162, 43, 3, 0x62432e);
+    for (const dx of [3, 36]) {
+      rect(g, x + dx, 165, 3, 11, 0x725037);
+      rect(g, x + dx, 165, 1, 11, 0xac8156);
+    }
+    // Brass reading lamp: steady light, never a progress indicator.
+    rect(g, x + 9, 143, 2, 14, 0xa08e61);
+    rect(g, x + 5, 156, 10, 2, 0xa08e61);
+    rect(g, x + 4, 139, 12, 5, P.leaf);
+    rect(g, x + 6, 138, 8, 1, P.green);
+    rect(g, x + 5, 144, 10, 1, 0xe2dfc9);
+    // Open book and a bound volume, with original one-pixel ruled details.
+    rect(g, x + 24, 152, 14, 5, 0xe2dfc9);
+    rect(g, x + 31, 152, 1, 5, 0x907959);
+    rect(g, x + 26, 153, 4, 1, P.stone);
+    rect(g, x + 33, 155, 3, 1, P.stone);
+  }
+  // Quiet reference terminals on the walls; no invented query text.
+  for (const x of [24, 202]) {
+    rect(g, x, 122, 20, 17, P.stone);
+    rect(g, x + 2, 124, 16, 12, P.ink);
+    rect(g, x + 4, 126, 12, 7, P.blue);
+    rect(g, x + 8, 139, 4, 3, P.stone);
+    rect(g, x + 3, 142, 15, 2, P.light);
+  }
+}
