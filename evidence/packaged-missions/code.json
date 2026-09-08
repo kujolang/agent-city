@@ -1,0 +1,1020 @@
+{
+  "kind": "code",
+  "job": {
+    "id": "mission-c0f86c6f-5994-481f-9b01-6861194ea7f5",
+    "kind": "code",
+    "useLocalDocs": false,
+    "useMcpDocs": false,
+    "status": "completed",
+    "startedAt": "2026-09-08T17:01:04.954Z",
+    "finishedAt": "2026-09-08T17:01:37.870Z"
+  },
+  "track": [
+    {
+      "key": "workshop:work:running",
+      "id": "review-mission-c0f86c6f-5994-481f-9b01-6861194ea7f5:run-1788886866902-3001:coder",
+      "status": "running",
+      "walker": {
+        "id": "review-mission-c0f86c6f-5994-481f-9b01-6861194ea7f5:run-1788886866902-3001:coder",
+        "scene": "workshop",
+        "x": 112,
+        "y": 160,
+        "phase": "work",
+        "age": 19,
+        "visit": null,
+        "queued": [],
+        "visits": 0,
+        "homeX": 112,
+        "packetUntil": 2187,
+        "packetEvidence": [
+          "c94fd1e54f366be2da65ed24cd5f86db9173df5d8345ee751de41d38302ddf02",
+          "f50f72b1ed7a69cb7741aa7156fe0edd246dfa1fdabd2986b13a69f2bbe1c1ea",
+          "895344cfea749ac4173e9a3150a1bc02b98b95f93b50fef195b81c4fb9a5e23b"
+        ],
+        "climbing": false,
+        "roomTarget": "workshop:112,160",
+        "roomPath": []
+      }
+    },
+    {
+      "key": "workshop:work:completed",
+      "id": "review-mission-c0f86c6f-5994-481f-9b01-6861194ea7f5:run-1788886866902-3001:coder",
+      "status": "completed",
+      "walker": {
+        "id": "review-mission-c0f86c6f-5994-481f-9b01-6861194ea7f5:run-1788886866902-3001:coder",
+        "scene": "workshop",
+        "x": 112,
+        "y": 160,
+        "phase": "work",
+        "age": 478,
+        "visit": null,
+        "queued": [
+          {
+            "capability": "artifact.created",
+            "destination": "workshop",
+            "station": "evidence-shelf",
+            "keys": [
+              "review-mission-c0f86c6f-5994-481f-9b01-6861194ea7f5:run-1788886866902-3001:save-reviewed-output:1"
+            ],
+            "first": 1788886892373,
+            "last": 1788886892373,
+            "collection": "unknown",
+            "evidence": [
+              "native:agent-city-sdk:d67f913a7a57646f506752443988cbce55eac57e0fe68e3e710ef41a7857ae7c"
+            ]
+          }
+        ],
+        "visits": 0,
+        "homeX": 112,
+        "packetUntil": 2660,
+        "packetEvidence": [
+          "c94fd1e54f366be2da65ed24cd5f86db9173df5d8345ee751de41d38302ddf02",
+          "f50f72b1ed7a69cb7741aa7156fe0edd246dfa1fdabd2986b13a69f2bbe1c1ea",
+          "895344cfea749ac4173e9a3150a1bc02b98b95f93b50fef195b81c4fb9a5e23b",
+          "04e89d722fe77ec0037fbf7b39088216e331b4477a674c79686b105a5138d60b",
+          "56c9599c470087071ac5bf1c7b4976d9a4f20c68125fa43eb7ad73eae0771247",
+          "c4a74af57b1487e3a2571e996e6bdd1d79a56816482f25c2f512e52315ca8789"
+        ],
+        "climbing": false,
+        "roomTarget": "workshop:112,160",
+        "roomPath": []
+      }
+    },
+    {
+      "key": "workshop:enter:completed",
+      "id": "review-mission-c0f86c6f-5994-481f-9b01-6861194ea7f5:run-1788886866902-3001:coder",
+      "status": "completed",
+      "walker": {
+        "id": "review-mission-c0f86c6f-5994-481f-9b01-6861194ea7f5:run-1788886866902-3001:coder",
+        "scene": "workshop",
+        "x": 112,
+        "y": 160,
+        "phase": "enter",
+        "age": 0,
+        "visit": {
+          "capability": "artifact.created",
+          "destination": "workshop",
+          "station": "evidence-shelf",
+          "keys": [
+            "review-mission-c0f86c6f-5994-481f-9b01-6861194ea7f5:run-1788886866902-3001:save-reviewed-output:1"
+          ],
+          "first": 1788886892373,
+          "last": 1788886892373,
+          "collection": "unknown",
+          "evidence": [
+            "native:agent-city-sdk:d67f913a7a57646f506752443988cbce55eac57e0fe68e3e710ef41a7857ae7c"
+          ]
+        },
+        "queued": [],
+        "visits": 1,
+        "homeX": 112,
+        "packetUntil": 2661,
+        "packetEvidence": [
+          "c94fd1e54f366be2da65ed24cd5f86db9173df5d8345ee751de41d38302ddf02",
+          "f50f72b1ed7a69cb7741aa7156fe0edd246dfa1fdabd2986b13a69f2bbe1c1ea",
+          "895344cfea749ac4173e9a3150a1bc02b98b95f93b50fef195b81c4fb9a5e23b",
+          "04e89d722fe77ec0037fbf7b39088216e331b4477a674c79686b105a5138d60b",
+          "56c9599c470087071ac5bf1c7b4976d9a4f20c68125fa43eb7ad73eae0771247",
+          "c4a74af57b1487e3a2571e996e6bdd1d79a56816482f25c2f512e52315ca8789",
+          "eda0cbd11962fd5f4311eae0926d8e8e567839886d399e5651219ba16cc2ab99"
+        ],
+        "climbing": false,
+        "roomTarget": "workshop:112,160",
+        "roomPath": []
+      }
+    }
+  ],
+  "exchanges": {
+    "id": "mission-c0f86c6f-5994-481f-9b01-6861194ea7f5",
+    "records": [
+      {
+        "agent": "coder",
+        "content": "```js\nexport function sum(numbers) {\n  if (numbers.length === 0) return 0;\n  \n  for (const num of numbers) {\n    if (typeof num !== 'number') {\n      throw new TypeError('Invalid input');  \n    }\n  }\n  \n  return numbers.reduce((acc, num) => acc + num, 0);\n}\n```",
+        "kind": "model.response",
+        "occurredAtMs": 1788886879207,
+        "producer": "review-mission-c0f86c6f-5994-481f-9b01-6861194ea7f5",
+        "requestOrdinal": 1,
+        "run": "run-1788886866902-3001",
+        "schema": "agent-city.exchange.v1"
+      },
+      {
+        "agent": "reviewer",
+        "content": "```js\nexport function sum(numbers) {\n  if (numbers.length === 0) return 0;\n  \n  for (const num of numbers) {\n    if (typeof num !== 'number') {\n      throw new TypeError('Invalid input');  \n    }\n  }\n  \n  return numbers.reduce((acc, num) => acc + num, 0);\n}",
+        "kind": "model.response",
+        "occurredAtMs": 1788886891977,
+        "producer": "review-mission-c0f86c6f-5994-481f-9b01-6861194ea7f5",
+        "requestOrdinal": 1,
+        "run": "run-1788886866902-3001-handoff-reviewer",
+        "schema": "agent-city.exchange.v1"
+      }
+    ],
+    "recordingComplete": true
+  },
+  "artifact": {
+    "id": "mission-c0f86c6f-5994-481f-9b01-6861194ea7f5",
+    "kind": "code",
+    "content": "```js\nexport function sum(numbers) {\n  if (numbers.length === 0) return 0;\n  \n  for (const num of numbers) {\n    if (typeof num !== 'number') {\n      throw new TypeError('Invalid input');  \n    }\n  }\n  \n  return numbers.reduce((acc, num) => acc + num, 0);\n}",
+    "validation": {
+      "schema": "agent-city.code-check.v1",
+      "syntax": "invalid",
+      "fenceRemoved": false,
+      "functionalTests": "failed",
+      "codeExecuted": true,
+      "checkedAt": "2026-09-08T17:01:33.544Z"
+    },
+    "functional": {
+      "schema": "agent-city.function-check.v1",
+      "status": "failed",
+      "environment": "disposable-chromium-module-worker",
+      "browserSandboxRequested": true,
+      "browser": "151.0.7922.34",
+      "codeExecuted": true,
+      "scope": "explicit JSON function cases only; no filesystem or network integrations",
+      "blockedRequests": 0,
+      "cases": [
+        {
+          "name": "empty",
+          "status": "failed",
+          "reason": "module-error",
+          "occurredAt": 1788886896261
+        },
+        {
+          "name": "addition",
+          "status": "failed",
+          "reason": "module-error",
+          "occurredAt": 1788886896282
+        },
+        {
+          "name": "reject text",
+          "status": "failed",
+          "reason": "module-error",
+          "occurredAt": 1788886896299
+        }
+      ],
+      "checkedAt": "2026-09-08T17:01:36.299Z"
+    },
+    "codeExecuted": true
+  },
+  "truth": {
+    "agents": {
+      "review-mission-7babc419-e363-44fd-9c20-a1b411751551:run-1788886717563-4247:writer": {
+        "id": "review-mission-7babc419-e363-44fd-9c20-a1b411751551:run-1788886717563-4247:writer",
+        "profile": "city-writer",
+        "run": {
+          "namespace": "review-mission-7babc419-e363-44fd-9c20-a1b411751551",
+          "id": "run-1788886717563-4247"
+        },
+        "task": {
+          "namespace": "dispatch",
+          "id": "run-1788886717563-4247:produce-artifact"
+        },
+        "status": "completed",
+        "lastObserved": 1788886837894,
+        "completeness": "partial",
+        "operations": {
+          "review-mission-7babc419-e363-44fd-9c20-a1b411751551:run-1788886717563-4247:intake:1": {
+            "key": "review-mission-7babc419-e363-44fd-9c20-a1b411751551:run-1788886717563-4247:intake:1",
+            "capability": "dispatch.task",
+            "collection": "unknown",
+            "status": "succeeded",
+            "started": null,
+            "finished": 1788886717781,
+            "evidence": [
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:0d03370cc6f965bdbbef47d0f3ba8d08e7c4af86d5998fc2235253d1d2cb79c3",
+                "hash": "2f7ebb591a911fea463af6c9cac4418dc83a9dc0d05439b63dfef3c0dc46d554",
+                "sourceSequence": 1
+              }
+            ],
+            "partial": true,
+            "relatedAgent": "",
+            "metadata": {
+              "taskState": "queued"
+            },
+            "attempt": 1,
+            "operationId": "intake",
+            "observedAt": 1788886718299,
+            "eventIds": [
+              "e16b3e7e12e90ffe92c78731d04fc4d8d7d207c1befabc2991c47b753e806fce"
+            ]
+          },
+          "review-mission-7babc419-e363-44fd-9c20-a1b411751551:run-1788886717563-4247:assignment:1": {
+            "key": "review-mission-7babc419-e363-44fd-9c20-a1b411751551:run-1788886717563-4247:assignment:1",
+            "capability": "dispatch.task",
+            "collection": "unknown",
+            "status": "succeeded",
+            "started": null,
+            "finished": 1788886717781,
+            "evidence": [
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:838f6f5db1f73d27dc714909b81b009218392272f1b435f8b7f3ed5cca929df2",
+                "hash": "bae607224f6300a7043d910cec0c169ba1ecadd4b9b7a4440435e414d9efad1f",
+                "sourceSequence": 2
+              }
+            ],
+            "partial": true,
+            "relatedAgent": "",
+            "metadata": {
+              "taskState": "assigned"
+            },
+            "attempt": 1,
+            "operationId": "assignment",
+            "observedAt": 1788886718607,
+            "eventIds": [
+              "5f3b2f3c60506296d4fd01e19e2ec1275a42631a86b7a6f2b2f39bff73238ab3"
+            ]
+          },
+          "review-mission-7babc419-e363-44fd-9c20-a1b411751551:run-1788886717563-4247:task:1": {
+            "key": "review-mission-7babc419-e363-44fd-9c20-a1b411751551:run-1788886717563-4247:task:1",
+            "capability": "dispatch.task",
+            "collection": "unknown",
+            "status": "succeeded",
+            "started": 1788886717866,
+            "finished": 1788886836953,
+            "evidence": [
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:aa6c62f09a2e61dca5af12f6561e751f12a7a347b3dd17282de9640355d5c47f",
+                "hash": "5ddf81327c825b1382d9cfd9effd6b2599a177788b530c040042fa2285e56b45",
+                "sourceSequence": 3
+              },
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:797802a0bfd2e51357509aace743ec3b28602c293e98d1bbb08c08604f1b3015",
+                "hash": "45f2740c2fad1bfd0167ae7feaac72aac7c265e8ffb2aa82626b146aa3618134",
+                "sourceSequence": 15
+              }
+            ],
+            "partial": false,
+            "relatedAgent": "",
+            "metadata": {
+              "taskState": "completed"
+            },
+            "attempt": 1,
+            "operationId": "task",
+            "observedAt": 1788886837374,
+            "eventIds": [
+              "e9947fc2cfee75490e4737e47aad0ff506797b0153f3c69427f649d316ede4ed",
+              "225f868eccbc08f3e8d57e0d972c08d10c17200558716f16b1e0ea6d9ab13b7f"
+            ]
+          },
+          "review-mission-7babc419-e363-44fd-9c20-a1b411751551:run-1788886717563-4247:run:1": {
+            "key": "review-mission-7babc419-e363-44fd-9c20-a1b411751551:run-1788886717563-4247:run:1",
+            "capability": "agent.run",
+            "collection": "kujo-docs",
+            "status": "succeeded",
+            "started": 1788886718818,
+            "finished": 1788886836480,
+            "evidence": [
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:cd21332e9b377769afc26cf84ffdf3da56ba34bed7dd76d10d26b251c0ac19c9",
+                "hash": "4945ca09d4d02b92b81eba5934b878483a0f36024af6f120bf46d379a7247b18",
+                "sourceSequence": 4
+              },
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:48b864e1647fc20176544061e0bd94b95ef55427baff3171d70a4a8e6638f395",
+                "hash": "ee33753cc35d0b2683037c31715e57c259e2751db77b2f867df688c669b36ffc",
+                "sourceSequence": 13
+              }
+            ],
+            "partial": false,
+            "relatedAgent": "",
+            "metadata": {},
+            "attempt": 1,
+            "operationId": "run",
+            "observedAt": 1788886837112,
+            "eventIds": [
+              "0dd6e4865c59e9acc742f5fa79b8aa8edbe62e26fac15ed57fa198f470a4c0d5",
+              "01fe799b5897a00c695ecec17bb2d89deafe9cb714e5b3db0a4c35ba1f1b934b"
+            ]
+          },
+          "review-mission-7babc419-e363-44fd-9c20-a1b411751551:run-1788886717563-4247:retrieval:1": {
+            "key": "review-mission-7babc419-e363-44fd-9c20-a1b411751551:run-1788886717563-4247:retrieval:1",
+            "capability": "rag.query",
+            "collection": "kujo-docs",
+            "status": "succeeded",
+            "started": 1788886718901,
+            "finished": 1788886720092,
+            "evidence": [
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:52956e29bcdbbe1eb98d95b72fad88bf62a15a34104ee83167a6054793851c85",
+                "hash": "d761489b0936561efeabff350b650ab48ef6509904cbcc2fb6976a029d338b74",
+                "sourceSequence": 5
+              },
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:5ac6214ec7189f3e204ebf3590e976d0aa5109616d8ac6090f8e6bd5f74db4e2",
+                "hash": "e10eb26838e2381f58481ecbeda615cfc027dbc150285cf19ab61f578f6f4f26",
+                "sourceSequence": 6
+              }
+            ],
+            "partial": false,
+            "relatedAgent": "",
+            "metadata": {},
+            "attempt": 1,
+            "operationId": "retrieval",
+            "observedAt": 1788886720432,
+            "eventIds": [
+              "53178506f29ba621d95f18af2012cca6de8d02ad8769ec0f3be786ed7eed6fd7",
+              "ae8a4508b341019b6edee090f675b1ac7282e585ec2323dbabf0baee74e4c4ca"
+            ]
+          },
+          "review-mission-7babc419-e363-44fd-9c20-a1b411751551:run-1788886717563-4247:mcp-docs:1": {
+            "key": "review-mission-7babc419-e363-44fd-9c20-a1b411751551:run-1788886717563-4247:mcp-docs:1",
+            "capability": "mcp.call",
+            "collection": "unknown",
+            "status": "succeeded",
+            "started": 1788886720148,
+            "finished": 1788886720178,
+            "evidence": [
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:1302fdda8cb1472fc2f39a30019cc84123ee1a5138776ba462b674931f209be9",
+                "hash": "b91067d71a1cba4b1d4cef44e49ff8cbc03b94cd2d931487fbd3ddde9abb413a",
+                "sourceSequence": 7
+              },
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:710ae4deddd1b9926a73cda2ff27c6654a98477ba2afc157dfa2486489ab6c91",
+                "hash": "2655270328cc3b66840bcd92117bce5b602c600b04a9c504134bbdd534a931c6",
+                "sourceSequence": 8
+              }
+            ],
+            "partial": false,
+            "relatedAgent": "",
+            "metadata": {
+              "approval": "not-required",
+              "invocation": "run-1788886717563-4247:mcp-docs",
+              "server": "mcp-demo",
+              "station": "tool-active",
+              "tool": "read_project_docs",
+              "resultCode": "result-returned"
+            },
+            "attempt": 1,
+            "operationId": "mcp-docs",
+            "observedAt": 1788886720693,
+            "eventIds": [
+              "4f0717eead4a2bb0fbcf8242f7227a57a465e6e3b4012506af410af5fecb9823",
+              "728947912c2bbd2f243eaf5d344a3251dca59d41b049eb1252ce7085bf4f9a60"
+            ]
+          },
+          "review-mission-7babc419-e363-44fd-9c20-a1b411751551:run-1788886717563-4247:reviewer:1": {
+            "key": "review-mission-7babc419-e363-44fd-9c20-a1b411751551:run-1788886717563-4247:reviewer:1",
+            "capability": "agent.handoff",
+            "collection": "unknown",
+            "status": "succeeded",
+            "started": 1788886752414,
+            "finished": 1788886836330,
+            "evidence": [
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:7068fea67b6ddc5c2442a9f56188506a08d9793a50942f6a2f56ab31139798b3",
+                "hash": "dc707d34a0c3b68c8bd35ab3fd67a6ff1854ca341b619240c47d7c9ee599c627",
+                "sourceSequence": 9
+              },
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:e12562b743dc1437036b5b7b56c0c5a77d8042990b858fb24f1d4d7a09b6bce3",
+                "hash": "9e3964fe1b7068a5f107956b6035b1f3ed21524b8ed00b34953b10123e674f1e",
+                "sourceSequence": 12
+              }
+            ],
+            "partial": false,
+            "relatedAgent": "reviewer",
+            "metadata": {
+              "relatedInstance": "review-mission-7babc419-e363-44fd-9c20-a1b411751551:run-1788886717563-4247-handoff-reviewer:reviewer"
+            },
+            "attempt": 1,
+            "operationId": "reviewer",
+            "observedAt": 1788886836850,
+            "eventIds": [
+              "7b06041d3030c35b2e5b3e430730c7bea915661886a2a7305a0621c30661bb51",
+              "22fa6fb9b5b153fcb914162a5d87bfee33a27626993cb29cb20ef48339322353"
+            ]
+          },
+          "review-mission-7babc419-e363-44fd-9c20-a1b411751551:run-1788886717563-4247:save-reviewed-output:1": {
+            "key": "review-mission-7babc419-e363-44fd-9c20-a1b411751551:run-1788886717563-4247:save-reviewed-output:1",
+            "capability": "artifact.created",
+            "collection": "unknown",
+            "status": "succeeded",
+            "started": null,
+            "finished": 1788886836487,
+            "evidence": [
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:76c3778f86cd3190a1f8ce9ee24cdf5551503b1d0276ac1d23c710d05af6b6f4",
+                "hash": "db3e71abab587b061a497b20aabdf173da1a9f7d8808d39b44bac8126ba48e4d",
+                "sourceSequence": 14
+              }
+            ],
+            "partial": true,
+            "relatedAgent": "",
+            "metadata": {
+              "artifactRef": "mission:run-1788886717563-4247:output"
+            },
+            "attempt": 1,
+            "operationId": "save-reviewed-output",
+            "observedAt": 1788886837112,
+            "eventIds": [
+              "820f0af820c8990b9b799abf84a9c03edf73965ed023febc45045aee488937eb"
+            ]
+          },
+          "review-mission-7babc419-e363-44fd-9c20-a1b411751551:run-1788886717563-4247:workflow-state:1": {
+            "key": "review-mission-7babc419-e363-44fd-9c20-a1b411751551:run-1788886717563-4247:workflow-state:1",
+            "capability": "dispatch.workflow",
+            "collection": "unknown",
+            "status": "unknown",
+            "started": null,
+            "finished": 1788886837573,
+            "evidence": [
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:df625723aba1a878a931136915b3e42f0f957b228dfd2c350bc5ef3ca373cb96",
+                "hash": "3c60ce1764975da011252621560535daeb3d43c73384725b225e30e7bb1ec5da",
+                "sourceSequence": 16
+              }
+            ],
+            "partial": true,
+            "relatedAgent": "",
+            "metadata": {
+              "workflowState": "completed"
+            },
+            "attempt": 1,
+            "operationId": "workflow-state",
+            "observedAt": 1788886837894,
+            "eventIds": [
+              "e44f571c221d82a256ab2939eecca45c498d52331c5e4624a8c9e7b03173c11a"
+            ]
+          }
+        },
+        "taskState": "completed",
+        "runAttempt": 1,
+        "workflowState": "completed"
+      },
+      "review-mission-7babc419-e363-44fd-9c20-a1b411751551:run-1788886717563-4247-handoff-reviewer:reviewer": {
+        "id": "review-mission-7babc419-e363-44fd-9c20-a1b411751551:run-1788886717563-4247-handoff-reviewer:reviewer",
+        "profile": "city-reviewer",
+        "run": {
+          "namespace": "review-mission-7babc419-e363-44fd-9c20-a1b411751551",
+          "id": "run-1788886717563-4247-handoff-reviewer"
+        },
+        "task": {
+          "namespace": "dispatch",
+          "id": "run-1788886717563-4247:produce-artifact"
+        },
+        "status": "completed",
+        "lastObserved": 1788886836850,
+        "completeness": "complete",
+        "operations": {
+          "review-mission-7babc419-e363-44fd-9c20-a1b411751551:run-1788886717563-4247-handoff-reviewer:run:1": {
+            "key": "review-mission-7babc419-e363-44fd-9c20-a1b411751551:run-1788886717563-4247-handoff-reviewer:run:1",
+            "capability": "agent.run",
+            "collection": "unknown",
+            "status": "succeeded",
+            "started": 1788886752423,
+            "finished": 1788886836327,
+            "evidence": [
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:60d6b39de218b77aad2b880c41a372d91d68b1db85d70b1178d11eb127f4e6fa",
+                "hash": "7b99249d44a342c9bc187380763560af5b954dbec76c82e7007361e1f154639a",
+                "sourceSequence": 10
+              },
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:95f29f6e6b072e0e0b085bd5c2234cbcafdc8ddb735ce38e270f12b694f28cd3",
+                "hash": "9e776f9893449aadd8f6549a27384cd43ff955b3fe9eeb820331ec2bd16bffc2",
+                "sourceSequence": 11
+              }
+            ],
+            "partial": false,
+            "relatedAgent": "",
+            "metadata": {},
+            "attempt": 1,
+            "operationId": "run",
+            "observedAt": 1788886836850,
+            "eventIds": [
+              "35c3dae003558c57064c290dbde3add3ff13d78bc7a410f54d0615cf18041a11",
+              "5101cdad268ef88a48a8e78654c3057a1172fa7e18613edbf015c2543080bcd3"
+            ]
+          }
+        },
+        "runAttempt": 1
+      },
+      "review-mission-c0f86c6f-5994-481f-9b01-6861194ea7f5:run-1788886866902-3001:coder": {
+        "id": "review-mission-c0f86c6f-5994-481f-9b01-6861194ea7f5:run-1788886866902-3001:coder",
+        "profile": "city-coder",
+        "run": {
+          "namespace": "review-mission-c0f86c6f-5994-481f-9b01-6861194ea7f5",
+          "id": "run-1788886866902-3001"
+        },
+        "task": {
+          "namespace": "dispatch",
+          "id": "run-1788886866902-3001:produce-artifact"
+        },
+        "status": "completed",
+        "lastObserved": 1788886893546,
+        "completeness": "partial",
+        "operations": {
+          "review-mission-c0f86c6f-5994-481f-9b01-6861194ea7f5:run-1788886866902-3001:intake:1": {
+            "key": "review-mission-c0f86c6f-5994-481f-9b01-6861194ea7f5:run-1788886866902-3001:intake:1",
+            "capability": "dispatch.task",
+            "collection": "unknown",
+            "status": "succeeded",
+            "started": null,
+            "finished": 1788886867111,
+            "evidence": [
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:2823e4fc3caa00b60e43ddcdbf6cca112200976d68cf6559d4a616b0667d4acf",
+                "hash": "7c4fc3e7a77617a0accb6c142262e6f4bdcb308fb1e7f02e47c852dd2e3ed7c8",
+                "sourceSequence": 17
+              }
+            ],
+            "partial": true,
+            "relatedAgent": "",
+            "metadata": {
+              "taskState": "queued"
+            },
+            "attempt": 1,
+            "operationId": "intake",
+            "observedAt": 1788886867394,
+            "eventIds": [
+              "c94fd1e54f366be2da65ed24cd5f86db9173df5d8345ee751de41d38302ddf02"
+            ]
+          },
+          "review-mission-c0f86c6f-5994-481f-9b01-6861194ea7f5:run-1788886866902-3001:assignment:1": {
+            "key": "review-mission-c0f86c6f-5994-481f-9b01-6861194ea7f5:run-1788886866902-3001:assignment:1",
+            "capability": "dispatch.task",
+            "collection": "unknown",
+            "status": "succeeded",
+            "started": null,
+            "finished": 1788886867111,
+            "evidence": [
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:de393f96caad2aedec7058d1a28b901bd7e15504a1384ff198086ed598db04ef",
+                "hash": "e8e1d45f18af60c391f614fc649378e47b4714da86385f445f6152df05254187",
+                "sourceSequence": 18
+              }
+            ],
+            "partial": true,
+            "relatedAgent": "",
+            "metadata": {
+              "taskState": "assigned"
+            },
+            "attempt": 1,
+            "operationId": "assignment",
+            "observedAt": 1788886867395,
+            "eventIds": [
+              "f50f72b1ed7a69cb7741aa7156fe0edd246dfa1fdabd2986b13a69f2bbe1c1ea"
+            ]
+          },
+          "review-mission-c0f86c6f-5994-481f-9b01-6861194ea7f5:run-1788886866902-3001:task:1": {
+            "key": "review-mission-c0f86c6f-5994-481f-9b01-6861194ea7f5:run-1788886866902-3001:task:1",
+            "capability": "dispatch.task",
+            "collection": "unknown",
+            "status": "succeeded",
+            "started": 1788886867174,
+            "finished": 1788886892708,
+            "evidence": [
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:a3e62186334b42b33b993b7f38e0c46f06db7fa397671534b8da5b76624b93fa",
+                "hash": "92c019559ef97a7d6395d41c146877d70103971edb41c0187e1f127f246bf439",
+                "sourceSequence": 19
+              },
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:efa7f9c25b8b0249b3d7d29e01bf419d9ee2ee319bf95520928a74ff54fef4bd",
+                "hash": "70a24fd079073ddb57a958d534bacfcff3f81e552687c3eee6c0df59737e87f6",
+                "sourceSequence": 27
+              }
+            ],
+            "partial": false,
+            "relatedAgent": "",
+            "metadata": {
+              "taskState": "completed"
+            },
+            "attempt": 1,
+            "operationId": "task",
+            "observedAt": 1788886893237,
+            "eventIds": [
+              "895344cfea749ac4173e9a3150a1bc02b98b95f93b50fef195b81c4fb9a5e23b",
+              "c4a74af57b1487e3a2571e996e6bdd1d79a56816482f25c2f512e52315ca8789"
+            ]
+          },
+          "review-mission-c0f86c6f-5994-481f-9b01-6861194ea7f5:run-1788886866902-3001:run:1": {
+            "key": "review-mission-c0f86c6f-5994-481f-9b01-6861194ea7f5:run-1788886866902-3001:run:1",
+            "capability": "agent.run",
+            "collection": "kujo-docs",
+            "status": "succeeded",
+            "started": 1788886868037,
+            "finished": 1788886892369,
+            "evidence": [
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:ffe09037aa55d5030ba61ee2ecacfa651f1c07b80135c38d03f76362c9049e50",
+                "hash": "5e445b700e437a4ad183eaee7e2a4f6e7e90ef3ae23adda8cb52bc14bf2e8c60",
+                "sourceSequence": 20
+              },
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:e310eee1c8e6b989bc6208b80e06678824c655a8190c7276a6c8a00396414b4c",
+                "hash": "38e4b33fed40a5977c6c7f7ec11c1f4d49a996693e4657c9ffd228d292278a18",
+                "sourceSequence": 25
+              }
+            ],
+            "partial": false,
+            "relatedAgent": "",
+            "metadata": {},
+            "attempt": 1,
+            "operationId": "run",
+            "observedAt": 1788886892954,
+            "eventIds": [
+              "abea41fe2a09417c2acc3654e83035699973c8566d4b6c3c5d83ee1ede5efbab",
+              "513ee9850ea8332205da80da6c05888190046c6b03d947b755611874874ecdea"
+            ]
+          },
+          "review-mission-c0f86c6f-5994-481f-9b01-6861194ea7f5:run-1788886866902-3001:reviewer:1": {
+            "key": "review-mission-c0f86c6f-5994-481f-9b01-6861194ea7f5:run-1788886866902-3001:reviewer:1",
+            "capability": "agent.handoff",
+            "collection": "unknown",
+            "status": "succeeded",
+            "started": 1788886879323,
+            "finished": 1788886892227,
+            "evidence": [
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:26845ee66fa6c9c2e4adc10aaf58e1bc3a671929c2f04acc45d6fc0c7d2b10e1",
+                "hash": "ab3f93b14a4ed09cdd1b445d2778068d113f67e8e42469c3517cf2e667845d84",
+                "sourceSequence": 21
+              },
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:f76ed2b44dd833f0a4d5f0c69fabcc496427cc5319c4c4592489b473c11ee436",
+                "hash": "168e3f4a0164bc807b3362f611cd6929edcd5feb1a16e4c60ac79ee7feed5f07",
+                "sourceSequence": 24
+              }
+            ],
+            "partial": false,
+            "relatedAgent": "reviewer",
+            "metadata": {
+              "relatedInstance": "review-mission-c0f86c6f-5994-481f-9b01-6861194ea7f5:run-1788886866902-3001-handoff-reviewer:reviewer"
+            },
+            "attempt": 1,
+            "operationId": "reviewer",
+            "observedAt": 1788886892695,
+            "eventIds": [
+              "04e89d722fe77ec0037fbf7b39088216e331b4477a674c79686b105a5138d60b",
+              "56c9599c470087071ac5bf1c7b4976d9a4f20c68125fa43eb7ad73eae0771247"
+            ]
+          },
+          "review-mission-c0f86c6f-5994-481f-9b01-6861194ea7f5:run-1788886866902-3001:save-reviewed-output:1": {
+            "key": "review-mission-c0f86c6f-5994-481f-9b01-6861194ea7f5:run-1788886866902-3001:save-reviewed-output:1",
+            "capability": "artifact.created",
+            "collection": "unknown",
+            "status": "succeeded",
+            "started": null,
+            "finished": 1788886892373,
+            "evidence": [
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:d67f913a7a57646f506752443988cbce55eac57e0fe68e3e710ef41a7857ae7c",
+                "hash": "830c24550130e224f5f6f647b0e7faad799398a386095e08a91cd8da98cdc969",
+                "sourceSequence": 26
+              }
+            ],
+            "partial": true,
+            "relatedAgent": "",
+            "metadata": {
+              "artifactRef": "mission:run-1788886866902-3001:output"
+            },
+            "attempt": 1,
+            "operationId": "save-reviewed-output",
+            "observedAt": 1788886892954,
+            "eventIds": [
+              "11827ec2fe18275e398d85144b6bf64319c334ed7283ac6c733e38d94e2b0a00"
+            ]
+          },
+          "review-mission-c0f86c6f-5994-481f-9b01-6861194ea7f5:run-1788886866902-3001:workflow-state:1": {
+            "key": "review-mission-c0f86c6f-5994-481f-9b01-6861194ea7f5:run-1788886866902-3001:workflow-state:1",
+            "capability": "dispatch.workflow",
+            "collection": "unknown",
+            "status": "unknown",
+            "started": null,
+            "finished": 1788886893318,
+            "evidence": [
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:197d7bdbfc6c9aa1ae6a97a555c24c0c148f57d152593e80e2f5144b621d56ca",
+                "hash": "09fc31811b56bafcaec549405b08182c0cafda69774b957f55ec7b70e893bb93",
+                "sourceSequence": 28
+              }
+            ],
+            "partial": true,
+            "relatedAgent": "",
+            "metadata": {
+              "workflowState": "completed"
+            },
+            "attempt": 1,
+            "operationId": "workflow-state",
+            "observedAt": 1788886893546,
+            "eventIds": [
+              "eda0cbd11962fd5f4311eae0926d8e8e567839886d399e5651219ba16cc2ab99"
+            ]
+          }
+        },
+        "taskState": "completed",
+        "runAttempt": 1,
+        "workflowState": "completed"
+      },
+      "review-mission-c0f86c6f-5994-481f-9b01-6861194ea7f5:run-1788886866902-3001-handoff-reviewer:reviewer": {
+        "id": "review-mission-c0f86c6f-5994-481f-9b01-6861194ea7f5:run-1788886866902-3001-handoff-reviewer:reviewer",
+        "profile": "city-reviewer",
+        "run": {
+          "namespace": "review-mission-c0f86c6f-5994-481f-9b01-6861194ea7f5",
+          "id": "run-1788886866902-3001-handoff-reviewer"
+        },
+        "task": {
+          "namespace": "dispatch",
+          "id": "run-1788886866902-3001:produce-artifact"
+        },
+        "status": "completed",
+        "lastObserved": 1788886892694,
+        "completeness": "complete",
+        "operations": {
+          "review-mission-c0f86c6f-5994-481f-9b01-6861194ea7f5:run-1788886866902-3001-handoff-reviewer:run:1": {
+            "key": "review-mission-c0f86c6f-5994-481f-9b01-6861194ea7f5:run-1788886866902-3001-handoff-reviewer:run:1",
+            "capability": "agent.run",
+            "collection": "unknown",
+            "status": "succeeded",
+            "started": 1788886879326,
+            "finished": 1788886892224,
+            "evidence": [
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:6e6fae913186199d2f19868da34e6f6ea504037bced110120c7ccf5427cb2c3a",
+                "hash": "7645d55c63bef900841305cae2c1ab30e7492cff40c8ab52a918486bd4e22ef7",
+                "sourceSequence": 22
+              },
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:5f406db51e96aa7c53080aec82eab3da490bd95c4021fdb2eaab1ac294cc1df5",
+                "hash": "6fcd19d65fce9c86a1f7e11364b1113674439500f6770646127a1a8d52d192c0",
+                "sourceSequence": 23
+              }
+            ],
+            "partial": false,
+            "relatedAgent": "",
+            "metadata": {},
+            "attempt": 1,
+            "operationId": "run",
+            "observedAt": 1788886892694,
+            "eventIds": [
+              "f8aa78ca87fcc61084fb80d869f5207d9e421def46c62d8c3476a76d441667a8",
+              "8629d8858a527a4906aa078085a7d17f820123ee1eef2ab5adbd2f91b9ec7094"
+            ]
+          }
+        },
+        "runAttempt": 1
+      },
+      "review-mission-c0f86c6f-5994-481f-9b01-6861194ea7f5:run-1788886866902-3001:function-checker": {
+        "id": "review-mission-c0f86c6f-5994-481f-9b01-6861194ea7f5:run-1788886866902-3001:function-checker",
+        "profile": "city-function-checker",
+        "run": {
+          "namespace": "review-mission-c0f86c6f-5994-481f-9b01-6861194ea7f5",
+          "id": "run-1788886866902-3001"
+        },
+        "task": {
+          "namespace": "dispatch",
+          "id": "run-1788886866902-3001:produce-artifact"
+        },
+        "status": "running",
+        "lastObserved": 1788886898242,
+        "completeness": "partial",
+        "operations": {
+          "review-mission-c0f86c6f-5994-481f-9b01-6861194ea7f5:run-1788886866902-3001:run:1": {
+            "key": "review-mission-c0f86c6f-5994-481f-9b01-6861194ea7f5:run-1788886866902-3001:run:1",
+            "capability": "execution.run",
+            "collection": "unknown",
+            "status": "active",
+            "started": 1788886893545,
+            "finished": null,
+            "evidence": [
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:39c608f34a00d66eb3c671a10df2e9f0df7e8d2ec55e482cdc78b9e78174bb58",
+                "hash": "ad34a0f79901abc2b771fce488ef2bcacde564a7c4a250a17dd640bc14bf7125",
+                "sourceSequence": 29
+              }
+            ],
+            "partial": false,
+            "relatedAgent": "",
+            "metadata": {
+              "tool": "city.function-check"
+            },
+            "attempt": 1,
+            "operationId": "run",
+            "observedAt": 1788886894064,
+            "eventIds": [
+              "8a04ee939d4a55de4218dab94892ae4aabe2371223afcb7e6ace4634f7a16ae8"
+            ]
+          },
+          "review-mission-c0f86c6f-5994-481f-9b01-6861194ea7f5:run-1788886866902-3001:function-suite:1": {
+            "key": "review-mission-c0f86c6f-5994-481f-9b01-6861194ea7f5:run-1788886866902-3001:function-suite:1",
+            "capability": "evaluation.run",
+            "collection": "unknown",
+            "status": "active",
+            "started": 1788886893546,
+            "finished": null,
+            "evidence": [
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:0c0769cba21a0d53ff764f8b23c041ebbed64a8fe5f1a70436ca3c11a911c7a3",
+                "hash": "ec8b4bab51ff915d793d58de6d0a89676e1f85a40a082c208f94dc097c582b73",
+                "sourceSequence": 30
+              }
+            ],
+            "partial": false,
+            "relatedAgent": "",
+            "metadata": {
+              "tool": "city.function-check"
+            },
+            "attempt": 1,
+            "operationId": "function-suite",
+            "observedAt": 1788886894064,
+            "eventIds": [
+              "c4a504da94ce6fde31f8e3a065e93352e97678078f247004afcece84334971e0"
+            ]
+          },
+          "review-mission-c0f86c6f-5994-481f-9b01-6861194ea7f5:run-1788886866902-3001:check-0:1": {
+            "key": "review-mission-c0f86c6f-5994-481f-9b01-6861194ea7f5:run-1788886866902-3001:check-0:1",
+            "capability": "evaluation.run",
+            "collection": "unknown",
+            "status": "failed",
+            "started": null,
+            "finished": 1788886896261,
+            "evidence": [
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:90a648888637f4eda2a7f9a5e392f5fcbf064de07bf7d7aa81462245aed447d2",
+                "hash": "b5cc34667d147bef22936fb708f4e0d939c902007c745c8443215197065f3256",
+                "sourceSequence": 31
+              }
+            ],
+            "partial": true,
+            "relatedAgent": "",
+            "metadata": {
+              "tool": "city.function-check"
+            },
+            "attempt": 1,
+            "operationId": "check-0",
+            "observedAt": 1788886898242,
+            "eventIds": [
+              "7aae7718d80aca61a221c0d67494576658dee843d53dc4299263104f31b44247"
+            ]
+          },
+          "review-mission-c0f86c6f-5994-481f-9b01-6861194ea7f5:run-1788886866902-3001:check-1:1": {
+            "key": "review-mission-c0f86c6f-5994-481f-9b01-6861194ea7f5:run-1788886866902-3001:check-1:1",
+            "capability": "evaluation.run",
+            "collection": "unknown",
+            "status": "failed",
+            "started": null,
+            "finished": 1788886896282,
+            "evidence": [
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:cc27384495654b24266a40f6a5bb852bd820df6aa4b9b6838a4a684110e3880c",
+                "hash": "d155d6870038a54141bf304b4c15596693cacf41fc4a9f8b05e4b81f6ff92c6f",
+                "sourceSequence": 32
+              }
+            ],
+            "partial": true,
+            "relatedAgent": "",
+            "metadata": {
+              "tool": "city.function-check"
+            },
+            "attempt": 1,
+            "operationId": "check-1",
+            "observedAt": 1788886898242,
+            "eventIds": [
+              "d328154e5ee343178cbc6493eab6f2218f5a01c508b4504ee7cd5ba5f0c6f5b0"
+            ]
+          },
+          "review-mission-c0f86c6f-5994-481f-9b01-6861194ea7f5:run-1788886866902-3001:check-2:1": {
+            "key": "review-mission-c0f86c6f-5994-481f-9b01-6861194ea7f5:run-1788886866902-3001:check-2:1",
+            "capability": "evaluation.run",
+            "collection": "unknown",
+            "status": "failed",
+            "started": null,
+            "finished": 1788886896299,
+            "evidence": [
+              {
+                "origin": "canonical",
+                "recordId": "native:agent-city-sdk:26560435818b0418941abdee41dd2b69522327e57b3e90486414f0b7b0c7a695",
+                "hash": "2d4ed13c70677bbabbc6af586ec80e3d018f781c9e3a9ad4d610612dd5bc9a23",
+                "sourceSequence": 33
+              }
+            ],
+            "partial": true,
+            "relatedAgent": "",
+            "metadata": {
+              "tool": "city.function-check"
+            },
+            "attempt": 1,
+            "operationId": "check-2",
+            "observedAt": 1788886898242,
+            "eventIds": [
+              "974fc8fa0b3e00b327eac5e56d5bad092d1a6297ad924d6f6a585cc4fb53c2e0"
+            ]
+          }
+        },
+        "runAttempt": 1
+      }
+    },
+    "seen": [
+      "e16b3e7e12e90ffe92c78731d04fc4d8d7d207c1befabc2991c47b753e806fce",
+      "5f3b2f3c60506296d4fd01e19e2ec1275a42631a86b7a6f2b2f39bff73238ab3",
+      "e9947fc2cfee75490e4737e47aad0ff506797b0153f3c69427f649d316ede4ed",
+      "0dd6e4865c59e9acc742f5fa79b8aa8edbe62e26fac15ed57fa198f470a4c0d5",
+      "53178506f29ba621d95f18af2012cca6de8d02ad8769ec0f3be786ed7eed6fd7",
+      "ae8a4508b341019b6edee090f675b1ac7282e585ec2323dbabf0baee74e4c4ca",
+      "4f0717eead4a2bb0fbcf8242f7227a57a465e6e3b4012506af410af5fecb9823",
+      "728947912c2bbd2f243eaf5d344a3251dca59d41b049eb1252ce7085bf4f9a60",
+      "7b06041d3030c35b2e5b3e430730c7bea915661886a2a7305a0621c30661bb51",
+      "35c3dae003558c57064c290dbde3add3ff13d78bc7a410f54d0615cf18041a11",
+      "5101cdad268ef88a48a8e78654c3057a1172fa7e18613edbf015c2543080bcd3",
+      "22fa6fb9b5b153fcb914162a5d87bfee33a27626993cb29cb20ef48339322353",
+      "01fe799b5897a00c695ecec17bb2d89deafe9cb714e5b3db0a4c35ba1f1b934b",
+      "820f0af820c8990b9b799abf84a9c03edf73965ed023febc45045aee488937eb",
+      "225f868eccbc08f3e8d57e0d972c08d10c17200558716f16b1e0ea6d9ab13b7f",
+      "e44f571c221d82a256ab2939eecca45c498d52331c5e4624a8c9e7b03173c11a",
+      "c94fd1e54f366be2da65ed24cd5f86db9173df5d8345ee751de41d38302ddf02",
+      "f50f72b1ed7a69cb7741aa7156fe0edd246dfa1fdabd2986b13a69f2bbe1c1ea",
+      "895344cfea749ac4173e9a3150a1bc02b98b95f93b50fef195b81c4fb9a5e23b",
+      "abea41fe2a09417c2acc3654e83035699973c8566d4b6c3c5d83ee1ede5efbab",
+      "04e89d722fe77ec0037fbf7b39088216e331b4477a674c79686b105a5138d60b",
+      "f8aa78ca87fcc61084fb80d869f5207d9e421def46c62d8c3476a76d441667a8",
+      "8629d8858a527a4906aa078085a7d17f820123ee1eef2ab5adbd2f91b9ec7094",
+      "56c9599c470087071ac5bf1c7b4976d9a4f20c68125fa43eb7ad73eae0771247",
+      "513ee9850ea8332205da80da6c05888190046c6b03d947b755611874874ecdea",
+      "11827ec2fe18275e398d85144b6bf64319c334ed7283ac6c733e38d94e2b0a00",
+      "c4a74af57b1487e3a2571e996e6bdd1d79a56816482f25c2f512e52315ca8789",
+      "eda0cbd11962fd5f4311eae0926d8e8e567839886d399e5651219ba16cc2ab99",
+      "8a04ee939d4a55de4218dab94892ae4aabe2371223afcb7e6ace4634f7a16ae8",
+      "c4a504da94ce6fde31f8e3a065e93352e97678078f247004afcece84334971e0",
+      "7aae7718d80aca61a221c0d67494576658dee843d53dc4299263104f31b44247",
+      "d328154e5ee343178cbc6493eab6f2218f5a01c508b4504ee7cd5ba5f0c6f5b0",
+      "974fc8fa0b3e00b327eac5e56d5bad092d1a6297ad924d6f6a585cc4fb53c2e0"
+    ],
+    "health": "LIVE",
+    "gap": false,
+    "order": 33
+  }
+}

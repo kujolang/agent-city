@@ -1,0 +1,107 @@
+{
+  "kind": "Fresh packaged stack with real local-model writing/code missions",
+  "missions": {
+    "model": "qwen2.5-coder:1.5b-instruct",
+    "receipts": [
+      {
+        "kind": "writing",
+        "id": "mission-7babc419-e363-44fd-9c20-a1b411751551",
+        "status": "completed"
+      },
+      {
+        "kind": "code",
+        "id": "mission-c0f86c6f-5994-481f-9b01-6861194ea7f5",
+        "status": "completed"
+      }
+    ]
+  },
+  "source": "05cff77f7310605aae207fff818605c2c6c948ff",
+  "ports": {
+    "web": 35178,
+    "rag": 38791,
+    "watchdog": 37791,
+    "gateway": 37792,
+    "control": 37793,
+    "mcp": 38931
+  },
+  "readinessMs": 5820,
+  "services": [
+    "rag",
+    "watchdog",
+    "mcp",
+    "gateway",
+    "bridge",
+    "runner",
+    "web"
+  ],
+  "offsetOriginValidation": true,
+  "foreignOriginRejected": true,
+  "rendererReady": true,
+  "errors": [],
+  "exitCode": 0,
+  "released": [
+    {
+      "service": "web",
+      "port": 35178,
+      "available": true
+    },
+    {
+      "service": "rag",
+      "port": 38791,
+      "available": true
+    },
+    {
+      "service": "watchdog",
+      "port": 37791,
+      "available": true
+    },
+    {
+      "service": "gateway",
+      "port": 37792,
+      "available": true
+    },
+    {
+      "service": "control",
+      "port": 37793,
+      "available": true
+    },
+    {
+      "service": "mcp",
+      "port": 38931,
+      "available": true
+    }
+  ],
+  "originalPorts": [
+    {
+      "port": 5178,
+      "available": true
+    },
+    {
+      "port": 7792,
+      "available": false
+    },
+    {
+      "port": 7793,
+      "available": true
+    }
+  ],
+  "originalPortsAfter": [
+    {
+      "port": 5178,
+      "available": true
+    },
+    {
+      "port": 7792,
+      "available": false
+    },
+    {
+      "port": 7793,
+      "available": true
+    }
+  ],
+  "at": "2026-09-08T17:01:58.542Z",
+  "initialEmptyTruth": true,
+  "initialModelConfigured": false,
+  "modelConfiguredAfterProof": true,
+  "reportCorrection": "Initial startup assertions explicitly distinguished from state after real missions; no source result changed."
+}

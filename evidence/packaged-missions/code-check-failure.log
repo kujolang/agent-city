@@ -1,0 +1,42 @@
+{
+  "mission": "mission-c0f86c6f-5994-481f-9b01-6861194ea7f5",
+  "validation": {
+    "schema": "agent-city.code-check.v1",
+    "syntax": "invalid",
+    "fenceRemoved": false,
+    "functionalTests": "failed",
+    "codeExecuted": true,
+    "checkedAt": "2026-09-08T17:01:33.544Z"
+  },
+  "functional": {
+    "schema": "agent-city.function-check.v1",
+    "status": "failed",
+    "environment": "disposable-chromium-module-worker",
+    "browserSandboxRequested": true,
+    "browser": "151.0.7922.34",
+    "codeExecuted": true,
+    "scope": "explicit JSON function cases only; no filesystem or network integrations",
+    "blockedRequests": 0,
+    "cases": [
+      {
+        "name": "empty",
+        "status": "failed",
+        "reason": "module-error",
+        "occurredAt": 1788886896261
+      },
+      {
+        "name": "addition",
+        "status": "failed",
+        "reason": "module-error",
+        "occurredAt": 1788886896282
+      },
+      {
+        "name": "reject text",
+        "status": "failed",
+        "reason": "module-error",
+        "occurredAt": 1788886896299
+      }
+    ],
+    "checkedAt": "2026-09-08T17:01:36.299Z"
+  }
+}
