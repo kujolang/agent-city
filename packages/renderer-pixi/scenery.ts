@@ -275,18 +275,48 @@ export function consoleDesk(g: Graphics, x: number, y: number, width = 30) {
 }
 
 export function briefingRoom(g: Graphics) {
+  // Fixed room materials and an empty briefing table carry no meeting status.
+  rect(g, 16, 120, 224, 56, 0x36414c);
+  for (let row = 0; row < 7; row++) {
+    const y = 120 + row * 8;
+    rect(g, 16, y, 224, 1, P.ink);
+    for (let x = 16 + (row % 2) * 10; x < 238; x += 20) {
+      rect(g, x, y + 1, 1, 7, P.mortar);
+      rect(g, x + 2, y + 2, Math.min(14, 238 - x), 1, 0x515d69);
+    }
+  }
+  // Riveted wall plaque, with lettering projected by the renderer.
+  rect(g, 92, 64, 76, 42, P.ink);
+  rect(g, 93, 65, 74, 40, P.light);
+  rect(g, 95, 67, 70, 36, P.stone);
+  rect(g, 97, 69, 66, 32, P.ink);
+  for (const x of [94, 165])
+    for (const y of [66, 103]) rect(g, x, y, 1, 1, P.ink);
+  // Utility fittings and steady pendant lights frame the wall stations.
+  for (const x of [59, 193]) {
+    rect(g, x, 53, 2, 11, P.ink);
+    rect(g, x, 54, 1, 9, P.light);
+    rect(g, x - 4, 64, 10, 3, P.stone);
+    rect(g, x - 6, 67, 14, 2, P.ink);
+    rect(g, x - 4, 69, 10, 1, 0xd9c99c);
+  }
   // Empty chairs are fixtures, not invented participants or co-location.
   for (const x of [44, 88, 132, 176]) {
     rect(g, x, 130, 13, 21, P.ink);
     rect(g, x + 2, 132, 9, 13, 0x414b77);
+    rect(g, x + 3, 133, 1, 10, 0x6b719b);
+    rect(g, x - 2, 145, 17, 2, P.stone);
     rect(g, x + 3, 151, 2, 17, P.stone);
     rect(g, x + 9, 151, 2, 17, P.stone);
   }
   rect(g, 38, 147, 168, 5, P.light);
   rect(g, 42, 152, 160, 8, P.stone);
+  rect(g, 43, 153, 158, 1, P.mortar);
+  rect(g, 45, 156, 154, 2, P.mortar);
   rect(g, 48, 160, 5, 15, P.mortar);
   rect(g, 188, 160, 5, 15, P.mortar);
   rect(g, 84, 144, 75, 3, P.blue);
+  for (let x = 88; x < 156; x += 9) rect(g, x, 144, 1, 2, P.glass);
   for (const x of [56, 174]) {
     rect(g, x, 142, 11, 5, 0xe2dfc9);
     rect(g, x + 3, 143, 6, 1, P.stone);
@@ -294,10 +324,15 @@ export function briefingRoom(g: Graphics) {
   // Structural utility pipes and lockers frame the shared work table.
   rect(g, 16, 51, 223, 5, P.mortar);
   rect(g, 16, 51, 223, 1, P.light);
+  for (const x of [32, 83, 176, 221]) {
+    rect(g, x, 49, 4, 9, P.stone);
+    rect(g, x + 1, 50, 1, 7, P.light);
+  }
   for (const x of [16, 224]) {
     rect(g, x, 87, 12, 51, P.stone);
     rect(g, x + 2, 89, 8, 47, P.mortar);
     rect(g, x + 6, 108, 2, 6, P.light);
+    for (let y = 93; y < 104; y += 3) rect(g, x + 3, y, 6, 1, P.ink);
   }
 }
 

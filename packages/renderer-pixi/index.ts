@@ -413,15 +413,25 @@ export class CityRenderer {
         box(g, x, 58, dispatch ? 32 : 64, dispatch ? 59 : 42, C.black);
         box(g, x + 2, 60, dispatch ? 28 : 60, 1, C.blue);
         text(g, label, x + 2, 43, C.gold);
-        for (let y = 70; y < (dispatch ? 110 : 96); y += 12)
-          box(g, x + 5, y, dispatch ? 21 : 50, 2, C.teal);
+        if (dispatch)
+          for (let y = 70; y < 110; y += 12) box(g, x + 5, y, 21, 2, C.teal);
         if (dispatch) consoleDesk(g, x + 1, 145, 28);
       });
-      if (meeting) briefingRoom(g);
+      if (meeting) {
+        briefingRoom(g);
+        text(g, "KUJO", 118, 78, C.white);
+        text(g, "BRIEFING", 106, 91, C.gold);
+        ["IDEAS", "CONTEXT", "PLANS"].forEach((label, i) =>
+          text(g, label, 38, 76 + i * 8, C.white),
+        );
+        ["RUNS", "REFS", "FILES"].forEach((label, i) =>
+          text(g, label, 190, 76 + i * 8, C.white),
+        );
+      }
       text(
         g,
-        meeting ? "ASYNC / NO CO-LOCATION CLAIM" : "SOURCE-OWNED TASK STATE",
-        18,
+        meeting ? "MEETING HALL / CONTEXT" : "SOURCE-OWNED TASK STATE",
+        meeting ? 48 : 18,
         166,
         C.white,
       );
