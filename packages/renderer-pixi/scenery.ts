@@ -141,3 +141,41 @@ export function roomFloor(g: Graphics) {
   rect(g, 8, 197, 240, 3, P.mortar);
   rect(g, 8, 197, 240, 1, P.stone);
 }
+
+export function mezzanine(g: Graphics) {
+  rect(g, 16, 112, 224, 2, P.light);
+  masonry(g, 16, 114, 224, 7, true);
+  for (const x of [32, 104, 184]) {
+    rect(g, x, 122, 4, 54, P.mortar);
+    rect(g, x, 122, 1, 54, P.stone);
+  }
+  // The ladder's centre matches the authored x=224 walker footprint.
+  for (const x of [223, 237]) {
+    rect(g, x, 101, 2, 75, P.ink);
+    rect(g, x, 101, 1, 75, P.light);
+  }
+  for (let y = 106; y < 176; y += 6) {
+    rect(g, 225, y, 12, 2, P.stone);
+    rect(g, 225, y, 12, 1, P.light);
+  }
+}
+
+export function books(g: Graphics, x: number, y: number, w: number, h: number) {
+  rect(g, x, y, w, h, 0x61432e);
+  rect(g, x + 2, y + 2, w - 4, h - 4, P.ink);
+  for (let shelf = y + 4; shelf < y + h - 10; shelf += 15) {
+    for (let col = 0; col < Math.floor((w - 5) / 4); col++) {
+      const height = 8 + (col % 3);
+      rect(
+        g,
+        x + 3 + col * 4,
+        shelf + 11 - height,
+        3,
+        height,
+        [P.blue, P.brick, 0xb59753, P.leaf, P.light][col % 5],
+      );
+      rect(g, x + 3 + col * 4, shelf + 12 - height, 2, 1, 0xc2b899);
+    }
+    rect(g, x + 2, shelf + 11, w - 4, 2, 0xa0784b);
+  }
+}

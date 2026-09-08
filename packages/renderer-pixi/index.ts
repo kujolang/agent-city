@@ -1,5 +1,12 @@
 import { Application, Container, Graphics, Rectangle } from "pixi.js";
-import { facade, roomShell, roomFloor, plant } from "./scenery";
+import {
+  facade,
+  roomShell,
+  roomFloor,
+  plant,
+  mezzanine,
+  books,
+} from "./scenery";
 import { appearance } from "./appearance";
 import { badge, animationFor, buildingState } from "../world-core/index";
 import type { Presentation, Truth, Scene } from "../world-core/index";
@@ -188,7 +195,7 @@ export class CityRenderer {
       const look = appearance(truth.agents[w.id]?.profile ?? "unknown"),
         pose = animationFor(w, truth.agents[w.id], p.tick);
       const x = Math.round(w.x + (w.scene === "city" ? 0 : offset)),
-        y = Math.round(w.y + (w.scene === "city" ? 0 : 13));
+        y = Math.round(w.y + (w.scene === "city" ? 0 : 16));
       const frames =
         w.scene === "city" ? look.overworld[pose] : look.sideview[pose];
       const frame = frames[Math.floor(p.tick / 5) % frames.length];
@@ -207,6 +214,12 @@ export class CityRenderer {
       box(actor, 4, -4, 3, 4 + step, C.white);
       box(actor, 9, -4, 3, 5 - step, C.white);
       box(actor, 9, -17, 2, 2, C.black);
+      if (pose === "ladder") {
+        box(actor, 1, frame % 2 ? -17 : -12, 3, 5, C.gold);
+        box(actor, 12, frame % 2 ? -12 : -17, 3, 5, C.gold);
+        box(actor, 4, -4, 3, frame % 2 ? 2 : 5, look.coat);
+        box(actor, 9, -4, 3, frame % 2 ? 5 : 2, look.coat);
+      }
       if (["read", "inspect", "carry"].includes(pose) && health !== "STALE") {
         box(actor, 12, -10, 6, 5, C.white);
         box(actor, 15, -10, 1, 5, C.teal);
@@ -276,13 +289,15 @@ export class CityRenderer {
             for (let dx = 0; dx < 16; dx += 5)
               box(g, x * 16 + dx, y * 16 + dy, 2, 1, 0x1d50b2);
         } else {
-          for (const dy of [2, 9]) box(g, x * 16 + 3, y * 16 + dy, 1, 1, 0x414b59);
+          for (const dy of [2, 9])
+            box(g, x * 16 + 3, y * 16 + dy, 1, 1, 0x414b59);
         }
       }
     for (let x = 16; x < 240; x += 24) box(g, x, 111, 10, 2, C.gold);
     for (const o of m.objects) {
       if (o.kind !== "building") continue;
-      const x = o.x, y = o.y;
+      const x = o.x,
+        y = o.y;
       facade(g, x, y, o.id);
       const label =
         o.id === "library"
@@ -374,28 +389,20 @@ export class CityRenderer {
       text(g, "ACTUAL CHECK OUTCOMES", 48, 165, C.white);
     } else if (library) {
       ["DOCS", "REPO", "RAG", "RUNS", "EXT"].forEach((label, i) => {
-        const x = 32 + i * 40;
-        box(g, x, 47, 31, 95, 0x573f30);
-        box(g, x + 2, 49, 27, 91, C.black);
-        text(g, label, x + 5, 38, C.gold);
-        for (let y = 54; y < 136; y += 22) {
-          box(g, x + 2, y + 16, 27, 3, 0x997552);
-          box(g, x + 2, y + 16, 27, 1, 0xc2a072);
-          for (let k = 0; k < 6; k++)
-            box(
-              g,
-              x + 3 + k * 4,
-              y + (k % 3),
-              3,
-              15 - (k % 3),
-              [C.red, C.gold, C.blue, C.mint][(i + k) % 4],
-            );
-        }
+        const x = 24 + i * 40;
+        books(g, x, 49, 31, 52);
+        text(g, label, x + 3, 38, C.gold);
       });
-      box(g, 112, 150, 36, 6, C.teal);
-      box(g, 116, 135, 24, 15, C.black);
-      box(g, 119, 138, 18, 8, C.mint);
-      text(g, "QUERY", 116, 166, C.white);
+      // Lower reading room: background shelving, a query station and reading desks.
+      books(g, 40, 125, 42, 42);
+      books(g, 168, 125, 42, 42);
+      box(g, 106, 162, 52, 4, 0x997552);
+      for (const x of [109, 150]) box(g, x, 166, 3, 10, C.road);
+      box(g, 118, 139, 23, 21, C.black);
+      box(g, 121, 142, 17, 13, C.blue);
+      for (let y = 145; y < 153; y += 3) box(g, 123, y, 11, 1, C.white);
+      text(g, "QUERY", 113, 128, C.gold);
+      mezzanine(g);
     } else if (mcp) {
       for (let x = 24; x < 240; x += 40) {
         box(g, x, 47, 27, 88, C.black);
@@ -435,41 +442,39 @@ export class CityRenderer {
         (v, i) => text(g, v, 24 + i * 40, 38, C.gold),
       );
     } else {
-      box(g, 24, 139, 76, 10, C.teal);
-      for (const x of [28, 88]) box(g, x, 149, 5, 27, C.road);
-      box(g, 48, 116, 26, 23, C.black);
-      box(g, 52, 120, 18, 12, C.mint);
-      text(g, "WORK", 54, 124, C.ink);
-      box(g, 30, 137, 15, 2, C.gold);
-      box(g, 118, 63, 36, 78, C.black);
-      for (let y = 72; y < 134; y += 20) {
-        box(g, 121, y, 30, 3, C.teal);
-        box(g, 124, y - 9, 13, 9, C.gold);
-      }
-      text(g, "EVIDENCE", 116, 50, C.gold);
-      box(g, 175, 62, 58, 93, C.black);
-      box(g, 179, 66, 50, 85, C.road);
-      text(g, "WORKCELL", 180, 88, C.gold);
+      books(g, 55, 50, 39, 52);
+      text(g, "EVIDENCE", 51, 39, C.gold);
+      box(g, 134, 48, 69, 57, C.black);
+      box(g, 138, 52, 61, 49, C.road);
+      for (let y = 55; y < 100; y += 7) box(g, 141, y, 55, 1, 0x56677b);
+      text(g, "WORKCELL", 140, 64, C.gold);
       const workcell = Object.values(truth.agents)
         .flatMap((a) => Object.values(a.operations))
         .filter((o) => o.capability === "workcell.execute")
         .at(-1);
       text(
         g,
-        workcell ? workcell.status.toUpperCase() : "UNKNOWN",
-        182,
-        102,
+        workcell ? workcell.status.toUpperCase() : "NO SOURCE",
+        141,
+        80,
         workcell?.status === "failed" ? C.red : C.white,
       );
-      if (workcell?.metadata?.resultCode?.startsWith("preparing"))
-        text(g, "PREFLIGHT", 179, 115, C.gold);
-      text(g, "TASK BENCH", 27, 101, C.white);
+      for (const x of [45, 125]) {
+        box(g, x, 162, 54, 5, 0x997552);
+        box(g, x + 4, 167, 3, 9, C.road);
+        box(g, x + 46, 167, 3, 9, C.road);
+        box(g, x + 14, 138, 25, 23, C.black);
+        box(g, x + 17, 141, 19, 14, C.blue);
+        for (let y = 144; y < 153; y += 3) box(g, x + 19, y, 13, 1, C.mint);
+      }
+      text(g, "TASK BENCH", 44, 128, C.gold);
+      text(g, "TERMINAL", 128, 128, C.gold);
+      mezzanine(g);
     }
     roomFloor(g);
     plant(g, 26, 161);
     plant(g, 229, 161);
     box(g, 10, 140, 13, 37, C.black);
     text(g, "EXIT", 10, 128, C.gold);
-
   }
 }
