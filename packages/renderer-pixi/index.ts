@@ -18,6 +18,7 @@ import {
   animationFor,
   buildingState,
   stationFor,
+  compareId,
 } from "../world-core/index";
 import type { OperationEvent } from "../world-core/index";
 import type { Presentation, Truth, Scene } from "../world-core/index";
@@ -119,6 +120,25 @@ export class CityRenderer {
   private ink = new Graphics();
   private actors = new Container();
   private characters = new CharacterAtlas();
+  private actorViews = new Map<
+    string,
+    { container: Container; sprite: Sprite; marks: Graphics; marksKey: string }
+  >();
+  private buildingHits = new Container();
+  private actorsCreated = 0;
+  private actorsDestroyed = 0;
+  diagnostics() {
+    const count = (node: Container): number =>
+      1 + node.children.reduce((n, child) => n + count(child), 0);
+    return {
+      objects: count(this.app.stage),
+      actors: this.actorViews.size,
+      actorsCreated: this.actorsCreated,
+      actorsDestroyed: this.actorsDestroyed,
+      buildingHits: this.buildingHits.children.length,
+      backgrounds: this.backgrounds.size,
+    };
+  }
   private backgrounds = new Map<string, Graphics>();
   private backgroundTruth?: Truth;
   private truthRevision = 0;
@@ -142,7 +162,22 @@ export class CityRenderer {
     await this.characters.load();
     host.append(this.app.canvas);
     this.app.stage.addChild(this.layer);
-    this.layer.addChild(this.backdrop, this.ink, this.actors);
+    this.layer.addChild(
+      this.backdrop,
+      this.ink,
+      this.buildingHits,
+      this.actors,
+    );
+    for (const o of world.maps.city.objects.filter(
+      (o) => o.kind === "building",
+    )) {
+      const hit = new Container();
+      hit.hitArea = new Rectangle(o.x, o.y, 64, 64);
+      hit.eventMode = "static";
+      hit.cursor = "pointer";
+      hit.on("pointertap", () => this.onBuilding(o.id));
+      this.buildingHits.addChild(hit);
+    }
     this.app.canvas.setAttribute(
       "aria-label",
       "Agent City original pixel world. Use the adjacent roster to inspect agents.",
@@ -164,8 +199,8 @@ export class CityRenderer {
       this.backgroundTruth = truth;
       this.truthRevision++;
     }
-    for (const child of this.actors.removeChildren())
-      child.destroy({ children: true });
+    this.buildingHits.visible = this.scene === "city";
+    const visibleIds = new Set<string>();
 
     const key =
       this.scene +
@@ -190,58 +225,85 @@ export class CityRenderer {
       this.backdrop.addChild(bg);
     }
     for (const [k, v] of this.backgrounds) v.visible = k === key;
-    // Hit targets are separate from cached, immutable background geometry.
-    if (this.scene === "city")
-      for (const o of world.maps.city.objects.filter(
-        (o) => o.kind === "building",
-      )) {
-        const hit = new Graphics()
-          .rect(o.x, o.y, 64, 64)
-          .fill({ color: 0, alpha: 0 });
-        hit.eventMode = "static";
-        hit.cursor = "pointer";
-        hit.on("pointertap", () => this.onBuilding(o.id));
-        this.actors.addChild(hit);
-      }
     const allWalkers = Object.values(p.walkers);
     const aggregate = allWalkers.length > 25;
+    const sceneCounts = new Map<string, number>();
     if (aggregate)
-      text(g, "AGGREGATE " + allWalkers.length + " INSTANCES", 8, 198, C.gold);
-    for (const [index, w] of allWalkers
-      .sort((a, b) => a.id.localeCompare(b.id))
-      .entries()) {
+      for (const w of allWalkers)
+        sceneCounts.set(w.scene, (sceneCounts.get(w.scene) ?? 0) + 1);
+    if (aggregate && this.scene !== "city")
+      text(
+        g,
+        "VISUAL " +
+          (sceneCounts.get(this.scene) ?? 0) +
+          " HERE / " +
+          allWalkers.length +
+          " TOTAL",
+        8,
+        198,
+        C.gold,
+      );
+    for (const w of allWalkers.sort((a, b) => compareId(a.id, b.id))) {
       if (w.scene !== this.scene) continue;
       if (aggregate && w.id !== this.selected && w.id !== this.follow) continue;
-      const actor = new Container(),
-        selected = w.id === this.selected,
-        offset = 0;
+      visibleIds.add(w.id);
+      let view = this.actorViews.get(w.id);
+      if (!view) {
+        const actor = new Container(),
+          sprite = new Sprite(),
+          marks = new Graphics();
+        sprite.position.set(-2, -24);
+        actor.addChild(sprite, marks);
+        actor.eventMode = "static";
+        actor.cursor = "pointer";
+        actor.hitArea = new Rectangle(-5, -36, 27, 40);
+        actor.on("pointertap", () => this.onSelect(w.id));
+        this.actors.addChild(actor);
+        view = { container: actor, sprite, marks, marksKey: "" };
+        this.actorViews.set(w.id, view);
+        this.actorsCreated++;
+      }
+      const actor = view.container,
+        marks = view.marks;
+      const selected = w.id === this.selected;
+      // Child order follows the same deterministic identity order after joins/removals.
+      this.actors.setChildIndex(actor, visibleIds.size - 1);
       const look = appearance(truth.agents[w.id]?.profile ?? "unknown"),
         pose = animationFor(w, truth.agents[w.id], p.tick);
-      const x = Math.round(w.x + (w.scene === "city" ? 0 : offset)),
+      const x = Math.round(w.x),
         y = Math.round(w.y + (w.scene === "city" ? 0 : 16));
       const frames =
         w.scene === "city" ? look.overworld[pose] : look.sideview[pose];
       const frame = frames[Math.floor(p.tick / 5) % frames.length];
-      const marks = new Graphics();
-      const sprite = new Sprite(
-        this.characters.frame(look.id, w.scene !== "city", pose, frame),
+      view.sprite.texture = this.characters.frame(
+        look.id,
+        w.scene !== "city",
+        pose,
+        frame,
       );
-      sprite.position.set(-2, -24);
-      actor.addChild(sprite, marks);
-      if (selected) box(marks, -3, -27, 22, 1, C.gold);
-      if (pose === "alert" || pose === "blocked")
-        text(marks, "!", 6, -41, C.red);
-      if (w.packetUntil && p.tick < w.packetUntil) {
-        box(marks, 18 + (p.tick % 12), -25, 7, 5, C.blue);
-        box(marks, 20 + (p.tick % 12), -24, 3, 1, C.white);
+      const packet = !!w.packetUntil && p.tick < w.packetUntil;
+      const marksKey = `${selected}:${pose === "alert" || pose === "blocked"}:${packet ? p.tick % 12 : "none"}`;
+      if (view.marksKey !== marksKey) {
+        marks.clear();
+        view.marksKey = marksKey;
+        if (selected) box(marks, -3, -27, 22, 1, C.gold);
+        if (pose === "alert" || pose === "blocked")
+          text(marks, "!", 6, -41, C.red);
+        if (w.packetUntil && p.tick < w.packetUntil) {
+          box(marks, 18 + (p.tick % 12), -25, 7, 5, C.blue);
+          box(marks, 20 + (p.tick % 12), -24, 3, 1, C.white);
+        }
+        text(marks, badge(w.id), 0, -34, C.gold);
       }
-      text(marks, badge(w.id), 0, -34, C.gold);
       actor.position.set(x, y);
-      actor.eventMode = "static";
-      actor.cursor = "pointer";
-      actor.hitArea = new Rectangle(-5, -36, 27, 40);
-      actor.on("pointertap", () => this.onSelect(w.id));
-      this.actors.addChild(actor);
+    }
+    // Keep only detailed on-screen instances. A large semantic roster must not
+    // turn into an unbounded off-screen sprite cache.
+    for (const [id, view] of this.actorViews) {
+      if (visibleIds.has(id)) continue;
+      view.container.destroy({ children: true });
+      this.actorViews.delete(id);
+      this.actorsDestroyed++;
     }
     if (this.scene === "city")
       for (const o of world.maps.city.objects.filter(
@@ -263,6 +325,14 @@ export class CityRenderer {
           Math.min(201, o.y + 68),
           state.operations.length ? C.blue : C.gold,
         );
+        if (aggregate)
+          text(
+            g,
+            "VISUAL " + (sceneCounts.get(o.id) ?? 0),
+            o.x + 8,
+            Math.min(202, o.y + 75),
+            C.gold,
+          );
       }
     box(g, 0, 208, 256, 32, C.black);
     box(g, 0, 208, 256, 1, C.teal);

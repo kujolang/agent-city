@@ -484,6 +484,7 @@ Object.defineProperty(window, "agentCity", {
     paused,
     replayMode,
     rendererReady,
-    rendererObjects: rendererReady ? renderer.app.stage.children.length : 0,
+    rendererObjects: rendererReady ? renderer.diagnostics().objects : 0,
+    rendererResources: rendererReady ? renderer.diagnostics() : null,
   }),
 });
