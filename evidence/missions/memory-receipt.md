@@ -71,3 +71,12 @@ integration, interpreter/SDK adapter fixes, controlled proof scope, startup guid
 visual comparison and remaining genuine-model/production gaps. Linked from the main
 handoff. Exact retrieval and concept query “Agent City MCP mission” both passed.
 No duplicate atomic note created. SignalBox: no captures warranted.
+
+## Continuation / repair checkpoint
+
+Strata Agent Notes: `c0d278b4-ffe7-4eaa-bbcd-5d3478bdaaae`.
+Saved mission continuation identity/private context, real retained failure/pass
+attempts, verification pointers and remaining visual/release limits. Linked from
+project hub `56f8de92-b6be-42a4-9779-0b4e6003069a`. Exact ID and conceptual search
+`Agent City mission continuation repair` both retrieved the saved note.
+Deduplication found no equivalent continuation note. SignalBox: no captures warranted.
