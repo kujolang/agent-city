@@ -50,4 +50,10 @@ The research task is complete. Live SDK lifecycle instrumentation, feed lineage/
 - Duplicates: none found for exact tool event / live lifecycle queries. No other captures created.
 - Rejected for capture: completed research summary, routine passing tests, renderer decisions, planned downstream city tasks and implementation recaps. Those belong in the pack/Strata handoff.
 
-Strata consolidation and repository publication receipts are recorded in `session-handoff.md` after successful persistence. The detailed durable record is stored in the `Agent Notes` bucket, scoped to Agent City.
+## Strata consolidation and publication
+
+One handoff/state/timeline note saved in `Agent Notes`: `8857f534-11d0-4c94-9f61-3190317d5cf2`, “Session Memory · Agent City · architecture handoff · 2026-09-07.” [Saved content](session-handoff.md) preserves the architecture recommendation, source-evidence caveats, exact starting point, verification boundary and SignalBox references. No separate duplicate atomic notes, hub or timeline copies were created. Initial dedup searches returned no equivalent Agent City note; no supersession was needed.
+
+Exact note retrieval passed. The first long concept query returned no result; focused tags were improved through the supported CLI, then concept query `spatial debugging` returned the saved note. Saved: 1; duplicate saves: 0; superseded/contested: 0; failed/pending writes: 0. This is the first saved project state: research complete, implementation unstarted.
+
+The private `kujolang/agent-city` repository was created for this research pack; architecture and protocol commits were successfully pushed. The closing handoff commit records this receipt. No existing runtime repository was modified and no public site was deployed.

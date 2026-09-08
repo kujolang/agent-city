@@ -37,6 +37,7 @@ The following is a **new producer convention within the existing native contract
     "kujo.operation.attempt":1,
     "kujo.producer.instance":"session-01",
     "kujo.source.sequence":7,
+    "kujo.source.occurred_at_ms":1788796800000,
     "kujo.capability":"rag.query",
     "kujo.collection.id":"kujo-docs",
     "kujo.lifecycle.coverage":"paired"
