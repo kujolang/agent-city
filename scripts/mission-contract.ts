@@ -246,6 +246,29 @@ try {
     JSON.stringify(requests[1].messages).includes("Demo Documentation"),
     "Actual MCP content must reach the reviewer",
   );
+  for (const [index, request] of requests.slice(0, 2).entries()) {
+    const messages = request.messages as { role: string; content: string }[];
+    const contextIndex = messages.findIndex((m) =>
+      m.content.startsWith(
+        "Observed result from the explicitly requested local MCP",
+      ),
+    );
+    const currentIndex = messages.findIndex(
+      (m) =>
+        m.role !== "system" &&
+        m.content.includes(
+          index === 0
+            ? "Private fixture task do not put in telemetry"
+            : "Private fixture draft",
+        ),
+    );
+    assert(
+      contextIndex >= 0 && currentIndex > contextIndex,
+      "MCP source context must precede the current task/reviewer draft",
+    );
+    assert(messages.at(-1)!.content.startsWith("Current user request"));
+    assert(messages.at(-1)!.content.includes("explain Kujo imports"));
+  }
   assert(
     JSON.stringify(requests[1].messages).includes(
       "Private fixture task do not put in telemetry: explain Kujo imports",
@@ -409,6 +432,10 @@ try {
     assert(text.includes("Private fixture reviewed output"));
     assert(text.includes("Shorten the prior result"));
     assert(text.includes("explain Kujo imports"));
+    assert(request.messages.at(-1).content.startsWith("Current user request"));
+    assert(
+      request.messages.at(-1).content.includes("Shorten the prior result"),
+    );
   }
   const continuedSpool = await readFile(
     resolve(root, `.runtime/spool-${prefix}${followup.id}.jsonl`),
@@ -420,6 +447,40 @@ try {
     !continuedSpool.includes('"capability":"mcp.call"'),
     "Follow-up must not silently re-invoke prior MCP request",
   );
+  const combined = await post({
+    kind: "writing",
+    prompt: "Keep the latest draft concise using the explicitly requested docs",
+    parentMissionId: followup.id,
+    useMcpDocs: true,
+  });
+  assert.equal(combined.status, 202);
+  const combinedJob = await combined.json();
+  await until(
+    async () => (await get()).json(),
+    (v) => v.jobs[0]?.id === combinedJob.id && v.jobs[0].status === "completed",
+  );
+  assert.equal(calls, 8);
+  for (const request of requests.slice(-2)) {
+    const messages = request.messages as { role: string; content: string }[];
+    const prior = messages.findIndex((m) =>
+      m.content.startsWith("Recorded context from the prior mission"),
+    );
+    const mcp = messages.findIndex((m) =>
+      m.content.startsWith(
+        "Observed result from the explicitly requested local MCP",
+      ),
+    );
+    assert(
+      prior >= 0 && mcp > prior,
+      "Both explicitly supplied context sources must be retained in order",
+    );
+    assert(messages.at(-1)!.content.startsWith("Current user request"));
+    assert(messages.at(-1)!.content.includes("Keep the latest draft concise"));
+    assert(
+      messages.slice(mcp + 1, -1).length > 0,
+      "Current conversation must follow both context sources",
+    );
+  }
   const evidence = {
     kind: "SYNTHETIC PROVIDER CONTRACT; not live AI product proof",
     passed: true,
@@ -432,6 +493,9 @@ try {
     realLocalRag: true,
     realLocalMcp: true,
     mcpContextReachesBothModels: true,
+    sourceContextPrecedesCurrentConversation: true,
+    currentRequestRemainsLast: true,
+    combinedContinuationAndExplicitMcpContext: true,
     redirectsRejected: true,
     privateArtifact: true,
     sourceQualifiedDraftAndReview: true,
