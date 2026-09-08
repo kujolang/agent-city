@@ -11,6 +11,7 @@ import {
 } from "node:fs/promises";
 import { createHash } from "node:crypto";
 import { resolve, join, relative } from "node:path";
+import { verifiedRuntime } from "./bundle-runtime";
 const exec = promisify(execFile),
   root = resolve(import.meta.dirname, "..");
 const git = async (dir: string, args: string[]) =>
@@ -45,7 +46,10 @@ const sourcePaths = [
   "Start Agent City.command",
 ];
 const revisions: Record<string, string> = {};
-for (const name of [...names, "kujo"]) {
+const reusedRuntime = process.env.CITY_BUNDLE_RUNTIME_FROM
+  ? await verifiedRuntime(resolve(process.env.CITY_BUNDLE_RUNTIME_FROM))
+  : null;
+for (const name of [...names, ...(reusedRuntime ? [] : ["kujo"])]) {
   const dir = resolve(root, "..", name);
   if (await git(dir, ["status", "--porcelain", "--untracked-files=no"]))
     throw Error(
@@ -53,6 +57,7 @@ for (const name of [...names, "kujo"]) {
     );
   revisions[name] = await git(dir, ["rev-parse", "HEAD"]);
 }
+if (reusedRuntime) revisions.kujo = reusedRuntime.source;
 const name = `agent-city-preview-${process.platform}-${process.arch}-${revisions["agent-city"].slice(0, 12)}`;
 const output = resolve(root, ".runtime/bundles");
 await mkdir(output, { recursive: true });
@@ -98,10 +103,17 @@ try {
   await sanitize(stage);
   const runtime = join(stage, "kujo/target/release");
   await mkdir(runtime, { recursive: true });
-  const binary = resolve(root, "../kujo/target/release/kujo");
-  await cp(binary, join(runtime, "kujo"));
-  await cp(resolve(root, "../kujo/LICENSE"), join(stage, "kujo/LICENSE"));
+  const binary = join(runtime, "kujo");
+  if (reusedRuntime) {
+    await writeFile(binary, reusedRuntime.binary, { mode: 0o755 });
+    await writeFile(join(stage, "kujo/LICENSE"), reusedRuntime.license);
+  } else {
+    await cp(resolve(root, "../kujo/target/release/kujo"), binary);
+    await cp(resolve(root, "../kujo/LICENSE"), join(stage, "kujo/LICENSE"));
+  }
   const version = (await exec(binary, ["--version"])).stdout.trim();
+  if (reusedRuntime && version !== reusedRuntime.version)
+    throw Error("Reused runtime version differs from its manifest");
   await writeFile(
     join(stage, "START-HERE.md"),
     `# Agent City local preview\n\nNot a qualified production release. Built for ${process.platform}/${process.arch}.\n\n1. Install Node 24 or newer.\n2. Open agent-city/Start Agent City.command on macOS, or run npm ci then npm start from agent-city.\n3. Open http://127.0.0.1:5178 and configure your model in Mission Command. No model credentials or prior missions are included.\n4. For isolated JavaScript function checks, install Chromium with npx playwright install chromium from agent-city if it is not already installed.\n\nProducer source and the local Kujo binary are included. npm dependencies are installed from package-lock.json on first use; this requires npm registry access/cache. A local or compatible remote model is separate. Use npm run doctor to inspect startup prerequisites and occupied ports. Existing processes are never stopped by preflight.\n\nAfter npm ci, run npm run verify:bundle from agent-city to check manifest content hashes (integrity, not publisher authentication).\n\nSee agent-city/TRY-AGENT-CITY.md for writing, coding and follow-up examples. Open gates include reference fidelity, throughput/reliability and release qualification. No eight-hour soak was run for this bundle.\n`,
@@ -134,6 +146,12 @@ try {
       sha256: hash(await readFile(binary)),
       sourceCorrespondence:
         "Source revision recorded separately; binary build provenance not attested",
+      selection: reusedRuntime
+        ? "verified preview reuse"
+        : "working-tree binary",
+      ...(reusedRuntime
+        ? { originManifestSha256: reusedRuntime.manifestSha256 }
+        : {}),
     },
     files,
   };

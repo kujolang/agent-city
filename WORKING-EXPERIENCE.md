@@ -343,6 +343,16 @@ This removes the need to manually arrange sibling source checkouts for this
 preview. Node, npm installation and a model remain prerequisites. Default-port
 full startup was not rerun over existing listeners. It is not a qualified release.
 
+When the active Kujo checkout has unrelated work, packaging may explicitly reuse
+the runtime from an already verified local preview:
+`CITY_BUNDLE_RUNTIME_FROM=/path/to/extracted-preview npm run package:local`.
+The complete input manifest is verified, platform/architecture must match, and
+the binary/license buffers are checked before copying. The new manifest records
+the original Kujo source revision and input manifest hash; its runtime version is
+checked after copying. This does not attest how that binary was originally built
+or authenticate a publisher. Other included producer repositories must remain
+clean. No active Kujo source or binary is changed by this path.
+
 ## Complete isolated launcher proof
 
 `CITY_PORT_OFFSET=30000 npm start` now starts the full stack at 35178 with private
