@@ -1,0 +1,36 @@
+{
+  "node": "v26.7.0",
+  "cityTests": 19,
+  "typescript": "pass",
+  "boundaries": "pass",
+  "maps": 7,
+  "build": "pass",
+  "javascriptGzipBytes": 193915,
+  "proof": "phase1-release-1788849720",
+  "sourceFixtureEvents": 47,
+  "localReview": true,
+  "dispatchOfflineTests": {
+    "passed": 101,
+    "total": 101
+  },
+  "dispatchSdkAdapterTests": {
+    "passed": 10,
+    "total": 10
+  },
+  "dispatchAttemptObserverTests": {
+    "passed": 2,
+    "total": 2
+  },
+  "sdkLifecycleTests": {
+    "passed": 2,
+    "total": 2
+  },
+  "sdkBroadOfflineGroups": {
+    "passed": 39,
+    "total": 41,
+    "existingFailures": [
+      "maintenance_agent_tests",
+      "fixtures"
+    ]
+  }
+}

@@ -95,3 +95,35 @@ original geometric placeholder art; see [provenance](assets/source/PROVENANCE.md
 The implementation stops at this Observer vertical slice. Full production
 hardening, MCP live instrumentation, replay UI and broader source coverage are
 explicit later gates in the [build report](BUILD-RESULT.md).
+
+## Phase 1 Observer expansion
+
+The current release/evidence index is [RELEASE-PHASE-1.md](RELEASE-PHASE-1.md).
+It supersedes the original slice's current-state/next-step section while retaining
+that report as historical evidence. All six rooms are inspectable; actual MCP,
+Dispatch task, SDK/RAG/handoff, Eval failure/repair and guarded Workcell invocation
+observations use the existing Watchdog seam.
+
+For a fresh local review:
+
+```sh
+CITY_SOURCE_PREFIX=phase1- CITY_DB="$PWD/.runtime/observer-phase1.sqlite" npm run local
+CHROMIUM_PATH=/absolute/path/to/chromium npm run proof:phase1
+```
+
+The launcher also starts the local Kujo MCP demo server when no server is already
+listening at its health endpoint. The proof invokes actual local work, including
+an intentionally failing Eval check and a subsequent correction. The UI remains
+read-only. `npm run workcell` uses a dedicated generated fixture repository and
+preserves the host's Workcell guardrails; this machine rejects container execution
+because AppArmor is unavailable. The failure is an observed preflight, not work
+inside a container.
+
+The retained release cohort uses `CITY_SOURCE_PREFIX=phase1-release-` and
+`.runtime/phase1-final.sqlite`. No historical travel is fabricated on a page
+reload. Follow a newly invoked execution to watch live/RECENT portal travel;
+retained truth and all operation evidence remain inspectable after it ends.
+
+Original appearance definitions are in `packages/renderer-pixi/appearance.ts`.
+Maps have unbound authored capabilities; runtime station health is derived from
+observations. Reference images and protected game sprites are not embedded.
