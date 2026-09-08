@@ -27,3 +27,15 @@ Run manually: `PIPELINE_SOAK=1 PIPELINE_SECONDS=28800 PIPELINE_RATE=5 npm run pr
 Upgrade Watchdog alongside City: older Watchdog exports without continuity metadata are intentionally shown as unavailable/stale rather than accepted as continuous. Existing source receipts and historical partial gaps remain intact. No SDK, Dispatch, RAG, MCP, Eval or Kujo runtime changes were needed.
 
 Use `npm run replay -- evidence/blockers/replay.json` for the current implementation pin. The older replay bundle remains historical evidence and its exact source hash is expected to reject a changed implementation.
+
+## Active run / follow-up
+
+Replacement soak started **2026-09-08 11:42:37 UTC**, PID **65887** at launch,
+City code `60f93ae`, Watchdog `a639d9a`. Check process ownership before using the
+PID. An early sample shows 25 instances, LIVE source health and an empty visual
+queue. This is progress, not an eight-hour pass. The earlier aborted attempt is
+preserved in `evidence/blockers/soak-aborted-heartbeat.json`.
+
+The thread follow-up `review-agent-city-eight-hour-soak` is scheduled to review
+actual completion and update the evidence/report. It must keep release status
+failed while the full-path throughput target remains unmet.

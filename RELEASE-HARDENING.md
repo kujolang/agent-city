@@ -1,5 +1,7 @@
 # Agent City hardening candidate — 2026-09-08
 
+Historical measurements: see [bounded blocker fixes](RELEASE-BLOCKERS.md) for the current journal/continuity status and running soak.
+
 ## RELEASE STATUS: FAIL
 
 The local Observer remains functional. This candidate is **not release-qualified**. The mandatory 1,000 events/second gate failed, end-to-end transport stress is unverified, Watchdog store replacement continuity is incomplete, and the eight-hour soak was not completed. `npm run gate` and the Kujo Eval release suite deliberately fail for these reasons.
