@@ -1,0 +1,17 @@
+{
+  "kind": "SYNTHETIC lifecycle spool → real Watchdog native adapter/intake/export → real gateway; injected response loss, not live agent proof",
+  "visibleOperations": 36,
+  "events": 36,
+  "normalizerProcessesForFirst35": 3,
+  "previousProcessesFor35": 35,
+  "acceptedResponseRetryByteIdentical": true,
+  "normalizationFailureRetainedAndRecovered": true,
+  "repeatedScanNoNewRequests": true,
+  "occurrenceTimesAndOperationsPreserved": true,
+  "operationDeliveryOrderPreserved": true,
+  "conflictingSentIdentityRejected": true,
+  "reorderedEquivalentRetryAccepted": true,
+  "missingRetainedIdentityEvidenceRejected": true,
+  "httpRequestsIncludingRetry": 37,
+  "at": "2026-09-08T20:18:01.295Z"
+}

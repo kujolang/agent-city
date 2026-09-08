@@ -1,0 +1,16 @@
+{
+  "source": "29fb6b020907187f8bb822b2106e04158b1aa59b",
+  "archive": "/Users/robertdevore/2026/Kujolang/kujo-repos/agent-city/.runtime/bundles/agent-city-preview-darwin-x64-29fb6b020907.tar.gz",
+  "sha256": "968b7e671d02c7c3152486db4010e1fe5b9f3e7d1939333adc035611ae1d03d6",
+  "bytes": 16914067,
+  "manifestFiles": 1159,
+  "runtime": {
+    "version": "kujo 1.3.1",
+    "sha256": "319087dd77b69568d80657651c6153513e79ca97a3b76783aa257587b5a436c2",
+    "sourceCorrespondence": "Source revision recorded separately; binary build provenance not attested",
+    "selection": "verified preview reuse",
+    "originManifestSha256": "baf95ef8f6300807d23353c1f38eb416b56cfea1106a256158df313d905ad535"
+  },
+  "node": "v26.7.0",
+  "status": "PREVIEW / RELEASE GATES INCOMPLETE"
+}
