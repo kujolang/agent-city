@@ -338,6 +338,11 @@ try {
     (v) => v.jobs[0]?.status === "failed",
   );
   assert.equal(end.jobs[1].status, "completed");
+  assert.equal(
+    requests.length,
+    3,
+    `Expected provider rejection to be reached; process outcome: ${JSON.stringify(end.jobs[0].processOutcome ?? null)}`,
+  );
   assert(
     JSON.stringify(requests[2].messages).includes("Required output contract"),
   );

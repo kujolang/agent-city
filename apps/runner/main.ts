@@ -29,6 +29,11 @@ type Job = {
   finishedAt?: string;
   parentMissionId?: string;
   rootMissionId?: string;
+  processOutcome?: {
+    kind: "spawn-error" | "exit";
+    code: string | number | null;
+    signal?: string | null;
+  };
 };
 let jobs: Job[] = [];
 try {
@@ -375,12 +380,18 @@ const server = createServer(async (req, res) => {
         await save();
         active = null;
       };
-      child.once("error", () => {
+      child.once("error", (error: NodeJS.ErrnoException) => {
+        // Persist only bounded OS metadata, never command arguments or error text.
+        job.processOutcome = {
+          kind: "spawn-error",
+          code: /^[A-Z0-9_]{1,32}$/.test(error.code || "") ? error.code! : null,
+        };
         void finish("failed").catch(() => {
           active = null;
         });
       });
-      child.once("exit", (code) => {
+      child.once("exit", (code, signal) => {
+        if (!finalized) job.processOutcome = { kind: "exit", code, signal };
         void finish(code === 0 ? "completed" : "failed").catch(() => {
           active = null;
         });
