@@ -65,6 +65,23 @@ with no host filesystem/network integrations. Without cases, code receives a syn
 check only. Runtime completion and check results are separate; failed attempts
 remain in history. This does not execute an arbitrary repository or full application.
 
+## Continue or repair an existing result
+
+In mission history, choose **Continue / repair** beside a completed or failed run.
+Enter the change you want, then press **Start mission**. The previous task, latest
+completed output (if available), and recorded check results are included privately
+in the new model request. The original task remains available through subsequent
+revisions, without recursively copying the entire conversation into every turn.
+
+Existing function cases are loaded into the visible check form; review or edit
+them before submitting. Previous RAG/MCP options are cleared, so another retrieval
+requires selecting it again. **Cancel follow-up** returns to a blank new mission.
+
+Each follow-up creates new writer/coder and reviewer execution instances. History
+shows its parent run and retains the old attempt. This is continued work with
+recorded context, not a claim that a completed worker remained alive. Unknown or
+unfinished source work must resolve before a follow-up can start.
+
 ## What to expect
 
 City overview is the default. Follow tracks one execution through evidence-backed

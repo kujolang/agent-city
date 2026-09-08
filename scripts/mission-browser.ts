@@ -84,6 +84,106 @@ try {
       fullPage: true,
     });
   }
+  // Explicit UI fixtures: no model or source operation is executed in this section.
+  const fixtureId = "mission-00000000-0000-0000-0000-000000000123";
+  const fixtureChecks = {
+    exportName: "sum",
+    cases: [{ name: "empty", args: [[]], equals: 0 }],
+  };
+  const fixtureJob = { id: fixtureId, kind: "code", status: "completed" };
+  await page.route("**/control/status", (r) =>
+    r.fulfill({
+      json: {
+        configured: true,
+        model: "SYNTHETIC UI FIXTURE",
+        endpoint: "",
+        token: "fixture-only",
+        storageHealthy: true,
+        busy: false,
+        jobs: [fixtureJob],
+      },
+    }),
+  );
+  await page.route("**/control/mission/" + fixtureId, (r) =>
+    r.fulfill({
+      json: {
+        ...fixtureJob,
+        prompt: "Original fixture task",
+        functionContract: fixtureChecks,
+      },
+    }),
+  );
+  await page.route("**/control/exchanges/" + fixtureId, (r) =>
+    r.fulfill({
+      json: {
+        records: [
+          {
+            producer: "fixture",
+            run: "fixture",
+            agent: "coder",
+            requestOrdinal: 1,
+            content: "<b>Fixture response</b>",
+          },
+        ],
+        recordingComplete: true,
+      },
+    }),
+  );
+  await page.route("**/control/artifact/" + fixtureId, (r) =>
+    r.fulfill({
+      json: {
+        kind: "code",
+        content: "export function sum() {}",
+        codeExecuted: false,
+      },
+    }),
+  );
+  await page.locator("#mission-jobs button:not([data-continue])").click();
+  await page.waitForFunction(() =>
+    document
+      .querySelector("#mission-exchanges")
+      ?.textContent?.includes("USER REQUEST\nOriginal fixture task"),
+  );
+  assert.equal(await page.locator("#mission-exchanges b").count(), 0);
+  await page.locator(`[data-continue="${fixtureId}"]`).click();
+  await page.waitForFunction(
+    (id) =>
+      document.querySelector("#continuation-status")?.textContent?.includes(id),
+    fixtureId,
+  );
+  assert(await page.getByLabel("Task type").isDisabled());
+  assert.deepEqual(
+    JSON.parse(await page.getByLabel("Function contract JSON").inputValue()),
+    fixtureChecks,
+  );
+  assert.equal(
+    await page.getByLabel("Read local MCP demo README").isChecked(),
+    false,
+  );
+  await page
+    .getByLabel("Task", { exact: true })
+    .fill("Repair the fixture output");
+  let posted: any;
+  await page.route("**/control/missions", async (r) => {
+    posted = r.request().postDataJSON();
+    await r.fulfill({ status: 202, json: { id: "fixture-new-execution" } });
+  });
+  await page
+    .getByRole("button", { name: "Start mission", exact: true })
+    .click();
+  await page.waitForFunction(
+    () =>
+      document.querySelector("#continuation-status")?.textContent ===
+      "New mission",
+  );
+  assert.equal(posted.parentMissionId, fixtureId);
+  assert.equal(posted.kind, "code");
+  assert.deepEqual(posted.functionContract, fixtureChecks);
+  assert(await page.getByLabel("Task type").isEnabled());
+  await page.screenshot({
+    path: resolve(out, "continuation-ui-fixture.png"),
+    fullPage: true,
+  });
   await page.getByText("Model connection", { exact: true }).click();
   await page.getByLabel("Chat completions endpoint").focus();
   await page.keyboard.press("Tab");
@@ -128,6 +228,9 @@ try {
         keyboardSetup: true,
         mobile320NoOverflow: true,
         domOnlyTaskUI: true,
+        continuationFormAndParentLink:
+          "PASS / synthetic UI fixture; real runtime proof recorded separately",
+        recordedUserRequestAndEscapedResponse: true,
         screenshots:
           "Current rendering; retained source truth may be STALE. No new live AI proof claimed.",
       },

@@ -1,5 +1,5 @@
 {
-  "at": "2026-09-08T14:51:23.286Z",
+  "at": "2026-09-08T15:20:53.257Z",
   "browser": "151.0.7922.34",
   "errors": [],
   "rooms": 7,
@@ -7,5 +7,7 @@
   "keyboardSetup": true,
   "mobile320NoOverflow": true,
   "domOnlyTaskUI": true,
+  "continuationFormAndParentLink": "PASS / synthetic UI fixture; real runtime proof recorded separately",
+  "recordedUserRequestAndEscapedResponse": true,
   "screenshots": "Current rendering; retained source truth may be STALE. No new live AI proof claimed."
 }

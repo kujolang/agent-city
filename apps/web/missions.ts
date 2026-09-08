@@ -8,6 +8,7 @@ export function mountMissions(host: HTMLElement) {
     <label>API key <input name="apiKey" type="password" autocomplete="off" placeholder="Optional for local models"></label>
     <p class="muted">Saved only in a private local configuration file. A blank key keeps the saved key only for the same endpoint.</p>
     <button type="submit">Save connection</button></form></details>
+    <p id="continuation-status" role="status">New mission</p><button id="clear-continuation" type="button" hidden>Cancel follow-up</button>
     <form id="mission-form"><label>Task type <select name="kind"><option value="writing">Writing + review</option><option value="code">Code + review</option></select></label>
     <label><input type="checkbox" name="useLocalDocs"> Use indexed local Kujo docs</label>
     <label><input type="checkbox" name="useMcpDocs"> Read local MCP demo README</label>
@@ -28,6 +29,22 @@ export function mountMissions(host: HTMLElement) {
     historyKey = "",
     replay = false,
     configLoaded = false;
+  let parent: { id: string; kind: string } | null = null;
+  const continuation = panel.querySelector<HTMLElement>(
+    "#continuation-status",
+  )!;
+  const clearContinuation = panel.querySelector<HTMLButtonElement>(
+    "#clear-continuation",
+  )!;
+  const kindField = form.elements.namedItem("kind") as HTMLSelectElement;
+  function clearParent() {
+    parent = null;
+    kindField.disabled = false;
+    clearContinuation.hidden = true;
+    continuation.textContent = "New mission";
+    form.reset();
+  }
+  clearContinuation.onclick = clearParent;
   async function refresh() {
     try {
       const response = await fetch("/control/status");
@@ -36,7 +53,7 @@ export function mountMissions(host: HTMLElement) {
       token = data.token;
       if (!pending)
         status.textContent = data.configured
-          ? `MODEL / ${data.model}${data.busy ? " · Mission running" : " · Configured"}`
+          ? `MODEL / ${data.model}${data.jobs.some((j: any) => j.status === "unknown") ? " · Recovery pending / UNKNOWN" : data.busy ? " · Mission service busy" : " · Configured"}`
           : "MODEL NOT CONFIGURED · Open Model connection to configure your provider.";
       submit.disabled =
         replay ||
@@ -63,16 +80,27 @@ export function mountMissions(host: HTMLElement) {
         history.replaceChildren();
         for (const job of data.jobs) {
           const button = document.createElement("button");
-          button.textContent = `${job.kind} / ${job.status} / ${job.id.slice(-8)}`;
+          button.textContent = `${job.kind} / ${job.status} / ${job.id.slice(-8)}${job.parentMissionId ? " · follows " + job.parentMissionId.slice(-8) : ""}`;
 
           button.onclick = async () => {
             try {
+              let requestText = "USER REQUEST UNAVAILABLE";
+              if (["completed", "failed"].includes(job.status)) {
+                const request = await fetch(
+                  "/control/mission/" + encodeURIComponent(job.id),
+                );
+                if (request.ok)
+                  requestText =
+                    "USER REQUEST\n" + (await request.json()).prompt;
+              }
               const response = await fetch(
                 "/control/exchanges/" + encodeURIComponent(job.id),
               );
               if (!response.ok) throw Error();
               const exchanges = await response.json();
               panel.querySelector("#mission-exchanges")!.textContent =
+                requestText +
+                "\n\n" +
                 (exchanges.recordingComplete
                   ? "RECORDED MODEL RESPONSES"
                   : "PARTIAL / UNKNOWN RESPONSE COVERAGE") +
@@ -113,8 +141,60 @@ export function mountMissions(host: HTMLElement) {
             }
           };
           history.append(button);
+          if (["completed", "failed"].includes(job.status)) {
+            const followup = document.createElement("button");
+            followup.dataset.continue = job.id;
+            followup.textContent = `Continue / repair ${job.id.slice(-8)}`;
+            followup.onclick = async () => {
+              if (replay || pending) return;
+              pending = true;
+              submit.disabled = true;
+              try {
+                const response = await fetch(
+                  "/control/mission/" + encodeURIComponent(job.id),
+                );
+                const details = await response.json();
+                if (!response.ok)
+                  throw Error(details.error || "Recorded context unavailable");
+                if (replay) return;
+                clearParent();
+                parent = { id: job.id, kind: job.kind };
+                kindField.value = job.kind;
+                kindField.disabled = true;
+                clearContinuation.hidden = false;
+                continuation.textContent = `Follow-up to ${job.id}. Prior task, output and check results will be included. This starts a new execution and retains the old attempt.`;
+                if (details.functionContract) {
+                  const field = form.elements.namedItem(
+                    "functionContract",
+                  ) as HTMLTextAreaElement;
+                  field.value = JSON.stringify(
+                    details.functionContract,
+                    null,
+                    2,
+                  );
+                  field.closest("details")!.open = true;
+                }
+                (
+                  form.elements.namedItem("prompt") as HTMLTextAreaElement
+                ).focus();
+              } catch (error) {
+                status.textContent =
+                  error instanceof Error
+                    ? error.message
+                    : "Recorded context unavailable";
+              } finally {
+                pending = false;
+              }
+            };
+            history.append(followup);
+          }
         }
       }
+      history
+        .querySelectorAll<HTMLButtonElement>("[data-continue]")
+        .forEach((button) => {
+          button.disabled = replay || pending || data.busy;
+        });
     } catch {
       if (!pending)
         status.textContent =
@@ -147,17 +227,19 @@ export function mountMissions(host: HTMLElement) {
           "X-City-Command-Token": token,
         },
         body: JSON.stringify({
-          kind: fields.get("kind"),
+          kind: parent?.kind || fields.get("kind"),
           prompt: fields.get("prompt"),
           useLocalDocs: fields.has("useLocalDocs"),
           useMcpDocs: fields.has("useMcpDocs"),
           ...(contract ? { functionContract } : {}),
+          ...(parent ? { parentMissionId: parent.id } : {}),
         }),
       });
       const result = await response.json();
       status.textContent = response.ok
         ? `Mission accepted: ${result.id}`
         : result.error;
+      if (response.ok) clearParent();
     } catch {
       status.textContent =
         "Submission response unavailable. Check mission history before retrying.";
