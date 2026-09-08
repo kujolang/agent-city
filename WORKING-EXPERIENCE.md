@@ -42,11 +42,12 @@ by the user, not merely a passing Observer demo. **Not complete or release ready
 - [x] Configure an actual model and record writing and coding missions through
   Watchdog/gateway into the visible city; fixture calls cannot satisfy this.
 - [x] Bring new mission intake/assignment through actual Dispatch task state (real engine contract and persisted owner receipt verified).
-- [ ] Demonstrate retrieval/tool use in these provider-backed missions. Current
-  new mission supports opt-in local-doc retrieval, verified against an actual isolated Kujo RAG server with fixture model responses. MCP in a provider-backed mission remains open.
-- [ ] Run generated code and meaningful checks inside a supported isolation
-  boundary. Current code outputs are reviewed files, **not executed/tested code**.
-- [x] Preserve/display draft and reviewer responses with explicit source-qualified authorship. Controlled response tests pass; live-model content proof remains open.
+- [x] Demonstrate actual RAG and explicit MCP retrieval in provider-backed missions,
+  with evidence-backed Library/MCP travel. See the live MCP/character checkpoint below.
+- [x] Run generated small JavaScript functions against explicit cases in isolated
+  Chromium workers. Actual failed and later repaired/pass attempts are retained.
+  This does not establish arbitrary host-project or Workcell execution support.
+- [x] Preserve/display real draft and reviewer responses with source-qualified authorship.
 - [ ] Finish reference-led city variation, multi-level interiors, character art,
   accessible compact controls and visual review against all five images.
 - [ ] Verify end-to-end task controls in Chromium, interruption/restart behavior,
@@ -194,3 +195,29 @@ even if later mission processing fails.
 examples. Current screenshots were inspected against the supplied references:
 the art is still materially simpler, and direct player controls/free-form chat are
 not implemented. The full objective and production release remain incomplete.
+
+## Live MCP and original character checkpoint
+
+Real local-model cohort `evidence/live-missions/live-1788878052721-` proves the
+explicit SDK-registered MCP read through Watchdog, gateway and a visible MCP station.
+The same writer had earlier visited the Library. Actual MCP server/tool/invocation
+and attempt metadata are retained. The code task completed but failed all four
+checks due to CommonJS output; runtime completion was not reported as test success.
+
+Subsequent cohort `evidence/live-missions/live-1788878402902-` uses the actual
+previous failure in its repair task and passes all four explicit cases. Both
+attempts remain. Its writing track also proves the new original canine character
+atlas through Library ladders and MCP travel. `writing-17.png` shows Completed
+truth with a RECENT successful MCP activity. No source work waits for animation.
+
+`assets/source/characters.json` authors eight palettes and separate city/interior
+silhouettes; the deterministic compiler emits a 23,712-byte PNG atlas with
+1,720,320 decoded RGBA bytes. The fourteen pose slots are projection assets;
+world-core still determines which poses have evidence. Static DOM portraits share
+the atlas, and execution-instance badges remain distinct from profile appearance.
+
+35 tests, typecheck, boundaries, maps/build and seven-room browser/keyboard/320px/
+DOM-only checks pass. The pinned 47-event semantic replay hash is unchanged.
+This closes the genuine-model MCP proof gap; varied city architecture, richer
+room scenery, broader conversational/task workflows and release hardening remain.
+No eight-hour soak was started; no sibling repositories were changed.

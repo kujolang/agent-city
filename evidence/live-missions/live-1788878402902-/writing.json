@@ -1,0 +1,1909 @@
+{
+  "job": {
+    "id": "mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3",
+    "kind": "writing",
+    "useLocalDocs": true,
+    "useMcpDocs": true,
+    "status": "completed",
+    "startedAt": "2026-09-08T14:40:12.008Z",
+    "finishedAt": "2026-09-08T14:40:31.354Z"
+  },
+  "track": [
+    {
+      "key": "city:outbound:lower:running",
+      "id": "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3:run-1788878413580-2653:writer",
+      "walker": {
+        "id": "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3:run-1788878413580-2653:writer",
+        "scene": "workshop",
+        "x": 44,
+        "y": 160,
+        "phase": "outbound",
+        "age": 1,
+        "visit": {
+          "capability": "rag.query",
+          "destination": "library",
+          "station": "kujo-docs",
+          "keys": [
+            "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3:run-1788878413580-2653:retrieval:1"
+          ],
+          "first": 1788878414506,
+          "last": 1788878414506,
+          "collection": "kujo-docs",
+          "evidence": [
+            "native:agent-city-sdk:1aeb0925319904467def272b9241c1cd2b4daa7b7192b5681a6f9495e167168b"
+          ]
+        },
+        "queued": [],
+        "visits": 1,
+        "homeX": 48,
+        "packetUntil": 102,
+        "packetEvidence": [
+          "042f9c61ef845bdb0248fba2e81c7d390040d571e149ffbc5da609ab3cdf7401",
+          "9bc7908d79b056f6b51020a68f747a7eef4ad94d6ad33b9b387c98252a101d20",
+          "21ead1df0f02dd28135e750605424588585f3fd29a1e487bab313fac8065fafb"
+        ],
+        "climbing": false,
+        "roomTarget": "workshop:16,160",
+        "roomPath": [
+          "40,160",
+          "36,160",
+          "32,160",
+          "28,160",
+          "24,160",
+          "20,160",
+          "16,160"
+        ]
+      },
+      "truth": "running",
+      "at": 1788878415038
+    },
+    {
+      "key": "city:outbound:upper:running",
+      "id": "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3:run-1788878413580-2653:writer",
+      "walker": {
+        "id": "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3:run-1788878413580-2653:writer",
+        "scene": "city",
+        "x": 124,
+        "y": 96,
+        "phase": "outbound",
+        "age": 15,
+        "visit": {
+          "capability": "rag.query",
+          "destination": "library",
+          "station": "kujo-docs",
+          "keys": [
+            "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3:run-1788878413580-2653:retrieval:1"
+          ],
+          "first": 1788878414506,
+          "last": 1788878414506,
+          "collection": "kujo-docs",
+          "evidence": [
+            "native:agent-city-sdk:1aeb0925319904467def272b9241c1cd2b4daa7b7192b5681a6f9495e167168b",
+            "native:agent-city-sdk:435b19868f223d0db04d83c8a49c7ff5d836da72e5b8faa25a34a32a514dd3d4"
+          ]
+        },
+        "queued": [
+          {
+            "capability": "mcp.call",
+            "destination": "mcp",
+            "station": "tool-active",
+            "keys": [
+              "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3:run-1788878413580-2653:mcp-docs:1"
+            ],
+            "first": 1788878415224,
+            "last": 1788878415224,
+            "collection": "unknown",
+            "evidence": [
+              "native:agent-city-sdk:515a31ae4566e3ebb20c54692e12105a96e2d3cebab6bf0041b547351de03b02",
+              "native:agent-city-sdk:809529b410d784ffaf649a7cd9d55e6943518cf5f3f01b6df8b593fe65364279"
+            ]
+          }
+        ],
+        "visits": 1,
+        "homeX": 48,
+        "packetUntil": 102,
+        "packetEvidence": [
+          "042f9c61ef845bdb0248fba2e81c7d390040d571e149ffbc5da609ab3cdf7401",
+          "9bc7908d79b056f6b51020a68f747a7eef4ad94d6ad33b9b387c98252a101d20",
+          "21ead1df0f02dd28135e750605424588585f3fd29a1e487bab313fac8065fafb"
+        ],
+        "climbing": false,
+        "path": [
+          "8,6",
+          "9,6",
+          "10,6",
+          "11,6",
+          "12,6",
+          "12,5"
+        ]
+      },
+      "truth": "running",
+      "at": 1788878415646
+    },
+    {
+      "key": "library:enter:lower:running",
+      "id": "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3:run-1788878413580-2653:writer",
+      "walker": {
+        "id": "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3:run-1788878413580-2653:writer",
+        "scene": "library",
+        "x": 32,
+        "y": 160,
+        "phase": "enter",
+        "age": 4,
+        "visit": {
+          "capability": "rag.query",
+          "destination": "library",
+          "station": "kujo-docs",
+          "keys": [
+            "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3:run-1788878413580-2653:retrieval:1"
+          ],
+          "first": 1788878414506,
+          "last": 1788878414506,
+          "collection": "kujo-docs",
+          "evidence": [
+            "native:agent-city-sdk:1aeb0925319904467def272b9241c1cd2b4daa7b7192b5681a6f9495e167168b",
+            "native:agent-city-sdk:435b19868f223d0db04d83c8a49c7ff5d836da72e5b8faa25a34a32a514dd3d4"
+          ]
+        },
+        "queued": [
+          {
+            "capability": "mcp.call",
+            "destination": "mcp",
+            "station": "tool-active",
+            "keys": [
+              "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3:run-1788878413580-2653:mcp-docs:1"
+            ],
+            "first": 1788878415224,
+            "last": 1788878415224,
+            "collection": "unknown",
+            "evidence": [
+              "native:agent-city-sdk:515a31ae4566e3ebb20c54692e12105a96e2d3cebab6bf0041b547351de03b02",
+              "native:agent-city-sdk:809529b410d784ffaf649a7cd9d55e6943518cf5f3f01b6df8b593fe65364279"
+            ]
+          }
+        ],
+        "visits": 1,
+        "homeX": 48,
+        "packetUntil": 102,
+        "packetEvidence": [
+          "042f9c61ef845bdb0248fba2e81c7d390040d571e149ffbc5da609ab3cdf7401",
+          "9bc7908d79b056f6b51020a68f747a7eef4ad94d6ad33b9b387c98252a101d20",
+          "21ead1df0f02dd28135e750605424588585f3fd29a1e487bab313fac8065fafb"
+        ],
+        "climbing": false,
+        "path": [],
+        "roomTarget": "library:32,96",
+        "roomPath": [
+          "36,160",
+          "40,160",
+          "44,160",
+          "48,160",
+          "52,160",
+          "56,160",
+          "60,160",
+          "64,160",
+          "68,160",
+          "72,160",
+          "76,160",
+          "80,160",
+          "84,160",
+          "88,160",
+          "92,160",
+          "96,160",
+          "100,160",
+          "104,160",
+          "108,160",
+          "112,160",
+          "116,160",
+          "120,160",
+          "124,160",
+          "128,160",
+          "132,160",
+          "136,160",
+          "140,160",
+          "144,160",
+          "148,160",
+          "152,160",
+          "156,160",
+          "160,160",
+          "164,160",
+          "168,160",
+          "172,160",
+          "176,160",
+          "180,160",
+          "184,160",
+          "188,160",
+          "192,160",
+          "196,160",
+          "200,160",
+          "204,160",
+          "208,160",
+          "212,160",
+          "216,160",
+          "220,160",
+          "224,160",
+          "224,156",
+          "224,152",
+          "224,148",
+          "224,144",
+          "224,140",
+          "224,136",
+          "224,132",
+          "224,128",
+          "224,124",
+          "224,120",
+          "224,116",
+          "224,112",
+          "224,108",
+          "224,104",
+          "224,100",
+          "224,96",
+          "220,96",
+          "216,96",
+          "212,96",
+          "208,96",
+          "204,96",
+          "200,96",
+          "196,96",
+          "192,96",
+          "188,96",
+          "184,96",
+          "180,96",
+          "176,96",
+          "172,96",
+          "168,96",
+          "164,96",
+          "160,96",
+          "156,96",
+          "152,96",
+          "148,96",
+          "144,96",
+          "140,96",
+          "136,96",
+          "132,96",
+          "128,96",
+          "124,96",
+          "120,96",
+          "116,96",
+          "112,96",
+          "108,96",
+          "104,96",
+          "100,96",
+          "96,96",
+          "92,96",
+          "88,96",
+          "84,96",
+          "80,96",
+          "76,96",
+          "72,96",
+          "68,96",
+          "64,96",
+          "60,96",
+          "56,96",
+          "52,96",
+          "48,96",
+          "44,96",
+          "40,96",
+          "36,96",
+          "32,96"
+        ]
+      },
+      "truth": "running",
+      "at": 1788878416917
+    },
+    {
+      "key": "library:enter:ladder:running",
+      "id": "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3:run-1788878413580-2653:writer",
+      "walker": {
+        "id": "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3:run-1788878413580-2653:writer",
+        "scene": "library",
+        "x": 224,
+        "y": 148,
+        "phase": "enter",
+        "age": 55,
+        "visit": {
+          "capability": "rag.query",
+          "destination": "library",
+          "station": "kujo-docs",
+          "keys": [
+            "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3:run-1788878413580-2653:retrieval:1"
+          ],
+          "first": 1788878414506,
+          "last": 1788878414506,
+          "collection": "kujo-docs",
+          "evidence": [
+            "native:agent-city-sdk:1aeb0925319904467def272b9241c1cd2b4daa7b7192b5681a6f9495e167168b",
+            "native:agent-city-sdk:435b19868f223d0db04d83c8a49c7ff5d836da72e5b8faa25a34a32a514dd3d4"
+          ]
+        },
+        "queued": [
+          {
+            "capability": "mcp.call",
+            "destination": "mcp",
+            "station": "tool-active",
+            "keys": [
+              "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3:run-1788878413580-2653:mcp-docs:1"
+            ],
+            "first": 1788878415224,
+            "last": 1788878415224,
+            "collection": "unknown",
+            "evidence": [
+              "native:agent-city-sdk:515a31ae4566e3ebb20c54692e12105a96e2d3cebab6bf0041b547351de03b02",
+              "native:agent-city-sdk:809529b410d784ffaf649a7cd9d55e6943518cf5f3f01b6df8b593fe65364279"
+            ]
+          }
+        ],
+        "visits": 1,
+        "homeX": 48,
+        "packetUntil": 102,
+        "packetEvidence": [
+          "042f9c61ef845bdb0248fba2e81c7d390040d571e149ffbc5da609ab3cdf7401",
+          "9bc7908d79b056f6b51020a68f747a7eef4ad94d6ad33b9b387c98252a101d20",
+          "21ead1df0f02dd28135e750605424588585f3fd29a1e487bab313fac8065fafb"
+        ],
+        "climbing": true,
+        "path": [],
+        "roomTarget": "library:32,96",
+        "roomPath": [
+          "224,144",
+          "224,140",
+          "224,136",
+          "224,132",
+          "224,128",
+          "224,124",
+          "224,120",
+          "224,116",
+          "224,112",
+          "224,108",
+          "224,104",
+          "224,100",
+          "224,96",
+          "220,96",
+          "216,96",
+          "212,96",
+          "208,96",
+          "204,96",
+          "200,96",
+          "196,96",
+          "192,96",
+          "188,96",
+          "184,96",
+          "180,96",
+          "176,96",
+          "172,96",
+          "168,96",
+          "164,96",
+          "160,96",
+          "156,96",
+          "152,96",
+          "148,96",
+          "144,96",
+          "140,96",
+          "136,96",
+          "132,96",
+          "128,96",
+          "124,96",
+          "120,96",
+          "116,96",
+          "112,96",
+          "108,96",
+          "104,96",
+          "100,96",
+          "96,96",
+          "92,96",
+          "88,96",
+          "84,96",
+          "80,96",
+          "76,96",
+          "72,96",
+          "68,96",
+          "64,96",
+          "60,96",
+          "56,96",
+          "52,96",
+          "48,96",
+          "44,96",
+          "40,96",
+          "36,96",
+          "32,96"
+        ]
+      },
+      "truth": "running",
+      "at": 1788878419471
+    },
+    {
+      "key": "library:enter:upper:running",
+      "id": "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3:run-1788878413580-2653:writer",
+      "walker": {
+        "id": "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3:run-1788878413580-2653:writer",
+        "scene": "library",
+        "x": 212,
+        "y": 96,
+        "phase": "enter",
+        "age": 71,
+        "visit": {
+          "capability": "rag.query",
+          "destination": "library",
+          "station": "kujo-docs",
+          "keys": [
+            "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3:run-1788878413580-2653:retrieval:1"
+          ],
+          "first": 1788878414506,
+          "last": 1788878414506,
+          "collection": "kujo-docs",
+          "evidence": [
+            "native:agent-city-sdk:1aeb0925319904467def272b9241c1cd2b4daa7b7192b5681a6f9495e167168b",
+            "native:agent-city-sdk:435b19868f223d0db04d83c8a49c7ff5d836da72e5b8faa25a34a32a514dd3d4"
+          ]
+        },
+        "queued": [
+          {
+            "capability": "mcp.call",
+            "destination": "mcp",
+            "station": "tool-active",
+            "keys": [
+              "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3:run-1788878413580-2653:mcp-docs:1"
+            ],
+            "first": 1788878415224,
+            "last": 1788878415224,
+            "collection": "unknown",
+            "evidence": [
+              "native:agent-city-sdk:515a31ae4566e3ebb20c54692e12105a96e2d3cebab6bf0041b547351de03b02",
+              "native:agent-city-sdk:809529b410d784ffaf649a7cd9d55e6943518cf5f3f01b6df8b593fe65364279"
+            ]
+          }
+        ],
+        "visits": 1,
+        "homeX": 48,
+        "packetUntil": 102,
+        "packetEvidence": [
+          "042f9c61ef845bdb0248fba2e81c7d390040d571e149ffbc5da609ab3cdf7401",
+          "9bc7908d79b056f6b51020a68f747a7eef4ad94d6ad33b9b387c98252a101d20",
+          "21ead1df0f02dd28135e750605424588585f3fd29a1e487bab313fac8065fafb"
+        ],
+        "climbing": false,
+        "path": [],
+        "roomTarget": "library:32,96",
+        "roomPath": [
+          "208,96",
+          "204,96",
+          "200,96",
+          "196,96",
+          "192,96",
+          "188,96",
+          "184,96",
+          "180,96",
+          "176,96",
+          "172,96",
+          "168,96",
+          "164,96",
+          "160,96",
+          "156,96",
+          "152,96",
+          "148,96",
+          "144,96",
+          "140,96",
+          "136,96",
+          "132,96",
+          "128,96",
+          "124,96",
+          "120,96",
+          "116,96",
+          "112,96",
+          "108,96",
+          "104,96",
+          "100,96",
+          "96,96",
+          "92,96",
+          "88,96",
+          "84,96",
+          "80,96",
+          "76,96",
+          "72,96",
+          "68,96",
+          "64,96",
+          "60,96",
+          "56,96",
+          "52,96",
+          "48,96",
+          "44,96",
+          "40,96",
+          "36,96",
+          "32,96"
+        ]
+      },
+      "truth": "running",
+      "at": 1788878420258
+    },
+    {
+      "key": "library:read:upper:running",
+      "id": "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3:run-1788878413580-2653:writer",
+      "walker": {
+        "id": "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3:run-1788878413580-2653:writer",
+        "scene": "library",
+        "x": 32,
+        "y": 96,
+        "phase": "read",
+        "age": 0,
+        "visit": {
+          "capability": "rag.query",
+          "destination": "library",
+          "station": "kujo-docs",
+          "keys": [
+            "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3:run-1788878413580-2653:retrieval:1"
+          ],
+          "first": 1788878414506,
+          "last": 1788878414506,
+          "collection": "kujo-docs",
+          "evidence": [
+            "native:agent-city-sdk:1aeb0925319904467def272b9241c1cd2b4daa7b7192b5681a6f9495e167168b",
+            "native:agent-city-sdk:435b19868f223d0db04d83c8a49c7ff5d836da72e5b8faa25a34a32a514dd3d4"
+          ]
+        },
+        "queued": [
+          {
+            "capability": "mcp.call",
+            "destination": "mcp",
+            "station": "tool-active",
+            "keys": [
+              "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3:run-1788878413580-2653:mcp-docs:1"
+            ],
+            "first": 1788878415224,
+            "last": 1788878415224,
+            "collection": "unknown",
+            "evidence": [
+              "native:agent-city-sdk:515a31ae4566e3ebb20c54692e12105a96e2d3cebab6bf0041b547351de03b02",
+              "native:agent-city-sdk:809529b410d784ffaf649a7cd9d55e6943518cf5f3f01b6df8b593fe65364279"
+            ]
+          }
+        ],
+        "visits": 1,
+        "homeX": 48,
+        "packetUntil": 234,
+        "packetEvidence": [
+          "042f9c61ef845bdb0248fba2e81c7d390040d571e149ffbc5da609ab3cdf7401",
+          "9bc7908d79b056f6b51020a68f747a7eef4ad94d6ad33b9b387c98252a101d20",
+          "21ead1df0f02dd28135e750605424588585f3fd29a1e487bab313fac8065fafb",
+          "606083bc7f627395bcfd674935ae79c19887767da72a577a8601f1b8812aa3c8"
+        ],
+        "climbing": false,
+        "path": [],
+        "roomTarget": "library:32,96",
+        "roomPath": []
+      },
+      "truth": "running",
+      "at": 1788878422547
+    },
+    {
+      "key": "library:return:upper:running",
+      "id": "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3:run-1788878413580-2653:writer",
+      "walker": {
+        "id": "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3:run-1788878413580-2653:writer",
+        "scene": "library",
+        "x": 40,
+        "y": 96,
+        "phase": "return",
+        "age": 2,
+        "visit": {
+          "capability": "rag.query",
+          "destination": "library",
+          "station": "kujo-docs",
+          "keys": [
+            "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3:run-1788878413580-2653:retrieval:1"
+          ],
+          "first": 1788878414506,
+          "last": 1788878414506,
+          "collection": "kujo-docs",
+          "evidence": [
+            "native:agent-city-sdk:1aeb0925319904467def272b9241c1cd2b4daa7b7192b5681a6f9495e167168b",
+            "native:agent-city-sdk:435b19868f223d0db04d83c8a49c7ff5d836da72e5b8faa25a34a32a514dd3d4"
+          ]
+        },
+        "queued": [
+          {
+            "capability": "mcp.call",
+            "destination": "mcp",
+            "station": "tool-active",
+            "keys": [
+              "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3:run-1788878413580-2653:mcp-docs:1"
+            ],
+            "first": 1788878415224,
+            "last": 1788878415224,
+            "collection": "unknown",
+            "evidence": [
+              "native:agent-city-sdk:515a31ae4566e3ebb20c54692e12105a96e2d3cebab6bf0041b547351de03b02",
+              "native:agent-city-sdk:809529b410d784ffaf649a7cd9d55e6943518cf5f3f01b6df8b593fe65364279"
+            ]
+          }
+        ],
+        "visits": 1,
+        "homeX": 48,
+        "packetUntil": 234,
+        "packetEvidence": [
+          "042f9c61ef845bdb0248fba2e81c7d390040d571e149ffbc5da609ab3cdf7401",
+          "9bc7908d79b056f6b51020a68f747a7eef4ad94d6ad33b9b387c98252a101d20",
+          "21ead1df0f02dd28135e750605424588585f3fd29a1e487bab313fac8065fafb",
+          "606083bc7f627395bcfd674935ae79c19887767da72a577a8601f1b8812aa3c8"
+        ],
+        "climbing": false,
+        "path": [],
+        "roomTarget": "library:16,160",
+        "roomPath": [
+          "44,96",
+          "48,96",
+          "52,96",
+          "56,96",
+          "60,96",
+          "64,96",
+          "68,96",
+          "72,96",
+          "76,96",
+          "80,96",
+          "84,96",
+          "88,96",
+          "92,96",
+          "96,96",
+          "100,96",
+          "104,96",
+          "108,96",
+          "112,96",
+          "116,96",
+          "120,96",
+          "124,96",
+          "128,96",
+          "132,96",
+          "136,96",
+          "140,96",
+          "144,96",
+          "148,96",
+          "152,96",
+          "156,96",
+          "160,96",
+          "164,96",
+          "168,96",
+          "172,96",
+          "176,96",
+          "180,96",
+          "184,96",
+          "188,96",
+          "192,96",
+          "196,96",
+          "200,96",
+          "204,96",
+          "208,96",
+          "212,96",
+          "216,96",
+          "220,96",
+          "224,96",
+          "224,100",
+          "224,104",
+          "224,108",
+          "224,112",
+          "224,116",
+          "224,120",
+          "224,124",
+          "224,128",
+          "224,132",
+          "224,136",
+          "224,140",
+          "224,144",
+          "224,148",
+          "224,152",
+          "224,156",
+          "224,160",
+          "220,160",
+          "216,160",
+          "212,160",
+          "208,160",
+          "204,160",
+          "200,160",
+          "196,160",
+          "192,160",
+          "188,160",
+          "184,160",
+          "180,160",
+          "176,160",
+          "172,160",
+          "168,160",
+          "164,160",
+          "160,160",
+          "156,160",
+          "152,160",
+          "148,160",
+          "144,160",
+          "140,160",
+          "136,160",
+          "132,160",
+          "128,160",
+          "124,160",
+          "120,160",
+          "116,160",
+          "112,160",
+          "108,160",
+          "104,160",
+          "100,160",
+          "96,160",
+          "92,160",
+          "88,160",
+          "84,160",
+          "80,160",
+          "76,160",
+          "72,160",
+          "68,160",
+          "64,160",
+          "60,160",
+          "56,160",
+          "52,160",
+          "48,160",
+          "44,160",
+          "40,160",
+          "36,160",
+          "32,160",
+          "28,160",
+          "24,160",
+          "20,160",
+          "16,160"
+        ]
+      },
+      "truth": "running",
+      "at": 1788878424431
+    },
+    {
+      "key": "library:return:ladder:running",
+      "id": "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3:run-1788878413580-2653:writer",
+      "walker": {
+        "id": "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3:run-1788878413580-2653:writer",
+        "scene": "library",
+        "x": 224,
+        "y": 108,
+        "phase": "return",
+        "age": 51,
+        "visit": {
+          "capability": "rag.query",
+          "destination": "library",
+          "station": "kujo-docs",
+          "keys": [
+            "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3:run-1788878413580-2653:retrieval:1"
+          ],
+          "first": 1788878414506,
+          "last": 1788878414506,
+          "collection": "kujo-docs",
+          "evidence": [
+            "native:agent-city-sdk:1aeb0925319904467def272b9241c1cd2b4daa7b7192b5681a6f9495e167168b",
+            "native:agent-city-sdk:435b19868f223d0db04d83c8a49c7ff5d836da72e5b8faa25a34a32a514dd3d4"
+          ]
+        },
+        "queued": [
+          {
+            "capability": "mcp.call",
+            "destination": "mcp",
+            "station": "tool-active",
+            "keys": [
+              "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3:run-1788878413580-2653:mcp-docs:1"
+            ],
+            "first": 1788878415224,
+            "last": 1788878415224,
+            "collection": "unknown",
+            "evidence": [
+              "native:agent-city-sdk:515a31ae4566e3ebb20c54692e12105a96e2d3cebab6bf0041b547351de03b02",
+              "native:agent-city-sdk:809529b410d784ffaf649a7cd9d55e6943518cf5f3f01b6df8b593fe65364279"
+            ]
+          }
+        ],
+        "visits": 1,
+        "homeX": 48,
+        "packetUntil": 234,
+        "packetEvidence": [
+          "042f9c61ef845bdb0248fba2e81c7d390040d571e149ffbc5da609ab3cdf7401",
+          "9bc7908d79b056f6b51020a68f747a7eef4ad94d6ad33b9b387c98252a101d20",
+          "21ead1df0f02dd28135e750605424588585f3fd29a1e487bab313fac8065fafb",
+          "606083bc7f627395bcfd674935ae79c19887767da72a577a8601f1b8812aa3c8"
+        ],
+        "climbing": true,
+        "path": [],
+        "roomTarget": "library:16,160",
+        "roomPath": [
+          "224,112",
+          "224,116",
+          "224,120",
+          "224,124",
+          "224,128",
+          "224,132",
+          "224,136",
+          "224,140",
+          "224,144",
+          "224,148",
+          "224,152",
+          "224,156",
+          "224,160",
+          "220,160",
+          "216,160",
+          "212,160",
+          "208,160",
+          "204,160",
+          "200,160",
+          "196,160",
+          "192,160",
+          "188,160",
+          "184,160",
+          "180,160",
+          "176,160",
+          "172,160",
+          "168,160",
+          "164,160",
+          "160,160",
+          "156,160",
+          "152,160",
+          "148,160",
+          "144,160",
+          "140,160",
+          "136,160",
+          "132,160",
+          "128,160",
+          "124,160",
+          "120,160",
+          "116,160",
+          "112,160",
+          "108,160",
+          "104,160",
+          "100,160",
+          "96,160",
+          "92,160",
+          "88,160",
+          "84,160",
+          "80,160",
+          "76,160",
+          "72,160",
+          "68,160",
+          "64,160",
+          "60,160",
+          "56,160",
+          "52,160",
+          "48,160",
+          "44,160",
+          "40,160",
+          "36,160",
+          "32,160",
+          "28,160",
+          "24,160",
+          "20,160",
+          "16,160"
+        ]
+      },
+      "truth": "running",
+      "at": 1788878426864
+    },
+    {
+      "key": "library:return:lower:running",
+      "id": "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3:run-1788878413580-2653:writer",
+      "walker": {
+        "id": "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3:run-1788878413580-2653:writer",
+        "scene": "library",
+        "x": 220,
+        "y": 160,
+        "phase": "return",
+        "age": 65,
+        "visit": {
+          "capability": "rag.query",
+          "destination": "library",
+          "station": "kujo-docs",
+          "keys": [
+            "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3:run-1788878413580-2653:retrieval:1"
+          ],
+          "first": 1788878414506,
+          "last": 1788878414506,
+          "collection": "kujo-docs",
+          "evidence": [
+            "native:agent-city-sdk:1aeb0925319904467def272b9241c1cd2b4daa7b7192b5681a6f9495e167168b",
+            "native:agent-city-sdk:435b19868f223d0db04d83c8a49c7ff5d836da72e5b8faa25a34a32a514dd3d4"
+          ]
+        },
+        "queued": [
+          {
+            "capability": "mcp.call",
+            "destination": "mcp",
+            "station": "tool-active",
+            "keys": [
+              "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3:run-1788878413580-2653:mcp-docs:1"
+            ],
+            "first": 1788878415224,
+            "last": 1788878415224,
+            "collection": "unknown",
+            "evidence": [
+              "native:agent-city-sdk:515a31ae4566e3ebb20c54692e12105a96e2d3cebab6bf0041b547351de03b02",
+              "native:agent-city-sdk:809529b410d784ffaf649a7cd9d55e6943518cf5f3f01b6df8b593fe65364279"
+            ]
+          }
+        ],
+        "visits": 1,
+        "homeX": 48,
+        "packetUntil": 234,
+        "packetEvidence": [
+          "042f9c61ef845bdb0248fba2e81c7d390040d571e149ffbc5da609ab3cdf7401",
+          "9bc7908d79b056f6b51020a68f747a7eef4ad94d6ad33b9b387c98252a101d20",
+          "21ead1df0f02dd28135e750605424588585f3fd29a1e487bab313fac8065fafb",
+          "606083bc7f627395bcfd674935ae79c19887767da72a577a8601f1b8812aa3c8"
+        ],
+        "climbing": false,
+        "path": [],
+        "roomTarget": "library:16,160",
+        "roomPath": [
+          "216,160",
+          "212,160",
+          "208,160",
+          "204,160",
+          "200,160",
+          "196,160",
+          "192,160",
+          "188,160",
+          "184,160",
+          "180,160",
+          "176,160",
+          "172,160",
+          "168,160",
+          "164,160",
+          "160,160",
+          "156,160",
+          "152,160",
+          "148,160",
+          "144,160",
+          "140,160",
+          "136,160",
+          "132,160",
+          "128,160",
+          "124,160",
+          "120,160",
+          "116,160",
+          "112,160",
+          "108,160",
+          "104,160",
+          "100,160",
+          "96,160",
+          "92,160",
+          "88,160",
+          "84,160",
+          "80,160",
+          "76,160",
+          "72,160",
+          "68,160",
+          "64,160",
+          "60,160",
+          "56,160",
+          "52,160",
+          "48,160",
+          "44,160",
+          "40,160",
+          "36,160",
+          "32,160",
+          "28,160",
+          "24,160",
+          "20,160",
+          "16,160"
+        ]
+      },
+      "truth": "running",
+      "at": 1788878427599
+    },
+    {
+      "key": "city:return:lower:running",
+      "id": "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3:run-1788878413580-2653:writer",
+      "walker": {
+        "id": "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3:run-1788878413580-2653:writer",
+        "scene": "city",
+        "x": 192,
+        "y": 88,
+        "phase": "return",
+        "age": 118,
+        "visit": {
+          "capability": "rag.query",
+          "destination": "library",
+          "station": "kujo-docs",
+          "keys": [
+            "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3:run-1788878413580-2653:retrieval:1"
+          ],
+          "first": 1788878414506,
+          "last": 1788878414506,
+          "collection": "kujo-docs",
+          "evidence": [
+            "native:agent-city-sdk:1aeb0925319904467def272b9241c1cd2b4daa7b7192b5681a6f9495e167168b",
+            "native:agent-city-sdk:435b19868f223d0db04d83c8a49c7ff5d836da72e5b8faa25a34a32a514dd3d4"
+          ]
+        },
+        "queued": [
+          {
+            "capability": "mcp.call",
+            "destination": "mcp",
+            "station": "tool-active",
+            "keys": [
+              "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3:run-1788878413580-2653:mcp-docs:1"
+            ],
+            "first": 1788878415224,
+            "last": 1788878415224,
+            "collection": "unknown",
+            "evidence": [
+              "native:agent-city-sdk:515a31ae4566e3ebb20c54692e12105a96e2d3cebab6bf0041b547351de03b02",
+              "native:agent-city-sdk:809529b410d784ffaf649a7cd9d55e6943518cf5f3f01b6df8b593fe65364279"
+            ]
+          }
+        ],
+        "visits": 1,
+        "homeX": 48,
+        "packetUntil": 234,
+        "packetEvidence": [
+          "042f9c61ef845bdb0248fba2e81c7d390040d571e149ffbc5da609ab3cdf7401",
+          "9bc7908d79b056f6b51020a68f747a7eef4ad94d6ad33b9b387c98252a101d20",
+          "21ead1df0f02dd28135e750605424588585f3fd29a1e487bab313fac8065fafb",
+          "606083bc7f627395bcfd674935ae79c19887767da72a577a8601f1b8812aa3c8"
+        ],
+        "climbing": false,
+        "path": [
+          "12,6",
+          "11,6",
+          "10,6",
+          "9,6",
+          "8,6",
+          "7,6",
+          "7,5"
+        ]
+      },
+      "truth": "running",
+      "at": 1788878430219
+    },
+    {
+      "key": "city:return:upper:running",
+      "id": "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3:run-1788878413580-2653:writer",
+      "walker": {
+        "id": "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3:run-1788878413580-2653:writer",
+        "scene": "city",
+        "x": 176,
+        "y": 96,
+        "phase": "return",
+        "age": 124,
+        "visit": {
+          "capability": "rag.query",
+          "destination": "library",
+          "station": "kujo-docs",
+          "keys": [
+            "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3:run-1788878413580-2653:retrieval:1"
+          ],
+          "first": 1788878414506,
+          "last": 1788878414506,
+          "collection": "kujo-docs",
+          "evidence": [
+            "native:agent-city-sdk:1aeb0925319904467def272b9241c1cd2b4daa7b7192b5681a6f9495e167168b",
+            "native:agent-city-sdk:435b19868f223d0db04d83c8a49c7ff5d836da72e5b8faa25a34a32a514dd3d4"
+          ]
+        },
+        "queued": [
+          {
+            "capability": "mcp.call",
+            "destination": "mcp",
+            "station": "tool-active",
+            "keys": [
+              "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3:run-1788878413580-2653:mcp-docs:1"
+            ],
+            "first": 1788878415224,
+            "last": 1788878415224,
+            "collection": "unknown",
+            "evidence": [
+              "native:agent-city-sdk:515a31ae4566e3ebb20c54692e12105a96e2d3cebab6bf0041b547351de03b02",
+              "native:agent-city-sdk:809529b410d784ffaf649a7cd9d55e6943518cf5f3f01b6df8b593fe65364279"
+            ]
+          }
+        ],
+        "visits": 1,
+        "homeX": 48,
+        "packetUntil": 234,
+        "packetEvidence": [
+          "042f9c61ef845bdb0248fba2e81c7d390040d571e149ffbc5da609ab3cdf7401",
+          "9bc7908d79b056f6b51020a68f747a7eef4ad94d6ad33b9b387c98252a101d20",
+          "21ead1df0f02dd28135e750605424588585f3fd29a1e487bab313fac8065fafb",
+          "606083bc7f627395bcfd674935ae79c19887767da72a577a8601f1b8812aa3c8"
+        ],
+        "climbing": false,
+        "path": [
+          "10,6",
+          "9,6",
+          "8,6",
+          "7,6",
+          "7,5"
+        ]
+      },
+      "truth": "running",
+      "at": 1788878430540
+    },
+    {
+      "key": "city:return:upper:completed",
+      "id": "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3:run-1788878413580-2653:writer",
+      "walker": {
+        "id": "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3:run-1788878413580-2653:writer",
+        "scene": "city",
+        "x": 116,
+        "y": 96,
+        "phase": "return",
+        "age": 139,
+        "visit": {
+          "capability": "rag.query",
+          "destination": "library",
+          "station": "kujo-docs",
+          "keys": [
+            "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3:run-1788878413580-2653:retrieval:1"
+          ],
+          "first": 1788878414506,
+          "last": 1788878414506,
+          "collection": "kujo-docs",
+          "evidence": [
+            "native:agent-city-sdk:1aeb0925319904467def272b9241c1cd2b4daa7b7192b5681a6f9495e167168b",
+            "native:agent-city-sdk:435b19868f223d0db04d83c8a49c7ff5d836da72e5b8faa25a34a32a514dd3d4"
+          ]
+        },
+        "queued": [
+          {
+            "capability": "mcp.call",
+            "destination": "mcp",
+            "station": "tool-active",
+            "keys": [
+              "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3:run-1788878413580-2653:mcp-docs:1"
+            ],
+            "first": 1788878415224,
+            "last": 1788878415224,
+            "collection": "unknown",
+            "evidence": [
+              "native:agent-city-sdk:515a31ae4566e3ebb20c54692e12105a96e2d3cebab6bf0041b547351de03b02",
+              "native:agent-city-sdk:809529b410d784ffaf649a7cd9d55e6943518cf5f3f01b6df8b593fe65364279"
+            ]
+          },
+          {
+            "capability": "artifact.created",
+            "destination": "workshop",
+            "station": "evidence-shelf",
+            "keys": [
+              "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3:run-1788878413580-2653:save-reviewed-output:1"
+            ],
+            "first": 1788878430765,
+            "last": 1788878430765,
+            "collection": "unknown",
+            "evidence": [
+              "native:agent-city-sdk:ec633fa84fba7feeb4bb3d6dd7742fc4f32eafc99d270cb5f9c17b3321bd09df"
+            ]
+          }
+        ],
+        "visits": 1,
+        "homeX": 48,
+        "packetUntil": 433,
+        "packetEvidence": [
+          "042f9c61ef845bdb0248fba2e81c7d390040d571e149ffbc5da609ab3cdf7401",
+          "9bc7908d79b056f6b51020a68f747a7eef4ad94d6ad33b9b387c98252a101d20",
+          "21ead1df0f02dd28135e750605424588585f3fd29a1e487bab313fac8065fafb",
+          "606083bc7f627395bcfd674935ae79c19887767da72a577a8601f1b8812aa3c8",
+          "aae0a48c577606a675816a0d01a358812a6dd8cade5847d6fa86b5b6232e4c82"
+        ],
+        "climbing": false,
+        "path": [
+          "7,6",
+          "7,5"
+        ]
+      },
+      "truth": "completed",
+      "at": 1788878431260
+    },
+    {
+      "key": "workshop:work:lower:completed",
+      "id": "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3:run-1788878413580-2653:writer",
+      "walker": {
+        "id": "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3:run-1788878413580-2653:writer",
+        "scene": "workshop",
+        "x": 16,
+        "y": 160,
+        "phase": "work",
+        "age": 0,
+        "visit": null,
+        "queued": [
+          {
+            "capability": "mcp.call",
+            "destination": "mcp",
+            "station": "tool-active",
+            "keys": [
+              "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3:run-1788878413580-2653:mcp-docs:1"
+            ],
+            "first": 1788878415224,
+            "last": 1788878415224,
+            "collection": "unknown",
+            "evidence": [
+              "native:agent-city-sdk:515a31ae4566e3ebb20c54692e12105a96e2d3cebab6bf0041b547351de03b02",
+              "native:agent-city-sdk:809529b410d784ffaf649a7cd9d55e6943518cf5f3f01b6df8b593fe65364279"
+            ]
+          },
+          {
+            "capability": "artifact.created",
+            "destination": "workshop",
+            "station": "evidence-shelf",
+            "keys": [
+              "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3:run-1788878413580-2653:save-reviewed-output:1"
+            ],
+            "first": 1788878430765,
+            "last": 1788878430765,
+            "collection": "unknown",
+            "evidence": [
+              "native:agent-city-sdk:ec633fa84fba7feeb4bb3d6dd7742fc4f32eafc99d270cb5f9c17b3321bd09df"
+            ]
+          }
+        ],
+        "visits": 1,
+        "homeX": 48,
+        "packetUntil": 438,
+        "packetEvidence": [
+          "042f9c61ef845bdb0248fba2e81c7d390040d571e149ffbc5da609ab3cdf7401",
+          "9bc7908d79b056f6b51020a68f747a7eef4ad94d6ad33b9b387c98252a101d20",
+          "21ead1df0f02dd28135e750605424588585f3fd29a1e487bab313fac8065fafb",
+          "606083bc7f627395bcfd674935ae79c19887767da72a577a8601f1b8812aa3c8",
+          "aae0a48c577606a675816a0d01a358812a6dd8cade5847d6fa86b5b6232e4c82",
+          "08ed624e108fde8c2fee63e4a24eb8af562f89d1b6b6d51f57655a214aeeb07d"
+        ],
+        "climbing": false,
+        "path": [],
+        "completedKeys": [
+          "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3:run-1788878413580-2653:retrieval:1"
+        ]
+      },
+      "truth": "completed",
+      "at": 1788878431576
+    },
+    {
+      "key": "city:outbound:lower:completed",
+      "id": "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3:run-1788878413580-2653:writer",
+      "walker": {
+        "id": "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3:run-1788878413580-2653:writer",
+        "scene": "city",
+        "x": 112,
+        "y": 84,
+        "phase": "outbound",
+        "age": 2,
+        "visit": {
+          "capability": "mcp.call",
+          "destination": "mcp",
+          "station": "tool-active",
+          "keys": [
+            "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3:run-1788878413580-2653:mcp-docs:1"
+          ],
+          "first": 1788878415224,
+          "last": 1788878415224,
+          "collection": "unknown",
+          "evidence": [
+            "native:agent-city-sdk:515a31ae4566e3ebb20c54692e12105a96e2d3cebab6bf0041b547351de03b02",
+            "native:agent-city-sdk:809529b410d784ffaf649a7cd9d55e6943518cf5f3f01b6df8b593fe65364279"
+          ]
+        },
+        "queued": [
+          {
+            "capability": "artifact.created",
+            "destination": "workshop",
+            "station": "evidence-shelf",
+            "keys": [
+              "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3:run-1788878413580-2653:save-reviewed-output:1"
+            ],
+            "first": 1788878430765,
+            "last": 1788878430765,
+            "collection": "unknown",
+            "evidence": [
+              "native:agent-city-sdk:ec633fa84fba7feeb4bb3d6dd7742fc4f32eafc99d270cb5f9c17b3321bd09df"
+            ]
+          }
+        ],
+        "visits": 2,
+        "homeX": 48,
+        "packetUntil": 444,
+        "packetEvidence": [
+          "042f9c61ef845bdb0248fba2e81c7d390040d571e149ffbc5da609ab3cdf7401",
+          "9bc7908d79b056f6b51020a68f747a7eef4ad94d6ad33b9b387c98252a101d20",
+          "21ead1df0f02dd28135e750605424588585f3fd29a1e487bab313fac8065fafb",
+          "606083bc7f627395bcfd674935ae79c19887767da72a577a8601f1b8812aa3c8",
+          "aae0a48c577606a675816a0d01a358812a6dd8cade5847d6fa86b5b6232e4c82",
+          "08ed624e108fde8c2fee63e4a24eb8af562f89d1b6b6d51f57655a214aeeb07d",
+          "2fff758a9b08f5777e258a9c5a6bba13345a6db4f016fa10cbc6cea1e4db2080"
+        ],
+        "climbing": false,
+        "path": [
+          "7,6",
+          "8,6",
+          "9,6",
+          "10,6",
+          "10,7",
+          "11,7",
+          "12,7",
+          "13,7",
+          "14,7",
+          "15,7",
+          "15,8",
+          "15,9",
+          "15,10",
+          "15,11",
+          "15,12",
+          "14,12",
+          "13,12",
+          "12,12"
+        ],
+        "completedKeys": [
+          "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3:run-1788878413580-2653:retrieval:1"
+        ]
+      },
+      "truth": "completed",
+      "at": 1788878431867
+    },
+    {
+      "key": "city:outbound:upper:completed",
+      "id": "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3:run-1788878413580-2653:writer",
+      "walker": {
+        "id": "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3:run-1788878413580-2653:writer",
+        "scene": "city",
+        "x": 120,
+        "y": 96,
+        "phase": "outbound",
+        "age": 7,
+        "visit": {
+          "capability": "mcp.call",
+          "destination": "mcp",
+          "station": "tool-active",
+          "keys": [
+            "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3:run-1788878413580-2653:mcp-docs:1"
+          ],
+          "first": 1788878415224,
+          "last": 1788878415224,
+          "collection": "unknown",
+          "evidence": [
+            "native:agent-city-sdk:515a31ae4566e3ebb20c54692e12105a96e2d3cebab6bf0041b547351de03b02",
+            "native:agent-city-sdk:809529b410d784ffaf649a7cd9d55e6943518cf5f3f01b6df8b593fe65364279"
+          ]
+        },
+        "queued": [
+          {
+            "capability": "artifact.created",
+            "destination": "workshop",
+            "station": "evidence-shelf",
+            "keys": [
+              "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3:run-1788878413580-2653:save-reviewed-output:1"
+            ],
+            "first": 1788878430765,
+            "last": 1788878430765,
+            "collection": "unknown",
+            "evidence": [
+              "native:agent-city-sdk:ec633fa84fba7feeb4bb3d6dd7742fc4f32eafc99d270cb5f9c17b3321bd09df"
+            ]
+          }
+        ],
+        "visits": 2,
+        "homeX": 48,
+        "packetUntil": 444,
+        "packetEvidence": [
+          "042f9c61ef845bdb0248fba2e81c7d390040d571e149ffbc5da609ab3cdf7401",
+          "9bc7908d79b056f6b51020a68f747a7eef4ad94d6ad33b9b387c98252a101d20",
+          "21ead1df0f02dd28135e750605424588585f3fd29a1e487bab313fac8065fafb",
+          "606083bc7f627395bcfd674935ae79c19887767da72a577a8601f1b8812aa3c8",
+          "aae0a48c577606a675816a0d01a358812a6dd8cade5847d6fa86b5b6232e4c82",
+          "08ed624e108fde8c2fee63e4a24eb8af562f89d1b6b6d51f57655a214aeeb07d",
+          "2fff758a9b08f5777e258a9c5a6bba13345a6db4f016fa10cbc6cea1e4db2080"
+        ],
+        "climbing": false,
+        "path": [
+          "8,6",
+          "9,6",
+          "10,6",
+          "10,7",
+          "11,7",
+          "12,7",
+          "13,7",
+          "14,7",
+          "15,7",
+          "15,8",
+          "15,9",
+          "15,10",
+          "15,11",
+          "15,12",
+          "14,12",
+          "13,12",
+          "12,12"
+        ],
+        "completedKeys": [
+          "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3:run-1788878413580-2653:retrieval:1"
+        ]
+      },
+      "truth": "completed",
+      "at": 1788878432149
+    },
+    {
+      "key": "mcp:enter:lower:completed",
+      "id": "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3:run-1788878413580-2653:writer",
+      "walker": {
+        "id": "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3:run-1788878413580-2653:writer",
+        "scene": "mcp",
+        "x": 24,
+        "y": 160,
+        "phase": "enter",
+        "age": 2,
+        "visit": {
+          "capability": "mcp.call",
+          "destination": "mcp",
+          "station": "tool-active",
+          "keys": [
+            "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3:run-1788878413580-2653:mcp-docs:1"
+          ],
+          "first": 1788878415224,
+          "last": 1788878415224,
+          "collection": "unknown",
+          "evidence": [
+            "native:agent-city-sdk:515a31ae4566e3ebb20c54692e12105a96e2d3cebab6bf0041b547351de03b02",
+            "native:agent-city-sdk:809529b410d784ffaf649a7cd9d55e6943518cf5f3f01b6df8b593fe65364279"
+          ]
+        },
+        "queued": [
+          {
+            "capability": "artifact.created",
+            "destination": "workshop",
+            "station": "evidence-shelf",
+            "keys": [
+              "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3:run-1788878413580-2653:save-reviewed-output:1"
+            ],
+            "first": 1788878430765,
+            "last": 1788878430765,
+            "collection": "unknown",
+            "evidence": [
+              "native:agent-city-sdk:ec633fa84fba7feeb4bb3d6dd7742fc4f32eafc99d270cb5f9c17b3321bd09df"
+            ]
+          }
+        ],
+        "visits": 2,
+        "homeX": 48,
+        "packetUntil": 444,
+        "packetEvidence": [
+          "042f9c61ef845bdb0248fba2e81c7d390040d571e149ffbc5da609ab3cdf7401",
+          "9bc7908d79b056f6b51020a68f747a7eef4ad94d6ad33b9b387c98252a101d20",
+          "21ead1df0f02dd28135e750605424588585f3fd29a1e487bab313fac8065fafb",
+          "606083bc7f627395bcfd674935ae79c19887767da72a577a8601f1b8812aa3c8",
+          "aae0a48c577606a675816a0d01a358812a6dd8cade5847d6fa86b5b6232e4c82",
+          "08ed624e108fde8c2fee63e4a24eb8af562f89d1b6b6d51f57655a214aeeb07d",
+          "2fff758a9b08f5777e258a9c5a6bba13345a6db4f016fa10cbc6cea1e4db2080"
+        ],
+        "climbing": false,
+        "path": [],
+        "completedKeys": [
+          "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3:run-1788878413580-2653:retrieval:1"
+        ],
+        "roomTarget": "mcp:144,160",
+        "roomPath": [
+          "28,160",
+          "32,160",
+          "36,160",
+          "40,160",
+          "44,160",
+          "48,160",
+          "52,160",
+          "56,160",
+          "60,160",
+          "64,160",
+          "68,160",
+          "72,160",
+          "76,160",
+          "80,160",
+          "84,160",
+          "88,160",
+          "92,160",
+          "96,160",
+          "100,160",
+          "104,160",
+          "108,160",
+          "112,160",
+          "116,160",
+          "120,160",
+          "124,160",
+          "128,160",
+          "132,160",
+          "136,160",
+          "140,160",
+          "144,160"
+        ]
+      },
+      "truth": "completed",
+      "at": 1788878435575
+    },
+    {
+      "key": "mcp:read:lower:completed",
+      "id": "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3:run-1788878413580-2653:writer",
+      "walker": {
+        "id": "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3:run-1788878413580-2653:writer",
+        "scene": "mcp",
+        "x": 144,
+        "y": 160,
+        "phase": "read",
+        "age": 1,
+        "visit": {
+          "capability": "mcp.call",
+          "destination": "mcp",
+          "station": "tool-active",
+          "keys": [
+            "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3:run-1788878413580-2653:mcp-docs:1"
+          ],
+          "first": 1788878415224,
+          "last": 1788878415224,
+          "collection": "unknown",
+          "evidence": [
+            "native:agent-city-sdk:515a31ae4566e3ebb20c54692e12105a96e2d3cebab6bf0041b547351de03b02",
+            "native:agent-city-sdk:809529b410d784ffaf649a7cd9d55e6943518cf5f3f01b6df8b593fe65364279"
+          ]
+        },
+        "queued": [
+          {
+            "capability": "artifact.created",
+            "destination": "workshop",
+            "station": "evidence-shelf",
+            "keys": [
+              "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3:run-1788878413580-2653:save-reviewed-output:1"
+            ],
+            "first": 1788878430765,
+            "last": 1788878430765,
+            "collection": "unknown",
+            "evidence": [
+              "native:agent-city-sdk:ec633fa84fba7feeb4bb3d6dd7742fc4f32eafc99d270cb5f9c17b3321bd09df"
+            ]
+          }
+        ],
+        "visits": 2,
+        "homeX": 48,
+        "packetUntil": 444,
+        "packetEvidence": [
+          "042f9c61ef845bdb0248fba2e81c7d390040d571e149ffbc5da609ab3cdf7401",
+          "9bc7908d79b056f6b51020a68f747a7eef4ad94d6ad33b9b387c98252a101d20",
+          "21ead1df0f02dd28135e750605424588585f3fd29a1e487bab313fac8065fafb",
+          "606083bc7f627395bcfd674935ae79c19887767da72a577a8601f1b8812aa3c8",
+          "aae0a48c577606a675816a0d01a358812a6dd8cade5847d6fa86b5b6232e4c82",
+          "08ed624e108fde8c2fee63e4a24eb8af562f89d1b6b6d51f57655a214aeeb07d",
+          "2fff758a9b08f5777e258a9c5a6bba13345a6db4f016fa10cbc6cea1e4db2080"
+        ],
+        "climbing": false,
+        "path": [],
+        "completedKeys": [
+          "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3:run-1788878413580-2653:retrieval:1"
+        ],
+        "roomTarget": "mcp:144,160",
+        "roomPath": []
+      },
+      "truth": "completed",
+      "at": 1788878437133
+    }
+  ],
+  "artifact": {
+    "id": "mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3",
+    "kind": "writing",
+    "content": "**Summary:**\n\nThe ` guide.md`, `walkthrough.md`, and `scenarios.md` in the MCP demo README document provide the core functionality for developing applications within the server. It features tool discovery and invocation flows, resource listing and reads, structured search and grep workflows, safe write operations in a bounded workspace, guardrail behavior for invalid and risky inputs, and core runtime concepts demonstrated. These files are essential for understanding the server's capabilities and best practices for data wrangling. The recommended reading order and related project docs enhance the usability of the demo.",
+    "validation": null,
+    "functional": null,
+    "codeExecuted": false
+  },
+  "exchanges": {
+    "id": "mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3",
+    "records": [
+      {
+        "agent": "writer",
+        "content": "Kujo is a server for modern data wrangling with strong enforcement against unsafe use. This demo showcases its features for developing applications within the server.",
+        "kind": "model.response",
+        "occurredAtMs": 1788878420800,
+        "producer": "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3",
+        "requestOrdinal": 1,
+        "run": "run-1788878413580-2653",
+        "schema": "agent-city.exchange.v1"
+      },
+      {
+        "agent": "reviewer",
+        "content": "**Summary:**\n\nThe ` guide.md`, `walkthrough.md`, and `scenarios.md` in the MCP demo README document provide the core functionality for developing applications within the server. It features tool discovery and invocation flows, resource listing and reads, structured search and grep workflows, safe write operations in a bounded workspace, guardrail behavior for invalid and risky inputs, and core runtime concepts demonstrated. These files are essential for understanding the server's capabilities and best practices for data wrangling. The recommended reading order and related project docs enhance the usability of the demo.",
+        "kind": "model.response",
+        "occurredAtMs": 1788878430623,
+        "producer": "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3",
+        "requestOrdinal": 1,
+        "run": "run-1788878413580-2653-handoff-reviewer",
+        "schema": "agent-city.exchange.v1"
+      }
+    ],
+    "recordingComplete": true
+  },
+  "lifecycle": [
+    {
+      "agent_id": "writer",
+      "attempt": 1,
+      "capability": "dispatch.task",
+      "kind": "internal",
+      "metadata": {
+        "taskState": "queued"
+      },
+      "occurred_at_ms": 1788878413752,
+      "operation_id": "intake",
+      "outcome": "succeeded",
+      "phase": "finished",
+      "producer_instance": "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3",
+      "run_id": "run-1788878413580-2653",
+      "schema": "kujo.lifecycle.v1",
+      "task_id": "run-1788878413580-2653:produce-artifact"
+    },
+    {
+      "agent_id": "writer",
+      "attempt": 1,
+      "capability": "dispatch.task",
+      "kind": "internal",
+      "metadata": {
+        "taskState": "assigned"
+      },
+      "occurred_at_ms": 1788878413753,
+      "operation_id": "assignment",
+      "outcome": "succeeded",
+      "phase": "finished",
+      "producer_instance": "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3",
+      "run_id": "run-1788878413580-2653",
+      "schema": "kujo.lifecycle.v1",
+      "task_id": "run-1788878413580-2653:produce-artifact"
+    },
+    {
+      "agent_id": "writer",
+      "attempt": 1,
+      "capability": "dispatch.task",
+      "kind": "internal",
+      "metadata": {
+        "taskState": "running"
+      },
+      "occurred_at_ms": 1788878413796,
+      "operation_id": "task",
+      "outcome": "unset",
+      "phase": "started",
+      "producer_instance": "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3",
+      "run_id": "run-1788878413580-2653",
+      "schema": "kujo.lifecycle.v1",
+      "task_id": "run-1788878413580-2653:produce-artifact"
+    },
+    {
+      "agent_id": "writer",
+      "attempt": 1,
+      "collection": "kujo-docs",
+      "kind": "agent",
+      "metadata": {
+        "relatedInstance": ""
+      },
+      "occurred_at_ms": 1788878414458,
+      "operation_id": "run",
+      "outcome": "unset",
+      "phase": "started",
+      "producer_instance": "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3",
+      "profile": "city-writer",
+      "related_agent_id": "",
+      "run_id": "run-1788878413580-2653",
+      "schema": "kujo.lifecycle.v1",
+      "task_id": "run-1788878413580-2653:produce-artifact"
+    },
+    {
+      "agent_id": "writer",
+      "attempt": 1,
+      "collection": "kujo-docs",
+      "kind": "retrieval",
+      "metadata": {
+        "relatedInstance": ""
+      },
+      "occurred_at_ms": 1788878414506,
+      "operation_id": "retrieval",
+      "outcome": "unset",
+      "phase": "started",
+      "producer_instance": "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3",
+      "profile": "city-writer",
+      "related_agent_id": "",
+      "run_id": "run-1788878413580-2653",
+      "schema": "kujo.lifecycle.v1",
+      "task_id": "run-1788878413580-2653:produce-artifact"
+    },
+    {
+      "agent_id": "writer",
+      "attempt": 1,
+      "collection": "kujo-docs",
+      "kind": "retrieval",
+      "metadata": {
+        "relatedInstance": ""
+      },
+      "occurred_at_ms": 1788878415183,
+      "operation_id": "retrieval",
+      "outcome": "succeeded",
+      "phase": "finished",
+      "producer_instance": "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3",
+      "profile": "city-writer",
+      "related_agent_id": "",
+      "run_id": "run-1788878413580-2653",
+      "schema": "kujo.lifecycle.v1",
+      "task_id": "run-1788878413580-2653:produce-artifact"
+    },
+    {
+      "agent_id": "writer",
+      "attempt": 1,
+      "capability": "mcp.call",
+      "kind": "internal",
+      "metadata": {
+        "approval": "not-required",
+        "invocation": "run-1788878413580-2653:mcp-docs",
+        "server": "mcp-demo",
+        "station": "tool-active",
+        "tool": "read_project_docs"
+      },
+      "occurred_at_ms": 1788878415224,
+      "operation_id": "mcp-docs",
+      "outcome": "unset",
+      "phase": "started",
+      "producer_instance": "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3",
+      "profile": "city-writer",
+      "run_id": "run-1788878413580-2653",
+      "schema": "kujo.lifecycle.v1",
+      "task_id": "run-1788878413580-2653:produce-artifact"
+    },
+    {
+      "agent_id": "writer",
+      "attempt": 1,
+      "capability": "mcp.call",
+      "kind": "internal",
+      "metadata": {
+        "approval": "not-required",
+        "invocation": "run-1788878413580-2653:mcp-docs",
+        "resultCode": "result-returned",
+        "server": "mcp-demo",
+        "station": "tool-active",
+        "tool": "read_project_docs"
+      },
+      "occurred_at_ms": 1788878415243,
+      "operation_id": "mcp-docs",
+      "outcome": "succeeded",
+      "phase": "finished",
+      "producer_instance": "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3",
+      "profile": "city-writer",
+      "run_id": "run-1788878413580-2653",
+      "schema": "kujo.lifecycle.v1",
+      "task_id": "run-1788878413580-2653:produce-artifact"
+    },
+    {
+      "agent_id": "writer",
+      "attempt": 1,
+      "collection": "unknown",
+      "kind": "handoff",
+      "metadata": {
+        "relatedInstance": "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3:run-1788878413580-2653-handoff-reviewer:reviewer"
+      },
+      "occurred_at_ms": 1788878420851,
+      "operation_id": "reviewer",
+      "outcome": "unset",
+      "phase": "started",
+      "producer_instance": "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3",
+      "profile": "unknown",
+      "related_agent_id": "reviewer",
+      "run_id": "run-1788878413580-2653",
+      "schema": "kujo.lifecycle.v1",
+      "task_id": "run-1788878413580-2653:produce-artifact"
+    },
+    {
+      "agent_id": "reviewer",
+      "attempt": 1,
+      "collection": "unknown",
+      "kind": "agent",
+      "metadata": {
+        "relatedInstance": ""
+      },
+      "occurred_at_ms": 1788878420853,
+      "operation_id": "run",
+      "outcome": "unset",
+      "phase": "started",
+      "producer_instance": "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3",
+      "profile": "city-reviewer",
+      "related_agent_id": "",
+      "run_id": "run-1788878413580-2653-handoff-reviewer",
+      "schema": "kujo.lifecycle.v1",
+      "task_id": "run-1788878413580-2653:produce-artifact"
+    },
+    {
+      "agent_id": "reviewer",
+      "attempt": 1,
+      "collection": "unknown",
+      "kind": "agent",
+      "metadata": {
+        "relatedInstance": ""
+      },
+      "occurred_at_ms": 1788878430708,
+      "operation_id": "run",
+      "outcome": "succeeded",
+      "phase": "finished",
+      "producer_instance": "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3",
+      "profile": "city-reviewer",
+      "related_agent_id": "",
+      "run_id": "run-1788878413580-2653-handoff-reviewer",
+      "schema": "kujo.lifecycle.v1",
+      "task_id": "run-1788878413580-2653:produce-artifact"
+    },
+    {
+      "agent_id": "writer",
+      "attempt": 1,
+      "collection": "unknown",
+      "kind": "handoff",
+      "metadata": {
+        "relatedInstance": "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3:run-1788878413580-2653-handoff-reviewer:reviewer"
+      },
+      "occurred_at_ms": 1788878430709,
+      "operation_id": "reviewer",
+      "outcome": "succeeded",
+      "phase": "finished",
+      "producer_instance": "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3",
+      "profile": "unknown",
+      "related_agent_id": "reviewer",
+      "run_id": "run-1788878413580-2653",
+      "schema": "kujo.lifecycle.v1",
+      "task_id": "run-1788878413580-2653:produce-artifact"
+    },
+    {
+      "agent_id": "writer",
+      "attempt": 1,
+      "collection": "kujo-docs",
+      "kind": "agent",
+      "metadata": {
+        "relatedInstance": ""
+      },
+      "occurred_at_ms": 1788878430764,
+      "operation_id": "run",
+      "outcome": "succeeded",
+      "phase": "finished",
+      "producer_instance": "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3",
+      "profile": "city-writer",
+      "related_agent_id": "",
+      "run_id": "run-1788878413580-2653",
+      "schema": "kujo.lifecycle.v1",
+      "task_id": "run-1788878413580-2653:produce-artifact"
+    },
+    {
+      "agent_id": "writer",
+      "attempt": 1,
+      "capability": "artifact.created",
+      "kind": "internal",
+      "metadata": {
+        "artifactRef": "mission:run-1788878413580-2653:output"
+      },
+      "occurred_at_ms": 1788878430765,
+      "operation_id": "save-reviewed-output",
+      "outcome": "succeeded",
+      "phase": "finished",
+      "producer_instance": "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3",
+      "profile": "city-writer",
+      "run_id": "run-1788878413580-2653",
+      "schema": "kujo.lifecycle.v1",
+      "task_id": "run-1788878413580-2653:produce-artifact"
+    },
+    {
+      "agent_id": "writer",
+      "attempt": 1,
+      "capability": "dispatch.task",
+      "kind": "internal",
+      "metadata": {
+        "taskState": "completed"
+      },
+      "occurred_at_ms": 1788878430965,
+      "operation_id": "task",
+      "outcome": "succeeded",
+      "phase": "finished",
+      "producer_instance": "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3",
+      "run_id": "run-1788878413580-2653",
+      "schema": "kujo.lifecycle.v1",
+      "task_id": "run-1788878413580-2653:produce-artifact"
+    },
+    {
+      "agent_id": "writer",
+      "attempt": 1,
+      "capability": "dispatch.workflow",
+      "kind": "internal",
+      "metadata": {
+        "workflowState": "completed"
+      },
+      "occurred_at_ms": 1788878431309,
+      "operation_id": "workflow-state",
+      "outcome": "unknown",
+      "phase": "finished",
+      "producer_instance": "live-1788878402902-mission-214b52ce-a119-4055-a9ac-a3f0fdf95cd3",
+      "run_id": "run-1788878413580-2653",
+      "schema": "kujo.lifecycle.v1",
+      "task_id": "run-1788878413580-2653:produce-artifact"
+    }
+  ]
+}
