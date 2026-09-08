@@ -1,0 +1,32 @@
+{
+  "received": "2026-09-08",
+  "thread": "01a07eec-2aeb-7410-8945-01770bc25cff",
+  "use": "Visual direction only; no protected sprite extraction or distribution",
+  "references": [
+    {
+      "file": "1-Photo-1.jpg",
+      "sha256": "8f3adb18e603f00fdcd10236bb2c47aa6bf068924872daf42e4f3abe05c099c4",
+      "direction": "Rooftop city, waterways, masonry, compact HUD"
+    },
+    {
+      "file": "2-Photo-2.jpg",
+      "sha256": "c041003ae2fd49112eec1dd4e19033e1921caedc180dff3092e2e8b15f201b54",
+      "direction": "Roster, central world, selected agent and command pane"
+    },
+    {
+      "file": "3-Photo-3.jpg",
+      "sha256": "8f4952f565500cfb8c00f32b21ee9da000e529edf02b8aa067e17fcec5bcb212",
+      "direction": "Industrial multi-level side-view room"
+    },
+    {
+      "file": "4-Photo-4.jpg",
+      "sha256": "c1ca0a75c45df353b5c7746dc8148b4d5501637a4048dae71f16d85a96f36459",
+      "direction": "Meeting furniture and observed conversation framing"
+    },
+    {
+      "file": "5-Photo-5.jpg",
+      "sha256": "7d142c2d54ad9e83f18ce1b18fefc002abc2265b92790190a2fd928d26ac8069",
+      "direction": "Dense Library shelves and knowledge stations"
+    }
+  ]
+}

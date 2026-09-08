@@ -37,6 +37,9 @@ const make = (
   sideview: frames,
 });
 export const appearances: Record<string, Appearance> = {
+  "city-writer": make("writer-v1", 0x388346, 0xc3d89a, "cap"),
+  "city-coder": make("coder-v1", 0xb64b37, 0xeeb371, "headset"),
+  "city-reviewer": make("reviewer-v1", 0x784ca9, 0xc4a7f0, "visor"),
   "local-documentation-worker": make("docs-v1", 0x397dcc, 0x65f2d0, "cap"),
   "local-mcp-worker": make("network-v1", 0x6254c7, 0xffc66d, "headset"),
   "local-eval-invocation": make("verify-v1", 0xbd596a, 0x8ddf8b, "visor"),

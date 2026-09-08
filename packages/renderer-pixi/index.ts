@@ -1,4 +1,5 @@
 import { Application, Container, Graphics, Rectangle } from "pixi.js";
+import { facade, roomShell, roomFloor, plant } from "./scenery";
 import { appearance } from "./appearance";
 import { badge, animationFor, buildingState } from "../world-core/index";
 import type { Presentation, Truth, Scene } from "../world-core/index";
@@ -241,9 +242,9 @@ export class CityRenderer {
         );
         text(
           g,
-          state.operations.length ? "OBSERVED" : "NO SOURCE",
-          o.x + 12,
-          o.y + 68,
+          state.operations.length ? state.sourceHealth : "NO SOURCE",
+          o.x + 8,
+          Math.min(201, o.y + 68),
           state.operations.length ? C.blue : C.gold,
         );
       }
@@ -270,21 +271,19 @@ export class CityRenderer {
         const road = m.cells[y * 16 + x] === 2;
         box(g, x * 16, y * 16, 16, 16, road ? C.road : C.grass);
         if (!road) {
-          box(g, x * 16 + 3, y * 16 + 5, 2, 1, C.teal);
-          box(g, x * 16 + 11, y * 16 + 13, 1, 1, C.teal);
+          box(g, x * 16, y * 16, 16, 16, 0x092b83);
+          for (let dy = 1; dy < 16; dy += 4)
+            for (let dx = 0; dx < 16; dx += 5)
+              box(g, x * 16 + dx, y * 16 + dy, 2, 1, 0x1d50b2);
+        } else {
+          for (const dy of [2, 9]) box(g, x * 16 + 3, y * 16 + dy, 1, 1, 0x414b59);
         }
       }
     for (let x = 16; x < 240; x += 24) box(g, x, 111, 10, 2, C.gold);
     for (const o of m.objects) {
       if (o.kind !== "building") continue;
-      const x = o.x,
-        y = o.y,
-        w = 64,
-        h = 64;
-      box(g, x + 4, y + 4, w, h, C.black);
-      box(g, x, y, w, h, C.ink);
-      box(g, x, y, w, 4, C.teal);
-      box(g, x + 3, y + 5, w - 6, 10, C.black);
+      const x = o.x, y = o.y;
+      facade(g, x, y, o.id);
       const label =
         o.id === "library"
           ? "LIBRARY"
@@ -293,18 +292,7 @@ export class CityRenderer {
             : o.id === "mcp"
               ? "MCP TERMINAL"
               : o.id.toUpperCase();
-      text(g, label, x + 5, y + 8, C.mint);
-      for (let by = 20; by < 55; by += 9)
-        for (let bx = 4; bx < 61; bx += 12)
-          box(g, x + bx + (by % 2 ? 3 : 0), y + by, 9, 1, C.road);
-      for (let bx = 8; bx <= 44; bx += 18) {
-        box(g, x + bx, y + 22, 11, 14, C.black);
-        box(g, x + bx + 2, y + 24, 7, 8, C.blue);
-        box(g, x + bx + 5, y + 24, 1, 8, C.ink);
-      }
-      box(g, x + 26, y + 43, 14, 21, C.black);
-      box(g, x + 28, y + 45, 10, 18, C.teal);
-      box(g, x + 35, y + 53, 2, 2, C.gold);
+      text(g, label, x + 5, y + 27, C.white);
     }
     for (const x of [42, 146, 226]) {
       box(g, x, 118, 12, 4, C.black);
@@ -336,13 +324,7 @@ export class CityRenderer {
       10,
       C.mint,
     );
-    box(g, 8, 24, 240, 154, C.ink);
-    box(g, 8, 25, 240, 3, C.teal);
-    for (let y = 32; y < 158; y += 16)
-      for (let x = 12; x < 244; x += 24) {
-        box(g, x, y, 20, 1, C.road);
-        box(g, x + (y % 32 ? 0 : 12), y, 1, 13, C.road);
-      }
+    roomShell(g);
     if (dispatch || meeting) {
       const labels = dispatch
         ? ["INTAKE", "ASSIGN", "WORKFLOW", "RETRY", "BLOCK", "DONE"]
@@ -393,10 +375,12 @@ export class CityRenderer {
     } else if (library) {
       ["DOCS", "REPO", "RAG", "RUNS", "EXT"].forEach((label, i) => {
         const x = 32 + i * 40;
-        box(g, x, 47, 31, 95, C.black);
+        box(g, x, 47, 31, 95, 0x573f30);
+        box(g, x + 2, 49, 27, 91, C.black);
         text(g, label, x + 5, 38, C.gold);
         for (let y = 54; y < 136; y += 22) {
-          box(g, x + 2, y + 16, 27, 3, C.teal);
+          box(g, x + 2, y + 16, 27, 3, 0x997552);
+          box(g, x + 2, y + 16, 27, 1, 0xc2a072);
           for (let k = 0; k < 6; k++)
             box(
               g,
@@ -481,14 +465,11 @@ export class CityRenderer {
         text(g, "PREFLIGHT", 179, 115, C.gold);
       text(g, "TASK BENCH", 27, 101, C.white);
     }
-    box(g, 8, 178, 240, 12, C.teal);
-    for (let x = 10; x < 244; x += 16) {
-      box(g, x, 180, 12, 3, C.mint);
-      box(g, x + 4, 187, 10, 2, C.road);
-    }
-    box(g, 8, 190, 240, 18, C.black);
+    roomFloor(g);
+    plant(g, 26, 161);
+    plant(g, 229, 161);
     box(g, 10, 140, 13, 37, C.black);
     text(g, "EXIT", 10, 128, C.gold);
-    text(g, "ORIGINAL KUJO PLACEHOLDER ART", 14, 199, C.teal);
+
   }
 }
