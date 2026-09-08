@@ -307,3 +307,15 @@ portal and ladder coordinates remain unchanged. `evidence/cityscape/library.png`
 was visually inspected; typecheck/build and real-history Dojo pixel regression
 passed. The reference-led visual target remains incomplete; this is a room-detail
 pass, not final fidelity approval or new source execution evidence.
+
+## Local preview packaging
+
+`npm run package:local` exports pinned tracked source, includes the host Kujo
+runtime and licenses, excludes runtime/private data and writes an integrity
+manifest. `npm run verify:bundle` verifies the extracted pinned content after npm
+installation. The 15.3 MB darwin/x64 preview was extracted with fresh dependencies;
+its typecheck/build and controlled SDK/Dispatch/RAG/MCP mission contract passed.
+See `evidence/local-bundle/README.md` for artifact digest, revisions and limits.
+This removes the need to manually arrange sibling source checkouts for this
+preview. Node, npm installation and a model remain prerequisites. Default-port
+full startup was not rerun over existing listeners. It is not a qualified release.

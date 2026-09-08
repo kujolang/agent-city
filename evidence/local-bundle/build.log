@@ -1,0 +1,38 @@
+npm warn Unknown user config "python". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+
+> kujo-agent-city@0.2.0-rc.1 build
+> vite build apps/web --outDir ../../dist --emptyOutDir
+
+vite v8.2.2 building client environment for production...
+transforming...
+✓ 792 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                                     1.17 kB │ gzip:  0.47 kB
+dist/assets/characters-SKyRzEzC.png                23.71 kB
+dist/assets/index-CJiyoO8i.css                      7.72 kB │ gzip:  2.34 kB
+dist/assets/webworkerAll-CNdRe5Ui.js                0.05 kB │ gzip:  0.05 kB
+dist/assets/BitmapFont-CjWaf8D-.js                  0.06 kB │ gzip:  0.07 kB
+dist/assets/WebGLRenderer-B6rm0Bss.js               0.07 kB │ gzip:  0.07 kB
+dist/assets/CanvasRenderer-BOM-_cZI.js              0.07 kB │ gzip:  0.08 kB
+dist/assets/WebGPURenderer-Dg3o1MrD.js              0.07 kB │ gzip:  0.08 kB
+dist/assets/getTextureBatchBindGroup-CsmyrjAD.js    0.34 kB │ gzip:  0.26 kB
+dist/assets/CanvasPool-COiMhYSa.js                  0.75 kB │ gzip:  0.42 kB
+dist/assets/Cache-BuXNhdx8.js                       1.09 kB │ gzip:  0.55 kB
+dist/assets/canvasUtils-DAljshvP.js                 6.02 kB │ gzip:  2.02 kB
+dist/assets/BufferResource--GbODnRS.js             11.08 kB │ gzip:  2.85 kB
+dist/assets/init-BoRArt3y.js                       15.61 kB │ gzip:  4.88 kB
+dist/assets/GCManagedHash-B-DCdSrZ.js              19.30 kB │ gzip:  6.27 kB
+dist/assets/init-BEoeNh5U.js                       23.78 kB │ gzip:  8.24 kB
+dist/assets/CanvasRenderer-e_BaLxZ1.js             27.02 kB │ gzip:  7.91 kB
+dist/assets/BitmapFont-vjp8ZqH4.js                 33.40 kB │ gzip: 11.14 kB
+dist/assets/Filter-BLHU92UO.js                     38.91 kB │ gzip: 11.14 kB
+dist/assets/browserAll-9E9Wi4bX.js                 42.67 kB │ gzip: 11.15 kB
+dist/assets/WebGPURenderer-D5MSx_X2.js             45.53 kB │ gzip: 13.06 kB
+dist/assets/RenderTargetSystem-DL3L-0J3.js         57.41 kB │ gzip: 16.18 kB
+dist/assets/GraphicsContext-BFD8ojP-.js            61.26 kB │ gzip: 20.51 kB
+dist/assets/Geometry-BbhY1dpZ.js                   65.66 kB │ gzip: 21.56 kB
+dist/assets/WebGLRenderer-CFFzMqGJ.js              71.38 kB │ gzip: 19.43 kB
+dist/assets/index-DiTLW4FT.js                     237.70 kB │ gzip: 70.65 kB
+
+✓ built in 291ms

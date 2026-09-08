@@ -1,0 +1,6 @@
+npm warn Unknown user config "python". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+
+> kujo-agent-city@0.2.0-rc.1 verify:bundle
+> tsx scripts/verify-bundle.ts
+
+{"checked":1134,"platform":"darwin","arch":"x64","status":"PREVIEW / RELEASE GATES INCOMPLETE"}
