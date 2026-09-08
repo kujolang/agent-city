@@ -46,3 +46,11 @@ Saved focused Agent Notes handoff `bb76acf5-a769-4d02-9062-7d607d9b6e6d` for Lib
 cached graph travel, real upstairs retrieval evidence and current replay pins.
 Linked from the main handoff; exact and conceptual retrieval both passed.
 No duplicate atomic note created. SignalBox: no captures warranted.
+
+## MCP and local tryout continuation
+
+Saved handoff `94eb2733-55fb-441b-b2ae-e01975ec716b`: explicit MCP source-context
+integration, interpreter/SDK adapter fixes, controlled proof scope, startup guide,
+visual comparison and remaining genuine-model/production gaps. Linked from the main
+handoff. Exact retrieval and concept query “Agent City MCP mission” both passed.
+No duplicate atomic note created. SignalBox: no captures warranted.
