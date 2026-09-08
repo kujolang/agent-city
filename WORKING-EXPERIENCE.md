@@ -112,3 +112,25 @@ Current verification: 31 tests, typecheck, boundaries, authored maps and build p
 47-event replay hash unchanged; seven-room browser proof, keyboard setup, 320px
 layout and DOM-only controls pass. ResizeObserver canvas writes are deferred to
 animation frames to avoid resizing during observer delivery.
+
+## Task-aware review and syntax checks
+
+The SDK handoff supplies the draft as child input. City now also explicitly gives
+its reviewer the original user task, so requirements are not discarded at handoff.
+The controlled provider contract verifies the actual second request contains it.
+
+Code artifacts now undergo a bounded Node parser-only check with an empty child
+environment. A single whole-response Markdown code fence is removed; raw model
+responses remain retained separately. No module is imported or executed. A test
+places a file-writing side effect in valid generated code and verifies the file
+is never created; malformed code reports invalid syntax. The output UI separately
+labels syntax status, unrun functional tests, and unverified factual accuracy.
+
+Real-model cohort `evidence/live-missions/live-1788874992421-` again completed both
+missions and the four-instance browser flow. Code mission
+`mission-87c1c628-d48c-4c13-a635-020f8e86857d` returned syntax-valid code after fence
+removal, but still omitted the requested export and has incorrect finite-number
+validation. This is NOT a functional pass. Writing still contains unsupported
+claims. The prior failed/weak attempts remain retained. Current verification:
+33 tests, build and real/controlled runtime proofs pass. Safe functional tests,
+explicit output contracts and stronger grounded review remain open.

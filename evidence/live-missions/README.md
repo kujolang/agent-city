@@ -36,3 +36,12 @@ The fixture-provider recovery/authorization suite is recorded separately in
 No eight-hour test was restarted. All isolated proof services stopped; the
 pre-existing Ollama service was preserved. The working local connection was saved
 privately for the next normal launcher startup.
+
+## Task-aware reviewer / syntax-check continuation
+
+`live-1788874992421-` is a subsequent real-model cohort after preserving the original
+user task in reviewer instructions. Both missions completed; code artifact metadata
+records parser-only validation, fence removal and functional tests NOT RUN.
+The code is syntactically valid but lacks its requested export and has incorrect
+finite-number checks; writing remains unverified. Do not reinterpret parser success
+as code correctness. Raw attempts and responses remain available for comparison.

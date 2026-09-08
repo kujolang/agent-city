@@ -43,7 +43,11 @@ reviewer response and final artifact.
 Execution instances appear when actual work is observed. No decorative workers
 are preconfigured as live agents. The SDK creates the writer/coder and reviewer
 for each mission; profiles are appearances, not interchangeable identities.
-Code artifacts are **saved and reviewed, not executed**. Free-form group chat,
+Code artifacts are **saved and reviewed, not executed**. A parser checks JavaScript
+syntax; this does not run imports, side effects or functional tests. A single
+outer Markdown code fence is removed when present; the original response remains
+in private response history. The output panel states the actual check status.
+Free-form group chat,
 manual character movement and game combat are not implemented.
 
 ## Truth and privacy
