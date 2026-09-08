@@ -1,12 +1,55 @@
 {
   "status": "FAIL",
+  "scope": "Assessment of recorded hardening evidence, not current-build or complete product certification",
   "gates": {
-    "journalThroughput": true,
-    "endToEndStress": false,
-    "eightHourSoak": false,
-    "browser": true,
-    "sourceIndependence": true,
-    "watchdogStoreEpoch": true
+    "journalThroughput": {
+      "status": "PASS",
+      "reason": "Direct journal only: >=1,000 events/s for >=60 seconds, complete count, zero drops."
+    },
+    "endToEndStress": {
+      "status": "FAIL",
+      "reason": "Canonical Watchdog intake through gateway/SSE; short bursts cannot qualify the 60-second gate."
+    },
+    "eightHourSoak": {
+      "status": "NOT_QUALIFIED",
+      "reason": "Cancelled by explicit user instruction. No soak is started, scheduled, or required by this command; long-duration reliability remains unqualified."
+    },
+    "browserMatrix": {
+      "status": "PASS",
+      "reason": "Recorded Chromium DPR, narrow viewport, keyboard, reduced-motion and replay cases; not a blanket browser certification."
+    },
+    "rendererRecovery": {
+      "status": "PASS",
+      "reason": "Recorded context-loss recovery and explicit renderer-init failure DOM fallback."
+    },
+    "browserZoom": {
+      "status": "NOT_QUALIFIED",
+      "reason": "CDP pageScaleFactor evidence does not verify browser UI zoom."
+    },
+    "hiddenTabResume": {
+      "status": "NOT_QUALIFIED",
+      "reason": "No asserted hidden-tab/resume result in the supplied browser report."
+    },
+    "sourceIndependence": {
+      "status": "PASS",
+      "reason": "Actual source operation completed while gateway stopped; does not prove subsequent spool delivery."
+    },
+    "watchdogStoreEpoch": {
+      "status": "PASS",
+      "reason": "Recorded Watchdog canonical telemetry API suite result."
+    }
   },
-  "soakStatus": "STOPPED_BY_USER"
+  "limitations": [
+    "Evidence is historical unless separately rerun against the current build.",
+    "Competing host workloads can affect timings; they do not qualify a failed throughput gate.",
+    "Visual fidelity, model quality, privacy and complete product acceptance require separate evidence."
+  ],
+  "evidencePaths": {
+    "stress": "evidence/blockers/stress.json",
+    "browser": "evidence/hardening/browser.json",
+    "recovery": "evidence/hardening/recovery.json",
+    "pipeline": "evidence/blockers/pipeline.json",
+    "continuity": "evidence/blockers/watchdog-continuity.log"
+  },
+  "evidenceErrors": {}
 }

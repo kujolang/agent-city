@@ -1,47 +1,38 @@
 import { readFile, writeFile } from "node:fs/promises";
-const read = async (path: string) => JSON.parse(await readFile(path, "utf8"));
-const stress = await read("evidence/blockers/stress.json"),
-  browser = await read("evidence/hardening/browser.json"),
-  recovery = await read("evidence/hardening/recovery.json"),
-  pipeline = await read("evidence/blockers/pipeline.json");
-let soak: any = { status: "NOT_RUN" };
-try {
-  soak = await read(".runtime/soak-latest.json");
-} catch {}
-const continuity = await readFile(
-  "evidence/blockers/watchdog-continuity.log",
-  "utf8",
-);
-const gates = {
-  journalThroughput:
-    stress.eventsPerSecond >= 1000 &&
-    stress.dropped === 0 &&
-    stress.accepted >= 60000,
-  endToEndStress:
-    pipeline.visibleEventsPerSecond >= 1000 &&
-    pipeline.missing === 0 &&
-    pipeline.duplicates === 0 &&
-    pipeline.accepted >= 60000,
-  eightHourSoak:
-    soak.status === "COMPLETED" &&
-    soak.totalSeconds >= 28800 &&
-    soak.accepted >= 144000 &&
-    soak.missing === 0 &&
-    soak.browserCaughtUp === true &&
-    !soak.sampleError &&
-    soak.maxSampleGapMs < 120000,
-  browser: browser.errors.length === 0 && browser.cases.length === 3,
-  sourceIndependence: recovery.realOperation?.exitCode === 0,
-  watchdogStoreEpoch: continuity.trim() === "telemetry_v2_api_suite: PASS",
+import { assessRelease } from "./release-assessment.ts";
+const paths = {
+  stress: "evidence/blockers/stress.json",
+  browser: "evidence/hardening/browser.json",
+  recovery: "evidence/hardening/recovery.json",
+  pipeline: "evidence/blockers/pipeline.json",
+  continuity: "evidence/blockers/watchdog-continuity.log",
 };
+const input: Record<string, any> = {};
+const evidenceErrors: Record<string, string> = {};
+for (const [key, path] of Object.entries(paths)) {
+  try {
+    const raw = await readFile(path, "utf8");
+    const value = key === "continuity" ? raw : JSON.parse(raw);
+    if (
+      key !== "continuity" &&
+      (!value || typeof value !== "object" || Array.isArray(value))
+    )
+      throw new Error("Expected an evidence object");
+    input[key] = value;
+  } catch (error) {
+    evidenceErrors[key] =
+      error instanceof Error ? error.message : String(error);
+  }
+}
 const result = {
-  status: Object.values(gates).every(Boolean) ? "PASS" : "FAIL",
-  gates,
-  soakStatus: soak.status,
+  ...assessRelease(input),
+  evidencePaths: paths,
+  evidenceErrors,
 };
 await writeFile(
   "evidence/blockers/release-gates.json",
-  JSON.stringify(result, null, 2),
+  JSON.stringify(result, null, 2) + "\n",
 );
 console.log(JSON.stringify(result));
+// Both failures and missing qualification must remain non-green for automation.
 process.exitCode = result.status === "PASS" ? 0 : 1;
