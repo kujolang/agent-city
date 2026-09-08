@@ -174,3 +174,23 @@ Current replay command: `npm run replay -- evidence/world-levels/replay.json`;
 its semantic hash remains unchanged. Older pinned bundles are preserved.
 The original-reference visual target is still not complete, particularly characters
 and city variation. No soak restarted; no sibling source changes.
+
+## Explicit MCP read and local tryout guide
+
+Mission Command now offers an opt-in read of the existing local MCP demo README.
+The SDK registered tool performs the actual read before the provider request;
+its returned source reaches both writer and reviewer. This is an explicit user
+request, not an autonomous model-selected tool invocation. Lifecycle metadata
+preserves actual server/tool/invocation/attempt/outcome and excludes the source body.
+
+The controlled provider contract passes with a real isolated MCP server and RAG;
+this new MCP path still needs a genuine-model visual proof. Two local adapter
+issues were fixed without sibling changes: interpreter `has_key` can return an
+integer, and registered handler closure mutation cannot be used to return source
+content to the caller. Use the SDK tool result instead. Source success is retained
+even if later mission processing fails.
+
+`TRY-AGENT-CITY.md` provides startup, model setup and small writing/function-check
+examples. Current screenshots were inspected against the supplied references:
+the art is still materially simpler, and direct player controls/free-form chat are
+not implemented. The full objective and production release remain incomplete.
