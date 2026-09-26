@@ -1,3 +1,4 @@
+import { readCheckpoint, answerCheckpoint } from "./checkpoint";
 import { validateModelConfig, type ModelConfig } from "./config";
 import { validateFunctionContract } from "./function-check";
 import { missionDetails, continuationContext } from "./mission-context";
@@ -172,7 +173,15 @@ const server = createServer(async (req, res) => {
       } catch (e: any) {
         if (e.code !== "ENOENT") throw e;
       }
-      return send(200, { id, records: rows, recordingComplete: complete });
+      return send(200, {
+        id,
+        records: rows,
+        recordingComplete: complete,
+        checkpoint:
+          jobs.find((j) => j.id === id)?.status === "running"
+            ? await readCheckpoint(resolve(missionsRoot, id))
+            : null,
+      });
     }
     if (req.method === "GET" && req.url?.startsWith("/control/artifact/")) {
       const id = req.url.slice("/control/artifact/".length);
@@ -226,7 +235,9 @@ const server = createServer(async (req, res) => {
     }
     if (
       req.method !== "POST" ||
-      !["/control/missions", "/control/config"].includes(req.url || "")
+      !["/control/missions", "/control/config", "/control/reply"].includes(
+        req.url || "",
+      )
     )
       return send(404, { error: "Not found" });
     if (
@@ -240,6 +251,33 @@ const server = createServer(async (req, res) => {
         error: "Mission history storage is unavailable; commands stopped",
       });
     await reconcile();
+    if (req.url === "/control/reply") {
+      let body = "";
+      for await (const bytes of req) {
+        body += bytes;
+        if (Buffer.byteLength(body) > 12_000)
+          return send(413, { error: "Reply too large" });
+      }
+      try {
+        const data = JSON.parse(body);
+        const job = jobs.find(
+          (j) => j.id === data.missionId && j.status === "running",
+        );
+        if (!job)
+          return send(409, { error: "No running mission with this identity" });
+        await answerCheckpoint(
+          resolve(missionsRoot, job.id),
+          data.checkpointId,
+          data.answer,
+        );
+        return send(200, { accepted: true });
+      } catch {
+        return send(409, {
+          error:
+            "Reply invalid, already submitted, expired, or mission no longer waiting",
+        });
+      }
+    }
     if (active || submitting || jobs.some((j) => j.status === "unknown"))
       return send(409, {
         error: "A mission is running or awaiting source recovery",
@@ -366,6 +404,7 @@ const server = createServer(async (req, res) => {
           env: {
             ...process.env,
             CITY_MISSION_ID: id,
+            CITY_CHECKINS: data.allowCheckins === true ? "1" : "0",
             CITY_FUNCTION_CONTRACT_FILE: contractFile,
             CITY_CONTEXT_FILE: contextFile,
             CITY_USE_RAG: data.useLocalDocs === true ? "1" : "0",

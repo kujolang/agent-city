@@ -10,7 +10,9 @@ from src.tools.tool import register_default_tools
 worker := create_agent("city-worker", "Mission worker", "Produce and review requested artifact", "Configured provider mission", {}, [], [], {"type": "dict"}, {})
 workflow := create_workflow({"id": "agent-city-mission", "name": "Agent City writing/code mission", "description": "Actual Dispatch-owned mission state", "memory_config": {}, "default_retry_policy": {}, "agents": {}, "tools": [], "steps": [create_step("produce-artifact", "Produce reviewed artifact", "agent", {"agent_id": "city-worker", "output_key": "artifact"})], "input_schema": {"type": "dict"}, "output_schema": {"type": "dict"}, "approval_config": {"auto_approve": true}})
 handler := func(agent, input, state, tools, context) {
-    result := spawn_process([env_or("KUJO_BIN", "kujo"), "run", env_or("CITY_SDK_EXAMPLE", "examples/agent_city_observer.kujo"), "--interpreter"], {"cwd": env_or("CITY_SDK_ROOT", "../agents-sdk"), "inherit_env": true, "env": {"CITY_ATTEMPT": to_string(context["attempt"]), "CITY_RUN": state["run_id"], "CITY_TASK": state["run_id"] + ":" + context["step_id"]}, "timeout_ms": 220000, "max_output_bytes": 65536})
+    limit := 220000
+    if env_or("CITY_CHECKINS", "0") == "1" { limit = 1180000 }
+    result := spawn_process([env_or("KUJO_BIN", "kujo"), "run", env_or("CITY_SDK_EXAMPLE", "examples/agent_city_observer.kujo"), "--interpreter"], {"cwd": env_or("CITY_SDK_ROOT", "../agents-sdk"), "inherit_env": true, "env": {"CITY_ATTEMPT": to_string(context["attempt"]), "CITY_RUN": state["run_id"], "CITY_TASK": state["run_id"] + ":" + context["step_id"]}, "timeout_ms": limit, "max_output_bytes": 65536})
     if result.success == false { return {"ok": false, "error": {"code": "sdk_failed", "message": "SDK child failed", "retryable": false}} }
     return {"ok": true, "data": {"sdk_run": state["run_id"], "task": "produce-artifact", "artifact": "created"}}
 }

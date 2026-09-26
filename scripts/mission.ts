@@ -127,6 +127,7 @@ const child = spawn(
       CITY_PROMPT_FILE: resolve(dir, "task.txt"),
       CITY_OUTPUT_FILE: output,
       CITY_EXCHANGE_FILE: resolve(dir, "exchanges.jsonl"),
+      CITY_CHECKPOINT_DIR: dir,
       CITY_SPOOL: resolve(
         root,
         process.env.CITY_RUNTIME_DIR || ".runtime",
@@ -156,7 +157,10 @@ const stop = () => {
 };
 process.once("SIGINT", stop);
 process.once("SIGTERM", stop);
-const timer = setTimeout(stop, 240_000);
+const timer = setTimeout(
+  stop,
+  process.env.CITY_CHECKINS === "1" ? 1_200_000 : 240_000,
+);
 const code = await new Promise<number | null>((ok, fail) => {
   child.once("exit", ok);
   child.once("error", fail);
@@ -179,7 +183,9 @@ if (code === 0 && kind === "kujo") {
     .split("\n")
     .filter(Boolean)
     .map((line) => JSON.parse(line));
-  const author = exchanges.find((entry) => entry.agent === "coder");
+  const author = exchanges.findLast(
+    (entry) => entry.agent === "coder" && entry.kind === "model.response",
+  );
   if (typeof author?.content !== "string")
     throw Error("Kujo author response unavailable");
   const fence = /^\s*```(?:kujo)?\s*\n([\s\S]*?)\n```\s*$/.exec(author.content);

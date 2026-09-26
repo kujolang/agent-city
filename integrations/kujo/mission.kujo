@@ -86,6 +86,11 @@ if kind == "code" {
         review = review + required + "\nThe final artifact MUST retain the required named export, including when revising an earlier function without one."
     }
 }
+if env_or("CITY_CHECKINS", "0") == "1" {
+    checkin_rule := "\nIf you need the user to clarify a requirement or decide about a concern before continuing, return ONLY a JSON object with one key cityQuestion containing your actual question (maximum 8192 characters). Do not include an artifact with a question. You may ask at most two questions per role. After the user's reply, continue the task. Otherwise return the normal requested output."
+    instructions = instructions + checkin_rule
+    review = review + checkin_rule
+}
 response_counts := {}
 adapter := create_ai_sdk_adapter({"chat_completion_fn": func(client, messages, options) {
     context_messages := []
@@ -117,6 +122,8 @@ adapter := create_ai_sdk_adapter({"chat_completion_fn": func(client, messages, o
     key := env_or("CITY_MODEL_API_KEY", "")
     if key != "" { headers["Authorization"] := "Bearer " + key }
     try {
+        for turn in range(3) {
+        answered_question := false
         wire := http_request(endpoint, {"method": "POST", "headers": headers, "body": to_json({"model": model, "messages": messages, "stream": false, "max_tokens": 2048}), "timeout": 90, "redirects": "none", "max_response_bytes": 262144})
         match wire {
             case Ok(response): {
@@ -134,11 +141,36 @@ adapter := create_ai_sdk_adapter({"chat_completion_fn": func(client, messages, o
                         evidence := {"schema":"agent-city.exchange.v1", "producer":env_or("CITY_PRODUCER", ""), "run":author_run, "agent":author, "requestOrdinal":ordinal, "occurredAtMs":current_timestamp(), "kind":"model.response", "content":content}
                         try { append_file(env_or("CITY_EXCHANGE_FILE", ""), to_json(evidence)+"\n") }
                         except exchange_error { try { write_file(env_or("CITY_EXCHANGE_FILE", "")+".gap", "output-recording-failed", true) } except ignored { } }
-                        return {"ok": true, "status_code": 200, "model": model, "output_text": content}
+                        question := ""
+                        if env_or("CITY_CHECKINS", "0") == "1" {
+                            try {
+                                parsed := parse_json(content)
+                                if has_key(parsed, "cityQuestion") && type(parsed["cityQuestion"]) == "string" { question = trim(parsed["cityQuestion"]) }
+                            } except not_question { }
+                        }
+                        if question != "" {
+                            if turn >= 2 || len(question) > 8192 { return {"ok":false,"error":{"code":"checkin_limit","message":"Check-in limit reached"}} }
+                            checkpoint_id := author+"-"+to_string(ordinal)
+                            checkpoint_dir := env_or("CITY_CHECKPOINT_DIR", "")
+                            deadline := current_timestamp()+180000
+                            write_file(checkpoint_dir+"/checkpoint.json", to_json({"id":checkpoint_id,"question":question,"agent":author,"run":author_run,"producer":env_or("CITY_PRODUCER", ""),"deadline":deadline}), true)
+                            answer_file := checkpoint_dir+"/answer-"+checkpoint_id+".json"
+                            while !file_exists(answer_file) && current_timestamp() < deadline { sleep(250) }
+                            if !file_exists(answer_file) { return {"ok":false,"error":{"code":"checkin_expired","message":"User check-in expired after three minutes"}} }
+                            answer := parse_json(read_file(answer_file))["answer"]
+                            append_file(env_or("CITY_EXCHANGE_FILE", ""), to_json({"schema":"agent-city.exchange.v1","producer":env_or("CITY_PRODUCER", ""),"run":author_run,"agent":author,"requestOrdinal":ordinal,"occurredAtMs":current_timestamp(),"kind":"user.reply","content":answer})+"\n")
+                            messages = push(messages, {"role":"assistant","content":content})
+                            messages = push(messages, {"role":"user","content":answer})
+                            answered_question = true
+                        } else {
+                            return {"ok": true, "status_code": 200, "model": model, "output_text": content}
+                        }
                     }
                 }
             }
             case Err(error): { return {"ok": false, "error": {"code": "provider_unavailable", "message": "Model request failed"}} }
+        }
+        if !answered_question { return {"ok":false,"error":{"code":"provider_no_output","message":"Model returned no usable text"}} }
         }
     } except err { return {"ok": false, "error": {"code": "provider_invalid_response", "message": "Model response could not be read"}} }
     return {"ok": false, "error": {"code": "provider_no_output", "message": "Model returned no usable text"}}
