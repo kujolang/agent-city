@@ -1,3 +1,6 @@
+import { replaySchedule } from "./playback";
+import { mountRecording } from "./recording";
+import type { ReplayBundle } from "../../packages/world-core/replay";
 import { portrait } from "./portraits";
 import { mountMissions } from "./missions";
 import { archiveUI } from "./archive";
@@ -35,7 +38,20 @@ rosterRail.append(rosterHeading, filterLabel, $("#roster"));
 $("main").prepend(rosterRail);
 $("main > section").classList.add("world-column");
 $("main > aside:last-child").classList.add("inspector-rail");
-const missions = mountMissions($(".world-column"));
+const missions = mountMissions($(".world-column"), (id) => {
+  missionToFollow = id;
+  maybeFollowMission();
+});
+let missionToFollow: string | null = null;
+let replayBundle: ReplayBundle | null = null,
+  replayTicks: number[] = [],
+  replayCursor = 0,
+  replayTick = 0;
+const playback = document.createElement("div");
+playback.className = "playback-controls";
+playback.innerHTML = `<button id="replay-restart" disabled>Restart replay</button><span id="replay-position" role="status"></span>`;
+$(".world").append(playback);
+mountRecording(playback);
 matchMedia("(prefers-reduced-motion: reduce)").addEventListener(
   "change",
   (event) => {
@@ -61,12 +77,31 @@ let truth = initialTruth(),
   inspectedBuilding: Scene | null = null,
   rosterFilter = "all";
 const renderer = new CityRenderer();
-const choose = (id: string) => {
+const choose = (id: string, automatic = false) => {
+  if (!automatic) missionToFollow = null;
   selected = id;
   renderer.selected = id;
+  renderer.follow = id;
+  inspectedBuilding = null;
   renderDOM();
 };
+function maybeFollowMission() {
+  if (!missionToFollow || replayMode) return;
+  const candidates = Object.values(truth.agents).filter(
+    (a) =>
+      a.run.namespace.endsWith(missionToFollow!) &&
+      Object.values(a.operations).some(
+        (o) => o.capability === "agent.run" && o.status === "running",
+      ),
+  );
+  // A restored page only picks an unambiguous currently running execution.
+  if (candidates.length === 1) {
+    choose(candidates[0].id, true);
+    missionToFollow = null;
+  }
+}
 function building(id: string) {
+  missionToFollow = null;
   renderer.follow = null;
   renderer.scene = id as Scene;
   inspectedBuilding = id === "city" ? null : (id as Scene);
@@ -95,7 +130,7 @@ try {
         Math.min(
           3,
           Math.floor($("#canvas").clientWidth / 256),
-          Math.max(1, Math.floor((innerHeight - 170) / 240)),
+          Math.max(1, Math.floor((innerHeight - 420) / 240)),
         ),
       );
       const canvas = $("#canvas canvas");
@@ -341,6 +376,7 @@ $("#filter").onchange = (e) => {
   renderDOM();
 };
 $("#follow").onclick = () => {
+  missionToFollow = null;
   if (selected) {
     renderer.follow = renderer.follow ? null : selected;
     if (renderer.follow) {
@@ -399,6 +435,7 @@ async function connect() {
   // A delayed response must never replace a newer connection or pinned replay.
   if (!current()) return;
   truth = snap.truth;
+  maybeFollowMission();
   events = snap.recent ?? [];
   health = snap.sourceHealth.status;
   lastGateway = performance.now();
@@ -427,6 +464,16 @@ async function connect() {
       truth = reduceTruth(truth, e);
       presentation = plan(presentation, e);
       events = [...events, e].slice(-2000);
+      if (
+        missionToFollow &&
+        "instance" in e &&
+        e.source.endsWith(missionToFollow) &&
+        e.operation.capability === "agent.run" &&
+        e.type === "operation.started"
+      ) {
+        choose(e.instance, true);
+        missionToFollow = null;
+      }
       if (!document.hidden) renderDOM();
     } catch {
       health = "UNKNOWN";
@@ -488,11 +535,34 @@ setInterval(async () => {
 }, 1000);
 setInterval(() => {
   if (document.hidden) return;
-  if (!paused) presentation = advance(presentation, truth);
+  if (!paused) {
+    if (replayMode && replayBundle) {
+      while (
+        replayCursor < replayBundle.events.length &&
+        replayTicks[replayCursor] <= replayTick
+      ) {
+        const e = replayBundle.events[replayCursor++];
+        truth = reduceTruth(truth, e);
+        presentation = plan(presentation, e);
+        events.push(e);
+        if (!selected && "instance" in e) choose(e.instance);
+      }
+      replayTick++;
+      $("#replay-position").textContent =
+        `REPLAY · ${replayCursor}/${replayBundle.events.length} events · long gaps shortened`;
+    }
+    presentation = advance(presentation, truth);
+  }
   if (renderer.follow) {
     const a = truth.agents[renderer.follow],
       w = presentation.walkers[renderer.follow];
-    if (followComplete(w, a)) renderer.follow = null;
+    if (
+      (!replayMode ||
+        !replayBundle ||
+        replayCursor === replayBundle.events.length) &&
+      followComplete(w, a)
+    )
+      renderer.follow = null;
   }
   if (rendererReady) {
     try {
@@ -510,33 +580,46 @@ setInterval(() => {
   }
   if (presentation.tick % 4 === 0) renderDOM();
 }, 50);
-archiveUI(
-  $("#archive-body"),
-  (bundle) => {
-    replayMode = true;
-    missions.setReplay(true);
-    disconnect();
-    truth = bundle.snapshot;
-    events = bundle.events;
-    presentation = initialPresentation();
-    for (const e of events) presentation = plan(presentation, e);
-    health = "REPLAY";
-    selected = null;
-    renderer.selected = null;
-    renderer.follow = null;
-    rosterKey = operationKey = evidenceKey = "";
+function startReplay(bundle: ReplayBundle) {
+  replayMode = true;
+  missions.setReplay(true);
+  disconnect();
+  replayBundle = bundle;
+  replayTicks = replaySchedule(bundle.events);
+  replayCursor = replayTick = 0;
+  truth = initialTruth();
+  events = [];
+  presentation = initialPresentation();
+  health = "REPLAY";
+  selected = null;
+  renderer.selected = null;
+  renderer.follow = null;
+  renderer.scene = "city";
+  inspectedBuilding = null;
+  paused = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  ($("#replay-restart") as HTMLButtonElement).disabled = false;
+  rosterKey = operationKey = evidenceKey = "";
+  renderDOM();
+  $(".world").scrollIntoView({ block: "start", behavior: "instant" });
+}
+$("#replay-restart").onclick = () => {
+  if (replayBundle) startReplay(replayBundle);
+};
+archiveUI($("#archive-body"), startReplay, () => {
+  replayMode = false;
+  replayBundle = null;
+  missions.setReplay(false);
+  ($("#replay-restart") as HTMLButtonElement).disabled = true;
+  $("#replay-position").textContent = "";
+  renderer.follow = null;
+  selected = null;
+  renderer.selected = null;
+  presentation = initialPresentation();
+  void connect().catch(() => {
+    health = "STALE";
     renderDOM();
-  },
-  () => {
-    replayMode = false;
-    missions.setReplay(false);
-    presentation = initialPresentation();
-    void connect().catch(() => {
-      health = "STALE";
-      renderDOM();
-    });
-  },
-);
+  });
+});
 document.addEventListener("visibilitychange", () => {
   if (!document.hidden && !replayMode) {
     presentation = initialPresentation();

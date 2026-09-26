@@ -1,4 +1,7 @@
-export function mountMissions(host: HTMLElement) {
+export function mountMissions(
+  host: HTMLElement,
+  onMission: (id: string) => void = () => {},
+) {
   const panel = document.createElement("section");
   panel.className = "mission-panel";
   panel.innerHTML = `<h2>MISSION COMMAND</h2><p id="mission-status" role="status">Checking model connection…</p>
@@ -10,6 +13,7 @@ export function mountMissions(host: HTMLElement) {
     <button type="submit">Save connection</button></form></details>
     <p id="continuation-status" role="status">New mission</p><button id="clear-continuation" type="button" hidden>Cancel follow-up</button>
     <form id="mission-form"><label>Task type <select name="kind"><option value="writing">Writing + review</option><option value="code">JavaScript + review</option><option value="kujo">Kujo + senior review (real MCP)</option></select></label>
+    <label><input type="checkbox" name="allowCheckins" checked> Allow agent questions (reply within 3 minutes)</label>
     <label><input type="checkbox" name="useLocalDocs"> Use indexed local Kujo docs</label>
     <label><input type="checkbox" name="useMcpDocs"> Read local MCP demo README</label>
     <label>Task <textarea name="prompt" rows="3" maxlength="16384" required placeholder="Describe the small task you want the agents to complete."></textarea></label>
@@ -18,6 +22,104 @@ export function mountMissions(host: HTMLElement) {
     <p class="muted">Sends your task to the configured model. The SDK hands the draft to a reviewer. Code runs only when explicit function cases are supplied, in an isolated browser without host integrations.</p>
     <div id="mission-jobs" aria-label="Mission history"></div><pre id="mission-exchanges" tabindex="0" aria-label="Observed agent responses"></pre><pre id="mission-artifact" tabindex="0" aria-label="Selected mission output"></pre>`;
   host.querySelector(".world")!.after(panel);
+  const chat = document.createElement("section");
+  chat.className = "game-conversation";
+  chat.setAttribute("aria-label", "Mission conversation");
+  chat.innerHTML = `<h2>MISSION CONVERSATION</h2><p id="conversation-state" role="status">Start or select a mission to see actual model responses.</p><div id="speech-bubbles" role="log" aria-label="Recorded conversation"></div><form id="reply-form" hidden><label>Your reply <textarea name="answer" rows="2" maxlength="8192" required></textarea></label><button>Reply / continue</button></form>`;
+  host.querySelector(".world")!.append(chat);
+  const bubbles = chat.querySelector<HTMLElement>("#speech-bubbles")!;
+  const chatStatus = chat.querySelector<HTMLElement>("#conversation-state")!;
+  const replyForm = chat.querySelector<HTMLFormElement>("#reply-form")!;
+  let selectedJobStatus = "unknown";
+  let selectedMission: string | null = null,
+    checkpointId: string | null = null,
+    conversationKey = "",
+    chatBusy = false;
+  async function refreshConversation() {
+    if (!selectedMission || replay || chatBusy) return;
+    const id = selectedMission;
+    chatBusy = true;
+    try {
+      const response = await fetch(
+        "/control/exchanges/" + encodeURIComponent(id),
+      );
+      if (!response.ok) throw Error();
+      const data = await response.json();
+      if (replay || id !== selectedMission) return;
+      const key = JSON.stringify(data.records);
+      if (key !== conversationKey) {
+        conversationKey = key;
+        bubbles.replaceChildren(
+          ...data.records.map((entry: any) => {
+            const bubble = document.createElement("article");
+            bubble.className =
+              "speech-bubble" +
+              (entry.kind === "user.reply" ? " user-bubble" : "");
+            const label = document.createElement("strong");
+            label.textContent =
+              entry.kind === "user.reply"
+                ? "YOU · recorded reply"
+                : `${entry.agent} · actual model response`;
+            const identity = document.createElement("small");
+            identity.textContent = `${entry.producer}:${entry.run}:${entry.agent}`;
+            const text = document.createElement("pre");
+            let content = entry.content;
+            try {
+              const parsed = JSON.parse(content);
+              if (typeof parsed.cityQuestion === "string")
+                content = parsed.cityQuestion;
+            } catch {}
+            text.textContent = content;
+            bubble.append(label, identity, text);
+            return bubble;
+          }),
+        );
+        bubbles.scrollTop = bubbles.scrollHeight;
+      }
+      checkpointId = data.checkpoint?.id ?? null;
+      replyForm.hidden = !checkpointId;
+      chatStatus.textContent = data.checkpoint
+        ? `WAITING FOR YOU · ${data.checkpoint.agent} · reply by ${new Date(data.checkpoint.deadline).toLocaleTimeString()}`
+        : `Mission ${id.slice(-8)} · ${selectedJobStatus.toUpperCase()} · ${data.recordingComplete ? "Recorded responses" : "Partial / unknown response coverage"} · no question pending`;
+    } catch {
+      checkpointId = null;
+      replyForm.hidden = true;
+      chatStatus.textContent =
+        "Conversation unavailable. No dialogue inferred.";
+    } finally {
+      chatBusy = false;
+    }
+  }
+  replyForm.onsubmit = async (event) => {
+    event.preventDefault();
+    if (replay || !selectedMission || !checkpointId) return;
+    const button = replyForm.querySelector("button")!;
+    button.disabled = true;
+    try {
+      const response = await fetch("/control/reply", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-City-Command-Token": token,
+        },
+        body: JSON.stringify({
+          missionId: selectedMission,
+          checkpointId,
+          answer: new FormData(replyForm).get("answer"),
+        }),
+      });
+      if (!response.ok) throw Error((await response.json()).error);
+      replyForm.reset();
+      replyForm.hidden = true;
+      checkpointId = null;
+      chatStatus.textContent =
+        "Reply accepted. Waiting for the agent's next actual response.";
+    } catch (error) {
+      chatStatus.textContent = String(error);
+    } finally {
+      button.disabled = false;
+    }
+  };
   const form = panel.querySelector<HTMLFormElement>("#mission-form")!;
   const modelForm = panel.querySelector<HTMLFormElement>("#model-form")!;
   const submit = form.querySelector("button")!;
@@ -51,6 +153,17 @@ export function mountMissions(host: HTMLElement) {
       if (!response.ok) throw Error();
       const data = await response.json();
       token = data.token;
+      if (!selectedMission && !replay) {
+        const running = data.jobs.find((j: any) => j.status === "running");
+        if (running) {
+          selectedMission = running.id;
+          onMission(running.id);
+          void refreshConversation();
+        }
+      }
+      selectedJobStatus =
+        data.jobs.find((j: any) => j.id === selectedMission)?.status ??
+        "unknown";
       if (!pending)
         status.textContent = data.configured
           ? `MODEL / ${data.model}${data.jobs.some((j: any) => j.status === "unknown") ? " · Recovery pending / UNKNOWN" : data.busy ? " · Mission service busy" : " · Configured"}`
@@ -83,6 +196,12 @@ export function mountMissions(host: HTMLElement) {
           button.textContent = `${job.kind} / ${job.status} / ${job.id.slice(-8)}${job.parentMissionId ? " · follows " + job.parentMissionId.slice(-8) : ""}`;
 
           button.onclick = async () => {
+            if (!replay) {
+              selectedMission = job.id;
+              conversationKey = "";
+              void refreshConversation();
+              onMission(job.id);
+            }
             try {
               let requestText = "USER REQUEST UNAVAILABLE";
               if (["completed", "failed"].includes(job.status)) {
@@ -236,6 +355,7 @@ export function mountMissions(host: HTMLElement) {
         body: JSON.stringify({
           kind: parent?.kind || fields.get("kind"),
           prompt: fields.get("prompt"),
+          allowCheckins: fields.has("allowCheckins"),
           useLocalDocs: fields.has("useLocalDocs"),
           useMcpDocs: fields.has("useMcpDocs"),
           ...(contract ? { functionContract } : {}),
@@ -246,7 +366,16 @@ export function mountMissions(host: HTMLElement) {
       status.textContent = response.ok
         ? `Mission accepted: ${result.id}`
         : result.error;
-      if (response.ok) clearParent();
+      if (response.ok) {
+        selectedMission = result.id;
+        conversationKey = "";
+        onMission(result.id);
+        clearParent();
+        void refreshConversation();
+        host
+          .querySelector(".world")!
+          .scrollIntoView({ block: "start", behavior: "instant" });
+      }
     } catch {
       status.textContent =
         "Submission response unavailable. Check mission history before retrying.";
@@ -285,11 +414,21 @@ export function mountMissions(host: HTMLElement) {
   };
   void refresh();
   setInterval(() => {
-    if (!document.hidden && !pending) void refresh();
+    if (!document.hidden && !pending) {
+      void refresh();
+      void refreshConversation();
+    }
   }, 3000);
   return {
     setReplay(value: boolean) {
       replay = value;
+      replyForm.hidden = true;
+      if (value) {
+        bubbles.replaceChildren();
+        conversationKey = "";
+        chatStatus.textContent =
+          "REPLAY · normalized metadata only; live conversation hidden and replies disabled.";
+      } else void refreshConversation();
       submit.disabled = true;
       modelForm.querySelector("button")!.disabled = value;
       void refresh();
