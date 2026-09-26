@@ -477,8 +477,8 @@
   "socialVideo": {
     "file": "agent-city-kujo-tour-social.mp4",
     "source": "agent-city-kujo-tour.mp4",
-    "trimStartSeconds": 8.5,
-    "durationSeconds": 85.4,
+    "trimStartSeconds": 8.6,
+    "durationSeconds": 85.3,
     "edit": "Starts on the Workshop interior; otherwise unchanged chronology and speed",
     "canvasOnly": true,
     "audio": false

@@ -28,8 +28,8 @@ TypeScript verification passed. No application behavior or sibling repositories 
 
 ## Social cut
 
-`agent-city-kujo-tour-social.mp4` removes the opening 8.5 seconds to start directly on
+`agent-city-kujo-tour-social.mp4` removes the opening 8.6 seconds to start directly on
 an agent inside the Workshop leaving for the city. At exactly 8.0 seconds the exported
-capture still showed the city; the 8.5-second cut matches the requested room opening.
-Duration:85.4 seconds. All remaining footage stays in order at normal speed. Original
+capture still showed the city; the 8.6-second cut matches the requested room opening.
+Duration:85.3 seconds. All remaining footage stays in order at normal speed. Original
 MP4 and source recording retained. Opening frame inspected and full decode verified.
