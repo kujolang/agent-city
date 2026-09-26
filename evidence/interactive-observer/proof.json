@@ -1,0 +1,18 @@
+{
+  "status": "PASS",
+  "model": "synthetic question fixture (not live-model product proof)",
+  "runtime": "actual Dispatch and Kujo SDK",
+  "mission": "mission-a6b2c741-bcee-4524-bbe8-6c82c1ead808",
+  "replyForwarded": true,
+  "providerCalls": 3,
+  "unauthorizedReply": 403,
+  "replaySource": "retained real Phase 1 observations",
+  "replayScenes": [
+    "workshop",
+    "city",
+    "mcp"
+  ],
+  "replayReadOnly": true,
+  "video": "replay.webm",
+  "browserErrors": []
+}

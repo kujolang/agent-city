@@ -1,0 +1,17 @@
+{
+  "status": "PASS",
+  "mission": "mission-6b682559-39b4-4851-a3d5-5821204157d3",
+  "model": "codex-cli-default",
+  "runtime": "real Dispatch / Kujo SDK / public Kujo MCP / Codex ChatGPT text adapter",
+  "actualQuestion": "{\"cityQuestion\":\"Which two numbers should the Kujo script add?\"}",
+  "reply": "Use 2 and 3.",
+  "reviewerObserved": true,
+  "syntax": "valid",
+  "codeExecuted": false,
+  "automaticScenes": [
+    "city",
+    "workshop",
+    "mcp"
+  ],
+  "browserErrors": []
+}

@@ -40,7 +40,9 @@
     "proof:mission-browser": "tsx scripts/mission-browser.ts",
     "doctor": "tsx scripts/doctor.ts",
     "package:local": "tsx scripts/package-local.ts",
-    "verify:bundle": "tsx scripts/verify-bundle.ts"
+    "verify:bundle": "tsx scripts/verify-bundle.ts",
+    "proof:interaction": "tsx scripts/interaction-proof.ts",
+    "proof:checkin-live": "tsx scripts/checkin-live-proof.ts"
   },
   "dependencies": {
     "ajv": "8.20.0",

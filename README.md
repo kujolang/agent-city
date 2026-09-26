@@ -187,3 +187,42 @@ Release qualification currently **FAILS**. See [bounded blocker update](RELEASE-
 - `npm run gate` intentionally exits nonzero while mandatory release gates remain incomplete.
 - `?renderer=off` selects DOM-only presentation. `CITY_LEDGER_DIR` selects an explicit local RunLedger directory; raw receipt prompts/notes/output are excluded.
 - The gateway now retains event identities and stops ingestion at `CITY_JOURNAL_LIMIT` (default 1,000,000 events). It does not delete evidence to make room. Back up/review the local journal before changing that limit.
+
+### In-game conversations, Follow and replay
+
+Start a mission in **Mission Command**, leaving **Allow agent questions** checked.
+Actual model responses appear in **Mission Conversation**, directly below the game.
+If the model returns a supported question, the source runner waits and a **Reply / continue**
+box appears. Reply within three minutes. The answer enters that same agent's context;
+normal completion still hands the draft to the reviewer. Each role may ask at most two
+questions per model turn; interactive missions have an overall twenty-minute ceiling.
+Questions are model-dependent, not scripted dialogue. A model may finish without asking.
+A timeout fails the mission honestly; **Continue / repair** starts a separate recorded attempt.
+Reopening the page restores a currently running mission's pending conversation.
+The private question/answer files are not added to the normalized journal or SSE.
+
+Selecting a roster agent now enables **Follow** immediately. Starting a mission follows
+its observed SDK execution automatically, including city paths and building interiors.
+The selected execution remains the target; the camera does not silently switch to its
+reviewer. Select the reviewer to follow that separate execution. Select **City** or another
+building to leave Follow. Reduced motion still pauses visual movement until you resume it.
+
+Under **Archive / Replay / Incidents**, choose **Browse runs**, select a run, and press
+**Replay pinned run**. Events now play in recorded observation order instead of loading the
+final state at once. Long gaps shorten to two seconds; original timestamps and all events
+remain intact. **Pause animation** pauses playback too; **Restart replay** rewinds it.
+Replay follows the first observed execution, or whichever roster instance you select.
+**Return to live** reconnects to the current snapshot. Replay never runs a model or tool,
+and replies/task commands are disabled. Run selection is source-run scoped, so a separate
+handoff run must be selected separately. Private chat text is not in this redacted replay.
+
+**Record game video** records the canvas, including replay, to a downloadable WebM (or MP4
+where supported). Press **Stop / save video** to finish. Keep the tab visible. Capture is
+bounded to five minutes / 64 MiB and includes no audio or DOM conversation/inspector panels.
+This is an explicit local recording action, not automatic recording of every session.
+
+Verification: `npm run proof:interaction` uses a controlled model with real SDK/Dispatch
+execution and retained real observations for browser replay. `npm run proof:checkin-live`
+uses the configured idle application at `CITY_APP_URL` (default port 6178), sends a real
+Kujo task, and consumes provider usage. Evidence is in `evidence/interactive-observer`
+and `evidence/live-checkin` respectively.
