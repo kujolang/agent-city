@@ -25,3 +25,11 @@ Frames visually inspected to confirm only the game design is visible. The reusab
 capture harness is `node --import tsx scripts/record-kujo-tour.ts`; it requires an idle,
 configured local application (default port6178) and consumes real provider usage.
 TypeScript verification passed. No application behavior or sibling repositories changed.
+
+## Social cut
+
+`agent-city-kujo-tour-social.mp4` removes the opening 8.5 seconds to start directly on
+an agent inside the Workshop leaving for the city. At exactly 8.0 seconds the exported
+capture still showed the city; the 8.5-second cut matches the requested room opening.
+Duration:85.4 seconds. All remaining footage stays in order at normal speed. Original
+MP4 and source recording retained. Opening frame inspected and full decode verified.
