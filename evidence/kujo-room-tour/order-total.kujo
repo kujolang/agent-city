@@ -1,0 +1,11 @@
+func subtotal(a, b, c) {
+  return a + b + c
+}
+
+func apply_discount(amount, discount) {
+  return amount - discount
+}
+
+total = subtotal(12, 8, 5)
+print(total)
+print(apply_discount(total, 5))

@@ -1,0 +1,477 @@
+{
+  "mission": "mission-15577793-2cda-4a47-a4f1-8eead3f75cc7",
+  "model": "codex-cli-default",
+  "prompt": "Write a small self-contained Kujo order-total calculator. First use the enabled local Kujo documentation retrieval and explicit Kujo MCP catalog read as reference context. Define subtotal(a, b, c) returning the sum of three item prices, and apply_discount(amount, discount) returning amount minus discount. Print the subtotal for prices 12, 8, 5 and the total after a discount of 5. Expected arithmetic values are 25 and 20. Use plain functions, numbers, return and print; no external dependencies. Return raw Kujo code. Hand it to the separate senior reviewer to check each requirement and grade the code. Do not claim execution or passing functional tests. No clarification is needed.",
+  "status": "completed",
+  "syntax": "valid",
+  "codeExecuted": false,
+  "canvasOnly": true,
+  "synthetic": false,
+  "scenes": [
+    "city",
+    "workshop",
+    "library",
+    "mcp",
+    "dojo"
+  ],
+  "timeline": [
+    {
+      "elapsedMs": 39,
+      "scene": "city",
+      "instance": null,
+      "follow": null
+    },
+    {
+      "elapsedMs": 7510,
+      "scene": "city",
+      "instance": "review-mission-15577793-2cda-4a47-a4f1-8eead3f75cc7:run-1790396735463-5849:coder",
+      "follow": "review-mission-15577793-2cda-4a47-a4f1-8eead3f75cc7:run-1790396735463-5849:coder"
+    },
+    {
+      "elapsedMs": 7876,
+      "scene": "workshop",
+      "instance": "review-mission-15577793-2cda-4a47-a4f1-8eead3f75cc7:run-1790396735463-5849:coder",
+      "follow": "review-mission-15577793-2cda-4a47-a4f1-8eead3f75cc7:run-1790396735463-5849:coder"
+    },
+    {
+      "elapsedMs": 8341,
+      "scene": "city",
+      "instance": "review-mission-15577793-2cda-4a47-a4f1-8eead3f75cc7:run-1790396735463-5849:coder",
+      "follow": "review-mission-15577793-2cda-4a47-a4f1-8eead3f75cc7:run-1790396735463-5849:coder"
+    },
+    {
+      "elapsedMs": 14189,
+      "scene": "library",
+      "instance": "review-mission-15577793-2cda-4a47-a4f1-8eead3f75cc7:run-1790396735463-5849:coder",
+      "follow": "review-mission-15577793-2cda-4a47-a4f1-8eead3f75cc7:run-1790396735463-5849:coder"
+    },
+    {
+      "elapsedMs": 43699,
+      "scene": "city",
+      "instance": "review-mission-15577793-2cda-4a47-a4f1-8eead3f75cc7:run-1790396735463-5849:coder",
+      "follow": "review-mission-15577793-2cda-4a47-a4f1-8eead3f75cc7:run-1790396735463-5849:coder"
+    },
+    {
+      "elapsedMs": 48044,
+      "scene": "workshop",
+      "instance": "review-mission-15577793-2cda-4a47-a4f1-8eead3f75cc7:run-1790396735463-5849:coder",
+      "follow": "review-mission-15577793-2cda-4a47-a4f1-8eead3f75cc7:run-1790396735463-5849:coder"
+    },
+    {
+      "elapsedMs": 48434,
+      "scene": "city",
+      "instance": "review-mission-15577793-2cda-4a47-a4f1-8eead3f75cc7:run-1790396735463-5849:coder",
+      "follow": "review-mission-15577793-2cda-4a47-a4f1-8eead3f75cc7:run-1790396735463-5849:coder"
+    },
+    {
+      "elapsedMs": 62173,
+      "scene": "mcp",
+      "instance": "review-mission-15577793-2cda-4a47-a4f1-8eead3f75cc7:run-1790396735463-5849:coder",
+      "follow": "review-mission-15577793-2cda-4a47-a4f1-8eead3f75cc7:run-1790396735463-5849:coder"
+    },
+    {
+      "elapsedMs": 62636,
+      "scene": "workshop",
+      "instance": "review-mission-15577793-2cda-4a47-a4f1-8eead3f75cc7:run-1790396735463-5849:kujo-checker",
+      "follow": "review-mission-15577793-2cda-4a47-a4f1-8eead3f75cc7:run-1790396735463-5849:kujo-checker"
+    },
+    {
+      "elapsedMs": 62933,
+      "scene": "city",
+      "instance": "review-mission-15577793-2cda-4a47-a4f1-8eead3f75cc7:run-1790396735463-5849:kujo-checker",
+      "follow": "review-mission-15577793-2cda-4a47-a4f1-8eead3f75cc7:run-1790396735463-5849:kujo-checker"
+    },
+    {
+      "elapsedMs": 71605,
+      "scene": "dojo",
+      "instance": "review-mission-15577793-2cda-4a47-a4f1-8eead3f75cc7:run-1790396735463-5849:kujo-checker",
+      "follow": "review-mission-15577793-2cda-4a47-a4f1-8eead3f75cc7:run-1790396735463-5849:kujo-checker"
+    },
+    {
+      "elapsedMs": 75036,
+      "scene": "city",
+      "instance": "review-mission-15577793-2cda-4a47-a4f1-8eead3f75cc7:run-1790396735463-5849:kujo-checker",
+      "follow": "review-mission-15577793-2cda-4a47-a4f1-8eead3f75cc7:run-1790396735463-5849:kujo-checker"
+    },
+    {
+      "elapsedMs": 87892,
+      "scene": "workshop",
+      "instance": "review-mission-15577793-2cda-4a47-a4f1-8eead3f75cc7:run-1790396735463-5849:kujo-checker",
+      "follow": "review-mission-15577793-2cda-4a47-a4f1-8eead3f75cc7:run-1790396735463-5849:kujo-checker"
+    }
+  ],
+  "operations": [
+    {
+      "key": "review-mission-15577793-2cda-4a47-a4f1-8eead3f75cc7:run-1790396735463-5849:intake:1",
+      "capability": "dispatch.task",
+      "collection": "unknown",
+      "status": "succeeded",
+      "started": null,
+      "finished": 1790396735803,
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:5f451a510cea93510ea39d3354e8a0ea398af605688f351019c39b815d260fc0",
+          "hash": "7514442fae8a6e2bceb472ad1b9bb191f91f55b5316ff4ac43c89a2bdbf9de8d",
+          "sourceSequence": 33
+        }
+      ],
+      "partial": true,
+      "relatedAgent": "",
+      "metadata": {
+        "taskState": "queued"
+      },
+      "attempt": 1,
+      "operationId": "intake",
+      "observedAt": 1790396736272,
+      "eventIds": [
+        "ac7393b3e9d20373a63a9af3f3364142a85cdd4f234e2a6eaedd5b43055cc797"
+      ]
+    },
+    {
+      "key": "review-mission-15577793-2cda-4a47-a4f1-8eead3f75cc7:run-1790396735463-5849:assignment:1",
+      "capability": "dispatch.task",
+      "collection": "unknown",
+      "status": "succeeded",
+      "started": null,
+      "finished": 1790396735805,
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:99d6e610324e876c2c6a4adc5380ca6e5213c4a95f053b2c46dc468786d4f36b",
+          "hash": "04575ef8c05f64bd1d89f1527bee0d703239cb6e6037e8724aa525a40fff076b",
+          "sourceSequence": 34
+        }
+      ],
+      "partial": true,
+      "relatedAgent": "",
+      "metadata": {
+        "taskState": "assigned"
+      },
+      "attempt": 1,
+      "operationId": "assignment",
+      "observedAt": 1790396736273,
+      "eventIds": [
+        "7d8bb6eb4e78207c6b75c6a2947bb07c04aeafcf083cf55c2f330307d1578555"
+      ]
+    },
+    {
+      "key": "review-mission-15577793-2cda-4a47-a4f1-8eead3f75cc7:run-1790396735463-5849:task:1",
+      "capability": "dispatch.task",
+      "collection": "unknown",
+      "status": "succeeded",
+      "started": 1790396735869,
+      "finished": 1790396784975,
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:a09b23aecf25378f045e654ee1d7d51637e2830ea94803a7a2d00ae852ea1923",
+          "hash": "9a857b6ceced6853fc2931b7a43f2a2f56c4bbb92efc55ae6b1f1a9938ada594",
+          "sourceSequence": 35
+        },
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:9efdce157f0bffb084f4d0f0e80f313a00480e6ebcd0ea32797050ec10a9db9c",
+          "hash": "aca510726b276391223a82a8658759c49701003b2f1599186f36e9fa7f4b09c9",
+          "sourceSequence": 47
+        }
+      ],
+      "partial": false,
+      "relatedAgent": "",
+      "metadata": {
+        "taskState": "completed"
+      },
+      "attempt": 1,
+      "operationId": "task",
+      "observedAt": 1790396785501,
+      "eventIds": [
+        "282913a9f2cefda5b0775e682218a434324de0715bfeba1db27a8e09102b2809",
+        "a58c32a31a708340204f68246c447affcbc9463103fc828bd399a6bf63a81ea7"
+      ]
+    },
+    {
+      "key": "review-mission-15577793-2cda-4a47-a4f1-8eead3f75cc7:run-1790396735463-5849:run:1",
+      "capability": "agent.run",
+      "collection": "kujo-docs",
+      "status": "succeeded",
+      "started": 1790396737259,
+      "finished": 1790396784465,
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:01d0063371e752e82484404ff8c382b316f85ea8fc1ce45787b1e5a99abc8c31",
+          "hash": "87a38f2b0ba07c1d2cae1269d3410848ff2c8c0c306a4cf6f0f02be46746a129",
+          "sourceSequence": 36
+        },
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:b33624ea3ba47e8b22e88ae43a1ae332de1eaa4bcdeeefb1f021fc9cb3c11f28",
+          "hash": "722518e12161abfe0f16fb593ddfec1128d69da58f6006ea462eb3a7991aa9c8",
+          "sourceSequence": 45
+        }
+      ],
+      "partial": false,
+      "relatedAgent": "",
+      "metadata": {},
+      "attempt": 1,
+      "operationId": "run",
+      "observedAt": 1790396784970,
+      "eventIds": [
+        "e93d6a3dc3517bb5ece7298b98f84fef4246f9591a571476eec9573307891ba2",
+        "c9840fc0dfa73ac3bf9e4ae8a78a5f8d1076e72372058b8bafa743cd8b3cc89a"
+      ]
+    },
+    {
+      "key": "review-mission-15577793-2cda-4a47-a4f1-8eead3f75cc7:run-1790396735463-5849:retrieval:1",
+      "capability": "rag.query",
+      "collection": "kujo-docs",
+      "status": "succeeded",
+      "started": 1790396737395,
+      "finished": 1790396740678,
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:d452d7a109e57068159d12a78645fcedc74819487ed9295c8a00a44e5a6bad5d",
+          "hash": "8205d9f9816357cbef9d1c290ae2debc9756f7cd3cea8b5017eb97b16da4308d",
+          "sourceSequence": 37
+        },
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:91901bc475e97ccec3ee72235b18f3e5d0fd19ac474c6364eede2c0896f71ab7",
+          "hash": "0262b9f8a294af6b35ff940f646a6025265cea1ae9091f460f2bae25c05970ba",
+          "sourceSequence": 38
+        }
+      ],
+      "partial": false,
+      "relatedAgent": "",
+      "metadata": {},
+      "attempt": 1,
+      "operationId": "retrieval",
+      "observedAt": 1790396741031,
+      "eventIds": [
+        "d33ac93123b64bc7d9ee31699661412371db152893c0ecbd9e60f1b3aecd4346",
+        "580e481f528ad5318e874dbdc8d8b88ac1498e42a72e246c32056555ac490579"
+      ]
+    },
+    {
+      "key": "review-mission-15577793-2cda-4a47-a4f1-8eead3f75cc7:run-1790396735463-5849:mcp-docs:1",
+      "capability": "mcp.call",
+      "collection": "unknown",
+      "status": "succeeded",
+      "started": 1790396741280,
+      "finished": 1790396741567,
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:72d9319a622aeb5a2706d937e9a6b81d8a711b80d7770056ead71f807e151e62",
+          "hash": "636f4fa00a9a7251177ee150a07c30614c617d7b6da01db0759525d11573ff7a",
+          "sourceSequence": 39
+        },
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:66d457e6ca0ede640a2c67e62f376e546f95e3c3dbd73377e617d0e04310531e",
+          "hash": "b9914f5d1efc4435b0204bfb30684b39ac1c6157013113b9e9c4a2e3b8fbd76b",
+          "sourceSequence": 40
+        }
+      ],
+      "partial": false,
+      "relatedAgent": "",
+      "metadata": {
+        "approval": "not-required",
+        "invocation": "run-1790396735463-5849:mcp-docs",
+        "server": "kujolang-mcp",
+        "station": "tool-active",
+        "tool": "get_catalog_item",
+        "resultCode": "result-returned"
+      },
+      "attempt": 1,
+      "operationId": "mcp-docs",
+      "observedAt": 1790396742082,
+      "eventIds": [
+        "a80e21afd52a999f5092fb49d55fd9e5e5d9fd04b2f05c88c8c9011416477a4e",
+        "90d61371a1e6815d39781f049086cd3c017d5ed84d6a02b5175c62033a4c1a8c"
+      ]
+    },
+    {
+      "key": "review-mission-15577793-2cda-4a47-a4f1-8eead3f75cc7:run-1790396735463-5849:reviewer:1",
+      "capability": "agent.handoff",
+      "collection": "unknown",
+      "status": "succeeded",
+      "started": 1790396762852,
+      "finished": 1790396784189,
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:c986358b56b7a936a8ebfcc12b0eac24a9f0b39c964eb64de83a70f1d25136b3",
+          "hash": "f7539c598c9476167140c3488be79e4b8d23d2820dc97056064812b151ad60a7",
+          "sourceSequence": 41
+        },
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:905d5c81197d9aaf7b3186e16776d2943b082cc106b6f2bfb06f9be0674bd2b8",
+          "hash": "5a56aeaa0912733fe69040c754614ac8f723f8387183c2d807c0e33a3c6215b7",
+          "sourceSequence": 44
+        }
+      ],
+      "partial": false,
+      "relatedAgent": "reviewer",
+      "metadata": {
+        "relatedInstance": "review-mission-15577793-2cda-4a47-a4f1-8eead3f75cc7:run-1790396735463-5849-handoff-reviewer:reviewer"
+      },
+      "attempt": 1,
+      "operationId": "reviewer",
+      "observedAt": 1790396784696,
+      "eventIds": [
+        "77c24b94e072ccb7dbb48be1bd20e870e8e9b734e524f23c96f70e72b017f5bb",
+        "d4d41b2b3a3e7ffe702c5bdfba63400bfd5c1971627a5f24641ce8866e7f0a53"
+      ]
+    },
+    {
+      "key": "review-mission-15577793-2cda-4a47-a4f1-8eead3f75cc7:run-1790396735463-5849:save-reviewed-output:1",
+      "capability": "artifact.created",
+      "collection": "unknown",
+      "status": "succeeded",
+      "started": null,
+      "finished": 1790396784469,
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:0b08b3b915c2d0f7476a080ee3cd31e16457f1b47ccae71908bc547ba98a9375",
+          "hash": "ad699bd56c03bf1f374a4ffbc0f7efdaa5fb0f96b19c46fdcdd06958681ef62a",
+          "sourceSequence": 46
+        }
+      ],
+      "partial": true,
+      "relatedAgent": "",
+      "metadata": {
+        "artifactRef": "mission:run-1790396735463-5849:output"
+      },
+      "attempt": 1,
+      "operationId": "save-reviewed-output",
+      "observedAt": 1790396785235,
+      "eventIds": [
+        "f12669f959cb2f9fd660550dd8a8e147da9f0827505774d70728ccfea738c8c7"
+      ]
+    },
+    {
+      "key": "review-mission-15577793-2cda-4a47-a4f1-8eead3f75cc7:run-1790396735463-5849:workflow-state:1",
+      "capability": "dispatch.workflow",
+      "collection": "unknown",
+      "status": "unknown",
+      "started": null,
+      "finished": 1790396786014,
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:80f98a74247ff0b71586bc4b681f393da5c69a71a6015a01f4f3a51f0bafc35d",
+          "hash": "cdd5b842248003b61aee362f500867414ad8a42e22ea6001d0902aedd19ccda9",
+          "sourceSequence": 48
+        }
+      ],
+      "partial": true,
+      "relatedAgent": "",
+      "metadata": {
+        "workflowState": "completed"
+      },
+      "attempt": 1,
+      "operationId": "workflow-state",
+      "observedAt": 1790396786545,
+      "eventIds": [
+        "d382d7d2b95a06251a9e0009312e05bc6722b09caa38ee375126bf2354d7e03b"
+      ]
+    },
+    {
+      "key": "review-mission-15577793-2cda-4a47-a4f1-8eead3f75cc7:run-1790396735463-5849-handoff-reviewer:run:1",
+      "capability": "agent.run",
+      "collection": "unknown",
+      "status": "succeeded",
+      "started": 1790396762978,
+      "finished": 1790396784185,
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:387a0ca690d978c4c843ccc178f2e57191f60d4ebc4dc9fd6845b81780ae6375",
+          "hash": "3ca9b41eda88df7ccd74489ff94b50a91d79e077b8d69c249a8fff1926d7b5cf",
+          "sourceSequence": 42
+        },
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:4712ecdc2db49e73d5f65a3d3a64f3213c83a87ea892155adba1e02dbcd3f98b",
+          "hash": "3c1e71c3fa3390bc5ad9fdfd30a306d8bb1f7695536d1147a96fd18e8bc920bc",
+          "sourceSequence": 43
+        }
+      ],
+      "partial": false,
+      "relatedAgent": "",
+      "metadata": {},
+      "attempt": 1,
+      "operationId": "run",
+      "observedAt": 1790396784696,
+      "eventIds": [
+        "23471e7013bb05710549cf0e8d0ce2ecbd54e9876439a54968d05fb15001eb16",
+        "c93c9927ba99288edca762360a98fc5dd97990f0d6f30962fb5ccb26e3c1e35f"
+      ]
+    },
+    {
+      "key": "review-mission-15577793-2cda-4a47-a4f1-8eead3f75cc7:run-1790396735463-5849:kujo-static-check:1",
+      "capability": "evaluation.run",
+      "collection": "unknown",
+      "status": "succeeded",
+      "started": 1790396786108,
+      "finished": 1790396786163,
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:ee68da0c4a486c1f60b960b50fb8b0543b9babe49b13a8aa168a32e4562ecd20",
+          "hash": "c4e3c46fdfc971313efb9ca175f6a0320958c8228b702470b6b70e602b0bfb70",
+          "sourceSequence": 49
+        },
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:b35b6086d8739f65cc663557efbbbba12d2aef92cb18aaf5df150cd74a2f8c16",
+          "hash": "db61e984b721bddd010eddac56e29c23be5d4105dd4bcd124f90b8663d203674",
+          "sourceSequence": 50
+        }
+      ],
+      "partial": false,
+      "relatedAgent": "",
+      "metadata": {
+        "tool": "kujo.check"
+      },
+      "attempt": 1,
+      "operationId": "kujo-static-check",
+      "observedAt": 1790396786546,
+      "eventIds": [
+        "7205fd07c51e829276c6b4b284a6015ea9e02eb6a77f0fa3b12a553740a24105",
+        "8acf7e4b0635aa36432fbc9bf6d643bd4be3578679e29e945c2c81c22544e403"
+      ]
+    }
+  ],
+  "browserErrors": [],
+  "video": {
+    "file": "agent-city-kujo-tour.mp4",
+    "canvasOnly": true,
+    "audio": false,
+    "scale": "nearest-neighbor 768x720",
+    "edit": "Only trailing idle time removed; no speed changes or reordered frames",
+    "exportDurationSeconds": 93.892,
+    "verifiedProbe": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 768,
+          "height": 720,
+          "r_frame_rate": "20/1"
+        }
+      ],
+      "format": {
+        "duration": "93.900000",
+        "size": "2559227"
+      }
+    },
+    "decodeClean": true
+  }
+}
