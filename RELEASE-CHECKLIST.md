@@ -182,3 +182,12 @@ Additional release gate: Workcell official cloud-adapter release candidate fails
 its dependency audit (6 high,1 critical). Findings retained in
 evidence/mission-workcell/cancellation/optional-adapters-audit.json; exploitability
 and reachability remain unassessed. Local Docker cancellation passes independently.
+
+Cloud-adapter audit remediation: compatible locked shell-quote, grpc-js and
+brace-expansion updates remove the critical finding and two high findings. Four
+high findings remain in Daytona's fast-glob/micromatch/braces chain; upstream
+braces has no patched version. No audit exceptions or gate weakening applied.
+See ../workcell/evidence/adapter-dependency-audit-20261007 for current evidence.
+Producer commit a276a92: integrity and25JS tests pass,249release-report assertions
+pass; offline Kujo conformance rerun passes6checks. Initial unexplained Daytona
+failure retained in CaseFile2026-10-07-170340-adapterconformance.
