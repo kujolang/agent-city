@@ -8,11 +8,13 @@ export type MissionOutcome = {
 /** A receipt is source evidence only when its terminal outcome is explicit and coherent. */
 export function missionOutcome(
   value: unknown,
-  expected: { id: string; kind: string },
+  expected: { id: string; kind: string; schema?: string; scope?: string },
 ): MissionOutcome | null {
   if (!value || typeof value !== "object" || Array.isArray(value)) return null;
   const row = value as Record<string, unknown>;
   if (
+    (expected.schema !== undefined && row.schema !== expected.schema) ||
+    (expected.scope !== undefined && row.scope !== expected.scope) ||
     row.id !== expected.id ||
     row.kind !== expected.kind ||
     typeof row.startedAt !== "string" ||
@@ -41,7 +43,7 @@ export function missionOutcome(
 /** Bounded read only; malformed/truncated evidence preserves UNKNOWN for later reconciliation. */
 export async function readMissionOutcome(
   file: string,
-  expected: { id: string; kind: string },
+  expected: { id: string; kind: string; schema?: string; scope?: string },
 ) {
   const limit = 1024 * 1024;
   let handle;

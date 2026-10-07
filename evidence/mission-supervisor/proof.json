@@ -1,0 +1,20 @@
+{
+  "scope": "Controlled real OS process termination + HTTP controller restart; no model or Workcell execution",
+  "mission": "mission-f093585c-3fbe-46f0-98ce-6df806914905",
+  "initialStatus": "unknown",
+  "recoveredStatus": "failed",
+  "queueUnblocked": true,
+  "processReceipt": {
+    "schema": "agent-city.mission-process.v1",
+    "id": "mission-f093585c-3fbe-46f0-98ce-6df806914905",
+    "kind": "writing",
+    "startedAt": "2026-10-07T23:45:41.983Z",
+    "finishedAt": "2026-10-07T23:45:42.398Z",
+    "status": "failed",
+    "code": null,
+    "signal": "SIGKILL",
+    "scope": "mission-process-only"
+  },
+  "sourceRerun": false,
+  "privateEvidence": "/Users/robertdevore/2026/Kujolang/kujo-repos/agent-city/.runtime/supervisor-73990587-2879-4ec0-a144-fe96ae387e1e"
+}

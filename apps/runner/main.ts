@@ -76,10 +76,19 @@ function save() {
 async function reconcile() {
   let changed = false;
   for (const job of jobs.filter((j) => j.status === "unknown")) {
-    const outcome = await readMissionOutcome(
-      resolve(missionsRoot, job.id, "receipt.json"),
-      job,
-    );
+    const outcome =
+      (await readMissionOutcome(
+        resolve(missionsRoot, job.id, "receipt.json"),
+        job,
+      )) ??
+      (await readMissionOutcome(
+        resolve(missionsRoot, job.id, "process-receipt.json"),
+        {
+          ...job,
+          schema: "agent-city.mission-process.v1",
+          scope: "mission-process-only",
+        },
+      ));
     if (!outcome) continue;
     job.status = outcome.status;
     job.finishedAt = outcome.finishedAt;
@@ -536,7 +545,7 @@ const server = createServer(async (req, res) => {
       await save();
       const child = spawn(
         process.execPath,
-        ["--import", "tsx", "scripts/mission.ts", data.kind, prompt],
+        ["--import", "tsx", "scripts/mission-supervisor.ts", data.kind, prompt],
         {
           cwd: root,
           env: {
