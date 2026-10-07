@@ -165,3 +165,9 @@ reported STALE, then recovered LIVE truth and both artifacts after restart.
 Exactly one source run, output5, ordered timestamps retained in
 evidence/mission-workcell/gateway-outage/proof.json. This qualifies gateway outage
 independence, not source/container interruption or Watchdog outage.
+
+Watchdog-outage checkpoint: real Workcell completed while canonical intake was
+stopped; durable local spool recovered6/6unique evidence references after restart,
+with1source run and browser STALE→LIVE. Evidence in
+evidence/mission-workcell/watchdog-outage/proof.json. Source interruption, overflow
+and remaining broader release requirements remain unqualified.

@@ -8,11 +8,12 @@ import { localChromiumPath } from "../apps/runner/browser-path";
 import { portAvailable } from "./startup-checks";
 const root = resolve(import.meta.dirname, "..");
 const runtime = resolve(root, ".runtime/workcell-live-" + Date.now());
-const outage = process.env.CITY_PROOF_GATEWAY_OUTAGE === "1";
+const watchdogOutage = process.env.CITY_PROOF_WATCHDOG_OUTAGE === "1";
+const outage = process.env.CITY_PROOF_GATEWAY_OUTAGE === "1" || watchdogOutage;
 const out = resolve(
   root,
   "evidence/mission-workcell",
-  outage ? "gateway-outage" : "live-world",
+  watchdogOutage ? "watchdog-outage" : outage ? "gateway-outage" : "live-world",
 );
 await mkdir(runtime, { recursive: true, mode: 0o700 });
 await mkdir(out, { recursive: true });
@@ -67,7 +68,7 @@ async function ready(url: string) {
   throw Error("Service unavailable " + url);
 }
 let browser;
-try {
+const startWatchdog = () =>
   launch(
     kujo,
     ["run", "--interpreter", "dashboard_server.kujo"],
@@ -85,6 +86,9 @@ try {
       WDG_EXPORTERS_CONFIG_PATH: resolve(runtime, "exporters.json"),
     },
   );
+
+try {
+  let watchdog = startWatchdog();
   await ready("http://127.0.0.1:18991/healthz");
   launch(
     process.execPath,
@@ -122,9 +126,9 @@ try {
   page.on("pageerror", (e) => errors.push(e.message));
   await page.goto("http://127.0.0.1:18888");
   await page.waitForSelector("canvas");
-  let gatewayStoppedAt: string | null = null;
+  let observerStoppedAt: string | null = null;
   let sourceFinishedAt: string | null = null;
-  let gatewayRestartedAt: string | null = null;
+  let observerRestartedAt: string | null = null;
   if (outage) {
     await page.waitForFunction(
       () => (window as any).agentCity.health === "LIVE",
@@ -132,17 +136,20 @@ try {
       { timeout: 30000 },
     );
     const stopped = new Promise<void>((done) =>
-      gateway.once("exit", () => done()),
+      (watchdogOutage ? watchdog : gateway).once("exit", () => done()),
     );
-    gateway.kill("SIGTERM");
+    (watchdogOutage ? watchdog : gateway).kill("SIGTERM");
     await Promise.race([
       stopped,
       new Promise((_, fail) =>
-        setTimeout(() => fail(Error("Gateway stop timeout")), 5000),
+        setTimeout(() => fail(Error("Observer stop timeout")), 5000),
       ),
     ]);
-    assert(gateway.exitCode !== null || gateway.signalCode !== null);
-    gatewayStoppedAt = new Date().toISOString();
+    assert(
+      (watchdogOutage ? watchdog : gateway).exitCode !== null ||
+        (watchdogOutage ? watchdog : gateway).signalCode !== null,
+    );
+    observerStoppedAt = new Date().toISOString();
     await page.waitForFunction(
       () => (window as any).agentCity.health === "STALE",
     );
@@ -170,18 +177,34 @@ try {
   if (outage) {
     assert.equal(await completion, 0);
     sourceFinishedAt = new Date().toISOString();
-    assert(gateway.exitCode !== null || gateway.signalCode !== null);
-    gateway = launch(
-      process.execPath,
-      ["--import", "tsx", "apps/gateway/main.ts"],
-      root,
-      {
-        CITY_PORT: "18992",
-        CITY_DB: resolve(runtime, "city.sqlite"),
-      },
+    assert(
+      (watchdogOutage ? watchdog : gateway).exitCode !== null ||
+        (watchdogOutage ? watchdog : gateway).signalCode !== null,
     );
-    await ready("http://127.0.0.1:18992/api/world/snapshot");
-    gatewayRestartedAt = new Date().toISOString();
+    if (watchdogOutage) {
+      const spool = await readFile(
+        resolve(runtime, "spool-" + producer + ".jsonl"),
+        "utf8",
+      );
+      assert(
+        spool.includes('"phase":"finished"'),
+        "Completion must be durable before observer recovery",
+      );
+      watchdog = startWatchdog();
+      await ready("http://127.0.0.1:18991/healthz");
+    } else {
+      gateway = launch(
+        process.execPath,
+        ["--import", "tsx", "apps/gateway/main.ts"],
+        root,
+        {
+          CITY_PORT: "18992",
+          CITY_DB: resolve(runtime, "city.sqlite"),
+        },
+      );
+      await ready("http://127.0.0.1:18992/api/world/snapshot");
+    }
+    observerRestartedAt = new Date().toISOString();
   }
   await page.waitForFunction(
     () => Object.keys((window as any).agentCity.truth.agents).length > 0,
@@ -277,6 +300,21 @@ try {
     "utf8",
   );
   assert.equal(output, "5\n");
+  const lifecycleCount = (
+    await readFile(resolve(runtime, "spool-" + producer + ".jsonl"), "utf8")
+  )
+    .trim()
+    .split("\n").length;
+  const recoveredEvidenceCount = ops.reduce(
+    (count, op) => count + op.evidence.length,
+    0,
+  );
+  assert.equal(lifecycleCount, 6);
+  assert.equal(
+    recoveredEvidenceCount,
+    lifecycleCount,
+    "Every start/completion/artifact must retain evidence",
+  );
   const sourceRunCount = (
     await readdir(resolve(runtime, "workcell-source/.workcell/runs"))
   ).filter((name) => /^wc-/.test(name)).length;
@@ -289,13 +327,18 @@ try {
     resolve(out, "proof.json"),
     JSON.stringify(
       {
-        scope: outage
-          ? "Real Workcell completes while gateway is stopped; restart recovers Watchdog evidence into browser without rerunning source; no travel assertion"
-          : "Fresh real Workcell Kujo execution → lifecycle spool → Watchdog canonical intake/export → gateway/SSE → Pixi Follow into Workshop upper bay; no new model request",
+        scope: watchdogOutage
+          ? "Real Workcell completes while Watchdog is stopped; bounded spool delivers canonical evidence after recovery; no source rerun"
+          : outage
+            ? "Real Workcell completes while gateway is stopped; restart recovers Watchdog evidence into browser without rerunning source; no travel assertion"
+            : "Fresh real Workcell Kujo execution → lifecycle spool → Watchdog canonical intake/export → gateway/SSE → Pixi Follow into Workshop upper bay; no new model request",
+        outageTarget: watchdogOutage ? "watchdog" : outage ? "gateway" : null,
+        lifecycleCount,
+        recoveredEvidenceCount,
         sourceRunCount,
-        gatewayStoppedAt,
+        observerStoppedAt,
         sourceFinishedAt,
-        gatewayRestartedAt,
+        observerRestartedAt,
         producer,
         workcell: proof.summary.run_id,
         output,
@@ -311,7 +354,7 @@ try {
   );
   console.log(
     outage
-      ? "Real Workcell during gateway outage and browser recovery: PASS"
+      ? "Real Workcell during observer outage and browser recovery: PASS"
       : "Real Workcell canonical pipeline and followed bay: PASS",
   );
 } catch (error) {

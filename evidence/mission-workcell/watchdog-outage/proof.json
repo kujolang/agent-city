@@ -1,0 +1,159 @@
+{
+  "scope": "Real Workcell completes while Watchdog is stopped; bounded spool delivers canonical evidence after recovery; no source rerun",
+  "outageTarget": "watchdog",
+  "sourceRunCount": 1,
+  "observerStoppedAt": "2026-10-07T20:38:42.031Z",
+  "sourceFinishedAt": "2026-10-07T20:38:50.232Z",
+  "observerRestartedAt": "2026-10-07T20:38:53.326Z",
+  "producer": "review-workcell-live-1791405505769",
+  "workcell": "wc-a4b97a36d41848b196e24fe3b96a9cf0",
+  "output": "5\n",
+  "browserVersion": "154.0.8037.98",
+  "atBay": null,
+  "finalTruth": {
+    "id": "review-workcell-live-1791405505769:review-workcell-live-1791405505769-run:workcell-host",
+    "profile": "local-workcell-invocation",
+    "run": {
+      "namespace": "review-workcell-live-1791405505769",
+      "id": "review-workcell-live-1791405505769-run"
+    },
+    "task": {
+      "namespace": "unknown",
+      "id": "unknown"
+    },
+    "status": "completed",
+    "lastObserved": 1791405533745,
+    "completeness": "partial",
+    "operations": {
+      "review-workcell-live-1791405505769:review-workcell-live-1791405505769-run:invocation:1": {
+        "key": "review-workcell-live-1791405505769:review-workcell-live-1791405505769-run:invocation:1",
+        "capability": "execution.run",
+        "collection": "unknown",
+        "status": "succeeded",
+        "started": 1791405523743,
+        "finished": 1791405530210,
+        "evidence": [
+          {
+            "origin": "canonical",
+            "recordId": "native:agent-city-sdk:c214dd3a1c1fb116c840cc38264ba5fd4d2d2c0bc13517c61580494d731d2db9",
+            "hash": "1ba546c51ac34e905ca6fdd96124ecdd320b27787399638ffc5d0fda52622d56",
+            "sourceSequence": 1
+          },
+          {
+            "origin": "canonical",
+            "recordId": "native:agent-city-sdk:8881b18d4684b128af1d0ed14e5dcd685dafb5eb189dbfcfc1de09618648a526",
+            "hash": "e9e1c701a3e100282b66301497473321647330d9850549c85caa2a06408f2975",
+            "sourceSequence": 6
+          }
+        ],
+        "partial": false,
+        "relatedAgent": "",
+        "metadata": {},
+        "attempt": 1,
+        "operationId": "invocation",
+        "observedAt": 1791405533745,
+        "eventIds": [
+          "992cfc3a7bd2524072bb90953dcaf3aa06496de32222e142231760c64dc7d9d8",
+          "45721affec206bebd326017d7e98e78404f76159a3204f1b0980b3bf5285b13f"
+        ]
+      },
+      "review-workcell-live-1791405505769:review-workcell-live-1791405505769-run:workload:1": {
+        "key": "review-workcell-live-1791405505769:review-workcell-live-1791405505769-run:workload:1",
+        "capability": "workcell.execute",
+        "collection": "unknown",
+        "status": "succeeded",
+        "started": 1791405523744,
+        "finished": 1791405530203,
+        "evidence": [
+          {
+            "origin": "canonical",
+            "recordId": "native:agent-city-sdk:b05bea20df1f698c6c5a5d3dd033c75a7e02aae5d731e566dfc868a405f374b7",
+            "hash": "eb0688d46b70cad1547d403382168ed9521be9d739674636e50788f2a163c772",
+            "sourceSequence": 2
+          },
+          {
+            "origin": "canonical",
+            "recordId": "native:agent-city-sdk:2a26bdf6818b5f5626cf8ae78f0087d6f0d7acb1c7709cb4ad4b1848511e7ec5",
+            "hash": "bd74023d8a25f60eab274b5f46e62f8f6b1a0c9c78486cf50d371b00d2abd55a",
+            "sourceSequence": 3
+          }
+        ],
+        "partial": false,
+        "relatedAgent": "",
+        "metadata": {
+          "resultCode": "completed:exit-0",
+          "workcellRef": "wc-a4b97a36d41848b196e24fe3b96a9cf0"
+        },
+        "attempt": 1,
+        "operationId": "workload",
+        "observedAt": 1791405533743,
+        "eventIds": [
+          "956012bd061534b751eac2be401ce8d90fa65049393b043747e68028f8829a4b",
+          "fbb480f0c52a687980b50cc0773b5412771e855748bb97d5dae7e6c040d59081"
+        ]
+      },
+      "review-workcell-live-1791405505769:review-workcell-live-1791405505769-run:container-artifact:city-result.txt:1": {
+        "key": "review-workcell-live-1791405505769:review-workcell-live-1791405505769-run:container-artifact:city-result.txt:1",
+        "capability": "artifact.created",
+        "collection": "unknown",
+        "status": "succeeded",
+        "started": null,
+        "finished": 1791405530209,
+        "evidence": [
+          {
+            "origin": "canonical",
+            "recordId": "native:agent-city-sdk:e8ccba0a5e585f6ef78ca608f564ba1f2cd255739e77a935fa8abd8e3e97c90a",
+            "hash": "0f3b2e364e9b838fbbc2f049faa19bc16a1e6121a44e36693e8c4befffc3ede2",
+            "sourceSequence": 4
+          }
+        ],
+        "partial": true,
+        "relatedAgent": "",
+        "metadata": {
+          "artifactRef": "workcell:wc-a4b97a36d41848b196e24fe3b96a9cf0:city-result.txt",
+          "workcellRef": "wc-a4b97a36d41848b196e24fe3b96a9cf0"
+        },
+        "attempt": 1,
+        "operationId": "container-artifact:city-result.txt",
+        "observedAt": 1791405533744,
+        "eventIds": [
+          "06e69058f48b4fea510ee90118c359c2ac4607bfd31cab5af5d4ca36eb918519"
+        ]
+      },
+      "review-workcell-live-1791405505769:review-workcell-live-1791405505769-run:container-artifact:runtime-version.txt:1": {
+        "key": "review-workcell-live-1791405505769:review-workcell-live-1791405505769-run:container-artifact:runtime-version.txt:1",
+        "capability": "artifact.created",
+        "collection": "unknown",
+        "status": "succeeded",
+        "started": null,
+        "finished": 1791405530210,
+        "evidence": [
+          {
+            "origin": "canonical",
+            "recordId": "native:agent-city-sdk:b2ac16ce293fcb357e1e4811fec40dec2ff4f2a708a3220fac714cb71f1d6d52",
+            "hash": "7d277d8fc641eb03641e4e35bb9919899fdd06e411a617c83008c785690019cd",
+            "sourceSequence": 5
+          }
+        ],
+        "partial": true,
+        "relatedAgent": "",
+        "metadata": {
+          "artifactRef": "workcell:wc-a4b97a36d41848b196e24fe3b96a9cf0:runtime-version.txt",
+          "workcellRef": "wc-a4b97a36d41848b196e24fe3b96a9cf0"
+        },
+        "attempt": 1,
+        "operationId": "container-artifact:runtime-version.txt",
+        "observedAt": 1791405533744,
+        "eventIds": [
+          "f0478e1bd1cb7c09f26763cfd06b95b340fea60c84548c046ee113d1cfe0e4a4"
+        ]
+      }
+    },
+    "runAttempt": 1
+  },
+  "pageErrors": [],
+  "privateEvidence": ".runtime/workcell-live-1791405505705",
+  "lifecycleCount": 6,
+  "recoveredEvidenceCount": 6,
+  "evidenceCountVerification": "post-run unique canonical reference comparison"
+}

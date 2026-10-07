@@ -124,3 +124,16 @@ by this scenario. No animation/travel assertion is made for recovered history.
 Owned services and dedicated VM were stopped; no Workcell containers remained.
 Actual source-process interruption and orphan-container cleanup remain separate
 unqualified cases. TypeScript validation passed for the extended harness.
+
+## Real Watchdog outage and spool recovery
+
+`CITY_PROOF_WATCHDOG_OUTAGE=1` stops the owned Watchdog service before source
+execution and waits for browser STALE. Actual Workcell finishes with output5
+while intake is unavailable; its completion is present in the bounded local spool
+before Watchdog restarts. The existing bridge retries canonical delivery, gateway
+truth recovers, and the browser returns LIVE. `watchdog-outage/proof.json` retains
+ordered timestamps and actual references:6source lifecycle records recovered as
+6unique canonical evidence references, exactly1source run. No model or source work
+is rerun. This covers the tested short observer outage, not spool overflow, prolonged
+retention loss or source-process interruption. Owned services/VM stopped, no
+Workcell containers left; TypeScript passed.
