@@ -59,7 +59,7 @@ const result: any = {
     .digest("hex"),
   processResourceColumns: ["pid", "cpuPercentSnapshot", "rssKiB"],
   processResourceScope:
-    "Harness and direct service processes only; descendants excluded",
+    "Direct process columns plus an observed descendant process tree; no command arguments captured",
   startedAt: new Date().toISOString(),
   cityCommit: spawnSync("git", ["rev-parse", "HEAD"], {
     cwd: root,
@@ -268,6 +268,33 @@ try {
   result.concurrency = concurrency;
   const resourceSample = () => ({
     elapsedSeconds: (performance.now() - start) / 1000,
+    processTree: (() => {
+      const rows = spawnSync("ps", ["-axo", "pid=,ppid=,pcpu=,rss="], {
+        encoding: "utf8",
+      })
+        .stdout.trim()
+        .split("\n")
+        .map((line) => {
+          const [pid, ppid, cpuPercent, rssKiB] = line
+            .trim()
+            .split(/\s+/)
+            .map(Number);
+          return { pid, ppid, cpuPercent, rssKiB };
+        })
+        .filter((row) => Object.values(row).every(Number.isFinite));
+      const owned = new Set([
+        process.pid,
+        ...children
+          .map((c) => c.pid)
+          .filter((p): p is number => p !== undefined),
+      ]);
+      for (let pass = 0; pass < rows.length; pass++) {
+        const before = owned.size;
+        for (const row of rows) if (owned.has(row.ppid)) owned.add(row.pid);
+        if (owned.size === before) break;
+      }
+      return rows.filter((row) => owned.has(row.pid));
+    })(),
     processes: spawnSync(
       "ps",
       [

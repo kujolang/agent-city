@@ -1,0 +1,116 @@
+{
+  "runtimeMode": "interpreter",
+  "runtimeVersion": "kujo 1.7.0",
+  "runtimeSha256": "2f9242613c497736f77c20fdb669a18b7c815e489e8a2e8cf5047ee75fd2e3e0",
+  "processResourceColumns": [
+    "pid",
+    "cpuPercentSnapshot",
+    "rssKiB"
+  ],
+  "processResourceScope": "Direct process columns plus an observed descendant process tree; no command arguments captured",
+  "startedAt": "2026-10-07T23:49:23.173Z",
+  "cityCommit": "c075dced7ac6baa6e7aed9dcce8458e7800f0ac7",
+  "watchdogCommit": "8c512624782878cc607794add7b71f46781a45bf",
+  "pid": 19716,
+  "runtime": "/Users/robertdevore/2026/Kujolang/kujo-repos/agent-city/.runtime/pipeline-1791416962905",
+  "status": "COMPLETED",
+  "samples": [],
+  "kind": "SYNTHETIC canonical HTTP intake → real Watchdog export → real gateway → SSE; no source business execution",
+  "concurrency": 4,
+  "processResources": [
+    {
+      "elapsedSeconds": 0.0004333050000022922,
+      "processTree": [
+        {
+          "pid": 19716,
+          "ppid": 19715,
+          "cpuPercent": 0,
+          "rssKiB": 191652
+        },
+        {
+          "pid": 19729,
+          "ppid": 19716,
+          "cpuPercent": 0,
+          "rssKiB": 6068
+        },
+        {
+          "pid": 19759,
+          "ppid": 19716,
+          "cpuPercent": 0,
+          "rssKiB": 41452
+        },
+        {
+          "pid": 19771,
+          "ppid": 19716,
+          "cpuPercent": 1.4,
+          "rssKiB": 110564
+        },
+        {
+          "pid": 19896,
+          "ppid": 19716,
+          "cpuPercent": 0,
+          "rssKiB": 1296
+        }
+      ],
+      "processes": "19716   1.9 187732\n19759   0.0  41452\n19771   2.0 110564"
+    },
+    {
+      "elapsedSeconds": 41.44742772,
+      "processTree": [
+        {
+          "pid": 19716,
+          "ppid": 19715,
+          "cpuPercent": 1.5,
+          "rssKiB": 164996
+        },
+        {
+          "pid": 19729,
+          "ppid": 19716,
+          "cpuPercent": 0,
+          "rssKiB": 6112
+        },
+        {
+          "pid": 19759,
+          "ppid": 19716,
+          "cpuPercent": 0,
+          "rssKiB": 122052
+        },
+        {
+          "pid": 19771,
+          "ppid": 19716,
+          "cpuPercent": 19.3,
+          "rssKiB": 207024
+        },
+        {
+          "pid": 20176,
+          "ppid": 19716,
+          "cpuPercent": 0,
+          "rssKiB": 1292
+        }
+      ],
+      "processes": "19716   1.5 164996\n19759   0.0 121032\n19771  19.3 207100"
+    }
+  ],
+  "requestedDurationSeconds": 10,
+  "batchSize": 100,
+  "offeredRate": 1100,
+  "accepted": 8500,
+  "visible": 8500,
+  "duplicates": 0,
+  "missing": 0,
+  "sendSeconds": 41.546513945,
+  "totalSeconds": 41.648846682000006,
+  "visibleEventsPerSecond": 204.08728397450608,
+  "intakeMs": {
+    "p50": 1783.1241640000007,
+    "p95": 2890.852833000001
+  },
+  "sourceHealth": {
+    "status": "LIVE",
+    "gap": false,
+    "lastSuccess": 1791417023351,
+    "lastError": "",
+    "coverage": "SDK run/retrieval/tool/handoff and Eval invocation/check results; retained local journal; reconnect history partial"
+  },
+  "forcedCleanup": []
+}
