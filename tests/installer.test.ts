@@ -3,9 +3,10 @@ import { expect, test } from "vitest";
 // @ts-expect-error standalone JS bootstrap
 import * as installer from "../installer/install.mjs";
 const { options, validateArchive, validateSources, install } = installer;
-import { mkdtemp, writeFile, readFile, rm } from "node:fs/promises";
+import { mkdtemp, writeFile, readFile, rm, symlink } from "node:fs/promises";
 import { tmpdir } from "node:os";
-import { join } from "node:path";
+import { join, resolve } from "node:path";
+import { spawnSync } from "node:child_process";
 test("source lock rejects missing or substituted producers before installation", async () => {
   const lock = JSON.parse(
     await readFile(
@@ -53,6 +54,23 @@ test("installer never overwrites an existing destination or its private state", 
       "already exists",
     );
     expect(await readFile(join(dir, "mission.txt"), "utf8")).toBe("keep");
+  } finally {
+    await rm(dir, { recursive: true, force: true });
+  }
+});
+
+test("installer invoked through a symlink still runs its entry point", async () => {
+  const dir = await mkdtemp(join(tmpdir(), "city-entry-alias-"));
+  try {
+    const alias = join(dir, "source-alias");
+    await symlink(resolve(import.meta.dirname, ".."), alias, "dir");
+    const result = spawnSync(
+      process.execPath,
+      [join(alias, "installer/install.mjs"), "--prefix", dir, "--no-start"],
+      { encoding: "utf8", timeout: 10000 },
+    );
+    expect(result.status).not.toBe(0);
+    expect(result.stderr).toContain("already exists");
   } finally {
     await rm(dir, { recursive: true, force: true });
   }
