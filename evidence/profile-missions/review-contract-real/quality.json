@@ -1,0 +1,10 @@
+{
+  "mission": "mission-b1b3e43e-370c-42e1-b718-9f67dc0e8557",
+  "artifactSha256": "6a8207b1df2caef94e014842aa871b29b08b4f11312204262c0bcd6f389f71b5",
+  "suppliedSourceRetained": true,
+  "requiredExampleRetained": true,
+  "briefMarkdown": true,
+  "reviewStoredSeparately": true,
+  "reviewCommentaryExcluded": true,
+  "scope": "Source/example/format inspection for this specific writing task; not general model quality or executed-code verification"
+}

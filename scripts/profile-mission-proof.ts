@@ -17,6 +17,7 @@ const model = real
   : "profile-fixture";
 const requests: any[] = [];
 const docCalls: any[] = [];
+let malformedReviewer = false;
 const provider = createServer((req, res) => {
   if (req.url === "/mcp/v1/health") {
     res.setHeader("Content-Type", "application/json");
@@ -53,10 +54,22 @@ const provider = createServer((req, res) => {
         choices: [
           {
             message: {
-              content:
-                requests.length === 1
-                  ? "Draft: add returns the sum of two numbers."
-                  : "Reviewed: add returns the sum of two numbers.",
+              content: !requests
+                .at(-1)
+                .messages.some(
+                  (m: any) =>
+                    m.role === "system" &&
+                    m.content.includes("# Code Reviewer"),
+                )
+                ? "Draft: add returns the sum of two numbers."
+                : malformedReviewer
+                  ? "Malformed reviewer response retained"
+                  : JSON.stringify({
+                      cityArtifact:
+                        "Reviewed: add returns the sum of two numbers.",
+                      cityReview:
+                        "Controlled reviewer commentary; no execution claimed.",
+                    }),
             },
           },
         ],
@@ -257,15 +270,63 @@ try {
     assert.deepEqual(retained, snapshot);
     continuationPreserved = true;
   }
+  let malformedRejected = false;
   const artifact = await readFile(
     resolve(runtime, "missions", job.id, "reviewed.md"),
     "utf8",
   );
   assert(artifact.trim());
+  const reviewRecord = JSON.parse(
+    await readFile(
+      resolve(runtime, "missions", job.id, "reviewed.md.review.json"),
+      "utf8",
+    ),
+  );
+  assert.equal(reviewRecord.schema, "agent-city.review.v1");
+  assert.equal(typeof reviewRecord.commentary, "string");
+  if (!real) {
+    assert.equal(artifact, "Reviewed: add returns the sum of two numbers.");
+    assert(!artifact.includes(reviewRecord.commentary));
+    malformedReviewer = true;
+    const rejectedResponse = await post({
+      kind: "writing",
+      prompt: "Return the deliverable only.",
+      parentMissionId: job.id,
+    });
+    const rejected = await rejectedResponse.json();
+    assert.equal(rejectedResponse.status, 202);
+    const rejectedStatus = await until(
+      async () => (await fetch(base + "/control/status")).json(),
+      (s) =>
+        s.jobs.some((j: any) => j.id === rejected.id && j.status !== "running"),
+    );
+    assert.equal(
+      rejectedStatus.jobs.find((j: any) => j.id === rejected.id).status,
+      "failed",
+    );
+    assert.equal(
+      await readFile(
+        resolve(runtime, "missions", rejected.id, "reviewed.md"),
+        "utf8",
+      ),
+      "",
+    );
+    const raw = await readFile(
+      resolve(runtime, "missions", rejected.id, "exchanges.jsonl"),
+      "utf8",
+    );
+    assert(raw.includes("Malformed reviewer response retained"));
+    const failedSpool = await readFile(
+      resolve(runtime, `spool-profile-proof-${rejected.id}.jsonl`),
+      "utf8",
+    );
+    assert(!failedSpool.includes('"capability":"artifact.created"'));
+    malformedRejected = true;
+  }
   const output = resolve(
     root,
     "evidence/profile-missions",
-    real ? (realDocs ? "docs-real" : "real") : "docs-fixture",
+    real ? "review-contract-real" : "review-contract-fixture",
   );
   await mkdir(output, { recursive: true });
   const proof = {
@@ -302,6 +363,8 @@ try {
     continuationPreservedAfterCatalogRemoval: real
       ? "fixture-tested"
       : continuationPreserved,
+    reviewSeparated: true,
+    malformedResponseRejected: real ? "fixture-tested" : malformedRejected,
     artifactSha256: createHash("sha256").update(artifact).digest("hex"),
     artifactQuality: "NOT_GRADED: runtime completion is not task acceptance",
     privateEvidence: runtime,

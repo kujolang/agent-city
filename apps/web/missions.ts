@@ -80,6 +80,17 @@ export function mountMissions(
               const parsed = JSON.parse(content);
               if (typeof parsed.cityQuestion === "string")
                 content = parsed.cityQuestion;
+              else if (
+                data.profiles &&
+                entry.agent === "reviewer" &&
+                typeof parsed.cityArtifact === "string" &&
+                typeof parsed.cityReview === "string"
+              )
+                content =
+                  "REVIEWER COMMENTARY · model assessment\n" +
+                  parsed.cityReview +
+                  "\n\nDELIVERABLE\n" +
+                  parsed.cityArtifact;
             } catch {}
             text.textContent = content;
             bubble.append(label, identity, text);

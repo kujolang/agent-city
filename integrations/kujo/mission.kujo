@@ -107,6 +107,7 @@ if env_or("CITY_PROFILE_FILE", "") != "" {
     boundary := "\nRuntime scope: PROPOSE draft/review. Only explicitly requested read-only documentation context can be supplied by the runtime. Use observed context as source evidence; never claim additional tool calls. Other declared tools/workflows, project edits, publishing, execution and checks are unavailable. If the task requires unavailable capabilities, explain that limitation. Preserve the task-specific output format below.\n"
     instructions = profile_contract["author"]["contracts"]["agent"]+"\n"+profile_contract["author"]["contracts"]["skill"]+boundary+instructions
     review = profile_contract["reviewer"]["contracts"]["agent"]+"\n"+profile_contract["reviewer"]["contracts"]["skill"]+boundary+review
+    review = review + "\nResponse contract for this runtime: return ONLY a JSON object with exactly two string fields: cityArtifact and cityReview. cityArtifact is the corrected finished deliverable in the requested format (raw JavaScript for code, finished Markdown for writing), without review commentary or an outer Markdown fence. cityReview contains your actual review findings/commentary. Do not put findings, approval messages, introductions or summaries around the deliverable. Do not claim checks were executed unless observed evidence supports that. A cityQuestion-only object is permitted instead when requesting an enabled check-in."
 }
 if env_or("CITY_CHECKINS", "0") == "1" {
     checkin_rule := "\nIf you need the user to clarify a requirement or decide about a concern before continuing, return ONLY a JSON object with one key cityQuestion containing your actual question (maximum 8192 characters). Do not include an artifact with a question. You may ask at most two questions per role. After the user's reply, continue the task. Otherwise return the normal requested output."
@@ -211,6 +212,23 @@ return {"ok": false, "status_code": response["_status"], "error": {"code": "prov
                             messages = push(messages, {"role":"user","content":answer})
                             answered_question = true
                         } else {
+                            if env_or("CITY_PROFILE_FILE", "") != "" && author == "reviewer" {
+                                # Extract explicit model fields only. Never guess a deliverable
+                                # from headings/fences or promote review prose to test truth.
+                                try {
+                                    reviewed := parse_json(content)
+                                    if type(reviewed) != "dict" || len(reviewed) != 2 || has_key(reviewed, "cityArtifact") == 0 || has_key(reviewed, "cityReview") == 0 {
+                                        return {"ok":false,"error":{"code":"profile_artifact_contract","message":"Reviewer must return cityArtifact and cityReview string fields; raw response retained"}}
+                                    }
+                                    if type(reviewed["cityArtifact"]) != "string" || trim(reviewed["cityArtifact"]) == "" || type(reviewed["cityReview"]) != "string" {
+                                        return {"ok":false,"error":{"code":"profile_artifact_contract","message":"Reviewer artifact fields are invalid; raw response retained"}}
+                                    }
+                                    write_file(env_or("CITY_OUTPUT_FILE", "")+".review.json", to_json({"schema":"agent-city.review.v1","agent":author,"run":author_run,"commentary":reviewed["cityReview"]}), true)
+                                    content = reviewed["cityArtifact"]
+                                } except invalid_review {
+                                    return {"ok":false,"error":{"code":"profile_artifact_contract","message":"Reviewer response contract could not be read or stored; raw response retained"}}
+                                }
+                            }
                             return {"ok": true, "status_code": 200, "model": model, "output_text": content}
                         }
                     }

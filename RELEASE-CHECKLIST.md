@@ -90,3 +90,10 @@ completed; lifecycle metadata retains author profile. Controlled context/privacy
 unauthorized-read tests passed; full verify73tests passes. General tools, custom
 named workflows and execution remain unconnected; whole-artifact output formatting
 still unqualified. See evidence/profile-missions/docs-real.
+
+Reviewer artifact checkpoint: custom reviewers return explicit artifact/commentary
+fields. Runtime saves them separately and rejects malformed output without an
+artifact-created event. Real glm-5.3:cloud/MCP/profile handoff produced an accepted
+brief source-grounded documentation artifact, with review findings kept private
+and separate. Controlled rejection proof and full verify pass. This qualifies that
+specific writing example; general model quality/custom workflows remain open.

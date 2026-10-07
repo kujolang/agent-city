@@ -263,6 +263,13 @@ evidence as context; it does not inherit the author's tool permissions. Other pr
 eligible profiles. This adapter executes the existing author→reviewer SDK handoff,
 not the catalog's named workflows. Declared tools are not automatically granted.
 
+Custom reviewers return two explicit fields: the deliverable and their review
+commentary. City saves only the deliverable as the output file; the conversation
+shows both, labeled as actual model content. The original response and a private
+review record remain available locally. Malformed/empty artifact responses fail
+without guessing which text was intended. A review opinion never becomes an
+executed check result.
+
 Each mission privately snapshots both contracts. Continuations reuse those snapshots
 even if the catalog changes. Two execution instances can share one profile; the
 source-qualified execution IDs remain distinct. Imported role IDs reach the city
