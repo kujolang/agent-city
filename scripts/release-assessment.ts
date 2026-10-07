@@ -10,6 +10,7 @@ export function assessRelease(input: {
   browser?: RecordData;
   renderer?: RecordData;
   zoom?: RecordData;
+  visibility?: RecordData;
   recovery?: RecordData;
   continuity?: string;
 }) {
@@ -98,11 +99,30 @@ export function assessRelease(input: {
         ),
       "Native Chromium tab zoom at 100/125/200%, keyboard roster and no overflow; not browser-menu interaction. CDP page scaling alone cannot qualify.",
     ),
-    hiddenTabResume: {
-      status: "NOT_QUALIFIED",
-      reason:
-        "No asserted hidden-tab/resume result in the supplied browser report.",
-    },
+    hiddenTabResume: measured(
+      input.visibility,
+      input.visibility?.windows?.sameWindow === true &&
+        input.visibility?.hidden?.visibility === "hidden" &&
+        input.visibility?.hiddenTicksPaused === true &&
+        input.visibility?.hiddenTruthUpdated === true &&
+        input.visibility?.backlogCollapsed === true &&
+        input.visibility?.selectedIdentityRetained === true &&
+        typeof input.visibility?.hidden?.selected === "string" &&
+        input.visibility.hidden.selected.length > 0 &&
+        input.visibility?.resumed?.selected ===
+          input.visibility.hidden.selected &&
+        finite(input.visibility?.hidden?.order) &&
+        input.visibility?.resumed?.order === input.visibility.hidden.order &&
+        atLeast(input.visibility?.hidden?.queued, 1) &&
+        input.visibility?.resumed?.queued === 0 &&
+        input.visibility?.resumed?.rendererReady === true &&
+        Array.isArray(input.visibility?.resumed?.visibilityEvents) &&
+        input.visibility.resumed.visibilityEvents.includes("hidden") &&
+        input.visibility.resumed.visibilityEvents.at(-1) === "visible" &&
+        Array.isArray(input.visibility?.errors) &&
+        input.visibility.errors.length === 0,
+      "Short native hidden/visible cycle with paused animation, retained truth/identity and collapsed backlog; not OS sleep, tab discard or long-duration reliability.",
+    ),
     sourceIndependence: measured(
       r,
       r?.realOperation?.exitCode === 0 &&

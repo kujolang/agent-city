@@ -5,6 +5,7 @@ const paths = {
   browser: "evidence/portrait-app/browser.json",
   renderer: "evidence/portrait-app/context-check/browser.json",
   zoom: "evidence/browser-zoom/proof.json",
+  visibility: "evidence/browser-visibility/proof.json",
   recovery: "evidence/hardening/recovery.json",
   pipeline: "evidence/blockers/pipeline.json",
   continuity: "evidence/blockers/watchdog-continuity.log",

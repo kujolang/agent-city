@@ -71,3 +71,9 @@ transactions; regression, canonical API/privacy/identity and mirror checks pass.
 Bounded pipeline delivered5,800/5,800 with zero duplicates, but139.92/sec remains
 below target. VM probe timed out and is unqualified; production stays interpreter.
 See [scope and evidence](evidence/canonical-concurrency/README.md).
+
+Native visibility checkpoint: installed Chrome154 passed an actual short hidden/
+visible tab cycle, truth ingestion while hidden, paused animation, collapsed
+backlog and retained selected identity. Release assessment now consumes/asserts
+that evidence. Long throttling, OS sleep/tab discard and live-source suspension
+remain outside this controlled1.2second test. See evidence/browser-visibility.

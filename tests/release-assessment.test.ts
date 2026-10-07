@@ -16,6 +16,54 @@ const pipeline = {
   duplicates: 0,
 };
 describe("release evidence cannot overclaim qualification", () => {
+  it("requires an observed native hidden/visible cycle and retained state", () => {
+    const visibility = {
+      windows: { sameWindow: true },
+      hidden: {
+        visibility: "hidden",
+        selected: "source:worker",
+        order: 13,
+        queued: 1,
+      },
+      resumed: {
+        selected: "source:worker",
+        order: 13,
+        queued: 0,
+        rendererReady: true,
+        visibilityEvents: ["hidden", "visible"],
+      },
+      hiddenTicksPaused: true,
+      hiddenTruthUpdated: true,
+      backlogCollapsed: true,
+      selectedIdentityRetained: true,
+      errors: [],
+    };
+    expect(assessRelease({ visibility }).gates.hiddenTabResume.status).toBe(
+      "PASS",
+    );
+    for (const change of [
+      { hiddenTicksPaused: false },
+      { hiddenTruthUpdated: false },
+      { errors: ["crash"] },
+      { hidden: { ...visibility.hidden, visibility: "visible" } },
+      { windows: { sameWindow: false } },
+      ...[
+        { selected: "another:worker" },
+        { order: 12 },
+        { queued: 1 },
+        { rendererReady: false },
+        { visibilityEvents: ["visible"] },
+        { visibilityEvents: ["visible", "hidden"] },
+      ].map((delta) => ({ resumed: { ...visibility.resumed, ...delta } })),
+    ])
+      expect(
+        assessRelease({ visibility: { ...visibility, ...change } }).gates
+          .hiddenTabResume.status,
+      ).toBe("FAIL");
+    expect(assessRelease({}).gates.hiddenTabResume.status).toBe(
+      "NOT_QUALIFIED",
+    );
+  });
   it("requires applied native zoom, layout and keyboard evidence", () => {
     const zoom = {
       method: "chrome.tabs.setZoom",

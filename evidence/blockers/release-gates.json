@@ -27,8 +27,8 @@
       "reason": "Native Chromium tab zoom at 100/125/200%, keyboard roster and no overflow; not browser-menu interaction. CDP page scaling alone cannot qualify."
     },
     "hiddenTabResume": {
-      "status": "NOT_QUALIFIED",
-      "reason": "No asserted hidden-tab/resume result in the supplied browser report."
+      "status": "PASS",
+      "reason": "Short native hidden/visible cycle with paused animation, retained truth/identity and collapsed backlog; not OS sleep, tab discard or long-duration reliability."
     },
     "sourceIndependence": {
       "status": "PASS",
@@ -49,6 +49,7 @@
     "browser": "evidence/portrait-app/browser.json",
     "renderer": "evidence/portrait-app/context-check/browser.json",
     "zoom": "evidence/browser-zoom/proof.json",
+    "visibility": "evidence/browser-visibility/proof.json",
     "recovery": "evidence/hardening/recovery.json",
     "pipeline": "evidence/blockers/pipeline.json",
     "continuity": "evidence/blockers/watchdog-continuity.log"

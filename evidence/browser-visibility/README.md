@@ -1,3 +1,31 @@
+# Current short native visibility qualification — 2026-10-07
+
+PASS for the bounded cycle in [proof.json](proof.json), against City5b9cd67,
+installed Google Chrome154.0.8037.98 with a fresh isolated profile and CDP
+`noDefaults`. Actual hidden/visible events were observed; animation ticks paused,
+12 synthetic retrieval observations updated truth while hidden, and returning
+collapsed the presentation queue while retaining the selected execution.
+[Resumed screenshot](resumed.png). No product source execution occurred.
+
+Command:
+```sh
+CITY_VISIBILITY_NO_DEFAULTS=1 \
+CHROMIUM_PATH='/Applications/Google Chrome.app/Contents/MacOS/Google Chrome' \
+npx tsx scripts/browser-visibility-proof.ts
+```
+
+The process exited0 and closed its isolated browser/server. A proxy ECONNREFUSED
+was logged during teardown after the passing assertions; no page errors occurred.
+Hidden duration was approximately1.2seconds. This does not qualify long throttling,
+OS sleep, tab discard, or live source delivery during suspension. No soak ran.
+The current release assessor consumes the proof and rejects absent/mismatched
+visibility, identity, order, queue, renderer or page-error evidence.
+
+Earlier Chromium151 results below remain historical and do not contradict the
+newer browser's observed cycle. Root cause of their failure remains unestablished.
+
+---
+
 # Native visibility qualification — 2026-09-08
 
 NOT QUALIFIED. The local headed Chromium automation did not reach the asserted

@@ -1,0 +1,36 @@
+{
+  "kind": "SYNTHETIC controlled transport, actual headed Chromium native tab visibility; no source execution",
+  "browser": "154.0.8037.98",
+  "windows": {
+    "source": 1402769748,
+    "cover": 1402769748,
+    "profile": "fresh persistent / CDP noDefaults",
+    "sameWindow": true
+  },
+  "hidden": {
+    "visibility": "hidden",
+    "tick": 58,
+    "order": 13,
+    "selected": "synthetic-visibility:worker",
+    "queued": 1
+  },
+  "resumed": {
+    "selected": "synthetic-visibility:worker",
+    "order": 13,
+    "queued": 0,
+    "rendererReady": true,
+    "visibilityEvents": [
+      "hidden",
+      "visible"
+    ]
+  },
+  "hiddenTicksPaused": true,
+  "hiddenTruthUpdated": true,
+  "backlogCollapsed": true,
+  "selectedIdentityRetained": true,
+  "errors": [],
+  "limitations": [
+    "Approximately 1.2 seconds hidden; not long-duration throttling, OS sleep, tab discard or a soak.",
+    "Transport delivery controlled by fixture, not a live Watchdog workload."
+  ]
+}
