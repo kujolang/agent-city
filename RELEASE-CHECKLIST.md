@@ -47,3 +47,8 @@ installed-model selection, explicit listing check and Codex login/adapter guidan
 Real browser detected three installed models; listing check passed and missing-token
 request returned403. Full verify64tests passes. Complete fresh-machine onboarding
 and real first-task/reviewer qualification remain open.
+
+Catalog checkpoint: all85 canonical registry profiles import with private contracts,
+content hashes, permission limits, capabilities, tool/workflow references and a
+read-only team browser. Profile execution remains NOT_CONNECTED; custom-team
+mission execution is still required before completing that checklist item.

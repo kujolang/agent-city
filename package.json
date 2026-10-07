@@ -42,7 +42,8 @@
     "package:local": "tsx scripts/package-local.ts",
     "verify:bundle": "tsx scripts/verify-bundle.ts",
     "proof:interaction": "tsx scripts/interaction-proof.ts",
-    "proof:checkin-live": "tsx scripts/checkin-live-proof.ts"
+    "proof:checkin-live": "tsx scripts/checkin-live-proof.ts",
+    "agents:import": "tsx scripts/import-agents.ts"
   },
   "dependencies": {
     "ajv": "8.20.0",

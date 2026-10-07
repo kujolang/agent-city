@@ -1,3 +1,4 @@
+import { mountAgentCatalog } from "./agent-catalog";
 export function mountMissions(
   host: HTMLElement,
   onMission: (id: string) => void = () => {},
@@ -30,6 +31,7 @@ export function mountMissions(
   panel.querySelector("#codex-setup-command")!.textContent =
     `CITY_APP_URL=${window.location.origin} npm run provider:codex`;
   host.querySelector(".world")!.after(panel);
+  mountAgentCatalog(panel);
   const chat = document.createElement("section");
   chat.className = "game-conversation";
   chat.setAttribute("aria-label", "Mission conversation");

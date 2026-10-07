@@ -1,3 +1,4 @@
+import { catalogSummary } from "./agent-catalog";
 import { discoverOllama, checkModelConnection } from "./provider-discovery";
 import { readCheckpoint, answerCheckpoint } from "./checkpoint";
 import { validateModelConfig, type ModelConfig } from "./config";
@@ -118,6 +119,18 @@ const server = createServer(async (req, res) => {
   )
     return send(403, { error: "Local origin required" });
   try {
+    if (req.method === "GET" && req.url === "/control/agents") {
+      try {
+        return send(
+          200,
+          await catalogSummary(resolve(dir, "agent-catalog.json")),
+        );
+      } catch {
+        return send(503, {
+          error: "Imported agent catalog is invalid or unavailable",
+        });
+      }
+    }
     if (req.method === "GET" && req.url === "/control/status") {
       await reconcile();
       return send(200, {

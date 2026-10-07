@@ -1,0 +1,17 @@
+{
+  "scope": "Real Kujo agent registry import and read-only browser catalog; no profile execution",
+  "profiles": 85,
+  "teams": [
+    "chain-of-command",
+    "publishing-house",
+    "videoops",
+    "webops"
+  ],
+  "source": {
+    "repository": "kujolang/kujo-agents",
+    "registryHash": "c159ecf101171e49a5cb79f5990808fdee955580877074972795779c894b221d"
+  },
+  "contractTextBroadcast": false,
+  "allExecutionBindings": "NOT_CONNECTED",
+  "browser": "154.0.8037.98"
+}

@@ -55,7 +55,8 @@ opinions, separate from that actual compiler check. No `.kujo` program is run.
 
 Verified real mission: `mission-42cf14f1-9892-4cc7-b952-e603a7721061`.
 See [live evidence](evidence/kujo-author-review-codex-checked/README.md).
-Custom team import from the 85 local catalog pages remains unimplemented.
+The 85-profile Kujo agent registry can now be imported and inspected (see below).
+Using those profiles as mission actors is not connected yet.
 
 ### Ollama or another chat-completions provider
 
@@ -236,3 +237,23 @@ execution and retained real observations for browser replay. `npm run proof:chec
 uses the configured idle application at `CITY_APP_URL` (default port 6178), sends a real
 Kujo task, and consumes provider usage. Evidence is in `evidence/interactive-observer`
 and `evidence/live-checkin` respectively.
+
+## Import agent profiles and inspect teams
+
+From a trusted local `kujo-agents` checkout:
+
+```sh
+npm run agents:import -- ../kujo-agents
+```
+
+Use the same `CITY_PORT_OFFSET`/`CITY_RUNTIME_DIR` as the app you intend to configure.
+Open **Mission Command → Agent profiles / teams**, refresh, filter a team, and
+select a profile to inspect permission limits, required capabilities, tools,
+workflows and source hashes. Import is atomic and private; raw AGENT.md/SKILL.md
+contracts are not sent to the browser or a model. Content hashes identify the
+imported files but do not authenticate their upstream origin. Import only trusted
+source checkouts. Importing does not execute contract instructions.
+
+Profiles remain **NOT_CONNECTED** until mission execution bindings enforce their
+permissions and required capabilities. They do not appear as working citizens,
+replace an execution identity, grant tool access, or automatically start workflows.
