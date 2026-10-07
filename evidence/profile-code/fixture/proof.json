@@ -2,7 +2,7 @@
   "scope": "Synthetic model outputs with actual SDK handoff and sandboxed browser function execution",
   "attempts": [
     {
-      "mission": "mission-e816253d-282f-41db-8457-86ed4d5323d6",
+      "mission": "mission-8e67c896-9d78-4b35-918c-f44e6728ef40",
       "model": "controlled",
       "checks": {
         "schema": "agent-city.function-check.v1",
@@ -18,22 +18,22 @@
             "name": "positive",
             "status": "failed",
             "reason": "returned",
-            "occurredAt": 1791401583747
+            "occurredAt": 1791402070545
           },
           {
             "name": "negative",
             "status": "failed",
             "reason": "returned",
-            "occurredAt": 1791401583763
+            "occurredAt": 1791402070558
           },
           {
             "name": "zero",
             "status": "passed",
             "reason": "expectation-met",
-            "occurredAt": 1791401583780
+            "occurredAt": 1791402070575
           }
         ],
-        "checkedAt": "2026-10-07T19:33:03.780Z"
+        "checkedAt": "2026-10-07T19:41:10.575Z"
       },
       "validation": {
         "schema": "agent-city.code-check.v1",
@@ -41,7 +41,7 @@
         "fenceRemoved": false,
         "functionalTests": "failed",
         "codeExecuted": true,
-        "checkedAt": "2026-10-07T19:32:59.572Z"
+        "checkedAt": "2026-10-07T19:41:08.216Z"
       },
       "artifactSha256": "5b01ee484093664f8263c230f9392950fa0df219c62e9a894d1affb45e1e8370",
       "checkerIdentityDistinct": true,
@@ -62,7 +62,7 @@
       "handoffObserved": true
     },
     {
-      "mission": "mission-4bf5169c-9ec7-4bbd-9370-e12ce4d72745",
+      "mission": "mission-01f6247e-0bc3-407a-ab74-ef22ed436fe4",
       "model": "controlled",
       "checks": {
         "schema": "agent-city.function-check.v1",
@@ -78,22 +78,22 @@
             "name": "positive",
             "status": "passed",
             "reason": "expectation-met",
-            "occurredAt": 1791401593901
+            "occurredAt": 1791402078310
           },
           {
             "name": "negative",
             "status": "passed",
             "reason": "expectation-met",
-            "occurredAt": 1791401593916
+            "occurredAt": 1791402078326
           },
           {
             "name": "zero",
             "status": "passed",
             "reason": "expectation-met",
-            "occurredAt": 1791401593932
+            "occurredAt": 1791402078339
           }
         ],
-        "checkedAt": "2026-10-07T19:33:13.932Z"
+        "checkedAt": "2026-10-07T19:41:18.339Z"
       },
       "validation": {
         "schema": "agent-city.code-check.v1",
@@ -101,7 +101,7 @@
         "fenceRemoved": false,
         "functionalTests": "passed",
         "codeExecuted": true,
-        "checkedAt": "2026-10-07T19:33:10.465Z"
+        "checkedAt": "2026-10-07T19:41:15.818Z"
       },
       "artifactSha256": "c4b7a01cbde242bf0e133e7afefc62e73fffdac917b0efd9cb40f26ed25d26f0",
       "checkerIdentityDistinct": true,
@@ -123,5 +123,5 @@
     }
   ],
   "priorFailureRetained": true,
-  "privateEvidence": "/Users/robertdevore/2026/Kujolang/kujo-repos/agent-city/.runtime/profile-code-28375e92-5234-4b0b-baef-3a9d857d5179"
+  "privateEvidence": "/Users/robertdevore/2026/Kujolang/kujo-repos/agent-city/.runtime/profile-code-bd2288b0-a70b-4eef-8b42-fe508ce0ac23"
 }

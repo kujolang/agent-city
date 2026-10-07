@@ -200,6 +200,7 @@ const code = await new Promise<number | null>((ok, fail) => {
 let validation:
   | (Omit<Awaited<ReturnType<typeof checkCodeArtifact>>, "codeExecuted"> & {
       codeExecuted: boolean | null;
+      checkedArtifact?: string;
     })
   | null = null;
 if (code === 0 && kind === "kujo") {
@@ -219,6 +220,13 @@ if (code === 0 && kind === "kujo") {
     fence ? fence[1] : author.content,
     { mode: 0o600 },
   );
+  const checkedArtifact = profiles ? "reviewed.kujo" : "draft.kujo";
+  if (profiles)
+    await writeFile(
+      resolve(dir, checkedArtifact),
+      await readFile(output, "utf8"),
+      { mode: 0o600 },
+    );
   const dispatch = JSON.parse(
     await readFile(resolve(dir, "dispatch.json"), "utf8"),
   );
@@ -238,7 +246,7 @@ if (code === 0 && kind === "kujo") {
     (done) => {
       const checker = spawn(
         process.env.KUJO_BIN || resolve(root, "../kujo/target/release/kujo"),
-        ["check", resolve(dir, "draft.kujo"), "--quiet"],
+        ["check", resolve(dir, checkedArtifact), "--quiet"],
         { stdio: "ignore", timeout: 10000 },
       );
       checker.once("error", () => done("unavailable"));
@@ -260,7 +268,8 @@ if (code === 0 && kind === "kujo") {
   validation = {
     schema: "agent-city.code-check.v1",
     syntax,
-    fenceRemoved: Boolean(fence),
+    fenceRemoved: profiles ? false : Boolean(fence),
+    checkedArtifact,
     functionalTests: "not-run",
     codeExecuted: false,
     checkedAt: new Date().toISOString(),

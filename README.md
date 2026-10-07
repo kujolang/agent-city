@@ -266,6 +266,13 @@ evidence as context; it does not inherit the author's tool permissions. Other pr
 eligible profiles. This adapter executes the existing author→reviewer SDK handoff,
 not the catalog's named workflows. Declared tools are not automatically granted.
 
+For a Kujo mission, an imported author must also allow **Kujo Docs**, since this
+mission explicitly reads the public Kujo MCP catalog. The corrected raw Kujo
+artifact is saved as `reviewed.kujo` and syntax-checked; the UI identifies that
+checked artifact. The original author draft and model review remain available.
+Generated Kujo code is **not executed**. Built-in Kujo missions retain their
+existing author-draft check and separate review behavior.
+
 Custom reviewers return two explicit fields: the deliverable and their review
 commentary. City saves only the deliverable as the output file; the conversation
 shows both, labeled as actual model content. The original response and a private

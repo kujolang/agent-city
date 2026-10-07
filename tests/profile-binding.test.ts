@@ -81,8 +81,10 @@ test("documentation needs author permission; platform checks require explicit co
     value.author.tools.allowed = [];
   }
   value.author.tools.allowed = ["Kujo Docs"];
+  expect(() => validateProfileMission(value, { kind: "kujo" })).not.toThrow();
+  value.author.tools.allowed = [];
   expect(() => validateProfileMission(value, { kind: "kujo" })).toThrow(
-    "not connected",
+    "does not allow",
   );
   expect(() =>
     validateProfileMission(value, { kind: "code", functionContract: {} }),

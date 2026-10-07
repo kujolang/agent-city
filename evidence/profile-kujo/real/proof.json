@@ -1,0 +1,30 @@
+{
+  "scope": "Real Ollama cloud author/reviewer, real public Kujo MCP read and static check of final artifact; no generated code execution",
+  "attempts": [
+    {
+      "mission": "mission-91254932-2d6e-4b1b-9716-ca09e4b9395b",
+      "model": "glm-5.3:cloud",
+      "checks": null,
+      "validation": {
+        "schema": "agent-city.code-check.v1",
+        "syntax": "valid",
+        "fenceRemoved": false,
+        "checkedArtifact": "reviewed.kujo",
+        "functionalTests": "not-run",
+        "codeExecuted": false,
+        "checkedAt": "2026-10-07T19:40:35.694Z"
+      },
+      "artifactSha256": "c28cc3c78176e7419b8a14d961a27016c7874f9976ea8110c9d25344baf5a06a",
+      "checkerIdentityDistinct": true,
+      "individualOutcomes": [
+        {
+          "operation": "kujo-static-check",
+          "outcome": "succeeded"
+        }
+      ],
+      "handoffObserved": true
+    }
+  ],
+  "priorFailureRetained": "fixture-tested",
+  "privateEvidence": "/Users/robertdevore/2026/Kujolang/kujo-repos/agent-city/.runtime/profile-code-7614043b-bcb5-4201-83cd-8cc1fd83dc06"
+}

@@ -1,0 +1,53 @@
+{
+  "scope": "Synthetic model outputs, real public Kujo MCP read and static check; no generated code execution",
+  "attempts": [
+    {
+      "mission": "mission-810f5c6c-5552-4d25-89e9-c89d9baa6d03",
+      "model": "controlled",
+      "checks": null,
+      "validation": {
+        "schema": "agent-city.code-check.v1",
+        "syntax": "invalid",
+        "fenceRemoved": false,
+        "checkedArtifact": "reviewed.kujo",
+        "functionalTests": "not-run",
+        "codeExecuted": false,
+        "checkedAt": "2026-10-07T19:39:39.499Z"
+      },
+      "artifactSha256": "ef8ce450a41aa727eb59c4f2ef9e2d5a19ffb01a73e6a30fad7240519ffcc5e7",
+      "checkerIdentityDistinct": true,
+      "individualOutcomes": [
+        {
+          "operation": "kujo-static-check",
+          "outcome": "failed"
+        }
+      ],
+      "handoffObserved": true
+    },
+    {
+      "mission": "mission-0aa73d19-d7d2-4647-81d0-cbbdd5725ab2",
+      "model": "controlled",
+      "checks": null,
+      "validation": {
+        "schema": "agent-city.code-check.v1",
+        "syntax": "valid",
+        "fenceRemoved": false,
+        "checkedArtifact": "reviewed.kujo",
+        "functionalTests": "not-run",
+        "codeExecuted": false,
+        "checkedAt": "2026-10-07T19:39:45.199Z"
+      },
+      "artifactSha256": "6499c357ba6953a66af2a884af647529575289ff0181bb1425ca34992bc3d179",
+      "checkerIdentityDistinct": true,
+      "individualOutcomes": [
+        {
+          "operation": "kujo-static-check",
+          "outcome": "succeeded"
+        }
+      ],
+      "handoffObserved": true
+    }
+  ],
+  "priorFailureRetained": true,
+  "privateEvidence": "/Users/robertdevore/2026/Kujolang/kujo-repos/agent-city/.runtime/profile-code-97d0fab7-fa9b-4651-8a4f-ff1cce5afced"
+}

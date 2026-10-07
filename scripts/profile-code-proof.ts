@@ -8,6 +8,10 @@ import { importCatalog, saveCatalog } from "../apps/runner/agent-catalog";
 import { portAvailable } from "./startup-checks";
 const root = resolve(import.meta.dirname, "..");
 const real = process.env.CITY_PROFILE_PROOF_REAL === "1";
+const kujo = process.env.CITY_PROFILE_PROOF_LANGUAGE === "kujo";
+const authorId = kujo
+  ? "kujolang/kujo-agents:chain.frontend-developer"
+  : "kujolang/kujo-agents:chain.integration-engineer";
 const runtime = resolve(root, ".runtime", "profile-code-" + randomUUID());
 await mkdir(runtime, { recursive: true });
 await saveCatalog(
@@ -27,7 +31,11 @@ const provider = createServer((req, res) => {
     const reviewer = data.messages.some(
       (m: any) => m.role === "system" && m.content.includes("# Code Reviewer"),
     );
-    const code = `export function add(a, b) { return a ${repaired ? "+" : "-"} b; }`;
+    const code = kujo
+      ? repaired || !reviewer
+        ? "func add(a, b) { return a + b }\nprint(add(2, 3))\n"
+        : "func broken( { invalid $$$"
+      : `export function add(a, b) { return a ${repaired ? "+" : "-"} b; }`;
     res.setHeader("Content-Type", "application/json");
     res.end(
       JSON.stringify({
@@ -112,14 +120,15 @@ try {
         "X-City-Command-Token": status.token,
       },
       body: JSON.stringify({
-        kind: "code",
-        prompt:
-          "Write a raw JavaScript ES module exporting add(a,b), returning a+b. Reviewer must preserve the named export and return corrected code in cityArtifact. Do not claim tests passed; the platform will run the explicit cases after review.",
+        kind: kujo ? "kujo" : "code",
+        prompt: kujo
+          ? "Read the Kujo catalog using the requested MCP step. Write raw Kujo code defining func add(a,b) returning a+b and print(add(2,3)). Reviewer must return corrected raw Kujo code in cityArtifact and grade/review in cityReview. Do not claim execution; the platform will only syntax-check the final code."
+          : "Write a raw JavaScript ES module exporting add(a,b), returning a+b. Reviewer must preserve the named export and return corrected code in cityArtifact. Do not claim tests passed; the platform will run the explicit cases after review.",
         profiles: {
-          authorId: "kujolang/kujo-agents:chain.integration-engineer",
+          authorId,
           reviewerId: "kujolang/kujo-agents:chain.code-reviewer",
         },
-        functionContract: contract,
+        ...(kujo ? {} : { functionContract: contract }),
       }),
     });
     const accepted = await response.json();
@@ -133,13 +142,16 @@ try {
     const job = final.jobs.find((j: any) => j.id === accepted.id);
     assert.equal(job.status, "completed", JSON.stringify(job));
     const dir = resolve(runtime, "missions", job.id);
-    const checks = JSON.parse(
-      await readFile(resolve(dir, "functional.json"), "utf8"),
-    );
+    const checks = kujo
+      ? null
+      : JSON.parse(await readFile(resolve(dir, "functional.json"), "utf8"));
     const validation = JSON.parse(
       await readFile(resolve(dir, "validation.json"), "utf8"),
     );
-    const artifact = await readFile(resolve(dir, "reviewed.mjs"), "utf8");
+    const artifact = await readFile(
+      resolve(dir, kujo ? "reviewed.kujo" : "reviewed.mjs"),
+      "utf8",
+    );
     const events = (
       await readFile(
         resolve(runtime, `spool-profile-code-${job.id}.jsonl`),
@@ -150,22 +162,52 @@ try {
       .split("\n")
       .map((l) => JSON.parse(l));
     const expected = real || repaired ? "passed" : "failed";
-    assert.equal(checks.status, expected);
-    assert.equal(validation.functionalTests, expected);
-    assert.equal(validation.codeExecuted, true);
+    if (kujo) {
+      assert.equal(validation.syntax, real || repaired ? "valid" : "invalid");
+      assert.equal(validation.checkedArtifact, "reviewed.kujo");
+      assert.equal(validation.codeExecuted, false);
+      assert.equal(
+        await readFile(resolve(dir, "reviewed.md"), "utf8"),
+        artifact,
+      );
+      const api = await (
+        await fetch(base + "/control/artifact/" + job.id)
+      ).json();
+      assert.equal(api.validation.checkedArtifact, "reviewed.kujo");
+      assert.equal(api.content, artifact);
+      assert(
+        events.some(
+          (e) =>
+            e.capability === "mcp.call" &&
+            e.phase === "finished" &&
+            e.outcome === "succeeded",
+        ),
+      );
+    } else {
+      assert.equal(checks.status, expected);
+      assert.equal(validation.functionalTests, expected);
+      assert.equal(validation.codeExecuted, true);
+    }
     assert(events.some((e) => e.kind === "handoff" && e.phase === "finished"));
-    const checker = events.filter((e) => e.agent_id === "function-checker");
-    assert(checker.length >= 7);
-    assert(checker.every((e) => e.profile === "city-function-checker"));
-    const individual = checker.filter((e) =>
-      e.operation_id.startsWith("check-"),
+    const checker = events.filter(
+      (e) => e.agent_id === (kujo ? "kujo-checker" : "function-checker"),
     );
-    assert.equal(individual.length, 3);
+    assert(checker.length >= (kujo ? 2 : 7));
     assert(
-      events.some(
-        (e) => e.profile === "kujolang/kujo-agents:chain.integration-engineer",
+      checker.every(
+        (e) =>
+          e.profile === (kujo ? "city-kujo-checker" : "city-function-checker"),
       ),
     );
+    const individual = checker.filter(
+      (e) =>
+        e.phase === "finished" &&
+        (kujo
+          ? e.operation_id === "kujo-static-check"
+          : e.operation_id.startsWith("check-")),
+    );
+    assert.equal(individual.length, kujo ? 1 : 3);
+    assert(events.some((e) => e.profile === authorId));
     assert(
       events.some(
         (e) => e.profile === "kujolang/kujo-agents:chain.code-reviewer",
@@ -189,18 +231,34 @@ try {
     assert.equal(calls, 4);
     const first = JSON.parse(
       await readFile(
-        resolve(runtime, "missions", attempts[0].mission, "functional.json"),
+        resolve(
+          runtime,
+          "missions",
+          attempts[0].mission,
+          kujo ? "validation.json" : "functional.json",
+        ),
         "utf8",
       ),
     );
-    assert.equal(first.status, "failed");
+    assert.equal(
+      kujo ? first.syntax : first.status,
+      kujo ? "invalid" : "failed",
+    );
   }
-  const out = resolve(root, "evidence/profile-code", real ? "real" : "fixture");
+  const out = resolve(
+    root,
+    kujo ? "evidence/profile-kujo" : "evidence/profile-code",
+    real ? "real" : "fixture",
+  );
   await mkdir(out, { recursive: true });
   const proof = {
-    scope: real
-      ? "Real Ollama cloud author/reviewer and actual sandboxed browser function execution"
-      : "Synthetic model outputs with actual SDK handoff and sandboxed browser function execution",
+    scope: kujo
+      ? real
+        ? "Real Ollama cloud author/reviewer, real public Kujo MCP read and static check of final artifact; no generated code execution"
+        : "Synthetic model outputs, real public Kujo MCP read and static check; no generated code execution"
+      : real
+        ? "Real Ollama cloud author/reviewer and actual sandboxed browser function execution"
+        : "Synthetic model outputs with actual SDK handoff and sandboxed browser function execution",
     attempts,
     priorFailureRetained: real ? "fixture-tested" : true,
     privateEvidence: runtime,

@@ -104,3 +104,10 @@ Real Integration Engineer→Code Reviewer using glm-5.3:cloud generated code tha
 passed three actual browser-worker cases. Controlled bad/repaired outputs retain
 both results. Full verify passes. General Workcell/project execution, named
 workflows and custom Kujo execution remain incomplete. See evidence/profile-code.
+
+Custom Kujo checkpoint: authors with explicit Kujo Docs permission can produce
+reviewer-corrected Kujo artifacts after the real public MCP read. Static validation
+now identifies reviewed.kujo for these missions; built-in author-draft behavior
+is preserved. Real cloud author/reviewer/check passed. Controlled invalid-final/
+repaired-final checks retain both outcomes. Generated Kujo execution and broader
+Workcell/workflow scope remain open. See evidence/profile-kujo.

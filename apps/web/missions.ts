@@ -306,12 +306,14 @@ export function mountMissions(
                 (artifact.kind === "code"
                   ? `SYNTAX: ${artifact.validation?.syntax?.toUpperCase() || "UNKNOWN"} · FUNCTIONAL TESTS: ${(artifact.validation?.functionalTests || "not-run").toUpperCase()} · ${artifact.codeExecuted === null ? "EXECUTION COVERAGE UNKNOWN" : artifact.codeExecuted ? "EXECUTED IN ISOLATED BROWSER" : "CODE NOT EXECUTED"}\n${artifact.validation?.fenceRemoved ? "Outer Markdown fence removed; original response retained above.\n" : ""}\n`
                   : artifact.kind === "kujo"
-                    ? `KUJO STATIC CHECK: ${artifact.validation?.syntax?.toUpperCase() || "UNKNOWN"} · CODE NOT EXECUTED\nSENIOR REVIEW · MODEL OPINION, NOT A TEST RESULT\n\n`
+                    ? `KUJO STATIC CHECK: ${artifact.validation?.syntax?.toUpperCase() || "UNKNOWN"} · ${artifact.validation?.checkedArtifact === "reviewed.kujo" ? "REVIEWED CODE" : "AUTHOR DRAFT"} · CODE NOT EXECUTED\nREVIEW COMMENTARY IS MODEL OPINION, NOT A TEST RESULT\n\n`
                     : "MODEL-REVIEWED TEXT · FACTUAL ACCURACY AND TASK CONSTRAINTS NOT VERIFIED\n\n") +
                 (artifact.draft
                   ? "KUJO AUTHOR DRAFT\n" +
                     artifact.draft +
-                    "\n\nSENIOR REVIEW\n"
+                    (artifact.validation?.checkedArtifact === "reviewed.kujo"
+                      ? "\n\nREVIEWED KUJO CODE\n"
+                      : "\n\nSENIOR REVIEW\n")
                   : "") +
                 artifact.content +
                 (artifact.functional
