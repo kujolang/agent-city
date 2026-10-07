@@ -171,3 +171,14 @@ stopped; durable local spool recovered6/6unique evidence references after restar
 with1source run and browser STALE→LIVE. Evidence in
 evidence/mission-workcell/watchdog-outage/proof.json. Source interruption, overflow
 and remaining broader release requirements remain unqualified.
+
+Operator-cancellation checkpoint: real owned running container cancelled via
+Workcell hook; retained failure, no success artifact, container/workspace cleanup
+verified. A small Workcell ProcessResult field-access bug was found and fixed;
+original misclassified attempt retained. Hard process-death recovery and broader
+release requirements remain open. See evidence/mission-workcell/cancellation.
+
+Additional release gate: Workcell official cloud-adapter release candidate fails
+its dependency audit (6 high,1 critical). Findings retained in
+evidence/mission-workcell/cancellation/optional-adapters-audit.json; exploitability
+and reachability remain unassessed. Local Docker cancellation passes independently.

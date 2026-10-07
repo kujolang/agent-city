@@ -1,0 +1,94 @@
+{
+  "scope": "Real operator cancellation after observing own running container; bounded intentional loop, not model-generated workload",
+  "run": "wc-bcace4c2d6dc44709e9dc81f94fd8b64",
+  "requestedAt": "2026-10-07T20:45:14.127Z",
+  "adapterExit": 1,
+  "workcellExit": 7,
+  "workloadExit": 130,
+  "finalStatus": "cancelled",
+  "cancelled": true,
+  "cleanup": "complete",
+  "workspaceRemoved": true,
+  "containerRemoved": true,
+  "noSuccessArtifactObserved": true,
+  "events": [
+    {
+      "schema": "kujo.lifecycle.v1",
+      "producer_instance": "review-cancel-1791405909919",
+      "profile": "local-workcell-invocation",
+      "run_id": "workcell-invocation-1791405910330",
+      "agent_id": "workcell-host",
+      "task_id": "",
+      "operation_id": "invocation",
+      "attempt": 1,
+      "kind": "internal",
+      "capability": "execution.run",
+      "phase": "started",
+      "outcome": "unset",
+      "occurred_at_ms": 1791405910809,
+      "metadata": {}
+    },
+    {
+      "schema": "kujo.lifecycle.v1",
+      "producer_instance": "review-cancel-1791405909919",
+      "profile": "local-workcell-invocation",
+      "run_id": "workcell-invocation-1791405910330",
+      "agent_id": "workcell-host",
+      "task_id": "",
+      "operation_id": "workload",
+      "attempt": 1,
+      "kind": "internal",
+      "capability": "workcell.execute",
+      "phase": "started",
+      "outcome": "unset",
+      "occurred_at_ms": 1791405910810,
+      "metadata": {
+        "resultCode": "invoked"
+      }
+    },
+    {
+      "schema": "kujo.lifecycle.v1",
+      "producer_instance": "review-cancel-1791405909919",
+      "profile": "local-workcell-invocation",
+      "run_id": "workcell-invocation-1791405910330",
+      "agent_id": "workcell-host",
+      "task_id": "",
+      "operation_id": "workload",
+      "attempt": 1,
+      "kind": "internal",
+      "capability": "workcell.execute",
+      "phase": "finished",
+      "outcome": "failed",
+      "occurred_at_ms": 1791405915231,
+      "metadata": {
+        "workcellRef": "wc-bcace4c2d6dc44709e9dc81f94fd8b64",
+        "resultCode": "cancelled:exit-7"
+      }
+    },
+    {
+      "schema": "kujo.lifecycle.v1",
+      "producer_instance": "review-cancel-1791405909919",
+      "profile": "local-workcell-invocation",
+      "run_id": "workcell-invocation-1791405910330",
+      "agent_id": "workcell-host",
+      "task_id": "",
+      "operation_id": "invocation",
+      "attempt": 1,
+      "kind": "internal",
+      "capability": "execution.run",
+      "phase": "finished",
+      "outcome": "failed",
+      "occurred_at_ms": 1791405915232,
+      "metadata": {}
+    }
+  ],
+  "privateEvidence": ".runtime/workcell-cancel-1791405909884",
+  "originalMisclassifiedRun": "wc-adacdf7be0e44034b6ddf9a6a338204d",
+  "casefile": "2026-10-07-164549-workcellcancellationclassification",
+  "workcellCommit": "0baaad5c6c39e7ebd3b947ccd8de670a66b43992",
+  "runtimeScope": {
+    "host": "1.7.0",
+    "container": "1.5.0",
+    "releasePinnedRuntimeQualified": false
+  }
+}

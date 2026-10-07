@@ -137,3 +137,37 @@ ordered timestamps and actual references:6source lifecycle records recovered as
 is rerun. This covers the tested short observer outage, not spool overflow, prolonged
 retention loss or source-process interruption. Owned services/VM stopped, no
 Workcell containers left; TypeScript passed.
+
+## Real operator cancellation
+
+`scripts/workcell-cancel-proof.ts` runs a deliberate loop under the existing
+30-second Workcell limit. It discovers only its own run directory, confirms that
+exact run's labeled container is running, then creates the operator cancellation
+file. `CITY_WORKCELL_CANCEL_FILE` forwards that explicit host hook to Workcell.
+No game control or automatic task cancellation is introduced.
+
+The first real attempt stopped and cleaned up but incorrectly reported cancelled
+false/exit-1. Workcell used a dictionary-only getter on Kujo's ProcessResult struct.
+A small independent producer fix reads that field correctly with an explicit
+dictionary fallback; its regression covers actual native cancellation, true/false
+dictionaries and missing fields. The rerun reports actual cancellation and
+complete cleanup; container/workspace absence and no successful artifact
+observation were checked. Original failed classification remains in CaseFile
+2026-10-07-164549-workcellcancellationclassification and local receipts.
+
+`cancellation/proof.json` records the successful rerun and original attempt ID.
+This qualifies cooperative operator cancellation of the tested local workload,
+not forced host-process death, every backend or crash/orphan recovery.
+
+Producer fix: Workcell `0baaad5`. Tested host Kujo1.7.0 and existing container
+Kujo1.5.0; this is not qualification of every Workcell release/backend combination.
+
+Verification: native cancellation regression and actual container cancellation pass;
+City typecheck passes. Workcell quality, release-report, Markdown links and all23
+official-adapter unit tests/integrity pass. Full Workcell suite does NOT pass: its
+cloud-adapter release-candidate gate stops at npm audit (6 high,1 critical).
+`cancellation/optional-adapters-audit.json` retains the report; reachability is
+unassessed. These dependencies are outside the tested local Docker execution path.
+Default version check expects1.6; the documented1.7 test override passes.
+Remaining cleanup, secret-scope, startup/lifecycle-failure and endpoint contracts
+passed when run separately after the audit stop; see cancellation/verification.json.

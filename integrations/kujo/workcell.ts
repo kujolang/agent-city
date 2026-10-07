@@ -168,7 +168,18 @@ await emit("workcell.execute", "workload", "started", "unset", {
 });
 const result = await command(
   resolve(root, "../workcell/bin/workcell"),
-  ["run", "--file", file, "--repo", source, "--no-pull", "--summary"],
+  [
+    "run",
+    "--file",
+    file,
+    "--repo",
+    source,
+    "--no-pull",
+    "--summary",
+    ...(process.env.CITY_WORKCELL_CANCEL_FILE
+      ? ["--cancel-file", resolve(process.env.CITY_WORKCELL_CANCEL_FILE)]
+      : []),
+  ],
   source,
 );
 const summary = result.output

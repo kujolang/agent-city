@@ -1,0 +1,53 @@
+{
+  "cityTypecheck": "PASS",
+  "realCancellation": "PASS",
+  "nativeCancellationRegression": "PASS",
+  "workcellQuality": "PASS",
+  "officialAdapterUnitTests": {
+    "passed": 23,
+    "failed": 0
+  },
+  "officialAdapterIntegrity": "PASS",
+  "fullWorkcellSuite": "FAIL: optional cloud-adapter release-candidate npm audit gate",
+  "defaultVersionCheck": "FAIL: expected 1.6, tested host 1.7",
+  "remainingContracts": [
+    {
+      "check": "secret_scope_contract.sh",
+      "exit": 0
+    },
+    {
+      "check": "verification_cleanup_contract.sh",
+      "exit": 0
+    },
+    {
+      "check": "runtime_cleanup_contract.sh",
+      "exit": 0
+    },
+    {
+      "check": "startup_failure_contract.sh",
+      "exit": 0
+    },
+    {
+      "check": "docker_endpoint_contract.py",
+      "exit": 0
+    },
+    {
+      "check": "lifecycle_failure_contract.sh",
+      "exit": 0
+    },
+    {
+      "check": "clean_runtime_failure_contract.sh",
+      "exit": 0
+    },
+    {
+      "check": "version_consistency.sh",
+      "exit": 0
+    },
+    {
+      "check": "markdown_links.sh",
+      "exit": 0
+    }
+  ],
+  "signalboxCapture": "cap_68d447ef-550f-4764-977e-9deb36173ed4",
+  "signalboxSignal": "sig_17c69e45-fd43-4868-aa8a-54f7d1b22cec"
+}
