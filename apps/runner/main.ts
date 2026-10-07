@@ -1,3 +1,4 @@
+import { readMissionOutcome } from "./mission-recovery";
 import { readWorkcellRecord } from "./workcell-recovery";
 import { admitWorkcell } from "./mission-workcell";
 import { assertWorkcellAvailable } from "./workcell-preflight";
@@ -75,26 +76,14 @@ function save() {
 async function reconcile() {
   let changed = false;
   for (const job of jobs.filter((j) => j.status === "unknown")) {
-    try {
-      const receipt = JSON.parse(
-        await readFile(resolve(missionsRoot, job.id, "receipt.json"), "utf8"),
-      );
-      if (
-        receipt.id !== job.id ||
-        receipt.kind !== job.kind ||
-        typeof receipt.finishedAt !== "string"
-      )
-        continue;
-      if (receipt.status === "completed" && receipt.code === 0)
-        job.status = "completed";
-      else if (receipt.status === "failed" && receipt.code !== 0)
-        job.status = "failed";
-      else continue;
-      job.finishedAt = receipt.finishedAt;
-      changed = true;
-    } catch (e: any) {
-      if (e.code !== "ENOENT" && !(e instanceof SyntaxError)) throw e;
-    }
+    const outcome = await readMissionOutcome(
+      resolve(missionsRoot, job.id, "receipt.json"),
+      job,
+    );
+    if (!outcome) continue;
+    job.status = outcome.status;
+    job.finishedAt = outcome.finishedAt;
+    changed = true;
   }
   if (changed) await save();
 }

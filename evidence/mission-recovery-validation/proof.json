@@ -1,0 +1,35 @@
+{
+  "scope": "Controlled restart/receipt-corruption fixture through actual runner HTTP; no model or workload execution",
+  "before": [
+    {
+      "id": "mission-recovery-1",
+      "status": "unknown"
+    },
+    {
+      "id": "mission-recovery-2",
+      "status": "unknown"
+    }
+  ],
+  "after": [
+    {
+      "id": "mission-recovery-1",
+      "status": "failed"
+    },
+    {
+      "id": "mission-recovery-2",
+      "status": "completed"
+    }
+  ],
+  "originalReceiptsUnchangedByRecovery": true,
+  "explicitRepairByHarness": true,
+  "privateEvidence": ".runtime/mission-recovery-1791408456",
+  "retainedRealMission": {
+    "id": "mission-e58374b0-73ce-41b2-aab7-a46b9575081b",
+    "outcome": {
+      "status": "completed",
+      "finishedAt": "2026-10-07T20:09:15.846Z"
+    },
+    "unchanged": true,
+    "executedAgain": false
+  }
+}

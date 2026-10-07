@@ -221,3 +221,9 @@ verified cleanup and6canonical observations, with browser Follow into Workshop b
 Evidence: evidence/workcell-image. ARM64 and clean-machine/engine provisioning
 remain unqualified. Earlier installer scope text corrected to macOS x64 to match
 its original receipt; no ARM installation claim is supported by that proof.
+
+Mission recovery validation checkpoint: malformed failed receipts no longer turn
+UNKNOWN into FAILED merely because a code is absent/notzero. Bounded read validates
+explicit terminal metadata; controlled HTTP restart/corruption proof and retained
+real completed receipt pass without mutation or source execution. Evidence in
+evidence/mission-recovery-validation. Live process-death/orphan cleanup still open.
