@@ -261,3 +261,15 @@ with producer pins matching the installer. Local ShipCheck metadata gate passes
 with5warnings; connected service unavailable. All five release workstreams remain
 partially complete; final real-tool game recording is queued after qualification.
 See evidence/release-readiness-current and evidence/release-package-current.
+
+Public bootstrap checkpoint: user authorized public visibility; repository is
+public and billing no longer blocks CI. Run37704210809 passed private-Node
+bootstrap plus installed contracts on Linux x64/ARM64 and macOS Intel/ARM64.
+Evidence: evidence/public-bootstrap. This supersedes private-distribution and
+CI-start blockers, not model/sandbox onboarding or full release readiness.
+
+Mission supervision checkpoint: independent observed process-exit receipt now
+survives HTTP-controller death. Controlled restart recovered FAILED and released
+the queue without rerunning work or fabricating workload truth. Full verify88tests
+passes. Both-supervisor-and-source-evidence loss still remains UNKNOWN; explicit
+owned Workcell cleanup is separate. Evidence: evidence/mission-supervisor.

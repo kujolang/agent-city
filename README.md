@@ -7,8 +7,8 @@ and replay gateway remain read-only; **Mission Command** is a separate local
 service for explicit writing/code requests and SDK reviewer handoffs.
 
 Managed preview installation now supports staged updates and archive-based uninstall;
-see [installation and maintenance](installer/README.md). Public installation and
-platform qualification remain incomplete.
+see [public preview installation and maintenance](installer/README.md). The repository
+is public; production qualification remains incomplete.
 
 ## Start and try it
 
@@ -26,14 +26,14 @@ the flags in `scripts/codex-provider.ts` (verified with 0.144.4).
 Terminal 1:
 
 ```sh
-cd /Users/robertdevore/2026/Kujolang/kujo-repos/agent-city
+cd "$HOME/.local/share/agent-city/agent-city"
 CITY_PORT_OFFSET=1000 npm start
 ```
 
 Terminal 2, after the app is ready:
 
 ```sh
-cd /Users/robertdevore/2026/Kujolang/kujo-repos/agent-city
+cd "$HOME/.local/share/agent-city/agent-city"
 codex login status
 npm run provider:codex
 ```
@@ -66,7 +66,7 @@ repositories. This is a local development application, not a standalone public
 release.
 
 ```sh
-cd /Users/robertdevore/2026/Kujolang/kujo-repos/agent-city
+cd "$HOME/.local/share/agent-city/agent-city"
 npm start
 ```
 

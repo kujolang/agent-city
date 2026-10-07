@@ -1,8 +1,21 @@
 # Managed local installation (preview)
 
-Public distribution and clean-platform qualification are still blocked. Do not
-advertise these commands as a qualified public installer. From a trusted source
-checkout with Node 24+, install into an isolated directory:
+The repository is public. The preview bootstrap downloads an immutable City
+revision and pinned producer/runtime dependencies into an isolated directory.
+Production release gates remain incomplete; see ../RELEASE-CHECKLIST.md.
+
+Install and launch the local preview on macOS or Linux:
+
+```sh
+curl --proto '=https' --tlsv1.2 -fsSL https://raw.githubusercontent.com/kujolang/agent-city/main/install.sh | sh
+```
+
+The bootstrap supplies a private Node runtime when needed. It does not configure
+model credentials or start agent tasks. Ctrl+C stops the application. To install
+without launching, append `-s -- --no-start` to `sh`. The default launcher is
+`~/.local/share/agent-city/start.command`.
+
+From a trusted source checkout with Node 24+, the equivalent explicit install is:
 
 ```sh
 node installer/install.mjs --prefix "$HOME/.local/share/agent-city" --no-start

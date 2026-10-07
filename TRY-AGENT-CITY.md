@@ -7,26 +7,29 @@ it does not yet provide free-form agent chat or player-controlled characters.
 
 ## Start
 
-Open `Start Agent City.command` in this directory, or run:
+Install the public preview using [the bootstrap instructions](installer/README.md).
+Then open the installed `Start Agent City.command`, or run:
 
 ```sh
-cd /Users/robertdevore/2026/Kujolang/kujo-repos/agent-city
+cd "$HOME/.local/share/agent-city/agent-city"
 npm start
 ```
 
 Open http://127.0.0.1:5178 and keep the terminal open. Stop with Ctrl+C.
 If the launcher reports port 5178 occupied, stop the previous launcher first;
-it deliberately does not kill existing processes. This checkout requires Node 24,
-installed npm dependencies, and the existing sibling Kujo repositories/binary.
-It is not yet a self-contained application download.
+it deliberately does not kill existing processes. The managed installer supplies
+application dependencies and the pinned Kujo producer/runtime sources. A model
+provider and optional container engine remain separate prerequisites.
 
 ## Connect a model
 
-Expand **Mission Command → Model connection**. This machine has a saved local
-Ollama connection: endpoint `http://127.0.0.1:11434/v1/chat/completions`, model
-`qwen2.5-coder:1.5b-instruct`, blank API key. Ollama must be running. Alternatively
-enter your compatible provider's full chat-completions endpoint, model and key.
-Saving configuration does not prove connectivity; a mission does.
+Expand **Mission Command → Model connection**. No credentials or model connection
+are bundled. With Ollama running and a model installed, choose **Detect local
+Ollama**, select your model, then **Save connection**. A local Ollama endpoint
+normally uses a blank API key; nothing needs to be saved elsewhere first. For a
+compatible remote provider, enter its full chat-completions endpoint, model and
+required key. **Check model listing** checks discovery; an actual mission checks
+generation. Codex CLI login uses the separate adapter documented in README.md.
 
 Writer/coder and reviewer profiles are built in. Their execution instances appear
 when actual work is observed. You do not need to create them manually, and the
