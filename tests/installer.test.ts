@@ -1,10 +1,28 @@
 import { expect, test } from "vitest";
 // Node-only installer intentionally has no application dependencies.
 // @ts-expect-error standalone JS bootstrap
-import { options, validateArchive, install } from "../installer/install.mjs";
+import * as installer from "../installer/install.mjs";
+const { options, validateArchive, validateSources, install } = installer;
 import { mkdtemp, writeFile, readFile, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
+test("source lock rejects missing or substituted producers before installation", async () => {
+  const lock = JSON.parse(
+    await readFile(
+      new URL("../installer/sources.json", import.meta.url),
+      "utf8",
+    ),
+  );
+  expect(() => validateSources(lock)).not.toThrow();
+  const missing = structuredClone(lock);
+  delete missing.repositories.workcell;
+  expect(() => validateSources(missing)).toThrow("Invalid source lock");
+  missing.repositories.unrelated = lock.repositories.workcell;
+  expect(() => validateSources(missing)).toThrow("Invalid source lock");
+  expect(() => validateSources({ ...lock, runtime: "latest" })).toThrow(
+    "Invalid source lock",
+  );
+});
 test("installer accepts explicit destination and no-start but rejects unknown switches", () => {
   expect(options(["--prefix", "/tmp/city with spaces", "--no-start"])).toEqual({
     prefix: "/tmp/city with spaces",

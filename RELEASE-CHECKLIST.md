@@ -191,3 +191,11 @@ See ../workcell/evidence/adapter-dependency-audit-20261007 for current evidence.
 Producer commit a276a92: integrity and25JS tests pass,249release-report assertions
 pass; offline Kujo conformance rerun passes6checks. Initial unexplained Daytona
 failure retained in CaseFile2026-10-07-170340-adapterconformance.
+
+Installer Workcell checkpoint: the managed source lock now includes Workcell
+a276a92, and validates exact required producer identities rather than only count.
+Fresh isolated macOS installation downloaded pinned sources and built successfully;
+installed Kujo1.7/Workcell1.2 CLI and native cancellation regression passed. No
+cloud dependencies, execution enablement, credentials or missions were installed
+or started. Evidence: evidence/installer-workcell/proof.json. This does not qualify
+container engine/image provisioning, clean machines or other platforms.

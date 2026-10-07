@@ -17,6 +17,29 @@ import { spawn } from "node:child_process";
 import { createRequire } from "node:module";
 import { createHash } from "node:crypto";
 const source = resolve(dirname(fileURLToPath(import.meta.url)), "..");
+export function validateSources(lock) {
+  const required = [
+    "agents-sdk",
+    "dispatch",
+    "watchdog",
+    "rag",
+    "eval",
+    "mcp",
+    "workcell",
+  ];
+  if (
+    lock?.schema !== "agent-city.install-sources.v1" ||
+    lock.runtime !== "1.7.0" ||
+    !lock.repositories ||
+    Object.keys(lock.repositories).length !== required.length ||
+    required.some(
+      (repo) => !/^[a-f0-9]{40}$/.test(lock.repositories[repo] || ""),
+    )
+  )
+    throw Error(
+      "Invalid source lock: all pinned runtime producers are required",
+    );
+}
 export function options(args) {
   let prefix = join(homedir(), ".local", "share", "agent-city"),
     start = true,
@@ -134,11 +157,7 @@ export async function install({ prefix, start }) {
   const lock = JSON.parse(
     await readFile(join(source, "installer/sources.json"), "utf8"),
   );
-  if (
-    lock.schema !== "agent-city.install-sources.v1" ||
-    Object.keys(lock.repositories).length !== 6
-  )
-    throw Error("Invalid source lock");
+  validateSources(lock);
   await mkdir(dirname(prefix), { recursive: true });
   const stage = await mkdtemp(join(dirname(prefix), ".agent-city-staging-"));
   let installed = false;

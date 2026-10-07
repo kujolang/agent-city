@@ -9,6 +9,21 @@ node installer/install.mjs --prefix "$HOME/.local/share/agent-city" --no-start
 "$HOME/.local/share/agent-city/start.command"
 ```
 
+The installation includes pinned Workcell source alongside the other Kujo
+producers. Existing managed installations need an update to receive it. This
+does not install a container engine, pull an image, install optional cloud-adapter
+dependencies, or enable code execution. To use isolated Kujo execution, first
+configure a supported local container backend and a trusted, already-local image
+with Kujo. Set `CITY_ENABLE_WORKCELL=1` and `CITY_WORKCELL_IMAGE` before launching;
+set `DOCKER_CONTEXT` and `CITY_WORKCELL_TMPDIR` when required by that backend.
+Each mission still requires explicit execution consent in Mission Command.
+Missing backend/image configuration must be resolved before attempting execution.
+
+The current Workcell pin includes verified native cancellation handling. Its
+optional cloud adapters retain unresolved dependency audit findings and are not
+qualified by this installation. The isolated macOS installation proof establishes
+source/runtime availability, not automatic sandbox setup or clean-machine support.
+
 Stop the launcher with Ctrl+C before maintenance. From the trusted **new release
 source checkout**, update the existing installation:
 
