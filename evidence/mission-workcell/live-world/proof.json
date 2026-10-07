@@ -1,0 +1,300 @@
+{
+  "scope": "Fresh real Workcell Kujo execution → lifecycle spool → Watchdog canonical intake/export → gateway/SSE → Pixi Follow into Workshop upper bay; no new model request",
+  "producer": "review-workcell-live-1791405079795",
+  "workcell": "wc-8d5e64c1efc040a6be43baf6a670f5dd",
+  "output": "5\n",
+  "browserVersion": "154.0.8037.98",
+  "atBay": {
+    "instance": "review-workcell-live-1791405079795:review-workcell-live-1791405079795-run:workcell-host",
+    "scene": "workshop",
+    "follow": "review-workcell-live-1791405079795:review-workcell-live-1791405079795-run:workcell-host",
+    "x": 116,
+    "y": 160,
+    "phase": "return",
+    "visual": "RECENT · 1 workcell.execute · workshop / return · 1 calls / 0 active / 1 succeeded / 0 failed",
+    "truth": {
+      "id": "review-workcell-live-1791405079795:review-workcell-live-1791405079795-run:workcell-host",
+      "profile": "local-workcell-invocation",
+      "run": {
+        "namespace": "review-workcell-live-1791405079795",
+        "id": "review-workcell-live-1791405079795-run"
+      },
+      "task": {
+        "namespace": "unknown",
+        "id": "unknown"
+      },
+      "status": "completed",
+      "lastObserved": 1791405105648,
+      "completeness": "partial",
+      "operations": {
+        "review-workcell-live-1791405079795:review-workcell-live-1791405079795-run:invocation:1": {
+          "key": "review-workcell-live-1791405079795:review-workcell-live-1791405079795-run:invocation:1",
+          "capability": "execution.run",
+          "collection": "unknown",
+          "status": "succeeded",
+          "started": 1791405095551,
+          "finished": 1791405105075,
+          "evidence": [
+            {
+              "origin": "canonical",
+              "recordId": "native:agent-city-sdk:1d83badb79bfddaddad58c6936afe1e6495d7cb59723074c86f348f7c5beb388",
+              "hash": "18dcf6514ea3c6526d774b8dc56db57305246996ed2d3d287c411aeaa2d015c3",
+              "sourceSequence": 1
+            },
+            {
+              "origin": "canonical",
+              "recordId": "native:agent-city-sdk:b95ed25a6cb560606e1eec133932bfbc27c0142c497ac8a81e3d0f98b10ff5ea",
+              "hash": "9a7be3349c55a08db3e56d5406378b7c0995661ebbf70788cf8cb72892449a4f",
+              "sourceSequence": 6
+            }
+          ],
+          "partial": false,
+          "relatedAgent": "",
+          "metadata": {},
+          "attempt": 1,
+          "operationId": "invocation",
+          "observedAt": 1791405105648,
+          "eventIds": [
+            "6cd7660f965235b27e6219ca65bdd1ad4991c4ff6d241988cff78df161c32a02",
+            "177e8088d75539934773c37c37b98f86e1281b2d78d18a27ceee57641614115d"
+          ]
+        },
+        "review-workcell-live-1791405079795:review-workcell-live-1791405079795-run:workload:1": {
+          "key": "review-workcell-live-1791405079795:review-workcell-live-1791405079795-run:workload:1",
+          "capability": "workcell.execute",
+          "collection": "unknown",
+          "status": "succeeded",
+          "started": 1791405095552,
+          "finished": 1791405105063,
+          "evidence": [
+            {
+              "origin": "canonical",
+              "recordId": "native:agent-city-sdk:eaa07961c648e56a73fb8815d2152178f8fa3e9ed8d7deeb9b8d7ec68a4b67f5",
+              "hash": "12a528aa0312b35e6602fedfc1547aaf0434eb56c3edc180a05bab93dd5e1e22",
+              "sourceSequence": 2
+            },
+            {
+              "origin": "canonical",
+              "recordId": "native:agent-city-sdk:8a80e1b742fab96b90469af71a26caffac70d509b07d1cd713e02ef762315ce2",
+              "hash": "e2d97aa008aeacfb08aff54da62d7ccc75b39d1257efeec590ec7ce51714121c",
+              "sourceSequence": 3
+            }
+          ],
+          "partial": false,
+          "relatedAgent": "",
+          "metadata": {
+            "resultCode": "completed:exit-0",
+            "workcellRef": "wc-8d5e64c1efc040a6be43baf6a670f5dd"
+          },
+          "attempt": 1,
+          "operationId": "workload",
+          "observedAt": 1791405105645,
+          "eventIds": [
+            "92b0f1bc34ae353e78da48bb96b172f114c9352991a252efc228015365b7b77f",
+            "37e1000872aa75d6709b5db175c969f08a330d6e92be88ba90779f6ed18602d5"
+          ]
+        },
+        "review-workcell-live-1791405079795:review-workcell-live-1791405079795-run:container-artifact:city-result.txt:1": {
+          "key": "review-workcell-live-1791405079795:review-workcell-live-1791405079795-run:container-artifact:city-result.txt:1",
+          "capability": "artifact.created",
+          "collection": "unknown",
+          "status": "succeeded",
+          "started": null,
+          "finished": 1791405105064,
+          "evidence": [
+            {
+              "origin": "canonical",
+              "recordId": "native:agent-city-sdk:6745d32d4ea9314016c7021f2ebb7c2d980372167081200d2c8e0a64934e38a9",
+              "hash": "e7c11118553f9ae38b8b90a8fbb861679de0c5c13d39150c3ae4a3717f3cba4a",
+              "sourceSequence": 4
+            }
+          ],
+          "partial": true,
+          "relatedAgent": "",
+          "metadata": {
+            "artifactRef": "workcell:wc-8d5e64c1efc040a6be43baf6a670f5dd:city-result.txt",
+            "workcellRef": "wc-8d5e64c1efc040a6be43baf6a670f5dd"
+          },
+          "attempt": 1,
+          "operationId": "container-artifact:city-result.txt",
+          "observedAt": 1791405105646,
+          "eventIds": [
+            "4b06a13ba5add9050cb63c58b081aff3c9e0c4eb2628a047ce56a0794dc0b28c"
+          ]
+        },
+        "review-workcell-live-1791405079795:review-workcell-live-1791405079795-run:container-artifact:runtime-version.txt:1": {
+          "key": "review-workcell-live-1791405079795:review-workcell-live-1791405079795-run:container-artifact:runtime-version.txt:1",
+          "capability": "artifact.created",
+          "collection": "unknown",
+          "status": "succeeded",
+          "started": null,
+          "finished": 1791405105067,
+          "evidence": [
+            {
+              "origin": "canonical",
+              "recordId": "native:agent-city-sdk:f8c01040e7b46e598039e68a8f661a97810b3975f27c830f9465f70499a5ab30",
+              "hash": "3477b0ac55aa15fbbbc4d52e61830a16e34995fb42f32206ca9dcc9943f3b304",
+              "sourceSequence": 5
+            }
+          ],
+          "partial": true,
+          "relatedAgent": "",
+          "metadata": {
+            "artifactRef": "workcell:wc-8d5e64c1efc040a6be43baf6a670f5dd:runtime-version.txt",
+            "workcellRef": "wc-8d5e64c1efc040a6be43baf6a670f5dd"
+          },
+          "attempt": 1,
+          "operationId": "container-artifact:runtime-version.txt",
+          "observedAt": 1791405105647,
+          "eventIds": [
+            "0cfb2ab6b5f3c2b9ac470614d896f01f6dd18bfed2ce25487c0f12eea24da214"
+          ]
+        }
+      },
+      "runAttempt": 1
+    }
+  },
+  "finalTruth": {
+    "id": "review-workcell-live-1791405079795:review-workcell-live-1791405079795-run:workcell-host",
+    "profile": "local-workcell-invocation",
+    "run": {
+      "namespace": "review-workcell-live-1791405079795",
+      "id": "review-workcell-live-1791405079795-run"
+    },
+    "task": {
+      "namespace": "unknown",
+      "id": "unknown"
+    },
+    "status": "completed",
+    "lastObserved": 1791405105648,
+    "completeness": "partial",
+    "operations": {
+      "review-workcell-live-1791405079795:review-workcell-live-1791405079795-run:invocation:1": {
+        "key": "review-workcell-live-1791405079795:review-workcell-live-1791405079795-run:invocation:1",
+        "capability": "execution.run",
+        "collection": "unknown",
+        "status": "succeeded",
+        "started": 1791405095551,
+        "finished": 1791405105075,
+        "evidence": [
+          {
+            "origin": "canonical",
+            "recordId": "native:agent-city-sdk:1d83badb79bfddaddad58c6936afe1e6495d7cb59723074c86f348f7c5beb388",
+            "hash": "18dcf6514ea3c6526d774b8dc56db57305246996ed2d3d287c411aeaa2d015c3",
+            "sourceSequence": 1
+          },
+          {
+            "origin": "canonical",
+            "recordId": "native:agent-city-sdk:b95ed25a6cb560606e1eec133932bfbc27c0142c497ac8a81e3d0f98b10ff5ea",
+            "hash": "9a7be3349c55a08db3e56d5406378b7c0995661ebbf70788cf8cb72892449a4f",
+            "sourceSequence": 6
+          }
+        ],
+        "partial": false,
+        "relatedAgent": "",
+        "metadata": {},
+        "attempt": 1,
+        "operationId": "invocation",
+        "observedAt": 1791405105648,
+        "eventIds": [
+          "6cd7660f965235b27e6219ca65bdd1ad4991c4ff6d241988cff78df161c32a02",
+          "177e8088d75539934773c37c37b98f86e1281b2d78d18a27ceee57641614115d"
+        ]
+      },
+      "review-workcell-live-1791405079795:review-workcell-live-1791405079795-run:workload:1": {
+        "key": "review-workcell-live-1791405079795:review-workcell-live-1791405079795-run:workload:1",
+        "capability": "workcell.execute",
+        "collection": "unknown",
+        "status": "succeeded",
+        "started": 1791405095552,
+        "finished": 1791405105063,
+        "evidence": [
+          {
+            "origin": "canonical",
+            "recordId": "native:agent-city-sdk:eaa07961c648e56a73fb8815d2152178f8fa3e9ed8d7deeb9b8d7ec68a4b67f5",
+            "hash": "12a528aa0312b35e6602fedfc1547aaf0434eb56c3edc180a05bab93dd5e1e22",
+            "sourceSequence": 2
+          },
+          {
+            "origin": "canonical",
+            "recordId": "native:agent-city-sdk:8a80e1b742fab96b90469af71a26caffac70d509b07d1cd713e02ef762315ce2",
+            "hash": "e2d97aa008aeacfb08aff54da62d7ccc75b39d1257efeec590ec7ce51714121c",
+            "sourceSequence": 3
+          }
+        ],
+        "partial": false,
+        "relatedAgent": "",
+        "metadata": {
+          "resultCode": "completed:exit-0",
+          "workcellRef": "wc-8d5e64c1efc040a6be43baf6a670f5dd"
+        },
+        "attempt": 1,
+        "operationId": "workload",
+        "observedAt": 1791405105645,
+        "eventIds": [
+          "92b0f1bc34ae353e78da48bb96b172f114c9352991a252efc228015365b7b77f",
+          "37e1000872aa75d6709b5db175c969f08a330d6e92be88ba90779f6ed18602d5"
+        ]
+      },
+      "review-workcell-live-1791405079795:review-workcell-live-1791405079795-run:container-artifact:city-result.txt:1": {
+        "key": "review-workcell-live-1791405079795:review-workcell-live-1791405079795-run:container-artifact:city-result.txt:1",
+        "capability": "artifact.created",
+        "collection": "unknown",
+        "status": "succeeded",
+        "started": null,
+        "finished": 1791405105064,
+        "evidence": [
+          {
+            "origin": "canonical",
+            "recordId": "native:agent-city-sdk:6745d32d4ea9314016c7021f2ebb7c2d980372167081200d2c8e0a64934e38a9",
+            "hash": "e7c11118553f9ae38b8b90a8fbb861679de0c5c13d39150c3ae4a3717f3cba4a",
+            "sourceSequence": 4
+          }
+        ],
+        "partial": true,
+        "relatedAgent": "",
+        "metadata": {
+          "artifactRef": "workcell:wc-8d5e64c1efc040a6be43baf6a670f5dd:city-result.txt",
+          "workcellRef": "wc-8d5e64c1efc040a6be43baf6a670f5dd"
+        },
+        "attempt": 1,
+        "operationId": "container-artifact:city-result.txt",
+        "observedAt": 1791405105646,
+        "eventIds": [
+          "4b06a13ba5add9050cb63c58b081aff3c9e0c4eb2628a047ce56a0794dc0b28c"
+        ]
+      },
+      "review-workcell-live-1791405079795:review-workcell-live-1791405079795-run:container-artifact:runtime-version.txt:1": {
+        "key": "review-workcell-live-1791405079795:review-workcell-live-1791405079795-run:container-artifact:runtime-version.txt:1",
+        "capability": "artifact.created",
+        "collection": "unknown",
+        "status": "succeeded",
+        "started": null,
+        "finished": 1791405105067,
+        "evidence": [
+          {
+            "origin": "canonical",
+            "recordId": "native:agent-city-sdk:f8c01040e7b46e598039e68a8f661a97810b3975f27c830f9465f70499a5ab30",
+            "hash": "3477b0ac55aa15fbbbc4d52e61830a16e34995fb42f32206ca9dcc9943f3b304",
+            "sourceSequence": 5
+          }
+        ],
+        "partial": true,
+        "relatedAgent": "",
+        "metadata": {
+          "artifactRef": "workcell:wc-8d5e64c1efc040a6be43baf6a670f5dd:runtime-version.txt",
+          "workcellRef": "wc-8d5e64c1efc040a6be43baf6a670f5dd"
+        },
+        "attempt": 1,
+        "operationId": "container-artifact:runtime-version.txt",
+        "observedAt": 1791405105647,
+        "eventIds": [
+          "0cfb2ab6b5f3c2b9ac470614d896f01f6dd18bfed2ce25487c0f12eea24da214"
+        ]
+      }
+    },
+    "runAttempt": 1
+  },
+  "pageErrors": [],
+  "privateEvidence": ".runtime/workcell-live-1791405079767"
+}

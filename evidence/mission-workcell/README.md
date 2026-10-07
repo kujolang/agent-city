@@ -91,3 +91,22 @@ Compiled map hash and core source hash change with this correction. Historical
 pinned replay requires its original matching map/core; no old bundle is relabeled.
 Full verification passed79tests/27files, map gates, pure-core boundary, TypeScript
 and production build; final active-operation guard passed targeted14tests.
+
+## Fresh canonical pipeline and Follow proof
+
+`live-world/proof.json` and `live-world/workcell-bay.png` prove a fresh actual
+Kujo container execution, metadata lifecycle spool, Watchdog canonical intake/
+export, gateway/SSE truth, and Pixi Follow at the upper Workshop bay. The exact
+instance remains followed; real operation success and both artifact observations
+reach browser truth. Actual container output is5. This invokes the previously
+model-generated Kujo file; no new model request is claimed.
+
+Run `scripts/workcell-live-proof.ts` with the documented local Workcell backend,
+image and shared temporary directory. It reserves isolated ports18991/18992/18888,
+uses private databases/tokens, and stops its own services. Start/stop your dedicated
+VM separately. The successful bounded test left no Workcell containers.
+
+The initial harness unnecessarily toggled Follow after selecting an agent; the
+corrected rerun explicitly asserts `follow === instance`. This proof establishes
+Workshop/bay arrival; it does not claim cross-building tool travel, a new model
+handoff or live process-interruption qualification.

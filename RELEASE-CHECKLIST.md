@@ -153,3 +153,9 @@ Workcell world checkpoint: authored bay replaces legacy unavailable station;
 invocation waits, verified completed work animates RECENT, failure alerts.
 Deterministic station/identity/replay checks pass. Full verification79tests; no
 fresh end-to-end live Workcell browser traversal claimed.
+
+Fresh Workcell world checkpoint: actual generated Kujo execution exported5;
+lifecycle→Watchdog canonical→gateway/SSE→Pixi passed. Exact instance remained
+followed at upper Workshop bay, success and both artifact observations retained.
+Screenshot and receipt-linked truth in evidence/mission-workcell/live-world.
+Live interruption/cleanup fault injection and broader work/release gates remain.
