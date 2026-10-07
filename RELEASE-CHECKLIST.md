@@ -111,3 +111,9 @@ now identifies reviewed.kujo for these missions; built-in author-draft behavior
 is preserved. Real cloud author/reviewer/check passed. Controlled invalid-final/
 repaired-final checks retain both outcomes. Generated Kujo execution and broader
 Workcell/workflow scope remain open. See evidence/profile-kujo.
+
+Workcell local execution checkpoint: dedicated Colima with enforced protections
+ran a real generated/reviewed Kujo program, exported5, verified receipts and
+cleaned up. Original mount failure retained. Host1.7/container1.5 scope and
+CLI-only limits are explicit; general Mission Command Workcell remains open.
+See [execution evidence](evidence/workcell-live/README.md).

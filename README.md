@@ -175,9 +175,10 @@ The launcher also starts the local Kujo MCP demo server when no server is alread
 listening at its health endpoint. The proof invokes actual local work, including
 an intentionally failing Eval check and a subsequent correction. The UI remains
 read-only. `npm run workcell` uses a dedicated generated fixture repository and
-preserves the host's Workcell guardrails; this machine rejects container execution
-because AppArmor is unavailable. The failure is an observed preflight, not work
-inside a container.
+preserves the host's Workcell guardrails. A dedicated Colima backend has now
+executed an actual generated Kujo script and exported its result. This is a CLI
+proof, not general Mission Command Workcell integration. See the
+[setup, receipts and limits](evidence/workcell-live/README.md).
 
 The retained release cohort uses `CITY_SOURCE_PREFIX=phase1-release-` and
 `.runtime/phase1-final.sqlite`. No historical travel is fabricated on a page

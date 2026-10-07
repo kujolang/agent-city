@@ -1,0 +1,132 @@
+{
+  "scope": "Local CLI execution proof, not Mission Command integration or platform release qualification",
+  "date": "2026-10-07",
+  "host_kujo": "1.7.0",
+  "container_kujo": "1.5.0",
+  "workcell_commit": "0f9595b79872d2500f0bb35a8cf6227171fd7eeb",
+  "input_mission": "mission-91254932-2d6e-4b1b-9716-ca09e4b9395b",
+  "input_path": "evidence/profile-kujo/real/reviewed.kujo",
+  "runs": [
+    {
+      "run_id": "wc-59f3150debc043e4a9f2ab45fee706e8",
+      "final_status": "workload-failed",
+      "exit_code": 2,
+      "start_time": "2026-10-07T19:47:44Z",
+      "end_time": "2026-10-07T19:47:47Z",
+      "elapsed_ms": 2959,
+      "container_image": "kujolang/workcell-kujo:tribunal-kujo-1.5.0-cc2d7db",
+      "container_image_id": "sha256:4305c871600b637e20fbf698173ae216b9eccd0dfea762febd435017a1308aa9",
+      "resource_limits": {
+        "cpus": 2,
+        "max_output_bytes": 4000000,
+        "memory": "1g",
+        "pids": 256,
+        "timeout_ms": 30000
+      },
+      "network_mode": "none",
+      "exported_artifacts": [],
+      "artifact_files": 0,
+      "cleanup_status": "complete",
+      "verification": {
+        "artifacts_exported": false,
+        "checks": [],
+        "cleanup_succeeded": true,
+        "execution_succeeded": false,
+        "verification_succeeded": false
+      },
+      "source_commit": "d9cce97de81551a7b29d53efcd5b8fd8789621d8",
+      "receipt_sha256": "be2e8ae79950a9002607940d0a5bc803f902da77b66444ce15466f475910d3b5",
+      "workspace_removed": true,
+      "receipt_local_path": ".runtime/workcell-qualified/workcell-source/.workcell/runs/wc-59f3150debc043e4a9f2ab45fee706e8/receipt.json",
+      "artifact_evidence": []
+    },
+    {
+      "run_id": "wc-2e71157d91494a408b4f246d491950ad",
+      "final_status": "completed",
+      "exit_code": 0,
+      "start_time": "2026-10-07T19:48:45Z",
+      "end_time": "2026-10-07T19:48:48Z",
+      "elapsed_ms": 3798,
+      "container_image": "kujolang/workcell-kujo:tribunal-kujo-1.5.0-cc2d7db",
+      "container_image_id": "sha256:4305c871600b637e20fbf698173ae216b9eccd0dfea762febd435017a1308aa9",
+      "resource_limits": {
+        "cpus": 2,
+        "max_output_bytes": 4000000,
+        "memory": "1g",
+        "pids": 256,
+        "timeout_ms": 30000
+      },
+      "network_mode": "none",
+      "exported_artifacts": [
+        "city-result.txt"
+      ],
+      "artifact_files": 1,
+      "cleanup_status": "complete",
+      "verification": {
+        "artifacts_exported": true,
+        "checks": [],
+        "cleanup_succeeded": true,
+        "execution_succeeded": true,
+        "verification_succeeded": true
+      },
+      "source_commit": "d9cce97de81551a7b29d53efcd5b8fd8789621d8",
+      "receipt_sha256": "b2e9a24a09b7d1618f83bc97d6e5a9f8de9fa9721870e86f58249a5a252008cb",
+      "workspace_removed": true,
+      "receipt_local_path": ".runtime/workcell-qualified/workcell-source/.workcell/runs/wc-2e71157d91494a408b4f246d491950ad/receipt.json",
+      "artifact_evidence": [
+        {
+          "path": "artifacts/city-result.txt",
+          "content": "Agent City real container artifact\n",
+          "sha256": "905e4a6939fd6faa7843657d6d7f1b563ac9a79636c04ff08ec13c35300e2554"
+        }
+      ]
+    },
+    {
+      "run_id": "wc-937c7b1fbe254506a210171029c77280",
+      "final_status": "completed",
+      "exit_code": 0,
+      "start_time": "2026-10-07T19:50:28Z",
+      "end_time": "2026-10-07T19:50:30Z",
+      "elapsed_ms": 2485,
+      "container_image": "kujolang/workcell-kujo:tribunal-kujo-1.5.0-cc2d7db",
+      "container_image_id": "sha256:4305c871600b637e20fbf698173ae216b9eccd0dfea762febd435017a1308aa9",
+      "resource_limits": {
+        "cpus": 2,
+        "max_output_bytes": 4000000,
+        "memory": "1g",
+        "pids": 256,
+        "timeout_ms": 30000
+      },
+      "network_mode": "none",
+      "exported_artifacts": [
+        "city-result.txt",
+        "runtime-version.txt"
+      ],
+      "artifact_files": 2,
+      "cleanup_status": "complete",
+      "verification": {
+        "artifacts_exported": true,
+        "checks": [],
+        "cleanup_succeeded": true,
+        "execution_succeeded": true,
+        "verification_succeeded": true
+      },
+      "source_commit": "6236c304b343ea3f4f62c999d6c306279164c28b",
+      "receipt_sha256": "6f2a3d5fe18f5de8ac227336593d3da782e6ebff82cc9a443af8761afe7b54a0",
+      "workspace_removed": true,
+      "receipt_local_path": ".runtime/workcell-kujo-qualified/workcell-source/.workcell/runs/wc-937c7b1fbe254506a210171029c77280/receipt.json",
+      "artifact_evidence": [
+        {
+          "path": "artifacts/city-result.txt",
+          "content": "5\n",
+          "sha256": "f0b5c2c2211c8d67ed15e75e656c7862d086e9245420892a7de62cd9ec582a06"
+        },
+        {
+          "path": "artifacts/runtime-version.txt",
+          "content": "kujo 1.5.0\n",
+          "sha256": "0ebfb32be0f9b1c0ebad9bce9c887309a1e221a1b86bf7a43174ac927049ac10"
+        }
+      ]
+    }
+  ]
+}

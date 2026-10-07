@@ -1,0 +1,38 @@
+[
+  {
+    "run_id": "wc-2e71157d91494a408b4f246d491950ad",
+    "exit_code": 0,
+    "verification": {
+      "manifest": {
+        "bytes": 15883,
+        "files": 10,
+        "ok": true,
+        "schema_version": "workcell-manifest/v1"
+      },
+      "ok": true,
+      "receipt": {
+        "ok": true,
+        "schema_version": "workcell-receipt/v1"
+      },
+      "run_dir": ".runtime/workcell-qualified/workcell-source/.workcell/runs/wc-2e71157d91494a408b4f246d491950ad"
+    }
+  },
+  {
+    "run_id": "wc-937c7b1fbe254506a210171029c77280",
+    "exit_code": 0,
+    "verification": {
+      "manifest": {
+        "bytes": 16265,
+        "files": 11,
+        "ok": true,
+        "schema_version": "workcell-manifest/v1"
+      },
+      "ok": true,
+      "receipt": {
+        "ok": true,
+        "schema_version": "workcell-receipt/v1"
+      },
+      "run_dir": ".runtime/workcell-kujo-qualified/workcell-source/.workcell/runs/wc-937c7b1fbe254506a210171029c77280"
+    }
+  }
+]

@@ -2,7 +2,7 @@ import { spawn } from "node:child_process";
 import { appendFile, readFile, writeFile, stat, mkdir } from "node:fs/promises";
 import { resolve } from "node:path";
 const root = resolve(import.meta.dirname, "../.."),
-  runtime = resolve(root, ".runtime"),
+  runtime = resolve(root, process.env.CITY_RUNTIME_DIR || ".runtime"),
   source = resolve(runtime, "workcell-source");
 const run = process.env.CITY_RUN || "workcell-invocation-" + Date.now(),
   producer = process.env.CITY_PRODUCER || "review-workcell-" + Date.now();
@@ -49,7 +49,14 @@ async function command(cmd: string, args: string[], cwd: string) {
   let output = "";
   const p = spawn(cmd, args, {
     cwd,
-    env: { ...process.env, KUJO: resolve(root, "../kujo/target/release/kujo") },
+    env: {
+      ...process.env,
+      ...(process.env.CITY_WORKCELL_TMPDIR
+        ? { TMPDIR: resolve(process.env.CITY_WORKCELL_TMPDIR) }
+        : {}),
+      KUJO:
+        process.env.KUJO_BIN || resolve(root, "../kujo/target/release/kujo"),
+    },
     stdio: ["ignore", "pipe", "pipe"],
   });
   p.stdout.on("data", (d) => (output = (output + d).slice(-131072)));
@@ -107,13 +114,49 @@ const definition = JSON.parse(
   await readFile(resolve(root, "../workcell/workcell.json"), "utf8"),
 );
 definition.name = "agent-city-workcell";
-definition.runtime.image = "alpine:3.20";
+definition.runtime.image = process.env.CITY_WORKCELL_IMAGE || "alpine:3.20";
 definition.command = [
   "sh",
   "-c",
   'printf "Agent City real container artifact\\n" > city-result.txt',
 ];
 definition.artifacts.export = ["city-result.txt"];
+// Optional explicit generated-code proof: only a bounded copied file enters the
+// disposable workspace. No command or host mount is derived from its content.
+if (process.env.CITY_WORKCELL_KUJO_FILE) {
+  const input = resolve(process.env.CITY_WORKCELL_KUJO_FILE);
+  if (!(await stat(input)).isFile() || (await stat(input)).size > 65536)
+    throw Error(
+      "Kujo proof input must be a regular file no larger than 64 KiB",
+    );
+  const code = await readFile(input, "utf8");
+  if (!code.trim() || Buffer.byteLength(code) > 65536)
+    throw Error("Invalid Kujo proof input");
+  await writeFile(resolve(source, "input.kujo"), code, { mode: 0o600 });
+  for (const args of [
+    ["add", "input.kujo"],
+    [
+      "-c",
+      "user.name=Agent City Proof",
+      "-c",
+      "user.email=proof@localhost",
+      "commit",
+      "--allow-empty",
+      "-m",
+      "Record explicit Kujo proof input",
+    ],
+  ]) {
+    const result = await command("git", args, source);
+    if (result.code !== 0) throw Error(result.output);
+  }
+  definition.command = [
+    "sh",
+    "-c",
+    "kujo --version > runtime-version.txt && kujo run input.kujo --interpreter > city-result.txt",
+  ];
+  definition.artifacts.export = ["city-result.txt", "runtime-version.txt"];
+}
+
 definition.resources.timeout_ms = 30000;
 const file = resolve(runtime, "workcell-definition.json");
 await writeFile(file, JSON.stringify(definition));
