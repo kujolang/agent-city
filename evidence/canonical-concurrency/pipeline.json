@@ -1,0 +1,44 @@
+{
+  "runtimeMode": "interpreter",
+  "startedAt": "2026-10-07T18:51:52.452Z",
+  "cityCommit": "5eed98b4606b028747345bab0963a563c7158447",
+  "watchdogCommit": "a842217c794d9115f54863d69cffffae2485f663",
+  "pid": 27397,
+  "status": "COMPLETED",
+  "samples": [],
+  "kind": "SYNTHETIC canonical HTTP intake \u2192 real Watchdog export \u2192 real gateway \u2192 SSE; no source business execution",
+  "concurrency": 2,
+  "processResources": [
+    {
+      "elapsedSeconds": 0.0001321539999989909,
+      "processes": "27397   0.0 162596\n27408   0.0  40380\n27424   1.1 111876"
+    },
+    {
+      "elapsedSeconds": 41.224086779000004,
+      "processes": "27397   0.4 177868\n27408   0.1 109612\n27424   8.7 185988"
+    }
+  ],
+  "requestedDurationSeconds": 10,
+  "batchSize": 100,
+  "offeredRate": 1100,
+  "accepted": 5800,
+  "visible": 5800,
+  "duplicates": 0,
+  "missing": 0,
+  "sendSeconds": 41.249571802000006,
+  "totalSeconds": 41.452678732,
+  "visibleEventsPerSecond": 139.91858131770397,
+  "intakeMs": {
+    "p50": 1381.8016439999992,
+    "p95": 2048.8350780000037
+  },
+  "sourceHealth": {
+    "status": "LIVE",
+    "gap": false,
+    "lastSuccess": 1791399172700,
+    "lastError": "",
+    "coverage": "SDK run/retrieval/tool/handoff and Eval invocation/check results; retained local journal; reconnect history partial"
+  },
+  "forcedCleanup": [],
+  "provenanceNote": "Recorded against a842217 plus the uncommitted isolation patch subsequently committed as 8c512624782878cc607794add7b71f46781a45bf. Harness also had uncommitted profiling changes."
+}

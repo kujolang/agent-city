@@ -1,4 +1,4 @@
-import { randomBytes } from "node:crypto";
+import { randomBytes, createHash } from "node:crypto";
 import { chromium, type Browser } from "@playwright/test";
 import { spawn, spawnSync, type ChildProcess } from "node:child_process";
 import { mkdir, writeFile, readFile, stat, rename } from "node:fs/promises";
@@ -43,10 +43,23 @@ async function ready(url: string) {
   throw Error("Startup failed " + log);
 }
 const isSoak = process.env.PIPELINE_SOAK === "1";
+const runtimeMode = process.env.PIPELINE_RUNTIME_MODE || "interpreter";
+if (!["interpreter", "vm"].includes(runtimeMode))
+  throw Error("PIPELINE_RUNTIME_MODE must be interpreter or vm");
 const evidencePath =
   process.env.CITY_PIPELINE_OUTPUT ||
   (isSoak ? ".runtime/soak-latest.json" : "evidence/blockers/pipeline.json");
 const result: any = {
+  runtimeMode,
+  runtimeVersion: spawnSync(kujo, ["--version"], {
+    encoding: "utf8",
+  }).stdout.trim(),
+  runtimeSha256: createHash("sha256")
+    .update(await readFile(kujo))
+    .digest("hex"),
+  processResourceColumns: ["pid", "cpuPercentSnapshot", "rssKiB"],
+  processResourceScope:
+    "Harness and direct service processes only; descendants excluded",
   startedAt: new Date().toISOString(),
   cityCommit: spawnSync("git", ["rev-parse", "HEAD"], {
     cwd: root,
@@ -72,7 +85,13 @@ try {
   }
   launch(
     kujo,
-    ["run", "--interpreter", "dashboard_server.kujo"],
+    [
+      "run",
+      ...(runtimeMode === "interpreter"
+        ? ["--interpreter"]
+        : ["--scheduler-no-timeout"]),
+      "dashboard_server.kujo",
+    ],
     resolve(root, "../watchdog"),
     {
       WDG_HOST: "127.0.0.1",
@@ -235,37 +254,76 @@ try {
   const duration = Number(process.env.PIPELINE_SECONDS || 60),
     rate = Number(process.env.PIPELINE_RATE || 1100),
     start = performance.now();
+  const concurrency = Number(process.env.PIPELINE_CONCURRENCY || 1);
+  if (
+    !Number.isInteger(concurrency) ||
+    concurrency < 1 ||
+    concurrency > 4 ||
+    !Number.isFinite(duration) ||
+    duration <= 0 ||
+    !Number.isFinite(rate) ||
+    rate <= 0
+  )
+    throw Error("Invalid bounded pipeline settings");
+  result.concurrency = concurrency;
+  const resourceSample = () => ({
+    elapsedSeconds: (performance.now() - start) / 1000,
+    processes: spawnSync(
+      "ps",
+      [
+        "-o",
+        "pid=,pcpu=,rss=",
+        "-p",
+        [process.pid, ...children.map((c) => c.pid).filter(Boolean)].join(","),
+      ],
+      { encoding: "utf8" },
+    ).stdout.trim(),
+  });
+  result.processResources = [resourceSample()];
   let accepted = 0,
+    nextOffset = 0,
     requestMs: number[] = [];
-  for (let i = 0; i < duration * rate; i += 100) {
-    const count = Math.min(100, duration * rate - i);
-    const t = performance.now();
-    const r = await fetch(base + "/telemetry/v2/batches", {
-      method: "POST",
-      signal: AbortSignal.timeout(30000),
-      headers: {
-        authorization: "Bearer " + testToken,
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(batch(i, count)),
-    });
-    if (!r.ok)
-      throw Error(
-        "Canonical intake " + r.status + " " + (await r.text()).slice(0, 200),
-      );
-    accepted += count;
-    requestMs.push(performance.now() - t);
-    if (performance.now() - start > duration * 1000 + 30000) break;
-    await new Promise((r) =>
-      setTimeout(
-        r,
-        Math.max(0, start + (accepted / rate) * 1000 - performance.now()),
-      ),
-    );
-  }
+  await Promise.all(
+    Array.from({ length: concurrency }, async () => {
+      while (nextOffset < duration * rate) {
+        const i = nextOffset;
+        nextOffset += 100;
+        const count = Math.min(100, duration * rate - i);
+        const t = performance.now();
+        const r = await fetch(base + "/telemetry/v2/batches", {
+          method: "POST",
+          signal: AbortSignal.timeout(30000),
+          headers: {
+            authorization: "Bearer " + testToken,
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(batch(i, count)),
+        });
+        if (!r.ok)
+          throw Error(
+            "Canonical intake " +
+              r.status +
+              " " +
+              (await r.text()).slice(0, 200),
+          );
+        accepted += count;
+        requestMs.push(performance.now() - t);
+        if (performance.now() - start > duration * 1000 + 30000) break;
+        await new Promise((r) =>
+          setTimeout(
+            r,
+            Math.max(0, start + (accepted / rate) * 1000 - performance.now()),
+          ),
+        );
+      }
+    }),
+  );
+  result.processResources.push(resourceSample());
   const sentAt = performance.now();
   for (let i = 0; i < 300 && seen.size < accepted; i++)
     await new Promise((r) => setTimeout(r, 100));
+  result.requestedDurationSeconds = duration;
+  result.batchSize = 100;
   result.offeredRate = rate;
   result.accepted = accepted;
   result.visible = seen.size;
@@ -314,7 +372,25 @@ try {
   abort.abort();
   if (timer) clearInterval(timer);
   await browser?.close();
-  for (const c of children) if (c.exitCode === null) c.kill();
+  result.forcedCleanup = [];
+  await Promise.all(
+    children.map(async (child) => {
+      if (child.exitCode !== null || child.signalCode !== null) return;
+      await new Promise<void>((done) => {
+        const timer = setTimeout(() => {
+          if (child.exitCode === null && child.signalCode === null) {
+            result.forcedCleanup.push(child.pid);
+            child.kill("SIGKILL");
+          }
+        }, 2000);
+        child.once("exit", () => {
+          clearTimeout(timer);
+          done();
+        });
+        child.kill("SIGTERM");
+      });
+    }),
+  );
   await writeFile(evidencePath, JSON.stringify(result, null, 2));
 }
 console.log(

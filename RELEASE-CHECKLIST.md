@@ -65,3 +65,9 @@ Provider recovery checkpoint: reproduced HTTP200/finish=length/zero-content at
 passes source checks and actual kujo check; whole response includes additional
 review notes. Metadata-only diagnostics, bounded configurable limits and truncated
 response failure are implemented. Broad model/task quality remains unqualified.
+
+Canonical concurrency checkpoint: repaired overlapping disk-backed Watchdog SQLite
+transactions; regression, canonical API/privacy/identity and mirror checks pass.
+Bounded pipeline delivered5,800/5,800 with zero duplicates, but139.92/sec remains
+below target. VM probe timed out and is unqualified; production stays interpreter.
+See [scope and evidence](evidence/canonical-concurrency/README.md).
