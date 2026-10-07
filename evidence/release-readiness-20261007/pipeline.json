@@ -1,0 +1,27 @@
+{
+  "startedAt": "2026-10-07T17:36:18.377Z",
+  "cityCommit": "bf80bb6c59fd79d76daa31d5c1a3c8f569a95bcd",
+  "watchdogCommit": "a842217c794d9115f54863d69cffffae2485f663",
+  "status": "COMPLETED",
+  "samples": [],
+  "kind": "SYNTHETIC canonical HTTP intake \u2192 real Watchdog export \u2192 real gateway \u2192 SSE; no source business execution",
+  "offeredRate": 1100,
+  "accepted": 14800,
+  "visible": 14800,
+  "duplicates": 0,
+  "missing": 0,
+  "sendSeconds": 90.057013672,
+  "totalSeconds": 90.158115622,
+  "visibleEventsPerSecond": 164.15604849208458,
+  "intakeMs": {
+    "p50": 581.2356260000015,
+    "p95": 768.7549330000038
+  },
+  "sourceHealth": {
+    "status": "LIVE",
+    "gap": false,
+    "lastSuccess": 1791394686727,
+    "lastError": "",
+    "coverage": "SDK run/retrieval/tool/handoff and Eval invocation/check results; retained local journal; reconnect history partial"
+  }
+}

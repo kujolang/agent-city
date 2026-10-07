@@ -28,3 +28,9 @@ The user cancelled the eight-hour soak; do not run or schedule it without renewe
 2026-10-07: baseline npm run verify passes54tests; recorded release gateFAIL. Implementation
 started on isolated pinned installation. No item above is completed by an installer script
 alone. Existing art, custom-team execution, broad capabilities and reliability remain open.
+
+2026-10-07 installer checkpoint bf80bb6: isolated local install and mission contract
+passed; 57 tests pass. Public bootstrap blocked by private source distribution;
+platform CI rejected before execution by billing limits. Bounded canonical pipeline
+measured 164.156 events/s with no observed loss/duplicates, below target. See
+[evidence and limits](evidence/release-readiness-20261007/README.md).
