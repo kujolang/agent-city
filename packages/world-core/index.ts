@@ -333,7 +333,7 @@ export function stationFor(op: OperationEvent["operation"]): string {
   return op.capability === "artifact.created"
     ? "evidence-shelf"
     : op.capability === "workcell.execute"
-      ? "workcell-unavailable"
+      ? "workcell-bay"
       : "terminal";
 }
 export const stations: Record<string, number> = Object.fromEntries(
@@ -652,7 +652,13 @@ export function animationFor(
     )
       return "blocked";
     if (ops.some((o) => o?.status === "failed")) return "alert";
-    if (w.visit.capability === "workcell.execute") return "wait";
+    if (w.visit.capability === "workcell.execute")
+      // The start seam proves invocation, not that a container passed preflight.
+      // A verified completed operation can be shown later as RECENT work.
+      return ops.some((o) => o?.status === "succeeded") &&
+        !ops.some((o) => o?.status === "active")
+        ? "work"
+        : "wait";
     if (w.visit.destination === "library") return "read";
     if (w.visit.destination === "mcp") return "terminal";
     if (w.visit.capability === "artifact.created") return "inspect";

@@ -546,7 +546,7 @@
           "live": "unbound"
         },
         {
-          "id": "workcell-unavailable",
+          "id": "workcell-bay",
           "x": 160,
           "y": 96,
           "kind": "station",
@@ -4038,5 +4038,5 @@
       "15,11"
     ]
   },
-  "hash": "c77aa58978cede9509e732409abd081623dcb931f7051f26a67c496dfe2ac2fa"
+  "hash": "7539934ae878e7c77b4fd4c04a0f261740dec0336186ec8386d8aac3bc2e89d3"
 }

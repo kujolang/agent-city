@@ -180,3 +180,44 @@ describe("truth and presentation boundary", () => {
     expect(route({}, "a", "z")).toEqual([]);
   });
 });
+
+it("Workcell invocation waits, verified recent work animates at its authored bay", async () => {
+  const { stationFor, animationFor } = await import(
+    "../packages/world-core/index"
+  );
+  const started = event(1);
+  started.operation.capability = "workcell.execute";
+  started.operation.collection = "unknown";
+  expect(stationFor(started.operation)).toBe("workcell-bay");
+  const run = (finish: "operation.finished" | "operation.failed" | null) => {
+    let truth = reduceTruth(initialTruth(), started);
+    let p = plan(initialPresentation(), started);
+    if (finish) {
+      const terminal = event(2, finish);
+      terminal.operation.capability = "workcell.execute";
+      terminal.operation.collection = "unknown";
+      truth = reduceTruth(truth, terminal);
+      p = plan(p, terminal);
+    }
+    for (let tick = 0; tick < 1000; tick++) {
+      const w = p.walkers[started.instance];
+      if (w.visit && w.phase === "read" && w.scene === "workshop") {
+        expect(w.id).toBe(started.instance);
+        expect(w.y).toBe(96);
+        return {
+          animation: animationFor(w, truth.agents[started.instance], p.tick),
+          label: visualLabel(w, truth.agents[started.instance], "LIVE"),
+          truth,
+          tick,
+        };
+      }
+      p = advance(p, truth);
+    }
+    throw Error("Workcell bay was not reached");
+  };
+  expect(run(null).animation).toBe("wait");
+  expect(run("operation.finished").animation).toBe("work");
+  expect(run("operation.finished").label).toContain("RECENT");
+  expect(run("operation.failed").animation).toBe("alert");
+  expect(run("operation.finished")).toEqual(run("operation.finished"));
+});

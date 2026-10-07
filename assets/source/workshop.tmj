@@ -318,7 +318,7 @@
         },
         {
           "id": 4,
-          "name": "workcell-unavailable",
+          "name": "workcell-bay",
           "type": "semantic",
           "x": 160,
           "y": 96,

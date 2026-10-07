@@ -76,3 +76,18 @@ permission to execute the next attempt. Execution consent is still per request.
 `continuation/proof.json` verifies context assembly using the real completed
 mission and output5; no new model or container ran for that verification. Tests
 cover unverified execution, no inherited permission and the total context limit.
+
+## World presentation correction
+
+The authored Workshop station is now `workcell-bay`, replacing the old
+`workcell-unavailable` ID. Start observations establish invocation only and use
+wait animation; a visit containing active invocations continues to wait. Verified
+completed work can animate as RECENT work; failures retain alert presentation.
+The planner tests reach the upper bay with unchanged instance identity, distinguish
+start/success/failure, and produce identical repeated state. This is deterministic
+unit/retained-replay verification, not a fresh live world/browser proof.
+
+Compiled map hash and core source hash change with this correction. Historical
+pinned replay requires its original matching map/core; no old bundle is relabeled.
+Full verification passed79tests/27files, map gates, pure-core boundary, TypeScript
+and production build; final active-operation guard passed targeted14tests.

@@ -148,3 +148,8 @@ Repair-context checkpoint: follow-up author/reviewer receive retained Kujo stati
 validation and Workcell results/evidence, including unknown/failure state. Real
 output5 context verified without mutating its source or inheriting execution
 permission. This does not qualify a new live repair run or interruption gate.
+
+Workcell world checkpoint: authored bay replaces legacy unavailable station;
+invocation waits, verified completed work animates RECENT, failure alerts.
+Deterministic station/identity/replay checks pass. Full verification79tests; no
+fresh end-to-end live Workcell browser traversal claimed.
