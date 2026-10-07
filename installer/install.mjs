@@ -9,6 +9,7 @@ import {
   rm,
   chmod,
   mkdtemp,
+  realpath,
 } from "node:fs/promises";
 import { resolve, dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -258,7 +259,8 @@ export async function install({ prefix, start }) {
 }
 if (
   process.argv[1] &&
-  resolve(process.argv[1]) === fileURLToPath(import.meta.url)
+  (await realpath(resolve(process.argv[1]))) ===
+    (await realpath(fileURLToPath(import.meta.url)))
 ) {
   const opts = options(process.argv.slice(2));
   const work =
