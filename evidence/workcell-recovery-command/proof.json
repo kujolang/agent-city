@@ -1,0 +1,83 @@
+{
+  "scope": "Real owned Workcell host process-group SIGKILL after observing running container; finite20second test workload, not a new model task",
+  "run": "wc-fcb89f187d9d4d20ab84d42dd9689a20",
+  "producer": "review-interrupt-1791415444",
+  "adapterExit": 1,
+  "sourceReceiptExists": true,
+  "events": [
+    {
+      "schema": "kujo.lifecycle.v1",
+      "producer_instance": "review-interrupt-1791415444",
+      "profile": "local-workcell-invocation",
+      "run_id": "workcell-invocation-1791415445122",
+      "agent_id": "workcell-host",
+      "task_id": "",
+      "operation_id": "invocation",
+      "attempt": 1,
+      "kind": "internal",
+      "capability": "execution.run",
+      "phase": "started",
+      "outcome": "unset",
+      "occurred_at_ms": 1791415445273,
+      "metadata": {}
+    },
+    {
+      "schema": "kujo.lifecycle.v1",
+      "producer_instance": "review-interrupt-1791415444",
+      "profile": "local-workcell-invocation",
+      "run_id": "workcell-invocation-1791415445122",
+      "agent_id": "workcell-host",
+      "task_id": "",
+      "operation_id": "workload",
+      "attempt": 1,
+      "kind": "internal",
+      "capability": "workcell.execute",
+      "phase": "started",
+      "outcome": "unset",
+      "occurred_at_ms": 1791415445274,
+      "metadata": {
+        "resultCode": "invoked"
+      }
+    },
+    {
+      "schema": "kujo.lifecycle.v1",
+      "producer_instance": "review-interrupt-1791415444",
+      "profile": "local-workcell-invocation",
+      "run_id": "workcell-invocation-1791415445122",
+      "agent_id": "workcell-host",
+      "task_id": "",
+      "operation_id": "coverage",
+      "attempt": 1,
+      "kind": "internal",
+      "capability": "workcell.execute",
+      "phase": "gap",
+      "outcome": "unknown",
+      "occurred_at_ms": 1791415447089,
+      "metadata": {
+        "resultCode": "disconnect"
+      }
+    },
+    {
+      "schema": "kujo.lifecycle.v1",
+      "producer_instance": "review-interrupt-1791415444",
+      "profile": "local-workcell-invocation",
+      "run_id": "workcell-invocation-1791415445122",
+      "agent_id": "workcell-host",
+      "task_id": "",
+      "operation_id": "invocation",
+      "attempt": 1,
+      "kind": "internal",
+      "capability": "execution.run",
+      "phase": "finished",
+      "outcome": "failed",
+      "occurred_at_ms": 1791415447089,
+      "metadata": {}
+    }
+  ],
+  "cleanup": "product recover:workcell command with ownership checks; independent UNKNOWN source outcome",
+  "workspaceRemoved": true,
+  "containerAbsent": true,
+  "sourceOutcome": "unknown",
+  "sourceRerun": false,
+  "privateEvidence": ".runtime/workcell-interrupt-1791415444"
+}

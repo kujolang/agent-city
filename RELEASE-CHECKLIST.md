@@ -235,3 +235,10 @@ workload outcome. Exact owned container/workspace cleanup passed separately; the
 prepared source receipt remains unchanged and no source rerun occurred. Full verify
 85tests passes. Evidence: evidence/workcell-interruption. Automatic orphan recovery,
 general crash recovery and remaining release categories are still open.
+
+Scoped recovery command checkpoint: recover:workcell replaces bespoke harness
+cleanup with a product command using exact container labels/IDs, workspace marker
+validation and Workcell's ownership-checked library. Real source SIGKILL proof
+passed; active/foreign/symlink refusal tests and full verify86tests pass. Original
+receipt/outcome remain unchanged. Automatic mission reconciliation and admission
+recovery remain open. See evidence/workcell-recovery-command.

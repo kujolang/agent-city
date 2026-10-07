@@ -95,3 +95,16 @@ image ID; retain the same selected Docker context when launching Agent City.
 Image creation alone does not qualify host isolation/security policy. Use the
 setup check and an explicitly consented test mission to inspect actual results.
 The supplied builder currently targets Docker; Podman setup remains operator-owned.
+
+For a stopped supervisor with an interrupted local Workcell run, use the exact
+source repository, temporary root and run ID from that run's receipt:
+
+```sh
+npm run recover:workcell -- /absolute/workcell-source /absolute/temporary-root wc-RUNID --apply
+```
+
+This refuses active containers and mismatched ownership. It removes only that
+stopped run's container/workspace and writes a separate `city-cleanup.json` next
+to its source receipt. UNKNOWN workload truth remains UNKNOWN; cleanup does not
+prove task completion or permit a source retry. Engine unavailability refuses
+cleanup. It does not clear an UNKNOWN mission's admission block automatically.
