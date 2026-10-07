@@ -27,6 +27,7 @@ export function mountMissions(
     <label><input type="checkbox" name="useMcpDocs"> Read local MCP demo README</label>
     <label>Task <textarea name="prompt" rows="3" maxlength="16384" required placeholder="Describe the small task you want the agents to complete."></textarea></label>
     <label><input type="checkbox" name="executeWorkcell"> Execute checked Kujo code in Workcell after review (requires operator setup; no network or project access)</label>
+    <details><summary>Workcell execution setup</summary><p>Requires a running local Docker/Podman engine and a trusted local image containing Kujo. The operator sets <code>CITY_ENABLE_WORKCELL=1</code> and <code>CITY_WORKCELL_IMAGE</code> before starting Agent City. Select the intended engine context in the launcher environment.</p><button type="button" id="check-workcell">Check Workcell setup</button><p id="workcell-check-status" role="status" aria-live="polite">Not checked. This check does not install software, pull images, run code or enable execution.</p></details>
     <details><summary>Optional JavaScript function checks</summary><label>Function contract JSON <textarea name="functionContract" rows="4" placeholder='{"exportName":"sum","cases":[{"name":"empty","args":[[]],"equals":0}]}'></textarea></label><p class="muted">Explicitly runs the generated module in a disposable browser worker. JSON arguments/results only; no filesystem or network integrations. Requires installed Chromium. Each case gets 1.5 seconds.</p></details>
     <button type="submit" disabled>Start mission</button></form>
     <p class="muted">Sends your task to the configured model. The SDK hands the draft to a reviewer. JavaScript runs only with explicit function cases in an isolated browser. Kujo runs only with the separate Workcell opt-in and operator setup.</p>
@@ -542,6 +543,37 @@ export function mountMissions(
       }
     };
   const modelCheck = panel.querySelector<HTMLElement>("#model-check-status")!;
+  const workcellCheck = panel.querySelector<HTMLElement>(
+    "#workcell-check-status",
+  )!;
+  const workcellButton =
+    panel.querySelector<HTMLButtonElement>("#check-workcell")!;
+  workcellButton.onclick = async () => {
+    if (replay || pending || !token) return;
+    pending = true;
+    workcellButton.disabled = true;
+    workcellCheck.textContent = "Checking local Workcell setup…";
+    try {
+      const response = await fetch("/control/check-workcell", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-City-Command-Token": token,
+        },
+        body: "{}",
+      });
+      const result = await response.json();
+      if (!response.ok)
+        throw Error(result.error || "Workcell setup check failed");
+      workcellCheck.textContent = `CHECK RESULT · ${result.available ? "AVAILABLE" : "SETUP REQUIRED"} · ${result.message}`;
+    } catch (error) {
+      workcellCheck.textContent =
+        error instanceof Error ? error.message : "Workcell setup check failed";
+    } finally {
+      pending = false;
+      workcellButton.disabled = replay;
+    }
+  };
   const localModels = panel.querySelector<HTMLSelectElement>("#local-models")!;
   localModels.onchange = () => {
     if (replay || !localModels.value) return;
@@ -624,6 +656,7 @@ export function mountMissions(
         button.disabled = value;
       });
       localModels.disabled = value;
+      workcellButton.disabled = value;
       void refresh();
     },
   };

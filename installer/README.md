@@ -69,3 +69,8 @@ or container start occurs. An available image is not proof of compatible Kujo,
 security-policy acceptance or successful execution; Workcell still validates and
 reports actual execution/cleanup separately. Ordinary non-execution missions do
 not depend on container availability.
+
+In Mission Command, expand **Workcell execution setup** and choose **Check Workcell
+setup** before preparing a task. It works without a model connection and reports
+operator configuration, engine or local-image problems without granting consent.
+The displayed result describes that check only; mission admission rechecks setup.

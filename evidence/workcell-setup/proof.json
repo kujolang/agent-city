@@ -1,0 +1,10 @@
+{
+  "scope": "Actual browser keyboard setup check with unconfigured model and unavailable private Docker endpoint",
+  "unauthorizedStatus": 403,
+  "message": "CHECK RESULT · SETUP REQUIRED · Workcell docker backend is unavailable. Start the selected engine and check its context or connection, then resubmit. No mission was started.",
+  "modelConfigured": false,
+  "jobs": [],
+  "executionConsent": false,
+  "missionDirectoryCreated": false,
+  "screenshot": "setup-required.png"
+}

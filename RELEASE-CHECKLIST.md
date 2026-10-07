@@ -206,3 +206,9 @@ with a deliberately unavailable Docker endpoint returned400, with zero model cal
 zero jobs and no mission directory. Read-only checks never pull/start containers.
 Evidence: evidence/workcell-preflight/proof.json. Engine/image installation and
 full fresh-machine first-task qualification remain open.
+
+Workcell setup UI checkpoint: authenticated read-only check is now available in
+Mission Command before model configuration. Chromium keyboard proof against an
+unavailable private Docker endpoint shows actionable setup instructions, unchanged
+execution consent and no jobs. Evidence: evidence/workcell-setup. No automatic
+engine/image provisioning or expanded execution permission is implied.

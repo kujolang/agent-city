@@ -293,6 +293,7 @@ const server = createServer(async (req, res) => {
         "/control/reply",
         "/control/discover-ollama",
         "/control/check-model",
+        "/control/check-workcell",
       ].includes(req.url || "")
     )
       return send(404, { error: "Not found" });
@@ -354,6 +355,25 @@ const server = createServer(async (req, res) => {
       }
       if (req.url === "/control/discover-ollama")
         return send(200, await discoverOllama());
+      if (req.url === "/control/check-workcell") {
+        try {
+          admitWorkcell(true, "kujo");
+          await assertWorkcellAvailable(root);
+          return send(200, {
+            available: true,
+            message:
+              "Local Workcell engine and image were available at this check. No code was executed. Each Kujo mission still requires your execution opt-in; runtime and sandbox checks happen during execution.",
+          });
+        } catch (error) {
+          return send(200, {
+            available: false,
+            message:
+              error instanceof Error
+                ? error.message
+                : "Workcell setup unavailable",
+          });
+        }
+      }
       if (req.url === "/control/config" || req.url === "/control/check-model") {
         let next;
         try {
