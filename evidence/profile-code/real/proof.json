@@ -1,0 +1,67 @@
+{
+  "scope": "Real Ollama cloud author/reviewer and actual sandboxed browser function execution",
+  "attempts": [
+    {
+      "mission": "mission-2df2972b-07ce-4b07-88e2-68afa04acbaf",
+      "model": "glm-5.3:cloud",
+      "checks": {
+        "schema": "agent-city.function-check.v1",
+        "status": "passed",
+        "environment": "disposable-chromium-module-worker",
+        "browserSandboxRequested": true,
+        "browser": "151.0.7922.34",
+        "codeExecuted": true,
+        "scope": "explicit JSON function cases only; no filesystem or network integrations",
+        "blockedRequests": 0,
+        "cases": [
+          {
+            "name": "positive",
+            "status": "passed",
+            "reason": "expectation-met",
+            "occurredAt": 1791401644561
+          },
+          {
+            "name": "negative",
+            "status": "passed",
+            "reason": "expectation-met",
+            "occurredAt": 1791401644575
+          },
+          {
+            "name": "zero",
+            "status": "passed",
+            "reason": "expectation-met",
+            "occurredAt": 1791401644592
+          }
+        ],
+        "checkedAt": "2026-10-07T19:34:04.592Z"
+      },
+      "validation": {
+        "schema": "agent-city.code-check.v1",
+        "syntax": "valid",
+        "fenceRemoved": false,
+        "functionalTests": "passed",
+        "codeExecuted": true,
+        "checkedAt": "2026-10-07T19:34:02.288Z"
+      },
+      "artifactSha256": "762c16d89d6c4d34a056925c95168a210e18cf5028d66c2455d4817884059874",
+      "checkerIdentityDistinct": true,
+      "individualOutcomes": [
+        {
+          "operation": "check-0",
+          "outcome": "succeeded"
+        },
+        {
+          "operation": "check-1",
+          "outcome": "succeeded"
+        },
+        {
+          "operation": "check-2",
+          "outcome": "succeeded"
+        }
+      ],
+      "handoffObserved": true
+    }
+  ],
+  "priorFailureRetained": "fixture-tested",
+  "privateEvidence": "/Users/robertdevore/2026/Kujolang/kujo-repos/agent-city/.runtime/profile-code-ff29e53e-4dbc-4564-83cd-ec6941ad7201"
+}

@@ -115,8 +115,12 @@ export function validateProfileMission(
   },
 ) {
   validateBinding(binding);
-  if (request.kind === "kujo" || request.functionContract !== undefined)
-    throw Error("Custom-profile code execution and checks are not connected.");
+  if (request.kind === "kujo")
+    throw Error("Custom-profile Kujo execution is not connected.");
+  // These are user-authorized platform checks of the saved artifact, not a tool
+  // granted to either PROPOSE profile. The checker has its own observed identity.
+  if (request.functionContract !== undefined && request.kind !== "code")
+    throw Error("Function checks require a code mission.");
   if (
     (request.useLocalDocs || request.useMcpDocs) &&
     !binding.author.tools.allowed?.includes("Kujo Docs")

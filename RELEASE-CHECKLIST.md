@@ -97,3 +97,10 @@ artifact-created event. Real glm-5.3:cloud/MCP/profile handoff produced an accep
 brief source-grounded documentation artifact, with review findings kept private
 and separate. Controlled rejection proof and full verify pass. This qualifies that
 specific writing example; general model quality/custom workflows remain open.
+
+Custom code checkpoint: explicit user-supplied JavaScript cases now run after
+custom PROPOSE author/reviewer handoff under the separate isolated checker identity.
+Real Integration Engineer→Code Reviewer using glm-5.3:cloud generated code that
+passed three actual browser-worker cases. Controlled bad/repaired outputs retain
+both results. Full verify passes. General Workcell/project execution, named
+workflows and custom Kujo execution remain incomplete. See evidence/profile-code.

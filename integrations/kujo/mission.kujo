@@ -18,7 +18,7 @@ profile_contract := {}
 if env_or("CITY_PROFILE_FILE", "") != "" {
     profile_contract = parse_json(read_file(env_or("CITY_PROFILE_FILE", "")))
     assert(profile_contract["mode"] == "PROPOSE", "Profile mode not supported")
-    assert(env_or("CITY_MISSION_KIND", "writing") != "kujo" && env_or("CITY_FUNCTION_CONTRACT_FILE", "") == "", "Profile execution unavailable")
+    assert(env_or("CITY_MISSION_KIND", "writing") != "kujo", "Profile execution unavailable")
     if env_or("CITY_USE_RAG", "0") == "1" || env_or("CITY_USE_MCP", "0") == "1" {
         docs_allowed := false
         for tool in profile_contract["author"]["tools"]["allowed"] { if tool == "Kujo Docs" { docs_allowed = true } }
@@ -104,7 +104,7 @@ if kind == "code" {
     }
 }
 if env_or("CITY_PROFILE_FILE", "") != "" {
-    boundary := "\nRuntime scope: PROPOSE draft/review. Only explicitly requested read-only documentation context can be supplied by the runtime. Use observed context as source evidence; never claim additional tool calls. Other declared tools/workflows, project edits, publishing, execution and checks are unavailable. If the task requires unavailable capabilities, explain that limitation. Preserve the task-specific output format below.\n"
+    boundary := "\nRuntime scope: PROPOSE draft/review. Only explicitly requested read-only documentation context can be supplied by the runtime. Use observed context as source evidence; never claim additional tool calls. Other declared tools/workflows, project edits, publishing and agent execution are unavailable. The platform may run user-requested isolated function checks after your response; do not claim those future checks have passed. If the task requires unavailable capabilities, explain that limitation. Preserve the task-specific output format below.\n"
     instructions = profile_contract["author"]["contracts"]["agent"]+"\n"+profile_contract["author"]["contracts"]["skill"]+boundary+instructions
     review = profile_contract["reviewer"]["contracts"]["agent"]+"\n"+profile_contract["reviewer"]["contracts"]["skill"]+boundary+review
     review = review + "\nResponse contract for this runtime: return ONLY a JSON object with exactly two string fields: cityArtifact and cityReview. cityArtifact is the corrected finished deliverable in the requested format (raw JavaScript for code, finished Markdown for writing), without review commentary or an outer Markdown fence. cityReview contains your actual review findings/commentary. Do not put findings, approval messages, introductions or summaries around the deliverable. Do not claim checks were executed unless observed evidence supports that. A cityQuestion-only object is permitted instead when requesting an enabled check-in."

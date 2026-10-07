@@ -256,8 +256,11 @@ source checkouts. Importing does not execute contract instructions.
 
 In **Custom author / reviewer**, refresh imported profiles and select the author
 and reviewer. Eligible profiles show **DRAFT_REVIEW_ONLY**: PROPOSE permission,
-no unavailable required capabilities, and no check/project-execution
-requests. Explicit local documentation retrieval/MCP reads are permitted only when
+no unavailable required capabilities, and no agent-owned project execution
+requests. User-supplied JavaScript function cases may run after handoff in the
+separate disposable checker; that execution is observed as `city-function-checker`,
+not attributed to the author or reviewer. No project files or source credentials
+are exposed to that checker. Explicit local documentation retrieval/MCP reads are permitted only when
 the author manifest allows **Kujo Docs**. The reviewer receives the resulting
 evidence as context; it does not inherit the author's tool permissions. Other profiles remain **NOT_CONNECTED**. The current catalog has51
 eligible profiles. This adapter executes the existing author→reviewer SDK handoff,

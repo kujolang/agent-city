@@ -61,7 +61,7 @@ test("snapshots reject changed instructions, expanded permission while allowing 
   expect(() => validateBinding(expanded)).toThrow("Invalid");
 });
 
-test("documentation context needs explicit author tool permission; checks stay unavailable", () => {
+test("documentation needs author permission; platform checks require explicit code scope", () => {
   const value = validateBinding(binding());
   expect(() =>
     validateProfileMission(value, { kind: "writing" }),
@@ -86,5 +86,8 @@ test("documentation context needs explicit author tool permission; checks stay u
   );
   expect(() =>
     validateProfileMission(value, { kind: "code", functionContract: {} }),
-  ).toThrow("not connected");
+  ).not.toThrow();
+  expect(() =>
+    validateProfileMission(value, { kind: "writing", functionContract: {} }),
+  ).toThrow("code mission");
 });
