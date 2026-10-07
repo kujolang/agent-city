@@ -1,0 +1,7 @@
+{
+  "scope": "Real browser and local Ollama metadata; no generation or business execution",
+  "missingCommandTokenStatus": 403,
+  "detection": "Ollama detected. Choose a model, then save. No API key is required for this local connection. Execution may be local or cloud depending on the model.",
+  "installedModelCount": 3,
+  "check": "Provider model list is reachable and this model is listed. No prompt was sent; generation and task quality still require a real mission."
+}

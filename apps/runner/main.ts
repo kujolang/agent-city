@@ -1,3 +1,4 @@
+import { discoverOllama, checkModelConnection } from "./provider-discovery";
 import { readCheckpoint, answerCheckpoint } from "./checkpoint";
 import { validateModelConfig, type ModelConfig } from "./config";
 import { validateFunctionContract } from "./function-check";
@@ -235,9 +236,13 @@ const server = createServer(async (req, res) => {
     }
     if (
       req.method !== "POST" ||
-      !["/control/missions", "/control/config", "/control/reply"].includes(
-        req.url || "",
-      )
+      ![
+        "/control/missions",
+        "/control/config",
+        "/control/reply",
+        "/control/discover-ollama",
+        "/control/check-model",
+      ].includes(req.url || "")
     )
       return send(404, { error: "Not found" });
     if (
@@ -296,7 +301,9 @@ const server = createServer(async (req, res) => {
       } catch {
         return send(400, { error: "Invalid JSON" });
       }
-      if (req.url === "/control/config") {
+      if (req.url === "/control/discover-ollama")
+        return send(200, await discoverOllama());
+      if (req.url === "/control/config" || req.url === "/control/check-model") {
         let next;
         try {
           next = validateModelConfig({
@@ -310,6 +317,16 @@ const server = createServer(async (req, res) => {
             error:
               "Provide a valid model endpoint and model. Use HTTPS or local HTTP; no credentials in the URL.",
           });
+        }
+        if (req.url === "/control/check-model") {
+          try {
+            return send(200, await checkModelConnection(next));
+          } catch {
+            return send(502, {
+              error:
+                "Model listing failed. Check that the provider is running, the endpoint/model are correct, and any required API key is valid. Redirects are refused. Some providers do not support model listing; configuration can still be saved.",
+            });
+          }
         }
         await writeFile(resolve(dir, "model.tmp"), JSON.stringify(next), {
           mode: 0o600,

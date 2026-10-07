@@ -41,3 +41,9 @@ all data. Managed startup/maintenance use an exclusive lease. Local real update,
 HTTP startup, live uninstall refusal, shutdown and archive uninstall verified; all
 105 pre-existing runtime files preserved byte-for-byte. Cross-platform and public
 distribution qualification remain open. See installer/README.md and maintenance.json.
+
+Model onboarding checkpoint: authenticated metadata-only local Ollama discovery,
+installed-model selection, explicit listing check and Codex login/adapter guidance.
+Real browser detected three installed models; listing check passed and missing-token
+request returned403. Full verify64tests passes. Complete fresh-machine onboarding
+and real first-task/reviewer qualification remain open.

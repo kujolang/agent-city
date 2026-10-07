@@ -73,7 +73,13 @@ Or double-click **Start Agent City.command**. Open **http://127.0.0.1:5178**.
 If the launcher reports the port is occupied, stop your previous launcher with
 Ctrl+C first. It does not kill existing processes. Ctrl+C stops the new launcher.
 
-In **Mission Command → Model connection**, use a compatible chat-completions
+In **Mission Command → Model connection**, click **Detect local Ollama**, choose an
+installed model, then **Check model listing** and **Save connection**. Detection
+only contacts local Ollama metadata; it does not install a model or send a prompt.
+A successful listing check does not guarantee generation access or task quality.
+If Ollama is unavailable, start it first; no provider is silently substituted.
+
+For manual setup, use a compatible chat-completions
 endpoint/model/key. For the local Ollama model installed on this machine:
 
 - Endpoint: `http://127.0.0.1:11434/v1/chat/completions`

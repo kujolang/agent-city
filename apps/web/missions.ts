@@ -10,7 +10,13 @@ export function mountMissions(
     <label>Model <input name="model" required autocomplete="off"></label>
     <label>API key <input name="apiKey" type="password" autocomplete="off" placeholder="Leave blank for local Ollama"></label>
     <p class="muted">Local Ollama needs no API key. Remote providers may require one. This form alone does not sign in to Codex; the local Codex adapter uses your CLI login. Saved only in a private local configuration file. A blank key keeps the saved key only for the same endpoint.</p>
-    <button type="submit">Save connection</button></form></details>
+    <button type="submit">Save connection</button>
+    <button type="button" id="detect-ollama">Detect local Ollama</button>
+    <label id="local-model-label" hidden>Available Ollama models <select id="local-models"><option value="">Choose a model</option></select></label>
+    <button type="button" id="check-model">Check model listing</button>
+    <p id="model-check-status" role="status" aria-live="polite"></p>
+    <p class="muted">Codex subscription: sign in with <code>codex login</code>, then run <code id="codex-setup-command"></code> from the Agent City directory in another terminal. Keep it running. The adapter configures the connection; do not paste your subscription password or OAuth token here.</p>
+    </form></details>
     <p id="continuation-status" role="status">New mission</p><button id="clear-continuation" type="button" hidden>Cancel follow-up</button>
     <form id="mission-form"><label>Task type <select name="kind"><option value="writing">Writing + review</option><option value="code">JavaScript + review</option><option value="kujo">Kujo + senior review (real MCP)</option></select></label>
     <label><input type="checkbox" name="allowCheckins" checked> Allow agent questions (reply within 3 minutes)</label>
@@ -21,6 +27,8 @@ export function mountMissions(
     <button type="submit" disabled>Start mission</button></form>
     <p class="muted">Sends your task to the configured model. The SDK hands the draft to a reviewer. Code runs only when explicit function cases are supplied, in an isolated browser without host integrations.</p>
     <div id="mission-jobs" aria-label="Mission history"></div><pre id="mission-exchanges" tabindex="0" aria-label="Observed agent responses"></pre><pre id="mission-artifact" tabindex="0" aria-label="Selected mission output"></pre>`;
+  panel.querySelector("#codex-setup-command")!.textContent =
+    `CITY_APP_URL=${window.location.origin} npm run provider:codex`;
   host.querySelector(".world")!.after(panel);
   const chat = document.createElement("section");
   chat.className = "game-conversation";
@@ -412,6 +420,66 @@ export function mountMissions(
       pending = false;
     }
   };
+  const modelCheck = panel.querySelector<HTMLElement>("#model-check-status")!;
+  const localModels = panel.querySelector<HTMLSelectElement>("#local-models")!;
+  localModels.onchange = () => {
+    if (replay || !localModels.value) return;
+    (modelForm.elements.namedItem("endpoint") as HTMLInputElement).value =
+      "http://127.0.0.1:11434/v1/chat/completions";
+    (modelForm.elements.namedItem("model") as HTMLInputElement).value =
+      localModels.value;
+    (modelForm.elements.namedItem("apiKey") as HTMLInputElement).value = "";
+    modelCheck.textContent =
+      "Ollama model selected. Save connection to use it; no model was run.";
+  };
+  for (const [id, route] of [
+    ["detect-ollama", "/control/discover-ollama"],
+    ["check-model", "/control/check-model"],
+  ]) {
+    panel.querySelector<HTMLButtonElement>(`#${id}`)!.onclick = async () => {
+      if (replay || pending || !token) return;
+      pending = true;
+      modelCheck.textContent = "Checking provider metadata…";
+      const fields = new FormData(modelForm);
+      try {
+        const response = await fetch(route, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-City-Command-Token": token,
+          },
+          body: JSON.stringify(
+            id === "detect-ollama"
+              ? {}
+              : {
+                  endpoint: fields.get("endpoint"),
+                  model: fields.get("model"),
+                  apiKey: fields.get("apiKey"),
+                },
+          ),
+        });
+        const result = await response.json();
+        if (!response.ok) throw Error(result.error || "Provider check failed");
+        if (id === "detect-ollama") {
+          localModels.replaceChildren(new Option("Choose a model", ""));
+          for (const name of result.models || [])
+            localModels.add(new Option(name, name));
+          panel.querySelector<HTMLElement>("#local-model-label")!.hidden =
+            !result.available || !result.models.length;
+          modelCheck.textContent = result.available
+            ? result.models.length
+              ? "Ollama detected. Choose a model, then save. No API key is required for this local connection. Execution may be local or cloud depending on the model."
+              : "Ollama is running but has no installed models. Install a model in Ollama, then detect again."
+            : result.message;
+        } else modelCheck.textContent = result.message;
+      } catch (error) {
+        modelCheck.textContent =
+          error instanceof Error ? error.message : "Provider check failed";
+      } finally {
+        pending = false;
+      }
+    };
+  }
   void refresh();
   setInterval(() => {
     if (!document.hidden && !pending) {
@@ -430,7 +498,10 @@ export function mountMissions(
           "REPLAY · normalized metadata only; live conversation hidden and replies disabled.";
       } else void refreshConversation();
       submit.disabled = true;
-      modelForm.querySelector("button")!.disabled = value;
+      modelForm.querySelectorAll("button").forEach((button) => {
+        button.disabled = value;
+      });
+      localModels.disabled = value;
       void refresh();
     },
   };
