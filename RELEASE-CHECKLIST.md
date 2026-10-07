@@ -253,3 +253,11 @@ before steps by billing/spending limits (run37691817210).
 Bundle contents correction: source bundles now include Workcell and the installer
 module required by managed startup. Previously the older bundle recipe omitted
 both despite later application dependencies. Package verification remains required.
+
+Release qualification checkpoint: current bounded canonical pipeline delivered
+26,200/26,200 events without observed loss/duplicates at285.199events/sec; the
+1,000/sec gate remains failed. Corrected local preview package integrity passes
+with producer pins matching the installer. Local ShipCheck metadata gate passes
+with5warnings; connected service unavailable. All five release workstreams remain
+partially complete; final real-tool game recording is queued after qualification.
+See evidence/release-readiness-current and evidence/release-package-current.

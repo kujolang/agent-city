@@ -1,0 +1,33 @@
+{
+  "scope": "Local macOS x64 preview bundle assembled from clean committed checkouts; not published or signed",
+  "bundle": {
+    "directory": "/Users/robertdevore/2026/Kujolang/kujo-repos/agent-city/.runtime/package-proof-1791415622/agent-city/.runtime/bundles/agent-city-preview-darwin-x64-c574c2a52be6",
+    "archive": "/Users/robertdevore/2026/Kujolang/kujo-repos/agent-city/.runtime/package-proof-1791415622/agent-city/.runtime/bundles/agent-city-preview-darwin-x64-c574c2a52be6.tar.gz",
+    "sha256": "37f7cc200833dccc193f88071c7f234fa214d69e2e27db5e1b095fd9d73edad9",
+    "bytes": 25283414,
+    "files": 2672,
+    "sources": {
+      "agent-city": "c574c2a52be634d169caf662d0094f8c4b8ed670",
+      "agents-sdk": "5a9d5525e511a293b743b1c44d9ef270fd491f9f",
+      "dispatch": "ac2609b8ef14cbf8fbec5df5dfc1789fa4fa25b8",
+      "watchdog": "8c512624782878cc607794add7b71f46781a45bf",
+      "rag": "85743f88c152d7c65f59d4697111faf85e36d8eb",
+      "eval": "6a5ab09e5c24cc1a842b374afccb64da40db2874",
+      "mcp": "e02905d4d587a099529b4f4e1ade61060a0c7f94",
+      "workcell": "a276a92c6bac9279a8cb36ace9687ade34d5128f",
+      "kujo": "db6974b2f93162b2803624a3334320e387d1d29d"
+    },
+    "status": "PREVIEW / RELEASE GATES INCOMPLETE"
+  },
+  "integrity": {
+    "checked": 2672,
+    "platform": "darwin",
+    "arch": "x64",
+    "status": "PREVIEW / RELEASE GATES INCOMPLETE"
+  },
+  "workcellIncluded": true,
+  "startupInstallerModuleIncluded": true,
+  "retainedDirectory": "/Users/robertdevore/2026/Kujolang/kujo-repos/agent-city/.runtime/package-proof-1791415622/bundles/agent-city-preview-darwin-x64-c574c2a52be6",
+  "retainedArchive": "/Users/robertdevore/2026/Kujolang/kujo-repos/agent-city/.runtime/package-proof-1791415622/bundles/agent-city-preview-darwin-x64-c574c2a52be6.tar.gz",
+  "artifactRelocatedAfterVerification": true
+}

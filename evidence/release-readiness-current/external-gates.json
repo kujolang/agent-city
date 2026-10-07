@@ -1,0 +1,7 @@
+{
+  "repositoryPrivate": true,
+  "ciRun": 37691817210,
+  "ciJobsStarted": false,
+  "ciReason": "The job was not started because recent account payments have failed or your spending limit needs to be increased.",
+  "connectedShipCheck": "Unavailable: MCP SSE probe returned 404; no readiness receipt"
+}

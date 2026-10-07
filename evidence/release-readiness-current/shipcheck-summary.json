@@ -1,0 +1,19 @@
+{
+  "command": "kujo run --interpreter ../shipcheck/shipcheck.kujo gate --dir agent-city --format json",
+  "exitCode": 0,
+  "summary": {
+    "failed_errors": 0,
+    "gate_passed": 1,
+    "passed": 11,
+    "total_checks": 16,
+    "warnings": 5
+  },
+  "warnings": [
+    "lint-command",
+    "examples",
+    "docs",
+    "kennel-manifest",
+    "entry-point"
+  ],
+  "scope": "Repository metadata only; does not override failed throughput or incomplete product gates"
+}
