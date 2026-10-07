@@ -29,7 +29,7 @@ export function mountMissions(
     <label><input type="checkbox" name="executeWorkcell"> Execute checked Kujo code in Workcell after review (requires operator setup; no network or project access)</label>
     <details><summary>Optional JavaScript function checks</summary><label>Function contract JSON <textarea name="functionContract" rows="4" placeholder='{"exportName":"sum","cases":[{"name":"empty","args":[[]],"equals":0}]}'></textarea></label><p class="muted">Explicitly runs the generated module in a disposable browser worker. JSON arguments/results only; no filesystem or network integrations. Requires installed Chromium. Each case gets 1.5 seconds.</p></details>
     <button type="submit" disabled>Start mission</button></form>
-    <p class="muted">Sends your task to the configured model. The SDK hands the draft to a reviewer. Code runs only when explicit function cases are supplied, in an isolated browser without host integrations.</p>
+    <p class="muted">Sends your task to the configured model. The SDK hands the draft to a reviewer. JavaScript runs only with explicit function cases in an isolated browser. Kujo runs only with the separate Workcell opt-in and operator setup.</p>
     <div id="mission-jobs" aria-label="Mission history"></div><pre id="mission-exchanges" tabindex="0" aria-label="Observed agent responses"></pre><pre id="provider-diagnostics" tabindex="0" aria-label="Provider response diagnostics" hidden></pre><pre id="mission-artifact" tabindex="0" aria-label="Selected mission output"></pre>`;
   panel.querySelector("#codex-setup-command")!.textContent =
     `CITY_APP_URL=${window.location.origin} npm run provider:codex`;
@@ -165,6 +165,8 @@ export function mountMissions(
   const kindField = form.elements.namedItem("kind") as HTMLSelectElement;
   function clearParent() {
     parent = null;
+    (form.elements.namedItem("executeWorkcell") as HTMLInputElement).checked =
+      false;
     kindField.disabled = false;
     clearContinuation.hidden = true;
     continuation.textContent = "New mission";

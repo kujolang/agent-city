@@ -38,3 +38,14 @@ Tested host Kujo1.7.0 and existing container Kujo1.5.0; not a broad compatibilit
 claim. General project work, interrupt/resume recovery and fresh browser visual
 proof of this combined mission remain release gates. The existing UI control is
 compiled, but this evidence does not claim a new screenshot or visual traversal.
+
+## Browser inspector and consent verification
+
+`browser/proof.json` and `browser/real-artifact.png` / `real-output.png` verify
+that Chromium reads the retained real mission through the local runner API and
+displays actual execution, cleanup and output evidence. A keyboard-operated
+checkbox submits explicit consent; successful submission and choosing a follow-up
+reset it. Submission transport is intercepted in this test, so it executes no new
+model/container work and does not establish new in-game travel evidence.
+Run `node --import tsx scripts/workcell-browser-proof.ts` with local retained
+mission evidence present; `CHROMIUM_PATH` can select an installed browser.

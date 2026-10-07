@@ -131,3 +131,9 @@ cloud author/reviewer, actual MCP and handoff, then exported5 from Workcell.
 Private artifact inspection reports receipt/hashes/runtime/output; telemetry stays
 metadata-only. General project execution and interrupt/resume remain open. See
 [evidence and operator setup](evidence/mission-workcell/README.md).
+
+Workcell browser checkpoint: retained real artifact/output/cleanup render through
+the local API. Keyboard consent, submission reset and follow-up reset verified
+in installed Chromium; consent no longer carries into another task. Screenshots
+in evidence/mission-workcell/browser. No new model/container activity or world
+travel claimed by this UI proof.
