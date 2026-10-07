@@ -1,3 +1,4 @@
+import { readWorkcellRecord } from "./workcell-recovery";
 import { readFile, stat } from "node:fs/promises";
 import { resolve } from "node:path";
 
@@ -77,6 +78,13 @@ export async function continuationContext(
     32_768,
     true,
   );
+  const validationText = await bounded(
+    resolve(dir, "validation.json"),
+    32_768,
+    true,
+  );
+  // Explicit follow-up sends prior results to its model, but never grants execution.
+  const workcell = job.kind === "kujo" ? await readWorkcellRecord(dir) : null;
   const context = {
     schema: "agent-city.continuation.v1",
     parentMissionId: job.id,
@@ -86,6 +94,21 @@ export async function continuationContext(
     previousRuntimeStatus: job.status,
     previousArtifact: artifact,
     previousChecks: checkText ? JSON.parse(checkText) : null,
+    previousValidation: validationText ? JSON.parse(validationText) : null,
+    previousWorkcell: workcell
+      ? {
+          status: workcell.status,
+          codeExecuted: workcell.codeExecuted,
+          cleanup: workcell.cleanup,
+          exitCode: workcell.exitCode ?? null,
+          timedOut: workcell.timedOut ?? null,
+          evidence: workcell.evidence ?? null,
+          output: workcell.output ?? null,
+          runtimeVersion: workcell.runtimeVersion ?? null,
+          outputTruncated: workcell.outputTruncated ?? false,
+          recovered: workcell.recovered === true,
+        }
+      : null,
   };
   // Never silently truncate source context or recursively embed earlier bundles.
   if (Buffer.byteLength(JSON.stringify(context)) > 131_072)

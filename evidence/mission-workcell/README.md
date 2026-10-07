@@ -66,3 +66,13 @@ identical repeated reads. This is a controlled recovery test, not a claim that a
 actual live process was killed. Targeted tests reject wrong identity, failures,
 timeout and missing exports. Full interrupt/cancel/container cleanup qualification
 is still pending.
+
+## Repair context
+
+An explicit follow-up now includes prior static validation and Workcell status,
+exit information, output, runtime version and evidence references. Unknown stays
+unknown; old records are unchanged. These are historical model context, not
+permission to execute the next attempt. Execution consent is still per request.
+`continuation/proof.json` verifies context assembly using the real completed
+mission and output5; no new model or container ran for that verification. Tests
+cover unverified execution, no inherited permission and the total context limit.

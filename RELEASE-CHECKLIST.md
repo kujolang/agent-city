@@ -143,3 +143,8 @@ read-only receipt recovery expose verified execution independently of UNKNOWN
 mission status. Controlled checkpoint loss over copied real receipts recovers5
 without modifying records or executing work. Live interruption/cleanup and world
 traversal remain unqualified.
+
+Repair-context checkpoint: follow-up author/reviewer receive retained Kujo static
+validation and Workcell results/evidence, including unknown/failure state. Real
+output5 context verified without mutating its source or inheriting execution
+permission. This does not qualify a new live repair run or interruption gate.

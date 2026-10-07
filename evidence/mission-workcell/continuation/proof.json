@@ -1,0 +1,42 @@
+{
+  "scope": "Continuation context assembled from retained real mission; no new model or execution",
+  "mission": "mission-e58374b0-73ce-41b2-aab7-a46b9575081b",
+  "staticCheck": {
+    "schema": "agent-city.code-check.v1",
+    "syntax": "valid",
+    "fenceRemoved": false,
+    "checkedArtifact": "reviewed.kujo",
+    "functionalTests": "not-run",
+    "codeExecuted": true,
+    "checkedAt": "2026-10-07T20:09:11.216Z"
+  },
+  "priorWorkcell": {
+    "status": "completed",
+    "codeExecuted": true,
+    "cleanup": "complete",
+    "exitCode": 0,
+    "timedOut": false,
+    "evidence": {
+      "runId": "wc-3a1ca6121b4843b0a7ac52b5fa7906a2",
+      "artifacts": [
+        {
+          "name": "city-result.txt",
+          "bytes": 2,
+          "sha256": "f0b5c2c2211c8d67ed15e75e656c7862d086e9245420892a7de62cd9ec582a06"
+        },
+        {
+          "name": "runtime-version.txt",
+          "bytes": 11,
+          "sha256": "0ebfb32be0f9b1c0ebad9bce9c887309a1e221a1b86bf7a43174ac927049ac10"
+        }
+      ]
+    },
+    "output": "5\n",
+    "runtimeVersion": "kujo 1.5.0\n",
+    "outputTruncated": false,
+    "recovered": false
+  },
+  "executionPermissionInherited": false,
+  "priorRecordUnchanged": true,
+  "contextSha256": "5a2803f136d49d288364dea5d4b5ac7ece8c9d5a361d285ada6388cc52868221"
+}
