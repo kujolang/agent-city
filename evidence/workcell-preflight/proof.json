@@ -1,0 +1,12 @@
+{
+  "scope": "Actual runner HTTP admission and actual Docker CLI with deliberately unavailable private daemon endpoint; no live workload",
+  "httpStatus": 400,
+  "response": {
+    "error": "Workcell docker backend is unavailable. Start the selected engine and check its context or connection, then resubmit. No mission was started."
+  },
+  "jobs": [],
+  "busy": false,
+  "modelRequests": 0,
+  "missionDirectoryCreated": false,
+  "privateEvidence": ".runtime/preflight-1791407533"
+}

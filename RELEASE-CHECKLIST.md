@@ -199,3 +199,10 @@ installed Kujo1.7/Workcell1.2 CLI and native cancellation regression passed. No
 cloud dependencies, execution enablement, credentials or missions were installed
 or started. Evidence: evidence/installer-workcell/proof.json. This does not qualify
 container engine/image provisioning, clean machines or other platforms.
+
+Workcell admission checkpoint: explicit execution requests now check local source,
+engine connection and image before mission creation/model calls. Actual runner HTTP
+with a deliberately unavailable Docker endpoint returned400, with zero model calls,
+zero jobs and no mission directory. Read-only checks never pull/start containers.
+Evidence: evidence/workcell-preflight/proof.json. Engine/image installation and
+full fresh-machine first-task qualification remain open.

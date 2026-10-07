@@ -61,3 +61,11 @@ PIDs also prevent maintenance. After a crash, the lock is deliberately not stole
 inspect its `owner.json`, verify the entire City process tree has stopped, then
 remove that exact lock directory. Do not run direct service scripts concurrently
 with maintenance. These commands preserve data but are not backups to another disk.
+
+When a mission explicitly requests Workcell execution, admission checks the pinned
+source, selected Docker/Podman connection and local image before creating the
+mission or contacting the model. Checks are read-only and bounded; no image pull
+or container start occurs. An available image is not proof of compatible Kujo,
+security-policy acceptance or successful execution; Workcell still validates and
+reports actual execution/cleanup separately. Ordinary non-execution missions do
+not depend on container availability.

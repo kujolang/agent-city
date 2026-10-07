@@ -1,5 +1,6 @@
 import { readWorkcellRecord } from "./workcell-recovery";
 import { admitWorkcell } from "./mission-workcell";
+import { assertWorkcellAvailable } from "./workcell-preflight";
 import { providerDiagnostics } from "./provider-diagnostics";
 import {
   selectProfiles,
@@ -407,6 +408,7 @@ const server = createServer(async (req, res) => {
       let executeWorkcell = false;
       try {
         executeWorkcell = admitWorkcell(data.executeWorkcell, data.kind);
+        if (executeWorkcell) await assertWorkcellAvailable(root);
       } catch (error) {
         return send(400, {
           error:
