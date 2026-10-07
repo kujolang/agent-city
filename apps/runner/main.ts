@@ -1,3 +1,8 @@
+import {
+  selectProfiles,
+  readBinding,
+  bindingMetadata,
+} from "./profile-binding";
 import { catalogSummary } from "./agent-catalog";
 import { discoverOllama, checkModelConnection } from "./provider-discovery";
 import { readCheckpoint, answerCheckpoint } from "./checkpoint";
@@ -27,6 +32,7 @@ type Job = {
   kind: "writing" | "code" | "kujo";
   status: "running" | "completed" | "failed" | "unknown";
   startedAt: string;
+  profiles?: ReturnType<typeof bindingMetadata>;
   useLocalDocs?: boolean;
   useMcpDocs?: boolean;
   finishedAt?: string;
@@ -190,6 +196,7 @@ const server = createServer(async (req, res) => {
       return send(200, {
         id,
         records: rows,
+        profiles: jobs.find((j) => j.id === id)?.profiles ?? null,
         recordingComplete: complete,
         checkpoint:
           jobs.find((j) => j.id === id)?.status === "running"
@@ -391,6 +398,53 @@ const server = createServer(async (req, res) => {
         }
         contextFile = resolve(dir, id + ".context.json");
       }
+      let profileFile = "";
+      let binding: Awaited<ReturnType<typeof selectProfiles>> | null = null;
+      const priorJob = data.parentMissionId
+        ? jobs.find((j) => j.id === data.parentMissionId)
+        : undefined;
+      try {
+        if (priorJob?.profiles) {
+          binding = await readBinding(
+            resolve(missionsRoot, priorJob.id, "profiles.json"),
+          );
+          if (
+            data.profiles &&
+            (data.profiles.authorId !== binding.author.id ||
+              data.profiles.reviewerId !== binding.reviewer.id)
+          )
+            return send(400, {
+              error:
+                "A continuation retains its original profile contracts. Start a new mission to change profiles.",
+            });
+        } else if (data.profiles) {
+          binding = await selectProfiles(
+            resolve(dir, "agent-catalog.json"),
+            data.profiles,
+          );
+        }
+      } catch (error) {
+        return send(400, {
+          error:
+            error instanceof Error
+              ? error.message
+              : "Profile binding unavailable",
+        });
+      }
+      if (binding) {
+        if (
+          data.kind === "kujo" ||
+          data.useLocalDocs ||
+          data.useMcpDocs ||
+          data.functionContract
+        )
+          return send(400, {
+            error:
+              "Selected profiles currently support PROPOSE writing/JavaScript draft-review only. Retrieval, MCP, checks and project execution require connected capability adapters.",
+          });
+        profileFile = resolve(dir, id + ".profiles.json");
+        await writeFile(profileFile, JSON.stringify(binding), { mode: 0o600 });
+      }
       let contractFile = "";
       if (data.functionContract !== undefined) {
         if (data.kind !== "code")
@@ -413,6 +467,7 @@ const server = createServer(async (req, res) => {
       const job: Job = {
         id,
         kind: data.kind,
+        ...(binding ? { profiles: bindingMetadata(binding) } : {}),
         useLocalDocs: data.useLocalDocs === true,
         useMcpDocs: data.kind === "kujo" || data.useMcpDocs === true,
         status: "running",
@@ -437,6 +492,7 @@ const server = createServer(async (req, res) => {
             CITY_CHECKINS: data.allowCheckins === true ? "1" : "0",
             CITY_FUNCTION_CONTRACT_FILE: contractFile,
             CITY_CONTEXT_FILE: contextFile,
+            CITY_PROFILE_FILE: profileFile,
             CITY_USE_RAG: data.useLocalDocs === true ? "1" : "0",
             CITY_USE_MCP:
               data.kind === "kujo" || data.useMcpDocs === true ? "1" : "0",

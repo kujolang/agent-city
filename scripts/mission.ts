@@ -1,3 +1,4 @@
+import { readBinding, bindingMetadata } from "../apps/runner/profile-binding";
 import { validateModelConfig } from "../apps/runner/config";
 import { checkCodeArtifact } from "../apps/runner/code-artifact";
 import {
@@ -30,6 +31,20 @@ const dir = resolve(
   id,
 );
 await mkdir(dir, { recursive: true, mode: 0o700 });
+let profiles = null;
+if (process.env.CITY_PROFILE_FILE) {
+  profiles = await readBinding(process.env.CITY_PROFILE_FILE);
+  if (
+    kind === "kujo" ||
+    process.env.CITY_USE_RAG === "1" ||
+    process.env.CITY_USE_MCP === "1" ||
+    process.env.CITY_FUNCTION_CONTRACT_FILE
+  )
+    throw Error("Profile capabilities are not connected for this mission");
+  await writeFile(resolve(dir, "profiles.json"), JSON.stringify(profiles), {
+    mode: 0o600,
+  });
+}
 let context: any = null;
 if (process.env.CITY_CONTEXT_FILE) {
   const body = await readFile(process.env.CITY_CONTEXT_FILE, "utf8");
@@ -49,6 +64,7 @@ await writeFile(
   resolve(dir, "request.json"),
   JSON.stringify({
     prompt,
+    profiles: profiles ? bindingMetadata(profiles) : null,
     originalTask: context?.originalTask ?? prompt,
     rootMissionId: context?.rootMissionId ?? id,
     parentMissionId: context?.parentMissionId ?? null,
@@ -109,6 +125,10 @@ const child = spawn(
       KUJO_BIN:
         process.env.KUJO_BIN || resolve(root, "../kujo/target/release/kujo"),
       CITY_MISSION_ID: id,
+      CITY_PROFILE_FILE: profiles ? resolve(dir, "profiles.json") : "",
+      CITY_AUTHOR_PROFILE:
+        profiles?.author.id ||
+        (kind === "writing" ? "city-writer" : "city-coder"),
       CITY_CONTEXT_FILE: context ? resolve(dir, "context.json") : "",
       CITY_FUNCTION_CONTRACT_FILE: requestedContract
         ? resolve(dir, "function-contract.json")

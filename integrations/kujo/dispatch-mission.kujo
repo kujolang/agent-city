@@ -28,7 +28,7 @@ func city_dispatch_emit(run_value, op_value, phase_value, outcome_value, meta_va
         if has_key(meta_value, "attempt") { observed_attempt = meta_value["attempt"] }
         capability := "dispatch.task"
         if op_value == "workflow-state" { capability = "dispatch.workflow" }
-        payload := to_json({"schema":"kujo.lifecycle.v1", "producer_instance":env_or("CITY_PRODUCER", ""), "run_id":run_value, "agent_id":env_or("CITY_ACTOR", "worker-1"), "task_id":run_value+":produce-artifact", "operation_id":op_value, "attempt":observed_attempt, "kind":"internal", "capability":capability, "phase":phase_value, "outcome":outcome_value, "occurred_at_ms":current_timestamp(), "metadata":meta_value})+"\n"
+        payload := to_json({"schema":"kujo.lifecycle.v1","profile":env_or("CITY_AUTHOR_PROFILE", "unknown"), "producer_instance":env_or("CITY_PRODUCER", ""), "run_id":run_value, "agent_id":env_or("CITY_ACTOR", "worker-1"), "task_id":run_value+":produce-artifact", "operation_id":op_value, "attempt":observed_attempt, "kind":"internal", "capability":capability, "phase":phase_value, "outcome":outcome_value, "occurred_at_ms":current_timestamp(), "metadata":meta_value})+"\n"
         used := 0
         if file_exists(path) { used = file_size(path) }
         if used+len(payload)<=262144 { append_file(path,payload) } else { write_file(path+".gap","overflow",true) }

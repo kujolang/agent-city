@@ -1,0 +1,45 @@
+{
+  "originalMission": "mission-91183a54-e0c4-42c5-90a9-f06df3988529",
+  "correctiveMission": "mission-2cecc3df-e5e6-48d8-8996-52cbe14ba6b5",
+  "provider": "Local Ollama endpoint using glm-5.3:cloud",
+  "runtimeStatus": "failed",
+  "failure": {
+    "code": "handoff_failed",
+    "details": {
+      "target_agent_id": "reviewer",
+      "target_status": "failed"
+    },
+    "kind": "handoff_failed",
+    "message": "Handoff target run failed to complete successfully.",
+    "retryable": false,
+    "run_id": "",
+    "status_code": 0,
+    "step_id": "",
+    "tool_name": "",
+    "type": "AgentError"
+  },
+  "originalRetained": true,
+  "snapshotAgents": [
+    {
+      "id": "profile-proof-mission-91183a54-e0c4-42c5-90a9-f06df3988529:run-1791396908524-6202:writer",
+      "profile": "kujolang/kujo-agents:chain.documentation-writer",
+      "status": "completed"
+    },
+    {
+      "id": "profile-proof-mission-91183a54-e0c4-42c5-90a9-f06df3988529:run-1791396908524-6202-handoff-reviewer:reviewer",
+      "profile": "kujolang/kujo-agents:chain.code-reviewer",
+      "status": "completed"
+    },
+    {
+      "id": "profile-proof-mission-2cecc3df-e5e6-48d8-8996-52cbe14ba6b5:run-1791397055657-9444:writer",
+      "profile": "kujolang/kujo-agents:chain.documentation-writer",
+      "status": "failed"
+    },
+    {
+      "id": "profile-proof-mission-2cecc3df-e5e6-48d8-8996-52cbe14ba6b5:run-1791397055657-9444-handoff-reviewer:reviewer",
+      "profile": "kujolang/kujo-agents:chain.code-reviewer",
+      "status": "failed"
+    }
+  ],
+  "rootCause": "UNKNOWN: source reports reviewer handoff failure; provider-specific cause not established"
+}

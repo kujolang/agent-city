@@ -1,0 +1,28 @@
+{
+  "scope": "Real local Ollama model with SDK/Dispatch profile handoff",
+  "model": "qwen2.5-coder:1.5b-instruct",
+  "mission": "mission-91183a54-e0c4-42c5-90a9-f06df3988529",
+  "profiles": {
+    "adapter": "draft-review/v1",
+    "mode": "PROPOSE",
+    "author": {
+      "id": "kujolang/kujo-agents:chain.documentation-writer",
+      "name": "Documentation Writer",
+      "contractHash": "015fbe6c599e271b4694eb3f626a21ea412a42acb09f4614aeecb759f35f2b6a"
+    },
+    "reviewer": {
+      "id": "kujolang/kujo-agents:chain.code-reviewer",
+      "name": "Code Reviewer",
+      "contractHash": "f42701a35b14514538f8258f24c1e7417f7c44ae3474179230366f9f71d850d9"
+    }
+  },
+  "unsupportedCapabilityHTTP": 400,
+  "unconnectedToolHTTP": 400,
+  "sourceEvents": 12,
+  "profileIdentityObserved": true,
+  "handoffObserved": true,
+  "continuationPreservedAfterCatalogRemoval": "fixture-tested",
+  "artifactSha256": "72a0b02366d932df6d292ed172c1d55eeb32a91d689ff14838b39f5256b4d8b9",
+  "artifactQuality": "FAIL: reviewer translated supplied Kujo-like snippet into Go, adding integer types and fmt.Println not present in source",
+  "privateEvidence": "/Users/robertdevore/2026/Kujolang/kujo-repos/agent-city/.runtime/profiles-f926fe38-a18b-4007-a91c-815d86d38397"
+}

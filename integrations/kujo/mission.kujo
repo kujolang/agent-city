@@ -10,10 +10,20 @@ from src.agents.tools.registry import create_tool_registry, register_tool, resol
 endpoint := env_or("CITY_MODEL_ENDPOINT", "")
 model := env_or("CITY_MODEL", "")
 assert(endpoint != "" && model != "", "Configure a model endpoint and model before running a mission")
+author_profile := "city-"+env_or("CITY_ACTOR", "writer")
+reviewer_profile := "city-reviewer"
+profile_contract := {}
+if env_or("CITY_PROFILE_FILE", "") != "" {
+    profile_contract = parse_json(read_file(env_or("CITY_PROFILE_FILE", "")))
+    assert(profile_contract["mode"] == "PROPOSE", "Profile mode not supported")
+    assert(env_or("CITY_USE_RAG", "0") != "1" && env_or("CITY_USE_MCP", "0") != "1" && env_or("CITY_MISSION_KIND", "writing") != "kujo", "Profile tools unavailable")
+    author_profile = profile_contract["author"]["id"]
+    reviewer_profile = profile_contract["reviewer"]["id"]
+}
 raw_sink := create_lifecycle_spool(env_or("CITY_SPOOL", ""), 262144)
 # Explicit role binding for the reviewer defined below, not a display-name guess.
 sink := func(event) {
-    if event["agent_id"] == "reviewer" { event["profile"] := "city-reviewer" }
+    if event["agent_id"] == "reviewer" { event["profile"] := reviewer_profile } else { event["profile"] := author_profile }
     return raw_sink(event)
 }
 kind := env_or("CITY_MISSION_KIND", "writing")
@@ -43,7 +53,7 @@ func mcp_wire(path, method, body) {
     }
 }
 func mcp_emit(phase, outcome, metadata) {
-    sink({"schema":"kujo.lifecycle.v1","producer_instance":env_or("CITY_PRODUCER", ""),"profile":"city-"+actor,"run_id":run_id,"agent_id":actor,"task_id":task_id,"operation_id":"mcp-docs","attempt":1,"kind":"internal","capability":"mcp.call","phase":phase,"outcome":outcome,"occurred_at_ms":current_timestamp(),"metadata":metadata})
+    sink({"schema":"kujo.lifecycle.v1","producer_instance":env_or("CITY_PRODUCER", ""),"profile":author_profile,"run_id":run_id,"agent_id":actor,"task_id":task_id,"operation_id":"mcp-docs","attempt":1,"kind":"internal","capability":"mcp.call","phase":phase,"outcome":outcome,"occurred_at_ms":current_timestamp(),"metadata":metadata})
 }
 mcp_registry := register_tool(create_tool_registry({}), {"id":"city-local-mcp-docs","name":"read_mcp_docs","permissions":["read"],"risk":"low","handler":func(input, context) {
     metadata := {"server":"unknown","tool":"read_project_docs","invocation":run_id+":mcp-docs","approval":"not-required","station":"tool-active"}
@@ -85,6 +95,11 @@ if kind == "code" {
         instructions = instructions + required
         review = review + required + "\nThe final artifact MUST retain the required named export, including when revising an earlier function without one."
     }
+}
+if env_or("CITY_PROFILE_FILE", "") != "" {
+    boundary := "\nRuntime scope: PROPOSE draft/review only. No declared tools or workflows are connected. Do not claim tool use, project edits, publishing, execution, research or checks. If the task requires unavailable capabilities, explain that limitation. Preserve the task-specific output format below.\n"
+    instructions = profile_contract["author"]["contracts"]["agent"]+"\n"+profile_contract["author"]["contracts"]["skill"]+boundary+instructions
+    review = profile_contract["reviewer"]["contracts"]["agent"]+"\n"+profile_contract["reviewer"]["contracts"]["skill"]+boundary+review
 }
 if env_or("CITY_CHECKINS", "0") == "1" {
     checkin_rule := "\nIf you need the user to clarify a requirement or decide about a concern before continuing, return ONLY a JSON object with one key cityQuestion containing your actual question (maximum 8192 characters). Do not include an artifact with a question. You may ask at most two questions per role. After the user's reply, continue the task. Otherwise return the normal requested output."
@@ -182,7 +197,7 @@ reviewer := create_agent({"id": "reviewer", "instructions": review+"\nThe origin
 runner := create_agent_runner({"ai_adapter": adapter, "handoff_registry": {"reviewer": reviewer}})
 agent := create_agent({"id": actor, "instructions": instructions, "model_policy":{"city_author":actor, "city_author_run":run_id}, "policy": {"handoff": {"target_agent_id": "reviewer"}, "retrieval":{"enabled":use_docs}}})
 result := run_agent(runner, agent, create_agent_run_request(task_text, {"run_id": run_id}), {
-    "producer_instance": env_or("CITY_PRODUCER", ""), "observation_profile": "city-" + actor,
+    "producer_instance": env_or("CITY_PRODUCER", ""), "observation_profile": author_profile,
     "observation_task_id": task_id, "on_lifecycle": sink, "max_iterations": 8,
     "retrieval_provider":retrieval, "observation_collection":"kujo-docs"
 })
@@ -193,5 +208,5 @@ assert(result["status"] == "completed", "Mission did not complete; inspect obser
 output := result["output"]["text"]
 assert(type(output) == "string" && trim(output) != "", "Mission produced no artifact")
 write_file(env_or("CITY_OUTPUT_FILE", ""), output, true)
-sink({"schema": "kujo.lifecycle.v1", "producer_instance": env_or("CITY_PRODUCER", ""), "profile": "city-" + actor, "run_id": run_id, "agent_id": actor, "task_id": task_id, "operation_id": "save-reviewed-output", "attempt": 1, "kind": "internal", "capability": "artifact.created", "phase": "finished", "outcome": "succeeded", "occurred_at_ms": current_timestamp(), "metadata": {"artifactRef": "mission:" + run_id + ":output"}})
+sink({"schema": "kujo.lifecycle.v1", "producer_instance": env_or("CITY_PRODUCER", ""), "profile": author_profile, "run_id": run_id, "agent_id": actor, "task_id": task_id, "operation_id": "save-reviewed-output", "attempt": 1, "kind": "internal", "capability": "artifact.created", "phase": "finished", "outcome": "succeeded", "occurred_at_ms": current_timestamp(), "metadata": {"artifactRef": "mission:" + run_id + ":output"}})
 print(to_json({"run_id": run_id, "status": result["status"], "artifact": "mission:" + run_id + ":output"}))

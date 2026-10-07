@@ -1,3 +1,4 @@
+import { profileAvailability } from "./profile-binding";
 import {
   readFile,
   realpath,
@@ -222,10 +223,11 @@ export async function catalogSummary(file: string) {
       tools: profile.tools,
       workflows: profile.workflows,
       source: profile.source,
-      executionStatus: "NOT_CONNECTED",
+      executionStatus: profileAvailability(profile).available
+        ? "DRAFT_REVIEW_ONLY"
+        : "NOT_CONNECTED",
       unavailableRequiredCapabilities: profile.capabilities.required,
-      reason:
-        "Profile imported. Mission execution binding is not connected; importing does not grant tools, permissions or workflow execution.",
+      reason: profileAvailability(profile).reason,
     })),
   };
 }
