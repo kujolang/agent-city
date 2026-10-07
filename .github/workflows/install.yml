@@ -17,15 +17,17 @@ jobs:
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 24
-      - name: Install into an empty directory with pinned producer repositories
+      - name: Public bootstrap with private Node and pinned producer repositories
         env:
           CITY_INSTALL_REF: ${{ github.sha }}
-        run: node installer/install.mjs --prefix "$RUNNER_TEMP/city" --no-start
+        run: |
+          mkdir "$RUNNER_TEMP/no-system-node"
+          printf '#!/bin/sh\nexit 1\n' > "$RUNNER_TEMP/no-system-node/node"
+          chmod +x "$RUNNER_TEMP/no-system-node/node"
+          PATH="$RUNNER_TEMP/no-system-node:$PATH" sh install.sh --prefix "$RUNNER_TEMP/city" --no-start
+          test -x "$RUNNER_TEMP/city/.node/bin/node"
       - name: Verify actual installed SDK, Dispatch, RAG and MCP contracts
-        run: cd "$RUNNER_TEMP/city/agent-city" && node --import tsx scripts/mission-contract.ts
+        run: cd "$RUNNER_TEMP/city/agent-city" && "$RUNNER_TEMP/city/.node/bin/node" --import tsx scripts/mission-contract.ts
       - uses: actions/upload-artifact@v4
         if: always()
         with:
