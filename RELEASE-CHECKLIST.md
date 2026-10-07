@@ -77,3 +77,8 @@ visible tab cycle, truth ingestion while hidden, paused animation, collapsed
 backlog and retained selected identity. Release assessment now consumes/asserts
 that evidence. Long throttling, OS sleep/tab discard and live-source suspension
 remain outside this controlled1.2second test. See evidence/browser-visibility.
+
+Viewport checkpoint: full canvas now scales2x in600px-high desktop windows,
+rather than reserving420px for surrounding panels. Five-width keyboard/reduced-
+motion proof passes with full canvas visible, retained truth/identity and zero
+horizontal overflow, including320px. Reference-art acceptance remains open.

@@ -122,15 +122,17 @@ try {
     rendererReady = true;
   });
   let resizeFrame = 0;
-  new ResizeObserver(() => {
+  const resizeCanvas = () => {
     cancelAnimationFrame(resizeFrame);
     resizeFrame = requestAnimationFrame(() => {
       const scale = Math.max(
         1,
+        // Reserve only the compact world heading. DOM details can scroll;
+        // keep the entire game visible after Follow, with integer pixels.
         Math.min(
           3,
           Math.floor($("#canvas").clientWidth / 256),
-          Math.max(1, Math.floor((innerHeight - 420) / 240)),
+          Math.max(1, Math.floor((innerHeight - 80) / 240)),
         ),
       );
       const canvas = $("#canvas canvas");
@@ -139,7 +141,9 @@ try {
       if (canvas.style.width !== width) canvas.style.width = width;
       if (canvas.style.height !== height) canvas.style.height = height;
     });
-  }).observe($("#canvas"));
+  };
+  new ResizeObserver(resizeCanvas).observe($("#canvas"));
+  window.addEventListener("resize", resizeCanvas);
 } catch {
   $("#canvas").textContent =
     "Rendering disabled or unavailable. Current truth and evidence remain available below.";

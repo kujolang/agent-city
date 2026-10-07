@@ -25,7 +25,7 @@ try {
     headless: true,
     executablePath: await localChromiumPath(),
   });
-  for (const width of [1280, 320]) {
+  for (const width of [320, 768, 1024, 1280, 1920]) {
     const context = await browser.newContext({
       viewport: { width, height: 600 },
       reducedMotion: "reduce",
@@ -54,6 +54,13 @@ try {
     await page.goto("http://127.0.0.1:18885");
     await page.waitForSelector("#roster button");
     await page.locator("#roster button").first().click();
+    // Selection now enables Follow. Inspect the city to explicitly stop it;
+    // do not rely on completed-run timing to turn this toggle off for us.
+    await page.locator('[data-scene="city"]').click();
+    assert.equal(
+      await page.evaluate(() => (window as any).agentCity.follow),
+      null,
+    );
     const before = await page.evaluate(() => ({
       selected: (window as any).agentCity.selected,
       truth: JSON.stringify((window as any).agentCity.truth),
@@ -74,6 +81,13 @@ try {
       selected: (window as any).agentCity.selected,
       truth: JSON.stringify((window as any).agentCity.truth),
       overflow: document.documentElement.scrollWidth > innerWidth,
+      canvasWidth: document
+        .querySelector("#canvas canvas")!
+        .getBoundingClientRect().width,
+      canvasHeight: document
+        .querySelector("#canvas canvas")!
+        .getBoundingClientRect().height,
+      availableWidth: document.querySelector("#canvas")!.clientWidth,
     }));
     console.log(
       JSON.stringify({
@@ -89,6 +103,28 @@ try {
     assert.equal(before.selected, after.selected);
     assert.equal(before.truth, after.truth);
     assert.equal(after.overflow, false);
+    assert.equal(
+      after.canvasWidth,
+      256 *
+        Math.max(
+          1,
+          Math.min(
+            3,
+            Math.floor(after.availableWidth / 256),
+            Math.max(1, Math.floor((600 - 80) / 240)),
+          ),
+        ),
+    );
+    assert.equal(after.canvasHeight / 240, after.canvasWidth / 256);
+    assert(
+      after.canvasTop + after.canvasHeight <= 600,
+      "Full game must fit after Follow",
+    );
+    if (width >= 1024)
+      assert(
+        after.canvasWidth >= 512,
+        "Desktop world should occupy at least 2x logical size",
+      );
     assert.deepEqual(errors, []);
     await page.screenshot({ path: out + "/width-" + width + ".png" });
     cases.push({
@@ -99,6 +135,9 @@ try {
       startedOffscreen: offscreen,
       worldTop: after.top,
       canvasTop: after.canvasTop,
+      canvasWidth: after.canvasWidth,
+      canvasHeight: after.canvasHeight,
+      availableWidth: after.availableWidth,
       selectedIdentityUnchanged: true,
       truthUnchanged: true,
       overflow: after.overflow,

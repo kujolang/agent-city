@@ -761,3 +761,9 @@ header h1:before {
 [hidden] {
   display: none !important;
 }
+
+/* Native selects must fit the narrow Mission Command column. */
+.mission-panel select {
+  max-width: 100%;
+  min-width: 0;
+}
