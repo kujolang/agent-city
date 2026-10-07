@@ -1,0 +1,30 @@
+{
+  "scope": "Mission API author/reviewer, static check and explicit isolated Workcell execution; model mode recorded per attempt",
+  "attempts": [
+    {
+      "mission": "mission-e58374b0-73ce-41b2-aab7-a46b9575081b",
+      "model": "glm-5.3:cloud",
+      "checks": null,
+      "validation": {
+        "schema": "agent-city.code-check.v1",
+        "syntax": "valid",
+        "fenceRemoved": false,
+        "checkedArtifact": "reviewed.kujo",
+        "functionalTests": "not-run",
+        "codeExecuted": true,
+        "checkedAt": "2026-10-07T20:09:11.216Z"
+      },
+      "artifactSha256": "c28cc3c78176e7419b8a14d961a27016c7874f9976ea8110c9d25344baf5a06a",
+      "checkerIdentityDistinct": true,
+      "individualOutcomes": [
+        {
+          "operation": "kujo-static-check",
+          "outcome": "succeeded"
+        }
+      ],
+      "handoffObserved": true
+    }
+  ],
+  "priorFailureRetained": "fixture-tested",
+  "privateEvidence": ".runtime/profile-code-2f4d8c60-8b92-4a64-b6f8-572bae39bfec"
+}

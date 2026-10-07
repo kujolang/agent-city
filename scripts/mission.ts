@@ -1,4 +1,8 @@
 import {
+  admitWorkcell,
+  executeMissionWorkcell,
+} from "../apps/runner/mission-workcell";
+import {
   readBinding,
   bindingMetadata,
   validateProfileMission,
@@ -19,6 +23,10 @@ const root = resolve(import.meta.dirname, "..");
 const [kind, promptFile] = process.argv.slice(2);
 if (!["writing", "code", "kujo"].includes(kind) || !promptFile)
   throw Error("Usage: npm run mission -- writing|code|kujo /path/to/task.txt");
+const executeWorkcell = admitWorkcell(
+  process.env.CITY_EXECUTE_WORKCELL === "1",
+  kind,
+);
 const modelConfig = validateModelConfig({
   endpoint: process.env.CITY_MODEL_ENDPOINT || "",
   model: process.env.CITY_MODEL || "",
@@ -68,6 +76,7 @@ await writeFile(
   resolve(dir, "request.json"),
   JSON.stringify({
     prompt,
+    executeWorkcell,
     profiles: profiles ? bindingMetadata(profiles) : null,
     originalTask: context?.originalTask ?? prompt,
     rootMissionId: context?.rootMissionId ?? id,
@@ -274,6 +283,21 @@ if (code === 0 && kind === "kujo") {
     codeExecuted: false,
     checkedAt: new Date().toISOString(),
   };
+  if (executeWorkcell && syntax === "valid") {
+    const executed = await executeMissionWorkcell({
+      root,
+      directory: dir,
+      artifact: resolve(dir, checkedArtifact),
+      producer,
+      run: dispatch.run_id,
+      spool: resolve(
+        root,
+        process.env.CITY_RUNTIME_DIR || ".runtime",
+        `spool-${producer}.jsonl`,
+      ),
+    });
+    validation.codeExecuted = executed.codeExecuted;
+  }
   await writeFile(resolve(dir, "validation.json"), JSON.stringify(validation), {
     mode: 0o600,
   });

@@ -177,7 +177,7 @@ an intentionally failing Eval check and a subsequent correction. The UI remains
 read-only. `npm run workcell` uses a dedicated generated fixture repository and
 preserves the host's Workcell guardrails. A dedicated Colima backend has now
 executed an actual generated Kujo script and exported its result. This is a CLI
-proof, not general Mission Command Workcell integration. See the
+proof. Mission Command also supports [explicit checked-Kujo execution](evidence/mission-workcell/README.md); general project execution remains unavailable. See the
 [setup, receipts and limits](evidence/workcell-live/README.md).
 
 The retained release cohort uses `CITY_SOURCE_PREFIX=phase1-release-` and

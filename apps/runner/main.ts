@@ -1,3 +1,4 @@
+import { admitWorkcell } from "./mission-workcell";
 import { providerDiagnostics } from "./provider-diagnostics";
 import {
   selectProfiles,
@@ -37,6 +38,7 @@ type Job = {
   profiles?: ReturnType<typeof bindingMetadata>;
   useLocalDocs?: boolean;
   useMcpDocs?: boolean;
+  executeWorkcell?: boolean;
   finishedAt?: string;
   parentMissionId?: string;
   rootMissionId?: string;
@@ -262,6 +264,15 @@ const server = createServer(async (req, res) => {
         content: await readFile(file, "utf8"),
         validation,
         functional,
+        workcell: await readFile(
+          resolve(missionsRoot, job.id, "workcell.json"),
+          "utf8",
+        )
+          .then(JSON.parse)
+          .catch((error) => {
+            if (error.code === "ENOENT") return null;
+            throw error;
+          }),
         codeExecuted:
           typeof validation?.codeExecuted === "boolean"
             ? validation.codeExecuted
@@ -388,6 +399,17 @@ const server = createServer(async (req, res) => {
         return send(400, {
           error: "Choose writing/code and provide a task up to 16 KiB",
         });
+      let executeWorkcell = false;
+      try {
+        executeWorkcell = admitWorkcell(data.executeWorkcell, data.kind);
+      } catch (error) {
+        return send(400, {
+          error:
+            error instanceof Error
+              ? error.message
+              : "Workcell permission unavailable",
+        });
+      }
       const id = "mission-" + randomUUID();
       let contextFile = "";
       let context: Awaited<ReturnType<typeof continuationContext>> | null =
@@ -482,6 +504,7 @@ const server = createServer(async (req, res) => {
         id,
         kind: data.kind,
         ...(binding ? { profiles: bindingMetadata(binding) } : {}),
+        executeWorkcell,
         useLocalDocs: data.useLocalDocs === true,
         useMcpDocs: data.kind === "kujo" || data.useMcpDocs === true,
         status: "running",
@@ -503,6 +526,7 @@ const server = createServer(async (req, res) => {
           env: {
             ...process.env,
             CITY_MISSION_ID: id,
+            CITY_EXECUTE_WORKCELL: executeWorkcell ? "1" : "0",
             CITY_CHECKINS: data.allowCheckins === true ? "1" : "0",
             CITY_FUNCTION_CONTRACT_FILE: contractFile,
             CITY_CONTEXT_FILE: contextFile,

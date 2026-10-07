@@ -123,3 +123,11 @@ receipt and real bounded artifact files; each export has evidence. Host commands
 have bounded waiting, and timeout cleanup stays UNKNOWN. Rejection/timeout tests
 and retained real-run artifact validation pass. Integrations now participate in
 TypeScript checking. Mission Command Workcell integration remains incomplete.
+
+Mission Workcell checkpoint: explicit per-request opt-in plus operator enable/image
+configuration executes checked Kujo code in a separate no-network generated
+workspace after review. Real mission-e58374b0-73ce-41b2-aab7-a46b9575081b used
+cloud author/reviewer, actual MCP and handoff, then exported5 from Workcell.
+Private artifact inspection reports receipt/hashes/runtime/output; telemetry stays
+metadata-only. General project execution and interrupt/resume remain open. See
+[evidence and operator setup](evidence/mission-workcell/README.md).

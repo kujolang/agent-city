@@ -24,7 +24,7 @@ async function emit(
         profile: "local-workcell-invocation",
         run_id: run,
         agent_id: "workcell-host",
-        task_id: "",
+        task_id: process.env.CITY_TASK || "",
         operation_id: id,
         attempt: 1,
         kind: "internal",
@@ -106,6 +106,16 @@ const definition = JSON.parse(
   await readFile(resolve(root, "../workcell/workcell.json"), "utf8"),
 );
 definition.name = "agent-city-workcell";
+// This adapter grants only a generated-file execution, never sibling project policy.
+definition.network = { mode: "none" };
+definition.environment = { allow: [], set: {} };
+definition.secrets = [];
+definition.filesystem = { read_only_root: true, tmpfs: ["/tmp"] };
+definition.workspace = { mount_path: "/workspace", strategy: "git-worktree" };
+definition.cleanup = { keep_failed: false };
+definition.trust_profile = "contained-standard";
+for (const integration of Object.values(definition.integrations) as any[])
+  integration.enabled = false;
 definition.runtime.image = process.env.CITY_WORKCELL_IMAGE || "alpine:3.20";
 definition.command = [
   "sh",

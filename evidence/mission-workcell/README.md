@@ -1,0 +1,40 @@
+# Mission Workcell execution
+
+Mission Command supports explicit post-review execution of statically valid Kujo
+code in a generated disposable Workcell repository. The author/reviewer remain
+PROPOSE profiles; execution belongs to a separate Workcell host identity. It
+receives no project access or profile tool grant. No network, secrets or inherited
+container environment are granted. The original draft/review are retained.
+
+Operator setup requires a compatible local Kujo container image, passing Workcell
+backend preflight, and a shared temporary directory (see ../workcell-live/README.md).
+Set `CITY_ENABLE_WORKCELL=1`, `CITY_WORKCELL_IMAGE` and any required
+`DOCKER_CONTEXT` / `CITY_WORKCELL_TMPDIR` before starting Agent City. No image is
+pulled automatically. The user must also check **Execute checked Kujo code in
+Workcell after review** for each submitted task. Merely enabling the operator
+setting never grants mission execution. Non-Kujo requests are rejected.
+
+After completion, **Open artifact** includes the private bounded output, actual
+runtime version, Workcell receipt ID, artifact hashes and cleanup status. This
+content is not added to the metadata-only lifecycle spool. Invalid syntax is
+not executed. An unverified run reports execution/cleanup UNKNOWN; no output is
+inferred. A completed draft/review mission is distinct from its execution result.
+The opt-in is retained in request/job evidence. Continuation requests must opt in
+again; permission is not inherited from the prior mission.
+
+## Qualification
+
+- `real-execution.json`: direct mission execution adapter ran previously generated
+  code, returned5 and verified both exports/cleanup. No fresh model call in this
+  particular adapter proof.
+- `real/proof.json`, when present: fresh real cloud author/reviewer mission submitted
+  through the local authenticated task API; asserts actual Workcell output5, MCP
+  read, handoff, checked reviewed code and both artifact observations.
+- Targeted permission tests reject absent operator configuration, malformed consent
+  and wrong task type. Full project verification:76tests pass, typecheck (including
+  integrations), maps, purity gate and production build.
+
+Tested host Kujo1.7.0 and existing container Kujo1.5.0; not a broad compatibility
+claim. General project work, interrupt/resume recovery and fresh browser visual
+proof of this combined mission remain release gates. The existing UI control is
+compiled, but this evidence does not claim a new screenshot or visual traversal.

@@ -1,0 +1,27 @@
+{
+  "schema": "agent-city.mission-workcell.v1",
+  "status": "completed",
+  "codeExecuted": true,
+  "cleanup": "complete",
+  "timedOut": false,
+  "exitCode": 0,
+  "evidence": {
+    "runId": "wc-900906c93773481ca556bd5c82821e93",
+    "artifacts": [
+      {
+        "name": "city-result.txt",
+        "bytes": 2,
+        "sha256": "f0b5c2c2211c8d67ed15e75e656c7862d086e9245420892a7de62cd9ec582a06"
+      },
+      {
+        "name": "runtime-version.txt",
+        "bytes": 11,
+        "sha256": "0ebfb32be0f9b1c0ebad9bce9c887309a1e221a1b86bf7a43174ac927049ac10"
+      }
+    ]
+  },
+  "output": "5\n",
+  "runtimeVersion": "kujo 1.5.0\n",
+  "outputTruncated": false,
+  "checkedAt": "2026-10-07T20:07:49.547Z"
+}

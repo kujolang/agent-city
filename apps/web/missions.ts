@@ -26,6 +26,7 @@ export function mountMissions(
     <label><input type="checkbox" name="useLocalDocs"> Use indexed local Kujo docs</label>
     <label><input type="checkbox" name="useMcpDocs"> Read local MCP demo README</label>
     <label>Task <textarea name="prompt" rows="3" maxlength="16384" required placeholder="Describe the small task you want the agents to complete."></textarea></label>
+    <label><input type="checkbox" name="executeWorkcell"> Execute checked Kujo code in Workcell after review (requires operator setup; no network or project access)</label>
     <details><summary>Optional JavaScript function checks</summary><label>Function contract JSON <textarea name="functionContract" rows="4" placeholder='{"exportName":"sum","cases":[{"name":"empty","args":[[]],"equals":0}]}'></textarea></label><p class="muted">Explicitly runs the generated module in a disposable browser worker. JSON arguments/results only; no filesystem or network integrations. Requires installed Chromium. Each case gets 1.5 seconds.</p></details>
     <button type="submit" disabled>Start mission</button></form>
     <p class="muted">Sends your task to the configured model. The SDK hands the draft to a reviewer. Code runs only when explicit function cases are supplied, in an isolated browser without host integrations.</p>
@@ -306,7 +307,7 @@ export function mountMissions(
                 (artifact.kind === "code"
                   ? `SYNTAX: ${artifact.validation?.syntax?.toUpperCase() || "UNKNOWN"} · FUNCTIONAL TESTS: ${(artifact.validation?.functionalTests || "not-run").toUpperCase()} · ${artifact.codeExecuted === null ? "EXECUTION COVERAGE UNKNOWN" : artifact.codeExecuted ? "EXECUTED IN ISOLATED BROWSER" : "CODE NOT EXECUTED"}\n${artifact.validation?.fenceRemoved ? "Outer Markdown fence removed; original response retained above.\n" : ""}\n`
                   : artifact.kind === "kujo"
-                    ? `KUJO STATIC CHECK: ${artifact.validation?.syntax?.toUpperCase() || "UNKNOWN"} · ${artifact.validation?.checkedArtifact === "reviewed.kujo" ? "REVIEWED CODE" : "AUTHOR DRAFT"} · CODE NOT EXECUTED\nREVIEW COMMENTARY IS MODEL OPINION, NOT A TEST RESULT\n\n`
+                    ? `KUJO STATIC CHECK: ${artifact.validation?.syntax?.toUpperCase() || "UNKNOWN"} · ${artifact.validation?.checkedArtifact === "reviewed.kujo" ? "REVIEWED CODE" : "AUTHOR DRAFT"} · ${artifact.codeExecuted === true ? "EXECUTED IN WORKCELL" : artifact.codeExecuted === null ? "EXECUTION UNKNOWN" : "CODE NOT EXECUTED"}\nREVIEW COMMENTARY IS MODEL OPINION, NOT A TEST RESULT\n\n`
                     : "MODEL-REVIEWED TEXT · FACTUAL ACCURACY AND TASK CONSTRAINTS NOT VERIFIED\n\n") +
                 (artifact.draft
                   ? "KUJO AUTHOR DRAFT\n" +
@@ -316,6 +317,10 @@ export function mountMissions(
                       : "\n\nSENIOR REVIEW\n")
                   : "") +
                 artifact.content +
+                (artifact.workcell
+                  ? "\n\nWORKCELL EVIDENCE\n" +
+                    JSON.stringify(artifact.workcell, null, 2)
+                  : "") +
                 (artifact.functional
                   ? "\n\nFUNCTION CHECKS\n" +
                     artifact.functional.cases
@@ -426,6 +431,7 @@ export function mountMissions(
           allowCheckins: fields.has("allowCheckins"),
           useLocalDocs: fields.has("useLocalDocs"),
           useMcpDocs: fields.has("useMcpDocs"),
+          executeWorkcell: fields.has("executeWorkcell"),
           ...(contract ? { functionContract } : {}),
           ...(parent ? { parentMissionId: parent.id } : {}),
         }),

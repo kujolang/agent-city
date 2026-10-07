@@ -9,6 +9,7 @@ import { portAvailable } from "./startup-checks";
 const root = resolve(import.meta.dirname, "..");
 const real = process.env.CITY_PROFILE_PROOF_REAL === "1";
 const kujo = process.env.CITY_PROFILE_PROOF_LANGUAGE === "kujo";
+const workcell = kujo && process.env.CITY_PROFILE_PROOF_WORKCELL === "1";
 const authorId = kujo
   ? "kujolang/kujo-agents:chain.frontend-developer"
   : "kujolang/kujo-agents:chain.integration-engineer";
@@ -121,6 +122,7 @@ try {
       },
       body: JSON.stringify({
         kind: kujo ? "kujo" : "code",
+        executeWorkcell: workcell,
         prompt: kujo
           ? "Read the Kujo catalog using the requested MCP step. Write raw Kujo code defining func add(a,b) returning a+b and print(add(2,3)). Reviewer must return corrected raw Kujo code in cityArtifact and grade/review in cityReview. Do not claim execution; the platform will only syntax-check the final code."
           : "Write a raw JavaScript ES module exporting add(a,b), returning a+b. Reviewer must preserve the named export and return corrected code in cityArtifact. Do not claim tests passed; the platform will run the explicit cases after review.",
@@ -165,7 +167,7 @@ try {
     if (kujo) {
       assert.equal(validation.syntax, real || repaired ? "valid" : "invalid");
       assert.equal(validation.checkedArtifact, "reviewed.kujo");
-      assert.equal(validation.codeExecuted, false);
+      assert.equal(validation.codeExecuted, workcell && (real || repaired));
       assert.equal(
         await readFile(resolve(dir, "reviewed.md"), "utf8"),
         artifact,
@@ -175,6 +177,23 @@ try {
       ).json();
       assert.equal(api.validation.checkedArtifact, "reviewed.kujo");
       assert.equal(api.content, artifact);
+      if (workcell && (real || repaired)) {
+        assert.equal(api.workcell.status, "completed");
+        assert.equal(api.workcell.output, "5\n");
+        assert(
+          events.some(
+            (e) =>
+              e.capability === "workcell.execute" && e.outcome === "succeeded",
+          ),
+        );
+        assert(
+          events.filter(
+            (e) =>
+              e.capability === "artifact.created" &&
+              e.agent_id === "workcell-host",
+          ).length === 2,
+        );
+      }
       assert(
         events.some(
           (e) =>
@@ -247,18 +266,24 @@ try {
   }
   const out = resolve(
     root,
-    kujo ? "evidence/profile-kujo" : "evidence/profile-code",
+    workcell
+      ? "evidence/mission-workcell"
+      : kujo
+        ? "evidence/profile-kujo"
+        : "evidence/profile-code",
     real ? "real" : "fixture",
   );
   await mkdir(out, { recursive: true });
   const proof = {
-    scope: kujo
-      ? real
-        ? "Real Ollama cloud author/reviewer, real public Kujo MCP read and static check of final artifact; no generated code execution"
-        : "Synthetic model outputs, real public Kujo MCP read and static check; no generated code execution"
-      : real
-        ? "Real Ollama cloud author/reviewer and actual sandboxed browser function execution"
-        : "Synthetic model outputs with actual SDK handoff and sandboxed browser function execution",
+    scope: workcell
+      ? "Mission API author/reviewer, static check and explicit isolated Workcell execution; model mode recorded per attempt"
+      : kujo
+        ? real
+          ? "Real Ollama cloud author/reviewer, real public Kujo MCP read and static check of final artifact; no generated code execution"
+          : "Synthetic model outputs, real public Kujo MCP read and static check; no generated code execution"
+        : real
+          ? "Real Ollama cloud author/reviewer and actual sandboxed browser function execution"
+          : "Synthetic model outputs with actual SDK handoff and sandboxed browser function execution",
     attempts,
     priorFailureRetained: real ? "fixture-tested" : true,
     privateEvidence: runtime,
