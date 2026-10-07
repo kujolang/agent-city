@@ -1,5 +1,5 @@
 {
-  "scope": "New isolated destination on existing macOS arm64 host; not clean-machine or other-platform qualification",
+  "scope": "New isolated destination on existing macOS x64 host; not clean-machine or other-platform qualification",
   "install": "PASS",
   "receipt": {
     "schema": "agent-city.install.v1",

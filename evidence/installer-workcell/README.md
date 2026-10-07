@@ -12,5 +12,5 @@ binary and Workcell source, not the development siblings. Installer/lifecycle
 unit tests8/8 and TypeScript passed. The disposable installation was removed after
 verification; no pre-existing installation was touched.
 
-Scope: existing macOS arm64 development host. Not clean-machine, cross-platform,
+Scope: existing macOS x64 development host. Not clean-machine, cross-platform,
 first-model task, container/image provisioning, or public-distribution qualification.
