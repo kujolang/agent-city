@@ -34,3 +34,10 @@ passed; 57 tests pass. Public bootstrap blocked by private source distribution;
 platform CI rejected before execution by billing limits. Bounded canonical pipeline
 measured 164.156 events/s with no observed loss/duplicates, below target. See
 [evidence and limits](evidence/release-readiness-20261007/README.md).
+
+Managed maintenance checkpoint: update stages/builds before replacement, preserves
+.runtime at its original path and retains a full rollback archive; uninstall archives
+all data. Managed startup/maintenance use an exclusive lease. Local real update,
+HTTP startup, live uninstall refusal, shutdown and archive uninstall verified; all
+105 pre-existing runtime files preserved byte-for-byte. Cross-platform and public
+distribution qualification remain open. See installer/README.md and maintenance.json.

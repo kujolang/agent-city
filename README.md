@@ -6,6 +6,10 @@ Agent City observes real Kujo work in a small original pixel city. The Observer
 and replay gateway remain read-only; **Mission Command** is a separate local
 service for explicit writing/code requests and SDK reviewer handoffs.
 
+Managed preview installation now supports staged updates and archive-based uninstall;
+see [installation and maintenance](installer/README.md). Public installation and
+platform qualification remain incomplete.
+
 ## Start and try it
 
 ### Kujo author → senior review with your Codex subscription
@@ -55,8 +59,8 @@ Custom team import from the 85 local catalog pages remains unimplemented.
 
 ### Ollama or another chat-completions provider
 
-Requirements: Node 24+, installed npm dependencies, the Kujo 1.3.1 repository
-binary, and sibling `agents-sdk`, `dispatch`, `watchdog`, `rag`, `eval`, `mcp`
+Requirements: Node 24+, installed npm dependencies, the Kujo repository
+binary (the pinned managed installer uses 1.7.0), and sibling `agents-sdk`, `dispatch`, `watchdog`, `rag`, `eval`, `mcp`
 repositories. This is a local development application, not a standalone public
 release.
 

@@ -1,0 +1,21 @@
+{
+  "scope": "Local macOS x64 managed maintenance; not clean-platform or public-distribution qualification",
+  "originalRuntimeFiles": 105,
+  "missing": [],
+  "changed": [],
+  "updateBuiltFromPinnedProducers": true,
+  "updatedAppHTTP": 200,
+  "liveUninstallRefused": true,
+  "gracefulShutdownExit": 0,
+  "stoppedUninstallArchived": true,
+  "fullVerify": {
+    "tests": 61,
+    "files": 19,
+    "typecheck": true,
+    "boundaries": true,
+    "maps": true,
+    "build": true
+  },
+  "finalLifecycleFocusedTests": 7,
+  "publicReadiness": "NOT QUALIFIED"
+}

@@ -43,3 +43,15 @@ reliability qualification, and visual/release packaging acceptance. Six authored
 rooms cover Dispatch, Workshop, Library, MCP, Meeting and Dojo. More buildings
 are not a substitute for supported capabilities; Archive/Watchdog can remain
 read-only evidence surfaces unless a new semantic location is justified.
+
+## Managed update/uninstall follow-up
+
+`installer/lifecycle.mjs` adds exclusive managed-startup/maintenance leases, staged
+updates with full retained rollback archives, and archive-based uninstall. The
+real locally installed app was updated from pinned dependencies, served HTTP 200,
+refused uninstall while active, stopped gracefully, then uninstalled to an archive.
+All 105 prior `.runtime` files remained byte-identical. See maintenance.json.
+The final lease-path canonicalization/private-Node validation refinements passed
+seven focused tests and typecheck after the real update exercise; the broader
+verification passed 61 tests plus build/maps/boundaries before those refinements.
+This does not qualify public bootstrap, other platforms, or the complete checklist.

@@ -1,12 +1,28 @@
+// @ts-expect-error Node-only installer module is shared with managed startup
+import { acquireLease } from "../installer/lifecycle.mjs";
 import { localPorts, localRuntime } from "./local-ports";
 import { startupChecks, formatStartupChecks } from "./startup-checks";
 import { spawn } from "node:child_process";
 import { access, mkdir } from "node:fs/promises";
 import { resolve } from "node:path";
 const root = resolve(import.meta.dirname, "..");
+// Development checkouts have no managed receipt; installed launchers share the maintenance lock.
+let releaseLease: (() => Promise<void>) | undefined;
+try {
+  await access(resolve(root, "../install-receipt.json"));
+  releaseLease = await acquireLease(resolve(root, ".."));
+} catch (error: any) {
+  if (error.code !== "ENOENT") throw error;
+}
+process.on("beforeExit", async () => {
+  const release = releaseLease;
+  releaseLease = undefined;
+  if (release) await release();
+});
 const check = await startupChecks(root);
 if (!check.ok) {
   console.error(formatStartupChecks(check));
+  if (releaseLease) await releaseLease();
   process.exit(1);
 }
 const kujo = check.kujo;

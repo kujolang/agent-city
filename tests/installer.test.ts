@@ -9,6 +9,7 @@ test("installer accepts explicit destination and no-start but rejects unknown sw
   expect(options(["--prefix", "/tmp/city with spaces", "--no-start"])).toEqual({
     prefix: "/tmp/city with spaces",
     start: false,
+    action: "install",
   });
   expect(() => options(["--wipe"])).toThrow("Usage");
 });

@@ -1,3 +1,4 @@
+import { maintain } from "./lifecycle.mjs";
 import {
   mkdir,
   cp,
@@ -18,13 +19,21 @@ import { createHash } from "node:crypto";
 const source = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 export function options(args) {
   let prefix = join(homedir(), ".local", "share", "agent-city"),
-    start = true;
+    start = true,
+    action = "install";
   for (let i = 0; i < args.length; i++) {
     if (args[i] === "--prefix" && args[i + 1]) prefix = resolve(args[++i]);
     else if (args[i] === "--no-start") start = false;
-    else throw Error("Usage: install.sh [--prefix DIRECTORY] [--no-start]");
+    else if (["--update", "--uninstall"].includes(args[i])) {
+      if (action !== "install")
+        throw Error("Choose only one maintenance action");
+      action = args[i].slice(2);
+    } else
+      throw Error(
+        "Usage: install.sh [--prefix DIRECTORY] [--no-start] [--update | --uninstall]",
+      );
   }
-  return { prefix: resolve(prefix), start };
+  return { prefix: resolve(prefix), start, action };
 }
 export function command(executable, args, cwd, timeout = 300_000) {
   return new Promise((done, fail) => {
@@ -232,7 +241,20 @@ if (
   process.argv[1] &&
   resolve(process.argv[1]) === fileURLToPath(import.meta.url)
 ) {
-  install(options(process.argv.slice(2))).catch((e) => {
+  const opts = options(process.argv.slice(2));
+  const work =
+    opts.action === "install"
+      ? install(opts)
+      : maintain({
+          prefix: opts.prefix,
+          action: opts.action,
+          prepare: (prefix) => install({ prefix, start: false }),
+        }).then((result) => {
+          console.log(
+            `${result.action}: ${result.prefix}\nRetained complete backup: ${result.backup}\nNo saved runs or credentials were deleted. Update does not start automatically.`,
+          );
+        });
+  work.catch((e) => {
     console.error(e.message);
     process.exitCode = 1;
   });
