@@ -235,7 +235,7 @@ try {
   release();
   await until(
     async () => (await get()).json(),
-    (v) => v.jobs[0]?.status === "completed",
+    (v) => v.jobs[0]?.status === "completed" && !v.busy,
   );
   assert.equal(calls, 2);
   assert(
@@ -358,7 +358,7 @@ try {
   );
   const end = await until(
     async () => (await get()).json(),
-    (v) => v.jobs[0]?.status === "failed",
+    (v) => v.jobs[0]?.status === "failed" && !v.busy,
   );
   assert.equal(end.jobs[1].status, "completed");
   assert.equal(
@@ -384,7 +384,7 @@ try {
   );
   await until(
     async () => (await get()).json(),
-    (v) => v.jobs[0]?.status === "failed",
+    (v) => v.jobs[0]?.status === "failed" && !v.busy,
   );
   assert.equal(
     calls,
@@ -422,7 +422,10 @@ try {
   const followup = await continued.json();
   const continuedState = await until(
     async () => (await get()).json(),
-    (v) => v.jobs[0]?.id === followup.id && v.jobs[0].status === "completed",
+    (v) =>
+      v.jobs[0]?.id === followup.id &&
+      v.jobs[0].status === "completed" &&
+      !v.busy,
   );
   assert.equal(continuedState.jobs[0].parentMissionId, job.id);
   assert.equal(continuedState.jobs[0].rootMissionId, job.id);
@@ -457,7 +460,10 @@ try {
   const combinedJob = await combined.json();
   await until(
     async () => (await get()).json(),
-    (v) => v.jobs[0]?.id === combinedJob.id && v.jobs[0].status === "completed",
+    (v) =>
+      v.jobs[0]?.id === combinedJob.id &&
+      v.jobs[0].status === "completed" &&
+      !v.busy,
   );
   assert.equal(calls, 8);
   for (const request of requests.slice(-2)) {
