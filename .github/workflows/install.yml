@@ -1,0 +1,35 @@
+name: Isolated installation
+on:
+  push:
+    branches: [main]
+    paths: ["installer/**", "install.sh", "apps/**", "packages/**", "integrations/**", "scripts/**", "package*.json", ".github/workflows/install.yml"]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  install:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-24.04, ubuntu-24.04-arm, macos-15, macos-15-intel]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Install into an empty directory with pinned producer repositories
+        env:
+          CITY_INSTALL_REF: ${{ github.sha }}
+        run: node installer/install.mjs --prefix "$RUNNER_TEMP/city" --no-start
+      - name: Verify actual installed SDK, Dispatch, RAG and MCP contracts
+        run: cd "$RUNNER_TEMP/city/agent-city" && node --import tsx scripts/mission-contract.ts
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: installation-${{ matrix.os }}
+          path: |
+            ${{ runner.temp }}/city/install-receipt.json
+            ${{ runner.temp }}/city/agent-city/evidence/missions/contract.json
