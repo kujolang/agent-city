@@ -1,0 +1,36 @@
+{
+  "scope": "Simulated lost final checkpoint over copied real execution evidence; read-only recovery, no model/tool/container invocation",
+  "sourceMission": "mission-e58374b0-73ce-41b2-aab7-a46b9575081b",
+  "sourceWorkcell": "wc-3a1ca6121b4843b0a7ac52b5fa7906a2",
+  "recovered": {
+    "schema": "agent-city.mission-workcell.v1",
+    "status": "completed",
+    "run": "run-1791403715182-1119",
+    "producer": "profile-code-mission-e58374b0-73ce-41b2-aab7-a46b9575081b",
+    "codeExecuted": true,
+    "cleanup": "complete",
+    "recovered": true,
+    "recoverySource": "verified-local-receipt",
+    "evidence": {
+      "runId": "wc-3a1ca6121b4843b0a7ac52b5fa7906a2",
+      "artifacts": [
+        {
+          "name": "city-result.txt",
+          "bytes": 2,
+          "sha256": "f0b5c2c2211c8d67ed15e75e656c7862d086e9245420892a7de62cd9ec582a06"
+        },
+        {
+          "name": "runtime-version.txt",
+          "bytes": 11,
+          "sha256": "0ebfb32be0f9b1c0ebad9bce9c887309a1e221a1b86bf7a43174ac927049ac10"
+        }
+      ]
+    },
+    "output": "5\n",
+    "runtimeVersion": "kujo 1.5.0\n",
+    "outputTruncated": false
+  },
+  "checkpointUnchanged": true,
+  "repeatedReadIdentical": true,
+  "checkpointSha256": "ac9f16f847e3edc5fe0232a7e4eec253ea1a108da1c6e89592af1e221e23830d"
+}

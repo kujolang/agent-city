@@ -49,3 +49,20 @@ reset it. Submission transport is intercepted in this test, so it executes no ne
 model/container work and does not establish new in-game travel evidence.
 Run `node --import tsx scripts/workcell-browser-proof.ts` with local retained
 mission evidence present; `CHROMIUM_PATH` can select an installed browser.
+
+## Read-only checkpoint recovery
+
+The mission adapter atomically saves a pending record before invoking Workcell
+and atomically replaces it afterward. `/control/workcell/:id` is scoped to known
+local mission history and remains readable when overall mission status is UNKNOWN.
+A missing final record can be reconstructed only from matching run/producer proof,
+a successful CLI result and verified receipt/artifact/cleanup evidence. Reads
+never execute commands, retry work, write checkpoints or fabricate telemetry.
+Overall mission status stays independent; partial evidence stays UNKNOWN.
+
+`recovery/proof.json` simulates losing the final checkpoint over a copy of actual
+mission receipts. It recovers output5, leaves the checkpoint unchanged and returns
+identical repeated reads. This is a controlled recovery test, not a claim that an
+actual live process was killed. Targeted tests reject wrong identity, failures,
+timeout and missing exports. Full interrupt/cancel/container cleanup qualification
+is still pending.

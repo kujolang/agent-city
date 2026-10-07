@@ -1,3 +1,4 @@
+import { readWorkcellRecord } from "./workcell-recovery";
 import { admitWorkcell } from "./mission-workcell";
 import { providerDiagnostics } from "./provider-diagnostics";
 import {
@@ -220,6 +221,15 @@ const server = createServer(async (req, res) => {
             : null,
       });
     }
+    if (req.method === "GET" && req.url?.startsWith("/control/workcell/")) {
+      const id = req.url.slice("/control/workcell/".length);
+      if (!jobs.some((job) => job.id === id))
+        return send(404, { error: "Mission not found" });
+      return send(200, {
+        id,
+        workcell: await readWorkcellRecord(resolve(missionsRoot, id)),
+      });
+    }
     if (req.method === "GET" && req.url?.startsWith("/control/artifact/")) {
       const id = req.url.slice("/control/artifact/".length);
       const job = jobs.find((j) => j.id === id && j.status === "completed");
@@ -251,6 +261,7 @@ const server = createServer(async (req, res) => {
       } catch (error: any) {
         if (error.code !== "ENOENT") throw error;
       }
+      const workcell = await readWorkcellRecord(resolve(missionsRoot, job.id));
       return send(200, {
         id,
         draft:
@@ -264,19 +275,13 @@ const server = createServer(async (req, res) => {
         content: await readFile(file, "utf8"),
         validation,
         functional,
-        workcell: await readFile(
-          resolve(missionsRoot, job.id, "workcell.json"),
-          "utf8",
-        )
-          .then(JSON.parse)
-          .catch((error) => {
-            if (error.code === "ENOENT") return null;
-            throw error;
-          }),
+        workcell,
         codeExecuted:
-          typeof validation?.codeExecuted === "boolean"
-            ? validation.codeExecuted
-            : null,
+          workcell?.recovered === true
+            ? true
+            : typeof validation?.codeExecuted === "boolean"
+              ? validation.codeExecuted
+              : null,
       });
     }
     if (

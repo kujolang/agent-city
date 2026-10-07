@@ -1,4 +1,4 @@
-import { readFile, writeFile } from "node:fs/promises";
+import { readFile, writeFile, rename } from "node:fs/promises";
 import { resolve } from "node:path";
 import { boundedCommand } from "./bounded-command";
 import { verifyWorkcellEvidence } from "./workcell-evidence";
@@ -28,6 +28,22 @@ export async function executeMissionWorkcell(options: {
   spool: string;
 }) {
   const runtime = resolve(options.directory, "workcell");
+  async function save(record: unknown) {
+    const file = resolve(options.directory, "workcell.json");
+    await writeFile(file + ".tmp", JSON.stringify(record, null, 2), {
+      mode: 0o600,
+    });
+    await rename(file + ".tmp", file);
+  }
+  await save({
+    schema: "agent-city.mission-workcell.v1",
+    status: "pending",
+    run: options.run,
+    producer: options.producer,
+    codeExecuted: null,
+    cleanup: "unknown",
+    startedAt: new Date().toISOString(),
+  });
   const result = await boundedCommand(
     process.execPath,
     ["--import", "tsx", resolve(options.root, "integrations/kujo/workcell.ts")],
@@ -78,6 +94,8 @@ export async function executeMissionWorkcell(options: {
     ).slice(0, 200);
   }
   const record = {
+    run: options.run,
+    producer: options.producer,
     schema: "agent-city.mission-workcell.v1",
     status: evidence ? "completed" : "unverified",
     codeExecuted: evidence ? true : null,
@@ -93,10 +111,6 @@ export async function executeMissionWorkcell(options: {
       : false,
     checkedAt: new Date().toISOString(),
   };
-  await writeFile(
-    resolve(options.directory, "workcell.json"),
-    JSON.stringify(record, null, 2),
-    { mode: 0o600 },
-  );
+  await save(record);
   return record;
 }

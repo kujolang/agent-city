@@ -137,3 +137,9 @@ the local API. Keyboard consent, submission reset and follow-up reset verified
 in installed Chromium; consent no longer carries into another task. Screenshots
 in evidence/mission-workcell/browser. No new model/container activity or world
 travel claimed by this UI proof.
+
+Workcell recovery checkpoint: atomic pending/final records and history-scoped
+read-only receipt recovery expose verified execution independently of UNKNOWN
+mission status. Controlled checkpoint loss over copied real receipts recovers5
+without modifying records or executing work. Live interruption/cleanup and world
+traversal remain unqualified.

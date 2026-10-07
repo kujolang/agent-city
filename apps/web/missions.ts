@@ -295,8 +295,23 @@ export function mountMissions(
               panel.querySelector("#mission-exchanges")!.textContent =
                 "Response history unavailable; no dialogue inferred.";
             }
+            let workcellEvidence = null;
+            try {
+              const response = await fetch(
+                "/control/workcell/" + encodeURIComponent(job.id),
+              );
+              if (response.ok)
+                workcellEvidence = (await response.json()).workcell;
+            } catch {
+              /* The overall mission state remains independently authoritative. */
+            }
             if (job.status !== "completed") {
-              output.textContent = `Mission ${job.status}; no completed artifact claimed.`;
+              output.textContent =
+                `Mission ${job.status}; no completed mission artifact claimed.` +
+                (workcellEvidence
+                  ? "\n\nWORKCELL EVIDENCE (independent of mission status)\n" +
+                    JSON.stringify(workcellEvidence, null, 2)
+                  : "");
               return;
             }
             try {
