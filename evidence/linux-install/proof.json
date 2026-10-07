@@ -1,0 +1,7 @@
+{
+  "scope": "Clean Linux AMD64 Node24 container, tracked local source archive; not public bootstrap, desktop browser, real model or nested sandbox qualification",
+  "cityCommit": "d09650065d392184c6d8f6e3633994b5d143116e",
+  "image": "node:24-trixie@sha256:173f125896c3b47ddf056734c7ea789d04595a6a08769a8f78e0df642781fb66",
+  "result": "PASS",
+  "privateLog": ".runtime/linux-install-1791415520/installation.log"
+}

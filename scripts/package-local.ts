@@ -28,6 +28,7 @@ const names = [
   "rag",
   "eval",
   "mcp",
+  "workcell",
 ];
 const sourcePaths = [
   "apps",
@@ -35,6 +36,7 @@ const sourcePaths = [
   "assets",
   "scripts",
   "integrations",
+  "installer",
   "package.json",
   "package-lock.json",
   "tsconfig.json",

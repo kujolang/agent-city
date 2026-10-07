@@ -242,3 +242,14 @@ validation and Workcell's ownership-checked library. Real source SIGKILL proof
 passed; active/foreign/symlink refusal tests and full verify86tests pass. Original
 receipt/outcome remain unchanged. Automatic mission reconciliation and admission
 recovery remain open. See evidence/workcell-recovery-command.
+
+Clean Linux checkpoint: fresh pinned Node24/LinuxAMD64 container downloaded and
+installed pinned dependencies, built City and passed the installed mission
+contract suite. No host npm cache or private model credentials supplied. Scope
+excludes public bootstrap, real model onboarding, desktop browser and nested
+sandbox execution. Evidence: evidence/linux-install. Platform CI remains rejected
+before steps by billing/spending limits (run37691817210).
+
+Bundle contents correction: source bundles now include Workcell and the installer
+module required by managed startup. Previously the older bundle recipe omitted
+both despite later application dependencies. Package verification remains required.
