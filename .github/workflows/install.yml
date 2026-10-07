@@ -24,7 +24,7 @@ jobs:
           mkdir "$RUNNER_TEMP/no-system-node"
           printf '#!/bin/sh\nexit 1\n' > "$RUNNER_TEMP/no-system-node/node"
           chmod +x "$RUNNER_TEMP/no-system-node/node"
-          PATH="$RUNNER_TEMP/no-system-node:$PATH" sh install.sh --prefix "$RUNNER_TEMP/city" --no-start
+          PATH="$RUNNER_TEMP/no-system-node:$PATH" sh -x install.sh --prefix "$RUNNER_TEMP/city" --no-start
           test -x "$RUNNER_TEMP/city/.node/bin/node"
       - name: Verify actual installed SDK, Dispatch, RAG and MCP contracts
         run: cd "$RUNNER_TEMP/city/agent-city" && "$RUNNER_TEMP/city/.node/bin/node" --import tsx scripts/mission-contract.ts
