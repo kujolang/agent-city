@@ -1,4 +1,8 @@
-import { readBinding, bindingMetadata } from "../apps/runner/profile-binding";
+import {
+  readBinding,
+  bindingMetadata,
+  validateProfileMission,
+} from "../apps/runner/profile-binding";
 import { validateModelConfig } from "../apps/runner/config";
 import { checkCodeArtifact } from "../apps/runner/code-artifact";
 import {
@@ -35,13 +39,12 @@ await mkdir(dir, { recursive: true, mode: 0o700 });
 let profiles = null;
 if (process.env.CITY_PROFILE_FILE) {
   profiles = await readBinding(process.env.CITY_PROFILE_FILE);
-  if (
-    kind === "kujo" ||
-    process.env.CITY_USE_RAG === "1" ||
-    process.env.CITY_USE_MCP === "1" ||
-    process.env.CITY_FUNCTION_CONTRACT_FILE
-  )
-    throw Error("Profile capabilities are not connected for this mission");
+  validateProfileMission(profiles, {
+    kind,
+    useLocalDocs: process.env.CITY_USE_RAG === "1",
+    useMcpDocs: process.env.CITY_USE_MCP === "1",
+    functionContract: process.env.CITY_FUNCTION_CONTRACT_FILE || undefined,
+  });
   await writeFile(resolve(dir, "profiles.json"), JSON.stringify(profiles), {
     mode: 0o600,
   });

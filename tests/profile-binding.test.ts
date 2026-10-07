@@ -3,6 +3,7 @@ import { createHash } from "node:crypto";
 import {
   validateBinding,
   profileAvailability,
+  validateProfileMission,
 } from "../apps/runner/profile-binding";
 import type { ImportedProfile } from "../apps/runner/agent-catalog";
 function profile(id: string): ImportedProfile {
@@ -58,4 +59,32 @@ test("snapshots reject changed instructions, expanded permission while allowing 
   expect(validateBinding(duplicate).author.id).toBe(duplicate.reviewer.id);
   const expanded = { ...binding(), mode: "ACT" };
   expect(() => validateBinding(expanded)).toThrow("Invalid");
+});
+
+test("documentation context needs explicit author tool permission; checks stay unavailable", () => {
+  const value = validateBinding(binding());
+  expect(() =>
+    validateProfileMission(value, { kind: "writing" }),
+  ).not.toThrow();
+  for (const flags of [{ useMcpDocs: true }, { useLocalDocs: true }]) {
+    expect(() =>
+      validateProfileMission(value, { kind: "writing", ...flags }),
+    ).toThrow("does not allow");
+    value.reviewer.tools.allowed = ["Kujo Docs"];
+    expect(() =>
+      validateProfileMission(value, { kind: "writing", ...flags }),
+    ).toThrow("does not allow");
+    value.author.tools.allowed = ["Kujo Docs"];
+    expect(() =>
+      validateProfileMission(value, { kind: "writing", ...flags }),
+    ).not.toThrow();
+    value.author.tools.allowed = [];
+  }
+  value.author.tools.allowed = ["Kujo Docs"];
+  expect(() => validateProfileMission(value, { kind: "kujo" })).toThrow(
+    "not connected",
+  );
+  expect(() =>
+    validateProfileMission(value, { kind: "code", functionContract: {} }),
+  ).toThrow("not connected");
 });

@@ -256,8 +256,10 @@ source checkouts. Importing does not execute contract instructions.
 
 In **Custom author / reviewer**, refresh imported profiles and select the author
 and reviewer. Eligible profiles show **DRAFT_REVIEW_ONLY**: PROPOSE permission,
-no unavailable required capabilities, and no retrieval/MCP/check/project-execution
-requests. Other profiles remain **NOT_CONNECTED**. The current catalog has51
+no unavailable required capabilities, and no check/project-execution
+requests. Explicit local documentation retrieval/MCP reads are permitted only when
+the author manifest allows **Kujo Docs**. The reviewer receives the resulting
+evidence as context; it does not inherit the author's tool permissions. Other profiles remain **NOT_CONNECTED**. The current catalog has51
 eligible profiles. This adapter executes the existing author→reviewer SDK handoff,
 not the catalog's named workflows. Declared tools are not automatically granted.
 

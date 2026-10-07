@@ -3,6 +3,7 @@ import {
   selectProfiles,
   readBinding,
   bindingMetadata,
+  validateProfileMission,
 } from "./profile-binding";
 import { catalogSummary } from "./agent-catalog";
 import { discoverOllama, checkModelConnection } from "./provider-discovery";
@@ -445,16 +446,16 @@ const server = createServer(async (req, res) => {
         });
       }
       if (binding) {
-        if (
-          data.kind === "kujo" ||
-          data.useLocalDocs ||
-          data.useMcpDocs ||
-          data.functionContract
-        )
+        try {
+          validateProfileMission(binding, data);
+        } catch (error) {
           return send(400, {
             error:
-              "Selected profiles currently support PROPOSE writing/JavaScript draft-review only. Retrieval, MCP, checks and project execution require connected capability adapters.",
+              error instanceof Error
+                ? error.message
+                : "Profile capability unavailable",
           });
+        }
         profileFile = resolve(dir, id + ".profiles.json");
         await writeFile(profileFile, JSON.stringify(binding), { mode: 0o600 });
       }

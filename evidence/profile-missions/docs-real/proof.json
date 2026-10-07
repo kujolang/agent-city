@@ -1,0 +1,57 @@
+{
+  "scope": "Real Ollama provider with SDK/Dispatch profile handoff",
+  "model": "glm-5.3:cloud",
+  "mission": "mission-c5428ca5-d9b1-4e0c-a2a7-a4b2d769adb3",
+  "profiles": {
+    "adapter": "draft-review/v1",
+    "mode": "PROPOSE",
+    "author": {
+      "id": "kujolang/kujo-agents:chain.documentation-writer",
+      "name": "Documentation Writer",
+      "contractHash": "015fbe6c599e271b4694eb3f626a21ea412a42acb09f4614aeecb759f35f2b6a"
+    },
+    "reviewer": {
+      "id": "kujolang/kujo-agents:chain.code-reviewer",
+      "name": "Code Reviewer",
+      "contractHash": "f42701a35b14514538f8258f24c1e7417f7c44ae3474179230366f9f71d850d9"
+    }
+  },
+  "unsupportedCapabilityHTTP": 400,
+  "unauthorizedDocumentationHTTP": 400,
+  "documentation": {
+    "lifecycle": [
+      {
+        "phase": "started",
+        "outcome": "unset",
+        "profile": "kujolang/kujo-agents:chain.documentation-writer",
+        "metadata": {
+          "approval": "not-required",
+          "invocation": "run-1791400765311-9575:mcp-docs",
+          "server": "mcp-demo",
+          "station": "tool-active",
+          "tool": "read_project_docs"
+        }
+      },
+      {
+        "phase": "finished",
+        "outcome": "succeeded",
+        "profile": "kujolang/kujo-agents:chain.documentation-writer",
+        "metadata": {
+          "approval": "not-required",
+          "invocation": "run-1791400765311-9575:mcp-docs",
+          "resultCode": "result-returned",
+          "server": "mcp-demo",
+          "station": "tool-active",
+          "tool": "read_project_docs"
+        }
+      }
+    ]
+  },
+  "sourceEvents": 14,
+  "profileIdentityObserved": true,
+  "handoffObserved": true,
+  "continuationPreservedAfterCatalogRemoval": "fixture-tested",
+  "artifactSha256": "815f8a458d8863062734e4f927f80bbff51682ac8090ddc60e25e9f3ff81d27c",
+  "artifactQuality": "NOT_GRADED: runtime completion is not task acceptance",
+  "privateEvidence": "/Users/robertdevore/2026/Kujolang/kujo-repos/agent-city/.runtime/profiles-0eb729de-d67b-47e8-9d7e-783f68e262ed"
+}

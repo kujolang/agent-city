@@ -82,3 +82,11 @@ Viewport checkpoint: full canvas now scales2x in600px-high desktop windows,
 rather than reserving420px for surrounding panels. Five-width keyboard/reduced-
 motion proof passes with full canvas visible, retained truth/identity and zero
 horizontal overflow, including320px. Reference-art acceptance remains open.
+
+Custom documentation checkpoint: eligible imported authors may explicitly request
+read-only RAG/MCP documentation context only when their manifest allows Kujo Docs.
+Real Ollama glm-5.3:cloud → Dispatch/SDK → real MCP README read → reviewer handoff
+completed; lifecycle metadata retains author profile. Controlled context/privacy/
+unauthorized-read tests passed; full verify73tests passes. General tools, custom
+named workflows and execution remain unconnected; whole-artifact output formatting
+still unqualified. See evidence/profile-missions/docs-real.

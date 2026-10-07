@@ -11,11 +11,41 @@ await mkdir(runtime, { recursive: true });
 const catalog = await importCatalog(resolve(root, "../kujo-agents"));
 await saveCatalog(resolve(runtime, "control/agent-catalog.json"), catalog);
 const real = process.env.CITY_PROFILE_PROOF_REAL === "1";
+const realDocs = real && !!process.env.CITY_PROFILE_PROOF_MCP_URL;
+const model = real
+  ? process.env.CITY_PROFILE_PROOF_MODEL || "qwen2.5-coder:1.5b-instruct"
+  : "profile-fixture";
 const requests: any[] = [];
+const docCalls: any[] = [];
 const provider = createServer((req, res) => {
+  if (req.url === "/mcp/v1/health") {
+    res.setHeader("Content-Type", "application/json");
+    res.end(JSON.stringify({ server: "controlled-profile-docs" }));
+    return;
+  }
   let body = "";
   req.on("data", (b) => (body += b));
   req.on("end", () => {
+    if (req.url === "/mcp/v1/tools/call") {
+      const call = JSON.parse(body);
+      docCalls.push(call);
+      res.setHeader("Content-Type", "application/json");
+      res.end(
+        JSON.stringify({
+          jsonrpc: "2.0",
+          id: call.id,
+          result: {
+            content: [
+              {
+                type: "text",
+                text: "PROFILE_DOCS_CANARY: add returns its operands' sum.",
+              },
+            ],
+          },
+        }),
+      );
+      return;
+    }
     requests.push(JSON.parse(body));
     res.setHeader("Content-Type", "application/json");
     res.end(
@@ -51,8 +81,17 @@ const service = spawn(
       CITY_MODEL_ENDPOINT: real
         ? "http://127.0.0.1:11434/v1/chat/completions"
         : "http://127.0.0.1:19896/v1/chat/completions",
-      CITY_MODEL: real ? "qwen2.5-coder:1.5b-instruct" : "profile-fixture",
+      CITY_MODEL: model,
       CITY_MODEL_API_KEY: "",
+      ...(realDocs
+        ? {
+            CITY_MCP_URL: process.env.CITY_PROFILE_PROOF_MCP_URL,
+            CITY_MCP_TOKEN: process.env.CITY_PROFILE_PROOF_MCP_TOKEN || "",
+          }
+        : {}),
+      ...(!real
+        ? { CITY_MCP_URL: "http://127.0.0.1:19896/mcp/v1", CITY_MCP_TOKEN: "" }
+        : {}),
     },
     stdio: "ignore",
   },
@@ -97,6 +136,7 @@ try {
     prompt:
       "Write a brief Markdown documentation draft for this source snippet: func add(a, b) { return a + b }. State only that it returns the sum and show add(2, 3) returning 5. This supplied snippet is the complete source evidence. Do not claim to read files or run tools. The reviewer should review the draft and return corrected documentation.",
     profiles,
+    useMcpDocs: !real || realDocs,
   };
   const refused = await post({
     ...task,
@@ -106,7 +146,11 @@ try {
     },
   });
   assert.equal(refused.status, 400);
-  const refusedTool = await post({ ...task, useMcpDocs: true });
+  const refusedTool = await post({
+    ...task,
+    profiles: { ...profiles, authorId: profiles.reviewerId },
+    useMcpDocs: true,
+  });
   assert.equal(refusedTool.status, 400);
   const response = await post(task);
   const accepted = await response.json();
@@ -139,8 +183,37 @@ try {
   assert(spool.some((e) => e.profile === profiles.authorId));
   assert(spool.some((e) => e.profile === profiles.reviewerId));
   assert(spool.some((e) => e.kind === "handoff" && e.phase === "finished"));
+  if (realDocs) {
+    const observed = spool.filter((e) => e.capability === "mcp.call");
+    assert.deepEqual(
+      observed.map((e) => e.phase),
+      ["started", "finished"],
+    );
+    assert.equal(observed[1].outcome, "succeeded");
+    assert(observed.every((e) => e.profile === profiles.authorId));
+  }
   if (!real) {
     assert.equal(requests.length, 2);
+    assert.equal(docCalls.length, 1);
+    assert.equal(docCalls[0].params.name, "read_project_docs");
+    assert.deepEqual(docCalls[0].params.arguments, { file_name: "README" });
+    for (const request of requests)
+      assert(
+        request.messages.some((m: any) =>
+          m.content.includes("PROFILE_DOCS_CANARY"),
+        ),
+      );
+    const tools = spool.filter((e) => e.capability === "mcp.call");
+    assert.deepEqual(
+      tools.map((e) => e.phase),
+      ["started", "finished"],
+    );
+    assert(
+      tools.every(
+        (e) => e.profile === profiles.authorId && e.agent_id === "writer",
+      ),
+    );
+    assert(!JSON.stringify(spool).includes("PROFILE_DOCS_CANARY"));
     assert(
       requests[0].messages.some((m: any) =>
         m.content.includes("# Documentation Writer"),
@@ -192,18 +265,37 @@ try {
   const output = resolve(
     root,
     "evidence/profile-missions",
-    real ? "real" : "fixture",
+    real ? (realDocs ? "docs-real" : "real") : "docs-fixture",
   );
   await mkdir(output, { recursive: true });
   const proof = {
     scope: real
-      ? "Real local Ollama model with SDK/Dispatch profile handoff"
-      : "Synthetic provider with real SDK/Dispatch profile handoff",
-    model: real ? "qwen2.5-coder:1.5b-instruct" : "profile-fixture",
+      ? "Real Ollama provider with SDK/Dispatch profile handoff"
+      : "Synthetic provider and MCP response with real SDK/Dispatch profile handoff",
+    model,
     mission: job.id,
     profiles: job.profiles,
     unsupportedCapabilityHTTP: refused.status,
-    unconnectedToolHTTP: refusedTool.status,
+    unauthorizedDocumentationHTTP: refusedTool.status,
+    documentation: real
+      ? realDocs
+        ? {
+            lifecycle: spool
+              .filter((e) => e.capability === "mcp.call")
+              .map((e) => ({
+                phase: e.phase,
+                outcome: e.outcome,
+                profile: e.profile,
+                metadata: e.metadata,
+              })),
+          }
+        : "not requested"
+      : {
+          calls: docCalls.length,
+          authorAndReviewerReceivedContext: true,
+          metadataOnlySpool: true,
+          lifecycleObserved: true,
+        },
     sourceEvents: spool.length,
     profileIdentityObserved: true,
     handoffObserved: true,

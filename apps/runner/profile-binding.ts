@@ -22,7 +22,7 @@ export function profileAvailability(profile: ImportedProfile) {
   return {
     available: true,
     reason:
-      "PROPOSE draft/review only. Declared tools and workflows are not executed; no project mutation or publishing.",
+      "PROPOSE draft/review. Explicit documentation context requires author permission for Kujo Docs; other tools/workflows, project mutation and publishing are unavailable.",
   };
 }
 export interface ProfileBinding {
@@ -102,4 +102,26 @@ export function bindingMetadata(binding: ProfileBinding) {
       contractHash: binding.reviewer.source.agentHash,
     },
   };
+}
+
+/** Explicit request-scoped documentation reads; profile names never grant tools. */
+export function validateProfileMission(
+  binding: ProfileBinding,
+  request: {
+    kind: string;
+    useLocalDocs?: boolean;
+    useMcpDocs?: boolean;
+    functionContract?: unknown;
+  },
+) {
+  validateBinding(binding);
+  if (request.kind === "kujo" || request.functionContract !== undefined)
+    throw Error("Custom-profile code execution and checks are not connected.");
+  if (
+    (request.useLocalDocs || request.useMcpDocs) &&
+    !binding.author.tools.allowed?.includes("Kujo Docs")
+  )
+    throw Error(
+      "The author profile does not allow Kujo Docs. Documentation reads were not started.",
+    );
 }
