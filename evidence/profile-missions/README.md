@@ -35,3 +35,9 @@ Reproduce fixtures with `node --import tsx scripts/profile-mission-proof.ts`;
 set CITY_PROFILE_PROOF_REAL=1 for an explicit real local-model run. Browser proof
 uses CITY_BROWSER_URL and optional CHROMIUM_PATH. Private prompts/contracts/output
 remain in the runtime paths identified by the receipts; they are not SSE telemetry.
+
+Follow-up: ../provider-limits/real-recovery.json narrows the cloud failure to an
+observed length stop at requested2048 tokens. An explicit8192-token attempt
+completed and its corrected section passed source/syntax checks. Historical
+failed receipts remain unchanged; strict documentation-only formatting is not
+claimed because the response also included review findings.

@@ -2,6 +2,7 @@ export interface ModelConfig {
   endpoint: string;
   model: string;
   apiKey: string;
+  maxOutputTokens?: number;
 }
 export function validateModelConfig(value: unknown): ModelConfig {
   if (!value || typeof value !== "object")
@@ -33,5 +34,18 @@ export function validateModelConfig(value: unknown): ModelConfig {
     /[\r\n]/.test(data.apiKey)
   )
     throw Error("Invalid model name or API key");
-  return { endpoint: url.href, model: data.model.trim(), apiKey: data.apiKey };
+  const maxOutputTokens = data.maxOutputTokens ?? 2048;
+  if (
+    typeof maxOutputTokens !== "number" ||
+    !Number.isInteger(maxOutputTokens) ||
+    maxOutputTokens < 256 ||
+    maxOutputTokens > 16384
+  )
+    throw Error("Output token limit must be an integer from 256 to 16384");
+  return {
+    endpoint: url.href,
+    model: data.model.trim(),
+    apiKey: data.apiKey,
+    maxOutputTokens,
+  };
 }

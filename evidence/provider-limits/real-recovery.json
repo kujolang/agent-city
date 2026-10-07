@@ -1,0 +1,65 @@
+{
+  "scope": "One real corrective profile mission; narrow corrected-content checks, not general model quality qualification",
+  "failedAttempt": "mission-e5465f66-8c4b-4a36-8e1e-78f9d3bf12ef",
+  "successfulRuntimeAttempt": "mission-2fd7c747-403b-48d8-b498-e395d6bc6f00",
+  "model": "glm-5.3:cloud through local Ollama",
+  "before": [
+    {
+      "agent": "writer",
+      "contentCharacters": 147,
+      "finishReason": "stop",
+      "httpStatus": 200,
+      "occurredAtMs": 1791397788964,
+      "reasoningPresent": false,
+      "requestedMaxTokens": 2048,
+      "run": "run-1791397779450-1115",
+      "schema": "agent-city.provider-diagnostic.v1"
+    },
+    {
+      "agent": "reviewer",
+      "contentCharacters": 0,
+      "finishReason": "length",
+      "httpStatus": 200,
+      "occurredAtMs": 1791397800956,
+      "reasoningPresent": false,
+      "requestedMaxTokens": 2048,
+      "run": "run-1791397779450-1115-handoff-reviewer",
+      "schema": "agent-city.provider-diagnostic.v1"
+    }
+  ],
+  "after": [
+    {
+      "agent": "writer",
+      "contentCharacters": 147,
+      "finishReason": "stop",
+      "httpStatus": 200,
+      "occurredAtMs": 1791398089636,
+      "reasoningPresent": false,
+      "requestedMaxTokens": 8192,
+      "run": "run-1791398082958-1410",
+      "schema": "agent-city.provider-diagnostic.v1"
+    },
+    {
+      "agent": "reviewer",
+      "contentCharacters": 1725,
+      "finishReason": "stop",
+      "httpStatus": 200,
+      "occurredAtMs": 1791398112300,
+      "reasoningPresent": false,
+      "requestedMaxTokens": 8192,
+      "run": "run-1791398082958-1410-handoff-reviewer",
+      "schema": "agent-city.provider-diagnostic.v1"
+    }
+  ],
+  "runtimeStatus": "completed",
+  "correctedSectionChecks": {
+    "exactSourceSnippet": true,
+    "examplePresent": true,
+    "sumStatement": true,
+    "noGoInCorrectedSection": true,
+    "kujoSyntaxCheck": true
+  },
+  "wholeResponseFormat": "Includes additional reviewer findings; not a strict documentation-only response",
+  "artifactSha256": "dafe62d6dd8f85c8e5ed2ad4e96c8004c682eb6cb60eff8587de92b88dcdb942",
+  "priorAttemptsRetained": true
+}

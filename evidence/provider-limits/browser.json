@@ -1,0 +1,7 @@
+{
+  "mission": "mission-e5465f66-8c4b-4a36-8e1e-78f9d3bf12ef",
+  "displayedMetadata": "PROVIDER DIAGNOSTICS / recorded\nProvider metadata only. No prompts, final text, reasoning text or credentials are included.\nwriter: HTTP 200; finish stop; 147 content characters; requested token limit 2048; reasoning_content present no\nreviewer: HTTP 200; finish length; 0 content characters; requested token limit 2048; reasoning_content present no",
+  "configuredMaxOutputTokens": 8192,
+  "rawProviderContentExcluded": true,
+  "browser": "154.0.8037.98"
+}

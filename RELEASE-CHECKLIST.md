@@ -59,3 +59,9 @@ contracts survive catalog removal on continuation. Real Ollama SDK handoff and
 Watchdog→gateway→browser profile identity proved. Output-quality check failed on
 the small model; cloud corrective reviewer failed, with both attempts retained.
 Full custom workflows/tools and accepted-quality custom-team proof remain open.
+
+Provider recovery checkpoint: reproduced HTTP200/finish=length/zero-content at
+2048 tokens; explicit8192 recovered the same profile workflow. Corrected section
+passes source checks and actual kujo check; whole response includes additional
+review notes. Metadata-only diagnostics, bounded configurable limits and truncated
+response failure are implemented. Broad model/task quality remains unqualified.

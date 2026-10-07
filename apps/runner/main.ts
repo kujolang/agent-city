@@ -1,3 +1,4 @@
+import { providerDiagnostics } from "./provider-diagnostics";
 import {
   selectProfiles,
   readBinding,
@@ -108,6 +109,7 @@ if (!config && process.env.CITY_MODEL_ENDPOINT && process.env.CITY_MODEL)
     endpoint: process.env.CITY_MODEL_ENDPOINT,
     model: process.env.CITY_MODEL,
     apiKey: process.env.CITY_MODEL_API_KEY || "",
+    maxOutputTokens: Number(process.env.CITY_MAX_OUTPUT_TOKENS || 2048),
   });
 const configured = () => Boolean(config);
 const server = createServer(async (req, res) => {
@@ -144,6 +146,7 @@ const server = createServer(async (req, res) => {
         model: config?.model || null,
         endpoint: config?.endpoint || "",
         hasCredential: Boolean(config?.apiKey),
+        maxOutputTokens: config?.maxOutputTokens ?? 2048,
         token,
         storageHealthy,
         busy:
@@ -165,6 +168,16 @@ const server = createServer(async (req, res) => {
         return send(409, {
           error: "Recorded task context is unavailable or exceeds local limits",
         });
+      }
+    }
+    if (req.method === "GET" && req.url?.startsWith("/control/diagnostics/")) {
+      const id = req.url.slice("/control/diagnostics/".length);
+      if (!jobs.some((job) => job.id === id))
+        return send(404, { error: "Mission not found" });
+      try {
+        return send(200, await providerDiagnostics(missionsRoot, id));
+      } catch {
+        return send(503, { error: "Provider diagnostics unavailable" });
       }
     }
     if (req.method === "GET" && req.url?.startsWith("/control/exchanges/")) {
@@ -335,7 +348,7 @@ const server = createServer(async (req, res) => {
         } catch {
           return send(400, {
             error:
-              "Provide a valid model endpoint and model. Use HTTPS or local HTTP; no credentials in the URL.",
+              "Provide a valid model endpoint and model. Use HTTPS or local HTTP; no credentials in the URL. Output token limit must be 256–16384.",
           });
         }
         if (req.url === "/control/check-model") {
@@ -499,6 +512,7 @@ const server = createServer(async (req, res) => {
             CITY_MODEL_ENDPOINT: config!.endpoint,
             CITY_MODEL: config!.model,
             CITY_MODEL_API_KEY: config!.apiKey,
+            CITY_MAX_OUTPUT_TOKENS: String(config!.maxOutputTokens ?? 2048),
           },
           stdio: "ignore",
         },

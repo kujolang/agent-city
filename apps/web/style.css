@@ -756,3 +756,8 @@ header h1:before {
   padding: 8px;
   font-size: 12px;
 }
+
+/* Author display rules must not reveal controls whose semantic state is hidden. */
+[hidden] {
+  display: none !important;
+}

@@ -9,6 +9,7 @@ export function mountMissions(
     <details><summary>Model connection</summary><form id="model-form">
     <label>Chat completions endpoint <input name="endpoint" type="url" required placeholder="Full HTTPS or local HTTP endpoint"></label>
     <label>Model <input name="model" required autocomplete="off"></label>
+    <label>Output token limit <input name="maxOutputTokens" type="number" min="256" max="16384" step="1" value="2048" required></label><p class="muted">Higher limits may use more time and provider credits. If a failed attempt reports finish reason length, choose a higher limit explicitly before retrying.</p>
     <label>API key <input name="apiKey" type="password" autocomplete="off" placeholder="Leave blank for local Ollama"></label>
     <p class="muted">Local Ollama needs no API key. Remote providers may require one. This form alone does not sign in to Codex; the local Codex adapter uses your CLI login. Saved only in a private local configuration file. A blank key keeps the saved key only for the same endpoint.</p>
     <button type="submit">Save connection</button>
@@ -28,7 +29,7 @@ export function mountMissions(
     <details><summary>Optional JavaScript function checks</summary><label>Function contract JSON <textarea name="functionContract" rows="4" placeholder='{"exportName":"sum","cases":[{"name":"empty","args":[[]],"equals":0}]}'></textarea></label><p class="muted">Explicitly runs the generated module in a disposable browser worker. JSON arguments/results only; no filesystem or network integrations. Requires installed Chromium. Each case gets 1.5 seconds.</p></details>
     <button type="submit" disabled>Start mission</button></form>
     <p class="muted">Sends your task to the configured model. The SDK hands the draft to a reviewer. Code runs only when explicit function cases are supplied, in an isolated browser without host integrations.</p>
-    <div id="mission-jobs" aria-label="Mission history"></div><pre id="mission-exchanges" tabindex="0" aria-label="Observed agent responses"></pre><pre id="mission-artifact" tabindex="0" aria-label="Selected mission output"></pre>`;
+    <div id="mission-jobs" aria-label="Mission history"></div><pre id="mission-exchanges" tabindex="0" aria-label="Observed agent responses"></pre><pre id="provider-diagnostics" tabindex="0" aria-label="Provider response diagnostics" hidden></pre><pre id="mission-artifact" tabindex="0" aria-label="Selected mission output"></pre>`;
   panel.querySelector("#codex-setup-command")!.textContent =
     `CITY_APP_URL=${window.location.origin} npm run provider:codex`;
   host.querySelector(".world")!.after(panel);
@@ -196,6 +197,9 @@ export function mountMissions(
           data.endpoint;
         (modelForm.elements.namedItem("model") as HTMLInputElement).value =
           data.model || "";
+        (
+          modelForm.elements.namedItem("maxOutputTokens") as HTMLInputElement
+        ).value = String(data.maxOutputTokens ?? 2048);
         configLoaded = true;
       }
       const key = JSON.stringify(data.jobs);
@@ -212,6 +216,38 @@ export function mountMissions(
               conversationKey = "";
               void refreshConversation();
               onMission(job.id);
+            }
+            const diagnosticPanel = panel.querySelector<HTMLElement>(
+              "#provider-diagnostics",
+            )!;
+            diagnosticPanel.hidden = job.status !== "failed";
+            if (job.status === "failed") {
+              diagnosticPanel.textContent = "Reading provider diagnostics…";
+              void fetch("/control/diagnostics/" + encodeURIComponent(job.id))
+                .then(async (response) => {
+                  if (!response.ok) throw Error();
+                  const diagnostics = await response.json();
+                  if (selectedMission !== job.id) return;
+                  diagnosticPanel.textContent =
+                    "PROVIDER DIAGNOSTICS / " +
+                    (diagnostics.complete
+                      ? "recorded"
+                      : "partial or unavailable") +
+                    "\n" +
+                    diagnostics.message +
+                    "\n" +
+                    diagnostics.records
+                      .map(
+                        (record: any) =>
+                          `${record.agent}: HTTP ${record.httpStatus || "UNKNOWN"}; finish ${record.finishReason}; ${record.contentCharacters} content characters; requested token limit ${record.requestedMaxTokens}; reasoning_content present ${record.reasoningPresent ? "yes" : "no"}`,
+                      )
+                      .join("\n");
+                })
+                .catch(() => {
+                  if (selectedMission === job.id)
+                    diagnosticPanel.textContent =
+                      "Provider diagnostics unavailable; failure cause UNKNOWN.";
+                });
             }
             try {
               let requestText = "USER REQUEST UNAVAILABLE";
@@ -418,6 +454,7 @@ export function mountMissions(
           endpoint: fields.get("endpoint"),
           model: fields.get("model"),
           apiKey: fields.get("apiKey"),
+          maxOutputTokens: Number(fields.get("maxOutputTokens")),
         }),
       });
       const result = await response.json();
@@ -503,6 +540,7 @@ export function mountMissions(
                   endpoint: fields.get("endpoint"),
                   model: fields.get("model"),
                   apiKey: fields.get("apiKey"),
+                  maxOutputTokens: Number(fields.get("maxOutputTokens")),
                 },
           ),
         });

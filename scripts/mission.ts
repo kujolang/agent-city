@@ -15,10 +15,11 @@ const root = resolve(import.meta.dirname, "..");
 const [kind, promptFile] = process.argv.slice(2);
 if (!["writing", "code", "kujo"].includes(kind) || !promptFile)
   throw Error("Usage: npm run mission -- writing|code|kujo /path/to/task.txt");
-validateModelConfig({
+const modelConfig = validateModelConfig({
   endpoint: process.env.CITY_MODEL_ENDPOINT || "",
   model: process.env.CITY_MODEL || "",
   apiKey: process.env.CITY_MODEL_API_KEY || "",
+  maxOutputTokens: Number(process.env.CITY_MAX_OUTPUT_TOKENS || 2048),
 });
 const prompt = await readFile(resolve(promptFile), "utf8");
 if (!prompt.trim() || Buffer.byteLength(prompt) > 16_384)
@@ -125,6 +126,7 @@ const child = spawn(
       KUJO_BIN:
         process.env.KUJO_BIN || resolve(root, "../kujo/target/release/kujo"),
       CITY_MISSION_ID: id,
+      CITY_MAX_OUTPUT_TOKENS: String(modelConfig.maxOutputTokens ?? 2048),
       CITY_PROFILE_FILE: profiles ? resolve(dir, "profiles.json") : "",
       CITY_AUTHOR_PROFILE:
         profiles?.author.id ||

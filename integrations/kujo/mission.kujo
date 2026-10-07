@@ -9,6 +9,8 @@ from src.agents.tools.registry import create_tool_registry, register_tool, resol
 
 endpoint := env_or("CITY_MODEL_ENDPOINT", "")
 model := env_or("CITY_MODEL", "")
+max_output_tokens := to_int(env_or("CITY_MAX_OUTPUT_TOKENS", "2048"))
+assert(max_output_tokens >= 256 && max_output_tokens <= 16384, "Invalid output token limit")
 assert(endpoint != "" && model != "", "Configure a model endpoint and model before running a mission")
 author_profile := "city-"+env_or("CITY_ACTOR", "writer")
 reviewer_profile := "city-reviewer"
@@ -106,6 +108,29 @@ if env_or("CITY_CHECKINS", "0") == "1" {
     instructions = instructions + checkin_rule
     review = review + checkin_rule
 }
+# Bounded private diagnostics: never record prompts, response text, reasoning or keys.
+func provider_observed(status, body, author, author_run) {
+    try {
+        finish := "unknown"
+        chars := 0
+        reasoning_present := false
+        try {
+            choice := body["choices"][0]
+            if has_key(choice, "finish_reason") {
+                value := choice["finish_reason"]
+                if value == "stop" || value == "length" || value == "tool_calls" || value == "content_filter" { finish = value }
+            }
+            message := choice["message"]
+            if has_key(message, "content") && type(message["content"]) == "string" { chars = len(message["content"]) }
+            if has_key(message, "reasoning_content") && type(message["reasoning_content"]) == "string" { reasoning_present = len(message["reasoning_content"]) > 0 }
+        } except metadata_unknown { }
+        path := env_or("CITY_CHECKPOINT_DIR", "")+"/provider-diagnostics.jsonl"
+        row := to_json({"schema":"agent-city.provider-diagnostic.v1","agent":author,"run":author_run,"occurredAtMs":current_timestamp(),"httpStatus":status,"finishReason":finish,"contentCharacters":chars,"reasoningPresent":reasoning_present,"requestedMaxTokens":max_output_tokens})+"\n"
+        size := 0
+        if file_exists(path) { size = len(read_file(path)) }
+        if size+len(row) <= 65536 { append_file(path,row) } else { write_file(path+".gap","diagnostic-overflow",true) }
+    } except diagnostic_failure { }
+}
 response_counts := {}
 adapter := create_ai_sdk_adapter({"chat_completion_fn": func(client, messages, options) {
     context_messages := []
@@ -139,11 +164,13 @@ adapter := create_ai_sdk_adapter({"chat_completion_fn": func(client, messages, o
     try {
         for turn in range(3) {
         answered_question := false
-        wire := http_request(endpoint, {"method": "POST", "headers": headers, "body": to_json({"model": model, "messages": messages, "stream": false, "max_tokens": 2048}), "timeout": 90, "redirects": "none", "max_response_bytes": 262144})
+        wire := http_request(endpoint, {"method": "POST", "headers": headers, "body": to_json({"model": model, "messages": messages, "stream": false, "max_tokens": max_output_tokens}), "timeout": 90, "redirects": "none", "max_response_bytes": 262144})
         match wire {
             case Ok(response): {
-                if response["_status"] < 200 || response["_status"] >= 300 { return {"ok": false, "status_code": response["_status"], "error": {"code": "provider_http_error", "message": "Model provider rejected the request"}} }
+                if response["_status"] < 200 || response["_status"] >= 300 { provider_observed(response["_status"], {}, options["city_author"], options["city_author_run"])
+return {"ok": false, "status_code": response["_status"], "error": {"code": "provider_http_error", "message": "Model provider rejected the request"}} }
                 body := parse_json(response["_body"])
+                provider_observed(response["_status"], body, options["city_author"], options["city_author_run"])
                 if has_key(body, "choices") && len(body["choices"]) > 0 {
                     content := body["choices"][0]["message"]["content"]
                     if type(content) == "string" && trim(content) != "" {
@@ -156,6 +183,7 @@ adapter := create_ai_sdk_adapter({"chat_completion_fn": func(client, messages, o
                         evidence := {"schema":"agent-city.exchange.v1", "producer":env_or("CITY_PRODUCER", ""), "run":author_run, "agent":author, "requestOrdinal":ordinal, "occurredAtMs":current_timestamp(), "kind":"model.response", "content":content}
                         try { append_file(env_or("CITY_EXCHANGE_FILE", ""), to_json(evidence)+"\n") }
                         except exchange_error { try { write_file(env_or("CITY_EXCHANGE_FILE", "")+".gap", "output-recording-failed", true) } except ignored { } }
+                        if has_key(body["choices"][0], "finish_reason") && body["choices"][0]["finish_reason"] == "length" { return {"ok":false,"error":{"code":"provider_output_limit","message":"Provider stopped at output limit; partial response retained"}} }
                         question := ""
                         if env_or("CITY_CHECKINS", "0") == "1" {
                             try {
@@ -181,9 +209,11 @@ adapter := create_ai_sdk_adapter({"chat_completion_fn": func(client, messages, o
                             return {"ok": true, "status_code": 200, "model": model, "output_text": content}
                         }
                     }
+                    if has_key(body["choices"][0], "finish_reason") && body["choices"][0]["finish_reason"] == "length" { return {"ok":false,"error":{"code":"provider_output_limit","message":"Provider stopped at output limit without usable text"}} }
                 }
             }
-            case Err(error): { return {"ok": false, "error": {"code": "provider_unavailable", "message": "Model request failed"}} }
+            case Err(error): { provider_observed(0, {}, options["city_author"], options["city_author_run"])
+return {"ok": false, "error": {"code": "provider_unavailable", "message": "Model request failed"}} }
         }
         if !answered_question { return {"ok":false,"error":{"code":"provider_no_output","message":"Model returned no usable text"}} }
         }

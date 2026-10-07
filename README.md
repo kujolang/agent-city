@@ -266,7 +266,23 @@ even if the catalog changes. Two execution instances can share one profile; the
 source-qualified execution IDs remain distinct. Imported role IDs reach the city
 through actual lifecycle evidence. Profile selection alone creates no citizens.
 
-Real profile execution and browser identity were verified, but task quality is not
-yet qualified: the small-model example invented Go syntax, and a subsequent cloud
-reviewer handoff failed. Both attempts remain recorded. See
+Real profile execution and browser identity were verified. The small-model example
+invented Go syntax; the cloud reviewer then hit its requested output limit. With
+an explicit 8192-token limit, corrected documentation passed narrow content and
+Kujo syntax checks. It still included extra review notes, so this is not general
+model-quality qualification. All attempts remain recorded. See
 [evidence and limits](evidence/profile-missions/README.md).
+
+## Provider output limits and failures
+
+**Model connection → Output token limit** accepts256–16384 tokens; the default
+remains2048. It is a requested provider limit, not a guarantee or progress meter.
+Higher limits may increase latency and provider charges; City never raises them
+automatically. Save the connection, then explicitly continue/retry the task.
+
+Select a failed mission to see bounded provider diagnostics: HTTP status, known
+finish reason, returned content length and the requested limit. Diagnostics never
+include prompt text, reasoning text, response content or credentials. Missing data
+is UNKNOWN. A `length` finish reason fails the mission; partial final content is
+retained privately in its recorded exchanges. Previous attempts are never replaced.
+See [real recovery evidence](evidence/provider-limits/README.md).

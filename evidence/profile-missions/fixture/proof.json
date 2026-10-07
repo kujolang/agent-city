@@ -1,7 +1,7 @@
 {
   "scope": "Synthetic provider with real SDK/Dispatch profile handoff",
   "model": "profile-fixture",
-  "mission": "mission-ef6c270d-3b5e-42e9-a5ff-532d556c0951",
+  "mission": "mission-4e3bd25c-4ab7-46e3-9832-a3b493c84c37",
   "profiles": {
     "adapter": "draft-review/v1",
     "mode": "PROPOSE",
@@ -24,5 +24,5 @@
   "continuationPreservedAfterCatalogRemoval": true,
   "artifactSha256": "d967cdabec3ba74a97c55ce3046cc853e740fccd999543f461f60ca32cc188a8",
   "artifactQuality": "NOT_GRADED: runtime completion is not task acceptance",
-  "privateEvidence": "/Users/robertdevore/2026/Kujolang/kujo-repos/agent-city/.runtime/profiles-10738492-ec7c-40fd-97cb-ac4214578f5b"
+  "privateEvidence": "/Users/robertdevore/2026/Kujolang/kujo-repos/agent-city/.runtime/profiles-02ea58fa-e179-4f1f-ae59-e5e14c4524d5"
 }
