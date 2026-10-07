@@ -12,8 +12,16 @@ const watchdogOutage = process.env.CITY_PROOF_WATCHDOG_OUTAGE === "1";
 const outage = process.env.CITY_PROOF_GATEWAY_OUTAGE === "1" || watchdogOutage;
 const out = resolve(
   root,
-  "evidence/mission-workcell",
-  watchdogOutage ? "watchdog-outage" : outage ? "gateway-outage" : "live-world",
+  process.env.CITY_PROOF_OUTPUT ||
+    resolve(
+      root,
+      "evidence/mission-workcell",
+      watchdogOutage
+        ? "watchdog-outage"
+        : outage
+          ? "gateway-outage"
+          : "live-world",
+    ),
 );
 await mkdir(runtime, { recursive: true, mode: 0o700 });
 await mkdir(out, { recursive: true });

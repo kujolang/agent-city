@@ -74,3 +74,24 @@ In Mission Command, expand **Workcell execution setup** and choose **Check Workc
 setup** before preparing a task. It works without a model connection and reports
 operator configuration, engine or local-image problems without granting consent.
 The displayed result describes that check only; mission admission rechecks setup.
+
+To build the supplied local Kujo image after starting Docker, run from the Agent
+City directory:
+
+```sh
+npm run setup:workcell -- --build
+```
+
+This explicit build downloads a digest-pinned Node/Debian base and installs Kujo
+1.7.0 from the integrity-locked runtime manifest with lifecycle scripts disabled.
+Only the Dockerfile and two runtime manifests enter its temporary build context.
+No project files, credentials or agent tasks are copied into the image. The build
+runs Kujo's version check and records image identity/input hashes privately in
+`.runtime/workcell-image.json`. It does not start/install Docker, change context,
+publish the image or enable mission execution. Registry/engine failures leave
+execution disabled. The command prints a launch command using the immutable local
+image ID; retain the same selected Docker context when launching Agent City.
+
+Image creation alone does not qualify host isolation/security policy. Use the
+setup check and an explicitly consented test mission to inspect actual results.
+The supplied builder currently targets Docker; Podman setup remains operator-owned.

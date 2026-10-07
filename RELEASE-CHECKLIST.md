@@ -212,3 +212,12 @@ Mission Command before model configuration. Chromium keyboard proof against an
 unavailable private Docker endpoint shows actionable setup instructions, unchanged
 execution consent and no jobs. Evidence: evidence/workcell-setup. No automatic
 engine/image provisioning or expanded execution permission is implied.
+
+Local image setup checkpoint: npm run setup:workcell -- --build creates a local
+non-root image from a pinned base digest and locked Kujo1.7runtime, using only a
+three-file temporary context. It prints an immutable-image-ID launch command and
+does not enable execution. Actual Linux AMD64 build and Workcell execution produced5,
+verified cleanup and6canonical observations, with browser Follow into Workshop bay.
+Evidence: evidence/workcell-image. ARM64 and clean-machine/engine provisioning
+remain unqualified. Earlier installer scope text corrected to macOS x64 to match
+its original receipt; no ARM installation claim is supported by that proof.

@@ -1,0 +1,21 @@
+{
+  "build": {
+    "schema": "agent-city.workcell-image.v1",
+    "image": "agent-city-kujo:1.7.0",
+    "imageId": "sha256:c3f6024bf37e79e0d56ed95befac2cdec7c39d133748d4c7d00fd00c939d73fe",
+    "recipeSha256": {
+      "Dockerfile": "5f8c39512ecbedb388188db888297f5eb7ee281746b5471aa8b1dc7861cbc0d5",
+      "package.json": "6e755ed0b4c0b2b34a4c40779787488d87b1769cc1da6e8c3367318027eecad0",
+      "package-lock.json": "ba4ca20192a53ee1b526a45a6114a1e1b40eaf760df58a30008b62998b12c866"
+    },
+    "builtAt": "2026-10-07T21:21:52.197Z",
+    "scope": "Local build and build-time Kujo version check; no workload or backend security qualification"
+  },
+  "platform": "linux/amd64",
+  "runtimeVersion": "kujo 1.7.0",
+  "workcellRun": "wc-680db1bed3244de6a6e85f18edcfa228",
+  "output": "5\n",
+  "cleanup": "complete",
+  "ownedContainerAbsent": true,
+  "evidence": "live-world/proof.json"
+}
