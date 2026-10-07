@@ -1,0 +1,27 @@
+{
+  "scope": "Retained real observations delivered through Watchdog/gateway to browser; no replay-generated source work",
+  "mission": "mission-91183a54-e0c4-42c5-90a9-f06df3988529",
+  "agents": [
+    {
+      "id": "profile-proof-mission-91183a54-e0c4-42c5-90a9-f06df3988529:run-1791396908524-6202:writer",
+      "profile": "kujolang/kujo-agents:chain.documentation-writer",
+      "status": "completed",
+      "completeness": "partial"
+    },
+    {
+      "id": "profile-proof-mission-91183a54-e0c4-42c5-90a9-f06df3988529:run-1791396908524-6202-handoff-reviewer:reviewer",
+      "profile": "kujolang/kujo-agents:chain.code-reviewer",
+      "status": "completed",
+      "completeness": "complete"
+    }
+  ],
+  "unsupportedProfileDisabled": true,
+  "selectedProfiles": {
+    "author": "kujolang/kujo-agents:chain.documentation-writer",
+    "reviewer": "kujolang/kujo-agents:chain.code-reviewer"
+  },
+  "scene": "city",
+  "selected": "profile-proof-mission-91183a54-e0c4-42c5-90a9-f06df3988529:run-1791396908524-6202:writer",
+  "rendererReady": true,
+  "browser": "154.0.8037.98"
+}

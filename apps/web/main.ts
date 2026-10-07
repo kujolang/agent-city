@@ -211,7 +211,7 @@ function renderDOM() {
             "local-mcp-worker": "MCP",
             "local-documentation-worker": "DOCS",
           };
-          b.textContent = `${badge(a.id)} ${roles[a.profile] || "UNKNOWN"} · ${a.id.split(":").at(-1)}`;
+          b.textContent = `${badge(a.id)} ${roles[a.profile] || (a.profile === "unknown" ? "UNKNOWN" : a.profile.split(":").at(-1))} · ${a.id.split(":").at(-1)}`;
           b.prepend(portrait(a.profile));
           b.setAttribute("aria-pressed", String(a.id === selected));
           b.title = a.id;

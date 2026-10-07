@@ -20,6 +20,7 @@ export function mountMissions(
     </form></details>
     <p id="continuation-status" role="status">New mission</p><button id="clear-continuation" type="button" hidden>Cancel follow-up</button>
     <form id="mission-form"><label>Task type <select name="kind"><option value="writing">Writing + review</option><option value="code">JavaScript + review</option><option value="kujo">Kujo + senior review (real MCP)</option></select></label>
+    <details><summary>Custom author / reviewer</summary><p>Optional imported profiles. PROPOSE drafts only; tool/workflow execution is not connected. Leave both fields blank for built-in agents. Continuations retain their original contracts.</p><label>Author profile <select name="authorProfile"><option value="">Built-in author</option></select></label><label>Reviewer profile <select name="reviewerProfile"><option value="">Built-in reviewer</option></select></label><button type="button" id="refresh-team-options">Refresh imported profiles</button><p id="team-options-status" role="status"></p></details>
     <label><input type="checkbox" name="allowCheckins" checked> Allow agent questions (reply within 3 minutes)</label>
     <label><input type="checkbox" name="useLocalDocs"> Use indexed local Kujo docs</label>
     <label><input type="checkbox" name="useMcpDocs"> Read local MCP demo README</label>
@@ -69,7 +70,7 @@ export function mountMissions(
             label.textContent =
               entry.kind === "user.reply"
                 ? "YOU · recorded reply"
-                : `${entry.agent} · actual model response`;
+                : `${(entry.agent === "reviewer" ? data.profiles?.reviewer?.name : ["writer", "coder"].includes(entry.agent) ? data.profiles?.author?.name : null) || entry.agent} · actual model response`;
             const identity = document.createElement("small");
             identity.textContent = `${entry.producer}:${entry.run}:${entry.agent}`;
             const text = document.createElement("pre");
@@ -132,7 +133,7 @@ export function mountMissions(
   };
   const form = panel.querySelector<HTMLFormElement>("#mission-form")!;
   const modelForm = panel.querySelector<HTMLFormElement>("#model-form")!;
-  const submit = form.querySelector("button")!;
+  const submit = form.querySelector<HTMLButtonElement>("button[type=submit]")!;
   const status = panel.querySelector<HTMLElement>("#mission-status")!;
   const output = panel.querySelector<HTMLElement>("#mission-artifact")!;
   const history = panel.querySelector<HTMLElement>("#mission-jobs")!;
@@ -203,7 +204,7 @@ export function mountMissions(
         history.replaceChildren();
         for (const job of data.jobs) {
           const button = document.createElement("button");
-          button.textContent = `${job.kind} / ${job.status} / ${job.id.slice(-8)}${job.parentMissionId ? " · follows " + job.parentMissionId.slice(-8) : ""}`;
+          button.textContent = `${job.profiles ? job.profiles.author.name + " → " + job.profiles.reviewer.name + " / " : ""}${job.kind} / ${job.status} / ${job.id.slice(-8)}${job.parentMissionId ? " · follows " + job.parentMissionId.slice(-8) : ""}`;
 
           button.onclick = async () => {
             if (!replay) {
@@ -365,6 +366,14 @@ export function mountMissions(
         body: JSON.stringify({
           kind: parent?.kind || fields.get("kind"),
           prompt: fields.get("prompt"),
+          ...(fields.get("authorProfile") || fields.get("reviewerProfile")
+            ? {
+                profiles: {
+                  authorId: fields.get("authorProfile"),
+                  reviewerId: fields.get("reviewerProfile"),
+                },
+              }
+            : {}),
           allowCheckins: fields.has("allowCheckins"),
           useLocalDocs: fields.has("useLocalDocs"),
           useMcpDocs: fields.has("useMcpDocs"),
@@ -422,6 +431,43 @@ export function mountMissions(
       pending = false;
     }
   };
+  const teamStatus = panel.querySelector<HTMLElement>("#team-options-status")!;
+  panel.querySelector<HTMLButtonElement>("#refresh-team-options")!.onclick =
+    async () => {
+      try {
+        const response = await fetch("/control/agents");
+        if (!response.ok) throw Error();
+        const data = await response.json();
+        for (const [field, label] of [
+          ["authorProfile", "Built-in author"],
+          ["reviewerProfile", "Built-in reviewer"],
+        ]) {
+          const select = form.elements.namedItem(field) as HTMLSelectElement;
+          const previous = select.value;
+          select.replaceChildren(new Option(label, ""));
+          for (const profile of data.profiles) {
+            const option = new Option(
+              `${profile.name} / ${profile.team} / ${profile.executionStatus}`,
+              profile.id,
+            );
+            option.disabled = profile.executionStatus !== "DRAFT_REVIEW_ONLY";
+            select.add(option);
+          }
+          if (
+            [...Array.from(select.options)].some(
+              (option) => option.value === previous,
+            )
+          )
+            select.value = previous;
+        }
+        teamStatus.textContent = data.imported
+          ? "Choose author and reviewer profiles. Separate execution instances are created, even if the profile is shared. Unavailable capability contracts cannot be selected."
+          : "Import a Kujo agent catalog first.";
+      } catch {
+        teamStatus.textContent =
+          "Catalog unavailable; no profiles selected automatically.";
+      }
+    };
   const modelCheck = panel.querySelector<HTMLElement>("#model-check-status")!;
   const localModels = panel.querySelector<HTMLSelectElement>("#local-models")!;
   localModels.onchange = () => {

@@ -16,7 +16,7 @@ try {
     .locator("details")
     .filter({ has: page.getByText("Agent profiles / teams", { exact: true }) });
   await panel
-    .getByText("85 imported profiles. Execution adapters are not connected.", {
+    .getByText(/85 imported profiles\./, {
       exact: true,
     })
     .waitFor();
@@ -27,14 +27,19 @@ try {
   assert.equal(new Set(data.profiles.map((p: any) => p.id)).size, 85);
   assert(
     data.profiles.every(
-      (p: any) => p.executionStatus === "NOT_CONNECTED" && !("contracts" in p),
+      (p: any) =>
+        ["DRAFT_REVIEW_ONLY", "NOT_CONNECTED"].includes(p.executionStatus) &&
+        !("contracts" in p),
     ),
   );
   const teams = await panel.locator("select option").allTextContents();
   assert.equal(teams.length, 5);
   await panel.locator("select").selectOption("chain-of-command");
   await panel
-    .getByRole("button", { name: "Code Reviewer · NOT_CONNECTED", exact: true })
+    .getByRole("button", {
+      name: "Code Reviewer · DRAFT_REVIEW_ONLY",
+      exact: true,
+    })
     .click();
   await panel
     .locator("pre")
@@ -49,7 +54,9 @@ try {
     teams: teams.slice(1),
     source: data.source,
     contractTextBroadcast: false,
-    allExecutionBindings: "NOT_CONNECTED",
+    draftReviewProfiles: data.profiles.filter(
+      (p: any) => p.executionStatus === "DRAFT_REVIEW_ONLY",
+    ).length,
     browser: browser.version(),
   };
   await writeFile(

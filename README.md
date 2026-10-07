@@ -56,7 +56,7 @@ opinions, separate from that actual compiler check. No `.kujo` program is run.
 Verified real mission: `mission-42cf14f1-9892-4cc7-b952-e603a7721061`.
 See [live evidence](evidence/kujo-author-review-codex-checked/README.md).
 The 85-profile Kujo agent registry can now be imported and inspected (see below).
-Using those profiles as mission actors is not connected yet.
+Eligible profiles can now be selected for bounded PROPOSE writing/JavaScript draft-review missions; required capabilities must be available.
 
 ### Ollama or another chat-completions provider
 
@@ -254,6 +254,19 @@ contracts are not sent to the browser or a model. Content hashes identify the
 imported files but do not authenticate their upstream origin. Import only trusted
 source checkouts. Importing does not execute contract instructions.
 
-Profiles remain **NOT_CONNECTED** until mission execution bindings enforce their
-permissions and required capabilities. They do not appear as working citizens,
-replace an execution identity, grant tool access, or automatically start workflows.
+In **Custom author / reviewer**, refresh imported profiles and select the author
+and reviewer. Eligible profiles show **DRAFT_REVIEW_ONLY**: PROPOSE permission,
+no unavailable required capabilities, and no retrieval/MCP/check/project-execution
+requests. Other profiles remain **NOT_CONNECTED**. The current catalog has51
+eligible profiles. This adapter executes the existing author→reviewer SDK handoff,
+not the catalog's named workflows. Declared tools are not automatically granted.
+
+Each mission privately snapshots both contracts. Continuations reuse those snapshots
+even if the catalog changes. Two execution instances can share one profile; the
+source-qualified execution IDs remain distinct. Imported role IDs reach the city
+through actual lifecycle evidence. Profile selection alone creates no citizens.
+
+Real profile execution and browser identity were verified, but task quality is not
+yet qualified: the small-model example invented Go syntax, and a subsequent cloud
+reviewer handoff failed. Both attempts remain recorded. See
+[evidence and limits](evidence/profile-missions/README.md).

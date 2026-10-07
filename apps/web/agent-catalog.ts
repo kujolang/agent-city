@@ -50,7 +50,7 @@ export function mountAgentCatalog(host: HTMLElement) {
       ].sort())
         team.add(new Option(name, name));
       status.textContent = catalog.imported
-        ? `${profiles.length} imported profiles. Execution adapters are not connected.`
+        ? `${profiles.length} imported profiles. ${profiles.filter((p) => p.executionStatus === "DRAFT_REVIEW_ONLY").length} support PROPOSE draft/review; other capabilities remain unconnected.`
         : "No catalog imported. Run npm run agents:import -- /path/to/kujo-agents from the Agent City directory. Use the same CITY_PORT_OFFSET as this instance.";
       selected.textContent = "";
       render();

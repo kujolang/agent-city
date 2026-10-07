@@ -52,3 +52,10 @@ Catalog checkpoint: all85 canonical registry profiles import with private contra
 content hashes, permission limits, capabilities, tool/workflow references and a
 read-only team browser. Profile execution remains NOT_CONNECTED; custom-team
 mission execution is still required before completing that checklist item.
+
+Profile execution checkpoint:51 profiles eligible for bounded PROPOSE draft/review;
+required capability/permission checks reject unsupported combinations. Per-mission
+contracts survive catalog removal on continuation. Real Ollama SDK handoff and
+Watchdog→gateway→browser profile identity proved. Output-quality check failed on
+the small model; cloud corrective reviewer failed, with both attempts retained.
+Full custom workflows/tools and accepted-quality custom-team proof remain open.
