@@ -1,0 +1,99 @@
+{
+  "scope": "Real owned Workcell host process-group SIGKILL after observing running container; finite 20-second test workload, not a new model task",
+  "run": "wc-a15bbd71e4154aebad95b603d48e607d",
+  "producer": "review-interrupt-1791408960",
+  "adapterExit": 1,
+  "sourceReceiptExists": true,
+  "events": [
+    {
+      "schema": "kujo.lifecycle.v1",
+      "producer_instance": "review-interrupt-1791408960",
+      "profile": "local-workcell-invocation",
+      "run_id": "workcell-invocation-1791408960786",
+      "agent_id": "workcell-host",
+      "task_id": "",
+      "operation_id": "invocation",
+      "attempt": 1,
+      "kind": "internal",
+      "capability": "execution.run",
+      "phase": "started",
+      "outcome": "unset",
+      "occurred_at_ms": 1791408961021,
+      "metadata": {}
+    },
+    {
+      "schema": "kujo.lifecycle.v1",
+      "producer_instance": "review-interrupt-1791408960",
+      "profile": "local-workcell-invocation",
+      "run_id": "workcell-invocation-1791408960786",
+      "agent_id": "workcell-host",
+      "task_id": "",
+      "operation_id": "workload",
+      "attempt": 1,
+      "kind": "internal",
+      "capability": "workcell.execute",
+      "phase": "started",
+      "outcome": "unset",
+      "occurred_at_ms": 1791408961021,
+      "metadata": {
+        "resultCode": "invoked"
+      }
+    },
+    {
+      "schema": "kujo.lifecycle.v1",
+      "producer_instance": "review-interrupt-1791408960",
+      "profile": "local-workcell-invocation",
+      "run_id": "workcell-invocation-1791408960786",
+      "agent_id": "workcell-host",
+      "task_id": "",
+      "operation_id": "coverage",
+      "attempt": 1,
+      "kind": "internal",
+      "capability": "workcell.execute",
+      "phase": "gap",
+      "outcome": "unknown",
+      "occurred_at_ms": 1791408963416,
+      "metadata": {
+        "resultCode": "disconnect"
+      }
+    },
+    {
+      "schema": "kujo.lifecycle.v1",
+      "producer_instance": "review-interrupt-1791408960",
+      "profile": "local-workcell-invocation",
+      "run_id": "workcell-invocation-1791408960786",
+      "agent_id": "workcell-host",
+      "task_id": "",
+      "operation_id": "invocation",
+      "attempt": 1,
+      "kind": "internal",
+      "capability": "execution.run",
+      "phase": "finished",
+      "outcome": "failed",
+      "occurred_at_ms": 1791408963416,
+      "metadata": {}
+    }
+  ],
+  "cleanup": "explicit harness recovery through ownership-checked Workcell workspace library and exact labeled container",
+  "workspaceRemoved": true,
+  "containerAbsent": true,
+  "sourceOutcome": "unknown",
+  "sourceRerun": false,
+  "privateEvidence": ".runtime/workcell-interrupt-1791408960",
+  "retainedSourceCheckpoint": {
+    "finalStatus": "prepared",
+    "exitCode": null,
+    "cleanupStatus": "pending",
+    "unchanged": true
+  },
+  "initialHarnessAssumption": "Expected absent receipt; corrected to retained prepared checkpoint, same source run resumed for cleanup only",
+  "canonical": {
+    "records": 4,
+    "gapReason": "disconnect",
+    "gapStatus": "unset",
+    "sourcePartial": true,
+    "noInventedWorkloadFailure": true,
+    "scope": "Actual Watchdog intake/export, gateway normalization and pure truth reducer; no browser assertion"
+  },
+  "casefile": "2026-10-07-174012-sourceinterruptionharness"
+}

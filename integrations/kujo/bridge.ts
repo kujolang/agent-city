@@ -1,3 +1,4 @@
+import { nativeStatus } from "./observation-status";
 import {
   rename,
   readFile,
@@ -177,12 +178,7 @@ export async function bridgeOnce() {
         instantaneous: true,
         trace_id: e.producer_instance + ":" + e.run_id,
         name: e.kind + "." + e.phase,
-        status:
-          e.phase === "started"
-            ? "unset"
-            : e.outcome === "succeeded"
-              ? "ok"
-              : "error",
+        status: nativeStatus(e.phase, e.outcome),
         started_at_ms: e.occurred_at_ms,
         references: [
           {

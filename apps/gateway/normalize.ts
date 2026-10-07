@@ -81,7 +81,8 @@ export function normalize(
       observedAt,
       completeness: "partial",
       type: "source.gap",
-      reason: "overflow",
+      reason:
+        a["kujo.meta.resultCode"] === "disconnect" ? "disconnect" : "overflow",
       evidence: [
         {
           origin: "canonical",

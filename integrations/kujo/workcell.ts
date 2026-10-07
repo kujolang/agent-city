@@ -1,4 +1,5 @@
 import { verifyWorkcellEvidence } from "../../apps/runner/workcell-evidence";
+import { reportedWorkcellFailure } from "./observation-status";
 import { boundedCommand } from "../../apps/runner/bounded-command";
 import { appendFile, readFile, writeFile, stat, mkdir } from "node:fs/promises";
 import { resolve } from "node:path";
@@ -214,21 +215,26 @@ const succeeded =
   !result.timedOut &&
   !result.spawnError &&
   evidence !== null;
-await emit(
-  "workcell.execute",
-  "workload",
-  "finished",
-  succeeded ? "succeeded" : "failed",
-  {
-    workcellRef: receiptRef,
-    resultCode: result.timedOut
-      ? "host-timeout:cleanup-unknown"
-      : result.spawnError ||
-        (evidenceError
-          ? "evidence-unverified"
-          : String(summary?.stage ?? "unknown") + ":exit-" + result.code),
-  },
-);
+if (succeeded || reportedWorkcellFailure(result, summary))
+  await emit(
+    "workcell.execute",
+    "workload",
+    "finished",
+    succeeded ? "succeeded" : "failed",
+    {
+      workcellRef: receiptRef,
+      resultCode: result.timedOut
+        ? "host-timeout:cleanup-unknown"
+        : result.spawnError ||
+          (evidenceError
+            ? "evidence-unverified"
+            : String(summary?.stage ?? "unknown") + ":exit-" + result.code),
+    },
+  );
+else
+  await emit("workcell.execute", "coverage", "gap", "unknown", {
+    resultCode: "disconnect",
+  });
 if (succeeded && evidence)
   for (const artifact of evidence.artifacts)
     await emit(

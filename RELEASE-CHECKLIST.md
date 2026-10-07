@@ -227,3 +227,11 @@ UNKNOWN into FAILED merely because a code is absent/notzero. Bounded read valida
 explicit terminal metadata; controlled HTTP restart/corruption proof and retained
 real completed receipt pass without mutation or source execution. Evidence in
 evidence/mission-recovery-validation. Live process-death/orphan cleanup still open.
+
+Source interruption checkpoint: real owned Workcell host process-group death now
+produces a disconnect coverage gap, not a fabricated workload failure. Actual
+Watchdog export→normalizer→truth reducer preserves partial coverage and UNKNOWN
+workload outcome. Exact owned container/workspace cleanup passed separately; the
+prepared source receipt remains unchanged and no source rerun occurred. Full verify
+85tests passes. Evidence: evidence/workcell-interruption. Automatic orphan recovery,
+general crash recovery and remaining release categories are still open.
