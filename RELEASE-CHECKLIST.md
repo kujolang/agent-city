@@ -159,3 +159,9 @@ lifecycle→Watchdog canonical→gateway/SSE→Pixi passed. Exact instance remai
 followed at upper Workshop bay, success and both artifact observations retained.
 Screenshot and receipt-linked truth in evidence/mission-workcell/live-world.
 Live interruption/cleanup fault injection and broader work/release gates remain.
+
+Gateway-outage checkpoint: real Workcell completed with gateway stopped; browser
+reported STALE, then recovered LIVE truth and both artifacts after restart.
+Exactly one source run, output5, ordered timestamps retained in
+evidence/mission-workcell/gateway-outage/proof.json. This qualifies gateway outage
+independence, not source/container interruption or Watchdog outage.

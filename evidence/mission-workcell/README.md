@@ -110,3 +110,17 @@ The initial harness unnecessarily toggled Follow after selecting an agent; the
 corrected rerun explicitly asserts `follow === instance`. This proof establishes
 Workshop/bay arrival; it does not claim cross-building tool travel, a new model
 handoff or live process-interruption qualification.
+
+## Real gateway outage during source execution
+
+With `CITY_PROOF_GATEWAY_OUTAGE=1`, the live harness stops its own gateway and
+waits for terminal process status and browser STALE before starting real Workcell
+execution. It restarts the gateway only after source exit0. Browser health returns
+LIVE and truth contains succeeded Workcell plus both actual exported artifacts.
+`gateway-outage/proof.json` records ordered stop/completion/restart timestamps,
+actual output5 and exactly one source receipt directory: recovery did not rerun
+work. The original Watchdog/bridge remained available; their failure is not tested
+by this scenario. No animation/travel assertion is made for recovered history.
+Owned services and dedicated VM were stopped; no Workcell containers remained.
+Actual source-process interruption and orphan-container cleanup remain separate
+unqualified cases. TypeScript validation passed for the extended harness.

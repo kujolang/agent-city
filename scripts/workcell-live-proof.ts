@@ -1,6 +1,6 @@
 import { chromium } from "@playwright/test";
 import { spawn, type ChildProcess } from "node:child_process";
-import { mkdir, writeFile, readFile } from "node:fs/promises";
+import { mkdir, writeFile, readFile, readdir } from "node:fs/promises";
 import { resolve } from "node:path";
 import { randomBytes } from "node:crypto";
 import assert from "node:assert/strict";
@@ -8,7 +8,12 @@ import { localChromiumPath } from "../apps/runner/browser-path";
 import { portAvailable } from "./startup-checks";
 const root = resolve(import.meta.dirname, "..");
 const runtime = resolve(root, ".runtime/workcell-live-" + Date.now());
-const out = resolve(root, "evidence/mission-workcell/live-world");
+const outage = process.env.CITY_PROOF_GATEWAY_OUTAGE === "1";
+const out = resolve(
+  root,
+  "evidence/mission-workcell",
+  outage ? "gateway-outage" : "live-world",
+);
 await mkdir(runtime, { recursive: true, mode: 0o700 });
 await mkdir(out, { recursive: true });
 for (const port of [18991, 18992, 18888])
@@ -86,10 +91,15 @@ try {
     ["--import", "tsx", "integrations/kujo/bridge.ts"],
     root,
   );
-  launch(process.execPath, ["--import", "tsx", "apps/gateway/main.ts"], root, {
-    CITY_PORT: "18992",
-    CITY_DB: resolve(runtime, "city.sqlite"),
-  });
+  let gateway = launch(
+    process.execPath,
+    ["--import", "tsx", "apps/gateway/main.ts"],
+    root,
+    {
+      CITY_PORT: "18992",
+      CITY_DB: resolve(runtime, "city.sqlite"),
+    },
+  );
   await ready("http://127.0.0.1:18992/api/world/snapshot");
   launch(
     process.execPath,
@@ -112,6 +122,31 @@ try {
   page.on("pageerror", (e) => errors.push(e.message));
   await page.goto("http://127.0.0.1:18888");
   await page.waitForSelector("canvas");
+  let gatewayStoppedAt: string | null = null;
+  let sourceFinishedAt: string | null = null;
+  let gatewayRestartedAt: string | null = null;
+  if (outage) {
+    await page.waitForFunction(
+      () => (window as any).agentCity.health === "LIVE",
+      undefined,
+      { timeout: 30000 },
+    );
+    const stopped = new Promise<void>((done) =>
+      gateway.once("exit", () => done()),
+    );
+    gateway.kill("SIGTERM");
+    await Promise.race([
+      stopped,
+      new Promise((_, fail) =>
+        setTimeout(() => fail(Error("Gateway stop timeout")), 5000),
+      ),
+    ]);
+    assert(gateway.exitCode !== null || gateway.signalCode !== null);
+    gatewayStoppedAt = new Date().toISOString();
+    await page.waitForFunction(
+      () => (window as any).agentCity.health === "STALE",
+    );
+  }
   const worker = launch(
     process.execPath,
     ["--import", "tsx", "integrations/kujo/workcell.ts"],
@@ -132,6 +167,22 @@ try {
     worker.once("exit", ok);
     worker.once("error", fail);
   });
+  if (outage) {
+    assert.equal(await completion, 0);
+    sourceFinishedAt = new Date().toISOString();
+    assert(gateway.exitCode !== null || gateway.signalCode !== null);
+    gateway = launch(
+      process.execPath,
+      ["--import", "tsx", "apps/gateway/main.ts"],
+      root,
+      {
+        CITY_PORT: "18992",
+        CITY_DB: resolve(runtime, "city.sqlite"),
+      },
+    );
+    await ready("http://127.0.0.1:18992/api/world/snapshot");
+    gatewayRestartedAt = new Date().toISOString();
+  }
   await page.waitForFunction(
     () => Object.keys((window as any).agentCity.truth.agents).length > 0,
     undefined,
@@ -140,39 +191,42 @@ try {
   const id = await page.evaluate(
     () => Object.keys((window as any).agentCity.truth.agents)[0],
   );
-  await page.locator("#roster button").first().click();
+  let atBay: any = null;
+  if (!outage) {
+    await page.locator("#roster button").first().click();
 
-  await page.waitForFunction(
-    (id) => {
+    await page.waitForFunction(
+      (id) => {
+        const c = (window as any).agentCity,
+          w = c.presentation.walkers[id];
+        return (
+          c.follow === id &&
+          c.scene === "workshop" &&
+          w?.phase === "read" &&
+          w.y === 96
+        );
+      },
+      id,
+      { timeout: 60000 },
+    );
+    await page
+      .locator(".world")
+      .screenshot({ path: resolve(out, "workcell-bay.png") });
+    atBay = await page.evaluate((id) => {
       const c = (window as any).agentCity,
         w = c.presentation.walkers[id];
-      return (
-        c.follow === id &&
-        c.scene === "workshop" &&
-        w?.phase === "read" &&
-        w.y === 96
-      );
-    },
-    id,
-    { timeout: 60000 },
-  );
-  await page
-    .locator(".world")
-    .screenshot({ path: resolve(out, "workcell-bay.png") });
-  const atBay = await page.evaluate((id) => {
-    const c = (window as any).agentCity,
-      w = c.presentation.walkers[id];
-    return {
-      instance: w.id,
-      scene: c.scene,
-      follow: c.follow,
-      x: w.x,
-      y: w.y,
-      phase: w.phase,
-      visual: document.querySelector("#visual")?.textContent,
-      truth: c.truth.agents[id],
-    };
-  }, id);
+      return {
+        instance: w.id,
+        scene: c.scene,
+        follow: c.follow,
+        x: w.x,
+        y: w.y,
+        phase: w.phase,
+        visual: document.querySelector("#visual")?.textContent,
+        truth: c.truth.agents[id],
+      };
+    }, id);
+  }
   assert.equal(await completion, 0);
   await page.waitForFunction(
     (id) =>
@@ -199,8 +253,16 @@ try {
     ops.filter((o) => o.capability === "artifact.created").length,
     2,
   );
-  assert.equal(atBay.instance, id);
-  assert.equal(atBay.follow, id);
+  if (atBay) {
+    assert.equal(atBay.instance, id);
+    assert.equal(atBay.follow, id);
+  }
+  if (outage)
+    await page.waitForFunction(
+      () => (window as any).agentCity.health === "LIVE",
+      undefined,
+      { timeout: 30000 },
+    );
   assert.deepEqual(errors, []);
   const proof = JSON.parse(
     await readFile(resolve(runtime, "workcell-proof.json"), "utf8"),
@@ -215,12 +277,25 @@ try {
     "utf8",
   );
   assert.equal(output, "5\n");
+  const sourceRunCount = (
+    await readdir(resolve(runtime, "workcell-source/.workcell/runs"))
+  ).filter((name) => /^wc-/.test(name)).length;
+  assert.equal(
+    sourceRunCount,
+    1,
+    "Source operation must not be rerun during recovery",
+  );
   await writeFile(
     resolve(out, "proof.json"),
     JSON.stringify(
       {
-        scope:
-          "Fresh real Workcell Kujo execution → lifecycle spool → Watchdog canonical intake/export → gateway/SSE → Pixi Follow into Workshop upper bay; no new model request",
+        scope: outage
+          ? "Real Workcell completes while gateway is stopped; restart recovers Watchdog evidence into browser without rerunning source; no travel assertion"
+          : "Fresh real Workcell Kujo execution → lifecycle spool → Watchdog canonical intake/export → gateway/SSE → Pixi Follow into Workshop upper bay; no new model request",
+        sourceRunCount,
+        gatewayStoppedAt,
+        sourceFinishedAt,
+        gatewayRestartedAt,
         producer,
         workcell: proof.summary.run_id,
         output,
@@ -234,7 +309,11 @@ try {
       2,
     ) + "\n",
   );
-  console.log("Real Workcell canonical pipeline and followed bay: PASS");
+  console.log(
+    outage
+      ? "Real Workcell during gateway outage and browser recovery: PASS"
+      : "Real Workcell canonical pipeline and followed bay: PASS",
+  );
 } catch (error) {
   await writeFile(
     resolve(runtime, "failure.log"),
@@ -245,7 +324,7 @@ try {
 } finally {
   await browser?.close();
   for (const child of children.reverse()) {
-    if (child.exitCode !== null) continue;
+    if (child.exitCode !== null || child.signalCode !== null) continue;
     child.kill("SIGTERM");
     await new Promise<void>((done) => {
       const timer = setTimeout(() => {
