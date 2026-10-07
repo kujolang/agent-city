@@ -47,6 +47,9 @@ const sourcePaths = [
   "WORKING-EXPERIENCE.md",
   "Start Agent City.command",
 ];
+const sourceLock = JSON.parse(
+  await readFile(resolve(root, "installer/sources.json"), "utf8"),
+);
 const revisions: Record<string, string> = {};
 const reusedRuntime = process.env.CITY_BUNDLE_RUNTIME_FROM
   ? await verifiedRuntime(resolve(process.env.CITY_BUNDLE_RUNTIME_FROM))
@@ -57,7 +60,13 @@ for (const name of [...names, ...(reusedRuntime ? [] : ["kujo"])]) {
     throw Error(
       `Commit or isolate tracked changes in ${name} before packaging. No repository was modified.`,
     );
-  revisions[name] = await git(dir, ["rev-parse", "HEAD"]);
+  const ref =
+    name === "agent-city" || name === "kujo"
+      ? "HEAD"
+      : sourceLock.repositories[name];
+  if (ref !== "HEAD" && !/^[a-f0-9]{40}$/.test(ref || ""))
+    throw Error(`Missing pinned producer revision: ${name}`);
+  revisions[name] = await git(dir, ["rev-parse", ref]);
 }
 if (reusedRuntime) revisions.kujo = reusedRuntime.source;
 const name = `agent-city-preview-${process.platform}-${process.arch}-${revisions["agent-city"].slice(0, 12)}`;
