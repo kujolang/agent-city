@@ -117,3 +117,9 @@ ran a real generated/reviewed Kujo program, exported5, verified receipts and
 cleaned up. Original mount failure retained. Host1.7/container1.5 scope and
 CLI-only limits are explicit; general Mission Command Workcell remains open.
 See [execution evidence](evidence/workcell-live/README.md).
+
+Workcell admission hardening: success now requires a matching verified/cleaned
+receipt and real bounded artifact files; each export has evidence. Host commands
+have bounded waiting, and timeout cleanup stays UNKNOWN. Rejection/timeout tests
+and retained real-run artifact validation pass. Integrations now participate in
+TypeScript checking. Mission Command Workcell integration remains incomplete.

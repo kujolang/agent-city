@@ -1,4 +1,5 @@
-import { spawn } from "node:child_process";
+import { verifyWorkcellEvidence } from "../../apps/runner/workcell-evidence";
+import { boundedCommand } from "../../apps/runner/bounded-command";
 import { appendFile, readFile, writeFile, stat, mkdir } from "node:fs/promises";
 import { resolve } from "node:path";
 const root = resolve(import.meta.dirname, "../.."),
@@ -46,8 +47,7 @@ async function emit(
   }
 }
 async function command(cmd: string, args: string[], cwd: string) {
-  let output = "";
-  const p = spawn(cmd, args, {
+  return boundedCommand(cmd, args, {
     cwd,
     env: {
       ...process.env,
@@ -57,15 +57,7 @@ async function command(cmd: string, args: string[], cwd: string) {
       KUJO:
         process.env.KUJO_BIN || resolve(root, "../kujo/target/release/kujo"),
     },
-    stdio: ["ignore", "pipe", "pipe"],
   });
-  p.stdout.on("data", (d) => (output = (output + d).slice(-131072)));
-  p.stderr.on("data", (d) => (output = (output + d).slice(-131072)));
-  const code = await new Promise<number | null>((ok, fail) => {
-    p.on("error", fail);
-    p.on("exit", ok);
-  });
-  return { code, output };
 }
 await mkdir(source, { recursive: true });
 if (!(await stat(resolve(source, ".git")).catch(() => null))) {
@@ -179,37 +171,68 @@ const summary = result.output
     }
   })
   .find((x) => x?.schema_version === "workcell-run-summary/v1");
-const receiptRef = summary?.run_id || "unknown";
+const receiptRef = /^wc-[a-f0-9]{32}$/.test(summary?.run_id || "")
+  ? summary.run_id
+  : "unknown";
+let evidence: Awaited<ReturnType<typeof verifyWorkcellEvidence>> | null = null;
+let evidenceError: string | null = null;
+if (result.code === 0) {
+  try {
+    evidence = await verifyWorkcellEvidence(
+      source,
+      summary,
+      definition.artifacts.export,
+    );
+  } catch (error) {
+    evidenceError =
+      error instanceof Error ? error.message : "Evidence verification failed";
+  }
+}
+const succeeded =
+  result.code === 0 &&
+  !result.timedOut &&
+  !result.spawnError &&
+  evidence !== null;
 await emit(
   "workcell.execute",
   "workload",
   "finished",
-  result.code === 0 ? "succeeded" : "failed",
+  succeeded ? "succeeded" : "failed",
   {
     workcellRef: receiptRef,
-    resultCode: String(summary?.stage ?? "unknown") + ":exit-" + result.code,
+    resultCode: result.timedOut
+      ? "host-timeout:cleanup-unknown"
+      : result.spawnError ||
+        (evidenceError
+          ? "evidence-unverified"
+          : String(summary?.stage ?? "unknown") + ":exit-" + result.code),
   },
 );
-if (result.code === 0)
-  await emit(
-    "artifact.created",
-    "container-artifact",
-    "finished",
-    "succeeded",
-    {
-      workcellRef: receiptRef,
-      artifactRef: "workcell:" + receiptRef + ":city-result.txt",
-    },
-  );
+if (succeeded && evidence)
+  for (const artifact of evidence.artifacts)
+    await emit(
+      "artifact.created",
+      "container-artifact:" + artifact.name,
+      "finished",
+      "succeeded",
+      {
+        workcellRef: receiptRef,
+        artifactRef: "workcell:" + receiptRef + ":" + artifact.name,
+      },
+    );
 await emit(
   "execution.run",
   "invocation",
   "finished",
-  result.code === 0 ? "succeeded" : "failed",
+  succeeded ? "succeeded" : "failed",
 );
 await writeFile(
   resolve(runtime, "workcell-proof.json"),
-  JSON.stringify({ run, producer, ...result, summary }, null, 2),
+  JSON.stringify(
+    { run, producer, ...result, summary, evidence, evidenceError },
+    null,
+    2,
+  ),
 );
-if (result.code !== 0) throw Error(result.output);
+if (!succeeded) throw Error(evidenceError || result.output);
 console.log(JSON.stringify({ run, producer, summary }));

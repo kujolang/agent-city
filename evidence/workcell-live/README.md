@@ -59,7 +59,16 @@ Host Kujo was1.7.0; the already-local image contains1.5.0. This simple program
 passing is not full version compatibility qualification. Image provenance was
 local; no signature verification or registry authentication was established.
 Workcell enforced network none, non-root workload, read-only root, dropped
-capabilities, no-new-privileges and30-second workload timeout. Host CLI startup
-is not yet bounded by this adapter. Mission Command general Workcell permission,
+capabilities, no-new-privileges and30-second workload timeout. Host subprocesses now have a90-second deadline and5-second termination grace.
+A timeout reports failure with cleanup UNKNOWN; it never asserts container cleanup. Mission Command general Workcell permission,
 interruption and recovery integration remains open. The installer does not gain
 this image or backend automatically.
+
+## Evidence admission hardening
+
+The adapter now admits success only with a matching completed Workcell receipt,
+explicit verification/cleanup flags and actual bounded regular artifact files.
+Missing files, mismatched identity, failed cleanup and symlinked evidence are
+rejected. Each actual export receives its own artifact observation. Host spawn
+errors and timeouts are explicit failures. These checks improve the CLI seam;
+Mission Command permission and recovery integration is still required.
