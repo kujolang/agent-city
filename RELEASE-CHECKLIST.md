@@ -4,9 +4,12 @@ The objective is the complete checklist, not a narrower preview. A checked item 
 current evidence at the advertised scope. Existing source/model/tool truth rules apply.
 The user cancelled the eight-hour soak; do not run or schedule it without renewed consent.
 
-- [ ] One-command installation: pinned compatible City/Kujo producer/runtime dependencies;
+- [x] One-command installation: pinned compatible City/Kujo producer/runtime dependencies;
       private prerequisite setup; isolated destination; failure rollback; usable launcher;
       clean-machine proof for every advertised platform; repeat/update/uninstall paths.
+      Evidence: [public bootstrap](evidence/public-bootstrap/README.md),
+      [four-platform maintenance](evidence/installed-maintenance/README.md),
+      [fresh installed launcher/task](evidence/first-user-installed/README.md).
 - [ ] Fresh-machine onboarding: prerequisite/model detection; guided Ollama/Codex setup;
       first real task → saved deliverable → separate reviewer; agent-readable instructions;
       actionable failures; no fabricated credentials or silent provider fallback.
@@ -287,3 +290,10 @@ passes compatibility/privacy regressions; installer now pins2066fd8. Latest boun
 pipeline24,800/24,800,zero missing/duplicates,271.488events/sec still FAILS the
 1,000/sec gate. This does not establish a speedup under variable host load. See
 evidence/canonical-intake-profile. No eight-hour soak was run.
+
+Installed maintenance checkpoint: run37707496087 at4f3af6c passed real updates,
+repeat-install and active-lease refusal, failed-preparation preservation, archive
+uninstall/restoration, and private Node retention on Linuxx64/ARM64 and
+macOSIntel/ARM64. Local actual model-installation maintenance preserved106files.
+Evidence: evidence/installed-maintenance. This closes cross-platform maintenance
+qualification; provider/sandbox setup and remaining release categories stay open.
