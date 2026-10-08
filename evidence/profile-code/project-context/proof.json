@@ -1,0 +1,131 @@
+{
+  "source": "84dc4685d3375cc6c02c4b26788cdb6f4b2cba78",
+  "scope": "Synthetic model outputs with actual SDK handoff and sandboxed browser function execution",
+  "attempts": [
+    {
+      "mission": "mission-1ba20343-b011-42c1-9a78-f6fc144b8836",
+      "model": "controlled",
+      "checks": {
+        "schema": "agent-city.function-check.v1",
+        "status": "failed",
+        "environment": "disposable-chromium-module-worker",
+        "browserSandboxRequested": true,
+        "browser": "151.0.7922.34",
+        "codeExecuted": true,
+        "scope": "explicit JSON function cases only; no filesystem or network integrations",
+        "blockedRequests": 0,
+        "cases": [
+          {
+            "name": "positive",
+            "status": "failed",
+            "reason": "returned",
+            "occurredAt": 1791433738140
+          },
+          {
+            "name": "negative",
+            "status": "failed",
+            "reason": "returned",
+            "occurredAt": 1791433738161
+          },
+          {
+            "name": "zero",
+            "status": "passed",
+            "reason": "expectation-met",
+            "occurredAt": 1791433738179
+          }
+        ],
+        "checkedAt": "2026-10-08T04:28:58.179Z"
+      },
+      "validation": {
+        "schema": "agent-city.code-check.v1",
+        "syntax": "valid",
+        "fenceRemoved": false,
+        "functionalTests": "failed",
+        "codeExecuted": true,
+        "checkedAt": "2026-10-08T04:28:54.990Z"
+      },
+      "artifactSha256": "5b01ee484093664f8263c230f9392950fa0df219c62e9a894d1affb45e1e8370",
+      "checkerIdentityDistinct": true,
+      "individualOutcomes": [
+        {
+          "operation": "check-0",
+          "outcome": "failed"
+        },
+        {
+          "operation": "check-1",
+          "outcome": "failed"
+        },
+        {
+          "operation": "check-2",
+          "outcome": "succeeded"
+        }
+      ],
+      "handoffObserved": true
+    },
+    {
+      "mission": "mission-da05e5f1-869e-4735-a85d-32cf1c074eff",
+      "model": "controlled",
+      "checks": {
+        "schema": "agent-city.function-check.v1",
+        "status": "passed",
+        "environment": "disposable-chromium-module-worker",
+        "browserSandboxRequested": true,
+        "browser": "151.0.7922.34",
+        "codeExecuted": true,
+        "scope": "explicit JSON function cases only; no filesystem or network integrations",
+        "blockedRequests": 0,
+        "cases": [
+          {
+            "name": "positive",
+            "status": "passed",
+            "reason": "expectation-met",
+            "occurredAt": 1791433747066
+          },
+          {
+            "name": "negative",
+            "status": "passed",
+            "reason": "expectation-met",
+            "occurredAt": 1791433747087
+          },
+          {
+            "name": "zero",
+            "status": "passed",
+            "reason": "expectation-met",
+            "occurredAt": 1791433747102
+          }
+        ],
+        "checkedAt": "2026-10-08T04:29:07.102Z"
+      },
+      "validation": {
+        "schema": "agent-city.code-check.v1",
+        "syntax": "valid",
+        "fenceRemoved": false,
+        "functionalTests": "passed",
+        "codeExecuted": true,
+        "checkedAt": "2026-10-08T04:29:03.816Z"
+      },
+      "artifactSha256": "c4b7a01cbde242bf0e133e7afefc62e73fffdac917b0efd9cb40f26ed25d26f0",
+      "checkerIdentityDistinct": true,
+      "individualOutcomes": [
+        {
+          "operation": "check-0",
+          "outcome": "succeeded"
+        },
+        {
+          "operation": "check-1",
+          "outcome": "succeeded"
+        },
+        {
+          "operation": "check-2",
+          "outcome": "succeeded"
+        }
+      ],
+      "handoffObserved": true
+    }
+  ],
+  "priorFailureRetained": true,
+  "privateEvidence": "/Users/robertdevore/2026/Kujolang/kujo-repos/agent-city/.runtime/profile-code-5fe725fe-0feb-4e61-9cab-60e1db2dd011",
+  "projectReadCount": 4,
+  "privateSnapshotsPreserved": true,
+  "noProjectContentInTelemetry": true
+}

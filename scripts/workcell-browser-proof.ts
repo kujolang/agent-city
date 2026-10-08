@@ -109,6 +109,13 @@ try {
   await page
     .getByLabel("Task", { exact: true })
     .fill("UI consent test; intercepted, no execution");
+  await page
+    .locator('[name="projectFiles"]')
+    .setInputFiles({
+      name: "brief.md",
+      mimeType: "text/plain",
+      buffer: Buffer.from("Selected task context only"),
+    });
   await consent.focus();
   await page.keyboard.press("Space");
   assert(await consent.isChecked());
@@ -129,6 +136,15 @@ try {
   );
   assert.equal(posted.executeWorkcell, true);
   assert.equal(posted.expectedOutput, "5\n");
+  assert.deepEqual(posted.projectFiles, [
+    { path: "brief.md", content: "Selected task context only" },
+  ]);
+  assert.equal(
+    await page
+      .locator('[name="projectFiles"]')
+      .evaluate((e: HTMLInputElement) => e.files?.length),
+    0,
+  );
   assert.equal(await outputCheck.isChecked(), false);
   await consent.check();
   await page.locator("[data-continue]").first().click();
@@ -151,6 +167,7 @@ try {
         cleanupVisible: true,
         keyboardConsent: true,
         explicitOutputCheckPostedAndReset: true,
+        selectedProjectFilesPostedAndReset: true,
         consentResetAfterSubmission: true,
         consentResetForContinuation: true,
         pageErrors: errors,

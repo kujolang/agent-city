@@ -87,6 +87,12 @@ jobs:
           cd "$RUNNER_TEMP/city/agent-city"
           npx playwright install --with-deps chromium
           node --import tsx scripts/admission-release-proof.ts
+      - name: Verify selected project context and private continuation
+        if: matrix.os == 'ubuntu-24.04'
+        run: |
+          export PATH="$RUNNER_TEMP/city/.node/bin:$PATH"
+          cd "$RUNNER_TEMP/city/agent-city"
+          CITY_PROFILE_PROOF_PROJECT=1 node --import tsx scripts/profile-code-proof.ts
       - name: Verify real installed update, refusal and archive lifecycle
         env:
           CITY_OWNED_TEST_INSTALL: ${{ runner.temp }}/city
@@ -122,3 +128,4 @@ jobs:
             ${{ runner.temp }}/city/agent-city/evidence/missions/contract.json
             ${{ runner.temp }}/city/agent-city/evidence/supervisor-loss/proof.json
             ${{ runner.temp }}/city/agent-city/evidence/admission-release
+            ${{ runner.temp }}/city/agent-city/evidence/profile-code/project-context

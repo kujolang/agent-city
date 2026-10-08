@@ -8,6 +8,10 @@ import { importCatalog, saveCatalog } from "../apps/runner/agent-catalog";
 import { portAvailable } from "./startup-checks";
 const root = resolve(import.meta.dirname, "..");
 const real = process.env.CITY_PROFILE_PROOF_REAL === "1";
+const projectProof = process.env.CITY_PROFILE_PROOF_PROJECT === "1";
+const projectText =
+  "PROJECT-CONTEXT-ACCEPTANCE-41: supplied source text, never telemetry";
+const projectReads: string[] = [];
 const kujo = process.env.CITY_PROFILE_PROOF_LANGUAGE === "kujo";
 const workcell = kujo && process.env.CITY_PROFILE_PROOF_WORKCELL === "1";
 const outputCheck =
@@ -31,6 +35,15 @@ const provider = createServer((req, res) => {
   req.on("end", () => {
     const data = JSON.parse(body);
     calls++;
+    if (projectProof) {
+      const project = data.messages.find(
+        (m: any) =>
+          typeof m.content === "string" &&
+          m.content.includes("User-selected project file snapshot"),
+      );
+      assert(project?.content.includes(projectText));
+      projectReads.push(project.content);
+    }
     const reviewer = data.messages.some(
       (m: any) => m.role === "system" && m.content.includes("# Code Reviewer"),
     );
@@ -111,6 +124,23 @@ try {
     async () => (await fetch(base + "/control/status")).json(),
     (v) => !!v.token,
   );
+  if (projectProof) {
+    const denied = await fetch(base + "/control/missions", {
+      method: "POST",
+      headers: {
+        Origin: "http://127.0.0.1:5178",
+        "Content-Type": "application/json",
+        "X-City-Command-Token": status.token,
+      },
+      body: JSON.stringify({
+        kind: "code",
+        prompt: "must not run",
+        projectFiles: [{ path: "../outside", content: "untrusted" }],
+      }),
+    });
+    assert.equal(denied.status, 400);
+    assert.equal(calls, 0);
+  }
   const contract = {
     exportName: "add",
     cases: [
@@ -131,6 +161,16 @@ try {
       body: JSON.stringify({
         kind: kujo ? "kujo" : "code",
         executeWorkcell: workcell,
+        ...(projectProof && !attempt
+          ? {
+              projectFiles: [
+                { path: "src/requirements.txt", content: projectText },
+              ],
+            }
+          : {}),
+        ...(projectProof && attempt
+          ? { parentMissionId: attempts[0].mission }
+          : {}),
         ...(outputCheck
           ? {
               expectedOutput: "5\n",
@@ -180,6 +220,17 @@ try {
       resolve(dir, kujo ? "reviewed.kujo" : "reviewed.mjs"),
       "utf8",
     );
+    if (projectProof) {
+      const snapshot = JSON.parse(
+        await readFile(resolve(dir, "project-context.json"), "utf8"),
+      );
+      assert.equal(snapshot.files[0].content, projectText);
+      const details = await (
+        await fetch(base + "/control/mission/" + job.id)
+      ).json();
+      assert.equal(details.projectFiles[0].sha256, snapshot.files[0].sha256);
+      assert(!JSON.stringify(details).includes(projectText));
+    }
     const events = (
       await readFile(
         resolve(runtime, `spool-profile-code-${job.id}.jsonl`),
@@ -189,6 +240,7 @@ try {
       .trim()
       .split("\n")
       .map((l) => JSON.parse(l));
+    if (projectProof) assert(!JSON.stringify(events).includes(projectText));
     const expected = real || repaired ? "passed" : "failed";
     if (kujo) {
       assert.equal(
@@ -324,15 +376,18 @@ try {
       : kujo
         ? "evidence/profile-kujo"
         : "evidence/profile-code",
-    outputCheck
-      ? real
-        ? "output-check-real"
-        : "output-check"
-      : real
-        ? "real"
-        : "fixture",
+    projectProof
+      ? "project-context"
+      : outputCheck
+        ? real
+          ? "output-check-real"
+          : "output-check"
+        : real
+          ? "real"
+          : "fixture",
   );
   await mkdir(out, { recursive: true });
+  if (projectProof && !real) assert.equal(projectReads.length, 4);
   let source: string | null = null;
   try {
     source = execFileSync("git", ["rev-parse", "HEAD"], {
@@ -368,6 +423,13 @@ try {
     attempts,
     priorFailureRetained: real && !outputCheck ? "fixture-tested" : true,
     privateEvidence: runtime,
+    ...(projectProof
+      ? {
+          projectReadCount: projectReads.length,
+          privateSnapshotsPreserved: true,
+          noProjectContentInTelemetry: true,
+        }
+      : {}),
   };
   await writeFile(
     resolve(out, "proof.json"),

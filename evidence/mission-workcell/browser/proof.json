@@ -6,6 +6,7 @@
   "cleanupVisible": true,
   "keyboardConsent": true,
   "explicitOutputCheckPostedAndReset": true,
+  "selectedProjectFilesPostedAndReset": true,
   "consentResetAfterSubmission": true,
   "consentResetForContinuation": true,
   "pageErrors": []
