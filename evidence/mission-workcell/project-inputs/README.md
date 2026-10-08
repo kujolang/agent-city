@@ -24,3 +24,7 @@ CI37730251972 atd877665 passes all5jobs, including real copied-input Workcell
 execution on Linux x64 and ARM64. installed-x64.json and installed-arm.json are
 fresh receipts extracted from the respective job artifacts. They prove container
 execution only; actual model qualification is in ../project-execution-real.
+
+Current CI37730702864 at655e029 passes all5jobs after the macOS fixture admission
+race correction, including the new fenced-review/malformed-output checks on all4
+platforms and copied-input execution on both Linux architectures. See ci.json.

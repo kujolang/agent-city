@@ -524,3 +524,9 @@ See evidence/mission-workcell/project-inputs and project-execution-real.
 Changes to copied inputs are not exported; broader project editing/tools/workflows,
 final reference fidelity/release qualification and the final tool/video remain open.
 No long soak; dedicated VM and owned proof services stopped.
+
+Follow-up qualification: CI37730702864 at655e029 passes all5jobs,106tests/source
+checks and all4installed platforms, including fenced review acceptance/malformed
+rejection and admission-aware follow-up. Linuxx64/ARM also pass copied-input
+execution. Subsequent commits only record evidence/documentation. No mandatory
+full-product gate is marked complete by this narrower feature qualification.
