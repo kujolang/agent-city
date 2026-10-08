@@ -63,10 +63,20 @@ export function normalize(
   )
     throw new UnboundObservation("native capability mismatch");
   for (const [key, value] of Object.entries(a)) {
-    if (
-      key.startsWith("kujo.meta.") &&
-      (typeof value !== "string" || !/^[a-zA-Z0-9_.:@-]{1,160}$/.test(value))
-    )
+    // These are opaque evidence references, never paths to open. Named project
+    // exports and source-qualified repos may contain bounded relative segments.
+    const reference =
+      key === "kujo.meta.artifactRef" || key === "kujo.meta.repoRef";
+    const safe =
+      typeof value === "string" &&
+      value.length <= 160 &&
+      (reference
+        ? /^[a-zA-Z0-9_.:@-]+(?:\/[a-zA-Z0-9_.:@-]+)*$/.test(value) &&
+          !value
+            .split(/[/:]/)
+            .some((segment) => segment === "." || segment === "..")
+        : /^[a-zA-Z0-9_.:@-]{1,160}$/.test(value));
+    if (key.startsWith("kujo.meta.") && !safe)
       throw new UnboundObservation("unsafe metadata field");
   }
   const phase = a["kujo.lifecycle.phase"];

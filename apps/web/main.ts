@@ -94,7 +94,7 @@ function maybeFollowMission() {
     (a) =>
       a.run.namespace.endsWith(missionToFollow!) &&
       Object.values(a.operations).some(
-        (o) => o.capability === "agent.run" && o.status === "running",
+        (o) => o.capability === "agent.run" && o.status === "active",
       ),
   );
   // A restored page only picks an unambiguous currently running execution.

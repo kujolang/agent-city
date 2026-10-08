@@ -1,0 +1,76 @@
+{
+  "jsonl_version": "watchdog.telemetry.jsonl.v2",
+  "schema_version": "watchdog.telemetry.v2",
+  "sequence": 74,
+  "record": {
+    "attributes": {
+      "kujo.capability": "artifact.created",
+      "kujo.collection.id": "unknown",
+      "kujo.lifecycle.coverage": "paired",
+      "kujo.lifecycle.outcome": "succeeded",
+      "kujo.lifecycle.phase": "finished",
+      "kujo.meta.artifactRef": "workcell:wc-ea686aa1187c4840a3a36ee3cb5ae031:project/RELEASE-NOTES.md",
+      "kujo.meta.workcellRef": "wc-ea686aa1187c4840a3a36ee3cb5ae031",
+      "kujo.operation.attempt": 1,
+      "kujo.operation.id": "container-artifact:project/RELEASE-NOTES.md",
+      "kujo.producer.instance": "useful-tool-mission-4696d158-a5e5-48e4-9572-4e56b75186b2",
+      "kujo.profile.id": "local-workcell-invocation",
+      "kujo.related.agent": "",
+      "kujo.source.occurred_at_ms": 1791445850930,
+      "kujo.task.binding": "explicit",
+      "kujo.workspace.id": "local-agent-city",
+      "watchdog.context.pressure": "unknown",
+      "watchdog.context.utilization_ratio": null,
+      "watchdog.native.event_kind": "internal"
+    },
+    "content": [],
+    "costs": [],
+    "ended_at": null,
+    "error": null,
+    "kind": null,
+    "name": "internal.finished",
+    "observed_at": "2026-10-08T07:50:51Z",
+    "parent_span_id": null,
+    "privacy": {
+      "content_mode": "off",
+      "policy_version": "watchdog.privacy.v1",
+      "transformations": []
+    },
+    "record_id": "native:agent-city-sdk:35557082c27bd1718f46674c45c408a4b23e6ae5bafa8b003907dbf0e38d467a",
+    "record_type": "event",
+    "references": [
+      {
+        "id": "workcell-host",
+        "namespace": "useful-tool-mission-4696d158-a5e5-48e4-9572-4e56b75186b2",
+        "relation": "actor",
+        "type": "agent"
+      },
+      {
+        "id": "run-1791445815364-7374",
+        "namespace": "useful-tool-mission-4696d158-a5e5-48e4-9572-4e56b75186b2",
+        "relation": "groups",
+        "type": "run"
+      },
+      {
+        "id": "run-1791445815364-7374:produce-artifact",
+        "namespace": "dispatch",
+        "relation": "groups",
+        "type": "task"
+      }
+    ],
+    "source": {
+      "adapter_id": "watchdog.native-event-adapter",
+      "adapter_version": "watchdog.ingestion-adapter.v1",
+      "original_schema": "watchdog.native-event.v1",
+      "producer": "agent-city-sdk",
+      "source_event_id": "35557082c27bd1718f46674c45c408a4b23e6ae5bafa8b003907dbf0e38d467a",
+      "source_trace_id": "useful-tool-mission-4696d158-a5e5-48e4-9572-4e56b75186b2:run-1791445815364-7374",
+      "watchdog.semantic_profile": "watchdog.observability.v1"
+    },
+    "span_id": null,
+    "started_at": null,
+    "status": "ok",
+    "trace_id": "2b459741bda96ca04b060212ba5bcb99",
+    "usage": null
+  }
+}
