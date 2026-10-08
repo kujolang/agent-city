@@ -12,6 +12,7 @@
   "projectExecutionPermissionReset": true,
   "projectExportNamesPostedAndReset": true,
   "realProjectBundleDownloaded": false,
+  "projectBundleKeyboardDownload": false,
   "consentResetAfterSubmission": true,
   "consentResetForContinuation": true,
   "pageErrors": []

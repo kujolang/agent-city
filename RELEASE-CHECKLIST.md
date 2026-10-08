@@ -568,3 +568,24 @@ complete workflow/visual/release qualification. No long soak or final video ran.
 Tool-boundary CI37735018189 at7e172af passes all5jobs, including108tests and
 all4installed platforms with the five real-runtime controlled rejection cases.
 No full-product gate is completed by this narrower boundary qualification.
+
+Approved MCP source-read implementation: per-task file grants now execute bounded
+native read_text_range calls through the SDK registry before author/reviewer work.
+Operator enablement, loopback endpoint validation, imported-profile permission,
+private grant records and no inherited follow-up permission are enforced. Results
+remain private model context; source failures retain actual failed lifecycle truth.
+This adds a real read capability, not general model-selected tools or write access.
+Qualification evidence is recorded with the source-read proof below.
+
+Source-read live checkpointf5c75f4: real glm-5.3:cloud author/reviewer mission
+7e221ea0 actually reads the named source through authenticated native MCP and
+preserves its source-only port/backup facts. Start/completion/result code and
+separate handoff identities are retained; no content is placed in telemetry.
+Controlled denial/privacy/continuation tests and browser grant/reset checks pass;
+local verify110tests passes. Evidence: evidence/profile-missions/source-reads-real.
+This does not qualify arbitrary Ability execution or full visual/release scope.
+
+CI37736218850 atf5c75f4 passes all5jobs,110tests and all4installed platforms,
+including the updated approved-source/read-denial/permission proofs. This is a
+qualified explicit MCP read feature; broader Ability/workflow and final release
+acceptance remain open. All owned local proof services stopped; no long soak.

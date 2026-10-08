@@ -1,7 +1,7 @@
 {
   "scope": "Synthetic provider and MCP response with real SDK/Dispatch profile handoff",
   "model": "profile-fixture",
-  "mission": "mission-703ccd7c-dcec-459f-84d6-e032bc18ebe5",
+  "mission": "mission-0f59b761-92c9-4d68-adf7-dbc810ae7de7",
   "profiles": {
     "adapter": "draft-review/v1",
     "mode": "PROPOSE",
@@ -19,40 +19,42 @@
   "unsupportedCapabilityHTTP": 400,
   "unauthorizedDocumentationHTTP": 400,
   "documentation": {
-    "calls": 1,
+    "calls": 3,
     "authorAndReviewerReceivedContext": true,
     "metadataOnlySpool": true,
     "lifecycleObserved": true
   },
-  "sourceEvents": 14,
+  "sourceEvents": 16,
   "profileIdentityObserved": true,
   "handoffObserved": true,
   "continuationPreservedAfterCatalogRemoval": true,
+  "approvedSourceRead": true,
+  "deniedSourceFailed": true,
   "unapprovedToolCases": [
     {
       "name": "mixed-text-tool",
       "role": "author",
-      "mission": "mission-ae429e30-6ef4-4c30-bb78-7164f0dcff00"
+      "mission": "mission-a533a551-83b6-4053-8231-9d36432a7520"
     },
     {
       "name": "reviewer-tool-without-text",
       "role": "reviewer",
-      "mission": "mission-57a5bcbe-36d8-417d-8835-57f6b064a595"
+      "mission": "mission-c7af84a3-bf90-4094-a95e-4bd854f58ba7"
     },
     {
       "name": "legacy-function",
       "role": "author",
-      "mission": "mission-89f263eb-0ea1-4132-be9a-3192b76783f4"
+      "mission": "mission-94602e5f-5a79-4932-b232-a25124a1dfe5"
     },
     {
       "name": "finish-reason-only",
       "role": "author",
-      "mission": "mission-412309ac-3897-4334-98e7-73fe7f6ae15f"
+      "mission": "mission-5bf81fae-9cbd-4756-8c8f-9e34fdfa887c"
     },
     {
       "name": "malformed-tool-list",
       "role": "author",
-      "mission": "mission-0fc10076-a49e-4a21-887b-cbd9bb8dac93"
+      "mission": "mission-a8eb6c4e-3ffb-437f-871b-b42b0bc496b3"
     }
   ],
   "reviewSeparated": true,
@@ -60,5 +62,5 @@
   "malformedResponseRejected": true,
   "artifactSha256": "d967cdabec3ba74a97c55ce3046cc853e740fccd999543f461f60ca32cc188a8",
   "artifactQuality": "NOT_GRADED: runtime completion is not task acceptance",
-  "privateEvidence": "/Users/robertdevore/2026/Kujolang/kujo-repos/agent-city/.runtime/profiles-51b7a48d-795f-4625-ae8d-967fb417290b"
+  "privateEvidence": "/Users/robertdevore/2026/Kujolang/kujo-repos/agent-city/.runtime/profiles-94932fcd-3375-45cd-8b62-2d70a4529ab5"
 }

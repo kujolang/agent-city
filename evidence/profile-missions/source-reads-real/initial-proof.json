@@ -1,0 +1,87 @@
+{
+  "scope": "Real Ollama provider with SDK/Dispatch profile handoff",
+  "model": "glm-5.3:cloud",
+  "mission": "mission-c0d566f1-0800-4a7d-94eb-ae7504505bfb",
+  "profiles": {
+    "adapter": "draft-review/v1",
+    "mode": "PROPOSE",
+    "author": {
+      "id": "kujolang/kujo-agents:chain.documentation-writer",
+      "name": "Documentation Writer",
+      "contractHash": "015fbe6c599e271b4694eb3f626a21ea412a42acb09f4614aeecb759f35f2b6a"
+    },
+    "reviewer": {
+      "id": "kujolang/kujo-agents:chain.code-reviewer",
+      "name": "Code Reviewer",
+      "contractHash": "f42701a35b14514538f8258f24c1e7417f7c44ae3474179230366f9f71d850d9"
+    }
+  },
+  "unsupportedCapabilityHTTP": 400,
+  "unauthorizedDocumentationHTTP": 400,
+  "documentation": {
+    "lifecycle": [
+      {
+        "phase": "started",
+        "outcome": "unset",
+        "profile": "kujolang/kujo-agents:chain.documentation-writer",
+        "metadata": {
+          "approval": "user-granted",
+          "invocation": "run-1791439703123-9176:mcp-source-1",
+          "server": "unknown",
+          "station": "tool-active",
+          "tool": "read_text_range"
+        }
+      },
+      {
+        "phase": "finished",
+        "outcome": "succeeded",
+        "profile": "kujolang/kujo-agents:chain.documentation-writer",
+        "metadata": {
+          "approval": "user-granted",
+          "invocation": "run-1791439703123-9176:mcp-source-1",
+          "server": "unknown",
+          "station": "tool-active",
+          "tool": "read_text_range"
+        }
+      },
+      {
+        "phase": "started",
+        "outcome": "unset",
+        "profile": "kujolang/kujo-agents:chain.documentation-writer",
+        "metadata": {
+          "approval": "not-required",
+          "invocation": "run-1791439703123-9176:mcp-docs",
+          "server": "mcp-demo",
+          "station": "tool-active",
+          "tool": "read_project_docs"
+        }
+      },
+      {
+        "phase": "finished",
+        "outcome": "succeeded",
+        "profile": "kujolang/kujo-agents:chain.documentation-writer",
+        "metadata": {
+          "approval": "not-required",
+          "invocation": "run-1791439703123-9176:mcp-docs",
+          "resultCode": "result-returned",
+          "server": "mcp-demo",
+          "station": "tool-active",
+          "tool": "read_project_docs"
+        }
+      }
+    ]
+  },
+  "sourceEvents": 16,
+  "profileIdentityObserved": true,
+  "handoffObserved": true,
+  "continuationPreservedAfterCatalogRemoval": "fixture-tested",
+  "approvedSourceRead": true,
+  "deniedSourceFailed": false,
+  "unapprovedToolCases": [],
+  "reviewSeparated": true,
+  "fencedJsonEnvelopeAccepted": false,
+  "malformedResponseRejected": "fixture-tested",
+  "artifactSha256": "9eebfeee5ee3549f775bf58ab083358043958c15d121f7ad177a95c1d17d5878",
+  "artifactQuality": "NOT_GRADED: runtime completion is not task acceptance",
+  "privateEvidence": "/Users/robertdevore/2026/Kujolang/kujo-repos/agent-city/.runtime/profiles-d3166146-8cd7-424b-a5bf-4f7ace853516"
+}

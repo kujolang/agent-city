@@ -30,3 +30,11 @@ execution, full visual fidelity, long-running reliability or final release.
 CI [37735018189](https://github.com/kujolang/agent-city/actions/runs/37735018189)
 passes all five jobs at the source commit above, including installation and the
 controlled proof on Linux x64/ARM64 and macOS Intel/ARM64.
+
+Source-read extension at f5c75f4: the current proof also performs an explicitly
+granted read_text_range before drafting, rejects traversal before admission,
+retains a server-denied source attempt without final artifact/model consumption,
+and confirms grants do not survive continuation. Its synthetic MCP endpoint is
+separate from the real source-read proof in ../source-reads-real. Historical CI
+above qualified the earlier boundary-only implementation; current CI is recorded
+with the real source-read evidence. Local verification now passes110tests.
