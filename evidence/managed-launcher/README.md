@@ -15,3 +15,12 @@ entrypoints inside the new owned stage. This also repairs legacy dangling links
 on managed update. Controlled removed-bootstrap and legacy-link tests pass, as do
 93tests, types, boundaries, maps and build. Fresh four-platform CI is still pending.
 Original failure: before.json. No new model task or container was run locally.
+
+
+Requalification CI37714326471 at8ba1f87: all four platforms PASS with system
+Node/npm masked. Actual launcher doctor reports private Node24.21.0; installed
+contracts and maintenance pass. Linux additionally builds the image through the
+managed wrapper and completes real Workcell execution/cleanup. Exact parsed
+receipts are in platforms/*.json. The first release checklist item is restored;
+fresh provider sign-in, model quality and complete product acceptance remain
+separate requirements.

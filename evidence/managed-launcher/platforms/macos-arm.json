@@ -1,0 +1,129 @@
+{
+  "run": 37714326471,
+  "platform": "macos-arm",
+  "cityCommit": "local-source-unqualified",
+  "doctor": {
+    "ok": true,
+    "kujo": "/Users/runner/work/_temp/city/kujo/target/release/kujo",
+    "checks": [
+      {
+        "id": "node",
+        "status": "PASS",
+        "message": "Node 24.21.0; Node 24 or newer is required."
+      },
+      {
+        "id": "kujo",
+        "status": "PASS",
+        "message": "/Users/runner/work/_temp/city/kujo/target/release/kujo"
+      },
+      {
+        "id": "node_modules/tsx/package.json",
+        "status": "PASS",
+        "message": "node_modules/tsx/package.json"
+      },
+      {
+        "id": "node_modules/vite/package.json",
+        "status": "PASS",
+        "message": "node_modules/vite/package.json"
+      },
+      {
+        "id": "node_modules/pixi.js/package.json",
+        "status": "PASS",
+        "message": "node_modules/pixi.js/package.json"
+      },
+      {
+        "id": "../agents-sdk/src/agents/runner.kujo",
+        "status": "PASS",
+        "message": "../agents-sdk/src/agents/runner.kujo"
+      },
+      {
+        "id": "../agents-sdk/src/agents/tracing/lifecycle.kujo",
+        "status": "PASS",
+        "message": "../agents-sdk/src/agents/tracing/lifecycle.kujo"
+      },
+      {
+        "id": "../dispatch/src/core/runner.kujo",
+        "status": "PASS",
+        "message": "../dispatch/src/core/runner.kujo"
+      },
+      {
+        "id": "../watchdog/dashboard_server.kujo",
+        "status": "PASS",
+        "message": "../watchdog/dashboard_server.kujo"
+      },
+      {
+        "id": "../rag/main.kujo",
+        "status": "PASS",
+        "message": "../rag/main.kujo"
+      },
+      {
+        "id": "../rag/examples/kujo_docs",
+        "status": "PASS",
+        "message": "../rag/examples/kujo_docs"
+      },
+      {
+        "id": "../eval/main.kujo",
+        "status": "PASS",
+        "message": "../eval/main.kujo"
+      },
+      {
+        "id": "../mcp/server.kujo",
+        "status": "PASS",
+        "message": "../mcp/server.kujo"
+      },
+      {
+        "id": "web",
+        "status": "PASS",
+        "message": "web: port 5178 available"
+      },
+      {
+        "id": "RAG",
+        "status": "PASS",
+        "message": "RAG: port 8791 available"
+      },
+      {
+        "id": "Watchdog",
+        "status": "PASS",
+        "message": "Watchdog: port 7791 available"
+      },
+      {
+        "id": "gateway",
+        "status": "PASS",
+        "message": "gateway: port 7792 available"
+      },
+      {
+        "id": "mission service",
+        "status": "PASS",
+        "message": "mission service: port 7793 available"
+      },
+      {
+        "id": "MCP",
+        "status": "PASS",
+        "message": "MCP: port 8931 available"
+      },
+      {
+        "id": "model",
+        "status": "INFO",
+        "message": "Configure the model in Mission Command. This check does not contact a provider or execute a task."
+      }
+    ]
+  },
+  "help": "Agent City: start.command [start|doctor|setup:workcell|provider:codex|agents:import|recover:workcell] [arguments]",
+  "maintenance": {
+    "schema": "agent-city.installed-maintenance-proof.v1",
+    "platform": "darwin",
+    "arch": "arm64",
+    "startedAt": "2026-10-08T01:44:07.993Z",
+    "checks": [
+      "repeat install refuses existing destination",
+      "active lease prevents maintenance",
+      "failed preparation preserves original runtime",
+      "real pinned update preserves all runtime bytes at original path and in archive",
+      "archive uninstall preserves all runtime bytes and can restore original path"
+    ],
+    "privateNodeRetained": true,
+    "runtimeFiles": 116,
+    "status": "PASS",
+    "finishedAt": "2026-10-08T01:44:22.335Z"
+  }
+}

@@ -4,7 +4,7 @@ The objective is the complete checklist, not a narrower preview. A checked item 
 current evidence at the advertised scope. Existing source/model/tool truth rules apply.
 The user cancelled the eight-hour soak; do not run or schedule it without renewed consent.
 
-- [ ] One-command installation: pinned compatible City/Kujo producer/runtime dependencies;
+- [x] One-command installation: pinned compatible City/Kujo producer/runtime dependencies;
       private prerequisite setup; isolated destination; failure rollback; usable launcher;
       clean-machine proof for every advertised platform; repeat/update/uninstall paths.
       Evidence: [public bootstrap](evidence/public-bootstrap/README.md),
@@ -341,3 +341,11 @@ qualify a fully self-contained launcher. The first checklist gate is reopened.
 The installer now preserves relative symlinks and normalizes its owned npm/npx
 entrypoints on install/update. Removed-source and legacy-dangling-link regressions
 pass; full93tests/build pass. Fresh platform qualification remains pending.
+
+
+Managed launcher requalification: CI37714326471 at8ba1f87 passes on Linux x64,
+Linux ARM64, macOS Intel and macOS ARM64 with system Node/npm masked. Actual
+launcher doctor uses private Node24.21.0, updates preserve the private runtime,
+and installed SDK contracts/maintenance pass. Linux image setup through the new
+wrapper and real Workcell execution/cleanup pass. This closes the reopened
+private-npm installation gate. Evidence: evidence/managed-launcher/platforms.

@@ -1,0 +1,168 @@
+{
+  "run": 37714326471,
+  "platform": "linux-arm",
+  "cityCommit": "local-source-unqualified",
+  "doctor": {
+    "ok": true,
+    "kujo": "/home/runner/work/_temp/city/kujo/target/release/kujo",
+    "checks": [
+      {
+        "id": "node",
+        "status": "PASS",
+        "message": "Node 24.21.0; Node 24 or newer is required."
+      },
+      {
+        "id": "kujo",
+        "status": "PASS",
+        "message": "/home/runner/work/_temp/city/kujo/target/release/kujo"
+      },
+      {
+        "id": "node_modules/tsx/package.json",
+        "status": "PASS",
+        "message": "node_modules/tsx/package.json"
+      },
+      {
+        "id": "node_modules/vite/package.json",
+        "status": "PASS",
+        "message": "node_modules/vite/package.json"
+      },
+      {
+        "id": "node_modules/pixi.js/package.json",
+        "status": "PASS",
+        "message": "node_modules/pixi.js/package.json"
+      },
+      {
+        "id": "../agents-sdk/src/agents/runner.kujo",
+        "status": "PASS",
+        "message": "../agents-sdk/src/agents/runner.kujo"
+      },
+      {
+        "id": "../agents-sdk/src/agents/tracing/lifecycle.kujo",
+        "status": "PASS",
+        "message": "../agents-sdk/src/agents/tracing/lifecycle.kujo"
+      },
+      {
+        "id": "../dispatch/src/core/runner.kujo",
+        "status": "PASS",
+        "message": "../dispatch/src/core/runner.kujo"
+      },
+      {
+        "id": "../watchdog/dashboard_server.kujo",
+        "status": "PASS",
+        "message": "../watchdog/dashboard_server.kujo"
+      },
+      {
+        "id": "../rag/main.kujo",
+        "status": "PASS",
+        "message": "../rag/main.kujo"
+      },
+      {
+        "id": "../rag/examples/kujo_docs",
+        "status": "PASS",
+        "message": "../rag/examples/kujo_docs"
+      },
+      {
+        "id": "../eval/main.kujo",
+        "status": "PASS",
+        "message": "../eval/main.kujo"
+      },
+      {
+        "id": "../mcp/server.kujo",
+        "status": "PASS",
+        "message": "../mcp/server.kujo"
+      },
+      {
+        "id": "web",
+        "status": "PASS",
+        "message": "web: port 5178 available"
+      },
+      {
+        "id": "RAG",
+        "status": "PASS",
+        "message": "RAG: port 8791 available"
+      },
+      {
+        "id": "Watchdog",
+        "status": "PASS",
+        "message": "Watchdog: port 7791 available"
+      },
+      {
+        "id": "gateway",
+        "status": "PASS",
+        "message": "gateway: port 7792 available"
+      },
+      {
+        "id": "mission service",
+        "status": "PASS",
+        "message": "mission service: port 7793 available"
+      },
+      {
+        "id": "MCP",
+        "status": "PASS",
+        "message": "MCP: port 8931 available"
+      },
+      {
+        "id": "model",
+        "status": "INFO",
+        "message": "Configure the model in Mission Command. This check does not contact a provider or execute a task."
+      }
+    ]
+  },
+  "help": "Agent City: start.command [start|doctor|setup:workcell|provider:codex|agents:import|recover:workcell] [arguments]",
+  "maintenance": {
+    "schema": "agent-city.installed-maintenance-proof.v1",
+    "platform": "linux",
+    "arch": "arm64",
+    "startedAt": "2026-10-08T01:43:48.182Z",
+    "checks": [
+      "repeat install refuses existing destination",
+      "active lease prevents maintenance",
+      "failed preparation preserves original runtime",
+      "real pinned update preserves all runtime bytes at original path and in archive",
+      "archive uninstall preserves all runtime bytes and can restore original path"
+    ],
+    "privateNodeRetained": true,
+    "runtimeFiles": 116,
+    "status": "PASS",
+    "finishedAt": "2026-10-08T01:43:54.856Z"
+  },
+  "workcell": {
+    "scope": "Real installed Workcell execution of controlled arithmetic input; no model, no final tool demo",
+    "platform": "linux",
+    "arch": "arm64",
+    "startedAt": "2026-10-08T01:44:03.183Z",
+    "image": {
+      "schema": "agent-city.workcell-image.v1",
+      "image": "agent-city-kujo:1.7.0",
+      "imageId": "sha256:5db1c16c48928ecc2dc1d81d0edd2014073ca48d12e543cc4ca7dccd12be9569",
+      "recipeSha256": {
+        "Dockerfile": "5f8c39512ecbedb388188db888297f5eb7ee281746b5471aa8b1dc7861cbc0d5",
+        "package.json": "6e755ed0b4c0b2b34a4c40779787488d87b1769cc1da6e8c3367318027eecad0",
+        "package-lock.json": "ba4ca20192a53ee1b526a45a6114a1e1b40eaf760df58a30008b62998b12c866"
+      },
+      "builtAt": "2026-10-08T01:44:03.039Z",
+      "scope": "Local build and build-time Kujo version check; no workload or backend security qualification"
+    },
+    "runId": "wc-f0fcbd6107ce48648b38e46d1466cb7d",
+    "evidence": {
+      "runId": "wc-f0fcbd6107ce48648b38e46d1466cb7d",
+      "artifacts": [
+        {
+          "name": "city-result.txt",
+          "bytes": 3,
+          "sha256": "b58a3da5fde2680191877ec88a1aa7d06927cc3b30cdf0d0db8c39b488891576"
+        },
+        {
+          "name": "runtime-version.txt",
+          "bytes": 11,
+          "sha256": "de3e64cdc4bb5196cdb7ab26ea04056cb75fe6f8deaa8945c9791af34036b7d9"
+        }
+      ]
+    },
+    "result": "37",
+    "runtimeVersion": "kujo 1.7.0",
+    "containerAbsent": true,
+    "status": "PASS",
+    "finishedAt": "2026-10-08T01:44:04.344Z"
+  }
+}
