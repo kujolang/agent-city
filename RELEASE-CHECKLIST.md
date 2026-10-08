@@ -434,3 +434,11 @@ passes full source/browser verification and four installation platforms; the new
 installed browser recovery proof runs on Linux x64. Controlled restart, duplicate
 release, authorization, replay refusal and a separate actual SDK task pass.
 See evidence/admission-release. This does not qualify arbitrary project workflows.
+
+Dependency qualification checkpoint:5c089ba updates fast-uri3.1.7→3.1.8 and
+source-map-js1.2.1→1.2.2; npm audit falls from one moderate/one high to zero.
+CI37725148897 at a349014 passes97tests/types/boundaries/maps/build, current dependency
+audit, controlled browser proofs and all4installation platforms. Audit reports are
+retained in evidence/dependency-audit-20261007 and CI now rejects moderate-or-higher
+advisories. This does not qualify optional sibling cloud adapters or full application
+security. Broader workflow, final visual and release acceptance remain unfinished.
