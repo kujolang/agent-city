@@ -9,11 +9,13 @@
   "keyboardGuide": true,
   "narrowOverflow": false,
   "noMissionStarted": true,
+  "successfulSaveCollapsesSetupAndFocusesTask": true,
   "writes": [
     "/control/discover-ollama",
     "/control/discover-ollama",
     "/control/discover-ollama",
-    "/control/check-model"
+    "/control/check-model",
+    "/control/config"
   ],
   "errors": []
 }

@@ -188,6 +188,18 @@ try {
   assert(!writes.includes("/control/missions"));
   assert(!configured);
   assert.deepEqual(errors, []);
+  await page
+    .getByRole("button", { name: "Save connection", exact: true })
+    .click();
+  await page.waitForFunction(
+    () => !document.querySelector<HTMLDetailsElement>("#model-settings")!.open,
+  );
+  assert(
+    await page
+      .locator("textarea[name=prompt]")
+      .evaluate((e) => e === document.activeElement),
+  );
+  assert(configured);
   await writeFile(
     out + "/proof.json",
     JSON.stringify(
@@ -203,6 +215,7 @@ try {
         keyboardGuide: true,
         narrowOverflow: false,
         noMissionStarted: true,
+        successfulSaveCollapsesSetupAndFocusesTask: true,
         writes,
         errors,
       },

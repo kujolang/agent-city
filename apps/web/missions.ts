@@ -6,7 +6,7 @@ export function mountMissions(
   const panel = document.createElement("section");
   panel.className = "mission-panel";
   panel.innerHTML = `<h2>MISSION COMMAND</h2><p id="mission-status" role="status">Checking model connection…</p>
-    <details><summary>Model connection</summary><form id="model-form">
+    <details id="model-settings"><summary>Model connection</summary><form id="model-form">
     <details id="provider-setup"><summary>First-time provider setup</summary>
     <p>Choose one provider. Agent City includes the agent runtime, but no model account or sign-in.</p>
     <h3>Ollama</h3><ol><li><a href="https://docs.ollama.com/quickstart" target="_blank" rel="noopener noreferrer">Install and open Ollama</a>. Choose a local model, or sign in to Ollama for a cloud model.</li><li>Choose <strong>Detect local Ollama</strong> below, select a model, then <strong>Check model listing</strong> and <strong>Save connection</strong>.</li></ol><p>The API key stays blank for the local Ollama connection. Cloud model sign-in happens in Ollama, not in this key field. A listed model is not yet a successful task.</p>
@@ -513,6 +513,13 @@ export function mountMissions(
       status.textContent = response.ok
         ? "Connection saved. A mission will verify provider access."
         : result.error;
+      if (response.ok) {
+        panel.querySelector<HTMLDetailsElement>("#model-settings")!.open =
+          false;
+        (form.elements.namedItem("prompt") as HTMLTextAreaElement).focus({
+          preventScroll: true,
+        });
+      }
     } catch {
       status.textContent = "Connection could not be saved.";
     } finally {
