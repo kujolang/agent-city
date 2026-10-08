@@ -31,7 +31,7 @@ try {
         (document.querySelector('[name="kind"]') as HTMLSelectElement).disabled,
     );
     await page
-      .locator('[name="prompt"]')
+      .locator('#mission-form [name="prompt"]')
       .fill(
         "Correct the prior draft. Return exactly three short sentences in one paragraph, without headings, lists, a preface or a closing note. Use ONLY these original facts: Agent City is local. It visualizes observed agent activity. Runtime truth is separate from animation. Do not describe documentation, security, APIs, tools, deployment or any other features. Preserve the original task and produce only the requested three-sentence introduction.",
       );

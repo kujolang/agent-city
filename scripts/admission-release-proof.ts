@@ -177,7 +177,7 @@ try {
     .getByRole("button", { name: "Save connection", exact: true })
     .click();
   await page
-    .locator("textarea[name=prompt]")
+    .locator("#mission-form textarea[name=prompt]")
     .fill("Write a short draft for a separate reviewer.");
   await page
     .getByLabel("Allow agent questions (reply within 3 minutes)")

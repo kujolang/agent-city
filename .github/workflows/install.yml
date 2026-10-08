@@ -2,7 +2,21 @@ name: Isolated installation
 on:
   push:
     branches: [main]
-    paths: ["installer/**", "install.sh", "apps/**", "packages/**", "assets/**", "integrations/**", "scripts/**", "tests/**", "tsconfig.json", "vitest.config.ts", "package*.json", ".github/workflows/install.yml"]
+    paths:
+      [
+        "installer/**",
+        "install.sh",
+        "apps/**",
+        "packages/**",
+        "assets/**",
+        "integrations/**",
+        "scripts/**",
+        "tests/**",
+        "tsconfig.json",
+        "vitest.config.ts",
+        "package*.json",
+        ".github/workflows/install.yml",
+      ]
   pull_request:
   workflow_dispatch:
 permissions:
@@ -30,6 +44,8 @@ jobs:
           node --import tsx scripts/game-view-proof.ts
           node --import tsx scripts/mission-browser.ts
           node --import tsx scripts/follow-reload-proof.ts
+          node --import tsx scripts/webops-browser-proof.ts
+          node --import tsx scripts/videoops-review-browser-proof.ts
           xvfb-run -a node --import tsx scripts/browser-discard-proof.ts
       - name: Measure bounded renderer scale and minimal WebGL baseline
         run: |
@@ -44,6 +60,8 @@ jobs:
             evidence/game-view
             evidence/visual-revision
             evidence/follow-reload
+            evidence/webops-browser
+            evidence/videoops-review-browser
             evidence/browser-discard
             dependency-audit.json
             evidence/renderer-scale/ci.json

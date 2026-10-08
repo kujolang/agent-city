@@ -196,7 +196,7 @@ try {
   );
   assert(
     await page
-      .locator("textarea[name=prompt]")
+      .locator("#mission-form textarea[name=prompt]")
       .evaluate((e) => e === document.activeElement),
   );
   assert(configured);

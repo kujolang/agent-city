@@ -1,8 +1,8 @@
 {
   "status": "PASS",
   "scope": "Controlled lost receipt and model endpoint; actual controller, browser, SDK/Dispatch; no real-model claim",
-  "unknownMission": "mission-c51e59a8-35bd-47dd-b34e-28f23946eee5",
-  "newMission": "mission-131890b1-9c0c-4b04-a4eb-074ec0f564ae",
+  "unknownMission": "mission-b8fd909f-2a5a-4932-8ae9-483b0901ad73",
+  "newMission": "mission-23a608e9-74ff-4702-87bf-71d879d72ab7",
   "unauthorized403": true,
   "missingAcknowledgement400": true,
   "replayDisabled": true,

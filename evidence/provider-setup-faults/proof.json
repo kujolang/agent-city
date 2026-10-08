@@ -1,6 +1,6 @@
 {
   "scope": "Controlled Chromium DOM onboarding faults; no real provider authentication, generation, or tasks",
-  "browser": "151.0.7922.34",
+  "browser": "153.0.8010.12",
   "missingProviderPreservesDraft": true,
   "emptyModelsRemainUnconfigured": true,
   "listingFailureDoesNotEnableTasks": true,

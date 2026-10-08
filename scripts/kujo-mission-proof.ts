@@ -38,7 +38,7 @@ try {
   );
   await page.selectOption('[name="kind"]', "kujo");
   await page
-    .locator('[name="prompt"]')
+    .locator('#mission-form [name="prompt"]')
     .fill(
       "Read the Kujo catalog entry through the configured MCP step. Write a Kujo script defining func add(a, b) that returns a + b, then print(add(2, 3)). Return only the script. The separate senior reviewer should grade it A-F or UNKNOWN, assess each requirement and state that it was not executed.",
     );

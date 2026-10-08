@@ -68,7 +68,7 @@ try {
       3,
     );
     await page
-      .locator('[name="prompt"]')
+      .locator('#mission-form [name="prompt"]')
       .fill(
         "Repair the prior code artifact. Its only reported module error was the unmatched Markdown opening fence. Return a complete plain JavaScript ES module, beginning with export function sum(numbers). No backticks, no Markdown, no prose. Preserve the sum behavior and all three original checks. This is executable source code, not a documentation answer.",
       );
