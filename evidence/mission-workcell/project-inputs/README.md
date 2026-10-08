@@ -19,3 +19,8 @@ Unit tests cover separate consent, invalid layouts, reserved Git control files,
 byte-preserving staging, and refusal to follow an existing tree or symlink. The
 retained real-artifact browser proof additionally checks submission and permission
 reset. This does not qualify arbitrary host project editing or general workflows.
+
+CI37730251972 atd877665 passes all5jobs, including real copied-input Workcell
+execution on Linux x64 and ARM64. installed-x64.json and installed-arm.json are
+fresh receipts extracted from the respective job artifacts. They prove container
+execution only; actual model qualification is in ../project-execution-real.

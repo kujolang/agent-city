@@ -1,0 +1,41 @@
+{
+  "source": "ca28f9f602ab02cb6ca74ac6630db70ae154d800",
+  "scope": "Mission API author/reviewer, static check and explicit isolated Workcell execution; model mode recorded per attempt",
+  "attempts": [
+    {
+      "mission": "mission-e53d3b2a-26eb-439b-b28c-c35eac051526",
+      "model": "glm-5.3:cloud",
+      "checks": null,
+      "validation": {
+        "schema": "agent-city.code-check.v1",
+        "syntax": "valid",
+        "fenceRemoved": false,
+        "checkedArtifact": "reviewed.kujo",
+        "functionalTests": "passed",
+        "outputCheck": {
+          "schema": "agent-city.output-check.v1",
+          "status": "passed",
+          "comparison": "exact stdout; CRLF normalized to LF; whitespace retained",
+          "expected": "actual project input supplied for isolated execution\n",
+          "actual": "actual project input supplied for isolated execution\n"
+        },
+        "codeExecuted": true,
+        "checkedAt": "2026-10-08T05:04:51.092Z"
+      },
+      "artifactSha256": "b4719a1346f3a3d3a2e63cc2aac87f3d88782b4a2c0f548302884a4740ea5b82",
+      "checkerIdentityDistinct": true,
+      "individualOutcomes": [
+        {
+          "operation": "kujo-static-check",
+          "outcome": "succeeded"
+        }
+      ],
+      "handoffObserved": true
+    }
+  ],
+  "priorFailureRetained": "fixture-tested",
+  "privateEvidence": ".runtime/profile-code-e505684f-9943-4ed2-9dec-d6ddb812bfc6",
+  "projectReadCount": "not intercepted; controlled proof verifies both adapter requests",
+  "privateSnapshotsPreserved": true,
+  "noProjectContentInTelemetry": true
+}

@@ -1,0 +1,12 @@
+{
+  "id": "mission-d8643d7b-76a2-473b-ab67-dad0cf22fa01",
+  "producer": "profile-code-mission-d8643d7b-76a2-473b-ab67-dad0cf22fa01",
+  "kind": "kujo",
+  "status": "failed",
+  "validation": null,
+  "code": 4,
+  "startedAt": "2026-10-08T05:00:06.353Z",
+  "finishedAt": "2026-10-08T05:01:13.307Z",
+  "output": null,
+  "execution": "Dispatch workflow, SDK model request and reviewer handoff; optional explicit browser checks recorded in validation"
+}

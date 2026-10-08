@@ -508,3 +508,19 @@ scan does not certify runtime correctness. Connected ShipCheck was unavailable42
 local `kujo run shipcheck.kujo gate --dir <agent-city> --format json` provided the
 metadata result. docs/try-a-reviewed-tool.md and examples/mission-briefs contain a
 concrete reusable quote-tool task; no new execution or final video is claimed.
+
+Project-input execution checkpoint5e0fd2e: a separate per-task grant copies bounded
+selected snapshots under project/ in Workcell. No host mount/network permission;
+Git control files, conflicting names and existing trees/symlinks fail closed.
+Input name/size/hash references stay inspectable; no raw source enters telemetry.
+106tests/types/boundaries/maps/build and browser permission/reset checks pass.
+CI37730251972 atd877665 passes all5jobs, with real copied-file reads on Linuxx64/ARM.
+Actual glm-5.3:cloud author/reviewer/MCP/Workcell missione53d3b2a atca28f9f reads
+its copied input and passes exact stdout; earlier failed review-envelope attempt
+is retained. Explicit fenced JSON envelopes are now accepted with normalization
+metadata; malformed output still fails. CI37730460398 exposed a macOS fixture
+admission race;655e029 waits for both source completion and queue release.
+See evidence/mission-workcell/project-inputs and project-execution-real.
+Changes to copied inputs are not exported; broader project editing/tools/workflows,
+final reference fidelity/release qualification and the final tool/video remain open.
+No long soak; dedicated VM and owned proof services stopped.
