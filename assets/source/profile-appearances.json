@@ -1,0 +1,10 @@
+{
+  "schema": "agent-city.profile-appearances.v1",
+  "bindings": {
+    "kujolang/kujo-agents:publishing-house.technical-editor-writer": "city-writer",
+    "kujolang/kujo-agents:publishing-house.copy-chief": "city-reviewer",
+    "kujolang/kujo-agents:chain.integration-engineer": "city-coder",
+    "kujolang/kujo-agents:chain.frontend-developer": "city-coder",
+    "kujolang/kujo-agents:chain.code-reviewer": "city-reviewer"
+  }
+}

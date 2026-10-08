@@ -50,3 +50,11 @@ Dedicated 32×32 canine bust portraits are authored in portraits.json and compil
 with `python3 scripts/compile-portraits.py`. Their 32×256 atlas uses 32,768 decoded
 RGBA bytes (1,084 PNG bytes). Seven known profiles and the unknown fallback share
 the world character palette IDs. No reference image pixels were sampled.
+
+## Explicit imported-profile bindings — 2026-10-08
+
+`profile-appearances.json` binds the five source-qualified profiles used in the
+recorded code/Kujo/Publishing House proofs to existing original writer/coder/reviewer
+palettes. No display-name matching, permission grants or role/activity inference
+occurs. Unlisted profiles retain the explicit unknown fallback. Execution identity
+and per-instance badges remain separate. This is presentation metadata only.

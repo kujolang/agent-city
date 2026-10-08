@@ -1,3 +1,4 @@
+import profileAppearances from "../../assets/source/profile-appearances.json";
 import type { Animation } from "../world-core/index";
 export interface Appearance {
   id: string;
@@ -47,7 +48,12 @@ export const appearances: Record<string, Appearance> = {
   unknown: make("unknown-v1", 0x697b95, 0xbbc9dd, "cap"),
 };
 export function appearance(profile: string) {
-  return appearances[profile] ?? appearances.unknown;
+  // Only explicit source-qualified bindings; display names never become identity.
+  const bindings: Record<string, string> = profileAppearances.bindings;
+  const key = Object.hasOwn(bindings, profile) ? bindings[profile] : profile;
+  return Object.hasOwn(appearances, key)
+    ? appearances[key]
+    : appearances.unknown;
 }
 // Original authored canine engineer atlas; palette IDs bind stable role appearance.
 // Pose selection is supplied by pure world-core. Merely owning a pose never claims its activity.
