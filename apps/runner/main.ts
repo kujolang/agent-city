@@ -1,3 +1,8 @@
+import {
+  admissionHeld,
+  releaseAdmission,
+  type AdmissionRelease,
+} from "./mission-admission";
 import { readMissionOutcome } from "./mission-recovery";
 import { readWorkcellRecord } from "./workcell-recovery";
 import { admitWorkcell } from "./mission-workcell";
@@ -43,6 +48,7 @@ type Job = {
   useMcpDocs?: boolean;
   executeWorkcell?: boolean;
   finishedAt?: string;
+  admissionRelease?: AdmissionRelease;
   parentMissionId?: string;
   rootMissionId?: string;
   processOutcome?: {
@@ -158,11 +164,12 @@ const server = createServer(async (req, res) => {
         requestTimeoutSeconds: config?.requestTimeoutSeconds ?? 90,
         token,
         storageHealthy,
-        busy:
-          Boolean(active) ||
-          submitting ||
-          jobs.some((j) => j.status === "unknown"),
-        jobs,
+        canReleaseUnknown: !active && !submitting,
+        busy: Boolean(active) || submitting || jobs.some(admissionHeld),
+        jobs: jobs.map((job) => ({
+          ...job,
+          admissionReleased: job.status === "unknown" && !admissionHeld(job),
+        })),
       });
     }
     if (req.method === "GET" && req.url?.startsWith("/control/mission/")) {
@@ -295,6 +302,7 @@ const server = createServer(async (req, res) => {
         "/control/missions",
         "/control/config",
         "/control/reply",
+        "/control/release-admission",
         "/control/discover-ollama",
         "/control/check-model",
         "/control/check-workcell",
@@ -312,6 +320,49 @@ const server = createServer(async (req, res) => {
         error: "Mission history storage is unavailable; commands stopped",
       });
     await reconcile();
+    if (req.url === "/control/release-admission") {
+      if (active || submitting)
+        return send(409, { error: "A supervised mission is still active" });
+      let body = "";
+      for await (const bytes of req) {
+        body += bytes;
+        if (Buffer.byteLength(body) > 4096)
+          return send(413, { error: "Recovery request too large" });
+      }
+      let data;
+      try {
+        data = JSON.parse(body);
+      } catch {
+        return send(400, { error: "Invalid recovery request" });
+      }
+      const job = jobs.find(
+        (j) => j.id === data?.missionId && j.status === "unknown",
+      );
+      if (!job)
+        return send(409, { error: "No unknown mission with this identity" });
+      let decision;
+      try {
+        decision = releaseAdmission(
+          job,
+          data.acknowledgedPossibleOngoingWork,
+          new Date().toISOString(),
+        );
+      } catch {
+        return send(400, {
+          error:
+            "Acknowledge that the outcome remains unknown and work may still be running",
+        });
+      }
+      if (admissionHeld(job)) {
+        job.admissionRelease = decision;
+        await save();
+      }
+      return send(200, {
+        missionId: job.id,
+        status: job.status,
+        admissionRelease: job.admissionRelease,
+      });
+    }
     if (req.url === "/control/reply") {
       let body = "";
       for await (const bytes of req) {
@@ -339,7 +390,7 @@ const server = createServer(async (req, res) => {
         });
       }
     }
-    if (active || submitting || jobs.some((j) => j.status === "unknown"))
+    if (active || submitting || jobs.some(admissionHeld))
       return send(409, {
         error: "A mission is running or awaiting source recovery",
       });

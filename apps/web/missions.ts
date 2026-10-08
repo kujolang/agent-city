@@ -239,6 +239,9 @@ export function mountMissions(
           const button = document.createElement("button");
           button.textContent = `${job.profiles ? job.profiles.author.name + " → " + job.profiles.reviewer.name + " / " : ""}${job.kind} / ${job.status} / ${job.id.slice(-8)}${job.parentMissionId ? " · follows " + job.parentMissionId.slice(-8) : ""}`;
 
+          if (job.admissionReleased)
+            button.textContent += " · queue released by operator";
+
           button.onclick = async () => {
             if (!replay) {
               selectedMission = job.id;
@@ -364,6 +367,46 @@ export function mountMissions(
             }
           };
           history.append(button);
+          if (job.status === "unknown" && !job.admissionReleased) {
+            const release = document.createElement("button");
+            release.dataset.releaseAdmission = job.id;
+            release.textContent = `Release queue / keep UNKNOWN ${job.id.slice(-8)}`;
+            release.onclick = async () => {
+              if (replay || pending || !data.canReleaseUnknown) return;
+              if (
+                !window.confirm(
+                  "Release the queue for new tasks? This mission stays UNKNOWN and its work may still be running. This action does not stop or rerun it.",
+                )
+              )
+                return;
+              pending = true;
+              release.disabled = true;
+              try {
+                const response = await fetch("/control/release-admission", {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                    "X-City-Command-Token": token,
+                  },
+                  body: JSON.stringify({
+                    missionId: job.id,
+                    acknowledgedPossibleOngoingWork: true,
+                  }),
+                });
+                const result = await response.json();
+                status.textContent = response.ok
+                  ? "Queue released by operator. Prior mission outcome remains UNKNOWN; earlier work may still be running."
+                  : result.error;
+              } catch {
+                status.textContent =
+                  "Recovery response unavailable. Check mission history before retrying.";
+              } finally {
+                pending = false;
+                await refresh();
+              }
+            };
+            history.append(release);
+          }
           if (["completed", "failed"].includes(job.status)) {
             const followup = document.createElement("button");
             followup.dataset.continue = job.id;
@@ -417,6 +460,15 @@ export function mountMissions(
         .querySelectorAll<HTMLButtonElement>("[data-continue]")
         .forEach((button) => {
           button.disabled = replay || pending || data.busy;
+        });
+      history
+        .querySelectorAll<HTMLButtonElement>("[data-release-admission]")
+        .forEach((button) => {
+          button.disabled =
+            replay ||
+            pending ||
+            !data.canReleaseUnknown ||
+            !data.storageHealthy;
         });
     } catch {
       if (!pending)
