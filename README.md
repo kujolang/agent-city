@@ -93,7 +93,10 @@ Choose **Writing + review** or **Code + review**, enter a small task and press
 index contains four short example documents, not the full ecosystem manual.
 Select the resulting WRITER or CODER execution in the roster, then **Follow
 selected instance**. Click a mission-history entry to read the recorded draft,
-reviewer response and final artifact.
+reviewer response and final artifact. Use **Save reviewed artifact** to download
+the saved result. Built-in Kujo missions instead offer **Save author draft**:
+the senior review is commentary, not replacement executable code. Check results
+remain separate from task completion; unavailable checks show their diagnostic.
 
 Execution instances appear when actual work is observed. No decorative workers
 are preconfigured as live agents. The SDK creates the writer/coder and reviewer

@@ -4,6 +4,7 @@ import { spawn, type ChildProcess } from "node:child_process";
 import { readFile, mkdir, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import assert from "node:assert/strict";
+import { artifactDownload } from "../apps/web/mission-artifact";
 import { portAvailable } from "./startup-checks";
 const root = resolve(import.meta.dirname, "..");
 const proof = JSON.parse(
@@ -88,6 +89,23 @@ try {
   const text = await page.locator("#mission-artifact").textContent();
   assert(text?.includes('"output": "5\\n"'));
   assert(text?.includes('"cleanup": "complete"'));
+  const artifactResponse = await page.request.get(
+    "http://127.0.0.1:18889/control/artifact/" + proof.attempts[0].mission,
+  );
+  assert(artifactResponse.ok());
+  const expectedDownload = artifactDownload(
+    proof.attempts[0].mission,
+    await artifactResponse.json(),
+  );
+  assert(expectedDownload);
+  const downloaded = page.waitForEvent("download");
+  await page.locator("#download-artifact").click();
+  const file = await downloaded;
+  assert.equal(file.suggestedFilename(), expectedDownload.filename);
+  assert.equal(
+    await readFile((await file.path())!, "utf8"),
+    expectedDownload.content,
+  );
   await page
     .locator("#mission-artifact")
     .screenshot({ path: resolve(out, "real-artifact.png") });
@@ -97,6 +115,41 @@ try {
   await page
     .locator("#mission-artifact")
     .screenshot({ path: resolve(out, "real-output.png") });
+  // A stale failed fetch must not hide the newer selected artifact.
+  let releaseOld!: () => Promise<void>;
+  let announceOld!: () => void;
+  const oldRequested = new Promise<void>((resolve) => {
+    announceOld = resolve;
+  });
+  let requests = 0;
+  await page.route("**/control/artifact/*", async (route) => {
+    if (++requests === 1) {
+      releaseOld = () =>
+        route.fulfill({ status: 503, body: "controlled stale request" });
+      announceOld();
+    } else await route.continue();
+  });
+  const selectedHistory = page
+    .locator("#mission-jobs button:not([data-continue])")
+    .first();
+  await selectedHistory.click();
+  await oldRequested;
+  assert.equal(await page.locator("#download-artifact").isVisible(), false);
+  await selectedHistory.click();
+  await page.locator("#download-artifact").waitFor({ state: "visible" });
+  const newerOutput = await page.locator("#mission-artifact").textContent();
+  const oldResponse = page.waitForResponse(
+    (r) => r.url().includes("/control/artifact/") && r.status() === 503,
+  );
+  await releaseOld();
+  await oldResponse;
+  await page.waitForTimeout(100);
+  assert.equal(
+    await page.locator("#mission-artifact").textContent(),
+    newerOutput,
+  );
+  assert.equal(await page.locator("#download-artifact").isVisible(), true);
+  await page.unroute("**/control/artifact/*");
   const consent = page.getByRole("checkbox", { name: /Execute checked Kujo/ });
   assert.equal(await consent.isChecked(), false);
   // UI submission transport is intercepted: this section executes no task/model/container.
@@ -109,13 +162,11 @@ try {
   await page
     .getByLabel("Task", { exact: true })
     .fill("UI consent test; intercepted, no execution");
-  await page
-    .locator('[name="projectFiles"]')
-    .setInputFiles({
-      name: "brief.md",
-      mimeType: "text/plain",
-      buffer: Buffer.from("Selected task context only"),
-    });
+  await page.locator('[name="projectFiles"]').setInputFiles({
+    name: "brief.md",
+    mimeType: "text/plain",
+    buffer: Buffer.from("Selected task context only"),
+  });
   await consent.focus();
   await page.keyboard.press("Space");
   assert(await consent.isChecked());
@@ -164,6 +215,8 @@ try {
         mission: proof.attempts[0].mission,
         browserVersion: browser.version(),
         realOutputVisible: true,
+        savedArtifactMatchesPrivateSource: true,
+        staleArtifactRequestCannotOverwriteSelection: true,
         cleanupVisible: true,
         keyboardConsent: true,
         explicitOutputCheckPostedAndReset: true,

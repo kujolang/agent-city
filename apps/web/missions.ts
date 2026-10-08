@@ -1,3 +1,4 @@
+import { artifactDownload, functionalSummary } from "./mission-artifact";
 import { mountAgentCatalog } from "./agent-catalog";
 export function mountMissions(
   host: HTMLElement,
@@ -40,7 +41,7 @@ export function mountMissions(
     <details><summary>Optional JavaScript function checks</summary><label>Function contract JSON <textarea name="functionContract" rows="4" placeholder='{"exportName":"sum","cases":[{"name":"empty","args":[[]],"equals":0}]}'></textarea></label><p class="muted">Explicitly runs the generated module in a disposable browser worker. JSON arguments/results only; no filesystem or network integrations. Requires installed Chromium. Each case gets 1.5 seconds.</p></details>
     <button type="submit" disabled>Start mission</button></form>
     <p class="muted">Sends your task to the configured model. The SDK hands the draft to a reviewer. JavaScript runs only with explicit function cases in an isolated browser. Kujo runs only with the separate Workcell opt-in and operator setup.</p>
-    <div id="mission-jobs" aria-label="Mission history"></div><pre id="mission-exchanges" tabindex="0" aria-label="Observed agent responses"></pre><pre id="provider-diagnostics" tabindex="0" aria-label="Provider response diagnostics" hidden></pre><pre id="mission-artifact" tabindex="0" aria-label="Selected mission output"></pre>`;
+    <div id="mission-jobs" aria-label="Mission history"></div><pre id="mission-exchanges" tabindex="0" aria-label="Observed agent responses"></pre><pre id="provider-diagnostics" tabindex="0" aria-label="Provider response diagnostics" hidden></pre><button type="button" id="download-artifact" hidden>Save artifact</button><pre id="mission-artifact" tabindex="0" aria-label="Selected mission output"></pre>`;
   panel.querySelector("#codex-setup-command")!.textContent =
     `CITY_APP_URL=${window.location.origin} ../start.command provider:codex`;
   host.querySelector(".world")!.after(panel);
@@ -159,6 +160,9 @@ export function mountMissions(
   const submit = form.querySelector<HTMLButtonElement>("button[type=submit]")!;
   const status = panel.querySelector<HTMLElement>("#mission-status")!;
   const output = panel.querySelector<HTMLElement>("#mission-artifact")!;
+  const download =
+    panel.querySelector<HTMLButtonElement>("#download-artifact")!;
+  let artifactSelection = 0;
   const history = panel.querySelector<HTMLElement>("#mission-jobs")!;
   let token = "",
     pending = false,
@@ -245,6 +249,10 @@ export function mountMissions(
             button.textContent += " · queue released by operator";
 
           button.onclick = async () => {
+            const selection = ++artifactSelection;
+            download.hidden = true;
+            download.onclick = null;
+            output.textContent = "Reading selected mission…";
             if (!replay) {
               selectedMission = job.id;
               conversationKey = "";
@@ -298,6 +306,7 @@ export function mountMissions(
               );
               if (!response.ok) throw Error();
               const exchanges = await response.json();
+              if (selection !== artifactSelection) return;
               panel.querySelector("#mission-exchanges")!.textContent =
                 requestText +
                 "\n\n" +
@@ -312,6 +321,7 @@ export function mountMissions(
                   )
                   .join("\n\n");
             } catch {
+              if (selection !== artifactSelection) return;
               panel.querySelector("#mission-exchanges")!.textContent =
                 "Response history unavailable; no dialogue inferred.";
             }
@@ -325,6 +335,7 @@ export function mountMissions(
             } catch {
               /* The overall mission state remains independently authoritative. */
             }
+            if (selection !== artifactSelection) return;
             if (job.status !== "completed") {
               output.textContent =
                 `Mission ${job.status}; no completed mission artifact claimed.` +
@@ -340,6 +351,24 @@ export function mountMissions(
               );
               if (!response.ok) throw Error();
               const artifact = await response.json();
+              if (selection !== artifactSelection) return;
+              const saved = artifactDownload(job.id, artifact);
+              if (saved) {
+                download.textContent = `Save ${saved.label}`;
+                download.hidden = false;
+                download.onclick = () => {
+                  const url = URL.createObjectURL(
+                    new Blob([saved.content], { type: saved.mime }),
+                  );
+                  const link = document.createElement("a");
+                  link.href = url;
+                  link.download = saved.filename;
+                  document.body.append(link);
+                  link.click();
+                  link.remove();
+                  setTimeout(() => URL.revokeObjectURL(url), 1000);
+                };
+              }
               output.textContent =
                 (artifact.kind === "code"
                   ? `SYNTAX: ${artifact.validation?.syntax?.toUpperCase() || "UNKNOWN"} · FUNCTIONAL TESTS: ${(artifact.validation?.functionalTests || "not-run").toUpperCase()} · ${artifact.codeExecuted === null ? "EXECUTION COVERAGE UNKNOWN" : artifact.codeExecuted ? "EXECUTED IN ISOLATED BROWSER" : "CODE NOT EXECUTED"}\n${artifact.validation?.fenceRemoved ? "Outer Markdown fence removed; original response retained above.\n" : ""}\n`
@@ -358,13 +387,11 @@ export function mountMissions(
                   ? "\n\nWORKCELL EVIDENCE\n" +
                     JSON.stringify(artifact.workcell, null, 2)
                   : "") +
-                (artifact.functional
-                  ? "\n\nFUNCTION CHECKS\n" +
-                    artifact.functional.cases
-                      .map((c: any) => `${c.name}: ${c.status} / ${c.reason}`)
-                      .join("\n")
-                  : "");
+                functionalSummary(artifact.functional);
             } catch {
+              if (selection !== artifactSelection) return;
+              download.hidden = true;
+              download.onclick = null;
               output.textContent = "Artifact unavailable; no result inferred.";
             }
           };
