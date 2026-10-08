@@ -1,0 +1,23 @@
+{
+  "workcell": {
+    "run_id": "wc-440e9d63377140668e8743b680dfc7a4",
+    "final_status": "workload-failed",
+    "exit_code": 1,
+    "cleanup_status": "complete",
+    "errors": [
+      {
+        "message": "container exited with code 1",
+        "stage": "running"
+      },
+      {
+        "message": "verification checks skipped because the workload failed",
+        "stage": "verifying"
+      },
+      {
+        "message": "declared artifact does not exist: output/draft.mp4",
+        "stage": "exporting"
+      }
+    ]
+  },
+  "cause": "Generated clip timeline keys lacked matching data-composition-id. HyperFrames correctly refused render. Editor contract clarified; technical guard unchanged."
+}

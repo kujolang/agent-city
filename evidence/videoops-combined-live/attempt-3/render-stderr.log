@@ -1,0 +1,195 @@
+file:///opt/agent-city-videoops/render.mjs:31
+    throw Error(name + " failed: " + [error.message, error.stdout, error.stderr].filter(Boolean).map(String).join("\n").slice(-8192));
+          ^
+
+Error: check failed: Command failed: /usr/local/bin/node /opt/agent-city-videoops/node_modules/hyperframes/bin/hyperframes.mjs check /workspace/production/hyperframes --json
+
+  Hyperframes collects anonymous usage data to improve the tool.
+  File paths and composition content are never collected.
+  If you sign in to HeyGen, your account (email, or username) is linked to your usage.
+
+  Disable anytime: hyperframes telemetry disable
+
+[SystemMemory] cgroup memory limit detected: 4096 MiB — it governs memory-adaptive render behaviour instead of host RAM.
+[StaticGuard] Invalid HyperFrame contract: Timeline registered as "clip-environment" but no element has data-composition-id="clip-environment". The runtime cannot auto-nest this timeline.; Timeline registered as "clip-primary-title" but no element has data-composition-id="clip-primary-title". The runtime cannot auto-nest this timeline.; Timeline registered as "clip-secondary-copy" but no element has data-composition-id="clip-secondary-copy". The runtime cannot auto-nest this timeline.
+
+{
+  "ok": false,
+  "strict": false,
+  "browserSkipped": true,
+  "lint": {
+    "ok": false,
+    "errorCount": 3,
+    "warningCount": 3,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "timeline_id_mismatch",
+        "severity": "error",
+        "message": "Timeline registered as \"clip-environment\" but no element has data-composition-id=\"clip-environment\". The runtime cannot auto-nest this timeline.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "/workspace/production/hyperframes/index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Change window.__timelines[\"clip-environment\"] to match the data-composition-id attribute, or vice versa."
+      },
+      {
+        "code": "timeline_id_mismatch",
+        "severity": "error",
+        "message": "Timeline registered as \"clip-primary-title\" but no element has data-composition-id=\"clip-primary-title\". The runtime cannot auto-nest this timeline.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "/workspace/production/hyperframes/index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Change window.__timelines[\"clip-primary-title\"] to match the data-composition-id attribute, or vice versa."
+      },
+      {
+        "code": "timeline_id_mismatch",
+        "severity": "error",
+        "message": "Timeline registered as \"clip-secondary-copy\" but no element has data-composition-id=\"clip-secondary-copy\". The runtime cannot auto-nest this timeline.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "/workspace/production/hyperframes/index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Change window.__timelines[\"clip-secondary-copy\"] to match the data-composition-id attribute, or vice versa."
+      },
+      {
+        "code": "nested_structure_needs_subcomposition",
+        "severity": "warning",
+        "message": "<section id=\"clip-environment\"> is a timeline element that contains nested <div>. The timeline shows one row per top-level element, and the root composition is built only from sub-compositions.",
+        "selector": "#clip-environment",
+        "dataAttributes": {},
+        "sourceFile": "/workspace/production/hyperframes/index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move <section id=\"clip-environment\"> and its contents into a sub-composition file and mount it with data-composition-src."
+      },
+      {
+        "code": "nested_structure_needs_subcomposition",
+        "severity": "warning",
+        "message": "<section id=\"clip-primary-title\"> is a timeline element that contains nested <h1>. The timeline shows one row per top-level element, and the root composition is built only from sub-compositions.",
+        "selector": "#clip-primary-title",
+        "dataAttributes": {},
+        "sourceFile": "/workspace/production/hyperframes/index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move <section id=\"clip-primary-title\"> and its contents into a sub-composition file and mount it with data-composition-src."
+      },
+      {
+        "code": "nested_structure_needs_subcomposition",
+        "severity": "warning",
+        "message": "<section id=\"clip-secondary-copy\"> is a timeline element that contains nested <p>. The timeline shows one row per top-level element, and the root composition is built only from sub-compositions.",
+        "selector": "#clip-secondary-copy",
+        "dataAttributes": {},
+        "sourceFile": "/workspace/production/hyperframes/index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move <section id=\"clip-secondary-copy\"> and its contents into a sub-composition file and mount it with data-composition-src."
+      }
+    ],
+    "filesScanned": 1
+  },
+  "runtime": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": []
+  },
+  "layout": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "duration": 0,
+    "samples": [],
+    "transitionSamples": [],
+    "transitionSamplesDropped": 0,
+    "tolerance": 2,
+    "totalIssueCount": 0,
+    "truncated": false
+  },
+  "motion": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": false,
+    "samples": 0
+  },
+  "contrast": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": true,
+    "samples": [],
+    "checked": 0,
+    "passed": 0
+  },
+  "hdr": {
+    "autoPromotion": null,
+    "inspection": "available"
+  },
+  "snapshots": {
+    "enabled": false,
+    "files": [],
+    "times": [],
+    "findingFiles": []
+  },
+  "_meta": {
+    "version": "0.8.141",
+    "updateAvailable": false
+  }
+}
+
+
+  Hyperframes collects anonymous usage data to improve the tool.
+  File paths and composition content are never collected.
+  If you sign in to HeyGen, your account (email, or username) is linked to your usage.
+
+  Disable anytime: hyperframes telemetry disable
+
+[SystemMemory] cgroup memory limit detected: 4096 MiB — it governs memory-adaptive render behaviour instead of host RAM.
+[StaticGuard] Invalid HyperFrame contract: Timeline registered as "clip-environment" but no element has data-composition-id="clip-environment". The runtime cannot auto-nest this timeline.; Timeline registered as "clip-primary-title" but no element has data-composition-id="clip-primary-title". The runtime cannot auto-nest this timeline.; Timeline registered as "clip-secondary-copy" but no element has data-composition-id="clip-secondary-copy". The runtime cannot auto-nest this timeline.
+
+    at run (file:///opt/agent-city-videoops/render.mjs:31:11)
+    at file:///opt/agent-city-videoops/render.mjs:37:17
+
+Node.js v24.21.0
