@@ -1,0 +1,6 @@
+{
+  "name": "agent-city-videoops-runtime",
+  "private": true,
+  "version": "1.0.0",
+  "dependencies": { "hyperframes": "0.8.141", "gsap": "3.13.0" }
+}

@@ -24,6 +24,12 @@ export function validateProjectExports(
 }
 
 export function validWorkcellArtifactName(name: string) {
+  if (
+    ["output/draft.mp4", "output/metadata.json", "output/check.json"].includes(
+      name,
+    )
+  )
+    return true;
   if (/^[a-zA-Z0-9_-]+\.[a-zA-Z0-9]+$/.test(name)) return true;
   if (!name.startsWith("project/")) return false;
   try {

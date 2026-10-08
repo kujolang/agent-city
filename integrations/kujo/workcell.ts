@@ -1,3 +1,4 @@
+import { stageVideoopsRender } from "../../apps/runner/videoops-render-input";
 import { validateProjectExports } from "../../apps/runner/project-exports";
 import { stageWorkcellProject } from "../../apps/runner/workcell-project";
 import { verifyWorkcellEvidence } from "../../apps/runner/workcell-evidence";
@@ -57,6 +58,7 @@ async function emit(
 async function command(cmd: string, args: string[], cwd: string) {
   return boundedCommand(cmd, args, {
     cwd,
+    timeoutMs: process.env.CITY_WORKCELL_VIDEOOPS_FILE ? 330_000 : 90_000,
     env: {
       ...process.env,
       TMPDIR: scratch,
@@ -187,6 +189,63 @@ if (process.env.CITY_WORKCELL_KUJO_FILE) {
   definition.artifacts.export = ["city-result.txt", "runtime-version.txt"];
 }
 
+const videoops = process.env.CITY_WORKCELL_VIDEOOPS_FILE;
+const evidenceLimits: Record<string, number> = {};
+if (videoops) {
+  if (
+    process.env.CITY_WORKCELL_KUJO_FILE ||
+    process.env.CITY_WORKCELL_PROJECT_FILE ||
+    process.env.CITY_PROJECT_EXPORTS_FILE
+  )
+    throw Error("VideoOps requires its own isolated invocation");
+  if (!/^sha256:[a-f0-9]{64}$/.test(process.env.CITY_WORKCELL_IMAGE || ""))
+    throw Error(
+      "VideoOps requires an explicitly selected immutable local render image",
+    );
+  const info = await stat(videoops);
+  if (!info.isFile() || info.size > 600000)
+    throw Error("VideoOps input exceeds limit");
+  await stageVideoopsRender(
+    source,
+    JSON.parse(await readFile(videoops, "utf8")),
+  );
+  for (const args of [
+    ["add", "--", "production", "render-request.json"],
+    [
+      "-c",
+      "user.name=Agent City",
+      "-c",
+      "user.email=proof@localhost",
+      "commit",
+      "-m",
+      "Record explicit isolated video input",
+    ],
+  ]) {
+    const result = await command("git", args, source);
+    if (result.code !== 0) throw Error("Could not freeze video input");
+  }
+  definition.command = ["node", "/opt/agent-city-videoops/render.mjs"];
+  definition.artifacts.export = [
+    "output/draft.mp4",
+    "output/metadata.json",
+    "output/check.json",
+  ];
+  Object.assign(evidenceLimits, {
+    "output/draft.mp4": 33554432,
+    "output/metadata.json": 1048576,
+    "output/check.json": 2097152,
+  });
+  definition.artifacts.limits = Object.fromEntries(
+    Object.entries(evidenceLimits).map(([path, max_bytes]) => [
+      path,
+      { max_bytes, max_files: 1, max_depth: 1 },
+    ]),
+  );
+  definition.artifacts.max_files = 3;
+  definition.artifacts.max_bytes = 36700160;
+  definition.resources.memory = "4g";
+  definition.resources.pids = 512;
+}
 const projectExports = validateProjectExports(
   process.env.CITY_PROJECT_EXPORTS_FILE
     ? JSON.parse(await readFile(process.env.CITY_PROJECT_EXPORTS_FILE, "utf8"))
@@ -206,7 +265,7 @@ if (projectExports.length) {
   definition.artifacts.max_files = projectExports.length + 2;
   definition.artifacts.max_bytes = 4_000_000 + 200 + 32768;
 }
-definition.resources.timeout_ms = 30000;
+definition.resources.timeout_ms = videoops ? 300000 : 30000;
 const file = resolve(runtime, "workcell-definition.json");
 await writeFile(file, JSON.stringify(definition));
 await emit("execution.run", "invocation", "started", "unset");
@@ -250,6 +309,7 @@ if (result.code === 0) {
       source,
       summary,
       definition.artifacts.export,
+      evidenceLimits,
     );
   } catch (error) {
     evidenceError =

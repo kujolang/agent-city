@@ -8,7 +8,16 @@ export async function verifyWorkcellEvidence(
   source: string,
   summary: unknown,
   expectedArtifacts: readonly string[],
+  limits: Record<string, number> = {},
 ) {
+  for (const [name, limit] of Object.entries(limits))
+    if (
+      !expectedArtifacts.includes(name) ||
+      !Number.isSafeInteger(limit) ||
+      limit < 1 ||
+      limit > 33554432
+    )
+      throw Error("Invalid explicit Workcell artifact limit");
   const data = summary as Record<string, unknown> | null;
   if (
     data?.schema_version !== "workcell-run-summary/v1" ||
@@ -62,7 +71,7 @@ export async function verifyWorkcellEvidence(
       throw Error("Expected Workcell artifact was not exported");
     const bytes = await localFile(
       "artifacts/" + name,
-      name.startsWith("project/") ? 16384 : 4_000_000,
+      limits[name] ?? (name.startsWith("project/") ? 16384 : 4_000_000),
     );
     artifacts.push({
       name,

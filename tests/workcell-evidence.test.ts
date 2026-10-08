@@ -53,6 +53,32 @@ test("Workcell success requires matching completion evidence and real exports", 
           "f0b5c2c2211c8d67ed15e75e656c7862d086e9245420892a7de62cd9ec582a06",
       },
     ]);
+    await mkdir(resolve(dir, "artifacts/output"));
+    await writeFile(
+      resolve(dir, "artifacts/output/draft.mp4"),
+      Buffer.alloc(4_000_001),
+    );
+    await save({ ...receipt, exported_artifacts: ["output/draft.mp4"] });
+    await expect(
+      verifyWorkcellEvidence(source, summary, ["output/draft.mp4"]),
+    ).rejects.toThrow();
+    expect(
+      (
+        await verifyWorkcellEvidence(source, summary, ["output/draft.mp4"], {
+          "output/draft.mp4": 33554432,
+        })
+      ).artifacts[0].bytes,
+    ).toBe(4_000_001);
+    await expect(
+      verifyWorkcellEvidence(source, summary, ["output/draft.mp4"], {
+        "output/draft.mp4": 33554433,
+      }),
+    ).rejects.toThrow("limit");
+    await expect(
+      verifyWorkcellEvidence(source, summary, ["output/draft.mp4"], {
+        "other.mp4": 100,
+      }),
+    ).rejects.toThrow("limit");
     await mkdir(resolve(dir, "artifacts/project/src"), { recursive: true });
     await writeFile(
       resolve(dir, "artifacts/project/src/main.kujo"),
