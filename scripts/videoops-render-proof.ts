@@ -3,6 +3,7 @@ import { mkdir, readFile, writeFile, copyFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import assert from "node:assert/strict";
 import { saveVideoopsAttempt } from "../apps/runner/videoops-artifacts";
+import { submitVideoopsReview } from "../apps/runner/videoops-review";
 import { renderVideoopsAttempt } from "../apps/runner/videoops-render";
 const root = resolve(import.meta.dirname, "..");
 const image = process.env.CITY_VIDEOOPS_IMAGE;
@@ -48,7 +49,7 @@ const out = resolve(
 );
 await mkdir(out, { recursive: true });
 try {
-  await renderVideoopsAttempt({
+  const candidate = await renderVideoopsAttempt({
     root,
     runtime: rendering,
     image: image!,
@@ -62,6 +63,17 @@ try {
     fps: request.fps,
     durationSeconds: request.durationSeconds,
   });
+  const review = await submitVideoopsReview({
+    agentsRepository: resolve(root, "../kujo-agents"),
+    workspace: resolve(runtime, "review-1"),
+    candidate,
+    mandatoryCapabilities: ["visual_playback"],
+  });
+  assert.equal(review.status.state, "REVIEW_INCOMPLETE");
+  assert.equal(review.status.technical, "PASS");
+  assert.equal(review.status.perceptual, "NOT_REVIEWED");
+  assert.equal(review.status.counters.render_attempts, 1);
+  await writeFile(resolve(out, "review.json"), JSON.stringify(review, null, 2));
 } catch (error) {
   for (const name of ["private-process.json", "failed.json", "lineage.json"])
     await copyFile(resolve(rendering, name), resolve(out, name)).catch(

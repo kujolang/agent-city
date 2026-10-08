@@ -130,3 +130,12 @@ become an approved candidate or automatic retry. The real render qualification
 harness now exercises this path. Full verification passes136tests; its new CI run
 must still qualify the connection. Model-driven Editor orchestration, independent
 review, UI/live proof and new-release qualification remain open.
+
+Saved Editor connection independently qualifies in CI37790787619 at0634b8c;
+exported candidate checksum verified after download. Canonical review handoff now
+copies only rechecked candidate bytes/evidence into an exclusive private workspace,
+records the successful Workcell attempt and technical-only decision, and requires
+REVIEW_INCOMPLETE pending perceptual review. No automatic approval or promotion.
+137tests/types/boundaries/maps/build pass. Expanded native review CI remains pending;
+model Editor orchestration, independent perceptual review, UI/live proof and the
+new release remain required.
