@@ -20,3 +20,11 @@ only the connector alias, not actual model identity, quota or generation success
 Reproduce metadata proof: `npx tsx scripts/codex-onboarding-proof.ts`.
 Read-only user check: `npm run provider:codex -- --check`.
 Authentication behavior: https://learn.chatgpt.com/docs/auth
+
+Follow-through: fresh-task/proof.json now records one actual browser-submitted
+Codex author/reviewer task from initially empty City configuration, plus successful
+UI model listing. It reuses an existing authorized account and does not claim new
+account signup. The normal connector also now derives its default app URL from
+localPorts, matching the launcher at5178 and honoring CITY_PORT_OFFSET. The actual
+metadata proof was rerun using an offset with CITY_APP_URL unset; no credential
+was printed or included in its receipt.

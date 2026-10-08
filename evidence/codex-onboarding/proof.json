@@ -11,5 +11,6 @@
   "unauthenticatedRejected": true,
   "browserOriginRejected": true,
   "configurationWrites": 1,
+  "appTarget": "derived from the same CITY_PORT_OFFSET as the normal launcher",
   "modelCalls": 0
 }

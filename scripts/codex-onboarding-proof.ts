@@ -37,7 +37,8 @@ const child = spawn(
   {
     env: {
       ...process.env,
-      CITY_APP_URL: "http://127.0.0.1:18896",
+      CITY_APP_URL: "",
+      CITY_PORT_OFFSET: "13718",
       CITY_CODEX_PORT: "18897",
     },
     stdio: "ignore",
@@ -80,6 +81,8 @@ try {
         unauthenticatedRejected: true,
         browserOriginRejected: true,
         configurationWrites: writes,
+        appTarget:
+          "derived from the same CITY_PORT_OFFSET as the normal launcher",
         modelCalls: 0,
       },
       null,

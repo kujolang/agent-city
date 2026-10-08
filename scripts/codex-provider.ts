@@ -8,6 +8,7 @@ import { randomBytes } from "node:crypto";
 import { mkdtemp, readFile, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
+import { localPorts } from "./local-ports";
 import { codexReadiness } from "../apps/runner/codex-readiness";
 const readiness = await codexReadiness();
 console.log(JSON.stringify(readiness));
@@ -15,7 +16,8 @@ if (process.argv.includes("--check"))
   process.exit(readiness.usable && readiness.auth === "CHATGPT" ? 0 : 1);
 if (!readiness.usable) process.exit(1);
 const port = Number(process.env.CITY_CODEX_PORT || 6179);
-const origin = process.env.CITY_APP_URL || "http://127.0.0.1:6178";
+const origin =
+  process.env.CITY_APP_URL || `http://127.0.0.1:${localPorts().web}`;
 const appUrl = new URL(origin);
 if (
   !Number.isInteger(port) ||
