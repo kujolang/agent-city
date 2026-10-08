@@ -22,3 +22,11 @@ runtime release and does not close distribution qualification. A separate bounde
 candidate workflow builds the immutable patched source and records its actual
 runtime version/hash. Candidate receipts cannot pass the public release gate.
 The candidate result and subsequent released-runtime qualification are pending.
+
+Agent City also applies a scoped compatibility policy: short Watchdog canonical
+intake/export requests explicitly close their HTTP connection after each response.
+This avoids retaining legacy connection workers, without changing event content,
+source execution, throughput targets or the browser's gateway SSE stream. The
+stress feeder uses the same request policy as the real bridge. This is being
+qualified against the existing1.7.0 pin; it does not require publishing the runtime
+source fix. The separate patched-runtime candidate remains independent.

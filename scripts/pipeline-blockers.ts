@@ -40,7 +40,15 @@ const launch = (cmd: string, args: string[], cwd: string, env: any) => {
 async function ready(url: string) {
   for (let i = 0; i < 150; i++) {
     try {
-      if ((await fetch(url, { signal: AbortSignal.timeout(1000) })).ok) return;
+      if (
+        (
+          await fetch(url, {
+            signal: AbortSignal.timeout(1000),
+            headers: { connection: "close" },
+          })
+        ).ok
+      )
+        return;
     } catch {}
     await new Promise((r) => setTimeout(r, 100));
   }
@@ -368,6 +376,7 @@ try {
               AbortSignal.timeout(30000),
             ]),
             headers: {
+              connection: "close",
               authorization: "Bearer " + testToken,
               "content-type": "application/json",
             },

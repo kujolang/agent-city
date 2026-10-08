@@ -117,7 +117,9 @@ export async function bridgeOnce() {
           "/telemetry/v2/batches",
         {
           method: "POST",
+          // Avoid the pinned runtime's idle-worker reservation race.
           headers: {
+            connection: "close",
             "content-type": "application/json",
             authorization:
               "Bearer " +

@@ -130,7 +130,8 @@ async function poll() {
         "/telemetry/v2/jsonl?limit=200&cursor=" +
         sourceCursor.replace(/[^a-zA-Z0-9:]/g, (c) => encodeURIComponent(c)),
       {
-        headers: { authorization: "Bearer " + token },
+        // Short cursor reads must not reserve a legacy runtime connection worker.
+        headers: { authorization: "Bearer " + token, connection: "close" },
         signal: AbortSignal.timeout(3000),
       },
     );
