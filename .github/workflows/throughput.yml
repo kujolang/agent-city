@@ -1,0 +1,56 @@
+name: Bounded release throughput qualification
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  canonical-browser:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-24.04, ubuntu-24.04-arm]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install pinned local application
+        env:
+          CITY_INSTALL_REF: ${{ github.sha }}
+        run: sh install.sh --prefix "$RUNNER_TEMP/city" --no-start
+      - name: Install qualification browser
+        run: |
+          cd "$RUNNER_TEMP/city/agent-city"
+          if [ -x ../.node/bin/node ]; then export PATH="$RUNNER_TEMP/city/.node/bin:$PATH"; fi
+          npx playwright install --with-deps chromium
+      - name: Bounded canonical ingestion with a real browser
+        env:
+          PIPELINE_SECONDS: "60"
+          PIPELINE_RATE: "1100"
+          PIPELINE_CONCURRENCY: "4"
+          PIPELINE_SOAK: "1"
+          CITY_PIPELINE_OUTPUT: ${{ runner.temp }}/pipeline.json
+        run: |
+          cd "$RUNNER_TEMP/city/agent-city"
+          if [ -x ../.node/bin/node ]; then export PATH="$RUNNER_TEMP/city/.node/bin:$PATH"; fi
+          npm run proof:pipeline
+      - name: Require the unchanged release threshold
+        env:
+          CITY_PIPELINE_OUTPUT: ${{ runner.temp }}/pipeline.json
+        run: |
+          cd "$RUNNER_TEMP/city/agent-city"
+          if [ -x ../.node/bin/node ]; then export PATH="$RUNNER_TEMP/city/.node/bin:$PATH"; fi
+          node --import tsx --input-type=module <<'JS'
+          import {readFile} from 'node:fs/promises';
+          import {assessRelease} from './scripts/release-assessment.ts';
+          const pipeline=JSON.parse(await readFile(process.env.CITY_PIPELINE_OUTPUT,'utf8'));
+          const gate=assessRelease({pipeline}).gates.endToEndStress;
+          console.log(JSON.stringify({gate,browserCaughtUp:pipeline.browserCaughtUp,scope:'Bounded synthetic throughput only; no model, no eight-hour soak'}));
+          if(gate.status!=='PASS'||pipeline.status!=='COMPLETED'||pipeline.browserCaughtUp!==true||pipeline.deliveryReconciled!==true)process.exitCode=1;
+          JS
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: throughput-${{ matrix.os }}
+          path: |
+            ${{ runner.temp }}/pipeline.json
+            ${{ runner.temp }}/city/install-receipt.json

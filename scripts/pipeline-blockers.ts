@@ -50,6 +50,15 @@ if (!["interpreter", "vm"].includes(runtimeMode))
 const evidencePath =
   process.env.CITY_PIPELINE_OUTPUT ||
   (isSoak ? ".runtime/soak-latest.json" : "evidence/blockers/pipeline.json");
+const installation = await readFile(
+  resolve(root, "../install-receipt.json"),
+  "utf8",
+)
+  .then((text) => JSON.parse(text))
+  .catch((error) => {
+    if (error.code === "ENOENT") return null;
+    throw error;
+  });
 const result: any = {
   runtimeMode,
   runtimeVersion: spawnSync(kujo, ["--version"], {
@@ -62,14 +71,20 @@ const result: any = {
   processResourceScope:
     "Direct process columns plus an observed descendant process tree; no command arguments captured",
   startedAt: new Date().toISOString(),
-  cityCommit: spawnSync("git", ["rev-parse", "HEAD"], {
-    cwd: root,
-    encoding: "utf8",
-  }).stdout.trim(),
-  watchdogCommit: spawnSync("git", ["rev-parse", "HEAD"], {
-    cwd: resolve(root, "../watchdog"),
-    encoding: "utf8",
-  }).stdout.trim(),
+  cityCommit:
+    spawnSync("git", ["rev-parse", "HEAD"], {
+      cwd: root,
+      encoding: "utf8",
+    }).stdout.trim() ||
+    installation?.cityRevision ||
+    "UNKNOWN",
+  watchdogCommit:
+    spawnSync("git", ["rev-parse", "HEAD"], {
+      cwd: resolve(root, "../watchdog"),
+      encoding: "utf8",
+    }).stdout.trim() ||
+    installation?.sources?.repositories?.watchdog ||
+    "UNKNOWN",
   pid: process.pid,
   runtime,
   status: "RUNNING",

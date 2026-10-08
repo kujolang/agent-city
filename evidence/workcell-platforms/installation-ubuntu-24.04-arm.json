@@ -1,0 +1,39 @@
+{
+  "scope": "Real installed Workcell execution of controlled arithmetic input; no model, no final tool demo",
+  "platform": "linux",
+  "arch": "arm64",
+  "startedAt": "2026-10-08T00:39:52.206Z",
+  "image": {
+    "schema": "agent-city.workcell-image.v1",
+    "image": "agent-city-kujo:1.7.0",
+    "imageId": "sha256:907aeaaccb5ebd00cb8c449748c94d973b6f48c814599afff7fd7c49acce68e1",
+    "recipeSha256": {
+      "Dockerfile": "5f8c39512ecbedb388188db888297f5eb7ee281746b5471aa8b1dc7861cbc0d5",
+      "package.json": "6e755ed0b4c0b2b34a4c40779787488d87b1769cc1da6e8c3367318027eecad0",
+      "package-lock.json": "ba4ca20192a53ee1b526a45a6114a1e1b40eaf760df58a30008b62998b12c866"
+    },
+    "builtAt": "2026-10-08T00:39:52.040Z",
+    "scope": "Local build and build-time Kujo version check; no workload or backend security qualification"
+  },
+  "runId": "wc-e77c0c1a98594db79bb60dc68d07dad8",
+  "evidence": {
+    "runId": "wc-e77c0c1a98594db79bb60dc68d07dad8",
+    "artifacts": [
+      {
+        "name": "city-result.txt",
+        "bytes": 3,
+        "sha256": "b58a3da5fde2680191877ec88a1aa7d06927cc3b30cdf0d0db8c39b488891576"
+      },
+      {
+        "name": "runtime-version.txt",
+        "bytes": 11,
+        "sha256": "de3e64cdc4bb5196cdb7ab26ea04056cb75fe6f8deaa8945c9791af34036b7d9"
+      }
+    ]
+  },
+  "result": "37",
+  "runtimeVersion": "kujo 1.7.0",
+  "containerAbsent": true,
+  "status": "PASS",
+  "finishedAt": "2026-10-08T00:39:53.318Z"
+}
