@@ -1,0 +1,103 @@
+{
+  "verifiedAt": "2026-10-08T19:04:50.941197+00:00",
+  "release": {
+    "releaseId": 407093359,
+    "url": "https://github.com/kujolang/agent-city/releases/tag/v0.2.0-rc.3",
+    "tag": "v0.2.0-rc.3",
+    "commit": "f39384e9377868a2772283f1439b7686dae31ec3",
+    "publishedAt": "2026-10-08T19:04:17Z",
+    "prerelease": true,
+    "ciRun": 37828518588,
+    "jobs": [
+      {
+        "name": "verify",
+        "conclusion": "success"
+      },
+      {
+        "name": "install (macos-15)",
+        "conclusion": "success"
+      },
+      {
+        "name": "install (macos-15-intel)",
+        "conclusion": "success"
+      },
+      {
+        "name": "install (ubuntu-24.04)",
+        "conclusion": "success"
+      },
+      {
+        "name": "install (ubuntu-24.04-arm)",
+        "conclusion": "success"
+      }
+    ],
+    "assets": [
+      {
+        "name": "agent-city-0.2.0-rc.3-source.tar.gz",
+        "sha256": "2c90e5c3a9a4aab7325fc0e096a644f9838ea85216d98460f52c07ce51713010",
+        "bytes": 76507670,
+        "url": "https://github.com/kujolang/agent-city/releases/download/v0.2.0-rc.3/agent-city-0.2.0-rc.3-source.tar.gz"
+      },
+      {
+        "name": "install.sh",
+        "sha256": "4276ce7a8c06fbfe93df22a0846c80bf61a3df678ede3f53de6dbb54165020e8",
+        "bytes": 836,
+        "url": "https://github.com/kujolang/agent-city/releases/download/v0.2.0-rc.3/install.sh"
+      },
+      {
+        "name": "release-manifest.json",
+        "sha256": "a87b44e5be6f163a3027177cafb8e664bd310ce46f77c2b2522d5ed15c7cf552",
+        "bytes": 1571,
+        "url": "https://github.com/kujolang/agent-city/releases/download/v0.2.0-rc.3/release-manifest.json"
+      },
+      {
+        "name": "SHA256SUMS",
+        "sha256": "3461636979af86d1abbe42844fc3402fdc8ec424cf70cc1de82f8988fc64b350",
+        "bytes": 267,
+        "url": "https://github.com/kujolang/agent-city/releases/download/v0.2.0-rc.3/SHA256SUMS"
+      }
+    ]
+  },
+  "publicAssets": [
+    {
+      "name": "agent-city-0.2.0-rc.3-source.tar.gz",
+      "sha256": "2c90e5c3a9a4aab7325fc0e096a644f9838ea85216d98460f52c07ce51713010",
+      "bytes": 76507670,
+      "anonymousDownload": true
+    },
+    {
+      "name": "install.sh",
+      "sha256": "4276ce7a8c06fbfe93df22a0846c80bf61a3df678ede3f53de6dbb54165020e8",
+      "bytes": 836,
+      "anonymousDownload": true
+    },
+    {
+      "name": "release-manifest.json",
+      "sha256": "a87b44e5be6f163a3027177cafb8e664bd310ce46f77c2b2522d5ed15c7cf552",
+      "bytes": 1571,
+      "anonymousDownload": true
+    },
+    {
+      "name": "SHA256SUMS",
+      "sha256": "3461636979af86d1abbe42844fc3402fdc8ec424cf70cc1de82f8988fc64b350",
+      "bytes": 267,
+      "anonymousDownload": true
+    }
+  ],
+  "checksumsMatch": true,
+  "manifestCommit": "f39384e9377868a2772283f1439b7686dae31ec3",
+  "annotatedTagCommit": "f39384e9377868a2772283f1439b7686dae31ec3",
+  "installerShellSyntax": true,
+  "authenticationUsedForDownloads": false,
+  "localInstall": {
+    "pass": false,
+    "status": "BLOCKED_LOCAL_STORAGE",
+    "commit": "f39384e9377868a2772283f1439b7686dae31ec3",
+    "exitCode": 1,
+    "error": "ENOSPC while downloading agents-sdk into owned staging directory",
+    "userRuntimeTouched": false,
+    "installedLaunchTest": "NOT_RUN",
+    "fallbackEvidence": "Exact-source four-platform GitHub Actions installation; not a claim this local attempt passed"
+  },
+  "localFailureCase": "2026-10-08-150221-rc3localinstallspace",
+  "eightHourSoak": "NOT_RUN_USER_EXCLUDED"
+}

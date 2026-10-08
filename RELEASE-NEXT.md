@@ -322,3 +322,15 @@ work. Native review now APPROVED; finalization completed and downloaded bytes
 match the approved candidate exactly. See evidence/videoops-media-integration/finalization.json.
 No model/provider execution was repeated. Preparing immutable rc.3 distribution;
 the public release/install receipt will supersede the earlier pending checkpoints.
+
+## 2026-10-08 — rc.3 published and verified
+
+Immutable annotated tag v0.2.0-rc.3 points to f39384e9377868a2772283f1439b7686dae31ec3.
+Release407093359 is public/prerelease. All five exact-source CI37828518588 jobs
+passed, including four platform installs and packaged workflow guides. All four
+assets anonymously downloaded with matching hashes; manifest and tag agree.
+See evidence/release-rc3/publication.json. Local extra install hit ENOSPC and was
+not counted as passing; CaseFile2026-10-08-150221-rc3localinstallspace retained.
+Release remains a local preview with documented workflow/account/isolation limits,
+not unrestricted production certification. No eight-hour soak, new provider charge,
+or source task was run during finalization/publication.

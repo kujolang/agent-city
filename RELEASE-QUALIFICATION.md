@@ -2,7 +2,7 @@
 
 **CONDITIONAL: usable public local preview, not unrestricted production certification.**
 The repository is public and GitHub Actions executes successfully. Immutable
-local-preview release v0.2.0-rc.2 is published (see the follow-through receipts below).
+local-preview [v0.2.0-rc.3](https://github.com/kujolang/agent-city/releases/tag/v0.2.0-rc.3) is published; rc.2 remains unchanged.
 No public service deployment, multi-tenant hosting or eight-hour soak is claimed.
 The long soak was explicitly cancelled; do not start or schedule it without renewed consent.
 
@@ -11,9 +11,11 @@ The long soak was explicitly cancelled; do not start or schedule it without rene
 [Real media production and finalization](evidence/videoops-media-integration/README.md)
 now pass: the user approved the exact new candidate, native review is APPROVED,
 and the final download matches SHA-256 `98e5bd3a8d6ab5c08f01daeb489507ef290015aa7f17cc4b22c53e44c51146ce`.
-Integration source `110d5ff` passed all five CI jobs in run `37824919485`
-(attempt 2 after a transient Intel download failure). The release manifest pins
-the final packaging source; public distribution checks are recorded separately.
+Release source `f39384e9377868a2772283f1439b7686dae31ec3` passed all five CI jobs
+in run `37828518588`, including four-platform installation and packaged guides.
+All four public assets were downloaded anonymously and hash-verified against the
+manifest and annotated tag. [Publication receipt](evidence/release-rc3/publication.json).
+An extra local install failed with ENOSPC before setup; it is not counted as passing.
 Docker engines without seccomp/AppArmor are rejected before model work.
 Fresh ElevenLabs music/SFX generation remains account-dependent and was not live
 exercised; this proof reused approved narration and local music. Older sections
@@ -56,7 +58,7 @@ The original recorded gap is retained; its exact canonical record passes the new
 regression without changing the old journal. Unknown aggregate workflow/presence
 and missing lifecycle coverage remain UNKNOWN/partial. No inferred completion.
 
-## Verification and evidence scope
+## Earlier verification and evidence scope
 
 | Gate | Evidence / result |
 | --- | --- |
