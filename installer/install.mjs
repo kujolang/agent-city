@@ -1,3 +1,4 @@
+import { copyPrivateNode } from "./private-node.mjs";
 import { managedLauncher } from "./launcher.mjs";
 import { maintain } from "./lifecycle.mjs";
 import {
@@ -218,9 +219,10 @@ export async function install({ prefix, start }) {
     await command("npm", ["run", "build"], app);
     // Prepare a managed Node copy only when bootstrap had to supply Node.
     if (process.env.CITY_BOOTSTRAP_NODE_DIR)
-      await cp(process.env.CITY_BOOTSTRAP_NODE_DIR, join(stage, ".node"), {
-        recursive: true,
-      });
+      await copyPrivateNode(
+        process.env.CITY_BOOTSTRAP_NODE_DIR,
+        join(stage, ".node"),
+      );
     await writeFile(join(stage, "start.command"), managedLauncher, {
       mode: 0o755,
     });

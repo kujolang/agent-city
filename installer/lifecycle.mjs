@@ -1,3 +1,4 @@
+import { copyPrivateNode } from "./private-node.mjs";
 import {
   mkdir,
   readFile,
@@ -142,9 +143,7 @@ export async function maintain({ prefix, action, prepare }) {
         if (previousNode) {
           if (!previousNode.isDirectory() || previousNode.isSymbolicLink())
             throw Error("Managed Node must be a real directory");
-          await cp(join(prefix, ".node"), join(next, ".node"), {
-            recursive: true,
-          });
+          await copyPrivateNode(join(prefix, ".node"), join(next, ".node"));
         }
       }
       await assertStopped(prefix);

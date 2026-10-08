@@ -4,7 +4,7 @@ The objective is the complete checklist, not a narrower preview. A checked item 
 current evidence at the advertised scope. Existing source/model/tool truth rules apply.
 The user cancelled the eight-hour soak; do not run or schedule it without renewed consent.
 
-- [x] One-command installation: pinned compatible City/Kujo producer/runtime dependencies;
+- [ ] One-command installation: pinned compatible City/Kujo producer/runtime dependencies;
       private prerequisite setup; isolated destination; failure rollback; usable launcher;
       clean-machine proof for every advertised platform; repeat/update/uninstall paths.
       Evidence: [public bootstrap](evidence/public-bootstrap/README.md),
@@ -332,3 +332,12 @@ closed; shell arguments remain literal. UI and managed instructions use the wrap
 and Workcell setup prints its managed launch path. Local91tests/build pass;
 four-platform CI now explicitly masks system Node/npm for the launcher doctor.
 This closes the command-path gap, not fresh provider authentication or all onboarding.
+
+
+Private runtime correction: the new actual launcher check in CI37713823362
+exposed copied npm/npx links pointing at deleted bootstrap staging. Earlier
+installation/maintenance proofs did not mask system npm and therefore did not
+qualify a fully self-contained launcher. The first checklist gate is reopened.
+The installer now preserves relative symlinks and normalizes its owned npm/npx
+entrypoints on install/update. Removed-source and legacy-dangling-link regressions
+pass; full93tests/build pass. Fresh platform qualification remains pending.

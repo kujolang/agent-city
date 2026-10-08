@@ -1,0 +1,9 @@
+{
+  "run": 37713823362,
+  "cityCommit": "26642576a9f74fc3ba735c3016a680f97fea2e3f",
+  "job": 113105618473,
+  "step": "Verify managed setup without system Node or npm",
+  "exitCode": 73,
+  "meaning": "Sentinel system npm was invoked after copied private npm link became invalid",
+  "log": "https://github.com/kujolang/agent-city/actions/runs/37713823362/job/113105618473"
+}
