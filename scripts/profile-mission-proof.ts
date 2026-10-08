@@ -12,12 +12,15 @@ const catalog = await importCatalog(resolve(root, "../kujo-agents"));
 await saveCatalog(resolve(runtime, "control/agent-catalog.json"), catalog);
 const real = process.env.CITY_PROFILE_PROOF_REAL === "1";
 const realDocs = real && !!process.env.CITY_PROFILE_PROOF_MCP_URL;
+const sourceReads =
+  !real || process.env.CITY_PROFILE_PROOF_SOURCE_READS === "1";
 const model = real
   ? process.env.CITY_PROFILE_PROOF_MODEL || "qwen2.5-coder:1.5b-instruct"
   : "profile-fixture";
 const requests: any[] = [];
 const docCalls: any[] = [];
 let malformedReviewer = false;
+let deniedSource = false;
 let unsolicited: Record<string, unknown> | undefined;
 let unsolicitedFinish: string | undefined;
 let unsolicitedRole: "author" | "reviewer" = "author";
@@ -34,6 +37,15 @@ const provider = createServer((req, res) => {
       const call = JSON.parse(body);
       docCalls.push(call);
       res.setHeader("Content-Type", "application/json");
+      if (deniedSource && call.params.name === "read_text_range") {
+        res.end(
+          JSON.stringify({
+            jsonrpc: "2.0",
+            error: { code: -1, message: "Server workspace denied" },
+          }),
+        );
+        return;
+      }
       res.end(
         JSON.stringify({
           jsonrpc: "2.0",
@@ -108,6 +120,7 @@ const service = spawn(
       CITY_MISSIONS_DIR: resolve(runtime, "missions"),
       CITY_RUNTIME_DIR: runtime,
       CITY_SOURCE_PREFIX: "profile-proof-",
+      CITY_ENABLE_MCP_READS: sourceReads ? "1" : "0",
       CITY_MODEL_ENDPOINT: real
         ? "http://127.0.0.1:11434/v1/chat/completions"
         : "http://127.0.0.1:19896/v1/chat/completions",
@@ -164,9 +177,13 @@ try {
   const task = {
     kind: "writing",
     prompt:
+      process.env.CITY_PROFILE_PROOF_PROMPT ||
       "Write a brief Markdown documentation draft for this source snippet: func add(a, b) { return a + b }. State only that it returns the sum and show add(2, 3) returning 5. This supplied snippet is the complete source evidence. Do not claim to read files or run tools. The reviewer should review the draft and return corrected documentation.",
     profiles,
     useMcpDocs: !real || realDocs,
+    ...(sourceReads
+      ? { mcpReadFiles: [real ? "docs/project-guide.md" : "src/input.kujo"] }
+      : {}),
   };
   const refused = await post({
     ...task,
@@ -182,6 +199,10 @@ try {
     useMcpDocs: true,
   });
   assert.equal(refusedTool.status, 400);
+  if (sourceReads) {
+    const invalid = await post({ ...task, mcpReadFiles: ["../private"] });
+    assert.equal(invalid.status, 400);
+  }
   const response = await post(task);
   const accepted = await response.json();
   assert.equal(response.status, 202, JSON.stringify(accepted));
@@ -218,16 +239,25 @@ try {
     const observed = spool.filter((e) => e.capability === "mcp.call");
     assert.deepEqual(
       observed.map((e) => e.phase),
-      ["started", "finished"],
+      sourceReads
+        ? ["started", "finished", "started", "finished"]
+        : ["started", "finished"],
     );
     assert.equal(observed[1].outcome, "succeeded");
+    assert.equal(observed[1].metadata.resultCode, "result-returned");
     assert(observed.every((e) => e.profile === profiles.authorId));
   }
   if (!real) {
     assert.equal(requests.length, 2);
-    assert.equal(docCalls.length, 1);
-    assert.equal(docCalls[0].params.name, "read_project_docs");
-    assert.deepEqual(docCalls[0].params.arguments, { file_name: "README" });
+    assert.equal(docCalls.length, 2);
+    assert.equal(docCalls[0].params.name, "read_text_range");
+    assert.deepEqual(docCalls[0].params.arguments, {
+      file_path: "src/input.kujo",
+      start_line: 1,
+      end_line: 200,
+    });
+    assert.equal(docCalls[1].params.name, "read_project_docs");
+    assert.deepEqual(docCalls[1].params.arguments, { file_name: "README" });
     for (const request of requests)
       assert(
         request.messages.some((m: any) =>
@@ -237,13 +267,16 @@ try {
     const tools = spool.filter((e) => e.capability === "mcp.call");
     assert.deepEqual(
       tools.map((e) => e.phase),
-      ["started", "finished"],
+      sourceReads
+        ? ["started", "finished", "started", "finished"]
+        : ["started", "finished"],
     );
     assert(
       tools.every(
         (e) => e.profile === profiles.authorId && e.agent_id === "writer",
       ),
     );
+    assert.equal(tools[1].metadata.resultCode, "result-returned");
     assert(!JSON.stringify(spool).includes("PROFILE_DOCS_CANARY"));
     assert(
       requests[0].messages.some((m: any) =>
@@ -287,6 +320,11 @@ try {
       ),
     );
     assert.deepEqual(retained, snapshot);
+    assert.equal(
+      docCalls.filter((call) => call.params.name === "read_text_range").length,
+      1,
+      "Source grants must not carry into follow-ups",
+    );
     continuationPreserved = true;
   }
   let malformedRejected = false;
@@ -295,6 +333,18 @@ try {
     "utf8",
   );
   assert(artifact.trim());
+  if (real && sourceReads) {
+    assert(
+      /Lantern/i.test(artifact) &&
+        artifact.includes("7346") &&
+        /back.?up/i.test(artifact),
+      "Reviewed note must retain the source-only facts",
+    );
+    assert(
+      !JSON.stringify(spool).includes("7346"),
+      "Source content must not enter telemetry",
+    );
+  }
   const reviewRecord = JSON.parse(
     await readFile(
       resolve(runtime, "missions", job.id, "reviewed.md.review.json"),
@@ -343,6 +393,49 @@ try {
     );
     assert(!failedSpool.includes('"capability":"artifact.created"'));
     malformedRejected = true;
+  }
+  let deniedSourceFailed = false;
+  if (!real) {
+    deniedSource = true;
+    const before = requests.length;
+    const response = await post({
+      kind: "writing",
+      prompt: "Summarize the source.",
+      parentMissionId: job.id,
+      mcpReadFiles: ["src/denied.kujo"],
+    });
+    const denied = await response.json();
+    assert.equal(response.status, 202);
+    const status = await until(
+      async () => (await fetch(base + "/control/status")).json(),
+      (s) =>
+        !s.busy &&
+        s.jobs.some((j: any) => j.id === denied.id && j.status !== "running"),
+    );
+    assert.equal(
+      status.jobs.find((j: any) => j.id === denied.id).status,
+      "failed",
+    );
+    assert.equal(
+      requests.length,
+      before,
+      "Failed read must stop before model context consumption",
+    );
+    const events = (
+      await readFile(
+        resolve(runtime, `spool-profile-proof-${denied.id}.jsonl`),
+        "utf8",
+      )
+    )
+      .trim()
+      .split("\n")
+      .map((line) => JSON.parse(line));
+    assert(
+      events.some((e) => e.capability === "mcp.call" && e.outcome === "failed"),
+    );
+    assert(!events.some((e) => e.capability === "artifact.created"));
+    deniedSourceFailed = true;
+    deniedSource = false;
   }
   const unapprovedToolCases: { name: string; role: string; mission: string }[] =
     [];
@@ -464,7 +557,11 @@ try {
   const output = resolve(
     root,
     "evidence/profile-missions",
-    real ? "review-contract-real" : "review-contract-fixture",
+    real
+      ? sourceReads
+        ? "source-reads-real"
+        : "review-contract-real"
+      : "review-contract-fixture",
   );
   await mkdir(output, { recursive: true });
   const proof = {
@@ -501,6 +598,8 @@ try {
     continuationPreservedAfterCatalogRemoval: real
       ? "fixture-tested"
       : continuationPreserved,
+    approvedSourceRead: sourceReads,
+    deniedSourceFailed,
     unapprovedToolCases,
     reviewSeparated: true,
     fencedJsonEnvelopeAccepted: !real,

@@ -41,3 +41,26 @@ source-qualified invocation/attempt evidence, and an actual SDK tool execution
 path before advertising a capability. Declaring a tool in an imported profile
 alone does not activate it. Separately authorized post-review Workcell execution
 and its named project exports remain independent platform operations.
+
+## Approved local source reads
+
+Start the app with `CITY_ENABLE_MCP_READS=1` only when the configured local Kujo
+MCP server has an appropriate `permissions.allowed_directories` policy. Configure
+`CITY_MCP_URL=http://127.0.0.1:8931/mcp/v1` and, for authenticated servers,
+`CITY_MCP_TOKEN` in the server-side environment. The endpoint must be an HTTP
+loopback IP with exactly `/mcp/v1`, without credentials, query or fragment.
+Credentials never enter the browser or model context.
+
+In Mission Command, expand **Approved MCP source reads** and enter up to three
+relative names within that server's allowed workspace. Each grant makes one
+actual SDK-registered `read_text_range` call for lines1–200 before drafting;
+responses are limited to16KiB each, HTTP waiting to10seconds, and redirects are
+refused. Raw results go privately to the configured model's author/reviewer
+context, not canonical telemetry. Server-side workspace checks remain mandatory.
+Hidden/parent/absolute paths and duplicate names are rejected before execution.
+
+Imported authors must permit Kujo Docs. The exact grants are recorded privately
+in the mission request and reset for every task/continuation. A failed read fails
+the attempt without a final artifact; successful reads have distinct operation
+IDs and observed outcomes. This is explicit user-requested source context, not
+model-selected tool use, write access or general Ability/workflow execution.

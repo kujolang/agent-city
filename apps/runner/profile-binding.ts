@@ -111,6 +111,7 @@ export function validateProfileMission(
     kind: string;
     useLocalDocs?: boolean;
     useMcpDocs?: boolean;
+    mcpReadFiles?: string[];
     functionContract?: unknown;
   },
 ) {
@@ -120,7 +121,10 @@ export function validateProfileMission(
   if (request.functionContract !== undefined && request.kind !== "code")
     throw Error("Function checks require a code mission.");
   if (
-    (request.kind === "kujo" || request.useLocalDocs || request.useMcpDocs) &&
+    (request.kind === "kujo" ||
+      request.useLocalDocs ||
+      request.useMcpDocs ||
+      request.mcpReadFiles?.length) &&
     !binding.author.tools.allowed?.includes("Kujo Docs")
   )
     throw Error(

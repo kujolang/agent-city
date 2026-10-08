@@ -1,3 +1,4 @@
+import { validateMcpReads, localMcpReadEndpoint } from "./mcp-reads";
 import { validateProjectExports } from "./project-exports";
 import { admitWorkcellProject } from "./workcell-project";
 import { projectContext } from "./project-context";
@@ -484,6 +485,16 @@ const server = createServer(async (req, res) => {
         return send(400, {
           error: "Choose writing/code and provide a task up to 16 KiB",
         });
+      let mcpReadFiles: string[];
+      try {
+        mcpReadFiles = validateMcpReads(data.mcpReadFiles);
+        if (mcpReadFiles.length) localMcpReadEndpoint();
+      } catch (error) {
+        return send(400, {
+          error:
+            error instanceof Error ? error.message : "MCP reads unavailable",
+        });
+      }
       let project;
       try {
         project = projectContext(data.projectFiles);
@@ -590,7 +601,7 @@ const server = createServer(async (req, res) => {
       }
       if (binding) {
         try {
-          validateProfileMission(binding, data);
+          validateProfileMission(binding, { ...data, mcpReadFiles });
         } catch (error) {
           return send(400, {
             error:
@@ -617,6 +628,13 @@ const server = createServer(async (req, res) => {
           mode: 0o600,
         });
       }
+      const mcpReadsFile = mcpReadFiles.length
+        ? resolve(dir, id + ".mcp-reads.json")
+        : "";
+      if (mcpReadsFile)
+        await writeFile(mcpReadsFile, JSON.stringify(mcpReadFiles), {
+          mode: 0o600,
+        });
       const projectExportsFile = projectExports.length
         ? resolve(dir, id + ".exports.json")
         : "";
@@ -669,6 +687,7 @@ const server = createServer(async (req, res) => {
             CITY_FUNCTION_CONTRACT_FILE: contractFile,
             CITY_OUTPUT_CONTRACT_FILE: outputContractFile,
             CITY_PROJECT_EXPORTS_FILE: projectExportsFile,
+            CITY_MCP_READS_FILE: mcpReadsFile,
             CITY_CONTEXT_FILE: contextFile,
             CITY_PROJECT_CONTEXT_FILE: projectFile,
             CITY_PROFILE_FILE: profileFile,

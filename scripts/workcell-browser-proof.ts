@@ -196,6 +196,9 @@ try {
   await page
     .getByLabel("Relative output file names (one per line)")
     .fill("src/main.kujo");
+  await page.getByText("Approved MCP source reads", { exact: true }).click();
+  const sourceFiles = page.getByLabel("Local server file names (one per line)");
+  await sourceFiles.fill("src/main.kujo");
   const consent = page.getByRole("checkbox", { name: /Execute checked Kujo/ });
   assert.equal(await consent.isChecked(), false);
   // UI submission transport is intercepted: this section executes no task/model/container.
@@ -234,6 +237,8 @@ try {
   assert.equal(posted.executeWorkcell, true);
   assert.equal(posted.includeProjectFiles, true);
   assert.deepEqual(posted.exportProjectFiles, ["src/main.kujo"]);
+  assert.deepEqual(posted.mcpReadFiles, ["src/main.kujo"]);
+  assert.equal(await sourceFiles.inputValue(), "");
   assert.equal(posted.expectedOutput, "5\n");
   assert.deepEqual(posted.projectFiles, [
     { path: "brief.md", content: "Selected task context only" },
@@ -246,6 +251,7 @@ try {
   );
   assert.equal(await outputCheck.isChecked(), false);
   await consent.check();
+  await sourceFiles.fill("src/another.kujo");
   await page.locator("[data-continue]").first().click();
   await page.waitForFunction(
     () =>
@@ -254,6 +260,7 @@ try {
   );
   assert.equal(await consent.isChecked(), false);
   assert.equal(await projectConsent.isChecked(), false);
+  assert.equal(await sourceFiles.inputValue(), "");
   assert.equal(
     await page
       .getByLabel("Relative output file names (one per line)")

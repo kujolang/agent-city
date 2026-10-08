@@ -37,6 +37,7 @@ export function mountMissions(
     <label><input type="checkbox" name="allowCheckins" checked> Allow agent questions (reply within 3 minutes)</label>
     <label><input type="checkbox" name="useLocalDocs"> Use indexed local Kujo docs</label>
     <label><input type="checkbox" name="useMcpDocs"> Read local MCP demo README</label>
+    <details><summary>Approved MCP source reads</summary><label>Local server file names (one per line)<textarea name="mcpReadFiles" rows="3" maxlength="482" placeholder="src/main.kujo"></textarea></label><p>Read the first 200 lines of up to three named files using the operator-enabled local MCP server. Server workspace restrictions still apply. Contents are shared privately with the author and reviewer. This grants no writes or model-selected tools.</p></details>
     <label>Task <textarea name="prompt" rows="3" maxlength="16384" required placeholder="Describe the small task you want the agents to complete."></textarea></label>
     <details><summary>Selected project files</summary><label>Text files <input type="file" name="projectFiles" multiple></label><p>Up to eight UTF-8 text files,16 KiB each and32 KiB total. Selected content is sent to your configured model for the author and reviewer, and retained privately with this mission. This does not grant host project access or editing. Follow-ups retain the prior snapshot unless new files are selected; start a new mission for a separate context.</p></details>
     <label><input type="checkbox" name="executeWorkcell"> Execute checked Kujo code in Workcell after review (requires operator setup; no network or host project access)</label>
@@ -584,6 +585,10 @@ export function mountMissions(
           allowCheckins: fields.has("allowCheckins"),
           useLocalDocs: fields.has("useLocalDocs"),
           useMcpDocs: fields.has("useMcpDocs"),
+          mcpReadFiles: String(fields.get("mcpReadFiles") || "")
+            .split("\n")
+            .map((name) => name.trim())
+            .filter(Boolean),
           executeWorkcell: fields.has("executeWorkcell"),
           includeProjectFiles: fields.has("includeProjectFiles"),
           exportProjectFiles: String(fields.get("exportProjectFiles") || "")

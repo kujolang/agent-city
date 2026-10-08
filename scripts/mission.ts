@@ -1,3 +1,7 @@
+import {
+  validateMcpReads,
+  localMcpReadEndpoint,
+} from "../apps/runner/mcp-reads";
 import { validateProjectExports } from "../apps/runner/project-exports";
 import { admitWorkcellProject } from "../apps/runner/workcell-project";
 import {
@@ -68,6 +72,12 @@ const dir = resolve(
   id,
 );
 await mkdir(dir, { recursive: true, mode: 0o700 });
+const mcpReadFiles = validateMcpReads(
+  process.env.CITY_MCP_READS_FILE
+    ? JSON.parse(await readFile(process.env.CITY_MCP_READS_FILE, "utf8"))
+    : undefined,
+);
+if (mcpReadFiles.length) localMcpReadEndpoint();
 let profiles = null;
 if (process.env.CITY_PROFILE_FILE) {
   profiles = await readBinding(process.env.CITY_PROFILE_FILE);
@@ -75,6 +85,7 @@ if (process.env.CITY_PROFILE_FILE) {
     kind,
     useLocalDocs: process.env.CITY_USE_RAG === "1",
     useMcpDocs: process.env.CITY_USE_MCP === "1",
+    mcpReadFiles,
     functionContract: process.env.CITY_FUNCTION_CONTRACT_FILE || undefined,
   });
   await writeFile(resolve(dir, "profiles.json"), JSON.stringify(profiles), {
@@ -120,6 +131,7 @@ await writeFile(
     projectFiles: projectReferences(project),
     workcellProjectInputs: projectReferences(workcellProject),
     projectExports,
+    mcpReadFiles,
     profiles: profiles ? bindingMetadata(profiles) : null,
     originalTask: context?.originalTask ?? prompt,
     rootMissionId: context?.rootMissionId ?? id,
