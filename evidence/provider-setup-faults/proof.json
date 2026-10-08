@@ -1,0 +1,19 @@
+{
+  "scope": "Controlled Chromium DOM onboarding faults; no real provider authentication, generation, or tasks",
+  "browser": "151.0.7922.34",
+  "missingProviderPreservesDraft": true,
+  "emptyModelsRemainUnconfigured": true,
+  "listingFailureDoesNotEnableTasks": true,
+  "modelNamesRenderedAsText": true,
+  "localKeyBlank": true,
+  "keyboardGuide": true,
+  "narrowOverflow": false,
+  "noMissionStarted": true,
+  "writes": [
+    "/control/discover-ollama",
+    "/control/discover-ollama",
+    "/control/discover-ollama",
+    "/control/check-model"
+  ],
+  "errors": []
+}

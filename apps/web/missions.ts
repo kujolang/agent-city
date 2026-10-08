@@ -7,6 +7,12 @@ export function mountMissions(
   panel.className = "mission-panel";
   panel.innerHTML = `<h2>MISSION COMMAND</h2><p id="mission-status" role="status">Checking model connection…</p>
     <details><summary>Model connection</summary><form id="model-form">
+    <details id="provider-setup"><summary>First-time provider setup</summary>
+    <p>Choose one provider. Agent City includes the agent runtime, but no model account or sign-in.</p>
+    <h3>Ollama</h3><ol><li><a href="https://docs.ollama.com/quickstart" target="_blank" rel="noopener noreferrer">Install and open Ollama</a>. Choose a local model, or sign in to Ollama for a cloud model.</li><li>Choose <strong>Detect local Ollama</strong> below, select a model, then <strong>Check model listing</strong> and <strong>Save connection</strong>.</li></ol><p>The API key stays blank for the local Ollama connection. Cloud model sign-in happens in Ollama, not in this key field. A listed model is not yet a successful task.</p>
+    <h3>Codex CLI</h3><ol><li><a href="https://learn.chatgpt.com/docs/codex/cli" target="_blank" rel="noopener noreferrer">Install Codex CLI</a>, then run <code>codex login</code> and complete its browser sign-in. Check it with <code>codex login status</code>.</li><li>Run the Agent City Codex command shown below in another terminal and keep it open. It configures the connection automatically; wait for the MODEL status to update.</li></ol><p>Account access and usage limits belong to your provider. Never paste a subscription password or sign-in token into Agent City. <a href="https://learn.chatgpt.com/docs/auth" target="_blank" rel="noopener noreferrer">Codex authentication help</a>.</p>
+    <h3>First task</h3><p>Choose <strong>Writing + review</strong>, describe a short task using facts you supply, then <strong>Start mission</strong>. Watch the author and reviewer with Follow. Read the saved output and review in mission history; model review is advice, not an independent correctness check.</p>
+    </details>
     <label>Chat completions endpoint <input name="endpoint" type="url" required placeholder="Full HTTPS or local HTTP endpoint"></label>
     <label>Model <input name="model" required autocomplete="off"></label>
     <label>Output token limit <input name="maxOutputTokens" type="number" min="256" max="16384" step="1" value="2048" required></label><p class="muted">Higher limits may use more time and provider credits. If a failed attempt reports finish reason length, choose a higher limit explicitly before retrying.</p>
@@ -208,6 +214,8 @@ export function mountMissions(
         status.textContent =
           "REPLAY · Mission commands disabled. Return to Live to start new work.";
       if (!configLoaded) {
+        panel.querySelector<HTMLDetailsElement>("#provider-setup")!.open =
+          !data.configured;
         (modelForm.elements.namedItem("endpoint") as HTMLInputElement).value =
           data.endpoint;
         (modelForm.elements.namedItem("model") as HTMLInputElement).value =

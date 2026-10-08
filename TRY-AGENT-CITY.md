@@ -22,6 +22,27 @@ provider and optional container engine remain separate prerequisites.
 
 ## Connect a model
 
+If you do not have a provider yet, choose one:
+
+- **Ollama:** follow the [official quickstart](https://docs.ollama.com/quickstart),
+  open Ollama, and choose a local model or sign in there for a cloud model.
+- **Codex:** follow the [CLI setup](https://learn.chatgpt.com/docs/codex/cli), run
+  `codex login`, and complete the browser sign-in. Run `codex login status` to
+  check your authentication method. Account access and usage limits remain
+  provider-owned; see [authentication help](https://learn.chatgpt.com/docs/auth).
+
+For Codex, leave Agent City running and start its connector in a second terminal:
+
+```sh
+CITY_APP_URL=http://127.0.0.1:5178 "$HOME/.local/share/agent-city/start.command" provider:codex
+```
+
+Use your actual displayed app URL if it differs. Keep that terminal open; it
+configures the connection automatically. Wait for the MODEL status in Agent City
+to update, then submit your task. Do not paste a subscription password or sign-in
+token into the model form. The connector is a local text provider; it does not
+import Codex's tools or projects.
+
 Expand **Mission Command → Model connection**. No credentials or model connection
 are bundled. With Ollama running and a model installed, choose **Detect local
 Ollama**, select your model, then **Save connection**. A local Ollama endpoint
