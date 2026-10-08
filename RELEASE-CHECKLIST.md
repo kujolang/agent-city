@@ -530,3 +530,18 @@ checks and all4installed platforms, including fenced review acceptance/malformed
 rejection and admission-aware follow-up. Linuxx64/ARM also pass copied-input
 execution. Subsequent commits only record evidence/documentation. No mandatory
 full-product gate is marked complete by this narrower feature qualification.
+
+Named project export checkpointc4e57bd/a22df58: explicit per-task output names
+return bounded text files from isolated Workcell, with actual before/after hashes,
+change classification and a downloadable JSON review bundle. No host write or
+correctness verdict is implied. Traversal, Git policy files, unsupported content,
+symlinked artifact parents and mismatched evidence fail closed. Receipt recovery
+is read-only.108tests and browser consent/reset checks pass; CI37732516195 passes
+all5jobs with actual edit/export/recovery on Linuxx64/ARM. Actual cloud author/
+reviewer/MCP missionb857d6fe completed editing/export/stdout check; afa793e rechecks
+its retained receipt after correcting a stale two-artifact harness assertion.
+Both earlier unavailable/failed attempts remain retained. Actual browser download
+matches private output content and Workcell identity. See evidence/mission-workcell/
+project-exports, project-exports-real and project-exports-browser. Broader approved
+tools/workflows, final visual/release qualification and final tool/video remain.
+Owned services/VM stopped; no long soak or sibling source changes.

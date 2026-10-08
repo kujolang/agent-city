@@ -1,0 +1,31 @@
+[
+  {
+    "mission": "mission-077f3c99-5914-477b-bca3-910788cb9f96",
+    "reason": "Workcell rejected export max_depth=0 before execution; corrected to1",
+    "receiptStatus": "completed",
+    "validation": {
+      "schema": "agent-city.code-check.v1",
+      "syntax": "valid",
+      "fenceRemoved": false,
+      "checkedArtifact": "reviewed.kujo",
+      "functionalTests": "unavailable",
+      "outputCheck": {
+        "schema": "agent-city.output-check.v1",
+        "status": "unavailable",
+        "comparison": "exact stdout; CRLF normalized to LF; whitespace retained",
+        "expected": "actual project input supplied for isolated execution / reviewed edit\n",
+        "actual": null
+      },
+      "codeExecuted": null,
+      "checkedAt": "2026-10-08T05:25:49.710Z"
+    },
+    "privateEvidence": ".runtime/profile-code-34e2d4a1-c6af-413e-9ab1-8c5c89a2b407/missions/mission-077f3c99-5914-477b-bca3-910788cb9f96"
+  },
+  {
+    "mission": "mission-ffcb0c67-8073-4728-adf6-ed36ecd1f7d6",
+    "reason": "Reviewer returned HTTP200 finish=length and zero content at configured16384 tokens",
+    "receiptStatus": "failed",
+    "validation": null,
+    "privateEvidence": ".runtime/profile-code-9c93d392-93bf-4b46-9030-9f80f784a46b/missions/mission-ffcb0c67-8073-4728-adf6-ed36ecd1f7d6"
+  }
+]

@@ -1,6 +1,6 @@
 {
   "scope": "Real retained mission evidence served by local runner; intercepted submission only, no new runtime execution or visual travel claim",
-  "mission": "mission-e58374b0-73ce-41b2-aab7-a46b9575081b",
+  "mission": "mission-b857d6fe-c40c-4fa7-ae7e-2e6ed2fd7467",
   "browserVersion": "151.0.7922.34",
   "realOutputVisible": true,
   "savedArtifactMatchesPrivateSource": true,
@@ -11,7 +11,7 @@
   "selectedProjectFilesPostedAndReset": true,
   "projectExecutionPermissionReset": true,
   "projectExportNamesPostedAndReset": true,
-  "realProjectBundleDownloaded": false,
+  "realProjectBundleDownloaded": true,
   "consentResetAfterSubmission": true,
   "consentResetForContinuation": true,
   "pageErrors": []

@@ -1,0 +1,54 @@
+{
+  "source": "d4c7f38008ce67fd3c3cf845a02ca3b7e8dbed23",
+  "verificationSource": "afa793eae1f89df5c896d96997f67e6f116c1727",
+  "scope": "Read-only verification of retained real model/SDK/MCP/Workcell project edit. No source rerun or mutation.",
+  "attempts": [
+    {
+      "mission": "mission-b857d6fe-c40c-4fa7-ae7e-2e6ed2fd7467",
+      "validation": {
+        "schema": "agent-city.code-check.v1",
+        "syntax": "valid",
+        "fenceRemoved": false,
+        "checkedArtifact": "reviewed.kujo",
+        "functionalTests": "passed",
+        "outputCheck": {
+          "schema": "agent-city.output-check.v1",
+          "status": "passed",
+          "comparison": "exact stdout; CRLF normalized to LF; whitespace retained",
+          "expected": "actual project input supplied for isolated execution / reviewed edit\n",
+          "actual": "actual project input supplied for isolated execution / reviewed edit\n"
+        },
+        "codeExecuted": true,
+        "checkedAt": "2026-10-08T05:34:29.588Z"
+      },
+      "artifactSha256": "1b2f71266254b0a07acdbfe02e2bc45829da245708cefd0f37886eafd290f544",
+      "handoffObserved": true
+    }
+  ],
+  "workcellRef": "wc-ccdb6002e2bc43ee82ddfaa14604031e",
+  "projectOutputs": [
+    {
+      "path": "src/requirements.txt",
+      "content": "actual project input supplied for isolated execution / reviewed edit",
+      "bytes": 68,
+      "sha256": "866f719d11fae1f7b626c5dc3131fa78c4ae62a8c354aafb63a79aa4ad70590c",
+      "beforeSha256": "57c97c1633aa237c585caedd96c11457706bfaf8c3994e2813d3fc4520e38d49",
+      "change": "modified"
+    }
+  ],
+  "verifiedArtifactEvents": 3,
+  "providerResponses": [
+    {
+      "agent": "coder",
+      "httpStatus": 200,
+      "finishReason": "stop"
+    },
+    {
+      "agent": "reviewer",
+      "httpStatus": 200,
+      "finishReason": "stop"
+    }
+  ],
+  "privateEvidence": ".runtime/profile-code-4af4f92b-0e98-400c-bcaf-c628b9c280ea",
+  "checkedAt": "2026-10-08T05:37:49.918Z"
+}

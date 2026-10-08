@@ -1,0 +1,59 @@
+{
+  "scope": "Actual Workcell edits and exports an explicit snapshot; recovery rechecks receipt without executing. No model or browser claim",
+  "run": "project-input-6b99a8b5-17ce-47d6-865d-7b6ed7ae9f18",
+  "producer": "project-input-proof",
+  "schema": "agent-city.mission-workcell.v1",
+  "status": "completed",
+  "codeExecuted": true,
+  "cleanup": "complete",
+  "timedOut": false,
+  "exitCode": 0,
+  "evidence": {
+    "runId": "wc-76f3787be5994bec994f6468f4d43f06",
+    "artifacts": [
+      {
+        "name": "city-result.txt",
+        "bytes": 39,
+        "sha256": "02da69c8dd7662def14323537b8ff57024dddf1fe0da28c1aadfbfaefcd23bd9"
+      },
+      {
+        "name": "runtime-version.txt",
+        "bytes": 11,
+        "sha256": "de3e64cdc4bb5196cdb7ab26ea04056cb75fe6f8deaa8945c9791af34036b7d9"
+      },
+      {
+        "name": "project/inputs/message.txt",
+        "bytes": 38,
+        "sha256": "0db79231bc9f23218c867f3595f9930917eb0495f55f8110f5e8329c80b7f446"
+      }
+    ]
+  },
+  "output": "actual selected project input / edited\n",
+  "runtimeVersion": "kujo 1.7.0\n",
+  "projectInputs": [
+    {
+      "path": "inputs/message.txt",
+      "bytes": 29,
+      "sha256": "c2f97b22441b53d3998fff8eea02e0f9620d788f25f3ad5931f18a4fafaa65ef"
+    }
+  ],
+  "projectExports": [
+    "inputs/message.txt"
+  ],
+  "projectOutputs": [
+    {
+      "path": "inputs/message.txt",
+      "content": "actual selected project input / edited",
+      "bytes": 38,
+      "sha256": "0db79231bc9f23218c867f3595f9930917eb0495f55f8110f5e8329c80b7f446",
+      "beforeSha256": "c2f97b22441b53d3998fff8eea02e0f9620d788f25f3ad5931f18a4fafaa65ef",
+      "change": "modified"
+    }
+  ],
+  "projectExportsStatus": "complete",
+  "projectExportError": null,
+  "outputTruncated": false,
+  "checkedAt": "2026-10-08T05:29:10.497Z",
+  "privateEvidence": ".runtime/project-execution-b8c7196f-3790-4fb8-b630-5a273d7d7a41",
+  "metadataOnlyLifecycle": true
+}

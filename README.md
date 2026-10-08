@@ -324,7 +324,13 @@ For example, a selected `prices.txt` is available as `project/prices.txt`.
 This copies up to eight bounded text files; it does not mount your host project,
 activate its workflows or grant network access. Repository internals and Git
 control files are rejected. The inspector's Workcell evidence retains input
-name/size/hash references. Changes to copied inputs are not exported back to the
-host. Stdout remains in the inspection evidence; the generated reviewed artifact
-can be downloaded with Save reviewed artifact.
+name/size/hash references. To return created or modified copies, list their relative paths under **Project
+files to export** before submission (without the `project/` prefix). Only named
+outputs are eligible; the returned text bundle is limited to eight files,16 KiB
+each and32 KiB total. Inspect actual before/after hashes and content in Workcell
+evidence, then **Save project file bundle**. This never applies changes to the
+host. Exported contents are observed results, not an automatic correctness or
+review verdict. Unavailable output content is shown separately from verified
+execution. Stdout remains in inspection evidence; **Save reviewed artifact**
+downloads the generated program itself.
 Each continuation requires fresh execution and project-input consent.
