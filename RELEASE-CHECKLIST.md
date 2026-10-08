@@ -489,3 +489,13 @@ atfd65455 passes101tests/source/browser/all4platforms, with fresh receipt artifa
 preserved outside installer maintenance. See evidence/profile-code/project-context
 and project-context-real. Arbitrary project edits/tools/workflows and final visual/
 release qualification remain open. No long soak or final tool/video ran.
+
+Artifact handoff checkpoint90b25ce: completed missions now offer a browser download
+of the exact saved text/module/Kujo source. Built-in Kujo saves the author draft,
+not senior-review prose; custom Kujo saves reviewed code. Older selection requests
+cannot replace newer evidence/downloads. Unavailable function checks expose private
+checker diagnostics without inventing failed cases.104tests/types/boundaries/maps/
+build pass; Chromium matches a retained real Workcell artifact byte-for-byte and
+passes a controlled stale-request race. See evidence/mission-workcell/browser.
+No new model/Workcell execution or final tool/video claimed; broader project/tool
+workflows, reference fidelity and full release qualification remain open.

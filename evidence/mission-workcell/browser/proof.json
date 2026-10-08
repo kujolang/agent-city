@@ -3,6 +3,8 @@
   "mission": "mission-e58374b0-73ce-41b2-aab7-a46b9575081b",
   "browserVersion": "151.0.7922.34",
   "realOutputVisible": true,
+  "savedArtifactMatchesPrivateSource": true,
+  "staleArtifactRequestCannotOverwriteSelection": true,
   "cleanupVisible": true,
   "keyboardConsent": true,
   "explicitOutputCheckPostedAndReset": true,
