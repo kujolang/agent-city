@@ -1,0 +1,70 @@
+{
+  "status": "COMPLETED",
+  "accepted": 400,
+  "missing": 0,
+  "duplicates": 0,
+  "host": {
+    "availableParallelism": 12,
+    "cpuModel": "Intel(R) Core(TM) i7-9750H CPU @ 2.60GHz",
+    "totalMemoryBytes": 17179869184
+  },
+  "runtimeVersion": "kujo 1.7.0",
+  "cityCommit": "e180b17d0e8199ebed9e9a06f5c4c9b8e13e1be2",
+  "watchdogCommit": "f463ced16b6b0a670a417d29c3121bf495e303a1",
+  "scope": "Local synthetic native-hex candidate before commit; not release qualification",
+  "dirtyWatchdogCandidate": true,
+  "stages": {
+    "synthetic-pipeline:batch:0": {
+      "before-policy": 0.000112,
+      "after-policy": 161.588539,
+      "validate": 164.212029,
+      "prepare": 261.02254600000003,
+      "begin": 414.79030900000004,
+      "acquired": 414.966008,
+      "rows": 420.25075699999996,
+      "rows-done": 491.871104,
+      "committed": 501.474914,
+      "persisted": 504.178967,
+      "after-audit": 506.34570999999994
+    },
+    "synthetic-pipeline:batch:100": {
+      "before-policy": 532.2081370000001,
+      "after-policy": 714.8713180000001,
+      "validate": 716.877771,
+      "prepare": 832.767871,
+      "begin": 967.61601,
+      "acquired": 967.689452,
+      "rows": 972.062608,
+      "rows-done": 1036.306227,
+      "committed": 1048.606395,
+      "persisted": 1050.934456,
+      "after-audit": 1052.207117
+    },
+    "synthetic-pipeline:batch:200": {
+      "before-policy": 1075.191421,
+      "after-policy": 1253.097843,
+      "validate": 1254.9000939999999,
+      "prepare": 1357.198827,
+      "begin": 1478.7152210000002,
+      "acquired": 1478.797124,
+      "rows": 1482.837195,
+      "rows-done": 1551.351897,
+      "committed": 1562.408655,
+      "persisted": 1564.778602,
+      "after-audit": 1566.238096
+    },
+    "synthetic-pipeline:batch:300": {
+      "before-policy": 1591.612403,
+      "after-policy": 1747.056307,
+      "validate": 1748.846519,
+      "prepare": 1858.9343529999999,
+      "begin": 1986.1941729999999,
+      "acquired": 1986.2677259999998,
+      "rows": 1990.4667150000002,
+      "rows-done": 2063.021981,
+      "committed": 2077.023147,
+      "persisted": 2081.397515,
+      "after-audit": 2082.7830249999997
+    }
+  }
+}
