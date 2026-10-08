@@ -1,0 +1,19 @@
+{
+  "status": "blocked",
+  "stage": "asset-scout",
+  "reason": "Preparation is not ready for Editor",
+  "preparationStatus": "generation-required",
+  "attempts": [
+    {
+      "stage": "creative-director",
+      "attempt": 1,
+      "status": "passed"
+    },
+    {
+      "stage": "asset-scout",
+      "attempt": 1,
+      "status": "passed"
+    }
+  ],
+  "cause": "Inline composition primitives incorrectly planned as GENERATE media. Clarified planning instructions; gates unchanged."
+}

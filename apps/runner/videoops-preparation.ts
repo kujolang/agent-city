@@ -167,7 +167,7 @@ export async function prepareVideoops(
     options.capabilities.planner,
     "Write all five planning files. Preserve every intake requirement. Plan exact frame-aligned continuous coverage. Shot schema: " +
       JSON.stringify(shotSchema) +
-      '\nasset-requirements.json is {"requirements":[{"id":"...","type":"...","description":"...","required":true,"used_by":["shot-id"],"preferred_source":"...","acceptance":"..."}]}. Every requirement/shot reference must be reciprocal. Empty requirements are allowed only if no external production media is needed. Do not invent acquired media, licenses, scores or completed checks.',
+      '\nasset-requirements.json is {"requirements":[{"id":"...","type":"...","description":"...","required":true,"used_by":["shot-id"],"preferred_source":"...","acceptance":"..."}]}. Every requirement/shot reference must be reciprocal. Empty requirements are allowed only if no external production media is needed. Inline CSS geometry, inline SVG authored as composition code, colors, borders and generic system-font text are Editor implementation instructions, not acquired/generated media assets. Preserve those mandatory design requirements in creative-brief/style-plan/shot descriptions; for a composition needing only these primitives use empty asset requirements and empty per-shot asset_ids. Required raster images, footage, named font files, audio or externally generated media remain explicit asset requirements and must never be omitted. Do not invent acquired media, licenses, scores or completed checks.',
     JSON.stringify({ intake: options.intake, timing: options.timing }),
     (bundle) => validateVideoopsPlan(bundle, options.timing),
   );
