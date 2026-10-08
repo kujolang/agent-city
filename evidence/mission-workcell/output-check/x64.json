@@ -1,0 +1,106 @@
+{
+  "scope": "Real installed Workcell execution of controlled arithmetic input; no model, no final tool demo",
+  "platform": "linux",
+  "arch": "x64",
+  "startedAt": "2026-10-08T04:06:33.180Z",
+  "image": {
+    "schema": "agent-city.workcell-image.v1",
+    "image": "agent-city-kujo:1.7.0",
+    "imageId": "sha256:920d4a4d528e5aad4d9165fb81cefaf8d7af5ee42dc19195b7bd599a895ec328",
+    "recipeSha256": {
+      "Dockerfile": "5f8c39512ecbedb388188db888297f5eb7ee281746b5471aa8b1dc7861cbc0d5",
+      "package.json": "6e755ed0b4c0b2b34a4c40779787488d87b1769cc1da6e8c3367318027eecad0",
+      "package-lock.json": "ba4ca20192a53ee1b526a45a6114a1e1b40eaf760df58a30008b62998b12c866"
+    },
+    "builtAt": "2026-10-08T04:06:33.041Z",
+    "scope": "Local build and build-time Kujo version check; no workload or backend security qualification"
+  },
+  "runId": "wc-49c4295ee7084da395dcf8b7dd0b8d31",
+  "evidence": {
+    "runId": "wc-49c4295ee7084da395dcf8b7dd0b8d31",
+    "artifacts": [
+      {
+        "name": "city-result.txt",
+        "bytes": 3,
+        "sha256": "b58a3da5fde2680191877ec88a1aa7d06927cc3b30cdf0d0db8c39b488891576"
+      },
+      {
+        "name": "runtime-version.txt",
+        "bytes": 11,
+        "sha256": "de3e64cdc4bb5196cdb7ab26ea04056cb75fe6f8deaa8945c9791af34036b7d9"
+      }
+    ]
+  },
+  "result": "37",
+  "runtimeVersion": "kujo 1.7.0",
+  "containerAbsent": true,
+  "outputCheck": {
+    "scope": "Mission API author/reviewer, static check and explicit isolated Workcell execution; model mode recorded per attempt",
+    "attempts": [
+      {
+        "mission": "mission-19a29c07-afed-49e1-8ddf-17c994b84c6f",
+        "model": "controlled",
+        "checks": null,
+        "validation": {
+          "schema": "agent-city.code-check.v1",
+          "syntax": "valid",
+          "fenceRemoved": false,
+          "checkedArtifact": "reviewed.kujo",
+          "functionalTests": "failed",
+          "outputCheck": {
+            "schema": "agent-city.output-check.v1",
+            "status": "failed",
+            "comparison": "exact stdout; CRLF normalized to LF; whitespace retained",
+            "expected": "5\n",
+            "actual": "-1\n"
+          },
+          "codeExecuted": true,
+          "checkedAt": "2026-10-08T04:06:40.823Z"
+        },
+        "artifactSha256": "34e9a131635ade6e896ee591a7066e064dc3712ca651c046ee0f5f38e69d50b6",
+        "checkerIdentityDistinct": true,
+        "individualOutcomes": [
+          {
+            "operation": "kujo-static-check",
+            "outcome": "succeeded"
+          }
+        ],
+        "handoffObserved": true
+      },
+      {
+        "mission": "mission-7f7624b6-fb14-4155-a90a-89b1a59b4dcc",
+        "model": "controlled",
+        "checks": null,
+        "validation": {
+          "schema": "agent-city.code-check.v1",
+          "syntax": "valid",
+          "fenceRemoved": false,
+          "checkedArtifact": "reviewed.kujo",
+          "functionalTests": "passed",
+          "outputCheck": {
+            "schema": "agent-city.output-check.v1",
+            "status": "passed",
+            "comparison": "exact stdout; CRLF normalized to LF; whitespace retained",
+            "expected": "5\n",
+            "actual": "5\n"
+          },
+          "codeExecuted": true,
+          "checkedAt": "2026-10-08T04:06:43.203Z"
+        },
+        "artifactSha256": "6499c357ba6953a66af2a884af647529575289ff0181bb1425ca34992bc3d179",
+        "checkerIdentityDistinct": true,
+        "individualOutcomes": [
+          {
+            "operation": "kujo-static-check",
+            "outcome": "succeeded"
+          }
+        ],
+        "handoffObserved": true
+      }
+    ],
+    "priorFailureRetained": true,
+    "privateEvidence": "/home/runner/work/_temp/city/agent-city/.runtime/profile-code-5b35abfe-7215-49a8-8ecc-152d28e70830"
+  },
+  "status": "PASS",
+  "finishedAt": "2026-10-08T04:06:44.290Z"
+}

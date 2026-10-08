@@ -442,3 +442,14 @@ audit, controlled browser proofs and all4installation platforms. Audit reports a
 retained in evidence/dependency-audit-20261007 and CI now rejects moderate-or-higher
 advisories. This does not qualify optional sibling cloud adapters or full application
 security. Broader workflow, final visual and release acceptance remain unfinished.
+
+Kujo functional-output checkpoint: b7ce05e adds an explicit per-request expected
+stdout check after verified Workcell execution. Exact comparison normalizes only
+CRLF; missing/truncated evidence stays UNAVAILABLE. Task completion remains distinct
+from functional success, and actual check outcomes use the existing lifecycle seam.
+CI37725760852 at07f0467 passes all5jobs,99tests and installed Linuxx64/ARM64
+controlled-provider SDK→MCP→review→Workcell failed-output / repaired-pass attempts.
+The explicit follow-up receives prior failure; original validation is retained.
+Keyboard check entry/submission/reset passes against retained real mission evidence.
+See evidence/mission-workcell/output-check. This does not qualify a fresh live-model
+repair, final video, arbitrary project/tool workflows or full release readiness.
