@@ -25,5 +25,7 @@ Verification: HyperFrames check has zero findings; all 180 frames rendered; both
 exports fully decode; H.264/AAC delivery has the requested duration and frame rate.
 A three-frame contact sheet was visually inspected. See `evidence/verification.json`
 and `asset-ledger.json` for source hashes, voice provenance and output checksums.
-No complete human listening/playback approval or new agent execution is claimed.
+The user approved this exact 720p export on 2026-10-08: “Looks great, I approve.”
+See `evidence/user-approval.json` for the checksum-bound approval. No specific
+listening procedure or new agent execution is claimed.
 This creative revision does not close the separate Agent City release blockers.

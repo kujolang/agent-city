@@ -1,0 +1,17 @@
+{
+  "status": "APPROVED",
+  "scope": "Creative approval of the delivered six-second pixel video",
+  "authority": "Explicit user statement in conversation",
+  "statement": "Looks great, I approve",
+  "recordedAt": "2026-10-08T16:38:14.820107+00:00",
+  "artifact": {
+    "path": "agent-city-pixel-v2-720p.mp4",
+    "sha256": "e0ad80db26d7f6746e6a970f41904fb1b9ea643bdb076ba7d3529c590fd7d28a",
+    "bytes": 378836
+  },
+  "limitations": [
+    "Does not attest to a specific listening or playback procedure.",
+    "Does not approve the earlier Workcell candidate or establish a new live agent execution.",
+    "Does not close Agent City release blockers or authorize a Docker restart."
+  ]
+}
