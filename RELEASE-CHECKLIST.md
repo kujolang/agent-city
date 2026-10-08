@@ -426,3 +426,11 @@ SDK/Dispatch proof passes locally and on all4installed platforms in CI3772322976
 full source/browser verification passes too. See evidence/supervisor-loss. Loss of
 both evidence owners, automatic orphan cleanup and broader project/tool scope remain
 separate unqualified cases; this does not close the entire broader-work checklist.
+
+Explicit admission recovery checkpoint:9f49716/9f31e5a adds acknowledged queue
+release while retaining UNKNOWN outcome, possible ongoing-work warning and late
+receipt reconciliation. No stop/rerun or semantic activity is inferred. CI37724797290
+passes full source/browser verification and four installation platforms; the new
+installed browser recovery proof runs on Linux x64. Controlled restart, duplicate
+release, authorization, replay refusal and a separate actual SDK task pass.
+See evidence/admission-release. This does not qualify arbitrary project workflows.

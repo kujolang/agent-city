@@ -1,0 +1,306 @@
+{
+  "jobs": [
+    {
+      "conclusion": "success",
+      "name": "verify",
+      "steps": [
+        {
+          "conclusion": "success",
+          "name": "Set up job"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/checkout@v4"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/setup-node@v4"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run npm ci --no-audit --no-fund"
+        },
+        {
+          "conclusion": "success",
+          "name": "Verify source types, package boundaries, maps, tests and build"
+        },
+        {
+          "conclusion": "success",
+          "name": "Install controlled browser"
+        },
+        {
+          "conclusion": "success",
+          "name": "Verify onboarding faults and fullscreen presentation without model calls"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/upload-artifact@v4"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/setup-node@v4"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@v4"
+        },
+        {
+          "conclusion": "success",
+          "name": "Complete job"
+        }
+      ]
+    },
+    {
+      "conclusion": "success",
+      "name": "install (macos-15-intel)",
+      "steps": [
+        {
+          "conclusion": "success",
+          "name": "Set up job"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/checkout@v4"
+        },
+        {
+          "conclusion": "success",
+          "name": "Public bootstrap with private Node and pinned producer repositories"
+        },
+        {
+          "conclusion": "success",
+          "name": "Verify managed setup without system Node or npm"
+        },
+        {
+          "conclusion": "success",
+          "name": "Import pinned profiles without another checkout or system npm"
+        },
+        {
+          "conclusion": "success",
+          "name": "Verify actual installed SDK, Dispatch, RAG and MCP contracts"
+        },
+        {
+          "conclusion": "success",
+          "name": "Verify supervisor loss preserves the actual mission outcome"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Verify explicit unknown-outcome queue recovery in the installed browser UI"
+        },
+        {
+          "conclusion": "success",
+          "name": "Verify real installed update, refusal and archive lifecycle"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Start and verify the owned CI sandbox engine"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Build pinned local sandbox image and verify installed Workcell"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/upload-artifact@v4"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@v4"
+        },
+        {
+          "conclusion": "success",
+          "name": "Complete job"
+        }
+      ]
+    },
+    {
+      "conclusion": "success",
+      "name": "install (ubuntu-24.04-arm)",
+      "steps": [
+        {
+          "conclusion": "success",
+          "name": "Set up job"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/checkout@v4"
+        },
+        {
+          "conclusion": "success",
+          "name": "Public bootstrap with private Node and pinned producer repositories"
+        },
+        {
+          "conclusion": "success",
+          "name": "Verify managed setup without system Node or npm"
+        },
+        {
+          "conclusion": "success",
+          "name": "Import pinned profiles without another checkout or system npm"
+        },
+        {
+          "conclusion": "success",
+          "name": "Verify actual installed SDK, Dispatch, RAG and MCP contracts"
+        },
+        {
+          "conclusion": "success",
+          "name": "Verify supervisor loss preserves the actual mission outcome"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Verify explicit unknown-outcome queue recovery in the installed browser UI"
+        },
+        {
+          "conclusion": "success",
+          "name": "Verify real installed update, refusal and archive lifecycle"
+        },
+        {
+          "conclusion": "success",
+          "name": "Start and verify the owned CI sandbox engine"
+        },
+        {
+          "conclusion": "success",
+          "name": "Build pinned local sandbox image and verify installed Workcell"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/upload-artifact@v4"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@v4"
+        },
+        {
+          "conclusion": "success",
+          "name": "Complete job"
+        }
+      ]
+    },
+    {
+      "conclusion": "success",
+      "name": "install (ubuntu-24.04)",
+      "steps": [
+        {
+          "conclusion": "success",
+          "name": "Set up job"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/checkout@v4"
+        },
+        {
+          "conclusion": "success",
+          "name": "Public bootstrap with private Node and pinned producer repositories"
+        },
+        {
+          "conclusion": "success",
+          "name": "Verify managed setup without system Node or npm"
+        },
+        {
+          "conclusion": "success",
+          "name": "Import pinned profiles without another checkout or system npm"
+        },
+        {
+          "conclusion": "success",
+          "name": "Verify actual installed SDK, Dispatch, RAG and MCP contracts"
+        },
+        {
+          "conclusion": "success",
+          "name": "Verify supervisor loss preserves the actual mission outcome"
+        },
+        {
+          "conclusion": "success",
+          "name": "Verify explicit unknown-outcome queue recovery in the installed browser UI"
+        },
+        {
+          "conclusion": "success",
+          "name": "Verify real installed update, refusal and archive lifecycle"
+        },
+        {
+          "conclusion": "success",
+          "name": "Start and verify the owned CI sandbox engine"
+        },
+        {
+          "conclusion": "success",
+          "name": "Build pinned local sandbox image and verify installed Workcell"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/upload-artifact@v4"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@v4"
+        },
+        {
+          "conclusion": "success",
+          "name": "Complete job"
+        }
+      ]
+    },
+    {
+      "conclusion": "success",
+      "name": "install (macos-15)",
+      "steps": [
+        {
+          "conclusion": "success",
+          "name": "Set up job"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/checkout@v4"
+        },
+        {
+          "conclusion": "success",
+          "name": "Public bootstrap with private Node and pinned producer repositories"
+        },
+        {
+          "conclusion": "success",
+          "name": "Verify managed setup without system Node or npm"
+        },
+        {
+          "conclusion": "success",
+          "name": "Import pinned profiles without another checkout or system npm"
+        },
+        {
+          "conclusion": "success",
+          "name": "Verify actual installed SDK, Dispatch, RAG and MCP contracts"
+        },
+        {
+          "conclusion": "success",
+          "name": "Verify supervisor loss preserves the actual mission outcome"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Verify explicit unknown-outcome queue recovery in the installed browser UI"
+        },
+        {
+          "conclusion": "success",
+          "name": "Verify real installed update, refusal and archive lifecycle"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Start and verify the owned CI sandbox engine"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Build pinned local sandbox image and verify installed Workcell"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/upload-artifact@v4"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@v4"
+        },
+        {
+          "conclusion": "success",
+          "name": "Complete job"
+        }
+      ]
+    }
+  ],
+  "runId": 37724797290,
+  "source": "9f31e5a1b0a93cfbe0241e66899b4f93fdedbb36",
+  "url": "https://github.com/kujolang/agent-city/actions/runs/37724797290",
+  "scope": "Source verification and four installation platforms. Admission-release browser proof runs only on Linux x64."
+}
