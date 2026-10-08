@@ -25,7 +25,19 @@ test("preflight checks only engine and local image, preserving context and hidin
     const calls: any[] = [];
     const success: typeof boundedCommand = async (...args) => {
       calls.push(args);
-      return { code: 0, timedOut: false, output: "sha256:local" };
+      return {
+        code: 0,
+        timedOut: false,
+        output:
+          args[1][0] === "info"
+            ? JSON.stringify({
+                SecurityOptions: [
+                  "name=seccomp,profile=builtin",
+                  "name=apparmor",
+                ],
+              })
+            : "sha256:local",
+      };
     };
     await assertWorkcellAvailable(root, env, success);
     expect(calls.map(([cmd, args]) => [cmd, args])).toEqual([
@@ -48,7 +60,15 @@ test("preflight checks only engine and local image, preserving context and hidin
     const missingImage: typeof boundedCommand = async () => ({
       code: ++count === 1 ? 0 : 1,
       timedOut: false,
-      output: "private daemon details",
+      output:
+        count === 1
+          ? JSON.stringify({
+              SecurityOptions: [
+                "name=seccomp,profile=builtin",
+                "name=apparmor",
+              ],
+            })
+          : "private daemon details",
     });
     await expect(
       assertWorkcellAvailable(root, env, missingImage),

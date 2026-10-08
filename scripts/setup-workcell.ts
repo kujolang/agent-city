@@ -1,3 +1,4 @@
+import { assertDockerWorkcellSecurity } from "../apps/runner/docker-security";
 import { localRuntime } from "./local-ports";
 import { saveWorkcellSettings } from "../apps/runner/workcell-settings";
 import {
@@ -72,6 +73,7 @@ if (engine.code !== 0 || engine.timedOut)
       ? "Docker did not answer within 5 seconds. Check the selected engine/context and system load, then retry. No image build was started."
       : "Docker is unavailable. Start your engine and select its context before building the local image.",
   );
+assertDockerWorkcellSecurity(JSON.parse(engine.output));
 const stage = await mkdtemp(join(tmpdir(), "city-workcell-image-"));
 try {
   const hashes: Record<string, string> = {};

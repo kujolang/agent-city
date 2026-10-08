@@ -1,3 +1,4 @@
+import { assertDockerWorkcellSecurity } from "./docker-security";
 import { access, readFile } from "node:fs/promises";
 import { constants } from "node:fs";
 import { resolve } from "node:path";
@@ -40,6 +41,8 @@ export async function assertWorkcellAvailable(
     throw Error(
       `Workcell ${backend} backend is unavailable. Start the selected engine and check its context or connection, then resubmit. No mission was started.`,
     );
+  if (backend === "docker")
+    assertDockerWorkcellSecurity(JSON.parse(engine.output));
   const found = await run(
     backend,
     ["image", "inspect", "--format", "{{.Id}}", image],

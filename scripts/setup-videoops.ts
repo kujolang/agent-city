@@ -1,3 +1,4 @@
+import { assertDockerWorkcellSecurity } from "../apps/runner/docker-security";
 import { readFile, mkdir, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import { createHash, randomUUID } from "node:crypto";
@@ -79,7 +80,9 @@ async function run(args: string[], timeoutMs = 10000) {
     );
   return result.output.trim();
 }
-await run(["info", "--format", "{{json .}}"]);
+assertDockerWorkcellSecurity(
+  JSON.parse(await run(["info", "--format", "{{json .}}"])),
+);
 const context = await run(["context", "show"]);
 if (!/^[a-zA-Z0-9][a-zA-Z0-9_.-]{0,127}$/.test(context))
   throw Error("Invalid Docker context");

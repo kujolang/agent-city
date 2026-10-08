@@ -1,0 +1,10 @@
+{
+  "missionId": "mission-f73bdc75-debd-4ac2-b023-e147dc2fd087",
+  "status": "unknown",
+  "admissionRelease": {
+    "schema": "agent-city.admission-release.v1",
+    "missionId": "mission-f73bdc75-debd-4ac2-b023-e147dc2fd087",
+    "acknowledgedPossibleOngoingWork": true,
+    "occurredAt": "2026-10-08T17:24:33.024Z"
+  }
+}

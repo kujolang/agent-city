@@ -1,0 +1,17 @@
+{
+  "status": "blocked",
+  "reason": "Workcell render failed; private process evidence retained",
+  "workcell": {
+    "run_id": "wc-51e91d57c71b4af89364f4f897326052",
+    "final_status": "failed",
+    "exit_code": 4,
+    "cleanup_status": "complete",
+    "errors": [
+      {
+        "message": "Docker daemon does not report AppArmor; rootful Docker requires both seccomp and AppArmor profiles",
+        "stage": "preparing"
+      }
+    ]
+  },
+  "correction": "Engine security checked before setup or model task admission; use existing guarded Colima context; no policy bypass."
+}
