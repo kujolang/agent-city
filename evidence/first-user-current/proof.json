@@ -1,0 +1,48 @@
+{
+  "scope": "Fresh managed installation, existing local Ollama daemon; real author/reviewer, not final tool-building video",
+  "model": "glm-5.3:cloud",
+  "startedAt": "2026-10-08T02:46:54.626Z",
+  "jobs": [],
+  "initiallyUnconfigured": true,
+  "jobId": "mission-abd17db2-3321-4009-a7f2-ee3eaa6df52b",
+  "job": {
+    "id": "mission-abd17db2-3321-4009-a7f2-ee3eaa6df52b",
+    "kind": "writing",
+    "executeWorkcell": false,
+    "useLocalDocs": true,
+    "useMcpDocs": true,
+    "status": "completed",
+    "startedAt": "2026-10-08T02:47:06.686Z",
+    "processOutcome": {
+      "kind": "exit",
+      "code": 0,
+      "signal": null
+    },
+    "finishedAt": "2026-10-08T02:49:04.895Z"
+  },
+  "scenes": [
+    "city",
+    "library",
+    "workshop",
+    "mcp"
+  ],
+  "errors": [],
+  "artifact": {
+    "id": "mission-abd17db2-3321-4009-a7f2-ee3eaa6df52b",
+    "kind": "writing",
+    "content": "**Review findings**\n\n- **Factual support:** Every claim in the draft traces directly to the supplied README (purpose statement, the five capability areas, the four runtime concepts, reading order, and the three related docs). No unsupported assertions were found.\n- **Requirement check \u2014 \"three bullet points describing the tools it actually lists\":** The README names no individual tools anywhere. It lists capability areas and points to `../../docs/mcp-reference.md` for the tool reference. The draft's approach \u2014 three bullets covering those areas, with an explicit note that tools aren't named \u2014 is the only supportable fulfillment; inventing tool names would violate the \"avoid invented capabilities\" requirement. I kept that approach and added a pointer to where the README says tools are cataloged.\n- **Clarity:** Minor edits only \u2014 tightened attribution, smoothed bullet lead-ins, split the long final sentence, and made explicit why no tool names appear.\n\n**Corrected finished draft**\n\n---\n\n## Local MCP Demo \u2014 Introduction\n\nThis documentation set supports the demo workspace for the MCP server. According to the supplied README, it is intentionally small but complete enough to showcase modern MCP usage with runtime guardrails.\n\nThe README does not name individual tools; it lists these capability areas:\n\n- **Discovery, invocation, and reads** \u2014 tool discovery and invocation flows, plus resource listing and reads.\n- **Search** \u2014 structured search and grep workflows.\n- **Writes and guardrails** \u2014 safe write operations in a bounded workspace, and guardrail behavior for invalid and risky inputs.\n\nIt also outlines four core runtime concepts: transport-layer MCP endpoints under `/mcp/v1/*`; a registry layer for tools and resources; a security layer covering path validation, read-only enforcement, and file-size controls; and request guardrails for bounded body size and request rate.\n\nRecommended reading order is `guide.md`, then `walkthrough.md`, then `scenarios.md`. Named tools, endpoints, and resources are cataloged in `../../docs/mcp-reference.md`; the README also points to `../../docs/security-model.md` (security boundaries and assumptions) and `../../docs/production-deployment.md` (deployment hardening). Those files are referenced but not included in the supplied documentation, so no specific tools are named here.",
+    "validation": null,
+    "functional": null,
+    "workcell": null,
+    "codeExecuted": null
+  },
+  "status": "PASS",
+  "finishedAt": "2026-10-08T02:49:09.010Z",
+  "sourceRevision": "315c4660fc6df287920580f4a3b97347943b1d11",
+  "limitations": [
+    "Existing authenticated local Ollama daemon; no fresh account login tested",
+    "Reviewer findings and finished draft are both in built-in writing artifact",
+    "No named tools invented: supplied README only lists capability areas",
+    "No generated-code execution in this writing task"
+  ]
+}

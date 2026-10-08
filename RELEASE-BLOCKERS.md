@@ -1,6 +1,6 @@
 # Bounded blocker fixes — 2026-09-08
 
-Release remains **FAIL** because the measured full-path throughput target failed. Long-duration reliability is unqualified: the user cancelled the eight-hour soak. Do not restart or schedule it without a new explicit request. This document preserves historical measurements; the current recorded gate assessment is [release-gates.json](evidence/blockers/release-gates.json).
+Current bounded hardening assessment: **CONDITIONAL**. The full-path throughput blocker was subsequently resolved and qualified on Linux x64 and ARM64 in CI37717824495; see [current receipts](evidence/reconnect-load/37717824495). Long-duration reliability is unqualified: the user cancelled the eight-hour soak. Do not restart or schedule it without a new explicit request. The measurements below are historical failures, not the latest result. The current recorded gate assessment is [release-gates.json](evidence/blockers/release-gates.json); full product readiness remains unfinished in [the release checklist](RELEASE-CHECKLIST.md).
 
 ## Fixed
 
@@ -34,4 +34,4 @@ after approximately 11 minutes. It did not qualify eight-hour reliability.
 was paused. Do not restart either without a new explicit request.
 
 The subsequent working-experience expansion is tracked in
-[WORKING-EXPERIENCE.md](WORKING-EXPERIENCE.md); it does not change release FAIL.
+[WORKING-EXPERIENCE.md](WORKING-EXPERIENCE.md). Passing bounded hardening does not establish complete product release readiness.

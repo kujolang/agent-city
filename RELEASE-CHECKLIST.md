@@ -10,9 +10,13 @@ The user cancelled the eight-hour soak; do not run or schedule it without renewe
       Evidence: [public bootstrap](evidence/public-bootstrap/README.md),
       [four-platform maintenance](evidence/installed-maintenance/README.md),
       [fresh installed launcher/task](evidence/first-user-installed/README.md).
-- [ ] Fresh-machine onboarding: prerequisite/model detection; guided Ollama/Codex setup;
+- [x] Fresh-machine onboarding: prerequisite/model detection; guided Ollama/Codex setup;
       first real task → saved deliverable → separate reviewer; agent-readable instructions;
       actionable failures; no fabricated credentials or silent provider fallback.
+      Evidence: [current installed first task](evidence/first-user-current/README.md),
+      [controlled provider faults](evidence/provider-setup-faults/proof.json),
+      four-platform installerCI37719438112. Fresh provider account authentication
+      is user-owned; the live proof reused an authenticated Ollama daemon.
 - [ ] Custom agents and teams: import catalog profiles/skills/workflows, stable source identity,
       choose team/roles, preserve contracts and capability requirements, fail closed on missing
       permissions, prove at least code, content and one custom-team workflow.

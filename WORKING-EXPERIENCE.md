@@ -21,12 +21,13 @@ configuration. Later explicit8192-token glm-5.3:cloud missions produced reviewed
 writing and Kujo code; see evidence/first-user-installed and evidence/profile-kujo.
 Earlier failed attempts remain in evidence/writing-context-order.
 
-Current qualification supersedes those early blockers: clean Linux x64/ARM64
-CI delivered66,000/66,000 canonical observations at about1,100events/sec for60s
-(see evidence/clean-throughput). A short native hidden-tab cycle now passes
-(evidence/browser-visibility). Reconnect-under-load remains a separate gate;
-CI37711890418 now passes on ARM64; x64 recovers the browser but still times out
-canonical intake with uncertain batches. Overall release remains FAIL.
+Current qualification supersedes those early blockers: CI37717824495 delivered
+66,000/66,000 observations with zero missing/duplicates and two verified browser
+reconnects on Linux x64/ARM64. Gateway throughput was1023.257/1099.705events/sec;
+browser-visible throughput was1017.514/1004.695events/sec respectively. Both ended
+LIVE. See evidence/reconnect-load/37717824495; earlier failures remain retained.
+A short native hidden-tab cycle passes (evidence/browser-visibility). The bounded
+hardening assessment is CONDITIONAL; the complete product remains unfinished.
 The eight-hour soak remains explicitly cancelled. These bounded results do not
 establish complete product acceptance or long-duration production readiness.
 
