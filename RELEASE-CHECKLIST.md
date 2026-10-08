@@ -545,3 +545,8 @@ matches private output content and Workcell identity. See evidence/mission-workc
 project-exports, project-exports-real and project-exports-browser. Broader approved
 tools/workflows, final visual/release qualification and final tool/video remain.
 Owned services/VM stopped; no long soak or sibling source changes.
+
+Export follow-up qualification: CI37733314526 atafa793e passes all5jobs, including
+108tests and four-platform installation. The real returned bundle also passes
+keyboard Enter download in Chromium with exact file/receipt comparison. The
+application remains incomplete at the broader workflow/visual/release scope.

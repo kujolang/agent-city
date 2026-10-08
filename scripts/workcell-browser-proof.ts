@@ -121,7 +121,8 @@ try {
   if (exportProof) {
     assert.equal(artifactData.workcell.projectExportsStatus, "complete");
     const bundleReady = page.waitForEvent("download");
-    await page.locator("#download-project-files").click();
+    await page.locator("#download-project-files").focus();
+    await page.locator("#download-project-files").press("Enter");
     const bundle = await bundleReady;
     assert.equal(
       bundle.suggestedFilename(),
@@ -278,6 +279,7 @@ try {
         projectExecutionPermissionReset: true,
         projectExportNamesPostedAndReset: true,
         realProjectBundleDownloaded: exportProof,
+        projectBundleKeyboardDownload: exportProof,
         consentResetAfterSubmission: true,
         consentResetForContinuation: true,
         pageErrors: errors,

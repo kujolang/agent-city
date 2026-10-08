@@ -29,3 +29,8 @@ the actual private API output and receipt identity. Browser evidence is in
 ../project-exports-browser. This proves the named-file workflow, not arbitrary
 MCP/Ability execution, general host editing or the final usable-tool/video demo.
 Owned proof services and the dedicated container VM were stopped afterward.
+
+Current source CI37733314526 atafa793e passes all5jobs (108tests and four installed
+platforms). An additional local Chromium check activates Save project file bundle
+with keyboard Enter and verifies the downloaded real output. This is a retained-run
+UI check, not another model or container execution.
