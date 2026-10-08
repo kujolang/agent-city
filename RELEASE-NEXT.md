@@ -104,3 +104,12 @@ storage. Controlled provider proof observes start before completion, rejects
 duplicate attempts before another model call, and preserves malformed/tool-request
 failures. Full stage handoff validation, production orchestration/render/review,
 UI and real production acceptance remain open. See evidence/videoops-stage-contract.
+
+VideoOps preparation checkpoint: planner/scout execution is now connected through
+upstream schema gates, exact frame coverage, reciprocal asset mappings, immutable
+attempt verification and a source-qualified file handoff. Deterministic failures
+permit one targeted stage repair; uncertain provider executions do not retry.
+Scout claims alone cannot establish acquired bytes or usage rights. Controlled
+orchestration tests pass; this is not live production acceptance. See
+evidence/videoops-preparation. Rendering, independent review, UI/live proof and
+release qualification remain open.
