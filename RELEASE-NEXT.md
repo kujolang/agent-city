@@ -263,3 +263,14 @@ No qualification process remains running. Remaining work depends on Docker resta
 coordination and actual candidate playback approval, then combined production launch,
 finalization and new release. Both user decisions are pending; do not infer approval
 or restart Docker while unrelated containers may be running.
+
+2026-10-08 approval clarification: the user approved the separate six-second pixel
+revision, SHA e0ad80db26d7f6746e6a970f41904fb1b9ea643bdb076ba7d3529c590fd7d28a;
+see videos/pixel-title-card-v2/evidence/user-approval.json (fc17d91). This resolves
+creative approval for that delivered video only. The earlier canonical Workcell
+candidate remains unapproved, and combined Mission Command production acceptance
+and new release qualification remain open. On resumed work, a bounded read-only
+Docker info check again timed out after12seconds on desktop-linux. No engine
+restart, model rerun, container cleanup or long soak was attempted. Next action:
+restore Docker with operator coordination, then run the real Mission Command
+production path and review its exact resulting candidate before finalization.
