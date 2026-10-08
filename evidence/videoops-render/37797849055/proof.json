@@ -1,0 +1,202 @@
+{
+  "scope": "Actual network-disabled Workcell/HyperFrames render of original controlled fixture, not agent model production",
+  "image": "sha256:015552ada00a36d575a23774a0d7fdefa1068d29017ad17b771c88a326fe9abd",
+  "workcell": {
+    "runId": "wc-87fcb05d918a4826aa106383b9e770ac",
+    "artifacts": [
+      {
+        "name": "output/draft.mp4",
+        "bytes": 25815,
+        "sha256": "fc03b16bbdec69a2ce888adb4c4e4d1d4f9d7d8186fc8e4eef23070c06428050"
+      },
+      {
+        "name": "output/metadata.json",
+        "bytes": 3858,
+        "sha256": "47a05320499333f15a76cf5b38b68f3fdd5138e201d8bee5d5794b1977134db0"
+      },
+      {
+        "name": "output/check.json",
+        "bytes": 2779,
+        "sha256": "72b7de9fd39658d422f6506a49526a0b74af3cce6cc053a836df4ff70a2a7099"
+      }
+    ]
+  },
+  "summary": {
+    "backend": {
+      "adapter_id": "docker",
+      "provider_id": ""
+    },
+    "cancelled": false,
+    "changed_files": 4,
+    "cleanup_status": "complete",
+    "cost": {
+      "class": "unknown",
+      "status": "unknown"
+    },
+    "declared_artifacts": 0,
+    "error": "",
+    "exit_code": 0,
+    "ok": true,
+    "output_dir": "/home/runner/work/_temp/city/agent-city/.runtime/videoops-render-1791472000190/render-1/workcell-source/.workcell/runs/wc-87fcb05d918a4826aa106383b9e770ac",
+    "preservation": {
+      "actual_mode": "none",
+      "path": "preservation.json",
+      "requested_mode": "none",
+      "status": "satisfied"
+    },
+    "receipt_path": "/home/runner/work/_temp/city/agent-city/.runtime/videoops-render-1791472000190/render-1/workcell-source/.workcell/runs/wc-87fcb05d918a4826aa106383b9e770ac/receipt.json",
+    "run_id": "wc-87fcb05d918a4826aa106383b9e770ac",
+    "schema_version": "workcell-run-summary/v1",
+    "stage": "completed",
+    "timed_out": false,
+    "verification": true
+  },
+  "metadata": {
+    "schema": "agent-city.videoops-render-receipt.v1",
+    "status": "passed",
+    "hyperframesVersion": "0.8.141",
+    "request": {
+      "schema": "agent-city.videoops-render.v1",
+      "media": [
+        {
+          "path": "assets/source/original-mark.svg",
+          "sha256": "e3ab93b4cdd6d23319ce5243c49d5b437f2ed79a2a3581f1519d809f4066bd2f",
+          "rightsEvidence": "fixture:original-self-authored-svg",
+          "bytes": 208
+        }
+      ],
+      "width": 640,
+      "height": 360,
+      "fps": 30,
+      "durationSeconds": 3
+    },
+    "probe": {
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+          "profile": "Constrained Baseline",
+          "codec_type": "video",
+          "codec_tag_string": "avc1",
+          "codec_tag": "0x31637661",
+          "width": 640,
+          "height": 360,
+          "coded_width": 640,
+          "coded_height": 360,
+          "closed_captions": 0,
+          "film_grain": 0,
+          "has_b_frames": 0,
+          "sample_aspect_ratio": "1:1",
+          "display_aspect_ratio": "16:9",
+          "pix_fmt": "yuv420p",
+          "level": 30,
+          "color_range": "tv",
+          "color_space": "bt709",
+          "color_transfer": "bt709",
+          "color_primaries": "bt709",
+          "chroma_location": "center",
+          "field_order": "progressive",
+          "refs": 1,
+          "is_avc": "true",
+          "nal_length_size": "4",
+          "id": "0x1",
+          "r_frame_rate": "30/1",
+          "avg_frame_rate": "30/1",
+          "time_base": "1/15360",
+          "start_pts": 0,
+          "start_time": "0.000000",
+          "duration_ts": 46080,
+          "duration": "3.000000",
+          "bit_rate": "64717",
+          "bits_per_raw_sample": "8",
+          "nb_frames": "90",
+          "extradata_size": 43,
+          "disposition": {
+            "default": 1,
+            "dub": 0,
+            "original": 0,
+            "comment": 0,
+            "lyrics": 0,
+            "karaoke": 0,
+            "forced": 0,
+            "hearing_impaired": 0,
+            "visual_impaired": 0,
+            "clean_effects": 0,
+            "attached_pic": 0,
+            "timed_thumbnails": 0,
+            "non_diegetic": 0,
+            "captions": 0,
+            "descriptions": 0,
+            "metadata": 0,
+            "dependent": 0,
+            "still_image": 0,
+            "multilayer": 0
+          },
+          "tags": {
+            "language": "und",
+            "handler_name": "VideoHandler",
+            "vendor_id": "[0][0][0][0]",
+            "encoder": "Lavc61.19.101 libx264"
+          }
+        }
+      ],
+      "format": {
+        "filename": "/workspace/output/draft.mp4",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+        "format_long_name": "QuickTime / MOV",
+        "start_time": "0.000000",
+        "duration": "3.000000",
+        "size": "25815",
+        "bit_rate": "68840",
+        "probe_score": 100,
+        "tags": {
+          "minor_version": "512",
+          "major_brand": "isom",
+          "compatible_brands": "isomiso2avc1mp41",
+          "hyperframes_version": "0.8.141",
+          "hyperframes_renderer": "hyperframes",
+          "encoder": "Lavf61.7.103"
+        }
+      }
+    },
+    "steps": [
+      {
+        "name": "version",
+        "status": "passed",
+        "durationMs": 36
+      },
+      {
+        "name": "check",
+        "status": "passed",
+        "durationMs": 4601
+      },
+      {
+        "name": "render",
+        "status": "passed",
+        "durationMs": 3942
+      },
+      {
+        "name": "probe",
+        "status": "passed",
+        "durationMs": 60
+      },
+      {
+        "name": "decode",
+        "status": "passed",
+        "durationMs": 71
+      }
+    ],
+    "artifact": {
+      "path": "output/draft.mp4",
+      "bytes": 25815,
+      "sha256": "fc03b16bbdec69a2ce888adb4c4e4d1d4f9d7d8186fc8e4eef23070c06428050"
+    },
+    "technical": "passed",
+    "perceptual": "NOT_REVIEWED",
+    "publication": "NOT_PERFORMED"
+  }
+}

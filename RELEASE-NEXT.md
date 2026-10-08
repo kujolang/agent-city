@@ -210,3 +210,11 @@ change ordinary Kujo Workcell context.147tests/types/boundaries/maps/build pass;
 actual Docker setup enable/load/disable qualification is added to the render CI and
 remains pending. Live model production, perceptual acceptance and new-release
 qualification remain required.
+
+Saved VideoOps setup independently qualifies in CI37797849055 at46432ff: actual
+pinned tools/worker inspection, container cleanup, private enable/load/disable,
+then isolated acquired-media render/native review all pass. Setup/render image IDs
+and downloaded candidate hash match. Direct CLI launches also enforce saved model
+binding (8207afd, typecheck passes). This closes setup mechanics, not actual model
+capability or production/perceptual acceptance. Live model proof and release
+qualification remain open.

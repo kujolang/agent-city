@@ -61,3 +61,11 @@ its exact source hash and explicit original-art rights reference. Downloaded MP4
 candidate and native review checksums match. Review remains incomplete, not approved.
 See `37792840086/` for CI, frame, video and receipts. This is a controlled render
 fixture, not a model-authored production acceptance claim.
+
+Saved setup qualification: CI [37797849055](https://github.com/kujolang/agent-city/actions/runs/37797849055)
+at `46432ff3037983ce4e3acc35c7f7fc962cb3d75a` passes actual offline toolchain inspection,
+container cleanup, private config enable→load→disable→load, and the existing real
+Workcell media render/native review. Setup and render image IDs match; downloaded
+candidate hash verifies. The setup fixture explicitly uses an uninvoked model alias;
+model capabilities are operator-attested, not established by this CI. No model call,
+perceptual approval or publication occurred. Receipts are in `37797849055/`.

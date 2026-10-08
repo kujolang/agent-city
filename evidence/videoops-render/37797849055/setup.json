@@ -1,0 +1,19 @@
+{
+  "schema": "agent-city.videoops-setup.v1",
+  "image": "sha256:015552ada00a36d575a23774a0d7fdefa1068d29017ad17b771c88a326fe9abd",
+  "dockerContext": "default",
+  "probe": {
+    "node": "v24.21.0",
+    "hyperframes": "0.8.141",
+    "ffmpeg": "ffmpeg version 7.1.5-0+deb13u1 Copyright (c) 2000-2026 the FFmpeg developers",
+    "ffprobe": "ffprobe version 7.1.5-0+deb13u1 Copyright (c) 2007-2026 the FFmpeg developers",
+    "chromium": "Chromium 154.0.8037.92 built on Debian GNU/Linux 13 (trixie)",
+    "workerSha256": "dec2f2227c980653c85a696976ec4f78ca7a8905b186c32806c1e52cfce9fcf3"
+  },
+  "model": {
+    "endpoint": "http://127.0.0.1:1/v1/chat/completions",
+    "model": "setup-fixture-not-invoked"
+  },
+  "modelQualification": "OPERATOR_ATTESTED_NOT_AUTOMATICALLY_PROVEN",
+  "checkedAt": "2026-10-08T15:06:39.135Z"
+}
