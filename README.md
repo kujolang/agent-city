@@ -1,6 +1,6 @@
 # Kujo Agent City
 
-**Public local preview — CONDITIONAL:** [current release qualification](RELEASE-QUALIFICATION.md) and [real reviewed Kujo tool/video](evidence/reviewed-release-tool/README.md). [current capabilities and unfinished gates](WORKING-EXPERIENCE.md). Start with the [managed preview installation](installer/README.md) and [first-task guide](TRY-AGENT-CITY.md). Source checkouts use `npm start` (Node 24+). Model setup and explicit writing/code missions are now separate from the read-only Observer. Existing Observer notes below are historical where they say no task controls.
+**Version 0.2.0 — local application:** [current release qualification](RELEASE-QUALIFICATION.md) and [real reviewed Kujo tool/video](evidence/reviewed-release-tool/README.md). [current capabilities and unfinished gates](WORKING-EXPERIENCE.md). Start with the [managed preview installation](installer/README.md) and [first-task guide](TRY-AGENT-CITY.md). Source checkouts use `npm start` (Node 24+). Model setup and explicit writing/code missions are now separate from the read-only Observer. Existing Observer notes below are historical where they say no task controls.
 
 Agent City observes real Kujo work in a small original pixel city. The Observer
 and replay gateway remain read-only; **Mission Command** is a separate local
@@ -8,7 +8,8 @@ service for explicit writing/code requests and SDK reviewer handoffs.
 
 Managed preview installation now supports staged updates and archive-based uninstall;
 see [public preview installation and maintenance](installer/README.md). The repository
-is public; production qualification remains incomplete.
+is public. Version 0.2.0 supports the documented local workflows; long-duration
+reliability, public hosting and unrestricted workflow execution are not certified.
 
 See [supported executable workflows](docs/workflow-support.md) before choosing a team. Imported profiles do not automatically connect their tools.
 
@@ -190,7 +191,7 @@ The gateway stops ingestion at its journal quota rather than deleting evidence s
   Live production, exact-video approval and matching final download are verified.
   See [VideoOps setup and review](docs/videoops.md).
 
-These additions are included in the `v0.2.0-rc.3` preview.
+These additions are included in `v0.2.0`.
 The [workflow matrix](docs/workflow-support.md) records the executable scope and limits.
 The [release follow-through](RELEASE-NEXT.md) retains unfinished acceptance gates.
 
@@ -334,4 +335,4 @@ execution. Stdout remains in inspection evidence; **Save reviewed artifact**
 downloads the generated program itself.
 Each continuation requires fresh execution and project-input consent.
 
-VideoOps media integration: [Pixel v2 presets, your own product media, and optional ElevenLabs audio](docs/videoops-media.md). New provider calls require explicit scoped consent; every new video requires its own review. Available in rc.3; the earlier immutable rc.2 does not include it.
+VideoOps media integration: [Pixel v2 presets, your own product media, and optional ElevenLabs audio](docs/videoops-media.md). New provider calls require explicit scoped consent; every new video requires its own review. Included in 0.2.0; the earlier immutable rc.2 does not include it.

@@ -9,9 +9,9 @@ const root = resolve(import.meta.dirname, "..");
 const version = JSON.parse(
   await readFile(resolve(root, "package.json"), "utf8"),
 ).version;
-if (!/^\d+\.\d+\.\d+-rc\.\d+$/.test(version))
+if (!/^\d+\.\d+\.\d+(?:-rc\.\d+)?$/.test(version))
   throw Error(
-    "This builder only publishes explicitly labeled preview candidates",
+    "Expected an explicit stable or release-candidate semantic version",
   );
 const git = async (args: string[]) =>
   (await exec("git", args, { cwd: root })).stdout.trim();
@@ -28,7 +28,7 @@ const digest = (v: Buffer | string) =>
   createHash("sha256").update(v).digest("hex");
 const bootstrap = await readFile(resolve(root, "install.sh"));
 const wrapper = `#!/bin/sh
-# Agent City ${tag}: pinned local preview, not universal workflow certification.
+# Agent City ${tag}: pinned local release, not universal workflow certification.
 set -eu
 scratch=$(mktemp -d "\${TMPDIR:-/tmp}/agent-city-release.XXXXXXXX")
 trap 'rm -rf "$scratch"' EXIT HUP INT TERM

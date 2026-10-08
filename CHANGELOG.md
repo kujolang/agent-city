@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.2.0 — 2026-10-08
+
+- Final release of the qualified rc.3 local workflow experience: Observer/replay, explicit author/reviewer tasks, bounded WebOps and reviewed VideoOps production.
+- Includes immutable product media packs, pixel presets, optional scoped ElevenLabs integration, and packaged setup guides.
+- Versioned installer, source archive and checksum manifest; supported macOS Intel/ARM and Linux x64/ARM.
+- No runtime behavior change from rc.3. Long-duration reliability remains unqualified; the user-excluded eight-hour soak was not run. Provider accounts and compatible Workcell isolation remain prerequisites.
+
 ## 0.2.0-rc.3 — Local preview
 
 - WebOps supplied-evidence Reporter → Copy Chief workflow with deterministic report checks.

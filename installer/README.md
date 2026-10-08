@@ -1,13 +1,13 @@
-# Managed local installation (preview)
+# Managed local installation
 
-The repository is public. The versioned preview bootstrap pins an immutable City
+The repository is public. The versioned release bootstrap pins an immutable City
 revision and pinned producer/runtime dependencies into an isolated directory.
-Production release gates remain incomplete; see ../RELEASE-CHECKLIST.md.
+Supported scope and reliability limits: [release qualification](../RELEASE-QUALIFICATION.md).
 
-Install and launch the local preview on macOS or Linux:
+Install and launch Agent City 0.2 on macOS or Linux:
 
 ```sh
-curl --proto '=https' --tlsv1.2 -fsSL https://github.com/kujolang/agent-city/releases/download/v0.2.0-rc.3/install.sh | sh
+curl --proto '=https' --tlsv1.2 -fsSL https://github.com/kujolang/agent-city/releases/download/v0.2.0/install.sh | sh
 ```
 
 The bootstrap supplies a private Node runtime when needed. It does not configure

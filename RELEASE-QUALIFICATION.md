@@ -1,12 +1,19 @@
 # Local release qualification — 2026-10-08
 
-**CONDITIONAL: usable public local preview, not unrestricted production certification.**
+**0.2.0 local-workflow release. Reliability assessment remains CONDITIONAL.**
 The repository is public and GitHub Actions executes successfully. Immutable
 local-preview [v0.2.0-rc.3](https://github.com/kujolang/agent-city/releases/tag/v0.2.0-rc.3) is published; rc.2 remains unchanged.
 No public service deployment, multi-tenant hosting or eight-hour soak is claimed.
 The long soak was explicitly cancelled; do not start or schedule it without renewed consent.
 
-## Version 0.2.0-rc.3 qualification
+## Version 0.2.0 qualification
+
+0.2.0 promotes the same rc.3 runtime with version/distribution/documentation changes.
+The user authorized final release with the eight-hour soak excluded. No missing
+reliability evidence is marked passing. Final-source CI and distribution checks:
+[evidence/release-0.2.0](evidence/release-0.2.0/README.md).
+
+## Underlying rc.3 qualification
 
 [Real media production and finalization](evidence/videoops-media-integration/README.md)
 now pass: the user approved the exact new candidate, native review is APPROVED,
