@@ -11,7 +11,7 @@ workstreams open until their actual evidence exists. No eight-hour soak is autho
 - [x] First-time provider onboarding: absent/missing/authentication/model faults,
       useful recovery guidance, real fresh-configuration task where credentials
       already authorize it. Never create accounts or invent authentication proof.
-- [ ] Bounded reliability/performance: graphics slowdown diagnosis, actual
+- [x] Bounded reliability/performance: graphics slowdown diagnosis, actual
       operation-to-visible timing, tab discard/suspension and recovery. No long soak.
 - [ ] Explicit workflow support: user-facing executable-vs-imported capability
       matrix; selected VideoOps/WebOps/publishing acceptance and adapters where
@@ -59,3 +59,11 @@ The connector now follows the normal launcher default5178 and CITY_PORT_OFFSET;
 its authenticated alias listing passes from the UI and a real SDK author/reviewer
 result was saved. See evidence/codex-onboarding. No new provider-account signup or
 unknown underlying model identity is claimed.
+
+Bounded recovery/performance qualified: CI37778943244 atc98277c passes all5jobs
+and four installed platforms. Its actual Linux native-discard receipt matches the
+local pass: hidden tab, native discarded document, authoritative failed snapshot,
+exact selected identity, reconstructed renderer, zero source writes. See
+evidence/browser-discard/37778943244/linux.json. This closes the bounded gate;
+no OS sleep, long soak or universal GPU guarantee is claimed. Versioned release
+and selected team workflow adapters/acceptance remain open.

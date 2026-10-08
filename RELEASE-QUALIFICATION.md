@@ -142,3 +142,8 @@ hidden/discard/resume has a local passing receipt with test-harness failures ret
 Independent qualification of the new native harness and the versioned release remain
 open. WebOps28/VideoOps6 profiles currently require unconnected capabilities; their
 catalog presence is not executable team support. No eight-hour soak was run.
+
+Independent follow-through CI37778943244 atc98277c now passes all5jobs and includes
+native Linux hidden/discard/resume evidence, alongside the local pass. The bounded
+recovery/performance workstream is closed within that measured scope. The versioned
+public release and selected executable team adapters remain open.

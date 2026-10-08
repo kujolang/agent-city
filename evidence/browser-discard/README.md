@@ -36,3 +36,8 @@ read-only diagnostics were installed; it had not reached discard. Its receipt is
 load-deadline-failure.json. Stage waits are now bounded at60seconds and the owned
 browser run at180seconds to accommodate this busy host. This changes test deadlines,
 not app timing or a performance claim. The independent CI result must still pass.
+
+Independent Linux CI37778943244 atc98277c passes the same native lifecycle test
+under Xvfb, with2snapshots and0source writes. All5jobs/four installed platforms
+pass. The retained linux.json proves wasDiscarded, selected identity, failed
+inspector truth and renderer reconstruction; ci.json pins the source revision.
