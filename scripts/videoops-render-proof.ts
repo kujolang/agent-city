@@ -1,6 +1,12 @@
 import { createHash } from "node:crypto";
 /** Original render fixture. Actual isolated Workcell, not a model production demo. */
-import { mkdir, readFile, writeFile, copyFile } from "node:fs/promises";
+import {
+  mkdir,
+  readFile,
+  writeFile,
+  copyFile,
+  readdir,
+} from "node:fs/promises";
 import { resolve } from "node:path";
 import assert from "node:assert/strict";
 import { saveVideoopsAttempt } from "../apps/runner/videoops-artifacts";
@@ -135,6 +141,17 @@ try {
   assert.equal(review.status.counters.render_attempts, 1);
   await writeFile(resolve(out, "review.json"), JSON.stringify(review, null, 2));
 } catch (error) {
+  // Retain bounded Workcell diagnostics for a terminal failed render. These
+  // offline proof containers receive no credentials or secret environment.
+  const runs = resolve(rendering, "workcell-source/.workcell/runs");
+  for (const id of await readdir(runs).catch(() => [])) {
+    if (!/^wc-[a-f0-9]+$/.test(id)) continue;
+    for (const name of ["stdout.log", "stderr.log", "receipt.json"]) {
+      const bytes = await readFile(resolve(runs, id, name)).catch(() => null);
+      if (bytes)
+        await writeFile(resolve(out, id + "-" + name), bytes.subarray(-65536));
+    }
+  }
   for (const name of ["private-process.json", "failed.json", "lineage.json"])
     await copyFile(resolve(rendering, name), resolve(out, name)).catch(
       () => {},

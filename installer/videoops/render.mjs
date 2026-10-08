@@ -28,7 +28,7 @@ function run(name, executable, args, timeout) {
     return stdout;
   } catch (error) {
     steps.push({ name, status: "failed", durationMs: Date.now() - started });
-    throw Error(name + " failed: " + String(error.stderr || error.message).slice(-8192));
+    throw Error(name + " failed: " + [error.message, error.stdout, error.stderr].filter(Boolean).map(String).join("\n").slice(-8192));
   }
 }
 try {
