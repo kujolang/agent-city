@@ -18,6 +18,8 @@ jobs:
           node-version: "24.21.0"
           cache: npm
       - run: npm ci --no-audit --no-fund
+      - name: Audit locked application and development dependencies
+        run: npm audit --audit-level=moderate --json > dependency-audit.json
       - name: Verify source types, package boundaries, maps, tests and build
         run: npm run verify
       - name: Install controlled browser
@@ -33,6 +35,7 @@ jobs:
           path: |
             evidence/provider-setup-faults
             evidence/game-view
+            dependency-audit.json
   install:
     strategy:
       fail-fast: false
