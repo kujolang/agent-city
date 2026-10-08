@@ -113,3 +113,11 @@ Scout claims alone cannot establish acquired bytes or usage rights. Controlled
 orchestration tests pass; this is not live production acceptance. See
 evidence/videoops-preparation. Rendering, independent review, UI/live proof and
 release qualification remain open.
+
+VideoOps render adapter qualified: CI37788990120 at60537e9 builds the pinned
+HyperFrames0.8.141 image and executes a real offline Workcell fixture. Check,
+render, FFprobe and full decode pass; exported3second640×360/30fps MP4 hash matches
+the completed/cleaned Workcell receipt. See evidence/videoops-render. Local image
+build avoided because host disk remains constrained. This closes isolated renderer
+mechanics, not real model production or perceptual approval. Editor integration,
+review, UI/live proof and new-release qualification remain open.

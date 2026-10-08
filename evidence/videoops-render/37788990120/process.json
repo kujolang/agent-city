@@ -1,0 +1,5 @@
+{
+  "code": 0,
+  "timedOut": false,
+  "output": "{\"run\":\"videoops-render-fixture\",\"producer\":\"videoops-render-fixture\",\"summary\":{\"backend\":{\"adapter_id\":\"docker\",\"provider_id\":\"\"},\"cancelled\":false,\"changed_files\":4,\"cleanup_status\":\"complete\",\"cost\":{\"class\":\"unknown\",\"status\":\"unknown\"},\"declared_artifacts\":0,\"error\":\"\",\"exit_code\":0,\"ok\":true,\"output_dir\":\"/home/runner/work/_temp/city/agent-city/.runtime/videoops-render-1791468116934/workcell-source/.workcell/runs/wc-7a94bfb3d0fe482cb8ffd1e20b7dfb55\",\"preservation\":{\"actual_mode\":\"none\",\"path\":\"preservation.json\",\"requested_mode\":\"none\",\"status\":\"satisfied\"},\"receipt_path\":\"/home/runner/work/_temp/city/agent-city/.runtime/videoops-render-1791468116934/workcell-source/.workcell/runs/wc-7a94bfb3d0fe482cb8ffd1e20b7dfb55/receipt.json\",\"run_id\":\"wc-7a94bfb3d0fe482cb8ffd1e20b7dfb55\",\"schema_version\":\"workcell-run-summary/v1\",\"stage\":\"completed\",\"timed_out\":false,\"verification\":true}}\n"
+}
