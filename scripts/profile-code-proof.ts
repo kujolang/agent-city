@@ -333,11 +333,29 @@ try {
         : "fixture",
   );
   await mkdir(out, { recursive: true });
-  const proof = {
-    source: execFileSync("git", ["rev-parse", "HEAD"], {
+  let source: string | null = null;
+  try {
+    source = execFileSync("git", ["rev-parse", "HEAD"], {
       cwd: root,
       encoding: "utf8",
-    }).trim(),
+      stdio: ["ignore", "pipe", "ignore"],
+    }).trim();
+  } catch {
+    try {
+      const receipt = JSON.parse(
+        await readFile(resolve(root, "../install-receipt.json"), "utf8"),
+      );
+      if (
+        receipt.schema === "agent-city.install.v1" &&
+        /^[a-f0-9]{40}$/.test(receipt.cityRevision)
+      )
+        source = receipt.cityRevision;
+    } catch {
+      /* Unavailable provenance stays unknown. */
+    }
+  }
+  const proof = {
+    source,
     scope: workcell
       ? "Mission API author/reviewer, static check and explicit isolated Workcell execution; model mode recorded per attempt"
       : kujo
