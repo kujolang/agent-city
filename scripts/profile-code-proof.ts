@@ -1,5 +1,5 @@
 import { createServer } from "node:http";
-import { spawn } from "node:child_process";
+import { spawn, execFileSync } from "node:child_process";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import { randomUUID, createHash } from "node:crypto";
@@ -80,7 +80,11 @@ const service = spawn(
         : "http://127.0.0.1:19895/v1/chat/completions",
       CITY_MODEL: real ? "glm-5.3:cloud" : "profile-code-fixture",
       CITY_MODEL_API_KEY: "",
-      CITY_MAX_OUTPUT_TOKENS: real ? "8192" : "2048",
+      CITY_MAX_OUTPUT_TOKENS: real
+        ? process.env.CITY_MAX_OUTPUT_TOKENS || "8192"
+        : "2048",
+      CITY_MODEL_TIMEOUT_SECONDS:
+        process.env.CITY_MODEL_TIMEOUT_SECONDS || "90",
     },
     stdio: "ignore",
   },
@@ -115,7 +119,7 @@ try {
       { name: "zero", args: [0, 0], equals: 0 },
     ],
   };
-  for (let attempt = 0; attempt < (real ? 1 : 2); attempt++) {
+  for (let attempt = 0; attempt < (outputCheck ? 2 : real ? 1 : 2); attempt++) {
     repaired = attempt === 1;
     const response = await fetch(base + "/control/missions", {
       method: "POST",
@@ -133,9 +137,13 @@ try {
               ...(attempt ? { parentMissionId: attempts[0].mission } : {}),
             }
           : {}),
-        prompt: kujo
-          ? "Read the Kujo catalog using the requested MCP step. Write raw Kujo code defining func add(a,b) returning a+b and print(add(2,3)). Reviewer must return corrected raw Kujo code in cityArtifact and grade/review in cityReview. Do not claim execution; the platform will only syntax-check the final code."
-          : "Write a raw JavaScript ES module exporting add(a,b), returning a+b. Reviewer must preserve the named export and return corrected code in cityArtifact. Do not claim tests passed; the platform will run the explicit cases after review.",
+        prompt: outputCheck
+          ? attempt === 0
+            ? "We are testing real failure detection and repair. Read the Kujo MCP catalog. Produce raw Kujo defining func add(a,b) that deliberately returns a-b, and print(add(2,3)). This intentional subtraction defect must remain in this first regression fixture; do not fix it yet. Reviewer: preserve this explicitly requested defect, explain it honestly in cityReview, and return the raw program in cityArtifact. Do not claim any test passed. The external expected-output check will run afterward."
+            : "Repair the prior program using the actual failed output check in context. func add(a,b) must return a+b, and print(add(2,3)) must print 5. Return raw Kujo in cityArtifact, with separate honest review in cityReview. Read the requested Kujo documentation. Do not claim tests passed before the external checker runs."
+          : kujo
+            ? "Read the Kujo catalog using the requested MCP step. Write raw Kujo code defining func add(a,b) returning a+b and print(add(2,3)). Reviewer must return corrected raw Kujo code in cityArtifact and grade/review in cityReview. Do not claim execution; the platform will only syntax-check the final code."
+            : "Write a raw JavaScript ES module exporting add(a,b), returning a+b. Reviewer must preserve the named export and return corrected code in cityArtifact. Do not claim tests passed; the platform will run the explicit cases after review.",
         profiles: {
           authorId,
           reviewerId: "kujolang/kujo-agents:chain.code-reviewer",
@@ -149,7 +157,7 @@ try {
       async () => (await fetch(base + "/control/status")).json(),
       (v) =>
         v.jobs.some((j: any) => j.id === accepted.id && j.status !== "running"),
-      240000,
+      outputCheck && real ? 480000 : 240000,
     );
     const job = final.jobs.find((j: any) => j.id === accepted.id);
     assert.equal(job.status, "completed", JSON.stringify(job));
@@ -287,8 +295,8 @@ try {
       handoffObserved: true,
     });
   }
-  if (!real) {
-    assert.equal(calls, 4);
+  if (!real || outputCheck) {
+    if (!real) assert.equal(calls, 4);
     const first = JSON.parse(
       await readFile(
         resolve(
@@ -316,10 +324,20 @@ try {
       : kujo
         ? "evidence/profile-kujo"
         : "evidence/profile-code",
-    outputCheck ? "output-check" : real ? "real" : "fixture",
+    outputCheck
+      ? real
+        ? "output-check-real"
+        : "output-check"
+      : real
+        ? "real"
+        : "fixture",
   );
   await mkdir(out, { recursive: true });
   const proof = {
+    source: execFileSync("git", ["rev-parse", "HEAD"], {
+      cwd: root,
+      encoding: "utf8",
+    }).trim(),
     scope: workcell
       ? "Mission API author/reviewer, static check and explicit isolated Workcell execution; model mode recorded per attempt"
       : kujo
@@ -330,7 +348,7 @@ try {
           ? "Real Ollama cloud author/reviewer and actual sandboxed browser function execution"
           : "Synthetic model outputs with actual SDK handoff and sandboxed browser function execution",
     attempts,
-    priorFailureRetained: real ? "fixture-tested" : true,
+    priorFailureRetained: real && !outputCheck ? "fixture-tested" : true,
     privateEvidence: runtime,
   };
   await writeFile(
