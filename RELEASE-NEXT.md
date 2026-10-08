@@ -6,7 +6,7 @@ workstreams open until their actual evidence exists. No eight-hour soak is autho
 - [ ] Versioned public release: immutable tag/release notes, supported platforms,
       pinned installation and verified release artifacts. Publish only after the
       changes are concrete and verified; no claim of universal workflow support.
-- [ ] Easier Workcell setup: explicit one-command image setup, persisted immutable
+- [x] Easier Workcell setup: explicit one-command image setup, persisted immutable
       image/context, normal restart, clear disable/recovery path, per-task consent.
 - [ ] First-time provider onboarding: absent/missing/authentication/model faults,
       useful recovery guidance, real fresh-configuration task where credentials
@@ -28,3 +28,18 @@ read-only availability check→disable→restart with zero tasks/providers invok
 `evidence/saved-workcell/proof.json` records the result; installed Linux CI now
 uses `--build --enable` and consumes saved settings for actual Workcell execution.
 This item stays open until that expanded installed-platform CI completes.
+
+Saved setup qualification: CI37773200210 at054e6bc passes all5jobs, including
+actual installed Linuxx64/ARM container work using saved settings; four platforms
+install successfully. This closes item2. Completion-to-visible instrumentation
+now measures19actual terminal observations from5Dispatch/SDK/local RAG runs:
+p50/p95 upstream544/778ms and SSE-to-visible44/76ms in isolated SwiftShader.
+See evidence/runtime-latency. Native discard/suspension work remains open.
+
+Reload recovery now retains exact per-tab selected execution and Follow preference;
+completed truth stays inspectable without continuing Follow. Six controlled reload
+cases pass with unchanged truth and zero source writes. Native tab discard remains
+unqualified: the attached-browser harness crashes Chromium151/153 during discard.
+Codex onboarding now checks CLI/options/login and supports authenticated alias
+listing; seven controlled readiness states and the actual local connector metadata
+proof pass. Fresh-user generation/remaining provider qualification stays open.

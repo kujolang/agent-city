@@ -143,6 +143,8 @@ jobs:
           cp evidence/mission-workcell/project-inputs/proof.json "$RUNNER_TEMP/workcell-project-inputs.json"
           CITY_PROJECT_EXPORT_PROOF=1 CITY_ENABLE_WORKCELL=1 CITY_WORKCELL_IMAGE=agent-city-kujo:1.7.0 node --import tsx scripts/workcell-project-proof.ts
           cp evidence/mission-workcell/project-exports/proof.json "$RUNNER_TEMP/workcell-project-exports.json"
+          CITY_LATENCY_SOFTWARE=1 node --import tsx scripts/runtime-latency-proof.ts
+          cp evidence/runtime-latency/proof.json "$RUNNER_TEMP/runtime-latency.json"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -155,6 +157,7 @@ jobs:
             ${{ runner.temp }}/workcell-platform.json
             ${{ runner.temp }}/workcell-project-inputs.json
             ${{ runner.temp }}/workcell-project-exports.json
+            ${{ runner.temp }}/runtime-latency.json
             ${{ runner.temp }}/maintenance.json
             ${{ runner.temp }}/city/install-receipt.json
             ${{ runner.temp }}/installed-acceptance

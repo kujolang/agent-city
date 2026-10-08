@@ -20,3 +20,7 @@ symlinked settings and saved disable. Full verify passes114tests, types, boundar
 map validation and build. Browser setup remains keyboard-operable and authenticated.
 The expanded installed Linux CI uses `--build --enable` and consumes saved settings
 for actual Workcell execution; its result is recorded separately when terminal.
+
+CI37773200210 at054e6bc completes all5jobs:114tests, browser acceptance, four
+installed platforms, and actual Linuxx64/ARM Workcell execution using the saved
+immutable image/context. `ci*.json` preserve the terminal result.
