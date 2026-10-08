@@ -121,3 +121,12 @@ the completed/cleaned Workcell receipt. See evidence/videoops-render. Local imag
 build avoided because host disk remains constrained. This closes isolated renderer
 mechanics, not real model production or perceptual approval. Editor integration,
 review, UI/live proof and new-release qualification remain open.
+
+Saved Editor render connection: runtime now rechecks immutable stage bytes before
+rendering, reserves a fresh invocation, executes the existing offline Workcell,
+revalidates exported receipts/hashes and binds the exact draft to its Editor
+attempt. Changed/symlinked inputs, missing evidence and uncertain execution never
+become an approved candidate or automatic retry. The real render qualification
+harness now exercises this path. Full verification passes136tests; its new CI run
+must still qualify the connection. Model-driven Editor orchestration, independent
+review, UI/live proof and new-release qualification remain open.

@@ -3,6 +3,7 @@ import {
   lstat,
   mkdir,
   realpath,
+  readFile,
   rename,
   rm,
   writeFile,
@@ -189,4 +190,48 @@ export async function saveVideoopsAttempt(options: {
     ).catch(() => {});
     throw error;
   }
+}
+
+/** Recheck stored bytes before downstream roles or execution consume them.
+ * The receipt comes from runtime storage, never from the model or browser. */
+export async function readVideoopsAttempt(
+  stored: Awaited<ReturnType<typeof saveVideoopsAttempt>>,
+) {
+  const { directory, receipt } = stored;
+  const root = await realpath(directory);
+  if (
+    root !== resolve(directory) ||
+    receipt.status !== "stored" ||
+    receipt.artifacts.length > 32
+  )
+    throw Error("Invalid stored VideoOps attempt");
+  const files = [];
+  for (const ref of receipt.artifacts) {
+    const file = resolve(root, ref.path);
+    if (
+      !file.startsWith(root + sep) ||
+      !Number.isSafeInteger(ref.bytes) ||
+      ref.bytes < 1 ||
+      ref.bytes > 131072
+    )
+      throw Error("Invalid stored artifact reference");
+    const info = await lstat(file);
+    if (
+      !info.isFile() ||
+      info.size !== ref.bytes ||
+      (await realpath(file)) !== file
+    )
+      throw Error("Stored stage artifact changed");
+    const bytes = await readFile(file);
+    if (
+      bytes.length !== ref.bytes ||
+      createHash("sha256").update(bytes).digest("hex") !== ref.sha256
+    )
+      throw Error("Stored stage artifact checksum changed");
+    files.push({ path: ref.path, content: bytes.toString("utf8") });
+  }
+  return validateVideoopsArtifacts(receipt.stage, {
+    schema: "agent-city.videoops-artifacts.v1",
+    files,
+  });
 }

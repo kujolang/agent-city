@@ -2,7 +2,8 @@
 import { mkdir, readFile, writeFile, copyFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import assert from "node:assert/strict";
-import { boundedCommand } from "../apps/runner/bounded-command";
+import { saveVideoopsAttempt } from "../apps/runner/videoops-artifacts";
+import { renderVideoopsAttempt } from "../apps/runner/videoops-render";
 const root = resolve(import.meta.dirname, "..");
 const image = process.env.CITY_VIDEOOPS_IMAGE;
 assert(
@@ -33,55 +34,55 @@ const request = {
     ],
   },
 };
-const input = resolve(runtime, "input.json");
-await writeFile(input, JSON.stringify(request), { mode: 0o600 });
-const executed = await boundedCommand(
-  process.execPath,
-  ["--import", "tsx", "integrations/kujo/workcell.ts"],
-  {
-    cwd: root,
-    env: {
-      ...process.env,
-      CITY_RUNTIME_DIR: runtime,
-      CITY_WORKCELL_IMAGE: image,
-      CITY_WORKCELL_VIDEOOPS_FILE: input,
-      CITY_RUN: "videoops-render-fixture",
-      CITY_PRODUCER: "videoops-render-fixture",
-      CITY_WORKCELL_KUJO_FILE: "",
-      CITY_WORKCELL_PROJECT_FILE: "",
-      CITY_PROJECT_EXPORTS_FILE: "",
-    },
-    timeoutMs: 360000,
-  },
-);
+const editor = await saveVideoopsAttempt({
+  workspace: runtime,
+  stage: "hyperframes-editor",
+  attempt: 1,
+  execution: "fixture:videoops-render-fixture:hyperframes-editor",
+  bundle: request.composition,
+});
+const rendering = resolve(runtime, "render-1");
 const out = resolve(
   process.env.CITY_VIDEOOPS_PROOF_OUTPUT ||
     resolve(root, "evidence/videoops-render"),
 );
 await mkdir(out, { recursive: true });
-await writeFile(
+try {
+  await renderVideoopsAttempt({
+    root,
+    runtime: rendering,
+    image: image!,
+    editor,
+    producer: "videoops-render-fixture",
+    run: "videoops-render-fixture",
+    task: "videoops-render-fixture",
+    spool: resolve(runtime, "spool.jsonl"),
+    width: request.width,
+    height: request.height,
+    fps: request.fps,
+    durationSeconds: request.durationSeconds,
+  });
+} catch (error) {
+  for (const name of ["private-process.json", "failed.json", "lineage.json"])
+    await copyFile(resolve(rendering, name), resolve(out, name)).catch(
+      () => {},
+    );
+  throw error;
+}
+await copyFile(
+  resolve(rendering, "private-process.json"),
   resolve(out, "process.json"),
-  JSON.stringify(
-    {
-      code: executed.code,
-      timedOut: executed.timedOut,
-      output: executed.output,
-    },
-    null,
-    2,
-  ),
 );
-assert.equal(
-  executed.code,
-  0,
-  "Actual Workcell render failed; process evidence retained",
+await copyFile(
+  resolve(rendering, "candidate.json"),
+  resolve(out, "candidate.json"),
 );
 const proof = JSON.parse(
-  await readFile(resolve(runtime, "workcell-proof.json"), "utf8"),
+  await readFile(resolve(rendering, "workcell-proof.json"), "utf8"),
 );
 assert(proof.evidence?.runId);
 const artifacts = resolve(
-  runtime,
+  rendering,
   "workcell-source/.workcell/runs",
   proof.evidence.runId,
   "artifacts",

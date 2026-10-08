@@ -1,19 +1,7 @@
-import {
-  appendFile,
-  lstat,
-  mkdir,
-  readFile,
-  realpath,
-  stat,
-  writeFile,
-} from "node:fs/promises";
-import { createHash } from "node:crypto";
+import { appendFile, mkdir, realpath, stat, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import { admitVideoopsStage, runVideoopsStage } from "./videoops-stage";
-import {
-  validateVideoopsArtifacts,
-  videoopsOutputs,
-} from "./videoops-artifacts";
+import { readVideoopsAttempt } from "./videoops-artifacts";
 import {
   validateVideoopsPlan,
   validateVideoopsAssets,
@@ -36,31 +24,6 @@ const intakePaths = [
   "references.md",
   "platform.json",
 ].map((p) => "intake/" + p);
-
-/** Recheck materialized bytes before a later role consumes a stored attempt. */
-async function readArtifacts(result: StageResult) {
-  if (!result.artifact) throw Error("Stored artifacts unavailable");
-  const { directory, receipt } = result.artifact;
-  const root = await realpath(directory);
-  const files = [];
-  for (const ref of receipt.artifacts) {
-    const file = resolve(root, ref.path);
-    if (
-      (await realpath(file)) !== file ||
-      !(await lstat(file)).isFile() ||
-      (await stat(file)).size !== ref.bytes
-    )
-      throw Error("Stored stage artifact changed");
-    const content = await readFile(file, "utf8");
-    if (createHash("sha256").update(content).digest("hex") !== ref.sha256)
-      throw Error("Stored stage artifact checksum changed");
-    files.push({ path: ref.path, content });
-  }
-  return validateVideoopsArtifacts(receipt.stage, {
-    schema: "agent-city.videoops-artifacts.v1",
-    files,
-  });
-}
 
 /** Preparation portion of production, never a final-video completion claim.
  * Only verified planning can reach Scout. Each failed economical attempt is
@@ -165,7 +128,7 @@ export async function prepareVideoops(
       try {
         if (result.receipt.status !== "artifacts-stored")
           throw Error(result.receipt.reason || "Stage output unavailable");
-        const checked = check(await readArtifacts(result));
+        const checked = check(await readVideoopsAttempt(result.artifact!));
         results.push({ stage: name, attempt, status: "passed" });
         await writeFile(
           resolve(receipts, name + "-" + attempt + ".json"),
