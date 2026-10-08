@@ -38,6 +38,8 @@ const sourcePaths = [
   "scripts",
   "integrations",
   "installer",
+  "docs",
+  "RELEASE-CHECKLIST.md",
   "package.json",
   "package-lock.json",
   "tsconfig.json",
@@ -57,7 +59,12 @@ const reusedRuntime = process.env.CITY_BUNDLE_RUNTIME_FROM
   : null;
 for (const name of [...names, ...(reusedRuntime ? [] : ["kujo"])]) {
   const dir = resolve(root, "..", name);
-  if (await git(dir, ["status", "--porcelain", "--untracked-files=no"]))
+  // Producers are exported from immutable lockfile commits, never their working
+  // trees. Unrelated sibling edits cannot enter the archive and need not block it.
+  if (
+    (name === "agent-city" || name === "kujo") &&
+    (await git(dir, ["status", "--porcelain", "--untracked-files=no"]))
+  )
     throw Error(
       `Commit or isolate tracked changes in ${name} before packaging. No repository was modified.`,
     );
@@ -128,7 +135,7 @@ try {
     throw Error("Reused runtime version differs from its manifest");
   await writeFile(
     join(stage, "START-HERE.md"),
-    `# Agent City local preview\n\nNot a qualified production release. Built for ${process.platform}/${process.arch}.\n\n1. Install Node 24 or newer.\n2. Open agent-city/Start Agent City.command on macOS, or run npm ci then npm start from agent-city.\n3. Open http://127.0.0.1:5178 and configure your model in Mission Command. No model credentials or prior missions are included.\n4. For isolated JavaScript function checks, install Chromium with npx playwright install chromium from agent-city if it is not already installed.\n\nProducer source and the local Kujo binary are included. npm dependencies are installed from package-lock.json on first use; this requires npm registry access/cache. A local or compatible remote model is separate. Use npm run doctor to inspect startup prerequisites and occupied ports. Existing processes are never stopped by preflight.\n\nAfter npm ci, run npm run verify:bundle from agent-city to check manifest content hashes (integrity, not publisher authentication).\n\nSee agent-city/TRY-AGENT-CITY.md for writing, coding and follow-up examples. Open gates include reference fidelity, throughput/reliability and release qualification. No eight-hour soak was run for this bundle.\n`,
+    `# Agent City local preview\n\nNot a qualified production release. Built for ${process.platform}/${process.arch}.\n\n1. Install Node 24 or newer.\n2. Open agent-city/Start Agent City.command on macOS, or run npm ci then npm start from agent-city.\n3. Open http://127.0.0.1:5178 and configure your model in Mission Command. No model credentials or prior missions are included.\n4. For isolated JavaScript function checks, install Chromium with npx playwright install chromium from agent-city if it is not already installed.\n\nProducer source and the local Kujo binary are included. npm dependencies are installed from package-lock.json on first use; this requires npm registry access/cache. A local or compatible remote model is separate. Use npm run doctor to inspect startup prerequisites and occupied ports. Existing processes are never stopped by preflight.\n\nAfter npm ci, run npm run verify:bundle from agent-city to check manifest content hashes (integrity, not publisher authentication).\n\nSee agent-city/TRY-AGENT-CITY.md for writing, coding and follow-up examples. Consult agent-city/RELEASE-CHECKLIST.md for current qualification evidence and remaining gates; this bundle is a local preview, not a production certification. No eight-hour soak was run for this bundle.\n`,
   );
   const files: Record<string, { sha256: string; bytes: number }> = {};
   async function inventory(dir: string) {
