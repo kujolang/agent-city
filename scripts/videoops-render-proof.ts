@@ -26,14 +26,14 @@ await writeFile(resolve(runtime, mediaPath), mediaBytes, {
   mode: 0o600,
   flag: "wx",
 });
-const media = [
+const fixtureMedia = [
   {
     path: mediaPath,
     sha256: createHash("sha256").update(mediaBytes).digest("hex"),
     rightsEvidence: "fixture:original-self-authored-svg",
   },
 ];
-const request = {
+const fixtureRequest = {
   schema: "agent-city.videoops-render-input.v1",
   width: 640,
   height: 360,
@@ -55,11 +55,49 @@ const request = {
     ],
   },
 };
+const modelProof = process.env.CITY_VIDEOOPS_MODEL_PROOF === "1";
+const modelEvidence = modelProof
+  ? JSON.parse(
+      await readFile(
+        resolve(root, "evidence/videoops-model-editor/proof.json"),
+        "utf8",
+      ),
+    )
+  : null;
+const request = modelProof
+  ? JSON.parse(
+      await readFile(
+        resolve(root, "evidence/videoops-model-editor/render-input.json"),
+        "utf8",
+      ),
+    )
+  : fixtureRequest;
+const media = modelProof ? [] : fixtureMedia;
+if (modelProof) {
+  assert.equal(modelEvidence.result.receipt.status, "artifacts-stored");
+  for (const ref of modelEvidence.result.artifact.receipt.artifacts) {
+    const file = request.composition.files.find(
+      (f: any) => f.path === ref.path,
+    );
+    assert(file);
+    assert.equal(Buffer.byteLength(file.content), ref.bytes);
+    assert.equal(
+      createHash("sha256").update(file.content).digest("hex"),
+      ref.sha256,
+    );
+  }
+  assert.equal(
+    request.composition.files.length,
+    modelEvidence.result.artifact.receipt.artifacts.length,
+  );
+}
 const editor = await saveVideoopsAttempt({
   workspace: runtime,
   stage: "hyperframes-editor",
   attempt: 1,
-  execution: "fixture:videoops-render-fixture:hyperframes-editor",
+  execution: modelProof
+    ? modelEvidence.result.artifact.receipt.execution
+    : "fixture:videoops-render-fixture:hyperframes-editor",
   bundle: request.composition,
 });
 const rendering = resolve(runtime, "render-1");
@@ -128,7 +166,7 @@ assert.equal(metadata.technical, "passed");
 assert.equal(metadata.perceptual, "NOT_REVIEWED");
 assert.equal(metadata.request.width, 640);
 assert.equal(metadata.request.height, 360);
-assert.equal(metadata.request.durationSeconds, 3);
+assert.equal(metadata.request.durationSeconds, request.durationSeconds);
 assert.equal(
   metadata.artifact.sha256,
   proof.evidence.artifacts.find((a: any) => a.name === "output/draft.mp4")
@@ -142,8 +180,10 @@ await writeFile(
   resolve(out, "proof.json"),
   JSON.stringify(
     {
-      scope:
-        "Actual network-disabled Workcell/HyperFrames render of original controlled fixture, not agent model production",
+      scope: modelProof
+        ? "Actual network-disabled Workcell render of checksum-verified real Codex SDK Editor output; perceptual review still pending"
+        : "Actual network-disabled Workcell/HyperFrames render of original controlled fixture, not agent model production",
+      upstreamEditor: modelProof ? modelEvidence.result.artifact.receipt : null,
       image,
       workcell: proof.evidence,
       summary: proof.summary,

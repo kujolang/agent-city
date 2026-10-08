@@ -1,6 +1,11 @@
 name: Bounded VideoOps render qualification
 on:
   workflow_dispatch:
+    inputs:
+      model_editor:
+        description: Render the checked-in real SDK Editor output instead of the controlled fixture
+        type: boolean
+        default: false
 permissions:
   contents: read
 jobs:
@@ -31,6 +36,7 @@ jobs:
           node --import tsx --input-type=module -e 'import assert from "node:assert/strict";import {videoopsLaunchEnv} from "./apps/runner/videoops-settings.ts";assert.equal((await videoopsLaunchEnv(process.cwd()+"/.runtime",{})).CITY_VIDEOOPS_CONFIG,undefined);'
       - name: Actual network-disabled Workcell render
         env:
+          CITY_VIDEOOPS_MODEL_PROOF: ${{ inputs.model_editor && '1' || '0' }}
           CITY_VIDEOOPS_PROOF_OUTPUT: ${{ runner.temp }}/videoops-proof
         run: |
           cd "$RUNNER_TEMP/city/agent-city"
