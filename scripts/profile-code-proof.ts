@@ -9,8 +9,9 @@ import { portAvailable } from "./startup-checks";
 const root = resolve(import.meta.dirname, "..");
 const real = process.env.CITY_PROFILE_PROOF_REAL === "1";
 const projectProof = process.env.CITY_PROFILE_PROOF_PROJECT === "1";
-const projectText =
-  "PROJECT-CONTEXT-ACCEPTANCE-41: supplied source text, never telemetry";
+const projectText = real
+  ? "Project requirement: export function add(a,b). Return a+b+7, where7 is our fixed processing surcharge. No I/O or other side effects. Preserve the named export."
+  : "PROJECT-CONTEXT-ACCEPTANCE-41: supplied source text, never telemetry";
 const projectReads: string[] = [];
 const kujo = process.env.CITY_PROFILE_PROOF_LANGUAGE === "kujo";
 const workcell = kujo && process.env.CITY_PROFILE_PROOF_WORKCELL === "1";
@@ -144,9 +145,13 @@ try {
   const contract = {
     exportName: "add",
     cases: [
-      { name: "positive", args: [2, 3], equals: 5 },
-      { name: "negative", args: [-4, 1], equals: -3 },
-      { name: "zero", args: [0, 0], equals: 0 },
+      { name: "positive", args: [2, 3], equals: projectProof && real ? 12 : 5 },
+      {
+        name: "negative",
+        args: [-4, 1],
+        equals: projectProof && real ? 4 : -3,
+      },
+      { name: "zero", args: [0, 0], equals: projectProof && real ? 7 : 0 },
     ],
   };
   for (let attempt = 0; attempt < (outputCheck ? 2 : real ? 1 : 2); attempt++) {
@@ -177,13 +182,16 @@ try {
               ...(attempt ? { parentMissionId: attempts[0].mission } : {}),
             }
           : {}),
-        prompt: outputCheck
-          ? attempt === 0
-            ? "We are testing real failure detection and repair. Read the Kujo MCP catalog. Produce raw Kujo defining func add(a,b) that deliberately returns a-b, and print(add(2,3)). This intentional subtraction defect must remain in this first regression fixture; do not fix it yet. Reviewer: preserve this explicitly requested defect, explain it honestly in cityReview, and return the raw program in cityArtifact. Do not claim any test passed. The external expected-output check will run afterward."
-            : "Repair the prior program using the actual failed output check in context. func add(a,b) must return a+b, and print(add(2,3)) must print 5. Return raw Kujo in cityArtifact, with separate honest review in cityReview. Read the requested Kujo documentation. Do not claim tests passed before the external checker runs."
-          : kujo
-            ? "Read the Kujo catalog using the requested MCP step. Write raw Kujo code defining func add(a,b) returning a+b and print(add(2,3)). Reviewer must return corrected raw Kujo code in cityArtifact and grade/review in cityReview. Do not claim execution; the platform will only syntax-check the final code."
-            : "Write a raw JavaScript ES module exporting add(a,b), returning a+b. Reviewer must preserve the named export and return corrected code in cityArtifact. Do not claim tests passed; the platform will run the explicit cases after review.",
+        prompt:
+          projectProof && real
+            ? "Implement a small raw JavaScript ES module according to the attached project requirements. Follow the exact named export and arithmetic rule in that file. Reviewer must return corrected raw module in cityArtifact and review notes in cityReview. Do not claim checks passed before the platform runs them."
+            : outputCheck
+              ? attempt === 0
+                ? "We are testing real failure detection and repair. Read the Kujo MCP catalog. Produce raw Kujo defining func add(a,b) that deliberately returns a-b, and print(add(2,3)). This intentional subtraction defect must remain in this first regression fixture; do not fix it yet. Reviewer: preserve this explicitly requested defect, explain it honestly in cityReview, and return the raw program in cityArtifact. Do not claim any test passed. The external expected-output check will run afterward."
+                : "Repair the prior program using the actual failed output check in context. func add(a,b) must return a+b, and print(add(2,3)) must print 5. Return raw Kujo in cityArtifact, with separate honest review in cityReview. Read the requested Kujo documentation. Do not claim tests passed before the external checker runs."
+              : kujo
+                ? "Read the Kujo catalog using the requested MCP step. Write raw Kujo code defining func add(a,b) returning a+b and print(add(2,3)). Reviewer must return corrected raw Kujo code in cityArtifact and grade/review in cityReview. Do not claim execution; the platform will only syntax-check the final code."
+                : "Write a raw JavaScript ES module exporting add(a,b), returning a+b. Reviewer must preserve the named export and return corrected code in cityArtifact. Do not claim tests passed; the platform will run the explicit cases after review.",
         profiles: {
           authorId,
           reviewerId: "kujolang/kujo-agents:chain.code-reviewer",
@@ -377,7 +385,9 @@ try {
         ? "evidence/profile-kujo"
         : "evidence/profile-code",
     projectProof
-      ? "project-context"
+      ? real
+        ? "project-context-real"
+        : "project-context"
       : outputCheck
         ? real
           ? "output-check-real"
@@ -425,7 +435,9 @@ try {
     privateEvidence: runtime,
     ...(projectProof
       ? {
-          projectReadCount: projectReads.length,
+          projectReadCount: real
+            ? "not intercepted; controlled proof verifies both adapter requests"
+            : projectReads.length,
           privateSnapshotsPreserved: true,
           noProjectContentInTelemetry: true,
         }
