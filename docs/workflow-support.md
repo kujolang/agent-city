@@ -1,32 +1,35 @@
-# What Agent City can execute
+# Supported workflows
 
-Agent City is a local preview. A building, imported profile, declared skill or
-workflow name is not proof that the corresponding tool is executable. Mission
-Command performs supported work; the city observes the real lifecycle.
+Mission Command runs the workflows below. The city displays their observed
+operations, artifacts, and check results. Buildings and imported profiles do
+not grant tool access.
 
-| Workflow | Current execution | Required setup / boundary |
+| Workflow | Output | Requirements and limits |
 | --- | --- | --- |
-| Writing → separate review | Actual provider calls, saved final text and review | Configure your provider; select eligible PROPOSE author/reviewer |
-| Code → separate review | Actual generated code and review; explicit supported function checks | Provider plus a supported check contract; generated code alone is not proof it runs |
-| Kujo tool → review → check | Real catalog/docs/source reads, syntax check, optional isolated execution and output checks | Explicit MCP/context permission; saved Workcell image plus per-task consent for execution |
-| Project inputs / named output files | Selected copied input files, isolated artifact execution and named export | Explicit file selection/consent; no unrestricted host-project mutation |
-| Publishing House | Technical writer → copy-chief draft/review demonstrated | Local saved draft only; no CMS publication, account access or distribution |
-| WebOps supplied-evidence report | WebOps Reporter → Copy Chief → deterministic report contract check demonstrated in rc.3 | Choose the explicit workflow and supply bounded timestamped site evidence; no crawl, analytics, repository edit, deployment or recurring management. Other WebOps profiles remain unavailable. Included in rc.3 |
-| VideoOps (rc.3) | Real browser launch → Codex Planner → Asset Scout → Editor → isolated render → technical PASS and review UI demonstrated; finalization implemented | Explicit saved image/model capability setup and per-task render consent. UI supports verified media packs/uploads, a Pixel v2 preset, and optional separately authorized ElevenLabs audio. Audio QA and visual/listening review are required for audio productions. Exact-video human review is required before finalization. The real media candidate was approved and finalized with a matching download; included in rc.3 |
-| Archive / replay | Read-only timeline, evidence, comparison and semantic playback | Replays do not invoke models, tools or source operations |
+| Writing and Publishing House | Saved text and a separate review | Configure a model and choose eligible author/reviewer profiles. Publishing House does not publish to a CMS or distribution service. |
+| Code and review | Generated code, review, and enabled check results | Syntax checks do not establish functional correctness. JavaScript function checks run only the cases you provide. |
+| Kujo tool | Source reads, generated Kujo, review, syntax check, and optional execution results | Grant MCP/context access as needed. Execution requires Workcell setup and per-task permission. |
+| Project files | Selected input snapshots and named output files | Choose files explicitly. Workcell receives copies, not a host-project mount. Exported files are downloaded, not applied to the original project. |
+| WebOps | A reviewed report based on supplied site evidence | Supply timestamped evidence. This workflow does not crawl sites, access analytics, edit repositories, deploy, or schedule recurring work. |
+| VideoOps | A rendered video, review record, and finalized download | Configure a capable model and compatible render image. Supply approved media or authorize supported generation. Each candidate requires its own visual review and, when applicable, listening review. |
+| Archive and replay | Timelines, evidence, comparisons, and recorded activity | Read-only; replay invokes no model, tool, or source operation. |
 
-The existing release-notes tool recording proves the Kujo row, not every row in
-the ecosystem. See [its source, exact model provenance and execution receipt](../evidence/reviewed-release-tool/README.md).
-The [Publishing House proof](../evidence/publishing-house/README.md) qualifies the
-named draft/review task only. The [WebOps reporting proof](../evidence/webops-live/README.md) qualifies supplied-evidence reporting only. Selected VideoOps acceptance and adapters
-needed for advertised production workflows remain open in [RELEASE-NEXT](../RELEASE-NEXT.md).
+## Profiles and model access
 
-Profiles with required capabilities the runtime cannot supply are unavailable.
-Do not remove those requirements merely to make them selectable. A model's text
-claim that it rendered, published, deployed or checked something is not evidence
-that it happened. Inspect the actual operations, artifacts and check outcomes.
+Only profiles whose required capabilities are available can run. Importing the
+catalog preserves role contracts; it does not activate arbitrary named skills,
+workflows, or tools. A model's claim that it checked, rendered, or published
+something does not establish that the operation occurred. Inspect the recorded
+operation and result.
 
-Local Ollama normally needs no API key; select an installed model explicitly.
-A remote provider may require its own key. The Codex subscription connector uses
-existing CLI authentication and a generated private local bridge credential; it
-does not turn your subscription into a general API key or import every CLI skill.
+Local Ollama normally needs no API key. Remote providers may require one.
+The Codex connector uses an existing CLI login; it does not import CLI tools or
+turn a subscription into a general API key.
+
+## Setup guides
+
+- [First task](../TRY-AGENT-CITY.md)
+- [Reviewed Kujo tool](try-a-reviewed-tool.md)
+- [Workcell setup](../installer/README.md#workcell-setup)
+- [VideoOps](videoops.md)
+- [Product media and optional audio generation](videoops-media.md)

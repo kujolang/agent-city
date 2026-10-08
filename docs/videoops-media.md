@@ -2,7 +2,7 @@
 
 VideoOps can reuse original product imagery, recordings, fonts and approved audio. A selected media pack supplies verified local files and style guidance to the Creative Director, Asset Scout and Editor. Optional new speech, music and sound effects use the canonical Kujo VideoOps ElevenLabs adapters with separate authorization for each request.
 
-A style preset is guidance, not a guarantee that a new render matches an approved reference. Watch and listen to the exact new candidate before approving it. The richer reusable-media acceptance production is still awaiting completion and review; this document does not claim a new provider API test or an approved new release video.
+A style preset is guidance, not a guarantee that a new render matches an approved reference. Watch and listen to the exact new candidate before approving it.
 
 ## Start with the Pixel v2 pack
 

@@ -1,14 +1,12 @@
-# Try Agent City locally
+# Your first Agent City task
 
-This is a working local prototype, not a production release or a finished visual
-match to the supplied references. The current character art and city density are
-substantially simpler. The app runs real missions and observes their activity;
-it does not yet provide free-form agent chat or player-controlled characters.
+Connect a model, submit a small task, follow the agent, and review its output.
+This guide covers writing, code, follow-up questions, and optional execution.
 
 ## Start
 
-Install the public preview using [the bootstrap instructions](installer/README.md).
-Then run the managed launcher (it supplies its private Node/npm):
+Install Agent City using [the bootstrap instructions](installer/README.md).
+The installer starts the app. For later sessions, run the managed launcher:
 
 ```sh
 "$HOME/.local/share/agent-city/start.command"
@@ -65,7 +63,7 @@ roster does not imply a team is running continuously. The controller supervises
 one admitted mission at a time. Explicit UNKNOWN queue recovery, described below,
 can allow new work while an earlier unsupervised run remains unresolved.
 
-For optional custom teams, the managed preview includes the pinned Kujo catalog:
+For optional custom teams, the managed installation includes the pinned Kujo catalog:
 
 ```sh
 "$HOME/.local/share/agent-city/start.command" agents:import
@@ -88,7 +86,7 @@ Select the writer in the roster and choose **Follow**. Inspect the actual draft,
 reviewer response and final output in mission history. Without a real retrieval
 or tool call, a Library/MCP trip should not occur. Enable indexed local Kujo docs
 for a separate source-backed task to see retrieval travel. Review writing for
-accuracy: the small local model has previously added unsupported claims.
+accuracy before using or publishing it.
 
 ## First coding task
 
@@ -132,11 +130,7 @@ City overview is the default. Follow tracks one execution through evidence-backe
 travel and room transitions. Current truth updates immediately; an animation may
 show RECENT after the operation has completed. Building buttons inspect rooms;
 Pause affects visual motion only. Recorded model responses are actual output,
-not ambient dialogue. No eight-hour test is required to try the app.
-
-Current screenshots: `evidence/visual-revision/city.png` and
-`evidence/live-missions/live-1788876751607-/writing-6.png`.
-Remaining work and release limitations: `WORKING-EXPERIENCE.md`.
+not ambient dialogue.
 
 ## Startup troubleshooting
 
@@ -150,11 +144,6 @@ The launcher uses ports 5178 (web), 8791 (RAG), 7791 (Watchdog), 7792 (gateway),
 7793 (missions), and 8931 (MCP). It may reuse a responding local MCP health
 endpoint; tool authorization is still checked on an explicit invocation.
 `KUJO_BIN` accepts an executable path or a command available on PATH.
-
-This machine is running many other applications, as reported by the user.
-Short timing samples under that load are not isolated application capacity
-measurements. Functional correctness, missing events and failed source operations
-remain separate checks; a busy machine does not turn a failed operation into success.
 
 ## Run a separate local instance
 
@@ -225,8 +214,8 @@ An unavailable checker is recorded as UNKNOWN execution, not a failed test.
 
 ## Selected team workflows
 
-Development main adds supplied-evidence WebOps reporting and VideoOps production;
-these are not included in the published rc.2 installer. See the
+For WebOps reporting from supplied evidence and VideoOps production, see the
 [workflow matrix](docs/workflow-support.md) and [VideoOps setup/review guide](docs/videoops.md).
 VideoOps requires its separately built Docker image and explicit render consent.
-No external audio/media generation is supplied by the initial launch form.
+Optional audio generation requires separate provider setup and per-request
+permission. See the [VideoOps media guide](docs/videoops-media.md).

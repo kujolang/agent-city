@@ -1,8 +1,8 @@
 # Try a reviewed Kujo tool
 
-This is a local task-and-review workflow, not a claim that the entire release
-checklist is complete. You supply the model connection and explicitly enable
-execution. Agent City never treats model review as a passing test.
+Build a small Kujo tool, have a separate agent review it, then check its output.
+Connect your model and enable execution when prompted. Review comments and
+executed test results remain separate.
 
 1. Follow the [installation and model setup](../README.md). Open Mission Command,
    detect/configure Ollama or configure the Codex CLI connector, then save the

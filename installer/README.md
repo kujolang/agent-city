@@ -1,7 +1,7 @@
 # Managed local installation
 
-The repository is public. The versioned release bootstrap pins an immutable City
-revision and pinned producer/runtime dependencies into an isolated directory.
+The installer places Agent City and pinned Kujo dependencies in an isolated
+directory. It preserves existing installations and saved work.
 Supported scope and reliability limits: [release qualification](../RELEASE-QUALIFICATION.md).
 
 Install and launch Agent City 0.2 on macOS or Linux:
@@ -25,7 +25,7 @@ when no system-wide Node is installed:
 
 After `codex login`, start the Codex adapter in another terminal with
 `"$HOME/.local/share/agent-city/start.command" provider:codex`. Set `CITY_APP_URL`
-to the displayed app URL if needed, or pass the same `CITY_PORT_OFFSET` as the app. With neither override, the connector targets the normal launcher port5178. This does not install
+to the displayed app URL if needed, or pass the same `CITY_PORT_OFFSET` as the app. With neither override, the connector targets the normal launcher port 5178. This does not install
 Codex or sign in for you. For Ollama, use **Detect local Ollama** in Mission
 Command, choose an installed model, then save the connection. Local Ollama does
 not require a City API key; remote/cloud authentication remains provider-owned.
@@ -53,8 +53,7 @@ node installer/install.mjs --prefix "$HOME/.local/share/agent-city" --no-start
 ```
 
 The installation includes pinned Workcell source alongside the other Kujo
-producers. Existing managed installations need an update to receive it. This
-does not install a container engine, pull an image, install optional cloud-adapter
+producers. It does not install a container engine, pull an image, install optional cloud-adapter
 dependencies, or enable code execution. To use isolated Kujo execution, first
 configure a supported local container backend and a trusted, already-local image
 with Kujo. For Docker, the saved setup command below builds/selects the image and
@@ -64,10 +63,9 @@ set its backend connection and `CITY_WORKCELL_TMPDIR` when required.
 Each mission still requires explicit execution consent in Mission Command.
 Missing backend/image configuration must be resolved before attempting execution.
 
-The current Workcell pin includes verified native cancellation handling. Its
-optional cloud adapters retain unresolved dependency audit findings and are not
-qualified by this installation. The isolated macOS installation proof establishes
-source/runtime availability, not automatic sandbox setup or clean-machine support.
+Optional Workcell cloud adapters are outside the supported local configuration.
+
+## Update, uninstall, and restore
 
 Stop the launcher with Ctrl+C before maintenance. From the trusted **new release
 source checkout**, update the existing installation:
@@ -106,6 +104,8 @@ PIDs also prevent maintenance. After a crash, the lock is deliberately not stole
 inspect its `owner.json`, verify the entire City process tree has stopped, then
 remove that exact lock directory. Do not run direct service scripts concurrently
 with maintenance. These commands preserve data but are not backups to another disk.
+
+## Workcell setup
 
 When a mission explicitly requests Workcell execution, admission checks the pinned
 source, selected Docker/Podman connection and local image before creating the
@@ -176,7 +176,7 @@ to its source receipt. UNKNOWN workload truth remains UNKNOWN; cleanup does not
 prove task completion or permit a source retry. Engine unavailability refuses
 cleanup. It does not clear an UNKNOWN mission's admission block automatically.
 
-### VideoOps production setup (rc.3)
+## VideoOps setup
 
 Save your model connection in Mission Command first. Start Docker and select the
 context you want for rendering. From the managed `agent-city` directory:
@@ -196,16 +196,15 @@ adequate disk space for the image. It does not install or start Docker.
 
 Restart City normally. Changing the saved model endpoint or alias requires rerunning
 setup for that model. Each VideoOps task still needs render consent, independent
-review, and an explicit finalization action. Initial browser intake grants no
-external media acquisition or generation; requests requiring those inputs stop
-rather than substituting a different video. The runtime supports separately
-verified acquired media when explicitly supplied by an integration.
+review, and an explicit finalization action. Register or upload media through
+the [media setup guide](../docs/videoops-media.md).
+New speech, music, or sound effects require separate provider setup and explicit
+permission for each request. Missing required media stops production.
 
 Use `--image LOCAL_IMAGE --enable --confirm-model-capabilities` instead of `--build`
 to verify and save an existing compatible image. Use `setup:videoops --disable` to
 remove saved setup, then restart. An explicit `CITY_VIDEOOPS_CONFIG` environment
 variable overrides saved setup; unset it to disable that manual configuration.
-These additions are included in `v0.2.0-rc.3`; earlier releases remain unchanged.
 
 ### Engine security requirements
 
@@ -214,11 +213,11 @@ identity. Docker must report **seccomp and AppArmor**. Docker Desktop engines
 without AppArmor cannot run these workloads, even when the image builds and its
 tools run. Setup/admission rejects them before model work; do not disable policy.
 A configured Linux Docker engine or a dedicated compatible Colima VM may qualify.
-The verified local context is `colima-kujo-workcell`; it is an operator-owned VM,
-not something the installer silently creates. Select a named context explicitly:
+Configure the engine yourself, then select its named context. Replace
+`YOUR_CONTEXT` with your Docker context name:
 
 ```sh
-DOCKER_CONTEXT=colima-kujo-workcell npm run setup:videoops -- --image agent-city-videoops:0.8.141 --enable --confirm-model-capabilities
+DOCKER_CONTEXT=YOUR_CONTEXT npm run setup:videoops -- --image agent-city-videoops:0.8.141 --enable --confirm-model-capabilities
 ```
 
 The image must exist in that context. Keep the default Docker context unchanged

@@ -1,24 +1,23 @@
 # VideoOps local production
 
-Available in the v0.2.0-rc.3 local preview. Real browser launch, SDK roles, guarded
-render, exact-candidate human approval, finalization and matching download are
-verified in the [media acceptance evidence](../evidence/videoops-media-integration/README.md).
-This explicit production adapter is separate from the read-only Observer and replay.
+Create a video with a planning agent, asset scout, and editor. VideoOps renders
+in an isolated Workcell, then presents the exact file for your review. Approve
+and finalize it to download the finished video.
 
 ## Setup
 
 1. Start Agent City and save a working model connection in Mission Command.
-   The existing Codex subscription connector is supported; users supply their own
+   The Codex connector is supported; supply your own
    authenticated CLI. Choose a model capable of coding, structured JSON and the
    supplied context. A model listing alone does not prove those capabilities.
 2. Start a compatible Docker engine with seccomp and AppArmor (see engine requirements below).
-3. From a source checkout, enable the verified image:
+3. From a source checkout, build and enable the render image:
 
    ```sh
    npm run setup:videoops -- --build --enable --confirm-model-capabilities
    ```
 
-   In a managed installation that includes this adapter:
+   For a managed installation:
 
    ```sh
    "$HOME/.local/share/agent-city/start.command" setup:videoops --build --enable --confirm-model-capabilities
@@ -30,10 +29,8 @@ This explicit production adapter is separate from the read-only Observer and rep
 4. Restart City normally. Saved setup binds the immutable image, Docker context,
    role contracts and configured model. Changing the model requires setup again.
 
-The measured local amd64 image is **1,260,560,574 bytes (1.26 GB / 1.17 GiB)**.
-Temporary download/build cache needs additional space; other architectures/builds
-may differ. The measured build took 210.72 seconds on a busy development machine.
-See [build and toolchain evidence](../evidence/videoops-local-build/receipt.json).
+Allow about 1.3 GB for the render image, plus space for downloads, build cache,
+media, and output files. Image size varies by architecture and build.
 If Docker reports `docker-credential-desktop` missing on macOS, ensure Docker's
 `/Applications/Docker.app/Contents/Resources/bin` is in the build process's PATH;
 do not paste credentials into arguments or remove credential configuration.
@@ -57,10 +54,8 @@ PASS is separate from visual/listening approval. Failure and earlier attempts re
 After approval, choose **Finalize approved video**, then download the final file.
 Finalization verifies the same candidate checksum; it does not publish anything.
 
-The earlier approved pixel/Siren promo remains a separate assistant-authored
-reference. Reusing its assets does not transfer its approval to a new VideoOps
-candidate. The new integration uses the canonical VideoOps media runtime; live
-provider capability claims are limited to actual retained receipts.
+Review every new video, including videos that reuse approved media. Asset approval
+does not approve the final edit.
 
 ## Recovery and limits
 
@@ -79,11 +74,11 @@ identity. Docker must report **seccomp and AppArmor**. Docker Desktop engines
 without AppArmor cannot run these workloads, even when the image builds and its
 tools run. Setup/admission rejects them before model work; do not disable policy.
 A configured Linux Docker engine or a dedicated compatible Colima VM may qualify.
-The verified local context is `colima-kujo-workcell`; it is an operator-owned VM,
-not something the installer silently creates. Select a named context explicitly:
+Configure the engine yourself, then select its named context. Replace
+`YOUR_CONTEXT` with your Docker context name:
 
 ```sh
-DOCKER_CONTEXT=colima-kujo-workcell npm run setup:videoops -- --image agent-city-videoops:0.8.141 --enable --confirm-model-capabilities
+DOCKER_CONTEXT=YOUR_CONTEXT npm run setup:videoops -- --image agent-city-videoops:0.8.141 --enable --confirm-model-capabilities
 ```
 
 The image must exist in that context. Keep the default Docker context unchanged
