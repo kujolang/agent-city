@@ -38,8 +38,10 @@ establish complete product acceptance or long-duration production readiness.
   masonry/lighting, knowledge shelves and command-centre framing replace part
   of the original placeholders. This is a first art pass, not fidelity approval.
 - `apps/runner` owns explicit local mission commands. It is separate from the
-  read-only gateway and pure semantic/presentation packages. One mission runs
-  at a time; local origin and per-process command token are required for writes.
+  read-only gateway and pure semantic/presentation packages. It supervises one
+  admitted mission at a time; local origin and per-process command token are
+  required for writes. Explicit operator release of an UNKNOWN queue hold can
+  permit new work while the earlier unsupervised run remains unresolved.
 - Mission Command offers provider configuration, writing/code task submission,
   a real SDK reviewer handoff, status and private reviewed output. No offline
   model fallback exists. Configuration means configured, not verified reachable.

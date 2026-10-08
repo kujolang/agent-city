@@ -61,7 +61,9 @@ Failed attempts remain in history, and Agent City never switches models automati
 
 Writer/coder and reviewer profiles are built in. Their execution instances appear
 when actual work is observed. You do not need to create them manually, and the
-roster does not imply a team is running continuously. One mission runs at a time.
+roster does not imply a team is running continuously. The controller supervises
+one admitted mission at a time. Explicit UNKNOWN queue recovery, described below,
+can allow new work while an earlier unsupervised run remains unresolved.
 
 For optional custom teams, the managed preview includes the pinned Kujo catalog:
 
@@ -174,3 +176,12 @@ For a larger game view, choose **Fullscreen game** below the canvas. Use **Exit
 fullscreen** or the browser's Escape control to return to the full inspector and
 mission setup. Navigation, observed conversation and recording remain with the
 world. The canvas recording still contains only game pixels, not the DOM panels.
+
+## If interrupted work stays UNKNOWN
+
+Agent City first looks for an actual completion/process receipt. If none is available,
+mission history offers **Release queue / keep UNKNOWN**. Use it only when you want
+to allow new tasks despite the unresolved earlier run; that work may still be running.
+The confirmation records your admission decision, leaves UNKNOWN intact, and neither
+stops nor reruns the old task. New work could overlap with it. A currently supervised
+mission cannot be bypassed. Workcell cleanup remains a separate recovery operation.

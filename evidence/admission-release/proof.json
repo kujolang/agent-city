@@ -1,0 +1,23 @@
+{
+  "status": "PASS",
+  "scope": "Controlled lost receipt and model endpoint; actual controller, browser, SDK/Dispatch; no real-model claim",
+  "unknownMission": "mission-c51e59a8-35bd-47dd-b34e-28f23946eee5",
+  "newMission": "mission-131890b1-9c0c-4b04-a4eb-074ec0f564ae",
+  "unauthorized403": true,
+  "missingAcknowledgement400": true,
+  "replayDisabled": true,
+  "cancelLeavesQueueHeld": true,
+  "keyboardAcknowledgement": true,
+  "unknownPreserved": true,
+  "finishedAtNotInvented": true,
+  "sourceCallsDuringRelease": 0,
+  "newMissionProviderCalls": 2,
+  "idempotentRelease": true,
+  "decisionPersisted": true,
+  "restartPreservesDecisionAndUnknown": true,
+  "activeMissionRefusesRelease409": true,
+  "controlledLateReceiptReconcilesOutcome": true,
+  "terminalMissionRefusesRelease409": true,
+  "sourceRerun": false,
+  "errors": []
+}
