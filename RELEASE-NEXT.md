@@ -8,7 +8,7 @@ workstreams open until their actual evidence exists. No eight-hour soak is autho
       changes are concrete and verified; no claim of universal workflow support.
 - [x] Easier Workcell setup: explicit one-command image setup, persisted immutable
       image/context, normal restart, clear disable/recovery path, per-task consent.
-- [ ] First-time provider onboarding: absent/missing/authentication/model faults,
+- [x] First-time provider onboarding: absent/missing/authentication/model faults,
       useful recovery guidance, real fresh-configuration task where credentials
       already authorize it. Never create accounts or invent authentication proof.
 - [ ] Bounded reliability/performance: graphics slowdown diagnosis, actual
@@ -43,3 +43,19 @@ unqualified: the attached-browser harness crashes Chromium151/153 during discard
 Codex onboarding now checks CLI/options/login and supports authenticated alias
 listing; seven controlled readiness states and the actual local connector metadata
 proof pass. Fresh-user generation/remaining provider qualification stays open.
+
+CI37776849191 at90478e5 passes115tests and all four installed platforms. Linux
+x64/ARM latency receipts now qualify the measured completion→DOM opportunity
+path independently (20 observations each; p95 upstream580/450ms, SSE55/48ms,
+zero unpainted selected). The prior ARM failure was a missing test-browser install,
+corrected in the workflow. Workflow reference labels and docs/workflow-support.md
+now distinguish executable adapters from catalog declarations; team production
+acceptance remains open, not inferred from the matrix.
+
+Provider onboarding qualification: seven controlled Codex readiness states, current
+CI provider setup faults, retained real fresh installed Ollama task and new real
+fresh City/Codex task mission19c5a835 cover the supported existing-account paths.
+The connector now follows the normal launcher default5178 and CITY_PORT_OFFSET;
+its authenticated alias listing passes from the UI and a real SDK author/reviewer
+result was saved. See evidence/codex-onboarding. No new provider-account signup or
+unknown underlying model identity is claimed.

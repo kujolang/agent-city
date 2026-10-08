@@ -11,7 +11,7 @@ Command performs supported work; the city observes the real lifecycle.
 | Kujo tool → review → check | Real catalog/docs/source reads, syntax check, optional isolated execution and output checks | Explicit MCP/context permission; saved Workcell image plus per-task consent for execution |
 | Project inputs / named output files | Selected copied input files, isolated artifact execution and named export | Explicit file selection/consent; no unrestricted host-project mutation |
 | Publishing House | Technical writer → copy-chief draft/review demonstrated | Local saved draft only; no CMS publication, account access or distribution |
-| WebOps | Eligible profiles can use the bounded draft/review adapter | No automatic website crawl, repository edit, deployment or recurring site management; full team workflow not qualified |
+| WebOps | Profiles/catalog references are inspectable; current28 profiles require capabilities not connected here | No automatic website crawl, repository edit, deployment or recurring site management; executable team adapter remains open |
 | VideoOps | Profiles/catalog references are inspectable | Required production capabilities are not connected; no advertised end-to-end HyperFrames render workflow |
 | Archive / replay | Read-only timeline, evidence, comparison and semantic playback | Replays do not invoke models, tools or source operations |
 

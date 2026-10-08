@@ -127,3 +127,18 @@ not Director Mode or public multi-tenant hosting. Do not silently restart the ca
 soak. Owned proof services and dedicated Colima were stopped; user Ollama and default
 Docker context were preserved. RunLedger correlation and Strata handoff retain exact
 source/evidence identifiers.
+
+## Release follow-through checkpoint
+
+Later work is tracked separately in RELEASE-NEXT.md; this report does not certify
+an unreleased revision automatically. Saved Workcell setup and supported-account
+provider onboarding now have additional receipts. Current local verification is
+115tests plus types/boundaries/maps/build. CI37776849191 passes all5jobs, including
+four installed platforms and measured lifecycle-to-inspector latency on Linux
+x64/ARM. See evidence/runtime-latency and evidence/codex-onboarding for exact scope.
+The prior uninstrumented latency limitation is superseded for those bounded samples.
+Exact per-tab execution selection now survives completion/reload, and native
+hidden/discard/resume has a local passing receipt with test-harness failures retained.
+Independent qualification of the new native harness and the versioned release remain
+open. WebOps28/VideoOps6 profiles currently require unconnected capabilities; their
+catalog presence is not executable team support. No eight-hour soak was run.

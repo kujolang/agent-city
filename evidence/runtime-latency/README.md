@@ -32,3 +32,12 @@ Reproduce with `CITY_LATENCY_SOFTWARE=1 npx tsx scripts/runtime-latency-proof.ts
 using the pinned local producer repositories/runtime. Omit the flag to measure the
 browser's default backend. The explicit software flag affects only this trusted
 local proof browser; it does not alter user browser or app defaults.
+
+Independent installed-platform CI37776849191 at90478e5 passes all five jobs.
+Linux x64 records20 terminal observations, completion→visible p50/p95395/580ms
+and SSE→visible34/55ms. Linux ARM64 records20, completion→visible338/450ms and
+SSE→visible35/48ms. Both have zero unpainted selected observations. Receipts are
+under37776849191/. The preceding CI37776106779 ARM job failed because Chromium
+was absent; installation and Workcell passed, and the missing browser prerequisite
+was fixed explicitly before this successful rerun. No failed measurement is
+reported as semantic loss or silently skipped.
