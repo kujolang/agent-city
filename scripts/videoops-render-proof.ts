@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto";
 /** Original render fixture. Actual isolated Workcell, not a model production demo. */
 import { mkdir, readFile, writeFile, copyFile } from "node:fs/promises";
 import { resolve } from "node:path";
@@ -13,6 +14,25 @@ assert(
 );
 const runtime = resolve(root, ".runtime/videoops-render-" + Date.now());
 await mkdir(runtime, { recursive: true, mode: 0o700 });
+const mediaPath = "assets/source/original-mark.svg";
+const mediaBytes = Buffer.from(
+  '<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40"><rect x="2" y="2" width="36" height="36" fill="#2675ff"/><path d="M10 20h20M20 10v20" stroke="white" stroke-width="4"/></svg>',
+);
+await mkdir(resolve(runtime, "assets/source"), {
+  recursive: true,
+  mode: 0o700,
+});
+await writeFile(resolve(runtime, mediaPath), mediaBytes, {
+  mode: 0o600,
+  flag: "wx",
+});
+const media = [
+  {
+    path: mediaPath,
+    sha256: createHash("sha256").update(mediaBytes).digest("hex"),
+    rightsEvidence: "fixture:original-self-authored-svg",
+  },
+];
 const request = {
   schema: "agent-city.videoops-render-input.v1",
   width: 640,
@@ -25,7 +45,7 @@ const request = {
       {
         path: "production/hyperframes/index.html",
         content:
-          '<!doctype html><html><head><meta charset="utf-8"><style>html,body{margin:0;background:#070b16}#root{width:640px;height:360px;background:#070b16;color:#ffffff;overflow:hidden;position:relative}.clip{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}.label{font:32px monospace;text-align:center;color:#ffffff}</style></head><body><div id="root" data-composition-id="fixture" data-width="640" data-height="360" data-duration="3"><div class="clip" data-start="0" data-duration="3" data-track-index="0"><div class="label">VIDEOOPS RENDER CHECK</div></div></div><script src="./gsap.min.js"></script><script>window.__timelines["fixture"]=gsap.timeline({paused:true}).fromTo(".label",{opacity:0,y:12},{opacity:1,y:0,duration:0.3}).to(".label",{x:8,duration:0.2},2.8);</script></body></html>',
+          '<!doctype html><html><head><meta charset="utf-8"><style>html,body{margin:0;background:#070b16}#root{width:640px;height:360px;background:#070b16;color:#ffffff;overflow:hidden;position:relative}.clip{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}.label{font:32px monospace;text-align:center;color:#ffffff}</style></head><body><div id="root" data-composition-id="fixture" data-width="640" data-height="360" data-duration="3"><div class="clip" data-start="0" data-duration="3" data-track-index="0"><img src="./assets/source/original-mark.svg" width="40" height="40" alt="Original test mark" style="position:absolute;left:300px;top:90px"><div class="label">VIDEOOPS RENDER CHECK</div></div></div><script src="./gsap.min.js"></script><script>window.__timelines["fixture"]=gsap.timeline({paused:true}).fromTo(".label",{opacity:0,y:12},{opacity:1,y:0,duration:0.3}).to(".label",{x:8,duration:0.2},2.8);</script></body></html>',
       },
       {
         path: "production/production-notes.md",
@@ -54,6 +74,8 @@ try {
     runtime: rendering,
     image: image!,
     editor,
+    media,
+    mediaRoot: runtime,
     producer: "videoops-render-fixture",
     run: "videoops-render-fixture",
     task: "videoops-render-fixture",

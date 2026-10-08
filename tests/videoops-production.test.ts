@@ -42,6 +42,7 @@ for (const mode of ["pending", "media", "uncertain"] as const)
           timing: { fps: 30, durationSeconds: 3 },
           mandatoryReview: ["visual_playback"],
           intake: [],
+          verifiedAssets: {},
         };
         const dependencies: any = {
           prepare: async () => ({

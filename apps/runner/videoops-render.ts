@@ -1,3 +1,8 @@
+import {
+  copyVideoopsMedia,
+  inspectVideoopsMedia,
+} from "./videoops-media-transfer";
+import type { VerifiedVideoopsAsset } from "./videoops-gates";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import {
@@ -13,6 +18,8 @@ import { verifyWorkcellEvidence } from "./workcell-evidence";
 export async function renderVideoopsAttempt(
   options: {
     root: string;
+    mediaRoot?: string;
+    media?: VerifiedVideoopsAsset[];
     runtime: string;
     image: string;
     producer: string;
@@ -35,9 +42,15 @@ export async function renderVideoopsAttempt(
   if (options.editor.receipt.stage !== "hyperframes-editor")
     throw Error("Stored Editor attempt required");
   const composition = await readVideoopsAttempt(options.editor);
+  if (options.media?.length && !options.mediaRoot)
+    throw Error("Explicit acquired media root required");
+  const media = options.media?.length
+    ? await inspectVideoopsMedia(options.mediaRoot || "", options.media)
+    : [];
   const input = {
     schema: "agent-city.videoops-render-input.v1",
     composition,
+    ...(media.length ? { media } : {}),
     width: options.width,
     height: options.height,
     fps: options.fps,
@@ -47,6 +60,11 @@ export async function renderVideoopsAttempt(
   const runtime = resolve(options.runtime);
   // No reuse after success, failure or uncertain execution; preserves lineage.
   await mkdir(runtime, { mode: 0o700 });
+  if (media.length) {
+    const mediaRoot = resolve(runtime, "media");
+    await mkdir(mediaRoot, { mode: 0o700 });
+    await copyVideoopsMedia(options.mediaRoot!, mediaRoot, media);
+  }
   const inputFile = resolve(runtime, "input.json");
   await writeFile(inputFile, JSON.stringify(input), {
     mode: 0o600,
@@ -130,7 +148,8 @@ export async function renderVideoopsAttempt(
       metadata.perceptual !== "NOT_REVIEWED" ||
       metadata.publication !== "NOT_PERFORMED" ||
       Object.entries(expected).some(
-        ([key, value]) => metadata.request?.[key] !== value,
+        ([key, value]) =>
+          JSON.stringify(metadata.request?.[key]) !== JSON.stringify(value),
       ) ||
       metadata.artifact?.path !== candidate.name ||
       metadata.artifact?.sha256 !== candidate.sha256 ||

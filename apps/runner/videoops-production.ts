@@ -1,3 +1,4 @@
+import { inspectVideoopsMedia } from "./videoops-media-transfer";
 import { appendFile, mkdir, stat, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import { prepareVideoops } from "./videoops-preparation";
@@ -11,8 +12,8 @@ import type { ImportedProfile } from "./agent-catalog";
 
 type PreparationOptions = Parameters<typeof prepareVideoops>[0];
 /** Preparation → real SDK Editor → offline renderer → native review ledger.
- * Current transport admits original text/vector compositions only. Requested
- * external media blocks explicitly until the acquisition transport is connected.
+ * Acquired media must match trusted runtime hashes and rights references.
+ * Unresolved acquisition/generation blocks before Editor work.
  * A pending review is an output state, never a completed production claim. */
 export async function produceVideoops(
   options: PreparationOptions & {
@@ -90,14 +91,14 @@ export async function produceVideoops(
         reason: "Preparation is not ready for Editor",
         preparation: prepared,
       });
-    if (prepared.assets.assets.some((a: any) => a.status !== "NOT_REQUIRED"))
-      return await save({
-        status: "blocked",
-        stage: "media-transport",
-        reason:
-          "Acquired media transfer into render Workcell is not connected; no substitution permitted",
-        preparation: prepared,
+    const media = prepared.assets.assets
+      .filter((asset: any) => asset.status !== "NOT_REQUIRED")
+      .map((asset: any) => {
+        const actual = options.verifiedAssets[asset.id];
+        if (!actual) throw Error("Acquired media receipt unavailable");
+        return actual;
       });
+    await inspectVideoopsMedia(options.workspace, media);
     const owner =
       options.producer + ":" + options.run + "-asset-scout:asset-scout";
     const nextOwner =
@@ -111,7 +112,8 @@ export async function produceVideoops(
       current_owner: owner,
       next_owner: nextOwner,
       goal: "Render the validated original composition without changing copy or timing",
-      scope: "Offline text/vector composition; no acquisition or publication",
+      scope:
+        "Offline composition with verified acquired media; no acquisition or publication",
       artifacts: [
         ...prepared.plan.bundle.files,
         ...prepared.assets.bundle.files,
@@ -184,7 +186,7 @@ export async function produceVideoops(
         capabilities: options.editorCapabilities,
         run: options.run + "-hyperframes-editor",
         instructions:
-          "Author the required HTML composition and production notes from the supplied exact plan. Do not alter transcript or shot timing. Runtime supplies ./gsap.min.js (GSAP 3.13.0) and HyperFrames 0.8.141. No external fonts, URLs, assets, packages or network access. Use a root with data-composition-id, data-width, data-height, data-duration. Timed .clip elements require data-start, data-duration, data-track-index. Set window.__timelines[id] to a paused GSAP timeline; no wall-clock timers or CSS animations. Animate content inside clips, not clip timing. Do not claim rendering, approval or final.mp4. Runtime handles technical checks and exact-candidate independent review separately.",
+          "Author the required HTML composition and production notes from the supplied exact plan. Do not alter transcript or shot timing. Runtime supplies ./gsap.min.js (GSAP 3.13.0) and HyperFrames 0.8.141. Use only supplied acquired assets at ./assets/... paths matching the manifest. No remote URLs, unprovided media, packages or network access. Use a root with data-composition-id, data-width, data-height, data-duration. Timed .clip elements require data-start, data-duration, data-track-index. Set window.__timelines[id] to a paused GSAP timeline; no wall-clock timers or CSS animations. Animate content inside clips, not clip timing. Do not claim rendering, approval or final.mp4. Runtime handles technical checks and exact-candidate independent review separately.",
         input: JSON.stringify({
           handoff,
           intake: options.intake,
@@ -234,6 +236,8 @@ export async function produceVideoops(
       task: options.task,
       spool: options.spool,
       editor: stage.artifact,
+      media,
+      mediaRoot: options.workspace,
       width: options.width,
       height: options.height,
       ...options.timing,

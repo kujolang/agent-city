@@ -151,3 +151,15 @@ types/boundaries/maps/build pass. This is integration code, not live model produ
 acceptance. Acquired binary-media transport remains explicitly unavailable, never
 silently substituted. UI, independent perceptual review, real production proof and
 new release qualification remain open.
+
+Acquired media transport implemented: selected Scout-resolved assets now pass a
+bounded runtime byte/hash/path check before Editor execution, a private render
+snapshot, and another check when copied under the isolated composition's assets
+root. Explicit rights evidence remains required; no acquisition or rights approval
+is inferred from Scout text. Limits:64files,16MiB each,64MiB total, supported local
+media/font extensions; paths/symlinks/duplicates rejected. This supersedes the
+previous transport-unavailable checkpoint.141tests/types/boundaries/maps/build
+pass, including same-size hash tampering and redirected source rejection. Actual
+render qualification now includes an original supplied SVG and remains pending.
+Independent perceptual review, UI, real model production and release qualification
+remain open; this does not establish every generation provider or media format.

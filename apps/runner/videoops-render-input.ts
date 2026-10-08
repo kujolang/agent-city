@@ -1,3 +1,7 @@
+import {
+  copyVideoopsMedia,
+  validateVideoopsMediaRefs,
+} from "./videoops-media-transfer";
 import { mkdir, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { validateVideoopsArtifacts } from "./videoops-artifacts";
@@ -15,6 +19,7 @@ export function validateVideoopsRenderInput(value: unknown) {
           "height",
           "fps",
           "durationSeconds",
+          "media",
         ].includes(k),
     ) ||
     ![24, 25, 30, 50, 60].includes(v.fps) ||
@@ -40,6 +45,9 @@ export function validateVideoopsRenderInput(value: unknown) {
   return {
     schema: "agent-city.videoops-render.v1",
     composition,
+    ...(Object.hasOwn(v, "media")
+      ? { media: validateVideoopsMediaRefs(v.media) }
+      : {}),
     width: v.width,
     height: v.height,
     fps: v.fps,
@@ -47,7 +55,11 @@ export function validateVideoopsRenderInput(value: unknown) {
   };
 }
 /** Only the fresh private Workcell source repo is an authorized target. */
-export async function stageVideoopsRender(source: string, value: unknown) {
+export async function stageVideoopsRender(
+  source: string,
+  value: unknown,
+  mediaRoot?: string,
+) {
   const input = validateVideoopsRenderInput(value);
   // Workcell source is invocation-owned and initially contains only the generated
   // README/git metadata. An exclusive root prevents merging with prior tasks.
@@ -56,6 +68,14 @@ export async function stageVideoopsRender(source: string, value: unknown) {
     const target = resolve(source, file.path);
     await mkdir(dirname(target), { recursive: true, mode: 0o700 });
     await writeFile(target, file.content, { mode: 0o600, flag: "wx" });
+  }
+  if (input.media?.length) {
+    if (!mediaRoot) throw Error("Acquired media source required");
+    await copyVideoopsMedia(
+      mediaRoot,
+      resolve(source, "production/hyperframes"),
+      input.media,
+    );
   }
   const { composition, ...request } = input;
   await writeFile(

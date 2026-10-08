@@ -208,6 +208,7 @@ if (videoops) {
   await stageVideoopsRender(
     source,
     JSON.parse(await readFile(videoops, "utf8")),
+    resolve(videoops, "../media"),
   );
   for (const args of [
     ["add", "--", "production", "render-request.json"],
