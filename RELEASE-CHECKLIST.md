@@ -273,3 +273,11 @@ survives HTTP-controller death. Controlled restart recovered FAILED and released
 the queue without rerunning work or fabricating workload truth. Full verify88tests
 passes. Both-supervisor-and-source-evidence loss still remains UNKNOWN; explicit
 owned Workcell cleanup is separate. Evidence: evidence/mission-supervisor.
+
+Fresh installed-app model checkpoint: a new managed destination started unconfigured;
+actual UI detection/selection of existing Ollama glm-5.3:cloud and explicit8192 token
+limit completed a real writing→separate-reviewer mission. Follow visited Workshop,
+Library and MCP. Saved output and two observed responses are retained in
+[evidence/first-user-installed](evidence/first-user-installed/README.md). This proves
+first-task setup against an existing authenticated Ollama installation, not fresh
+OS/provider installation, general team workflows or full release readiness.

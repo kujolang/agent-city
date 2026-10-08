@@ -1,0 +1,69 @@
+{
+  "scope": "Fresh managed installation, existing local Ollama daemon; real author/reviewer, not final tool-building video",
+  "model": "glm-5.3:cloud",
+  "startedAt": "2026-10-08T00:12:56.371Z",
+  "jobs": [],
+  "initiallyUnconfigured": true,
+  "jobId": "mission-82a6180a-2592-4f11-b22e-e2800c35bc8e",
+  "job": {
+    "id": "mission-82a6180a-2592-4f11-b22e-e2800c35bc8e",
+    "kind": "writing",
+    "executeWorkcell": false,
+    "useLocalDocs": true,
+    "useMcpDocs": true,
+    "status": "completed",
+    "startedAt": "2026-10-08T00:13:09.145Z",
+    "processOutcome": {
+      "kind": "exit",
+      "code": 0,
+      "signal": null
+    },
+    "finishedAt": "2026-10-08T00:14:47.007Z"
+  },
+  "scenes": [
+    "city",
+    "workshop",
+    "library",
+    "mcp"
+  ],
+  "errors": [],
+  "artifact": {
+    "id": "mission-82a6180a-2592-4f11-b22e-e2800c35bc8e",
+    "kind": "writing",
+    "content": "**Review notes**\n\n- **Unsupported assertion fixed:** The draft attached \"guardrail behavior for invalid and risky inputs\" to the safe-write-operations bullet. The README lists guardrail behavior as a *separate* coverage item, not specifically as a property of writes; it is now stated independently.\n- **Clarity:** The single long sentence enumerating runtime concepts was restructured into a semicolon-separated list; the circular gloss \"search and grep workflows — via search and grep\" was tightened.\n- **Precision:** Restored the README's full descriptions of related docs (\"security boundaries and assumptions,\" \"deployment hardening guidance\").\n- **Requirements check:** Concise ✓; three bullets ✓, drawn verbatim from the README's coverage list; no invented capabilities ✓ — the draft correctly notes the README does not enumerate tool names and points to `../../docs/mcp-reference.md`.\n\n**Corrected draft**\n\n## Local MCP Demo\n\nThis documentation set supports the demo workspace for the MCP server. Per the README, it is intentionally small but complete enough to showcase modern MCP usage with runtime guardrails. The core runtime concepts it documents are: MCP transport endpoints under `/mcp/v1/*`; a registry layer for tools and resources; a security layer providing path validation, read-only enforcement, and file-size controls; and request guardrails bounding body size and request rate.\n\nThe README does not name individual tools; the tool-related workflows it lists are:\n\n- **Tool discovery and invocation flows** — discovering available tools and invoking them.\n- **Structured search and grep workflows** — locating content through structured search and grep.\n- **Safe write operations in a bounded workspace** — write operations within the bounded workspace.\n\nThe demo also covers resource listing and reads, and it demonstrates guardrail behavior for invalid and risky inputs. For endpoint, tool, and resource reference, the README points to `../../docs/mcp-reference.md`. Recommended reading order: `guide.md`, then `walkthrough.md`, then `scenarios.md`. Related project docs: `../../docs/security-model.md` (security boundaries and assumptions) and `../../docs/production-deployment.md` (deployment hardening guidance).",
+    "validation": null,
+    "functional": null,
+    "workcell": null,
+    "codeExecuted": null
+  },
+  "exchanges": {
+    "id": "mission-82a6180a-2592-4f11-b22e-e2800c35bc8e",
+    "records": [
+      {
+        "agent": "writer",
+        "content": "## Local MCP Demo\n\nThis documentation set supports the demo workspace for the MCP server. It is intentionally small but, per the README, complete enough to showcase modern MCP usage with runtime guardrails. The runtime concepts it documents are MCP transport endpoints under `/mcp/v1/*`, a registry layer for tools and resources, a security layer for path validation, read-only enforcement, and file-size controls, and request guardrails for bounded body size and request rate.\n\nThe tool workflows the demo covers are:\n\n- **Tool discovery and invocation flows** — discovering available tools and invoking them.\n- **Structured search and grep workflows** — for locating content via search and grep.\n- **Safe write operations in a bounded workspace** — writes within the bounded workspace, with guardrail behavior demonstrated for invalid and risky inputs.\n\nThe README does not enumerate individual tool names; it points to `../../docs/mcp-reference.md` for endpoint, tool, and resource reference. The demo also covers resource listing and reads. Recommended reading order: `guide.md`, then `walkthrough.md`, then `scenarios.md`. Related project docs — `../../docs/security-model.md` and `../../docs/production-deployment.md` — cover security boundaries and deployment hardening.",
+        "kind": "model.response",
+        "occurredAtMs": 1791418433836,
+        "producer": "review-mission-82a6180a-2592-4f11-b22e-e2800c35bc8e",
+        "requestOrdinal": 1,
+        "run": "run-1791418392236-6022",
+        "schema": "agent-city.exchange.v1"
+      },
+      {
+        "agent": "reviewer",
+        "content": "**Review notes**\n\n- **Unsupported assertion fixed:** The draft attached \"guardrail behavior for invalid and risky inputs\" to the safe-write-operations bullet. The README lists guardrail behavior as a *separate* coverage item, not specifically as a property of writes; it is now stated independently.\n- **Clarity:** The single long sentence enumerating runtime concepts was restructured into a semicolon-separated list; the circular gloss \"search and grep workflows — via search and grep\" was tightened.\n- **Precision:** Restored the README's full descriptions of related docs (\"security boundaries and assumptions,\" \"deployment hardening guidance\").\n- **Requirements check:** Concise ✓; three bullets ✓, drawn verbatim from the README's coverage list; no invented capabilities ✓ — the draft correctly notes the README does not enumerate tool names and points to `../../docs/mcp-reference.md`.\n\n**Corrected draft**\n\n## Local MCP Demo\n\nThis documentation set supports the demo workspace for the MCP server. Per the README, it is intentionally small but complete enough to showcase modern MCP usage with runtime guardrails. The core runtime concepts it documents are: MCP transport endpoints under `/mcp/v1/*`; a registry layer for tools and resources; a security layer providing path validation, read-only enforcement, and file-size controls; and request guardrails bounding body size and request rate.\n\nThe README does not name individual tools; the tool-related workflows it lists are:\n\n- **Tool discovery and invocation flows** — discovering available tools and invoking them.\n- **Structured search and grep workflows** — locating content through structured search and grep.\n- **Safe write operations in a bounded workspace** — write operations within the bounded workspace.\n\nThe demo also covers resource listing and reads, and it demonstrates guardrail behavior for invalid and risky inputs. For endpoint, tool, and resource reference, the README points to `../../docs/mcp-reference.md`. Recommended reading order: `guide.md`, then `walkthrough.md`, then `scenarios.md`. Related project docs: `../../docs/security-model.md` (security boundaries and assumptions) and `../../docs/production-deployment.md` (deployment hardening guidance).",
+        "kind": "model.response",
+        "occurredAtMs": 1791418486132,
+        "producer": "review-mission-82a6180a-2592-4f11-b22e-e2800c35bc8e",
+        "requestOrdinal": 1,
+        "run": "run-1791418392236-6022-handoff-reviewer",
+        "schema": "agent-city.exchange.v1"
+      }
+    ],
+    "profiles": null,
+    "recordingComplete": true,
+    "checkpoint": null
+  },
+  "status": "PASS",
+  "finishedAt": "2026-10-08T00:14:50.037Z"
+}
