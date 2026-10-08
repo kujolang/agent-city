@@ -10,6 +10,8 @@ Managed preview installation now supports staged updates and archive-based unins
 see [public preview installation and maintenance](installer/README.md). The repository
 is public; production qualification remains incomplete.
 
+See [supported executable workflows](docs/workflow-support.md) before choosing a team. Imported profiles do not automatically connect their tools.
+
 ## Start and try it
 
 ### Kujo author → senior review with your Codex subscription

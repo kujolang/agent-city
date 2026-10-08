@@ -22,7 +22,7 @@ export function profileAvailability(profile: ImportedProfile) {
   return {
     available: true,
     reason:
-      "PROPOSE draft/review. Explicit documentation context requires author permission for Kujo Docs; other tools/workflows, project mutation and publishing are unavailable.",
+      "PROPOSE draft/review only. Declared tools and workflows are references, not execution grants. Explicit documentation/source reads require author permission for Kujo Docs; isolated checks and named exports use separate platform consent. Deployment and publishing are not connected.",
   };
 }
 export interface ProfileBinding {
