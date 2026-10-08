@@ -67,13 +67,11 @@ try {
     () => document.fullscreenElement === document.querySelector(".world"),
   );
   await page.waitForTimeout(250);
-  const dimensions = await page
-    .locator("#canvas canvas")
-    .evaluate((e) => ({
-      width: e.clientWidth,
-      height: e.clientHeight,
-      top: e.getBoundingClientRect().top,
-    }));
+  const dimensions = await page.locator("#canvas canvas").evaluate((e) => ({
+    width: e.clientWidth,
+    height: e.clientHeight,
+    top: e.getBoundingClientRect().top,
+  }));
   assert.equal(dimensions.width % 256, 0);
   assert.equal(dimensions.height % 240, 0);
   assert(dimensions.width >= 768);
@@ -97,6 +95,8 @@ try {
   await page.keyboard.press("Enter");
   await page.waitForFunction(() => !document.fullscreenElement);
   assert(await button.evaluate((e) => e === document.activeElement));
+  await page.locator("[data-scene=city]").click();
+  await page.screenshot({ path: `${out}/whole-page.png`, fullPage: true });
   assert.equal(
     await page.evaluate(() => JSON.stringify((window as any).agentCity.truth)),
     before,

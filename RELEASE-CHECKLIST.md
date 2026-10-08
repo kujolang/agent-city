@@ -589,3 +589,18 @@ CI37736218850 atf5c75f4 passes all5jobs,110tests and all4installed platforms,
 including the updated approved-source/read-denial/permission proofs. This is a
 qualified explicit MCP read feature; broader Ability/workflow and final release
 acceptance remain open. All owned local proof services stopped; no long soak.
+
+Reference framing checkpointc2aad74: original steel architectural plates now frame
+all six interiors; Meeting Hall has a passive printed plan and city plots/side
+streets have additional authored detail. HUD displays the actual known execution
+count instead of a fictional P1 slot. Local verify110tests passes. Seven-scene
+Chromium capture passes unchanged truth, no writes, integer scale, keyboard
+fullscreen,320px layout and renderer rejection fallback. Current reference
+comparison in evidence/game-view/REFERENCE-ACCEPTANCE.md explicitly retains the
+simpler city/detail density and incomplete whole-page/live-motion acceptance.
+No final visual approval, new live activity or final video is claimed.
+
+Framing CI37737469181 atc2aad74 passes all5jobs and four installed platforms.
+Current whole-page empty-state capture confirms the world/roster/inspector layout
+but exposes the long task form below the game. A compact task/onboarding surface
+and real selected-execution/motion comparison remain required for visual acceptance.
