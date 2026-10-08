@@ -163,3 +163,14 @@ pass, including same-size hash tampering and redirected source rejection. Actual
 render qualification now includes an original supplied SVG and remains pending.
 Independent perceptual review, UI, real model production and release qualification
 remain open; this does not establish every generation provider or media format.
+
+Acquired-media render qualification passes CI37792840086 at e96f2d7. The actual
+rendered SVG is visible in the extracted frame; source-media metadata and candidate/
+review checksum linkage verified. Human review now has a Mission Command DOM panel
+and token/origin-protected controls scoped to known mission IDs. Exact-candidate
+checksum, explicit capability attestation, bounded notes/defects and native review
+ledger decisions preserve technical/perceptual separation and failed attempts.
+A controlled browser fixture passes keyboard submission and failed-review display;
+143tests/types/boundaries/maps/build pass. This does not claim actual human approval.
+VideoOps task intake/launch in Mission Command, actual model production, perceptual
+acceptance and final output/release qualification remain open.

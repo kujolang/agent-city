@@ -1,3 +1,4 @@
+import { handleVideoopsReview } from "./videoops-review-control";
 import { validateWebopsInput } from "./webops-report";
 import { workcellSetupCommand } from "./workcell-settings";
 import { validateMcpReads, localMcpReadEndpoint } from "./mcp-reads";
@@ -148,6 +149,17 @@ const server = createServer(async (req, res) => {
   )
     return send(403, { error: "Local origin required" });
   try {
+    if (
+      await handleVideoopsReview(req, res, {
+        missionsRoot,
+        agentsRepository: resolve(root, "../kujo-agents"),
+        origin,
+        token,
+        writable: storageHealthy,
+        knownMission: (id) => jobs.some((j) => j.id === id),
+      })
+    )
+      return;
     if (req.method === "GET" && req.url === "/control/agents") {
       try {
         return send(

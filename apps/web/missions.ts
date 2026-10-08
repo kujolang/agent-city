@@ -1,3 +1,4 @@
+import { showVideoopsReview } from "./videoops-review";
 import {
   artifactDownload,
   functionalSummary,
@@ -58,6 +59,8 @@ export function mountMissions(
     `CITY_APP_URL=${window.location.origin} ../start.command provider:codex`;
   host.querySelector(".world")!.after(panel);
   mountAgentCatalog(panel);
+  const videoReview = document.createElement("div");
+  panel.append(videoReview);
   const chat = document.createElement("section");
   chat.className = "game-conversation";
   chat.setAttribute("aria-label", "Mission conversation");
@@ -339,6 +342,14 @@ export function mountMissions(
             output.textContent = "Reading selected mission…";
             if (!replay) {
               selectedMission = job.id;
+              void showVideoopsReview(
+                videoReview,
+                job.id,
+                token,
+                () => !replay && selectedMission === job.id,
+              ).catch(() => {
+                if (selectedMission === job.id) videoReview.replaceChildren();
+              });
               conversationKey = "";
               void refreshConversation();
               onMission(job.id);
@@ -884,6 +895,7 @@ export function mountMissions(
   return {
     setReplay(value: boolean) {
       replay = value;
+      if (replay) videoReview.replaceChildren();
       replyForm.hidden = true;
       if (value) {
         bubbles.replaceChildren();
