@@ -349,3 +349,12 @@ launcher doctor uses private Node24.21.0, updates preserve the private runtime,
 and installed SDK contracts/maintenance pass. Linux image setup through the new
 wrapper and real Workcell execution/cleanup pass. This closes the reopened
 private-npm installation gate. Evidence: evidence/managed-launcher/platforms.
+
+Current-build qualification (08d2180, CI37715911038): both architectures delivered
+66,000/66,000 observations, zero missing/duplicates and two verified browser
+reconnects. x64 measured933.976events/sec and fails the unchanged1,000/sec gate;
+ARM64 measured1097.786events/sec. Current release assessment uses the same x64
+receipt for throughput and recovery rather than combining older runs. All four
+installation jobs passed CI37715883928. No long soak was run. Canvas building
+health now uses a small semantic summary rather than constructing full station/
+evidence inspector data every frame; equivalence tests cover freshness/outcomes.

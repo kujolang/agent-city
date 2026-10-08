@@ -7,11 +7,11 @@
       "reason": "Direct journal only: >=1,000 events/s for >=60 seconds, complete count, zero drops."
     },
     "endToEndStress": {
-      "status": "PASS",
+      "status": "FAIL",
       "reason": "Canonical Watchdog intake through gateway/SSE; short bursts cannot qualify the 60-second gate."
     },
     "reconnectUnderLoad": {
-      "status": "FAIL",
+      "status": "PASS",
       "reason": "Forced browser offline/online during bounded canonical load; recovered truth, reconciled delivery and no sample failures."
     },
     "eightHourSoak": {
@@ -55,8 +55,8 @@
     "zoom": "evidence/browser-zoom/proof.json",
     "visibility": "evidence/browser-visibility/proof.json",
     "recovery": "evidence/hardening/recovery.json",
-    "pipeline": "evidence/clean-throughput/throughput-ubuntu-24.04.json",
-    "reconnect": "evidence/reconnect-load/37711890418/x64.json",
+    "pipeline": "evidence/reconnect-load/37715911038/x64.json",
+    "reconnect": "evidence/reconnect-load/37715911038/x64.json",
     "continuity": "evidence/blockers/watchdog-continuity.log"
   },
   "evidenceErrors": {}

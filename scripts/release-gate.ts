@@ -7,8 +7,8 @@ const paths = {
   zoom: "evidence/browser-zoom/proof.json",
   visibility: "evidence/browser-visibility/proof.json",
   recovery: "evidence/hardening/recovery.json",
-  pipeline: "evidence/clean-throughput/throughput-ubuntu-24.04.json",
-  reconnect: "evidence/reconnect-load/37711890418/x64.json",
+  pipeline: "evidence/reconnect-load/37715911038/x64.json",
+  reconnect: "evidence/reconnect-load/37715911038/x64.json",
   continuity: "evidence/blockers/watchdog-continuity.log",
 };
 const input: Record<string, any> = {};
