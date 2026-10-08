@@ -466,3 +466,13 @@ CI37726163114 exposed Git-only proof provenance in managed installations;7987091
 uses the installation receipt, and replacement37726493917 passes all5jobs.
 Dedicated VM/owned services stopped; no long soak. Broader project/workflow and
 final visual/release qualification remain open.
+
+Room-material checkpoint94b5c6e: Dojo now uses compact riveted test instruments,
+woodwork, wired desks and woven floor borders; MCP uses varied cabinet heights
+and ducts. Existing observed labels and authored navigation are unchanged.
+Original integer-coordinate artwork only, no copied assets or invented activity.
+Current seven-scene browser capture verifies unchanged truth, keyboard fullscreen,
+integer scale, fallback and320px layout;99tests/build pass. CI37727111536 at74a4224
+passes all5jobs. See evidence/game-view/{dojo.png,mcp.png,rooms-ci.json}.
+This improves two sparse rooms; final reference fidelity and broader workflow/
+release qualification remain open. No new live execution or final video claimed.

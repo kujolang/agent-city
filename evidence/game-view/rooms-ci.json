@@ -1,0 +1,27 @@
+{
+  "runId": 37727111536,
+  "source": "74a42249c0b25940d48f6b4db8fb0aafdf9ecef7",
+  "scope": "Current renderer/source/browser and four-platform installation checks; empty-world visual proof, not new real activity",
+  "jobs": [
+    {
+      "name": "verify",
+      "conclusion": "success"
+    },
+    {
+      "name": "install (ubuntu-24.04-arm)",
+      "conclusion": "success"
+    },
+    {
+      "name": "install (macos-15-intel)",
+      "conclusion": "success"
+    },
+    {
+      "name": "install (macos-15)",
+      "conclusion": "success"
+    },
+    {
+      "name": "install (ubuntu-24.04)",
+      "conclusion": "success"
+    }
+  ]
+}
