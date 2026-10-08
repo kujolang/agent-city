@@ -12,7 +12,7 @@ Command performs supported work; the city observes the real lifecycle.
 | Project inputs / named output files | Selected copied input files, isolated artifact execution and named export | Explicit file selection/consent; no unrestricted host-project mutation |
 | Publishing House | Technical writer → copy-chief draft/review demonstrated | Local saved draft only; no CMS publication, account access or distribution |
 | WebOps supplied-evidence report | WebOps Reporter → Copy Chief → deterministic report contract check demonstrated on development main | Choose the explicit workflow and supply bounded timestamped site evidence; no crawl, analytics, repository edit, deployment or recurring management. Other WebOps profiles remain unavailable. Not included in immutable rc.2 |
-| VideoOps | Profiles/catalog references are inspectable | Required production capabilities are not connected; no advertised end-to-end HyperFrames render workflow |
+| VideoOps (development main) | Real Codex Planner → Asset Scout → Editor demonstrated; isolated render and saved setup separately qualified; Mission Command launch/review/finalize implemented | Explicit saved image/model capability setup and per-task render consent. Initial UI supports original silent typography/vector work. Exact-video human review is required before finalization. Combined real production acceptance remains pending; not included in immutable rc.2 |
 | Archive / replay | Read-only timeline, evidence, comparison and semantic playback | Replays do not invoke models, tools or source operations |
 
 The existing release-notes tool recording proves the Kujo row, not every row in

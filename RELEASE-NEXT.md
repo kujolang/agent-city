@@ -228,3 +228,11 @@ evidence/videoops-model-preparation. This qualifies preparation only; actual
 Editor/render/perceptual/finalization acceptance and later release qualification
 remain open. Docker Desktop was unresponsive in a bounded local check; the user's
 other agent owns disk cleanup. No additional cleanup or long soak is running.
+
+Actual SDK Editor continuation passes attempt1 using verified upstream bundles,
+without repeating preparation. Eighteen normalized events retained; exact generated
+composition receipt saved in evidence/videoops-model-editor. Shared Editor
+instructions now serve production and qualification. TypeScript and three coordinator
+regression tests pass. CI37801157457 at22b469b is rendering exact checksum-verified
+model output; result pending. Perceptual review/finalization, combined launch proof
+and new release qualification remain open. Local Docker still unresponsive.
