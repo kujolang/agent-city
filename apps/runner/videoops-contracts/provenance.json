@@ -1,0 +1,11 @@
+{
+  "repository": "kujolang/kujo-agents",
+  "commit": "be22fda90b877de5bb5e9137fee612f2491fb9b2",
+  "source": "schemas/videoops",
+  "files": {
+    "shot-list.schema.json": "e59a1aebdf949e1a552a4a6ad2ad4ae60f03520752f7cd58f04afe58c95d3525",
+    "asset-manifest.schema.json": "e8fa114311eb23dfe5d568289cec7131ba255c2f1039271b2ff732f5ed8d927f",
+    "handoff.schema.json": "17bdcfe78c27a80c18d9946e327fcb8e5cebdc003fea55c588d18f07e7d8745a",
+    "fix-list.schema.json": "18a7793b1e865ff64a3d9c4dcca60235ab37ae81991ab36fe6fffc48497ace69"
+  }
+}
