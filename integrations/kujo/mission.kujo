@@ -145,6 +145,11 @@ if env_or("CITY_PROFILE_FILE", "") != "" {
     review = profile_contract["reviewer"]["contracts"]["agent"]+"\n"+profile_contract["reviewer"]["contracts"]["skill"]+boundary+review
     review = review + "\nResponse contract for this runtime: return ONLY a JSON object with exactly two string fields: cityArtifact and cityReview. cityArtifact is the corrected finished deliverable in the requested format (raw Kujo code for a Kujo mission, raw JavaScript for code, finished Markdown for writing), without review commentary or an outer Markdown fence. cityReview contains your actual review findings/commentary. Do not put findings, approval messages, introductions or summaries around the deliverable. Do not claim checks were executed unless observed evidence supports that. A cityQuestion-only object is permitted instead when requesting an enabled check-in."
 }
+if env_or("CITY_WORKFLOW_INSTRUCTIONS_FILE", "") != "" {
+    workflow_instructions := read_file(env_or("CITY_WORKFLOW_INSTRUCTIONS_FILE", ""))
+    instructions = instructions + "\n" + workflow_instructions
+    review = review + "\n" + workflow_instructions + "\nFor this workflow, cityArtifact must contain the corrected JSON report as a string, replacing the default Markdown writing format. Keep cityReview separate. Validate references against the supplied evidence; do not invent missing records."
+}
 if env_or("CITY_CHECKINS", "0") == "1" {
     checkin_rule := "\nIf you need the user to clarify a requirement or decide about a concern before continuing, return ONLY a JSON object with one key cityQuestion containing your actual question (maximum 8192 characters). Do not include an artifact with a question. You may ask at most two questions per role. After the user's reply, continue the task. Otherwise return the normal requested output."
     instructions = instructions + checkin_rule

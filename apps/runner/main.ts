@@ -1,3 +1,4 @@
+import { validateWebopsInput } from "./webops-report";
 import { workcellSetupCommand } from "./workcell-settings";
 import { validateMcpReads, localMcpReadEndpoint } from "./mcp-reads";
 import { validateProjectExports } from "./project-exports";
@@ -253,8 +254,26 @@ const server = createServer(async (req, res) => {
     }
     if (req.method === "GET" && req.url?.startsWith("/control/artifact/")) {
       const id = req.url.slice("/control/artifact/".length);
-      const job = jobs.find((j) => j.id === id && j.status === "completed");
-      if (!job) return send(404, { error: "Completed mission not found" });
+      const job = jobs.find(
+        (j) =>
+          j.id === id && (j.status === "completed" || j.status === "failed"),
+      );
+      if (!job) return send(404, { error: "Finished mission not found" });
+      let workflowValidation = null;
+      try {
+        workflowValidation = JSON.parse(
+          await readFile(
+            resolve(missionsRoot, job.id, "workflow-validation.json"),
+            "utf8",
+          ),
+        );
+      } catch (error: any) {
+        if (error.code !== "ENOENT") throw error;
+      }
+      // Failed provider runs may have no finished artifact. Retain access only
+      // when an actual report check proves the reviewed report was produced.
+      if (job.status === "failed" && !workflowValidation)
+        return send(404, { error: "Reviewed artifact unavailable" });
       const file = resolve(
         missionsRoot,
         job.id,
@@ -294,6 +313,7 @@ const server = createServer(async (req, res) => {
             : undefined,
         kind: job.kind,
         content: await readFile(file, "utf8"),
+        workflowValidation,
         validation,
         functional,
         workcell,
@@ -576,10 +596,38 @@ const server = createServer(async (req, res) => {
         ? jobs.find((j) => j.id === data.parentMissionId)
         : undefined;
       try {
-        if (priorJob?.profiles) {
+        if (
+          data.workflowInput !== undefined &&
+          data.workflow !== "webops-report"
+        )
+          throw Error("Evidence input requires the explicit WebOps workflow");
+        if (data.workflow !== undefined && data.workflow !== "webops-report")
+          throw Error("Unknown workflow");
+        if (data.workflow === "webops-report" && data.parentMissionId)
+          throw Error(
+            "Start a new WebOps report to bind a new evidence snapshot",
+          );
+        if (data.workflow === "webops-report") {
+          if (data.profiles || project || executeWorkcell)
+            throw Error(
+              "WebOps reporting uses its fixed reporter/reviewer and explicit evidence input only",
+            );
+          binding = await selectProfiles(
+            resolve(dir, "agent-catalog.json"),
+            {
+              authorId: "kujolang/kujo-agents:webops.webops-reporter",
+              reviewerId: "kujolang/kujo-agents:publishing-house.copy-chief",
+            },
+            validateWebopsInput(data.workflowInput),
+          );
+        } else if (priorJob?.profiles) {
           binding = await readBinding(
             resolve(missionsRoot, priorJob.id, "profiles.json"),
           );
+          if (binding.webops)
+            throw Error(
+              "Start a new WebOps report to bind a new evidence snapshot",
+            );
           if (
             data.profiles &&
             (data.profiles.authorId !== binding.author.id ||

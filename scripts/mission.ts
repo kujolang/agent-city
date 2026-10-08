@@ -1,4 +1,8 @@
 import {
+  webopsInstructions,
+  validateWebopsReport,
+} from "../apps/runner/webops-report";
+import {
   validateMcpReads,
   localMcpReadEndpoint,
 } from "../apps/runner/mcp-reads";
@@ -91,6 +95,13 @@ if (process.env.CITY_PROFILE_FILE) {
   await writeFile(resolve(dir, "profiles.json"), JSON.stringify(profiles), {
     mode: 0o600,
   });
+}
+if (profiles?.webops) {
+  await writeFile(
+    resolve(dir, "workflow-instructions.txt"),
+    webopsInstructions(profiles.webops),
+    { mode: 0o600 },
+  );
 }
 let context: any = null;
 if (process.env.CITY_CONTEXT_FILE) {
@@ -198,6 +209,9 @@ const child = spawn(
         modelConfig.requestTimeoutSeconds ?? 90,
       ),
       CITY_PROFILE_FILE: profiles ? resolve(dir, "profiles.json") : "",
+      CITY_WORKFLOW_INSTRUCTIONS_FILE: profiles?.webops
+        ? resolve(dir, "workflow-instructions.txt")
+        : "",
       CITY_AUTHOR_PROFILE:
         profiles?.author.id ||
         (kind === "writing" ? "city-writer" : "city-coder"),
@@ -488,11 +502,65 @@ if (code === 0 && kind === "code") {
     mode: 0o600,
   });
 }
+let workflowValidation = null;
+if (code === 0 && profiles?.webops) {
+  const dispatch = JSON.parse(
+    await readFile(resolve(dir, "dispatch.json"), "utf8"),
+  );
+  const observe = checkObserver(
+    resolve(
+      root,
+      process.env.CITY_RUNTIME_DIR || ".runtime",
+      `spool-${producer}.jsonl`,
+    ),
+    producer,
+    dispatch.run_id,
+    dispatch.run_id + ":produce-artifact",
+    {
+      profile: "city-webops-checker",
+      agent: "webops-checker",
+      tool: "city.webops-report-check",
+    },
+  );
+  await observe("report-contract", "evaluation", "started", "unset");
+  try {
+    workflowValidation = validateWebopsReport(
+      await readFile(output, "utf8"),
+      profiles.webops,
+    );
+  } catch (error) {
+    workflowValidation = {
+      schema: "agent-city.workflow-check.v1",
+      workflow: "webops-report",
+      status: "failed",
+      codeExecuted: false,
+      reason: (error instanceof Error ? error.message : "Invalid report").slice(
+        0,
+        1024,
+      ),
+    };
+  }
+  await writeFile(
+    resolve(dir, "workflow-validation.json"),
+    JSON.stringify(workflowValidation),
+    { mode: 0o600 },
+  );
+  await observe(
+    "report-contract",
+    "evaluation",
+    "finished",
+    workflowValidation.status === "passed" ? "succeeded" : "failed",
+  );
+}
 await writeReceipt({
   id,
   producer,
   kind,
-  status: code === 0 ? "completed" : "failed",
+  status:
+    code === 0 && workflowValidation?.status !== "failed"
+      ? "completed"
+      : "failed",
+  workflowValidation,
   validation,
   code,
   startedAt,
@@ -507,4 +575,8 @@ if (code !== 0) {
   });
   throw Error(`Mission failed (${code}); private diagnostics: ${dir}`);
 }
+if (workflowValidation?.status === "failed")
+  throw Error(
+    "WebOps report contract failed; artifact and check retained in " + dir,
+  );
 console.log(`Mission ${id} completed. Reviewed artifact: ${output}`);
