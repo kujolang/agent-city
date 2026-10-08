@@ -1,0 +1,482 @@
+{
+  "scope": "Sequential diagnostic observations on a busy host; not a controlled comparative benchmark or release qualification",
+  "runs": [
+    {
+      "diagnostic": "canonical-intake-profile.log",
+      "status": "PASS",
+      "samples": [
+        {
+          "round": 0,
+          "count": 1,
+          "bytes": 1410,
+          "headersMs": 23.632145000000037,
+          "totalMs": 25.429731000000174,
+          "response": {
+            "data": {
+              "batch_dbid": 1,
+              "deduplicated": false,
+              "error": "",
+              "ok": true,
+              "records": 1
+            },
+            "ok": true
+          }
+        },
+        {
+          "round": 0,
+          "count": 10,
+          "bytes": 11598,
+          "headersMs": 70.42898500000001,
+          "totalMs": 70.75639499999988,
+          "response": {
+            "data": {
+              "batch_dbid": 2,
+              "deduplicated": false,
+              "error": "",
+              "ok": true,
+              "records": 10
+            },
+            "ok": true
+          }
+        },
+        {
+          "round": 0,
+          "count": 100,
+          "bytes": 113893,
+          "headersMs": 702.8564780000002,
+          "totalMs": 703.0938259999998,
+          "response": {
+            "data": {
+              "batch_dbid": 3,
+              "deduplicated": false,
+              "error": "",
+              "ok": true,
+              "records": 100
+            },
+            "ok": true
+          }
+        },
+        {
+          "round": 1,
+          "count": 1,
+          "bytes": 1424,
+          "headersMs": 15.457554999999957,
+          "totalMs": 15.80140399999982,
+          "response": {
+            "data": {
+              "batch_dbid": 4,
+              "deduplicated": false,
+              "error": "",
+              "ok": true,
+              "records": 1
+            },
+            "ok": true
+          }
+        },
+        {
+          "round": 1,
+          "count": 10,
+          "bytes": 11684,
+          "headersMs": 58.147085999999945,
+          "totalMs": 58.776304999999866,
+          "response": {
+            "data": {
+              "batch_dbid": 5,
+              "deduplicated": false,
+              "error": "",
+              "ok": true,
+              "records": 10
+            },
+            "ok": true
+          }
+        },
+        {
+          "round": 1,
+          "count": 100,
+          "bytes": 114161,
+          "headersMs": 596.0102710000001,
+          "totalMs": 596.2443250000001,
+          "response": {
+            "data": {
+              "batch_dbid": 6,
+              "deduplicated": false,
+              "error": "",
+              "ok": true,
+              "records": 100
+            },
+            "ok": true
+          }
+        },
+        {
+          "round": 2,
+          "count": 1,
+          "bytes": 1424,
+          "headersMs": 16.320940999999948,
+          "totalMs": 16.57212699999991,
+          "response": {
+            "data": {
+              "batch_dbid": 7,
+              "deduplicated": false,
+              "error": "",
+              "ok": true,
+              "records": 1
+            },
+            "ok": true
+          }
+        },
+        {
+          "round": 2,
+          "count": 10,
+          "bytes": 11660,
+          "headersMs": 66.73845600000004,
+          "totalMs": 66.96803200000022,
+          "response": {
+            "data": {
+              "batch_dbid": 8,
+              "deduplicated": false,
+              "error": "",
+              "ok": true,
+              "records": 10
+            },
+            "ok": true
+          }
+        },
+        {
+          "round": 2,
+          "count": 100,
+          "bytes": 114161,
+          "headersMs": 563.2277830000003,
+          "totalMs": 563.5093669999997,
+          "response": {
+            "data": {
+              "batch_dbid": 9,
+              "deduplicated": false,
+              "error": "",
+              "ok": true,
+              "records": 100
+            },
+            "ok": true
+          }
+        }
+      ]
+    },
+    {
+      "diagnostic": "canonical-intake-native-profile.log",
+      "status": "PASS",
+      "samples": [
+        {
+          "round": 0,
+          "count": 1,
+          "bytes": 1410,
+          "headersMs": 22.471864000000096,
+          "totalMs": 24.20571599999994,
+          "response": {
+            "data": {
+              "batch_dbid": 1,
+              "deduplicated": false,
+              "error": "",
+              "ok": true,
+              "records": 1
+            },
+            "ok": true
+          }
+        },
+        {
+          "round": 0,
+          "count": 10,
+          "bytes": 11598,
+          "headersMs": 114.51212699999996,
+          "totalMs": 115.49243699999988,
+          "response": {
+            "data": {
+              "batch_dbid": 2,
+              "deduplicated": false,
+              "error": "",
+              "ok": true,
+              "records": 10
+            },
+            "ok": true
+          }
+        },
+        {
+          "round": 0,
+          "count": 100,
+          "bytes": 113893,
+          "headersMs": 757.195995,
+          "totalMs": 757.4967590000001,
+          "response": {
+            "data": {
+              "batch_dbid": 3,
+              "deduplicated": false,
+              "error": "",
+              "ok": true,
+              "records": 100
+            },
+            "ok": true
+          }
+        },
+        {
+          "round": 1,
+          "count": 1,
+          "bytes": 1424,
+          "headersMs": 19.80129500000021,
+          "totalMs": 20.268838999999844,
+          "response": {
+            "data": {
+              "batch_dbid": 4,
+              "deduplicated": false,
+              "error": "",
+              "ok": true,
+              "records": 1
+            },
+            "ok": true
+          }
+        },
+        {
+          "round": 1,
+          "count": 10,
+          "bytes": 11684,
+          "headersMs": 73.76240199999984,
+          "totalMs": 74.08248300000014,
+          "response": {
+            "data": {
+              "batch_dbid": 5,
+              "deduplicated": false,
+              "error": "",
+              "ok": true,
+              "records": 10
+            },
+            "ok": true
+          }
+        },
+        {
+          "round": 1,
+          "count": 100,
+          "bytes": 114161,
+          "headersMs": 589.130678,
+          "totalMs": 589.555147,
+          "response": {
+            "data": {
+              "batch_dbid": 6,
+              "deduplicated": false,
+              "error": "",
+              "ok": true,
+              "records": 100
+            },
+            "ok": true
+          }
+        },
+        {
+          "round": 2,
+          "count": 1,
+          "bytes": 1424,
+          "headersMs": 20.40645799999993,
+          "totalMs": 20.974459999999908,
+          "response": {
+            "data": {
+              "batch_dbid": 7,
+              "deduplicated": false,
+              "error": "",
+              "ok": true,
+              "records": 1
+            },
+            "ok": true
+          }
+        },
+        {
+          "round": 2,
+          "count": 10,
+          "bytes": 11660,
+          "headersMs": 63.788752999999815,
+          "totalMs": 64.06201299999975,
+          "response": {
+            "data": {
+              "batch_dbid": 8,
+              "deduplicated": false,
+              "error": "",
+              "ok": true,
+              "records": 10
+            },
+            "ok": true
+          }
+        },
+        {
+          "round": 2,
+          "count": 100,
+          "bytes": 114161,
+          "headersMs": 481.62711299999955,
+          "totalMs": 482.02963699999964,
+          "response": {
+            "data": {
+              "batch_dbid": 9,
+              "deduplicated": false,
+              "error": "",
+              "ok": true,
+              "records": 100
+            },
+            "ok": true
+          }
+        }
+      ]
+    },
+    {
+      "diagnostic": "canonical-intake-redaction-profile.log",
+      "status": "PASS",
+      "samples": [
+        {
+          "round": 0,
+          "count": 1,
+          "bytes": 1410,
+          "headersMs": 27.51862600000004,
+          "totalMs": 29.93435899999986,
+          "response": {
+            "data": {
+              "batch_dbid": 1,
+              "deduplicated": false,
+              "error": "",
+              "ok": true,
+              "records": 1
+            },
+            "ok": true
+          }
+        },
+        {
+          "round": 0,
+          "count": 10,
+          "bytes": 11598,
+          "headersMs": 66.12739799999963,
+          "totalMs": 66.59359799999993,
+          "response": {
+            "data": {
+              "batch_dbid": 2,
+              "deduplicated": false,
+              "error": "",
+              "ok": true,
+              "records": 10
+            },
+            "ok": true
+          }
+        },
+        {
+          "round": 0,
+          "count": 100,
+          "bytes": 113893,
+          "headersMs": 517.7465080000002,
+          "totalMs": 518.0902610000003,
+          "response": {
+            "data": {
+              "batch_dbid": 3,
+              "deduplicated": false,
+              "error": "",
+              "ok": true,
+              "records": 100
+            },
+            "ok": true
+          }
+        },
+        {
+          "round": 1,
+          "count": 1,
+          "bytes": 1424,
+          "headersMs": 19.666321000000153,
+          "totalMs": 20.069044000000304,
+          "response": {
+            "data": {
+              "batch_dbid": 4,
+              "deduplicated": false,
+              "error": "",
+              "ok": true,
+              "records": 1
+            },
+            "ok": true
+          }
+        },
+        {
+          "round": 1,
+          "count": 10,
+          "bytes": 11684,
+          "headersMs": 63.45903100000032,
+          "totalMs": 63.749754000000394,
+          "response": {
+            "data": {
+              "batch_dbid": 5,
+              "deduplicated": false,
+              "error": "",
+              "ok": true,
+              "records": 10
+            },
+            "ok": true
+          }
+        },
+        {
+          "round": 1,
+          "count": 100,
+          "bytes": 114161,
+          "headersMs": 541.4007569999999,
+          "totalMs": 541.8285409999999,
+          "response": {
+            "data": {
+              "batch_dbid": 6,
+              "deduplicated": false,
+              "error": "",
+              "ok": true,
+              "records": 100
+            },
+            "ok": true
+          }
+        },
+        {
+          "round": 2,
+          "count": 1,
+          "bytes": 1424,
+          "headersMs": 20.013695000000098,
+          "totalMs": 20.278471999999965,
+          "response": {
+            "data": {
+              "batch_dbid": 7,
+              "deduplicated": false,
+              "error": "",
+              "ok": true,
+              "records": 1
+            },
+            "ok": true
+          }
+        },
+        {
+          "round": 2,
+          "count": 10,
+          "bytes": 11660,
+          "headersMs": 71.83184299999994,
+          "totalMs": 72.1191530000001,
+          "response": {
+            "data": {
+              "batch_dbid": 8,
+              "deduplicated": false,
+              "error": "",
+              "ok": true,
+              "records": 10
+            },
+            "ok": true
+          }
+        },
+        {
+          "round": 2,
+          "count": 100,
+          "bytes": 114161,
+          "headersMs": 627.0129329999995,
+          "totalMs": 627.2980279999997,
+          "response": {
+            "data": {
+              "batch_dbid": 9,
+              "deduplicated": false,
+              "error": "",
+              "ok": true,
+              "records": 100
+            },
+            "ok": true
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -281,3 +281,9 @@ Library and MCP. Saved output and two observed responses are retained in
 [evidence/first-user-installed](evidence/first-user-installed/README.md). This proves
 first-task setup against an existing authenticated Ollama installation, not fresh
 OS/provider installation, general team workflows or full release readiness.
+
+Canonical intake checkpoint: Watchdog native serializer/default-redaction matching
+passes compatibility/privacy regressions; installer now pins2066fd8. Latest bounded
+pipeline24,800/24,800,zero missing/duplicates,271.488events/sec still FAILS the
+1,000/sec gate. This does not establish a speedup under variable host load. See
+evidence/canonical-intake-profile. No eight-hour soak was run.
