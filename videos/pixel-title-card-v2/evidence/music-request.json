@@ -1,0 +1,12 @@
+{
+  "provider": "elevenlabs",
+  "request": {
+    "prompt": "Original short six-second instrumental 8-bit chiptune arcade ident. Bright square-wave arpeggio, warm triangle-wave bass, soft noise percussion. Confident hopeful late 1980s console menu feel, clean three-note melodic motif, restrained under spoken narration, no vocals, no recognizable existing melody, no reference to any existing game soundtrack. Start immediately and resolve with a neat final chord.",
+    "music_length_ms": 6000,
+    "force_instrumental": true,
+    "model_id": "music_v1"
+  },
+  "voice_id": null,
+  "authorization": "User explicitly requested Siren/v4 speech if available and accompanying music; existing saved account; no overage enabled",
+  "startedAt": "2026-10-08T16:19:24Z"
+}

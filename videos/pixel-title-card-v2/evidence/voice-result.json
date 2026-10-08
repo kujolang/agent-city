@@ -1,0 +1,16 @@
+{
+  "provider": "elevenlabs",
+  "request": {
+    "text": "Agent City. Real agents. Visible work.",
+    "model_id": "eleven_v4"
+  },
+  "voice_id": "eXpIbVcVbLo8ZJQDlDnl",
+  "authorization": "User explicitly requested Siren/v4 speech if available and accompanying music; existing saved account; no overage enabled",
+  "startedAt": "2026-10-08T16:19:22Z",
+  "status": 200,
+  "contentType": "audio/mpeg",
+  "requestId": "xzYv6HuNWXa8OgZ4e8J6",
+  "songId": null,
+  "bytes": 57304,
+  "sha256": "f1fd8514ef475c3d120531791db1aa78947b9a70e00eb4625723293116918866"
+}

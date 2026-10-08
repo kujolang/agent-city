@@ -1,0 +1,10 @@
+{
+  "provider": "elevenlabs",
+  "request": {
+    "text": "Agent City. Real agents. Visible work.",
+    "model_id": "eleven_v4"
+  },
+  "voice_id": "eXpIbVcVbLo8ZJQDlDnl",
+  "authorization": "User explicitly requested Siren/v4 speech if available and accompanying music; existing saved account; no overage enabled",
+  "startedAt": "2026-10-08T16:19:22Z"
+}

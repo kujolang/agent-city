@@ -1,0 +1,12 @@
+┌  hyperframes preview
+
+  Project   pixel-title-card-v2
+  Studio    http://localhost:3002/#project/pixel-title-card-v2
+  Server    http://localhost:3002
+  Desktop   Keep editing by chatting with Framey in the HyperFrames desktop app → https://hyperframes.dev/studio/download
+
+  Running in the background. Log: /Users/robertdevore/.local/state/hyperframes/previews/20fbdea424d925db.log
+  Changes reload automatically in the studio.
+
+  Stop with: hyperframes preview "/Users/robertdevore/2026/Kujolang/kujo-repos/agent-city/videos/pixel-title-card-v2" --stop
+

@@ -1,0 +1,312 @@
+{
+  "timeline": {
+    "duration": 6,
+    "tracks": [
+      {
+        "kind": "graphics",
+        "rows": [
+          {
+            "id": "city-scenes",
+            "label": null,
+            "kind": "div",
+            "trackKind": "graphics",
+            "start": 0,
+            "duration": 6,
+            "end": 6,
+            "absStart": 0,
+            "absEnd": 6,
+            "file": "index.html",
+            "trackIndex": 0,
+            "src": "compositions/city-scenes.html",
+            "sourceFile": "compositions/city-scenes.html",
+            "volume": null,
+            "lanes": [],
+            "laneError": null,
+            "playbackRate": null,
+            "audioGroup": null,
+            "role": null,
+            "durationAuthored": true,
+            "durationSource": "authored",
+            "pendingReason": null,
+            "children": [
+              {
+                "kind": "graphics",
+                "index": 2
+              },
+              {
+                "kind": "graphics",
+                "index": 3
+              },
+              {
+                "kind": "graphics",
+                "index": 4
+              }
+            ],
+            "ref": "#city-scenes",
+            "warnings": [],
+            "elementId": "city-scenes",
+            "hfId": "hf-mcx2",
+            "syncOffsetFrames": null,
+            "index": 0,
+            "nested": false,
+            "host": null,
+            "hostRow": null
+          },
+          {
+            "id": "pixel-titles",
+            "label": null,
+            "kind": "div",
+            "trackKind": "graphics",
+            "start": 0,
+            "duration": 6,
+            "end": 6,
+            "absStart": 0,
+            "absEnd": 6,
+            "file": "index.html",
+            "trackIndex": 1,
+            "src": "compositions/pixel-titles.html",
+            "sourceFile": "compositions/pixel-titles.html",
+            "volume": null,
+            "lanes": [],
+            "laneError": null,
+            "playbackRate": null,
+            "audioGroup": null,
+            "role": null,
+            "durationAuthored": true,
+            "durationSource": "authored",
+            "pendingReason": null,
+            "children": [],
+            "ref": "#pixel-titles",
+            "warnings": [],
+            "elementId": "pixel-titles",
+            "hfId": "hf-h1au",
+            "syncOffsetFrames": null,
+            "index": 1,
+            "nested": false,
+            "host": null,
+            "hostRow": null
+          },
+          {
+            "id": "capture-city",
+            "label": null,
+            "kind": "img",
+            "trackKind": "graphics",
+            "start": 0,
+            "duration": 3,
+            "end": 3,
+            "absStart": 0,
+            "absEnd": 3,
+            "file": "compositions/city-scenes.html",
+            "trackIndex": 0,
+            "src": "assets/city.png",
+            "sourceFile": null,
+            "volume": null,
+            "lanes": [],
+            "laneError": null,
+            "playbackRate": null,
+            "audioGroup": null,
+            "role": null,
+            "durationAuthored": false,
+            "durationSource": "default",
+            "pendingReason": null,
+            "children": [],
+            "ref": "#capture-city",
+            "warnings": [],
+            "elementId": "capture-city",
+            "hfId": "hf-cmuc",
+            "syncOffsetFrames": null,
+            "index": 2,
+            "nested": true,
+            "host": "city-scenes",
+            "hostRow": {
+              "kind": "graphics",
+              "index": 0
+            }
+          },
+          {
+            "id": "capture-library",
+            "label": null,
+            "kind": "img",
+            "trackKind": "graphics",
+            "start": 0,
+            "duration": 3,
+            "end": 3,
+            "absStart": 0,
+            "absEnd": 3,
+            "file": "compositions/city-scenes.html",
+            "trackIndex": 0,
+            "src": "assets/library.png",
+            "sourceFile": null,
+            "volume": null,
+            "lanes": [],
+            "laneError": null,
+            "playbackRate": null,
+            "audioGroup": null,
+            "role": null,
+            "durationAuthored": false,
+            "durationSource": "default",
+            "pendingReason": null,
+            "children": [],
+            "ref": "#capture-library",
+            "warnings": [],
+            "elementId": "capture-library",
+            "hfId": "hf-xhg7",
+            "syncOffsetFrames": null,
+            "index": 3,
+            "nested": true,
+            "host": "city-scenes",
+            "hostRow": {
+              "kind": "graphics",
+              "index": 0
+            }
+          },
+          {
+            "id": "capture-workshop",
+            "label": null,
+            "kind": "img",
+            "trackKind": "graphics",
+            "start": 0,
+            "duration": 3,
+            "end": 3,
+            "absStart": 0,
+            "absEnd": 3,
+            "file": "compositions/city-scenes.html",
+            "trackIndex": 0,
+            "src": "assets/workshop.png",
+            "sourceFile": null,
+            "volume": null,
+            "lanes": [],
+            "laneError": null,
+            "playbackRate": null,
+            "audioGroup": null,
+            "role": null,
+            "durationAuthored": false,
+            "durationSource": "default",
+            "pendingReason": null,
+            "children": [],
+            "ref": "#capture-workshop",
+            "warnings": [],
+            "elementId": "capture-workshop",
+            "hfId": "hf-3akb",
+            "syncOffsetFrames": null,
+            "index": 4,
+            "nested": true,
+            "host": "city-scenes",
+            "hostRow": {
+              "kind": "graphics",
+              "index": 0
+            }
+          }
+        ]
+      },
+      {
+        "kind": "audio",
+        "rows": [
+          {
+            "id": "original-chiptune",
+            "label": null,
+            "kind": "audio",
+            "trackKind": "audio",
+            "start": 0,
+            "duration": 6,
+            "end": 6,
+            "absStart": 0,
+            "absEnd": 6,
+            "file": "index.html",
+            "trackIndex": 3,
+            "src": "assets/music.wav",
+            "sourceFile": null,
+            "volume": 0.28,
+            "lanes": [
+              {
+                "target": "volume",
+                "points": [
+                  {
+                    "t": 0,
+                    "v": 0.28
+                  },
+                  {
+                    "t": 0.25,
+                    "v": 0.18
+                  },
+                  {
+                    "t": 3.8,
+                    "v": 0.18
+                  },
+                  {
+                    "t": 4.2,
+                    "v": 0.32
+                  },
+                  {
+                    "t": 5.5,
+                    "v": 0.32
+                  },
+                  {
+                    "t": 6,
+                    "v": 0
+                  }
+                ]
+              }
+            ],
+            "laneError": null,
+            "playbackRate": null,
+            "audioGroup": null,
+            "role": null,
+            "durationAuthored": true,
+            "durationSource": "authored",
+            "pendingReason": null,
+            "children": [],
+            "ref": "#original-chiptune",
+            "warnings": [],
+            "elementId": "original-chiptune",
+            "hfId": "hf-eqlu",
+            "syncOffsetFrames": null,
+            "index": 0,
+            "nested": false,
+            "host": null,
+            "hostRow": null
+          },
+          {
+            "id": "siren-voice",
+            "label": null,
+            "kind": "audio",
+            "trackKind": "audio",
+            "start": 0.25,
+            "duration": 3.52,
+            "end": 3.77,
+            "absStart": 0.25,
+            "absEnd": 3.77,
+            "file": "index.html",
+            "trackIndex": 2,
+            "src": "assets/voice.mp3",
+            "sourceFile": null,
+            "volume": 1,
+            "lanes": [],
+            "laneError": null,
+            "playbackRate": null,
+            "audioGroup": null,
+            "role": null,
+            "durationAuthored": true,
+            "durationSource": "authored",
+            "pendingReason": null,
+            "children": [],
+            "ref": "#siren-voice",
+            "warnings": [],
+            "elementId": "siren-voice",
+            "hfId": "hf-tlcx",
+            "syncOffsetFrames": null,
+            "index": 1,
+            "nested": false,
+            "host": null,
+            "hostRow": null
+          }
+        ]
+      }
+    ]
+  },
+  "_meta": {
+    "version": "0.8.141",
+    "latestVersion": "0.8.140",
+    "updateAvailable": false
+  }
+}
