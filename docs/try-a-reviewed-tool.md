@@ -17,7 +17,7 @@ execution. Agent City never treats model review as a passing test.
    Read the enabled Kujo MCP documentation, produce the requested reusable Kujo
    functions and demonstration, then hand it to the separate reviewer. Return
    the corrected source as the artifact. Do not claim tests you did not run.”
-4. Enable the MCP documentation option. This is the supported explicit read,
+4. Expand **Tools, files and checks**, then enable the MCP documentation option. This is the supported explicit read,
    not permission to invoke arbitrary MCP tools or named external workflows.
 5. For real execution, follow **Workcell execution setup** in Mission Command.
    It requires a container engine and trusted Kujo image. Enable the per-task

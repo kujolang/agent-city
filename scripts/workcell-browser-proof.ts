@@ -187,7 +187,17 @@ try {
   );
   assert.equal(await page.locator("#download-artifact").isVisible(), true);
   await page.unroute("**/control/artifact/*");
+  const optionsSummary = page.locator("#mission-options > summary");
+  assert.equal(
+    await page
+      .locator("#mission-options")
+      .evaluate((e: HTMLDetailsElement) => e.open),
+    false,
+  );
+  await optionsSummary.focus();
+  await page.keyboard.press("Enter");
   const projectConsent = page.getByRole("checkbox", {
+    includeHidden: true,
     name: "Copy selected project files into this Workcell run",
   });
   assert.equal(await projectConsent.isChecked(), false);
@@ -199,7 +209,10 @@ try {
   await page.getByText("Approved MCP source reads", { exact: true }).click();
   const sourceFiles = page.getByLabel("Local server file names (one per line)");
   await sourceFiles.fill("src/main.kujo");
-  const consent = page.getByRole("checkbox", { name: /Execute checked Kujo/ });
+  const consent = page.getByRole("checkbox", {
+    includeHidden: true,
+    name: /Execute checked Kujo/,
+  });
   assert.equal(await consent.isChecked(), false);
   // UI submission transport is intercepted: this section executes no task/model/container.
   let posted: any;
@@ -221,11 +234,18 @@ try {
   assert(await consent.isChecked());
   await page.getByText("Optional Kujo output check", { exact: true }).click();
   const outputCheck = page.getByRole("checkbox", {
+    includeHidden: true,
     name: "Check exact stdout after Workcell execution",
   });
   await outputCheck.focus();
   await page.keyboard.press("Space");
   await page.getByLabel("Expected stdout", { exact: true }).fill("5\n");
+  assert.match(
+    (await page.locator("#mission-options-count").textContent()) || "",
+    /[1-9][0-9]* selected/,
+  );
+  await optionsSummary.click();
+  assert(await optionsSummary.isVisible());
   await page
     .getByRole("button", { name: "Start mission", exact: true })
     .click();
@@ -238,6 +258,16 @@ try {
   assert.equal(posted.includeProjectFiles, true);
   assert.deepEqual(posted.exportProjectFiles, ["src/main.kujo"]);
   assert.deepEqual(posted.mcpReadFiles, ["src/main.kujo"]);
+  assert.equal(
+    await page.locator("#mission-options-count").textContent(),
+    "(none selected)",
+  );
+  assert.equal(
+    await page
+      .locator("#mission-options")
+      .evaluate((e: HTMLDetailsElement) => e.open),
+    false,
+  );
   assert.equal(await sourceFiles.inputValue(), "");
   assert.equal(posted.expectedOutput, "5\n");
   assert.deepEqual(posted.projectFiles, [
@@ -250,6 +280,7 @@ try {
     0,
   );
   assert.equal(await outputCheck.isChecked(), false);
+  await optionsSummary.click();
   await consent.check();
   await sourceFiles.fill("src/another.kujo");
   await page.locator("[data-continue]").first().click();
@@ -281,6 +312,7 @@ try {
         staleArtifactRequestCannotOverwriteSelection: true,
         cleanupVisible: true,
         keyboardConsent: true,
+        compactOptionsKeyboardAndReset: true,
         explicitOutputCheckPostedAndReset: true,
         selectedProjectFilesPostedAndReset: true,
         projectExecutionPermissionReset: true,

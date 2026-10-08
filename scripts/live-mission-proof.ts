@@ -235,6 +235,7 @@ try {
       .setChecked(kind === "writing");
     await page.getByLabel("Task", { exact: true }).fill(prompt);
     if (kind === "code") {
+      await page.locator("#mission-options > summary").click();
       await page
         .getByText("Optional JavaScript function checks", { exact: true })
         .click();

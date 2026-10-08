@@ -98,7 +98,7 @@ Choose **JavaScript + review**, and submit:
 > an array of finite numbers; return 0 for an empty array. Throw TypeError for
 > any non-number element. Use a named export, not CommonJS.
 
-Expand **Optional JavaScript function checks** and paste:
+Expand **Tools, files and checks**, then **Optional JavaScript function checks**, and paste:
 
 ```json
 {"exportName":"sum","cases":[{"name":"empty","args":[[]],"equals":0},{"name":"addition","args":[[2,3,-1]],"equals":4},{"name":"reject text","args":[[1,"2"]],"throws":"TypeError"}]}
@@ -188,7 +188,7 @@ mission cannot be bypassed. Workcell cleanup remains a separate recovery operati
 
 ### Check Kujo output and request a repair
 
-After enabling Workcell and opting into execution for a Kujo task, open **Optional
+In **Tools, files and checks**, enable Workcell execution for a Kujo task, then open **Optional
 Kujo output check**, enable **Check exact stdout**, and enter the output you expect.
 For a program that prints `5`, enter `5` followed by a newline. Matching is exact
 except that Windows CRLF line endings become LF. Blank expected output is allowed

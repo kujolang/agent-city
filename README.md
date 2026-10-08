@@ -92,7 +92,7 @@ For a concrete task with review and optional real execution, follow the
 [Kujo quote-tool walkthrough](docs/try-a-reviewed-tool.md).
 
 Choose **Writing + review** or **Code + review**, enter a small task and press
-**Start mission**. Optionally select **Use indexed local Kujo docs**; the starter
+**Start mission**. Optional permissions are under **Tools, files and checks**. Select **Use indexed local Kujo docs** there; the starter
 index contains four short example documents, not the full ecosystem manual.
 Select the resulting WRITER or CODER execution in the roster, then **Follow
 selected instance**. Click a mission-history entry to read the recorded draft,
@@ -108,7 +108,7 @@ By default code artifacts are **saved and reviewed, not executed**. A parser che
 syntax; this does not run imports, side effects or functional tests. A single
 outer Markdown code fence is removed when present; the original response remains
 in private response history. The output panel states the actual check status.
-To execute small ES modules, open **Optional JavaScript function checks** and supply
+To execute small ES modules, expand **Tools, files and checks**, open **Optional JavaScript function checks**, and supply
 explicit JSON cases, for example:
 
 ```json

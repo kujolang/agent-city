@@ -34,11 +34,12 @@ export function mountMissions(
     <p id="continuation-status" role="status">New mission</p><button id="clear-continuation" type="button" hidden>Cancel follow-up</button>
     <form id="mission-form"><label>Task type <select name="kind"><option value="writing">Writing + review</option><option value="code">JavaScript + review</option><option value="kujo">Kujo + senior review (real MCP)</option></select></label>
     <details><summary>Custom author / reviewer</summary><p>Optional imported profiles. PROPOSE drafts with optional documentation context when the author allows Kujo Docs. Explicit code test cases run separately in the isolated checker. Other tool/workflow execution is not connected. Leave both fields blank for built-in agents. Continuations retain their original contracts.</p><label>Author profile <select name="authorProfile"><option value="">Built-in author</option></select></label><label>Reviewer profile <select name="reviewerProfile"><option value="">Built-in reviewer</option></select></label><button type="button" id="refresh-team-options">Refresh imported profiles</button><p id="team-options-status" role="status"></p></details>
+    <label>Task <textarea name="prompt" rows="3" maxlength="16384" required placeholder="Describe the small task you want the agents to complete."></textarea></label>
     <label><input type="checkbox" name="allowCheckins" checked> Allow agent questions (reply within 3 minutes)</label>
+    <details id="mission-options"><summary>Tools, files and checks <span id="mission-options-count">(none selected)</span></summary>
     <label><input type="checkbox" name="useLocalDocs"> Use indexed local Kujo docs</label>
     <label><input type="checkbox" name="useMcpDocs"> Read local MCP demo README</label>
     <details><summary>Approved MCP source reads</summary><label>Local server file names (one per line)<textarea name="mcpReadFiles" rows="3" maxlength="482" placeholder="src/main.kujo"></textarea></label><p>Read the first 200 lines of up to three named files using the operator-enabled local MCP server. Server workspace restrictions still apply. Contents are shared privately with the author and reviewer. This grants no writes or model-selected tools.</p></details>
-    <label>Task <textarea name="prompt" rows="3" maxlength="16384" required placeholder="Describe the small task you want the agents to complete."></textarea></label>
     <details><summary>Selected project files</summary><label>Text files <input type="file" name="projectFiles" multiple></label><p>Up to eight UTF-8 text files,16 KiB each and32 KiB total. Selected content is sent to your configured model for the author and reviewer, and retained privately with this mission. This does not grant host project access or editing. Follow-ups retain the prior snapshot unless new files are selected; start a new mission for a separate context.</p></details>
     <label><input type="checkbox" name="executeWorkcell"> Execute checked Kujo code in Workcell after review (requires operator setup; no network or host project access)</label>
     <label><input type="checkbox" name="includeProjectFiles"> Copy selected project files into this Workcell run</label><p>Separate per-task permission. Files are copied under <code>project/</code> in the disposable workspace; generated code can read, import or change these copies. Host files are not mounted or modified. Only explicitly named output files are exported. Re-enable this permission for each follow-up.</p>
@@ -46,8 +47,9 @@ export function mountMissions(
     <details><summary>Optional Kujo output check</summary><label><input type="checkbox" name="checkOutput"> Check exact stdout after Workcell execution</label><label>Expected stdout <textarea name="expectedOutput" rows="3" maxlength="16384"></textarea></label><p>Requires the Workcell execution opt-in. Include the final newline if your program prints one. CRLF is normalized; all other whitespace is significant. A completed task can still fail this check.</p></details>
     <details><summary>Workcell execution setup</summary><p>Requires a running local Docker/Podman engine and a trusted local image containing Kujo. For Docker in a managed installation, run <code>../start.command setup:workcell --build</code> from the Agent City directory (source checkout: <code>npm run setup:workcell -- --build</code>) to build the supplied local image, then use its printed launch command. The operator sets <code>CITY_ENABLE_WORKCELL=1</code> and <code>CITY_WORKCELL_IMAGE</code> before starting Agent City. Select the intended engine context in the launcher environment.</p><button type="button" id="check-workcell">Check Workcell setup</button><p id="workcell-check-status" role="status" aria-live="polite">Not checked. This check does not install software, pull images, run code or enable execution.</p></details>
     <details><summary>Optional JavaScript function checks</summary><label>Function contract JSON <textarea name="functionContract" rows="4" placeholder='{"exportName":"sum","cases":[{"name":"empty","args":[[]],"equals":0}]}'></textarea></label><p class="muted">Explicitly runs the generated module in a disposable browser worker. JSON arguments/results only; no filesystem or network integrations. Requires installed Chromium. Each case gets 1.5 seconds.</p></details>
+    </details>
     <button type="submit" disabled>Start mission</button></form>
-    <p class="muted">Sends your task to the configured model. The SDK hands the draft to a reviewer. JavaScript runs only with explicit function cases in an isolated browser. Kujo runs only with the separate Workcell opt-in and operator setup.</p>
+    <p class="muted">Your configured model drafts the task and hands it to a separate reviewer. Execution needs the explicit checks or Workcell permissions above.</p>
     <div id="mission-jobs" aria-label="Mission history"></div><pre id="mission-exchanges" tabindex="0" aria-label="Observed agent responses"></pre><pre id="provider-diagnostics" tabindex="0" aria-label="Provider response diagnostics" hidden></pre><button type="button" id="download-project-files" hidden>Save project file bundle</button><button type="button" id="download-artifact" hidden>Save artifact</button><pre id="mission-artifact" tabindex="0" aria-label="Selected mission output"></pre>`;
   panel.querySelector("#codex-setup-command")!.textContent =
     `CITY_APP_URL=${window.location.origin} ../start.command provider:codex`;
@@ -164,6 +166,30 @@ export function mountMissions(
   };
   const form = panel.querySelector<HTMLFormElement>("#mission-form")!;
   const modelForm = panel.querySelector<HTMLFormElement>("#model-form")!;
+  const options = panel.querySelector<HTMLDetailsElement>("#mission-options")!;
+  const optionsCount = panel.querySelector<HTMLElement>(
+    "#mission-options-count",
+  )!;
+  function refreshOptions() {
+    const enabled = options.querySelectorAll<HTMLInputElement>(
+      'input[type="checkbox"]:checked',
+    ).length;
+    const supplied = Array.from(
+      options.querySelectorAll<HTMLTextAreaElement>("textarea"),
+    ).filter(
+      (field) => field.name !== "expectedOutput" && field.value.trim(),
+    ).length;
+    const files = (form.elements.namedItem("projectFiles") as HTMLInputElement)
+      .files?.length
+      ? 1
+      : 0;
+    const count = enabled + supplied + files;
+    optionsCount.textContent = count
+      ? `(${count} selected)`
+      : "(none selected)";
+  }
+  form.addEventListener("input", refreshOptions);
+  form.addEventListener("change", refreshOptions);
   const submit = form.querySelector<HTMLButtonElement>("button[type=submit]")!;
   const status = panel.querySelector<HTMLElement>("#mission-status")!;
   const output = panel.querySelector<HTMLElement>("#mission-artifact")!;
@@ -211,6 +237,8 @@ export function mountMissions(
     clearContinuation.hidden = true;
     continuation.textContent = "New mission";
     form.reset();
+    options.open = false;
+    refreshOptions();
   }
   clearContinuation.onclick = clearParent;
   async function refresh() {
@@ -490,6 +518,8 @@ export function mountMissions(
                     2,
                   );
                   field.closest("details")!.open = true;
+                  options.open = true;
+                  refreshOptions();
                 }
                 (
                   form.elements.namedItem("prompt") as HTMLTextAreaElement

@@ -86,6 +86,8 @@ try {
       .querySelector("#mission-status")
       ?.textContent?.includes("MODEL NOT CONFIGURED"),
   );
+  await page.locator("#mission-options > summary").focus();
+  await page.keyboard.press("Enter");
   const summary = page.locator("summary", {
     hasText: "Workcell execution setup",
   });

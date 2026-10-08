@@ -96,6 +96,18 @@ try {
   await page.waitForFunction(() => !document.fullscreenElement);
   assert(await button.evaluate((e) => e === document.activeElement));
   await page.locator("[data-scene=city]").click();
+  const formBounds = await page.locator("#mission-form").boundingBox();
+  assert(
+    formBounds && formBounds.height <= 400,
+    "Default task composer must stay compact",
+  );
+  assert(await page.getByLabel("Task", { exact: true }).isVisible());
+  assert.equal(
+    await page
+      .locator("#mission-options")
+      .evaluate((e: HTMLDetailsElement) => e.open),
+    false,
+  );
   await page.screenshot({ path: `${out}/whole-page.png`, fullPage: true });
   assert.equal(
     await page.evaluate(() => JSON.stringify((window as any).agentCity.truth)),
@@ -130,6 +142,8 @@ try {
         keyboardEnterAndExit: true,
         denialPreservesInspector: true,
         narrowOverflow: false,
+        compactTaskHeight: formBounds.height,
+        advancedOptionsClosed: true,
         truthUnchanged: true,
         noCommandWrites: true,
         errors,
