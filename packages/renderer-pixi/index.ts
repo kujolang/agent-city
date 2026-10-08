@@ -22,7 +22,7 @@ import { CharacterAtlas } from "./characters";
 import {
   badge,
   animationFor,
-  buildingState,
+  buildingSummary,
   stationFor,
   compareId,
 } from "../world-core/index";
@@ -315,7 +315,7 @@ export class CityRenderer {
       for (const o of world.maps.city.objects.filter(
         (o) => o.kind === "building",
       )) {
-        const state = buildingState(
+        const state = buildingSummary(
           o.id as Scene,
           truth,
           observedNow ??
@@ -327,10 +327,10 @@ export class CityRenderer {
         );
         text(
           g,
-          state.operations.length ? "SRC " + state.sourceHealth : "NO SOURCE",
+          state.operationCount ? "SRC " + state.sourceHealth : "NO SOURCE",
           o.x + 8,
           Math.min(201, o.y + 68),
-          state.operations.length ? C.blue : C.gold,
+          state.operationCount ? C.blue : C.gold,
         );
         if (aggregate)
           text(

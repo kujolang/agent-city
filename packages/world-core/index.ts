@@ -551,6 +551,48 @@ export function activityCounts(w: Walker, a: Agent) {
   };
 }
 
+/** Canvas summary avoids constructing station/evidence inspector records every frame. */
+export function buildingSummary(
+  scene: Scene,
+  truth: Truth,
+  now: number,
+  transport: string,
+) {
+  const capabilities = Object.keys(destinations).filter(
+    (k) => destinations[k] === scene,
+  );
+  if (scene === "workshop") capabilities.push("agent.run", "execution.run");
+  if (scene === "meeting")
+    capabilities.push("agent.handoff", "relationship.message");
+  let operationCount = 0,
+    active = 0,
+    failures = 0,
+    last = 0;
+  for (const agent of Object.values(truth.agents)) {
+    for (const op of Object.values(agent.operations)) {
+      if (!capabilities.includes(op.capability)) continue;
+      operationCount++;
+      if (op.status === "active") active++;
+      if (op.status === "failed") failures++;
+      last = Math.max(last, op.observedAt ?? 0);
+    }
+  }
+  return {
+    operationCount,
+    active,
+    failures,
+    sourceHealth: !operationCount
+      ? "NO LIVE SOURCE"
+      : transport !== "LIVE"
+        ? "STALE"
+        : now - last > 30000
+          ? active
+            ? "STALE"
+            : "RECENT"
+          : "LIVE",
+  };
+}
+
 export function buildingState(
   scene: Scene,
   truth: Truth,

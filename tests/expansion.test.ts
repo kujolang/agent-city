@@ -7,6 +7,7 @@ import {
   advance,
   route,
   buildingState,
+  buildingSummary,
   animationFor,
   type OperationEvent,
 } from "../packages/world-core/index";
@@ -166,4 +167,29 @@ it("follow does not stop for UNKNOWN intake before the SDK start arrives", async
   expect(followComplete(w, terminal.agents[ev.instance])).toBe(true);
   w.phase = "enter";
   expect(followComplete(w, terminal.agents[ev.instance])).toBe(false);
+});
+
+it("canvas building summaries match inspector truth across freshness and outcome states", () => {
+  let truth = initialTruth();
+  for (const ev of [
+    e(1, "evaluation.run", "failed"),
+    e(2, "rag.query", "succeeded"),
+    e(3, "agent.run"),
+    e(4, "agent.handoff", "succeeded"),
+    e(5, "tool.execute"),
+  ])
+    truth = reduceTruth(truth, ev);
+  for (const scene of Object.keys(world.maps) as Parameters<
+    typeof buildingState
+  >[0][])
+    for (const now of [500, 30500, 30501, 40000])
+      for (const transport of ["LIVE", "STALE", "REPLAY", "UNKNOWN"]) {
+        const detailed = buildingState(scene, truth, now, transport);
+        expect(buildingSummary(scene, truth, now, transport)).toEqual({
+          operationCount: detailed.operations.length,
+          active: detailed.active,
+          failures: detailed.failures,
+          sourceHealth: detailed.sourceHealth,
+        });
+      }
 });
