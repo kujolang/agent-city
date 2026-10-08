@@ -37,3 +37,10 @@ ID, not bit-reproducible rebuilds, is the runtime identity.
 Remaining: connect Editor output to this adapter in the production workflow,
 independent exact-candidate review, user-facing controls, real model production
 proof and qualification of a new release. Immutable rc.2 is unchanged.
+
+Saved Editor connection qualification: CI [37790787619](https://github.com/kujolang/agent-city/actions/runs/37790787619)
+at `0634b8c1601433f30fc949d0caa5b3202b346c7c` passes through runtime-owned saved
+Editor artifacts and `renderVideoopsAttempt`. The exported video independently
+hash-matches `candidate.json`; Workcell `wc-0ce04e1fe8114732ae0ba9321c0e6986`
+completed. This remains the original controlled fixture, not a model-authored
+production or perceptual approval. Receipts/video are in `37790787619/`.

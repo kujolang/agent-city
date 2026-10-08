@@ -1,0 +1,196 @@
+{
+  "schema": "agent-city.videoops-candidate.v1",
+  "status": "ready-for-review",
+  "editor": {
+    "schema": "agent-city.videoops-artifact-receipt.v1",
+    "stage": "hyperframes-editor",
+    "attempt": 1,
+    "execution": "fixture:videoops-render-fixture:hyperframes-editor",
+    "status": "stored",
+    "validation": "paths-bytes-json-only",
+    "productionApproval": "NOT_ESTABLISHED",
+    "artifacts": [
+      {
+        "path": "production/hyperframes/index.html",
+        "bytes": 813,
+        "sha256": "8097010f45d2a401a509942045fc4dca93750198c61ec5de913a6735a4b48ea8"
+      },
+      {
+        "path": "production/production-notes.md",
+        "bytes": 92,
+        "sha256": "54b28cc5e443f0c042771e8e7d6529495eb042b47148436bf972c3c3a0e0a15f"
+      }
+    ]
+  },
+  "image": "sha256:700c444a42ad008438b2da07069fe32bc4e5c50e7925d11a31ecfe0eed9e9e23",
+  "producer": "videoops-render-fixture",
+  "run": "videoops-render-fixture",
+  "task": "videoops-render-fixture",
+  "workcell": {
+    "runId": "wc-0ce04e1fe8114732ae0ba9321c0e6986",
+    "artifacts": [
+      {
+        "name": "output/draft.mp4",
+        "bytes": 25573,
+        "sha256": "8617b8aaab93b96c980e6eaa21be04fbeddc270fc07222fae99209c8a9bb8959"
+      },
+      {
+        "name": "output/metadata.json",
+        "bytes": 3598,
+        "sha256": "22fc7a484db60f3302c6226ebae7e8938e1dc4c6e2afa0eb9aeb2f37f50ab032"
+      },
+      {
+        "name": "output/check.json",
+        "bytes": 2779,
+        "sha256": "7ae632c1740aaa490c6481d9793a56d9244b45a515d89bb2f85eab48f0dd19bd"
+      }
+    ]
+  },
+  "candidate": {
+    "name": "output/draft.mp4",
+    "bytes": 25573,
+    "sha256": "8617b8aaab93b96c980e6eaa21be04fbeddc270fc07222fae99209c8a9bb8959"
+  },
+  "directory": "/home/runner/work/_temp/city/agent-city/.runtime/videoops-render-1791468909088/render-1/workcell-source/.workcell/runs/wc-0ce04e1fe8114732ae0ba9321c0e6986/artifacts",
+  "metadata": {
+    "schema": "agent-city.videoops-render-receipt.v1",
+    "status": "passed",
+    "hyperframesVersion": "0.8.141",
+    "request": {
+      "schema": "agent-city.videoops-render.v1",
+      "width": 640,
+      "height": 360,
+      "fps": 30,
+      "durationSeconds": 3
+    },
+    "probe": {
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+          "profile": "Constrained Baseline",
+          "codec_type": "video",
+          "codec_tag_string": "avc1",
+          "codec_tag": "0x31637661",
+          "width": 640,
+          "height": 360,
+          "coded_width": 640,
+          "coded_height": 360,
+          "closed_captions": 0,
+          "film_grain": 0,
+          "has_b_frames": 0,
+          "sample_aspect_ratio": "1:1",
+          "display_aspect_ratio": "16:9",
+          "pix_fmt": "yuv420p",
+          "level": 30,
+          "color_range": "tv",
+          "color_space": "bt709",
+          "color_transfer": "bt709",
+          "color_primaries": "bt709",
+          "chroma_location": "center",
+          "field_order": "progressive",
+          "refs": 1,
+          "is_avc": "true",
+          "nal_length_size": "4",
+          "id": "0x1",
+          "r_frame_rate": "30/1",
+          "avg_frame_rate": "30/1",
+          "time_base": "1/15360",
+          "start_pts": 0,
+          "start_time": "0.000000",
+          "duration_ts": 46080,
+          "duration": "3.000000",
+          "bit_rate": "64072",
+          "bits_per_raw_sample": "8",
+          "nb_frames": "90",
+          "extradata_size": 43,
+          "disposition": {
+            "default": 1,
+            "dub": 0,
+            "original": 0,
+            "comment": 0,
+            "lyrics": 0,
+            "karaoke": 0,
+            "forced": 0,
+            "hearing_impaired": 0,
+            "visual_impaired": 0,
+            "clean_effects": 0,
+            "attached_pic": 0,
+            "timed_thumbnails": 0,
+            "non_diegetic": 0,
+            "captions": 0,
+            "descriptions": 0,
+            "metadata": 0,
+            "dependent": 0,
+            "still_image": 0,
+            "multilayer": 0
+          },
+          "tags": {
+            "language": "und",
+            "handler_name": "VideoHandler",
+            "vendor_id": "[0][0][0][0]",
+            "encoder": "Lavc61.19.101 libx264"
+          }
+        }
+      ],
+      "format": {
+        "filename": "/workspace/output/draft.mp4",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+        "format_long_name": "QuickTime / MOV",
+        "start_time": "0.000000",
+        "duration": "3.000000",
+        "size": "25573",
+        "bit_rate": "68194",
+        "probe_score": 100,
+        "tags": {
+          "minor_version": "512",
+          "major_brand": "isom",
+          "compatible_brands": "isomiso2avc1mp41",
+          "hyperframes_version": "0.8.141",
+          "hyperframes_renderer": "hyperframes",
+          "encoder": "Lavf61.7.103"
+        }
+      }
+    },
+    "steps": [
+      {
+        "name": "version",
+        "status": "passed",
+        "durationMs": 30
+      },
+      {
+        "name": "check",
+        "status": "passed",
+        "durationMs": 4223
+      },
+      {
+        "name": "render",
+        "status": "passed",
+        "durationMs": 3315
+      },
+      {
+        "name": "probe",
+        "status": "passed",
+        "durationMs": 49
+      },
+      {
+        "name": "decode",
+        "status": "passed",
+        "durationMs": 51
+      }
+    ],
+    "artifact": {
+      "path": "output/draft.mp4",
+      "bytes": 25573,
+      "sha256": "8617b8aaab93b96c980e6eaa21be04fbeddc270fc07222fae99209c8a9bb8959"
+    },
+    "technical": "passed",
+    "perceptual": "NOT_REVIEWED",
+    "publication": "NOT_PERFORMED"
+  },
+  "productionApproval": "NOT_ESTABLISHED"
+}
