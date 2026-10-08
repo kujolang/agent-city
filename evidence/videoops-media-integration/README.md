@@ -1,4 +1,4 @@
-# Real VideoOps media integration — review candidate
+# Real VideoOps media integration — finalized candidate
 
 [Watch the six-second candidate](candidate.mp4). It uses actual Workshop → Library
 → City product captures, Press Start 2P, previously approved ElevenLabs v4 Siren
@@ -52,8 +52,11 @@ is covered by mocked success/unknown tests and an actual canonical CLI test that
 blocks before dispatch when credentials are absent; this is not fresh live SFX or
 music capability proof.
 
-Current candidate is **REVIEW_INCOMPLETE**. Watch and listen to this exact file,
-then record the actual result. Prior approval of the separate Pixel v2 promo
-cannot finalize this candidate. No release was published and no eight-hour soak ran.
+The current candidate is **APPROVED and finalized**. [Finalization receipt](finalization.json)
+records the user approval for this exact linked candidate, native technical/perceptual
+PASS, and a byte-identical final download. The approval is a human decision recorded
+by the assistant, not automated listening or video understanding. The earlier
+review screenshots retain their original pre-approval state. No source work or
+provider request was repeated. No eight-hour soak ran.
 
 Integration code commit `7e023d601fcd878e40b1c70887e6d9c8707f3e6d` passed [CI 37824308063](https://github.com/kujolang/agent-city/actions/runs/37824308063), all five jobs, including installed macOS Intel/ARM and Linux x64/ARM checks. Local full verification passed 173 tests/67 files, with two additional footage/narration regression tests afterward. This does not replace exact-video human review.

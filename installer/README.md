@@ -7,7 +7,7 @@ Production release gates remain incomplete; see ../RELEASE-CHECKLIST.md.
 Install and launch the local preview on macOS or Linux:
 
 ```sh
-curl --proto '=https' --tlsv1.2 -fsSL https://github.com/kujolang/agent-city/releases/download/v0.2.0-rc.2/install.sh | sh
+curl --proto '=https' --tlsv1.2 -fsSL https://github.com/kujolang/agent-city/releases/download/v0.2.0-rc.3/install.sh | sh
 ```
 
 The bootstrap supplies a private Node runtime when needed. It does not configure
@@ -176,7 +176,7 @@ to its source receipt. UNKNOWN workload truth remains UNKNOWN; cleanup does not
 prove task completion or permit a source retry. Engine unavailability refuses
 cleanup. It does not clear an UNKNOWN mission's admission block automatically.
 
-### VideoOps production setup (development main)
+### VideoOps production setup (rc.3)
 
 Save your model connection in Mission Command first. Start Docker and select the
 context you want for rendering. From the managed `agent-city` directory:
@@ -205,7 +205,7 @@ Use `--image LOCAL_IMAGE --enable --confirm-model-capabilities` instead of `--bu
 to verify and save an existing compatible image. Use `setup:videoops --disable` to
 remove saved setup, then restart. An explicit `CITY_VIDEOOPS_CONFIG` environment
 variable overrides saved setup; unset it to disable that manual configuration.
-These additions are not included in the immutable `v0.2.0-rc.2` release.
+These additions are included in `v0.2.0-rc.3`; earlier releases remain unchanged.
 
 ### Engine security requirements
 

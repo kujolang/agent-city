@@ -185,12 +185,12 @@ The gateway stops ingestion at its journal quota rather than deleting evidence s
 - **Publishing House:** technical writer → separate copy chief; saved local draft/review.
 - **WebOps:** supplied-evidence Reporter → Copy Chief → deterministic report check.
   Supply timestamped evidence; this does not crawl or deploy a website.
-- **VideoOps (development main):** Creative Director → Asset Scout → HyperFrames
+- **VideoOps:** Creative Director → Asset Scout → HyperFrames
   Editor → isolated render → exact-candidate human review → explicit finalization.
-  Combined live acceptance is being qualified for the next preview release.
+  Live production, exact-video approval and matching final download are verified.
   See [VideoOps setup and review](docs/videoops.md).
 
-These additions are not all included in the published `v0.2.0-rc.2` installer.
+These additions are included in the `v0.2.0-rc.3` preview.
 The [workflow matrix](docs/workflow-support.md) records the executable scope and limits.
 The [release follow-through](RELEASE-NEXT.md) retains unfinished acceptance gates.
 
@@ -334,4 +334,4 @@ execution. Stdout remains in inspection evidence; **Save reviewed artifact**
 downloads the generated program itself.
 Each continuation requires fresh execution and project-input consent.
 
-VideoOps media integration on development main: [Pixel v2 presets, your own product media, and optional ElevenLabs audio](docs/videoops-media.md). New provider calls require explicit scoped consent; every new video requires its own review. This is not yet included in the published rc.2.
+VideoOps media integration: [Pixel v2 presets, your own product media, and optional ElevenLabs audio](docs/videoops-media.md). New provider calls require explicit scoped consent; every new video requires its own review. Available in rc.3; the earlier immutable rc.2 does not include it.

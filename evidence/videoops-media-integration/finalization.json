@@ -1,0 +1,66 @@
+{
+  "schema": "agent-city.release-video-acceptance.v1",
+  "recordedAt": "2026-10-08T18:56:15.147879+00:00",
+  "mission": "mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98",
+  "decision": {
+    "candidateSha256": "98e5bd3a8d6ab5c08f01daeb489507ef290015aa7f17cc4b22c53e44c51146ce",
+    "reviewer": "Robert DeVore (user approval recorded by assistant)",
+    "outcome": "PASS",
+    "capabilities": [
+      "visual_playback",
+      "audio_listening"
+    ],
+    "notes": "User approval after presentation of the new six-second pixel candidate and explicit request to watch/listen, approve, finalize, and publish: \"Ok that's good, continue and do what's left\". This records the user decision for the linked 98e5bd3a candidate; it is not an assistant playback/listening assessment and does not approve the older 19b3070b silent candidate.",
+    "defects": [],
+    "confirmed": true
+  },
+  "review": {
+    "id": "human-d9ddea63-8409-41f6-ad5a-cb4658eb7fb3",
+    "status": {
+      "candidate": {
+        "mandatory_capabilities": [
+          "visual_playback",
+          "audio_listening"
+        ],
+        "path": "output/draft.mp4",
+        "sha256": "98e5bd3a8d6ab5c08f01daeb489507ef290015aa7f17cc4b22c53e44c51146ce",
+        "submitted_at": "2026-10-08T18:23:29.219502+00:00"
+      },
+      "counters": {
+        "critic_failures": 0,
+        "render_attempts": 1,
+        "review_attempts": 2,
+        "technical_repairs": 0,
+        "user_revisions": 0
+      },
+      "next_action": "promote",
+      "perceptual": "PASS",
+      "review_ids": [
+        "technical-wc-6668093699674787876f78ddb8bdac52",
+        "human-d9ddea63-8409-41f6-ad5a-cb4658eb7fb3"
+      ],
+      "state": "APPROVED",
+      "technical": "PASS"
+    },
+    "authority": "explicit-local-human-attestation",
+    "publication": "NOT_PERFORMED"
+  },
+  "finalization": {
+    "id": "mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98",
+    "status": "completed",
+    "final": {
+      "path": "output/final.mp4",
+      "sha256": "98e5bd3a8d6ab5c08f01daeb489507ef290015aa7f17cc4b22c53e44c51146ce",
+      "bytes": 309517
+    },
+    "downloadUrl": "/control/videoops/final/mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98",
+    "publication": "NOT_PERFORMED"
+  },
+  "downloadVerification": {
+    "sha256": "98e5bd3a8d6ab5c08f01daeb489507ef290015aa7f17cc4b22c53e44c51146ce",
+    "bytes": 309517,
+    "equalsCandidate": true
+  },
+  "sourceExecutionRepeated": false,
+  "newProviderCalls": 0
+}

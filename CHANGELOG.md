@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.2.0-rc.3 — In preparation
+## 0.2.0-rc.3 — Local preview
 
 - WebOps supplied-evidence Reporter → Copy Chief workflow with deterministic report checks.
 - Saved VideoOps image/model setup, bounded Planner/Scout/Editor coordination, isolated rendering, exact-candidate human review and explicit finalization.
@@ -10,7 +10,7 @@
 - Clarified composition-code versus acquired/generated-media planning, retaining the original failed real attempt.
 - Reject incompatible Docker security profiles during setup/admission, before spending model calls.
 - Updated setup, workflow limits and historical/current evidence documentation.
-- Release remains pending combined live acceptance, human candidate review/finalization and exact-source platform qualification. No eight-hour soak or universal workflow support is claimed.
+- Combined live media acceptance, exact-video human review, finalization and matching download passed. No eight-hour soak or universal workflow support is claimed.
 
 ## 0.2.0-rc.2 — Local preview
 

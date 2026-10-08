@@ -1,9 +1,9 @@
 # VideoOps local production
 
-This adapter is on development main and has passed live browser launch through
-technical rendering and the review UI. Exact-candidate approval/finalization and
-publication remain pending for the next local preview. The published `v0.2.0-rc.2` does not include it. It is separate from the
-read-only Observer and replay system.
+Available in the v0.2.0-rc.3 local preview. Real browser launch, SDK roles, guarded
+render, exact-candidate human approval, finalization and matching download are
+verified in the [media acceptance evidence](../evidence/videoops-media-integration/README.md).
+This explicit production adapter is separate from the read-only Observer and replay.
 
 ## Setup
 

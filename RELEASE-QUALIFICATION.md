@@ -6,16 +6,18 @@ local-preview release v0.2.0-rc.2 is published (see the follow-through receipts 
 No public service deployment, multi-tenant hosting or eight-hour soak is claimed.
 The long soak was explicitly cancelled; do not start or schedule it without renewed consent.
 
-## Next version review — 0.2.0-rc.3
+## Version 0.2.0-rc.3 qualification
 
-The [rc.3 evidence](evidence/release-rc3/README.md) qualifies code commit `5e6c973`:
-all five CI jobs pass, including installation on four platforms. Selected WebOps
-reporting is live-proven. The combined VideoOps browser launch now reaches a real
-rendered candidate and technical PASS, with all 27 observations visible through
-the scoped gateway. Human approval/finalization of that exact candidate remains
-pending. A GitHub draft holds pinned artifacts; it is not a published version.
-Docker engines without required seccomp/AppArmor are rejected before model work.
-No eight-hour soak was performed. Older measurements below retain their dated scope.
+[Real media production and finalization](evidence/videoops-media-integration/README.md)
+now pass: the user approved the exact new candidate, native review is APPROVED,
+and the final download matches SHA-256 `98e5bd3a8d6ab5c08f01daeb489507ef290015aa7f17cc4b22c53e44c51146ce`.
+Integration source `110d5ff` passed all five CI jobs in run `37824919485`
+(attempt 2 after a transient Intel download failure). The release manifest pins
+the final packaging source; public distribution checks are recorded separately.
+Docker engines without seccomp/AppArmor are rejected before model work.
+Fresh ElevenLabs music/SFX generation remains account-dependent and was not live
+exercised; this proof reused approved narration and local music. Older sections
+below describe dated checkpoints and do not override this current qualification.
 
 ## Working capability and live sources
 
@@ -185,6 +187,6 @@ version. Local Docker recovery is pending operator coordination because a restar
 can interrupt other workloads. No approval, source completion or release readiness
 is inferred from the green technical checks. No eight-hour soak is required now.
 
-## VideoOps media integration — pending exact-candidate review
+## Historical checkpoint — media integration before human review
 
 Development main now includes immutable product-media packs/uploads, the original Pixel v2 capture/font preset, optional scoped canonical ElevenLabs audio generation and exact-candidate audio QA. [Real media production evidence](evidence/videoops-media-integration/README.md) records the successful SDK/Workcell run and retained initial failure. Local verification passes 173 tests in 67 files plus type, map, boundary and build checks. Fresh music/SFX generation was not exercised; missing entitlement remains a visible block. The richer video is REVIEW_INCOMPLETE until the user watches and listens. The old promo approval does not approve it. Published rc.2 is unchanged.
