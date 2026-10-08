@@ -11,6 +11,7 @@ const pipeline = {
   status: "COMPLETED",
   deliveryReconciled: true,
   browserCaughtUp: true,
+  browserFinal: { health: "LIVE" },
   visibleEventsPerSecond: 1000,
   sendSeconds: 60,
   accepted: 60000,
@@ -137,6 +138,8 @@ describe("release evidence cannot overclaim qualification", () => {
       { status: "FAILED" },
       { deliveryReconciled: false },
       { browserCaughtUp: false },
+      { browserFinal: { health: "STALE" } },
+      { browserFinal: undefined },
       { sampleError: "offline timeout" },
       { sendSeconds: 2 },
       { visible: 59999 },
@@ -161,6 +164,8 @@ describe("release evidence cannot overclaim qualification", () => {
       { status: "FAILED" },
       { sampleError: "timeout" },
       { browserCaughtUp: false },
+      { browserFinal: { health: "STALE" } },
+      { browserFinal: undefined },
       { missing: 1 },
     ]) {
       expect(

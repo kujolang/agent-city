@@ -42,6 +42,7 @@ export function assessRelease(input: {
         p?.runtimeCandidate !== true &&
         p?.deliveryReconciled === true &&
         p?.browserCaughtUp === true &&
+        p?.browserFinal?.health === "LIVE" &&
         !p?.sampleError &&
         atLeast(p?.visibleEventsPerSecond, 1000) &&
         atLeast(p?.sendSeconds, 60) &&
@@ -58,6 +59,7 @@ export function assessRelease(input: {
         input.reconnect?.runtimeCandidate !== true &&
         input.reconnect?.deliveryReconciled === true &&
         input.reconnect?.browserCaughtUp === true &&
+        input.reconnect?.browserFinal?.health === "LIVE" &&
         !input.reconnect?.sampleError &&
         atLeast(input.reconnect?.verifiedReconnects, 1) &&
         atLeast(input.reconnect?.sendSeconds, 60) &&

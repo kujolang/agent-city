@@ -458,11 +458,18 @@ try {
   result.sourceHealth = finalSnapshot.sourceHealth;
   if (browser) {
     const page = browser.contexts()[0].pages()[0];
+    const browserCatchUpStarted = performance.now();
     await page.waitForFunction(
-      (order) => (window as any).agentCity?.truth.order >= order,
+      (order) =>
+        (window as any).agentCity?.truth.order >= order &&
+        (window as any).agentCity?.health === "LIVE",
       finalSnapshot.truth.order,
       { timeout: 10000 },
     );
+    result.browserCatchUpMs = performance.now() - browserCatchUpStarted;
+    result.browserVisibleSeconds = (performance.now() - start) / 1000;
+    result.browserVisibleEventsPerSecond =
+      seen.size / result.browserVisibleSeconds;
     result.browserFinal = await page.evaluate(() => {
       const a = (window as any).agentCity;
       return {
