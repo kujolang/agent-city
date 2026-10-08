@@ -1,0 +1,166 @@
+{
+  "scope": "Real Codex-backed Kujo SDK Creative Director and Asset Scout; preparation only, no render or perceptual approval",
+  "runtime": "/Users/robertdevore/2026/Kujolang/kujo-repos/agent-city/.runtime/videoops-model-1791472740930",
+  "model": "codex-cli-default",
+  "underlyingModel": "UNKNOWN",
+  "startedAt": "2026-10-08T15:19:00.932Z",
+  "initiallyUnconfigured": true,
+  "identity": {
+    "producer": "videoops-model-1791472748655",
+    "run": "videoops-preparation-1791472748655",
+    "task": "videoops-title-card"
+  },
+  "result": {
+    "status": "ready-for-editor",
+    "stage": "asset-scout",
+    "attempts": [
+      {
+        "stage": "creative-director",
+        "attempt": 1,
+        "status": "passed"
+      },
+      {
+        "stage": "asset-scout",
+        "attempt": 1,
+        "status": "passed"
+      }
+    ],
+    "plan": {
+      "bundle": {
+        "schema": "agent-city.videoops-artifacts.v1",
+        "files": [
+          {
+            "path": "planning/creative-brief.md",
+            "content": "# Agent City Title Card \u2014 Creative Brief\n\n## Objective\nCreate a six-second silent title card for Agent City that feels precise, modern, and transparent while making the supplied copy immediately legible.\n\n## Audience\nSoftware users watching a short Agent City showcase.\n\n## Format\n- Canvas: 640 \u00d7 360\n- Frame rate: 30 fps\n- Duration: 6 seconds / 180 frames\n- Audio: None\n\n## Exact Copy\n- `AGENT CITY`\n- `REAL AGENTS. VISIBLE WORK.`\n\nNo other claims, dialogue, labels, or supporting copy may appear.\n\n## Creative Direction\nUse a solid navy background, bright-blue original vector borders, and white system-monospace typography. The composition should feel architectural and deliberate: crisp rectangular geometry, restrained motion, high contrast, and generous spacing.\n\nThe title reveal completes by 0.5 seconds (frame 15), then remains readable. The second line begins its introduction at exactly 2 seconds (frame 60), settles quickly, and remains visible with the title through the final frame. Motion must not interfere with reading.\n\n## Timeline\n- Frames 0\u201314 / 0.000\u20130.500 s: Bright-blue border draws on while `AGENT CITY` reveals; the title is fully visible by frame 15.\n- Frames 15\u201359 / 0.500\u20132.000 s: Hold the complete title in a stable composition.\n- Frames 60\u2013179 / 2.000\u20136.000 s: Introduce `REAL AGENTS. VISIBLE WORK.` at frame 60, settle it by frame 69, then hold both lines through the end.\n\n## Production Boundaries\n- Build only with original CSS/SVG shapes and system monospace typography.\n- Do not use logos, external media, downloaded fonts, voice, music, sound effects, paid generation, or invented software capabilities.\n- Do not imply licensing, rendering, review, or approval has already occurred.\n- Final production still requires an actual render and independent review.\n\n## Planning Acceptance Criteria\n- The plan covers all 180 frames without gaps or overlaps.\n- Both supplied lines are reproduced exactly.\n- `AGENT CITY` is fully readable by frame 15.\n- The second line begins at frame 60 and both lines remain visible through frame 179.\n- The design uses only the specified colors, original vector geometry, and a system monospace font stack.\n- No external production-media requirements are introduced."
+          },
+          {
+            "path": "planning/transcript.md",
+            "content": "# Transcript and On-Screen Copy\n\nAudio: None. This is a silent video with no voice, music, sound effects, or dialogue.\n\n| Time | Frames | On-screen copy | Treatment |\n|---|---:|---|---|\n| 0.000\u20130.500 s | 0\u201314 | `AGENT CITY` | Reveal begins immediately and completes by frame 15. |\n| 0.500\u20132.000 s | 15\u201359 | `AGENT CITY` | Hold fully visible and readable. |\n| 2.000\u20136.000 s | 60\u2013179 | `AGENT CITY`<br>`REAL AGENTS. VISIBLE WORK.` | Second line begins its introduction at frame 60, settles by frame 69, and both lines hold through the final frame. |\n\n## Exact Text Contract\n\n```text\nAGENT CITY\nREAL AGENTS. VISIBLE WORK.\n```\n\nNo additional on-screen copy is permitted."
+          },
+          {
+            "path": "planning/shot-list.json",
+            "content": "{\n  \"shots\": [\n    {\n      \"id\": \"shot-01-title-reveal\",\n      \"start\": 0,\n      \"end\": 0.5,\n      \"duration\": 0.5,\n      \"purpose\": \"Establish the Agent City title immediately and complete its reveal within the first half-second.\",\n      \"visual\": \"A navy 640x360 field with an original bright-blue rectangular vector border drawing into place around centered white monospace text reading exactly AGENT CITY.\",\n      \"priority\": \"required\",\n      \"asset_ids\": [],\n      \"asset_requirement_ids\": [],\n      \"audio\": null,\n      \"motion\": \"Frame-aligned border stroke reveal and restrained title opacity/position settle; title is fully readable at frame 15.\",\n      \"onscreen_text\": \"AGENT CITY\",\n      \"transition_in\": \"Hard start on navy field at frame 0.\",\n      \"transition_out\": \"Motion resolves into a static hold at frame 15.\",\n      \"voiceover\": null\n    },\n    {\n      \"id\": \"shot-02-title-hold\",\n      \"start\": 0.5,\n      \"end\": 2,\n      \"duration\": 1.5,\n      \"purpose\": \"Give the title uninterrupted reading time before the supporting line appears.\",\n      \"visual\": \"The completed bright-blue vector border and centered white monospace AGENT CITY title remain stable on the navy background.\",\n      \"priority\": \"required\",\n      \"asset_ids\": [],\n      \"asset_requirement_ids\": [],\n      \"audio\": null,\n      \"motion\": \"Static hold with no decorative movement that could reduce legibility.\",\n      \"onscreen_text\": \"AGENT CITY\",\n      \"transition_in\": \"Continuous composition from shot 01.\",\n      \"transition_out\": \"Continuous hold into the second-line reveal at frame 60.\",\n      \"voiceover\": null\n    },\n    {\n      \"id\": \"shot-03-message-reveal-and-hold\",\n      \"start\": 2,\n      \"end\": 6,\n      \"duration\": 4,\n      \"purpose\": \"Introduce the exact supporting message at two seconds and hold the complete message through the end.\",\n      \"visual\": \"The title and border remain in place while a smaller white monospace line reading exactly REAL AGENTS. VISIBLE WORK. appears beneath AGENT CITY; both lines remain centered, balanced, and readable on navy.\",\n      \"priority\": \"required\",\n      \"asset_ids\": [],\n      \"asset_requirement_ids\": [],\n      \"audio\": null,\n      \"motion\": \"Begin a short opacity and upward-position settle for the second line at frame 60, complete it by frame 69, then hold the entire composition through frame 179.\",\n      \"onscreen_text\": \"AGENT CITY\\nREAL AGENTS. VISIBLE WORK.\",\n      \"transition_in\": \"Second-line reveal begins exactly at frame 60 without cutting the established composition.\",\n      \"transition_out\": \"Hold through the final frame; no early fade or added end card.\",\n      \"voiceover\": null\n    }\n  ]\n}"
+          },
+          {
+            "path": "planning/style-plan.md",
+            "content": "# Style Plan\n\n## Visual System\n- Background: solid navy.\n- Accent: one bright blue used for original vector borders and any minimal geometric rule work.\n- Typography: white system monospace only, using a fallback stack such as `ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace`.\n- Geometry: original CSS/SVG rectangles and straight lines with crisp edges.\n- Texture: none.\n- Logos or external imagery: none.\n\n## Composition\nPlace the copy within a bright-blue rectangular border inset safely from the 640 \u00d7 360 canvas edges. Center the title optically rather than relying only on mathematical centering. Set `AGENT CITY` as the dominant line with generous tracking. Place `REAL AGENTS. VISIBLE WORK.` beneath it at a smaller size with enough vertical separation to preserve hierarchy.\n\nMaintain high contrast and safe margins. Avoid tiny text, excessive tracking, glows, gradients, faux interface elements, or details that imply unsupported product capabilities.\n\n## Motion Language\nMotion is linear, restrained, and frame-aligned.\n\n- Frames 0\u201314: Draw or wipe on the bright-blue border while revealing the title with a small opacity/position settle.\n- Frame 15: Title and border are complete.\n- Frames 15\u201359: Static readability hold.\n- Frames 60\u201369: Reveal the second line using a subtle opacity increase and short upward settle.\n- Frames 70\u2013179: Static hold of both lines and border.\n\nDo not use camera movement, simulated depth, elastic easing, flicker, rapid cuts, or a closing fade. The final frame should retain the complete composition.\n\n## Copy Rules\nThe only permitted text is:\n\n```text\nAGENT CITY\nREAL AGENTS. VISIBLE WORK.\n```\n\nCapitalization and punctuation must remain exact.\n\n## Production Notes\nAll visible elements can be authored directly as CSS/SVG and text. No external asset acquisition is required. Rendering and independent review remain downstream production requirements and are not represented as completed here."
+          },
+          {
+            "path": "planning/asset-requirements.json",
+            "content": "{\n  \"requirements\": []\n}"
+          }
+        ]
+      },
+      "shots": [
+        {
+          "id": "shot-01-title-reveal",
+          "start": 0,
+          "end": 0.5,
+          "duration": 0.5,
+          "purpose": "Establish the Agent City title immediately and complete its reveal within the first half-second.",
+          "visual": "A navy 640x360 field with an original bright-blue rectangular vector border drawing into place around centered white monospace text reading exactly AGENT CITY.",
+          "priority": "required",
+          "asset_ids": [],
+          "asset_requirement_ids": [],
+          "audio": null,
+          "motion": "Frame-aligned border stroke reveal and restrained title opacity/position settle; title is fully readable at frame 15.",
+          "onscreen_text": "AGENT CITY",
+          "transition_in": "Hard start on navy field at frame 0.",
+          "transition_out": "Motion resolves into a static hold at frame 15.",
+          "voiceover": null
+        },
+        {
+          "id": "shot-02-title-hold",
+          "start": 0.5,
+          "end": 2,
+          "duration": 1.5,
+          "purpose": "Give the title uninterrupted reading time before the supporting line appears.",
+          "visual": "The completed bright-blue vector border and centered white monospace AGENT CITY title remain stable on the navy background.",
+          "priority": "required",
+          "asset_ids": [],
+          "asset_requirement_ids": [],
+          "audio": null,
+          "motion": "Static hold with no decorative movement that could reduce legibility.",
+          "onscreen_text": "AGENT CITY",
+          "transition_in": "Continuous composition from shot 01.",
+          "transition_out": "Continuous hold into the second-line reveal at frame 60.",
+          "voiceover": null
+        },
+        {
+          "id": "shot-03-message-reveal-and-hold",
+          "start": 2,
+          "end": 6,
+          "duration": 4,
+          "purpose": "Introduce the exact supporting message at two seconds and hold the complete message through the end.",
+          "visual": "The title and border remain in place while a smaller white monospace line reading exactly REAL AGENTS. VISIBLE WORK. appears beneath AGENT CITY; both lines remain centered, balanced, and readable on navy.",
+          "priority": "required",
+          "asset_ids": [],
+          "asset_requirement_ids": [],
+          "audio": null,
+          "motion": "Begin a short opacity and upward-position settle for the second line at frame 60, complete it by frame 69, then hold the entire composition through frame 179.",
+          "onscreen_text": "AGENT CITY\nREAL AGENTS. VISIBLE WORK.",
+          "transition_in": "Second-line reveal begins exactly at frame 60 without cutting the established composition.",
+          "transition_out": "Hold through the final frame; no early fade or added end card.",
+          "voiceover": null
+        }
+      ],
+      "requirements": [],
+      "timing": {
+        "fps": 30,
+        "durationSeconds": 6
+      },
+      "gate": {
+        "schema": "agent-city.videoops-plan-gate.v1",
+        "status": "passed",
+        "scope": "Schema, frame timing, continuous coverage and reciprocal asset requirements only; creative quality unreviewed",
+        "schemaSource": {
+          "repository": "kujolang/kujo-agents",
+          "commit": "be22fda90b877de5bb5e9137fee612f2491fb9b2",
+          "source": "schemas/videoops",
+          "files": {
+            "shot-list.schema.json": "e59a1aebdf949e1a552a4a6ad2ad4ae60f03520752f7cd58f04afe58c95d3525",
+            "asset-manifest.schema.json": "e8fa114311eb23dfe5d568289cec7131ba255c2f1039271b2ff732f5ed8d927f",
+            "handoff.schema.json": "17bdcfe78c27a80c18d9946e327fcb8e5cebdc003fea55c588d18f07e7d8745a",
+            "fix-list.schema.json": "18a7793b1e865ff64a3d9c4dcca60235ab37ae81991ab36fe6fffc48497ace69"
+          }
+        },
+        "frames": 180
+      }
+    },
+    "assets": {
+      "bundle": {
+        "schema": "agent-city.videoops-artifacts.v1",
+        "files": [
+          {
+            "path": "assets/asset-manifest.json",
+            "content": "{\n  \"assets\": []\n}\n"
+          },
+          {
+            "path": "assets/licenses.md",
+            "content": "# Asset Licenses\n\nNo external, captured, licensed, or generated assets are required.\n\nThe approved production plan uses only original CSS/SVG geometry and system monospace typography. No acquisition receipts or third-party rights claims were supplied or needed.\n"
+          },
+          {
+            "path": "assets/source-log.md",
+            "content": "# Asset Source Log\n\n## Resolution Summary\n\n- Requirements supplied: 0\n- Terminal asset records: 0\n- External research or acquisition performed: No\n- Unresolved requirements: None\n\nThe supplied `planning/asset-requirements.json` contains an empty requirements array. The shot list references no asset IDs or asset requirement IDs. Production may proceed using original CSS/SVG shapes and system monospace typography within the approved plan.\n\n## Handoff\n\n```json\n{\n  \"schema\": \"kujo.handoff/v1\",\n  \"assignment\": \"videoops-title-card\",\n  \"current_owner\": \"videoops-model-1791472748655:videoops-preparation-1791472748655-asset-scout:asset-scout\",\n  \"next_owner\": \"videoops-production\",\n  \"goal\": \"Build the validated title card without external production media\",\n  \"scope\": \"Use only original CSS/SVG geometry and system monospace typography specified by the supplied planning artifacts\",\n  \"artifact_paths\": [\n    \"assets/asset-manifest.json\",\n    \"assets/licenses.md\",\n    \"assets/source-log.md\"\n  ],\n  \"evidence\": [\n    \"planning/asset-requirements.json declares zero requirements\",\n    \"planning/shot-list.json declares no asset IDs or asset requirement IDs\",\n    \"planning/creative-brief.md prohibits external production media\"\n  ],\n  \"decisions\": [\n    \"No asset acquisition, capture, licensing, or generation is required\",\n    \"The asset manifest is validly empty\"\n  ],\n  \"unresolved_questions\": [],\n  \"allowed_next_actions\": [\n    \"Author the title card from the approved planning artifacts\",\n    \"Render and independently review the production output\"\n  ],\n  \"stop_condition\": \"Stop if production introduces any external media or departs from the approved copy, timing, geometry, colors, or system-font constraint\"\n}\n```\n"
+          }
+        ]
+      },
+      "assets": [],
+      "blocked": [],
+      "generate": [],
+      "status": "ready-for-editor",
+      "scope": "Structural/acquisition evidence gate; no generation, render or creative approval inferred"
+    },
+    "productionApproval": "NOT_ESTABLISHED"
+  },
+  "status": "ready-for-editor",
+  "finishedAt": "2026-10-08T15:19:53.436Z",
+  "servicesRetained": false,
+  "observation": {
+    "expected": 14,
+    "normalized": 14,
+    "complete": true,
+    "recoveredAfterObserverRestart": true,
+    "sourceExecutionsRepeated": false
+  }
+}

@@ -218,3 +218,13 @@ and downloaded candidate hash match. Direct CLI launches also enforce saved mode
 binding (8207afd, typecheck passes). This closes setup mechanics, not actual model
 capability or production/perceptual acceptance. Live model proof and release
 qualification remain open.
+
+Real VideoOps preparation now passes with the existing Codex subscription alias:
+run videoops-preparation-1791472748655, actual Creative Director and Asset Scout,
+one attempt each. All14 canonical-backed observations recovered through the
+existing spool/cursor after an observer-only restart; no model calls repeated.
+The proof harness now drains observation before stopping. See
+evidence/videoops-model-preparation. This qualifies preparation only; actual
+Editor/render/perceptual/finalization acceptance and later release qualification
+remain open. Docker Desktop was unresponsive in a bounded local check; the user's
+other agent owns disk cleanup. No additional cleanup or long soak is running.

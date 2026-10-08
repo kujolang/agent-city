@@ -175,6 +175,36 @@ try {
   uncertain = result.attempts.some((a) => a.uncertain === true);
   proof.result = result;
   proof.status = result.status;
+  // Source work is already complete. Keep observation alive long enough to drain;
+  // this wait never delays a business operation or turns presentation into truth.
+  const expected = (
+    await readFile(resolve(runtime, "spool-" + producer + ".jsonl"), "utf8")
+  )
+    .trim()
+    .split("\n").length;
+  const drainDeadline = Date.now() + 30000;
+  let normalized: any[] = [];
+  while (Date.now() < drainDeadline) {
+    const snapshot = await (
+      await fetch(origin + "/api/world/snapshot", {
+        signal: AbortSignal.timeout(3000),
+      })
+    ).json();
+    normalized = snapshot.recent.filter(
+      (event: any) => event.source === producer,
+    );
+    if (normalized.length === expected) break;
+    await new Promise((r) => setTimeout(r, 250));
+  }
+  proof.observation = {
+    expected,
+    normalized: normalized.length,
+    complete: normalized.length === expected,
+  };
+  await writeFile(
+    resolve(out, "normalized.json"),
+    JSON.stringify(normalized, null, 2),
+  );
   proof.finishedAt = new Date().toISOString();
   proof.servicesRetained = uncertain;
   await writeFile(resolve(out, "proof.json"), JSON.stringify(proof, null, 2));
@@ -182,6 +212,11 @@ try {
     result.status,
     "ready-for-editor",
     "Actual model preparation did not pass; attempts retained",
+  );
+  assert.equal(
+    proof.observation.complete,
+    true,
+    "Source work completed but observation did not drain",
   );
   console.log(
     JSON.stringify({
