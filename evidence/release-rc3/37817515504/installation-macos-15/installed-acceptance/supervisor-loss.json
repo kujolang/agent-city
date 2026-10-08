@@ -1,0 +1,60 @@
+{
+  "status": "PASS",
+  "scope": "Controlled provider, actual SDK/Dispatch; owned supervisor SIGKILL while author response held; no real model product claim",
+  "mission": "mission-a77d2d99-46d3-4046-b4d2-be0f343478ed",
+  "states": [
+    "running",
+    "unknown",
+    "completed"
+  ],
+  "unknownJob": {
+    "id": "mission-a77d2d99-46d3-4046-b4d2-be0f343478ed",
+    "kind": "writing",
+    "executeWorkcell": false,
+    "useLocalDocs": false,
+    "useMcpDocs": false,
+    "status": "unknown",
+    "startedAt": "2026-10-08T17:34:50.902Z",
+    "processOutcome": {
+      "kind": "exit",
+      "code": null,
+      "signal": "SIGKILL"
+    },
+    "admissionReleased": false
+  },
+  "terminalJob": {
+    "id": "mission-a77d2d99-46d3-4046-b4d2-be0f343478ed",
+    "kind": "writing",
+    "executeWorkcell": false,
+    "useLocalDocs": false,
+    "useMcpDocs": false,
+    "status": "completed",
+    "startedAt": "2026-10-08T17:34:50.902Z",
+    "processOutcome": {
+      "kind": "exit",
+      "code": null,
+      "signal": "SIGKILL"
+    },
+    "finishedAt": "2026-10-08T17:34:52.391Z",
+    "admissionReleased": false
+  },
+  "queueHeldWhileUnknown": true,
+  "queueReleasedOnReceipt": true,
+  "providerCalls": 2,
+  "missionCount": 1,
+  "sourceRerun": false,
+  "receipt": {
+    "id": "mission-a77d2d99-46d3-4046-b4d2-be0f343478ed",
+    "producer": "review-mission-a77d2d99-46d3-4046-b4d2-be0f343478ed",
+    "kind": "writing",
+    "status": "completed",
+    "workflowValidation": null,
+    "validation": null,
+    "code": 0,
+    "startedAt": "2026-10-08T17:34:51.705Z",
+    "finishedAt": "2026-10-08T17:34:52.391Z",
+    "output": "/Users/runner/work/_temp/city/agent-city/.runtime/supervisor-loss-d4a23aa2-4349-4f74-9491-71842b0aad22/missions/mission-a77d2d99-46d3-4046-b4d2-be0f343478ed/reviewed.md",
+    "execution": "Dispatch workflow, SDK model request and reviewer handoff; optional explicit browser checks recorded in validation"
+  },
+  "privateEvidence": "/Users/runner/work/_temp/city/agent-city/.runtime/supervisor-loss-d4a23aa2-4349-4f74-9491-71842b0aad22"
+}

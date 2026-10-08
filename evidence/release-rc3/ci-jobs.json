@@ -1,0 +1,825 @@
+{
+  "total_count": 5,
+  "jobs": [
+    {
+      "id": 113449814301,
+      "run_id": 37817515504,
+      "workflow_name": "Isolated installation",
+      "head_branch": "main",
+      "run_url": "https://api.github.com/repos/kujolang/agent-city/actions/runs/37817515504",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOURzC-s8AAAAaaiLJHQ",
+      "head_sha": "5e6c973e5278acd64e6698daa1a202e14cb2521d",
+      "url": "https://api.github.com/repos/kujolang/agent-city/actions/jobs/113449814301",
+      "html_url": "https://github.com/kujolang/agent-city/actions/runs/37817515504/job/113449814301",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-08T17:33:42Z",
+      "started_at": "2026-10-08T17:33:44Z",
+      "completed_at": "2026-10-08T17:35:44Z",
+      "name": "verify",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-08T17:33:45Z",
+          "completed_at": "2026-10-08T17:33:46Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-08T17:33:46Z",
+          "completed_at": "2026-10-08T17:33:49Z"
+        },
+        {
+          "name": "Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-08T17:33:49Z",
+          "completed_at": "2026-10-08T17:33:52Z"
+        },
+        {
+          "name": "Run npm ci --no-audit --no-fund",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-08T17:33:52Z",
+          "completed_at": "2026-10-08T17:33:56Z"
+        },
+        {
+          "name": "Audit locked application and development dependencies",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-08T17:33:56Z",
+          "completed_at": "2026-10-08T17:33:57Z"
+        },
+        {
+          "name": "Verify source types, package boundaries, maps, tests and build",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-08T17:33:57Z",
+          "completed_at": "2026-10-08T17:34:10Z"
+        },
+        {
+          "name": "Install controlled browser",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-08T17:34:10Z",
+          "completed_at": "2026-10-08T17:34:30Z"
+        },
+        {
+          "name": "Verify onboarding, continuation and presentation without model calls",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-10-08T17:34:30Z",
+          "completed_at": "2026-10-08T17:35:17Z"
+        },
+        {
+          "name": "Measure bounded renderer scale and minimal WebGL baseline",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9,
+          "started_at": "2026-10-08T17:35:17Z",
+          "completed_at": "2026-10-08T17:35:40Z"
+        },
+        {
+          "name": "Run actions/upload-artifact@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10,
+          "started_at": "2026-10-08T17:35:40Z",
+          "completed_at": "2026-10-08T17:35:41Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 19,
+          "started_at": "2026-10-08T17:35:41Z",
+          "completed_at": "2026-10-08T17:35:42Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 20,
+          "started_at": "2026-10-08T17:35:42Z",
+          "completed_at": "2026-10-08T17:35:42Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 21,
+          "started_at": "2026-10-08T17:35:42Z",
+          "completed_at": "2026-10-08T17:35:42Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/kujolang/agent-city/check-runs/113449814301",
+      "labels": [
+        "ubuntu-24.04"
+      ],
+      "runner_id": 1000021594,
+      "runner_name": "GitHub Actions 1000021594",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 113449814929,
+      "run_id": 37817515504,
+      "workflow_name": "Isolated installation",
+      "head_branch": "main",
+      "run_url": "https://api.github.com/repos/kujolang/agent-city/actions/runs/37817515504",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOURzC-s8AAAAaaiLLkQ",
+      "head_sha": "5e6c973e5278acd64e6698daa1a202e14cb2521d",
+      "url": "https://api.github.com/repos/kujolang/agent-city/actions/jobs/113449814929",
+      "html_url": "https://github.com/kujolang/agent-city/actions/runs/37817515504/job/113449814929",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-08T17:33:42Z",
+      "started_at": "2026-10-08T17:33:46Z",
+      "completed_at": "2026-10-08T17:35:30Z",
+      "name": "install (ubuntu-24.04-arm)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-08T17:33:47Z",
+          "completed_at": "2026-10-08T17:33:47Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-08T17:33:47Z",
+          "completed_at": "2026-10-08T17:33:50Z"
+        },
+        {
+          "name": "Public bootstrap with private Node and pinned producer repositories",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-08T17:33:50Z",
+          "completed_at": "2026-10-08T17:34:03Z"
+        },
+        {
+          "name": "Verify managed setup without system Node or npm",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-08T17:34:03Z",
+          "completed_at": "2026-10-08T17:34:03Z"
+        },
+        {
+          "name": "Import pinned profiles without another checkout or system npm",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-08T17:34:03Z",
+          "completed_at": "2026-10-08T17:34:04Z"
+        },
+        {
+          "name": "Verify actual installed SDK, Dispatch, RAG and MCP contracts",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-08T17:34:04Z",
+          "completed_at": "2026-10-08T17:34:12Z"
+        },
+        {
+          "name": "Verify profile review envelopes and malformed-output rejection",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-08T17:34:12Z",
+          "completed_at": "2026-10-08T17:34:24Z"
+        },
+        {
+          "name": "Verify supervisor loss preserves the actual mission outcome",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-10-08T17:34:24Z",
+          "completed_at": "2026-10-08T17:34:26Z"
+        },
+        {
+          "name": "Verify explicit unknown-outcome queue recovery in the installed browser UI",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 9,
+          "started_at": "2026-10-08T17:34:26Z",
+          "completed_at": "2026-10-08T17:34:26Z"
+        },
+        {
+          "name": "Verify selected project context and private continuation",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 10,
+          "started_at": "2026-10-08T17:34:26Z",
+          "completed_at": "2026-10-08T17:34:26Z"
+        },
+        {
+          "name": "Preserve installed acceptance before maintenance replaces source files",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-10-08T17:34:26Z",
+          "completed_at": "2026-10-08T17:34:26Z"
+        },
+        {
+          "name": "Verify real installed update, refusal and archive lifecycle",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-10-08T17:34:26Z",
+          "completed_at": "2026-10-08T17:34:38Z"
+        },
+        {
+          "name": "Start and verify the owned CI sandbox engine",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-10-08T17:34:38Z",
+          "completed_at": "2026-10-08T17:34:38Z"
+        },
+        {
+          "name": "Install Chromium for ARM latency qualification",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 14,
+          "started_at": "2026-10-08T17:34:38Z",
+          "completed_at": "2026-10-08T17:34:58Z"
+        },
+        {
+          "name": "Build pinned local sandbox image and verify installed Workcell",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-10-08T17:34:58Z",
+          "completed_at": "2026-10-08T17:35:27Z"
+        },
+        {
+          "name": "Run actions/upload-artifact@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16,
+          "started_at": "2026-10-08T17:35:27Z",
+          "completed_at": "2026-10-08T17:35:27Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 32,
+          "started_at": "2026-10-08T17:35:28Z",
+          "completed_at": "2026-10-08T17:35:28Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 33,
+          "started_at": "2026-10-08T17:35:28Z",
+          "completed_at": "2026-10-08T17:35:28Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/kujolang/agent-city/check-runs/113449814929",
+      "labels": [
+        "ubuntu-24.04-arm"
+      ],
+      "runner_id": 1000021595,
+      "runner_name": "GitHub Actions 1000021595",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 113449815002,
+      "run_id": 37817515504,
+      "workflow_name": "Isolated installation",
+      "head_branch": "main",
+      "run_url": "https://api.github.com/repos/kujolang/agent-city/actions/runs/37817515504",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOURzC-s8AAAAaaiLL2g",
+      "head_sha": "5e6c973e5278acd64e6698daa1a202e14cb2521d",
+      "url": "https://api.github.com/repos/kujolang/agent-city/actions/jobs/113449815002",
+      "html_url": "https://github.com/kujolang/agent-city/actions/runs/37817515504/job/113449815002",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-08T17:33:42Z",
+      "started_at": "2026-10-08T17:33:44Z",
+      "completed_at": "2026-10-08T17:36:01Z",
+      "name": "install (ubuntu-24.04)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-08T17:33:45Z",
+          "completed_at": "2026-10-08T17:33:46Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-08T17:33:46Z",
+          "completed_at": "2026-10-08T17:33:49Z"
+        },
+        {
+          "name": "Public bootstrap with private Node and pinned producer repositories",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-08T17:33:49Z",
+          "completed_at": "2026-10-08T17:34:05Z"
+        },
+        {
+          "name": "Verify managed setup without system Node or npm",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-08T17:34:05Z",
+          "completed_at": "2026-10-08T17:34:05Z"
+        },
+        {
+          "name": "Import pinned profiles without another checkout or system npm",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-08T17:34:05Z",
+          "completed_at": "2026-10-08T17:34:06Z"
+        },
+        {
+          "name": "Verify actual installed SDK, Dispatch, RAG and MCP contracts",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-08T17:34:06Z",
+          "completed_at": "2026-10-08T17:34:17Z"
+        },
+        {
+          "name": "Verify profile review envelopes and malformed-output rejection",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-08T17:34:17Z",
+          "completed_at": "2026-10-08T17:34:29Z"
+        },
+        {
+          "name": "Verify supervisor loss preserves the actual mission outcome",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-10-08T17:34:29Z",
+          "completed_at": "2026-10-08T17:34:31Z"
+        },
+        {
+          "name": "Verify explicit unknown-outcome queue recovery in the installed browser UI",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9,
+          "started_at": "2026-10-08T17:34:31Z",
+          "completed_at": "2026-10-08T17:35:03Z"
+        },
+        {
+          "name": "Verify selected project context and private continuation",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10,
+          "started_at": "2026-10-08T17:35:03Z",
+          "completed_at": "2026-10-08T17:35:10Z"
+        },
+        {
+          "name": "Preserve installed acceptance before maintenance replaces source files",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-10-08T17:35:10Z",
+          "completed_at": "2026-10-08T17:35:10Z"
+        },
+        {
+          "name": "Verify real installed update, refusal and archive lifecycle",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-10-08T17:35:10Z",
+          "completed_at": "2026-10-08T17:35:27Z"
+        },
+        {
+          "name": "Start and verify the owned CI sandbox engine",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-10-08T17:35:27Z",
+          "completed_at": "2026-10-08T17:35:28Z"
+        },
+        {
+          "name": "Install Chromium for ARM latency qualification",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 14,
+          "started_at": "2026-10-08T17:35:28Z",
+          "completed_at": "2026-10-08T17:35:28Z"
+        },
+        {
+          "name": "Build pinned local sandbox image and verify installed Workcell",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-10-08T17:35:28Z",
+          "completed_at": "2026-10-08T17:35:57Z"
+        },
+        {
+          "name": "Run actions/upload-artifact@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16,
+          "started_at": "2026-10-08T17:35:57Z",
+          "completed_at": "2026-10-08T17:35:58Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 32,
+          "started_at": "2026-10-08T17:35:58Z",
+          "completed_at": "2026-10-08T17:35:58Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 33,
+          "started_at": "2026-10-08T17:35:58Z",
+          "completed_at": "2026-10-08T17:35:58Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/kujolang/agent-city/check-runs/113449815002",
+      "labels": [
+        "ubuntu-24.04"
+      ],
+      "runner_id": 1000021598,
+      "runner_name": "GitHub Actions 1000021598",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 113449815017,
+      "run_id": 37817515504,
+      "workflow_name": "Isolated installation",
+      "head_branch": "main",
+      "run_url": "https://api.github.com/repos/kujolang/agent-city/actions/runs/37817515504",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOURzC-s8AAAAaaiLL6Q",
+      "head_sha": "5e6c973e5278acd64e6698daa1a202e14cb2521d",
+      "url": "https://api.github.com/repos/kujolang/agent-city/actions/jobs/113449815017",
+      "html_url": "https://github.com/kujolang/agent-city/actions/runs/37817515504/job/113449815017",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-08T17:33:42Z",
+      "started_at": "2026-10-08T17:33:47Z",
+      "completed_at": "2026-10-08T17:35:47Z",
+      "name": "install (macos-15-intel)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-08T17:33:48Z",
+          "completed_at": "2026-10-08T17:33:49Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-08T17:33:49Z",
+          "completed_at": "2026-10-08T17:33:54Z"
+        },
+        {
+          "name": "Public bootstrap with private Node and pinned producer repositories",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-08T17:33:54Z",
+          "completed_at": "2026-10-08T17:34:29Z"
+        },
+        {
+          "name": "Verify managed setup without system Node or npm",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-08T17:34:29Z",
+          "completed_at": "2026-10-08T17:34:30Z"
+        },
+        {
+          "name": "Import pinned profiles without another checkout or system npm",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-08T17:34:30Z",
+          "completed_at": "2026-10-08T17:34:31Z"
+        },
+        {
+          "name": "Verify actual installed SDK, Dispatch, RAG and MCP contracts",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-08T17:34:31Z",
+          "completed_at": "2026-10-08T17:34:48Z"
+        },
+        {
+          "name": "Verify profile review envelopes and malformed-output rejection",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-08T17:34:48Z",
+          "completed_at": "2026-10-08T17:35:09Z"
+        },
+        {
+          "name": "Verify supervisor loss preserves the actual mission outcome",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-10-08T17:35:09Z",
+          "completed_at": "2026-10-08T17:35:13Z"
+        },
+        {
+          "name": "Verify explicit unknown-outcome queue recovery in the installed browser UI",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 9,
+          "started_at": "2026-10-08T17:35:13Z",
+          "completed_at": "2026-10-08T17:35:13Z"
+        },
+        {
+          "name": "Verify selected project context and private continuation",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 10,
+          "started_at": "2026-10-08T17:35:13Z",
+          "completed_at": "2026-10-08T17:35:13Z"
+        },
+        {
+          "name": "Preserve installed acceptance before maintenance replaces source files",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-10-08T17:35:13Z",
+          "completed_at": "2026-10-08T17:35:13Z"
+        },
+        {
+          "name": "Verify real installed update, refusal and archive lifecycle",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-10-08T17:35:13Z",
+          "completed_at": "2026-10-08T17:35:37Z"
+        },
+        {
+          "name": "Start and verify the owned CI sandbox engine",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 13,
+          "started_at": "2026-10-08T17:35:37Z",
+          "completed_at": "2026-10-08T17:35:37Z"
+        },
+        {
+          "name": "Install Chromium for ARM latency qualification",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 14,
+          "started_at": "2026-10-08T17:35:37Z",
+          "completed_at": "2026-10-08T17:35:37Z"
+        },
+        {
+          "name": "Build pinned local sandbox image and verify installed Workcell",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 15,
+          "started_at": "2026-10-08T17:35:37Z",
+          "completed_at": "2026-10-08T17:35:37Z"
+        },
+        {
+          "name": "Run actions/upload-artifact@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16,
+          "started_at": "2026-10-08T17:35:37Z",
+          "completed_at": "2026-10-08T17:35:39Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 32,
+          "started_at": "2026-10-08T17:35:39Z",
+          "completed_at": "2026-10-08T17:35:40Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 33,
+          "started_at": "2026-10-08T17:35:40Z",
+          "completed_at": "2026-10-08T17:35:40Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/kujolang/agent-city/check-runs/113449815017",
+      "labels": [
+        "macos-15-intel"
+      ],
+      "runner_id": 1000021596,
+      "runner_name": "GitHub Actions 1000021596",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 113449815044,
+      "run_id": 37817515504,
+      "workflow_name": "Isolated installation",
+      "head_branch": "main",
+      "run_url": "https://api.github.com/repos/kujolang/agent-city/actions/runs/37817515504",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOURzC-s8AAAAaaiLMBA",
+      "head_sha": "5e6c973e5278acd64e6698daa1a202e14cb2521d",
+      "url": "https://api.github.com/repos/kujolang/agent-city/actions/jobs/113449815044",
+      "html_url": "https://github.com/kujolang/agent-city/actions/runs/37817515504/job/113449815044",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-08T17:33:42Z",
+      "started_at": "2026-10-08T17:33:51Z",
+      "completed_at": "2026-10-08T17:35:23Z",
+      "name": "install (macos-15)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-08T17:33:52Z",
+          "completed_at": "2026-10-08T17:33:53Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-08T17:33:53Z",
+          "completed_at": "2026-10-08T17:33:58Z"
+        },
+        {
+          "name": "Public bootstrap with private Node and pinned producer repositories",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-08T17:33:58Z",
+          "completed_at": "2026-10-08T17:34:25Z"
+        },
+        {
+          "name": "Verify managed setup without system Node or npm",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-08T17:34:25Z",
+          "completed_at": "2026-10-08T17:34:26Z"
+        },
+        {
+          "name": "Import pinned profiles without another checkout or system npm",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-08T17:34:26Z",
+          "completed_at": "2026-10-08T17:34:27Z"
+        },
+        {
+          "name": "Verify actual installed SDK, Dispatch, RAG and MCP contracts",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-08T17:34:27Z",
+          "completed_at": "2026-10-08T17:34:36Z"
+        },
+        {
+          "name": "Verify profile review envelopes and malformed-output rejection",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-08T17:34:36Z",
+          "completed_at": "2026-10-08T17:34:49Z"
+        },
+        {
+          "name": "Verify supervisor loss preserves the actual mission outcome",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-10-08T17:34:49Z",
+          "completed_at": "2026-10-08T17:34:52Z"
+        },
+        {
+          "name": "Verify explicit unknown-outcome queue recovery in the installed browser UI",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 9,
+          "started_at": "2026-10-08T17:34:52Z",
+          "completed_at": "2026-10-08T17:34:52Z"
+        },
+        {
+          "name": "Verify selected project context and private continuation",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 10,
+          "started_at": "2026-10-08T17:34:52Z",
+          "completed_at": "2026-10-08T17:34:52Z"
+        },
+        {
+          "name": "Preserve installed acceptance before maintenance replaces source files",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-10-08T17:34:52Z",
+          "completed_at": "2026-10-08T17:34:52Z"
+        },
+        {
+          "name": "Verify real installed update, refusal and archive lifecycle",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-10-08T17:34:52Z",
+          "completed_at": "2026-10-08T17:35:14Z"
+        },
+        {
+          "name": "Start and verify the owned CI sandbox engine",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 13,
+          "started_at": "2026-10-08T17:35:14Z",
+          "completed_at": "2026-10-08T17:35:14Z"
+        },
+        {
+          "name": "Install Chromium for ARM latency qualification",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 14,
+          "started_at": "2026-10-08T17:35:14Z",
+          "completed_at": "2026-10-08T17:35:14Z"
+        },
+        {
+          "name": "Build pinned local sandbox image and verify installed Workcell",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 15,
+          "started_at": "2026-10-08T17:35:14Z",
+          "completed_at": "2026-10-08T17:35:14Z"
+        },
+        {
+          "name": "Run actions/upload-artifact@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16,
+          "started_at": "2026-10-08T17:35:14Z",
+          "completed_at": "2026-10-08T17:35:16Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 32,
+          "started_at": "2026-10-08T17:35:16Z",
+          "completed_at": "2026-10-08T17:35:17Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 33,
+          "started_at": "2026-10-08T17:35:17Z",
+          "completed_at": "2026-10-08T17:35:17Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/kujolang/agent-city/check-runs/113449815044",
+      "labels": [
+        "macos-15"
+      ],
+      "runner_id": 1000021597,
+      "runner_name": "GitHub Actions 1000021597",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    }
+  ]
+}

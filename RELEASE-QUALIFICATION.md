@@ -6,6 +6,17 @@ local-preview release v0.2.0-rc.2 is published (see the follow-through receipts 
 No public service deployment, multi-tenant hosting or eight-hour soak is claimed.
 The long soak was explicitly cancelled; do not start or schedule it without renewed consent.
 
+## Next version review — 0.2.0-rc.3
+
+The [rc.3 evidence](evidence/release-rc3/README.md) qualifies code commit `5e6c973`:
+all five CI jobs pass, including installation on four platforms. Selected WebOps
+reporting is live-proven. The combined VideoOps browser launch now reaches a real
+rendered candidate and technical PASS, with all 27 observations visible through
+the scoped gateway. Human approval/finalization of that exact candidate remains
+pending. A GitHub draft holds pinned artifacts; it is not a published version.
+Docker engines without required seccomp/AppArmor are rejected before model work.
+No eight-hour soak was performed. Older measurements below retain their dated scope.
+
 ## Working capability and live sources
 
 A pinned one-command managed installer supplies compatible Kujo runtime/producers,

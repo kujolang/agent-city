@@ -1,0 +1,66 @@
+{
+  "scope": "Synthetic provider and MCP response with real SDK/Dispatch profile handoff",
+  "model": "profile-fixture",
+  "mission": "mission-5b194822-4264-4dca-9159-c1f5bd8e499a",
+  "profiles": {
+    "adapter": "draft-review/v1",
+    "mode": "PROPOSE",
+    "author": {
+      "id": "kujolang/kujo-agents:chain.documentation-writer",
+      "name": "Documentation Writer",
+      "contractHash": "015fbe6c599e271b4694eb3f626a21ea412a42acb09f4614aeecb759f35f2b6a"
+    },
+    "reviewer": {
+      "id": "kujolang/kujo-agents:chain.code-reviewer",
+      "name": "Code Reviewer",
+      "contractHash": "f42701a35b14514538f8258f24c1e7417f7c44ae3474179230366f9f71d850d9"
+    }
+  },
+  "unsupportedCapabilityHTTP": 400,
+  "unauthorizedDocumentationHTTP": 400,
+  "documentation": {
+    "calls": 3,
+    "authorAndReviewerReceivedContext": true,
+    "metadataOnlySpool": true,
+    "lifecycleObserved": true
+  },
+  "sourceEvents": 16,
+  "profileIdentityObserved": true,
+  "handoffObserved": true,
+  "continuationPreservedAfterCatalogRemoval": true,
+  "approvedSourceRead": true,
+  "deniedSourceFailed": true,
+  "unapprovedToolCases": [
+    {
+      "name": "mixed-text-tool",
+      "role": "author",
+      "mission": "mission-d45166c6-d235-48d0-84b2-c3b1dbc40856"
+    },
+    {
+      "name": "reviewer-tool-without-text",
+      "role": "reviewer",
+      "mission": "mission-07b900ed-f368-4816-8032-394922c84e51"
+    },
+    {
+      "name": "legacy-function",
+      "role": "author",
+      "mission": "mission-8491a288-21be-481a-9a63-5c1032b99b3f"
+    },
+    {
+      "name": "finish-reason-only",
+      "role": "author",
+      "mission": "mission-4c98ca1c-118a-4e5f-b1d5-13823f9ae820"
+    },
+    {
+      "name": "malformed-tool-list",
+      "role": "author",
+      "mission": "mission-dd57e95d-2212-435f-b52e-3c2812a277a0"
+    }
+  ],
+  "reviewSeparated": true,
+  "fencedJsonEnvelopeAccepted": true,
+  "malformedResponseRejected": true,
+  "artifactSha256": "d967cdabec3ba74a97c55ce3046cc853e740fccd999543f461f60ca32cc188a8",
+  "artifactQuality": "NOT_GRADED: runtime completion is not task acceptance",
+  "privateEvidence": "/Users/runner/work/_temp/city/agent-city/.runtime/profiles-adf3b869-571b-431d-a9c6-ab213ecb42d0"
+}

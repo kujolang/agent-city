@@ -1,0 +1,30 @@
+[
+  {
+    "name": "agent-city-0.2.0-rc.3-source.tar.gz",
+    "size": 71300597,
+    "sha256": "b07d220976651d8fce0fe42c43a3ae33e35654d4f10cfdce208d543715a15e18",
+    "githubDigest": "sha256:b07d220976651d8fce0fe42c43a3ae33e35654d4f10cfdce208d543715a15e18",
+    "publicDownload": "NOT_PUBLISHED"
+  },
+  {
+    "name": "install.sh",
+    "size": 836,
+    "sha256": "0e51d4351e1bfb398ee9d61158ff9d8a64d02045dc1976e8ba3cd4a361edd676",
+    "githubDigest": "sha256:0e51d4351e1bfb398ee9d61158ff9d8a64d02045dc1976e8ba3cd4a361edd676",
+    "publicDownload": "NOT_PUBLISHED"
+  },
+  {
+    "name": "release-manifest.json",
+    "size": 1571,
+    "sha256": "831b87d8ce9916e2d27cf05ba39285bb479b01971800ac12c3d91733eeb9590a",
+    "githubDigest": "sha256:831b87d8ce9916e2d27cf05ba39285bb479b01971800ac12c3d91733eeb9590a",
+    "publicDownload": "NOT_PUBLISHED"
+  },
+  {
+    "name": "SHA256SUMS",
+    "size": 267,
+    "sha256": "d59d89199b282244c5020f1d842ea02d7cad03630da4242b1b4fe99e1c25ce9e",
+    "githubDigest": "sha256:d59d89199b282244c5020f1d842ea02d7cad03630da4242b1b4fe99e1c25ce9e",
+    "publicDownload": "NOT_PUBLISHED"
+  }
+]

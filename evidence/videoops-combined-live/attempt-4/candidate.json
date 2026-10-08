@@ -1,0 +1,196 @@
+{
+  "schema": "agent-city.videoops-candidate.v1",
+  "status": "ready-for-review",
+  "editor": {
+    "schema": "agent-city.videoops-artifact-receipt.v1",
+    "stage": "hyperframes-editor",
+    "attempt": 1,
+    "execution": "videoops-mission-3934c5f3-46b5-4381-9c00-ba8c6d3f51dc:mission-3934c5f3-46b5-4381-9c00-ba8c6d3f51dc-hyperframes-editor:hyperframes-editor",
+    "status": "stored",
+    "validation": "paths-bytes-json-only",
+    "productionApproval": "NOT_ESTABLISHED",
+    "artifacts": [
+      {
+        "path": "production/hyperframes/index.html",
+        "bytes": 6489,
+        "sha256": "f6dbbbb8fe0df64d7da709a3b1b04dc5da7a78feafe16a5e0276d96c795327b5"
+      },
+      {
+        "path": "production/production-notes.md",
+        "bytes": 3500,
+        "sha256": "4a97b2096bc76663d4b30d7565c01e77c4c24484fc7881a937e08952f031b37c"
+      }
+    ]
+  },
+  "image": "sha256:7d48c9158fe51db6c4a95c61a73bb7715651df21854888eaff7af90b3be6d89f",
+  "producer": "videoops-mission-3934c5f3-46b5-4381-9c00-ba8c6d3f51dc",
+  "run": "mission-3934c5f3-46b5-4381-9c00-ba8c6d3f51dc-render",
+  "task": "mission-3934c5f3-46b5-4381-9c00-ba8c6d3f51dc:task",
+  "workcell": {
+    "runId": "wc-d4c0820cdf9540769c7e2f7d338f7237",
+    "artifacts": [
+      {
+        "name": "output/draft.mp4",
+        "bytes": 18591,
+        "sha256": "9dbc457cf3aa7e2204ac68b93d5706aa4c0ce3ee63e0dc16cf673ce05d69edd1"
+      },
+      {
+        "name": "output/metadata.json",
+        "bytes": 3603,
+        "sha256": "08a1b36b3a427061b8892462246de7c880bc04dd79d7609ccd1d42953d6386da"
+      },
+      {
+        "name": "output/check.json",
+        "bytes": 2849,
+        "sha256": "486f53a0766adf6d29f5caec1e4f08b8107e054c30f0571bc91071595499e27a"
+      }
+    ]
+  },
+  "candidate": {
+    "name": "output/draft.mp4",
+    "bytes": 18591,
+    "sha256": "9dbc457cf3aa7e2204ac68b93d5706aa4c0ce3ee63e0dc16cf673ce05d69edd1"
+  },
+  "directory": "/Users/robertdevore/2026/Kujolang/kujo-repos/agent-city/.runtime/release-rc3/missions/mission-3934c5f3-46b5-4381-9c00-ba8c6d3f51dc/.city-production/render-1/workcell-source/.workcell/runs/wc-d4c0820cdf9540769c7e2f7d338f7237/artifacts",
+  "metadata": {
+    "schema": "agent-city.videoops-render-receipt.v1",
+    "status": "passed",
+    "hyperframesVersion": "0.8.141",
+    "request": {
+      "schema": "agent-city.videoops-render.v1",
+      "width": 640,
+      "height": 360,
+      "fps": 30,
+      "durationSeconds": 6
+    },
+    "probe": {
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+          "profile": "Constrained Baseline",
+          "codec_type": "video",
+          "codec_tag_string": "avc1",
+          "codec_tag": "0x31637661",
+          "width": 640,
+          "height": 360,
+          "coded_width": 640,
+          "coded_height": 360,
+          "closed_captions": 0,
+          "film_grain": 0,
+          "has_b_frames": 0,
+          "sample_aspect_ratio": "1:1",
+          "display_aspect_ratio": "16:9",
+          "pix_fmt": "yuv420p",
+          "level": 30,
+          "color_range": "tv",
+          "color_space": "bt709",
+          "color_transfer": "bt709",
+          "color_primaries": "bt709",
+          "chroma_location": "center",
+          "field_order": "progressive",
+          "refs": 1,
+          "is_avc": "true",
+          "nal_length_size": "4",
+          "id": "0x1",
+          "r_frame_rate": "30/1",
+          "avg_frame_rate": "30/1",
+          "time_base": "1/15360",
+          "start_pts": 0,
+          "start_time": "0.000000",
+          "duration_ts": 92160,
+          "duration": "6.000000",
+          "bit_rate": "22246",
+          "bits_per_raw_sample": "8",
+          "nb_frames": "180",
+          "extradata_size": 43,
+          "disposition": {
+            "default": 1,
+            "dub": 0,
+            "original": 0,
+            "comment": 0,
+            "lyrics": 0,
+            "karaoke": 0,
+            "forced": 0,
+            "hearing_impaired": 0,
+            "visual_impaired": 0,
+            "clean_effects": 0,
+            "attached_pic": 0,
+            "timed_thumbnails": 0,
+            "non_diegetic": 0,
+            "captions": 0,
+            "descriptions": 0,
+            "metadata": 0,
+            "dependent": 0,
+            "still_image": 0,
+            "multilayer": 0
+          },
+          "tags": {
+            "language": "und",
+            "handler_name": "VideoHandler",
+            "vendor_id": "[0][0][0][0]",
+            "encoder": "Lavc61.19.101 libx264"
+          }
+        }
+      ],
+      "format": {
+        "filename": "/workspace/output/draft.mp4",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+        "format_long_name": "QuickTime / MOV",
+        "start_time": "0.000000",
+        "duration": "6.000000",
+        "size": "18591",
+        "bit_rate": "24788",
+        "probe_score": 100,
+        "tags": {
+          "minor_version": "512",
+          "major_brand": "isom",
+          "compatible_brands": "isomiso2avc1mp41",
+          "hyperframes_version": "0.8.141",
+          "hyperframes_renderer": "hyperframes",
+          "encoder": "Lavf61.7.103"
+        }
+      }
+    },
+    "steps": [
+      {
+        "name": "version",
+        "status": "passed",
+        "durationMs": 134
+      },
+      {
+        "name": "check",
+        "status": "passed",
+        "durationMs": 8424
+      },
+      {
+        "name": "render",
+        "status": "passed",
+        "durationMs": 12668
+      },
+      {
+        "name": "probe",
+        "status": "passed",
+        "durationMs": 155
+      },
+      {
+        "name": "decode",
+        "status": "passed",
+        "durationMs": 243
+      }
+    ],
+    "artifact": {
+      "path": "output/draft.mp4",
+      "bytes": 18591,
+      "sha256": "9dbc457cf3aa7e2204ac68b93d5706aa4c0ce3ee63e0dc16cf673ce05d69edd1"
+    },
+    "technical": "passed",
+    "perceptual": "NOT_REVIEWED",
+    "publication": "NOT_PERFORMED"
+  },
+  "productionApproval": "NOT_ESTABLISHED"
+}

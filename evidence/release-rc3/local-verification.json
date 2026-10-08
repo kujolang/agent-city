@@ -1,0 +1,20 @@
+{
+  "status": "PASS",
+  "testFiles": 63,
+  "tests": 150,
+  "commands": [
+    "npm run verify",
+    "kujo run --interpreter ../shipcheck/shipcheck.kujo gate --dir agent-city --format json"
+  ],
+  "shipcheck": {
+    "exitCode": 0,
+    "highestCheckSeverity": "warning",
+    "passed": 13,
+    "total": 16,
+    "warnings": 3,
+    "errors": 0
+  },
+  "casefile": "2026-10-08-132649-videoopsenginepreflight",
+  "sourceCommit": "5e6c973e5278acd64e6698daa1a202e14cb2521d",
+  "scope": "Local test/build/boundary/map verification; exact code also passed installed CI37817515504. Human approval/publication pending."
+}

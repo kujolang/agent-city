@@ -1,0 +1,7 @@
+{
+  "scope": "SYNTHETIC snapshot transport, actual native Chrome discard and activation; no source execution or OS sleep",
+  "browser": "151.0.7922.34",
+  "stage": "hide",
+  "status": "FAILED",
+  "error": "TimeoutError: page.waitForFunction: Timeout 30000ms exceeded."
+}

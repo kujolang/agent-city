@@ -1,0 +1,29 @@
+{
+  "id": "mission-efdb8609-b86a-4414-87df-26bbcf7da1a4",
+  "status": {
+    "candidate": {
+      "mandatory_capabilities": [
+        "visual_playback"
+      ],
+      "path": "output/draft.mp4",
+      "sha256": "19b3070be2e88f7ddf6ada19aec7fb919d94b6b87ed3f6bbb6d06271c989c0ca",
+      "submitted_at": "2026-10-08T17:37:31.386514+00:00"
+    },
+    "counters": {
+      "critic_failures": 0,
+      "render_attempts": 1,
+      "review_attempts": 1,
+      "technical_repairs": 0,
+      "user_revisions": 0
+    },
+    "next_action": "review",
+    "perceptual": "NOT_REVIEWED",
+    "review_ids": [
+      "technical-wc-763de6c2b2aa40d1bf98325d6533317e"
+    ],
+    "state": "REVIEW_INCOMPLETE",
+    "technical": "PASS"
+  },
+  "videoUrl": "/control/videoops/video/mission-efdb8609-b86a-4414-87df-26bbcf7da1a4",
+  "finalUrl": null
+}

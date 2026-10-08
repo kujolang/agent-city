@@ -1,0 +1,60 @@
+{
+  "status": "PASS",
+  "scope": "Controlled provider, actual SDK/Dispatch; owned supervisor SIGKILL while author response held; no real model product claim",
+  "mission": "mission-60272b68-35f0-4ae6-a7a7-37dfa599d0be",
+  "states": [
+    "running",
+    "unknown",
+    "completed"
+  ],
+  "unknownJob": {
+    "id": "mission-60272b68-35f0-4ae6-a7a7-37dfa599d0be",
+    "kind": "writing",
+    "executeWorkcell": false,
+    "useLocalDocs": false,
+    "useMcpDocs": false,
+    "status": "unknown",
+    "startedAt": "2026-10-08T17:34:25.203Z",
+    "processOutcome": {
+      "kind": "exit",
+      "code": null,
+      "signal": "SIGKILL"
+    },
+    "admissionReleased": false
+  },
+  "terminalJob": {
+    "id": "mission-60272b68-35f0-4ae6-a7a7-37dfa599d0be",
+    "kind": "writing",
+    "executeWorkcell": false,
+    "useLocalDocs": false,
+    "useMcpDocs": false,
+    "status": "completed",
+    "startedAt": "2026-10-08T17:34:25.203Z",
+    "processOutcome": {
+      "kind": "exit",
+      "code": null,
+      "signal": "SIGKILL"
+    },
+    "finishedAt": "2026-10-08T17:34:26.583Z",
+    "admissionReleased": false
+  },
+  "queueHeldWhileUnknown": true,
+  "queueReleasedOnReceipt": true,
+  "providerCalls": 2,
+  "missionCount": 1,
+  "sourceRerun": false,
+  "receipt": {
+    "id": "mission-60272b68-35f0-4ae6-a7a7-37dfa599d0be",
+    "producer": "review-mission-60272b68-35f0-4ae6-a7a7-37dfa599d0be",
+    "kind": "writing",
+    "status": "completed",
+    "workflowValidation": null,
+    "validation": null,
+    "code": 0,
+    "startedAt": "2026-10-08T17:34:25.849Z",
+    "finishedAt": "2026-10-08T17:34:26.583Z",
+    "output": "/home/runner/work/_temp/city/agent-city/.runtime/supervisor-loss-a8729469-f764-40ef-b57f-529f5222f3af/missions/mission-60272b68-35f0-4ae6-a7a7-37dfa599d0be/reviewed.md",
+    "execution": "Dispatch workflow, SDK model request and reviewer handoff; optional explicit browser checks recorded in validation"
+  },
+  "privateEvidence": "/home/runner/work/_temp/city/agent-city/.runtime/supervisor-loss-a8729469-f764-40ef-b57f-529f5222f3af"
+}

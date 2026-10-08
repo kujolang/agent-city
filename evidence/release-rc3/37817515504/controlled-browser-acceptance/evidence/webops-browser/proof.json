@@ -1,0 +1,13 @@
+{
+  "schema": "agent-city.webops-browser-proof.v1",
+  "scope": "Controlled DOM/API fixture only; no model or source execution",
+  "passed": true,
+  "checks": [
+    "explicit-workflow",
+    "disabled-unavailable-grants",
+    "invalid-json-no-submission",
+    "writing-request-with-evidence",
+    "failed-report-readable-and-downloadable"
+  ],
+  "requests": 1
+}

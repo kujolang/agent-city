@@ -1,0 +1,8 @@
+{
+  "scope": "Synthetic truth transport; native headed Chromium hidden/discard/resume, no attached debugger, no source execution or OS sleep",
+  "softwareRendering": true,
+  "status": "FAILED",
+  "error": "AssertionError [ERR_ASSERTION]: No completed native browser report at launch",
+  "stage": "launch",
+  "browserLog": ""
+}

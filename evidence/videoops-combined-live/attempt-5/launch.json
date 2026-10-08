@@ -1,0 +1,10 @@
+{
+  "startedAt": "2026-10-08T17:35:14.266Z",
+  "origin": "http://127.0.0.1:27178",
+  "prompt": "Create a six-second silent 640x360, 30fps Agent City title card. Use original flat pixel-style vector buildings on a black/navy background with bright blue borders. Show AGENT CITY immediately, then REAL AGENTS. VISIBLE WORK. at two seconds. Keep all text readable and on screen through the end. Use only generic monospace fonts and original inline vector/CSS artwork. No external assets, audio, generation, web requests or claims of live agent activity. This is a production-workflow acceptance video, not a replacement for the previously approved pixel video.",
+  "result": {
+    "id": "mission-efdb8609-b86a-4414-87df-26bbcf7da1a4",
+    "status": "running"
+  },
+  "scope": "Actual browser submission to real Codex-backed SDK stages and isolated Workcell. No approval asserted."
+}

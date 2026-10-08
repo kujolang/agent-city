@@ -292,3 +292,23 @@ See evidence/videoops-local-build. The initial missing Docker credential-helper
 PATH failure is retained; adding Docker's bundled helper directory to the build
 process PATH resolved it without changing credentials. This supersedes the
 missing-image/storage-build hold. Combined production acceptance is still open.
+
+2026-10-08 rc.3 preparation: real combined browser mission
+mission-efdb8609-b86a-4414-87df-26bbcf7da1a4 reaches REVIEW_INCOMPLETE / technical PASS
+through actual Codex SDK Planner/Scout/Editor, Workcell render and native review.
+All27 observations reach the normal scoped gateway without recovery or source rerun.
+See evidence/videoops-combined-live/attempt-5. Earlier failures are retained: inline
+composition primitives misclassified as media, Desktop missing AppArmor, and an
+Editor timeline-ID mismatch. Fixes clarify role instructions, check engine security
+before model work, and share source identity with ordinary missions. No producer
+repo or Workcell security policy changed. The compatible existing Colima VM was
+used; desktop-linux remains the user's default Docker context.
+
+Final code5e6c973 passes CI37817515504 all5jobs/four installed platforms. Draft
+GitHub release407093359 targets this exact commit with four checksum-verified assets;
+no public release/tag publication claimed. Package version0.2.0-rc.3, README,
+workflow/setup docs and review release notes updated. User review is pending for
+exact candidate19b3070be2e88f7ddf6ada19aec7fb919d94b6b87ed3f6bbb6d06271c989c0ca.
+Next: record the actual user's whole-video review, exercise finalization/download
+for that same hash, update draft evidence/notes, publish immutable rc.3 and verify
+public assets. The separate pixel promo approval does not close this gate.

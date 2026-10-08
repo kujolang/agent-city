@@ -1,0 +1,15 @@
+{
+  "status": "REVIEW_PENDING",
+  "mission": "mission-efdb8609-b86a-4414-87df-26bbcf7da1a4",
+  "source": "rc3-mission-efdb8609-b86a-4414-87df-26bbcf7da1a4",
+  "sourceCommit": "5e6c973e5278acd64e6698daa1a202e14cb2521d",
+  "model": "codex-cli-default",
+  "underlyingModel": "UNKNOWN",
+  "observations": 27,
+  "technical": "PASS",
+  "perceptual": "NOT_REVIEWED",
+  "sha256": "19b3070be2e88f7ddf6ada19aec7fb919d94b6b87ed3f6bbb6d06271c989c0ca",
+  "bytes": 20136,
+  "observerRecoveryRequired": false,
+  "runtimeReexecutedForObservation": false
+}
