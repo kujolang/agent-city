@@ -1,3 +1,4 @@
+import { projectContext, projectReferences } from "./project-context";
 import { readFile, writeFile, rename } from "node:fs/promises";
 import { resolve } from "node:path";
 import { boundedCommand } from "./bounded-command";
@@ -26,8 +27,15 @@ export async function executeMissionWorkcell(options: {
   producer: string;
   run: string;
   spool: string;
+  project?: ReturnType<typeof projectContext>;
 }) {
   const runtime = resolve(options.directory, "workcell");
+  const project = projectContext(options.project?.files);
+  const projectFile = project
+    ? resolve(options.directory, "workcell-project-inputs.json")
+    : "";
+  if (project)
+    await writeFile(projectFile, JSON.stringify(project), { mode: 0o600 });
   async function save(record: unknown) {
     const file = resolve(options.directory, "workcell.json");
     await writeFile(file + ".tmp", JSON.stringify(record, null, 2), {
@@ -54,6 +62,7 @@ export async function executeMissionWorkcell(options: {
         ...process.env,
         CITY_RUNTIME_DIR: runtime,
         CITY_WORKCELL_KUJO_FILE: options.artifact,
+        CITY_WORKCELL_PROJECT_FILE: projectFile,
         CITY_RUN: options.run,
         CITY_PRODUCER: options.producer,
         CITY_SPOOL: options.spool,
@@ -105,6 +114,7 @@ export async function executeMissionWorkcell(options: {
     evidence,
     output,
     runtimeVersion,
+    projectInputs: projectReferences(project),
     outputTruncated: evidence
       ? (evidence.artifacts.find((a) => a.name === "city-result.txt")?.bytes ??
           0) > 65536

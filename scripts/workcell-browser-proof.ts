@@ -150,6 +150,11 @@ try {
   );
   assert.equal(await page.locator("#download-artifact").isVisible(), true);
   await page.unroute("**/control/artifact/*");
+  const projectConsent = page.getByRole("checkbox", {
+    name: "Copy selected project files into this Workcell run",
+  });
+  assert.equal(await projectConsent.isChecked(), false);
+  await projectConsent.check();
   const consent = page.getByRole("checkbox", { name: /Execute checked Kujo/ });
   assert.equal(await consent.isChecked(), false);
   // UI submission transport is intercepted: this section executes no task/model/container.
@@ -186,6 +191,7 @@ try {
         .checked,
   );
   assert.equal(posted.executeWorkcell, true);
+  assert.equal(posted.includeProjectFiles, true);
   assert.equal(posted.expectedOutput, "5\n");
   assert.deepEqual(posted.projectFiles, [
     { path: "brief.md", content: "Selected task context only" },
@@ -205,6 +211,7 @@ try {
         .checked,
   );
   assert.equal(await consent.isChecked(), false);
+  assert.equal(await projectConsent.isChecked(), false);
   assert.deepEqual(errors, []);
   await writeFile(
     resolve(out, "proof.json"),
@@ -221,6 +228,7 @@ try {
         keyboardConsent: true,
         explicitOutputCheckPostedAndReset: true,
         selectedProjectFilesPostedAndReset: true,
+        projectExecutionPermissionReset: true,
         consentResetAfterSubmission: true,
         consentResetForContinuation: true,
         pageErrors: errors,

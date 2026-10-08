@@ -8,10 +8,22 @@ import { importCatalog, saveCatalog } from "../apps/runner/agent-catalog";
 import { portAvailable } from "./startup-checks";
 const root = resolve(import.meta.dirname, "..");
 const real = process.env.CITY_PROFILE_PROOF_REAL === "1";
-const projectProof = process.env.CITY_PROFILE_PROOF_PROJECT === "1";
-const projectText = real
-  ? "Project requirement: export function add(a,b). Return a+b+7, where7 is our fixed processing surcharge. No I/O or other side effects. Preserve the named export."
-  : "PROJECT-CONTEXT-ACCEPTANCE-41: supplied source text, never telemetry";
+const projectExecution =
+  process.env.CITY_PROFILE_PROOF_PROJECT_EXECUTION === "1";
+if (
+  projectExecution &&
+  (!real ||
+    process.env.CITY_PROFILE_PROOF_WORKCELL !== "1" ||
+    process.env.CITY_PROFILE_PROOF_LANGUAGE !== "kujo")
+)
+  throw Error("Project execution proof requires real Kujo Workcell mode");
+const projectProof =
+  projectExecution || process.env.CITY_PROFILE_PROOF_PROJECT === "1";
+const projectText = projectExecution
+  ? "actual project input supplied for isolated execution"
+  : real
+    ? "Project requirement: export function add(a,b). Return a+b+7, where7 is our fixed processing surcharge. No I/O or other side effects. Preserve the named export."
+    : "PROJECT-CONTEXT-ACCEPTANCE-41: supplied source text, never telemetry";
 const projectReads: string[] = [];
 const kujo = process.env.CITY_PROFILE_PROOF_LANGUAGE === "kujo";
 const workcell = kujo && process.env.CITY_PROFILE_PROOF_WORKCELL === "1";
@@ -166,6 +178,9 @@ try {
       body: JSON.stringify({
         kind: kujo ? "kujo" : "code",
         executeWorkcell: workcell,
+        ...(projectExecution
+          ? { includeProjectFiles: true, expectedOutput: projectText + "\n" }
+          : {}),
         ...(projectProof && !attempt
           ? {
               projectFiles: [
@@ -182,8 +197,9 @@ try {
               ...(attempt ? { parentMissionId: attempts[0].mission } : {}),
             }
           : {}),
-        prompt:
-          projectProof && real
+        prompt: projectExecution
+          ? "Read the enabled Kujo MCP catalog. Create raw Kujo that reads the actual copied file project/src/requirements.txt with read_file and prints its entire content exactly once using print. Do not hardcode the known file contents: this tests real copied project input access. The platform will separately execute the reviewed program in Workcell and compare stdout. Return raw corrected Kujo source in cityArtifact, with separate honest review in cityReview. Do not claim execution or test results before they exist."
+          : projectProof && real
             ? "Implement a small raw JavaScript ES module according to the attached project requirements. Follow the exact named export and arithmetic rule in that file. Reviewer must return corrected raw module in cityArtifact and review notes in cityReview. Do not claim checks passed before the platform runs them."
             : outputCheck
               ? attempt === 0
@@ -273,8 +289,21 @@ try {
         assert.equal(api.workcell.status, "completed");
         assert.equal(
           api.workcell.output,
-          outputCheck && !repaired ? "-1\n" : "5\n",
+          projectExecution
+            ? projectText + "\n"
+            : outputCheck && !repaired
+              ? "-1\n"
+              : "5\n",
         );
+        if (projectExecution) {
+          assert.equal(api.validation.outputCheck.status, "passed");
+          assert.equal(
+            api.workcell.projectInputs[0].path,
+            "src/requirements.txt",
+          );
+          assert(artifact.includes("read_file"));
+          assert(!artifact.includes(projectText));
+        }
         if (outputCheck) {
           assert.equal(
             api.validation.outputCheck.status,
@@ -384,17 +413,19 @@ try {
       : kujo
         ? "evidence/profile-kujo"
         : "evidence/profile-code",
-    projectProof
-      ? real
-        ? "project-context-real"
-        : "project-context"
-      : outputCheck
+    projectExecution
+      ? "project-execution-real"
+      : projectProof
         ? real
-          ? "output-check-real"
-          : "output-check"
-        : real
-          ? "real"
-          : "fixture",
+          ? "project-context-real"
+          : "project-context"
+        : outputCheck
+          ? real
+            ? "output-check-real"
+            : "output-check"
+          : real
+            ? "real"
+            : "fixture",
   );
   await mkdir(out, { recursive: true });
   if (projectProof && !real) assert.equal(projectReads.length, 4);

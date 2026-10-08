@@ -1,3 +1,4 @@
+import { admitWorkcellProject } from "./workcell-project";
 import { projectContext } from "./project-context";
 import { validateExpectedOutput } from "./output-check";
 import {
@@ -533,6 +534,21 @@ const server = createServer(async (req, res) => {
         }
         contextFile = resolve(dir, id + ".context.json");
       }
+      let workcellProject = null;
+      try {
+        workcellProject = admitWorkcellProject(
+          data.includeProjectFiles,
+          executeWorkcell,
+          project?.files ?? context?.previousProject?.files,
+        );
+      } catch (error) {
+        return send(400, {
+          error:
+            error instanceof Error
+              ? error.message
+              : "Invalid Workcell project inputs",
+        });
+      }
       let profileFile = "";
       let binding: Awaited<ReturnType<typeof selectProfiles>> | null = null;
       const priorJob = data.parentMissionId
@@ -635,6 +651,7 @@ const server = createServer(async (req, res) => {
             ...process.env,
             CITY_MISSION_ID: id,
             CITY_EXECUTE_WORKCELL: executeWorkcell ? "1" : "0",
+            CITY_WORKCELL_PROJECT_INPUTS: workcellProject ? "1" : "0",
             CITY_CHECKINS: data.allowCheckins === true ? "1" : "0",
             CITY_FUNCTION_CONTRACT_FILE: contractFile,
             CITY_OUTPUT_CONTRACT_FILE: outputContractFile,

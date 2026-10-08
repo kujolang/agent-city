@@ -1,3 +1,4 @@
+import { stageWorkcellProject } from "../../apps/runner/workcell-project";
 import { verifyWorkcellEvidence } from "../../apps/runner/workcell-evidence";
 import { reportedWorkcellFailure } from "./observation-status";
 import { boundedCommand } from "../../apps/runner/bounded-command";
@@ -151,6 +152,27 @@ if (process.env.CITY_WORKCELL_KUJO_FILE) {
   ]) {
     const result = await command("git", args, source);
     if (result.code !== 0) throw Error(result.output);
+  }
+  if (process.env.CITY_WORKCELL_PROJECT_FILE) {
+    const snapshot = JSON.parse(
+      await readFile(process.env.CITY_WORKCELL_PROJECT_FILE, "utf8"),
+    );
+    await stageWorkcellProject(source, snapshot.files);
+    for (const args of [
+      ["add", "--", "project"],
+      [
+        "-c",
+        "user.name=Agent City",
+        "-c",
+        "user.email=proof@localhost",
+        "commit",
+        "-m",
+        "Record explicitly granted project input snapshots",
+      ],
+    ]) {
+      const result = await command("git", args, source);
+      if (result.code !== 0) throw Error(result.output);
+    }
   }
   definition.command = [
     "sh",

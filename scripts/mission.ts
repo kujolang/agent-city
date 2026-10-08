@@ -1,3 +1,4 @@
+import { admitWorkcellProject } from "../apps/runner/workcell-project";
 import {
   projectContext,
   projectReferences,
@@ -92,6 +93,11 @@ const selectedProject = process.env.CITY_PROJECT_CONTEXT_FILE
   ? JSON.parse(await readFile(process.env.CITY_PROJECT_CONTEXT_FILE, "utf8"))
   : context?.previousProject;
 const project = projectContext(selectedProject?.files);
+const workcellProject = admitWorkcellProject(
+  process.env.CITY_WORKCELL_PROJECT_INPUTS === "1",
+  executeWorkcell,
+  project?.files,
+);
 if (project)
   await writeFile(
     resolve(dir, "project-context.json"),
@@ -105,6 +111,7 @@ await writeFile(
     executeWorkcell,
     expectedOutput,
     projectFiles: projectReferences(project),
+    workcellProjectInputs: projectReferences(workcellProject),
     profiles: profiles ? bindingMetadata(profiles) : null,
     originalTask: context?.originalTask ?? prompt,
     rootMissionId: context?.rootMissionId ?? id,
@@ -333,6 +340,7 @@ if (code === 0 && kind === "kujo") {
       root,
       directory: dir,
       artifact: resolve(dir, checkedArtifact),
+      project: workcellProject,
       producer,
       run: dispatch.run_id,
       spool: resolve(
