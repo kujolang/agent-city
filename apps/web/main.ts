@@ -71,6 +71,7 @@ let truth = initialTruth(),
   events: CityEvent[] = [],
   stream: EventSource | null = null,
   lastGateway = 0,
+  lastStreamProgress = 0,
   rosterKey = "",
   operationKey = "",
   evidenceKey = "",
@@ -469,6 +470,7 @@ async function connect() {
   if (!current()) return;
   gatewayEpoch = typeof snap.epoch === "string" ? snap.epoch : null;
   truth = snap.truth;
+  lastStreamProgress = performance.now();
   maybeFollowMission();
   events = snap.recent ?? [];
   health = snap.sourceHealth.status;
@@ -495,7 +497,9 @@ async function connect() {
     try {
       const e = JSON.parse((event as MessageEvent).data);
       validateEvent(e);
+      const priorOrder = truth.order;
       truth = reduceTruth(truth, e);
+      if (truth.order > priorOrder) lastStreamProgress = performance.now();
       presentation = plan(presentation, e);
       events = [...events, e].slice(-2000);
       if (
@@ -550,13 +554,13 @@ setInterval(async () => {
     if (replayMode || epoch !== connectionEpoch) return;
     health = s.sourceHealth.status;
     lastGateway = performance.now();
-    // An apparently open SSE connection can still leave the browser behind.
-    // The journal snapshot is authoritative; reconnect atomically at its cursor.
+    // A source ahead of the browser is normal while SSE is making progress.
+    // Recover a stalled stream after two seconds; epoch changes recover immediately.
     if (
       !stream ||
       stream.readyState === EventSource.CLOSED ||
       (typeof s.epoch === "string" && s.epoch !== gatewayEpoch) ||
-      s.order > truth.order
+      (s.order > truth.order && performance.now() - lastStreamProgress >= 2000)
     )
       await connect();
   } catch {
@@ -577,7 +581,9 @@ setInterval(() => {
         replayTicks[replayCursor] <= replayTick
       ) {
         const e = replayBundle.events[replayCursor++];
+        const priorOrder = truth.order;
         truth = reduceTruth(truth, e);
+        if (truth.order > priorOrder) lastStreamProgress = performance.now();
         presentation = plan(presentation, e);
         events.push(e);
         if (!selected && "instance" in e) choose(e.instance);

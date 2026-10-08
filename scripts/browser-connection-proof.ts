@@ -252,6 +252,35 @@ try {
     await page.evaluate(() => (window as any).agentCity.health),
     "LIVE",
   );
+  // Normal in-flight SSE lag must not repeatedly replace a progressing stream.
+  snapshot.truth = { ...snapshot.truth, order: snapshot.truth.order + 1000 };
+  const progressingStreamRetained = await page.evaluate(
+    async (template) => {
+      const source = (window as any).proofSources.at(-1);
+      const count = (window as any).proofSources.length;
+      for (let i = 0; i < 10; i++) {
+        source.dispatchEvent(
+          new MessageEvent("world", {
+            data: JSON.stringify({
+              ...template,
+              eventId: `transport-progress-${i}`,
+              order: (window as any).agentCity.truth.order + 1,
+            }),
+          }),
+        );
+        await new Promise((resolve) => setTimeout(resolve, 350));
+      }
+      return (
+        (window as any).proofSources.length === count && source.readyState !== 2
+      );
+    },
+    bundle.events.find((e: any) => e.type === "operation.started"),
+  );
+  assert.equal(progressingStreamRetained, true);
+  snapshot.truth = {
+    ...snapshot.truth,
+    order: await page.evaluate(() => (window as any).agentCity.truth.order),
+  };
   // A metadata burst updates truth synchronously, but paints once per frame.
   const burst = await page.evaluate(
     (template) => {
@@ -304,6 +333,7 @@ try {
         controlledBundleMapHash: bundle.versions.mapHash,
         browserOfflineImmediatelyStale: true,
         lightweightHealthPolling: true,
+        progressingStreamRetained,
         lowerOrderJournalEpochRecovered: true,
         offlinePreservesTruth: true,
         onlineSnapshotRestoresLive: true,
