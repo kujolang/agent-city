@@ -31,3 +31,11 @@ CI37710144786's prior reconnect-under-load failure is retained privately in
 .runtime/ci-reconnect-37710144786; both platforms exceeded the STALE deadline,
 and x64 also encountered an intake timeout. These local checks do not supersede
 that separate load qualification failure.
+
+The next load run37711102809 still failed: synchronous per-event UI rebuilds
+coincided with heavy DOM allocation (x64 CDP Nodes164,044 by30seconds). UI painting
+now coalesces on animation frames and the roster retains unchanged profile/instance
+buttons. Every event still reduces truth and plans semantic activity synchronously.
+A100-event controlled browser burst proves immediate truth, zero synchronous log
+rebuilds, retained roster nodes and eventual visible timeline. This optimizes
+presentation only and does not claim the load/reconnect gate has passed.

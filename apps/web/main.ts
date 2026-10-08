@@ -148,7 +148,17 @@ try {
   $("#canvas").textContent =
     "Rendering disabled or unavailable. Current truth and evidence remain available below.";
 }
+let pendingDOMFrame = 0;
+function scheduleDOM() {
+  if (pendingDOMFrame || document.hidden) return;
+  pendingDOMFrame = requestAnimationFrame(() => {
+    pendingDOMFrame = 0;
+    renderDOM();
+  });
+}
 function renderDOM() {
+  if (pendingDOMFrame) cancelAnimationFrame(pendingDOMFrame);
+  pendingDOMFrame = 0;
   $("#health").textContent =
     (replayMode ? "REPLAY" : "SOURCE / " + health) +
     (truth.gap ? " · PARTIAL COVERAGE" : "");
@@ -184,8 +194,20 @@ function renderDOM() {
         renderer.scene.toUpperCase() +
         " · inspect this building for station and source state"
       : "CITY OVERVIEW / select a building or an execution";
-  const nextRosterKey =
-    Object.keys(truth.agents).join("|") + selected + rosterFilter + truth.order;
+  const rosterAgents = Object.values(truth.agents).filter(
+    (a) =>
+      rosterFilter === "all" ||
+      (rosterFilter === "active" &&
+        Object.values(a.operations).some((o) => o.status === "active")) ||
+      (rosterFilter === "failed" &&
+        Object.values(a.operations).some((o) => o.status === "failed")) ||
+      (rosterFilter === "completed" && a.status === "completed"),
+  );
+  const nextRosterKey = JSON.stringify([
+    selected,
+    rosterFilter,
+    rosterAgents.map((a) => [a.id, a.profile]),
+  ]);
   if (nextRosterKey !== rosterKey) {
     rosterKey = nextRosterKey;
     const roster = $("#roster");
@@ -193,36 +215,26 @@ function renderDOM() {
       ? (document.activeElement as HTMLElement).dataset.instance
       : undefined;
     $("#roster").replaceChildren(
-      ...Object.values(truth.agents)
-        .filter(
-          (a) =>
-            rosterFilter === "all" ||
-            (rosterFilter === "active" &&
-              Object.values(a.operations).some((o) => o.status === "active")) ||
-            (rosterFilter === "failed" &&
-              Object.values(a.operations).some((o) => o.status === "failed")) ||
-            (rosterFilter === "completed" && a.status === "completed"),
-        )
-        .map((a, i) => {
-          const b = document.createElement("button");
-          const roles: Record<string, string> = {
-            "city-writer": "WRITER",
-            "city-coder": "CODER",
-            "city-reviewer": "REVIEWER",
-            "city-function-checker": "CHECKER",
-            "local-eval-invocation": "VERIFY",
-            "local-workcell-invocation": "WORKCELL",
-            "local-mcp-worker": "MCP",
-            "local-documentation-worker": "DOCS",
-          };
-          b.textContent = `${badge(a.id)} ${roles[a.profile] || (a.profile === "unknown" ? "UNKNOWN" : a.profile.split(":").at(-1))} · ${a.id.split(":").at(-1)}`;
-          b.prepend(portrait(a.profile));
-          b.setAttribute("aria-pressed", String(a.id === selected));
-          b.title = a.id;
-          b.dataset.instance = a.id;
-          b.onclick = () => choose(a.id);
-          return b;
-        }),
+      ...rosterAgents.map((a, i) => {
+        const b = document.createElement("button");
+        const roles: Record<string, string> = {
+          "city-writer": "WRITER",
+          "city-coder": "CODER",
+          "city-reviewer": "REVIEWER",
+          "city-function-checker": "CHECKER",
+          "local-eval-invocation": "VERIFY",
+          "local-workcell-invocation": "WORKCELL",
+          "local-mcp-worker": "MCP",
+          "local-documentation-worker": "DOCS",
+        };
+        b.textContent = `${badge(a.id)} ${roles[a.profile] || (a.profile === "unknown" ? "UNKNOWN" : a.profile.split(":").at(-1))} · ${a.id.split(":").at(-1)}`;
+        b.prepend(portrait(a.profile));
+        b.setAttribute("aria-pressed", String(a.id === selected));
+        b.title = a.id;
+        b.dataset.instance = a.id;
+        b.onclick = () => choose(a.id);
+        return b;
+      }),
     );
     if (focusedInstance) {
       const replacement = Array.from(roster.querySelectorAll("button")).find(
@@ -494,7 +506,7 @@ async function connect() {
         choose(e.instance, true);
         missionToFollow = null;
       }
-      if (!document.hidden) renderDOM();
+      if (!document.hidden) scheduleDOM();
     } catch {
       health = "UNKNOWN";
       stream?.close();

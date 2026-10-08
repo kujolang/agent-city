@@ -231,6 +231,43 @@ try {
     "Expected the held request to reach its cancellation deadline",
   );
   for (const route of held.splice(0)) await route.abort().catch(() => {});
+  // A metadata burst updates truth synchronously, but paints once per frame.
+  const burst = await page.evaluate(
+    (template) => {
+      const source = (window as any).proofSources.at(-1);
+      const start = (window as any).agentCity.truth.order;
+      const rosterButton = document.querySelector("#roster button");
+      const observer = new MutationObserver(() => {});
+      observer.observe(document.querySelector("#log")!, { childList: true });
+      for (let i = 1; i <= 100; i++) {
+        source.dispatchEvent(
+          new MessageEvent("world", {
+            data: JSON.stringify({
+              ...template,
+              eventId: `transport-burst-${i}`,
+              order: start + i,
+            }),
+          }),
+        );
+      }
+      const synchronousPaints = observer.takeRecords().length;
+      observer.disconnect();
+      return {
+        order: (window as any).agentCity.truth.order,
+        expected: start + 100,
+        synchronousPaints,
+        rosterRetained:
+          rosterButton === document.querySelector("#roster button"),
+      };
+    },
+    bundle.events.find((e: any) => e.type === "operation.started"),
+  );
+  assert.equal(burst.order, burst.expected);
+  assert.equal(burst.synchronousPaints, 0);
+  assert.equal(burst.rosterRetained, true);
+  await page.waitForFunction(
+    () => document.querySelectorAll("#log li").length === 20,
+  );
   assert.deepEqual(errors, []);
   assert.deepEqual(writes, []);
   await page.screenshot({ path: out + "/recovered.png", fullPage: true });
@@ -240,6 +277,7 @@ try {
       {
         kind: "Controlled browser transport regression using retained real replay data; no new source execution",
         browser: browser.version(),
+        burst,
         originalChecksum,
         controlledBundleChecksum: bundle.checksum,
         controlledBundleMapHash: bundle.versions.mapHash,
