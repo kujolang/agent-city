@@ -1,0 +1,312 @@
+{
+  "runtimeMode": "interpreter",
+  "runtimeVersion": "kujo 1.7.0",
+  "runtimeSha256": "daf2a3907bcf81289fc27ee6172bcbc6314f346c14ef852e52297d19eafcda66",
+  "processResourceColumns": [
+    "pid",
+    "cpuPercentSnapshot",
+    "rssKiB"
+  ],
+  "processResourceScope": "Direct process columns plus an observed descendant process tree; no command arguments captured",
+  "startedAt": "2026-10-08T00:47:58.159Z",
+  "cityCommit": "efa529d53e3e94c0406d2c60ce2fd2c97372cf3e",
+  "watchdogCommit": "f463ced16b6b0a670a417d29c3121bf495e303a1",
+  "pid": 2942,
+  "runtime": "/home/runner/work/_temp/city/agent-city/.runtime/pipeline-1791420478111",
+  "status": "COMPLETED",
+  "samples": [
+    {
+      "at": "2026-10-08T00:48:00.823Z",
+      "metrics": [
+        {
+          "name": "Documents",
+          "value": 4
+        },
+        {
+          "name": "Nodes",
+          "value": 509
+        },
+        {
+          "name": "TaskDuration",
+          "value": 0.001344
+        },
+        {
+          "name": "JSHeapUsedSize",
+          "value": 16027176
+        }
+      ],
+      "browser": null,
+      "journalBytes": 4096
+    },
+    {
+      "at": "2026-10-08T00:49:00.834Z",
+      "metrics": [
+        {
+          "name": "Documents",
+          "value": 1
+        },
+        {
+          "name": "Nodes",
+          "value": 34322
+        },
+        {
+          "name": "TaskDuration",
+          "value": 49.952301
+        },
+        {
+          "name": "JSHeapUsedSize",
+          "value": 55423164
+        }
+      ],
+      "browser": {
+        "order": 16877,
+        "health": "STALE",
+        "instances": 25,
+        "queued": 100
+      },
+      "journalBytes": 63299584
+    }
+  ],
+  "kind": "SYNTHETIC canonical HTTP intake \u2192 real Watchdog export \u2192 real gateway \u2192 SSE; no source business execution",
+  "maxSampleGapMs": 60009.954988000005,
+  "concurrency": 4,
+  "processResources": [
+    {
+      "elapsedSeconds": 0.00017144900000130292,
+      "processTree": [
+        {
+          "pid": 2942,
+          "ppid": 2931,
+          "cpuPercent": 5.2,
+          "rssKiB": 247460
+        },
+        {
+          "pid": 2954,
+          "ppid": 2942,
+          "cpuPercent": 0,
+          "rssKiB": 16248
+        },
+        {
+          "pid": 2970,
+          "ppid": 2942,
+          "cpuPercent": 3.5,
+          "rssKiB": 50344
+        },
+        {
+          "pid": 2983,
+          "ppid": 2942,
+          "cpuPercent": 3.9,
+          "rssKiB": 139076
+        },
+        {
+          "pid": 2995,
+          "ppid": 2983,
+          "cpuPercent": 0.1,
+          "rssKiB": 15944
+        },
+        {
+          "pid": 3005,
+          "ppid": 2942,
+          "cpuPercent": 6,
+          "rssKiB": 472868
+        },
+        {
+          "pid": 3029,
+          "ppid": 2942,
+          "cpuPercent": 3.2,
+          "rssKiB": 208504
+        },
+        {
+          "pid": 3036,
+          "ppid": 3029,
+          "cpuPercent": 0.1,
+          "rssKiB": 87000
+        },
+        {
+          "pid": 3037,
+          "ppid": 3029,
+          "cpuPercent": 0.1,
+          "rssKiB": 91032
+        },
+        {
+          "pid": 3057,
+          "ppid": 3036,
+          "cpuPercent": 74.7,
+          "rssKiB": 182968
+        },
+        {
+          "pid": 3075,
+          "ppid": 3029,
+          "cpuPercent": 1,
+          "rssKiB": 143236
+        },
+        {
+          "pid": 3076,
+          "ppid": 3037,
+          "cpuPercent": 0,
+          "rssKiB": 51956
+        },
+        {
+          "pid": 3105,
+          "ppid": 3037,
+          "cpuPercent": 1.6,
+          "rssKiB": 158624
+        },
+        {
+          "pid": 3114,
+          "ppid": 3037,
+          "cpuPercent": 0,
+          "rssKiB": 79128
+        },
+        {
+          "pid": 3116,
+          "ppid": 3037,
+          "cpuPercent": 10.7,
+          "rssKiB": 324944
+        },
+        {
+          "pid": 3198,
+          "ppid": 2942,
+          "cpuPercent": 0,
+          "rssKiB": 4244
+        }
+      ],
+      "processes": "2942  5.2 247464\n   2970  3.5 50344\n   2983  3.9 139076\n   3005  6.0 472868"
+    },
+    {
+      "elapsedSeconds": 59.999879936999996,
+      "processTree": [
+        {
+          "pid": 2942,
+          "ppid": 2931,
+          "cpuPercent": 7.4,
+          "rssKiB": 237592
+        },
+        {
+          "pid": 2954,
+          "ppid": 2942,
+          "cpuPercent": 0,
+          "rssKiB": 16260
+        },
+        {
+          "pid": 2970,
+          "ppid": 2942,
+          "cpuPercent": 97,
+          "rssKiB": 128252
+        },
+        {
+          "pid": 2983,
+          "ppid": 2942,
+          "cpuPercent": 26,
+          "rssKiB": 360476
+        },
+        {
+          "pid": 2995,
+          "ppid": 2983,
+          "cpuPercent": 0,
+          "rssKiB": 15944
+        },
+        {
+          "pid": 3005,
+          "ppid": 2942,
+          "cpuPercent": 1.4,
+          "rssKiB": 545500
+        },
+        {
+          "pid": 3029,
+          "ppid": 2942,
+          "cpuPercent": 1.3,
+          "rssKiB": 209724
+        },
+        {
+          "pid": 3036,
+          "ppid": 3029,
+          "cpuPercent": 0,
+          "rssKiB": 87000
+        },
+        {
+          "pid": 3037,
+          "ppid": 3029,
+          "cpuPercent": 0,
+          "rssKiB": 91032
+        },
+        {
+          "pid": 3057,
+          "ppid": 3036,
+          "cpuPercent": 16.2,
+          "rssKiB": 183712
+        },
+        {
+          "pid": 3075,
+          "ppid": 3029,
+          "cpuPercent": 0.2,
+          "rssKiB": 146080
+        },
+        {
+          "pid": 3076,
+          "ppid": 3037,
+          "cpuPercent": 0,
+          "rssKiB": 54088
+        },
+        {
+          "pid": 3105,
+          "ppid": 3037,
+          "cpuPercent": 0.3,
+          "rssKiB": 154316
+        },
+        {
+          "pid": 3114,
+          "ppid": 3037,
+          "cpuPercent": 0,
+          "rssKiB": 80500
+        },
+        {
+          "pid": 3116,
+          "ppid": 3037,
+          "cpuPercent": 85.8,
+          "rssKiB": 1217012
+        },
+        {
+          "pid": 4281,
+          "ppid": 2942,
+          "cpuPercent": 0,
+          "rssKiB": 4228
+        }
+      ],
+      "processes": "2942  7.4 237592\n   2970 97.0 128252\n   2983 26.0 360476\n   3005  1.4 545500"
+    }
+  ],
+  "requestedDurationSeconds": 60,
+  "batchSize": 100,
+  "offeredRate": 1100,
+  "acknowledgedRecords": 66000,
+  "observedRecordsAtSenderStop": 66000,
+  "observedDuplicatesAtSenderStop": 0,
+  "uncertainBatches": [],
+  "deliveryReconciled": true,
+  "accepted": 66000,
+  "visible": 66000,
+  "duplicates": 0,
+  "missing": 0,
+  "sendSeconds": 60.019895517,
+  "totalSeconds": 60.01994444099999,
+  "visibleEventsPerSecond": 1099.6344734187223,
+  "intakeMs": {
+    "p50": 118.06539200000043,
+    "p95": 261.04843600000095
+  },
+  "sourceHealth": {
+    "status": "LIVE",
+    "gap": false,
+    "lastSuccess": 1791420553985,
+    "lastError": "",
+    "coverage": "SDK run/retrieval/tool/handoff and Eval invocation/check results; retained local journal; reconnect history partial"
+  },
+  "browserFinal": {
+    "order": 66000,
+    "health": "LIVE",
+    "instances": 25
+  },
+  "browserCaughtUp": true,
+  "forcedCleanup": []
+}

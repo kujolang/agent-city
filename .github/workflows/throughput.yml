@@ -44,8 +44,8 @@ jobs:
           import {assessRelease} from './scripts/release-assessment.ts';
           const pipeline=JSON.parse(await readFile(process.env.CITY_PIPELINE_OUTPUT,'utf8'));
           const gate=assessRelease({pipeline}).gates.endToEndStress;
-          console.log(JSON.stringify({gate,browserCaughtUp:pipeline.browserCaughtUp,scope:'Bounded synthetic throughput only; no model, no eight-hour soak'}));
-          if(gate.status!=='PASS'||pipeline.status!=='COMPLETED'||pipeline.browserCaughtUp!==true||pipeline.deliveryReconciled!==true)process.exitCode=1;
+          console.log(JSON.stringify({gate,browserCaughtUp:pipeline.browserCaughtUp,verifiedReconnects:pipeline.verifiedReconnects,scope:'Bounded synthetic throughput only; no model, no eight-hour soak'}));
+          if(gate.status!=='PASS'||pipeline.status!=='COMPLETED'||pipeline.browserCaughtUp!==true||pipeline.deliveryReconciled!==true||!(pipeline.verifiedReconnects>=1))process.exitCode=1;
           JS
       - uses: actions/upload-artifact@v4
         if: always()

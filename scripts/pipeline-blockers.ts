@@ -93,6 +93,9 @@ const result: any = {
 };
 let browser: Browser | undefined;
 let timer: ReturnType<typeof setInterval> | undefined;
+let heartbeatWork: Promise<void> | undefined;
+let sampleTimer: ReturnType<typeof setInterval> | undefined;
+let sampleWork: Promise<void> | undefined;
 let abort = new AbortController();
 try {
   for (const requiredPort of [port, 18992, ...(isSoak ? [18888] : [])]) {
@@ -140,7 +143,16 @@ try {
     );
   };
   await heartbeat();
-  timer = setInterval(() => void heartbeat(), 1000);
+  timer = setInterval(() => {
+    if (heartbeatWork) return;
+    heartbeatWork = heartbeat()
+      .catch((error) => {
+        result.heartbeatError = String(error);
+      })
+      .finally(() => {
+        heartbeatWork = undefined;
+      });
+  }, 1000);
   launch(process.execPath, ["--import", "tsx", "apps/gateway/main.ts"], root, {
     CITY_PORT: "18992",
     CITY_RUNTIME_DIR: runtime,
@@ -203,7 +215,7 @@ try {
           }),
           journalBytes: (await stat(resolve(runtime, "city.sqlite"))).size,
         });
-        if (result.samples.length % 10 === 0) {
+        if (result.samples.length % 3 === 0) {
           await page.context().setOffline(true);
           try {
             await page.waitForFunction(
@@ -228,7 +240,12 @@ try {
       }
     };
     await sample();
-    const sampleTimer = setInterval(() => void sample(), 60000);
+    sampleTimer = setInterval(() => {
+      if (sampleWork) return;
+      sampleWork = sample().finally(() => {
+        sampleWork = undefined;
+      });
+    }, 15000);
     sampleTimer.unref();
   }
   const snap = await (await fetch(city + "/api/world/snapshot")).json();
@@ -409,7 +426,9 @@ try {
     p95: requestMs[Math.floor(requestMs.length * 0.95)],
   };
   result.status =
-    result.missing === 0 && result.duplicates === 0 ? "COMPLETED" : "FAILED";
+    result.missing === 0 && result.duplicates === 0 && !result.heartbeatError
+      ? "COMPLETED"
+      : "FAILED";
   const finalSnapshot = await (
     await fetch(city + "/api/world/snapshot")
   ).json();
@@ -443,6 +462,11 @@ try {
 } finally {
   abort.abort();
   if (timer) clearInterval(timer);
+  if (sampleTimer) clearInterval(sampleTimer);
+  await sampleWork;
+  await heartbeatWork;
+  if (result.sampleError) result.status = "FAILED";
+  if (result.heartbeatError) result.status = "FAILED";
   await browser?.close();
   result.forcedCleanup = [];
   await Promise.all(
