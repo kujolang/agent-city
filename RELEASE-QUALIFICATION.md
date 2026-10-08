@@ -118,7 +118,8 @@ independent penetration-test attestation or authorization for public hosting.
    import is broader than executable adapters; arbitrary team workflows are unsupported.
 4. Visual direction is implemented with original assets, but the city is simpler and
    less textured than the high-resolution concept pack. No final user art approval assumed.
-5. Distribution is a public managed preview, not a signed/attested production release.
+5. Distribution is a public managed preview. Artifact hashes establish integrity;
+   publisher signing/attestation is not claimed or treated as an invented mandatory gate.
 
 Promote as a **local preview for explicit supported workflows**, with the limits above.
 Recommended next phase is **Phase3 replay/debugging polish and bounded qualification**,

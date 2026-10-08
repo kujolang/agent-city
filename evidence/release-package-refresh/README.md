@@ -43,3 +43,7 @@ This contract makes no paid model calls and does not replace the real tool proof
 The local archive remains under `.runtime/bundles/`; it is not published or signed.
 CI37749479661 atdd42cc4 passes all5jobs, including112tests, reload/fallback browser
 checks and all4installed platforms. `final-code-ci*.json` retain the results.
+
+Final archive sourcee4fc46b also passes all5jobs in CI37749961399, including
+112tests and the four public installed platforms. `final-package-ci*.json` retain
+that terminal result. Later commits update evidence/qualification prose only.

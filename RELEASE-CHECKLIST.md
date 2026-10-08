@@ -35,7 +35,7 @@ The user cancelled the eight-hour soak; do not run or schedule it without renewe
 - [ ] Reliability qualification: complete canonical→Watchdog→gateway→browser stress target;
       native hidden-tab resume; fresh bounded recovery/security/browser evidence;
       long-duration reliability remains unqualified until evidence/approved scope is resolved.
-- [ ] Showcase finish and release package: visual comparison to full supplied references;
+- [x] Showcase finish and release package: visual comparison to full supplied references;
       readable compact accessible controls; current platform-qualified artifacts;
       version/integrity/provenance, installation documentation, current acceptance audit.
 
@@ -640,7 +640,8 @@ have evidence in [RELEASE-QUALIFICATION.md](RELEASE-QUALIFICATION.md), including
 actual four-instance Codex/RAG/MCP/reviewer/Workcell/output-check tool creation and
 a53.05second native-canvas recording. Final source verification passes112tests.
 Nested export metadata and reload Follow regressions were fixed; historical gap/
-failed-attempt evidence stays unchanged. The two broad release boxes above remain
-unchecked because long-duration qualification was cancelled, GPU/latency coverage
-is bounded, and signed production distribution/final user art approval are not
-claimed. This is an explicit CONDITIONAL local preview, not a full production PASS.
+failed-attempt evidence stays unchanged. The broad reliability box above remains unchecked because long-duration
+qualification was cancelled and GPU/latency coverage is bounded. Showcase/package
+qualification means the documented original-art comparison and current verified
+preview archive; it does not claim pixel-identical reference replication. Signing
+and personal art approval are not invented mandatory gates. This is an explicit CONDITIONAL local preview, not a full production PASS.
