@@ -388,3 +388,12 @@ workflow references does not connect external tools. That CI's later Linux x64
 sandbox step failed because Docker was unavailable; failure is retained, engine
 prerequisite is now explicit in CI, and whole installation requalification is
 pending. Evidence: evidence/bundled-catalog/proof.json.
+
+Catalog installation requalification: CI37718615085 at05882fc passes all four
+platforms after making the owned Linux CI Docker prerequisite explicit. The
+private-runtime catalog import, installed SDK contracts, update/archive lifecycle
+and Linux real Workcell image/execution checks pass. Earlier Docker failure remains
+in CaseFile2026-10-07-223523-catalogcidockerreadiness and initial proof metadata.
+No change starts Docker on user machines. Evidence: evidence/bundled-catalog/
+requalification.json. Custom external workflow execution and full provider/visual
+acceptance remain unfinished.
