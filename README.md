@@ -88,6 +88,9 @@ Ollama must be running. This small model is suitable for trying the workflow;
 model output still needs review. No quality guarantee follows from a successful
 runtime receipt.
 
+For a concrete task with review and optional real execution, follow the
+[Kujo quote-tool walkthrough](docs/try-a-reviewed-tool.md).
+
 Choose **Writing + review** or **Code + review**, enter a small task and press
 **Start mission**. Optionally select **Use indexed local Kujo docs**; the starter
 index contains four short example documents, not the full ecosystem manual.

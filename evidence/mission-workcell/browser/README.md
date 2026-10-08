@@ -15,3 +15,8 @@ No new model request, Workcell run, or semantic travel occurs in this UI proof.
 actual inspector. `npm run verify` passes104tests, types, boundaries, maps and build.
 Unit coverage separately proves built-in draft vs custom reviewed Kujo selection,
 byte preservation, unknown-kind rejection and unavailable-check diagnostics.
+
+CI37729388270 at90b25ce passes all5jobs:104source tests, browser onboarding/
+fullscreen checks and all4installation platforms. The new byte-download/race
+proof above ran locally against retained real evidence; it is not claimed as
+part of that clean-install CI job. See ci.json.

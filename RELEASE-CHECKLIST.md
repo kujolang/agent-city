@@ -499,3 +499,12 @@ build pass; Chromium matches a retained real Workcell artifact byte-for-byte and
 passes a controlled stale-request race. See evidence/mission-workcell/browser.
 No new model/Workcell execution or final tool/video claimed; broader project/tool
 workflows, reference fidelity and full release qualification remain open.
+
+Public-source qualification checkpoint: CI37729388270 at90b25ce passes all5jobs
+and104tests. Local ShipCheck gate on Agent City exits0 (13/16signals; warnings:
+no named lint command, no Kennel manifest, no main Kujo entry). This TypeScript
+application uses npm scripts and explicit type/boundary/map checks; the metadata
+scan does not certify runtime correctness. Connected ShipCheck was unavailable429;
+local `kujo run shipcheck.kujo gate --dir <agent-city> --format json` provided the
+metadata result. docs/try-a-reviewed-tool.md and examples/mission-briefs contain a
+concrete reusable quote-tool task; no new execution or final video is claimed.
