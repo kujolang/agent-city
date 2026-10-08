@@ -17,7 +17,7 @@ Latest CI37711890418 at497186c / Watchdogf463ced:
 - Linux ARM64 PASS:66,000/66,000,zero missing/duplicates,1097.797events/sec over
   60.020s, two verified offline/online recoveries, final browser truth caught up.
 - Linux x64 FAIL: one browser recovery succeeded with no sampling error, but
-  canonical intake timed out.23,600records acknowledged;23,300observed when the
+  canonical intake timed out.23,600records acknowledged;23,200observed when the
   sender stopped. Four100record batches remain uncertain, including offset300
   from the initial concurrent requests. This is not reconciled delivery.
 
