@@ -1,8 +1,9 @@
 # Local release qualification — 2026-10-08
 
 **CONDITIONAL: usable public local preview, not unrestricted production certification.**
-The repository is public and GitHub Actions executes successfully. No release/tag,
-public service deployment, multi-tenant hosting or eight-hour soak is represented here.
+The repository is public and GitHub Actions executes successfully. Immutable
+local-preview release v0.2.0-rc.2 is published (see the follow-through receipts below).
+No public service deployment, multi-tenant hosting or eight-hour soak is claimed.
 The long soak was explicitly cancelled; do not start or schedule it without renewed consent.
 
 ## Working capability and live sources
@@ -153,3 +154,22 @@ local preview, source6d550705. Exact installer and anonymous asset hashes pass;
 CI37780321588 all5jobs PASS. See evidence/public-release/rc2. Earlier statements
 that no release/tag exists describe the previous milestone and are superseded
 by this release receipt. Executable WebOps/VideoOps team adapters remain open.
+
+## Current development qualification after VideoOps acceptance work
+
+The public rc.2 remains immutable. Current development main adds saved VideoOps
+setup, bounded production stages, explicit human review/finalize controls and
+selected WebOps reporting. See [workflow support](docs/workflow-support.md).
+
+Full local verification at aa93ecb passes147tests, TypeScript, pure-world
+boundaries, seven reciprocal maps and build. [Actual repaired VideoOps output](evidence/videoops-render/37802468455/README.md)
+passes isolated check/render/probe/decode and exact downloaded checksum. The first
+Editor attempt's named-font failure remains recorded; attempt2 is separate.
+This is staged real-model plus isolated-CI proof, not complete Mission Command
+production-launch acceptance. Canonical perceptual status is NOT_REVIEWED.
+
+Release blockers for these additions: combined production launch, exact-video
+human review and finalization, then qualification/publication of a new immutable
+version. Local Docker recovery is pending operator coordination because a restart
+can interrupt other workloads. No approval, source completion or release readiness
+is inferred from the green technical checks. No eight-hour soak is required now.
