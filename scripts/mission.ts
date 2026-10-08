@@ -1,3 +1,4 @@
+import { validateProjectExports } from "../apps/runner/project-exports";
 import { admitWorkcellProject } from "../apps/runner/workcell-project";
 import {
   projectContext,
@@ -35,6 +36,12 @@ if (!["writing", "code", "kujo"].includes(kind) || !promptFile)
 const executeWorkcell = admitWorkcell(
   process.env.CITY_EXECUTE_WORKCELL === "1",
   kind,
+);
+const projectExports = validateProjectExports(
+  process.env.CITY_PROJECT_EXPORTS_FILE
+    ? JSON.parse(await readFile(process.env.CITY_PROJECT_EXPORTS_FILE, "utf8"))
+    : undefined,
+  executeWorkcell,
 );
 const expectedOutput = validateExpectedOutput(
   process.env.CITY_OUTPUT_CONTRACT_FILE
@@ -112,6 +119,7 @@ await writeFile(
     expectedOutput,
     projectFiles: projectReferences(project),
     workcellProjectInputs: projectReferences(workcellProject),
+    projectExports,
     profiles: profiles ? bindingMetadata(profiles) : null,
     originalTask: context?.originalTask ?? prompt,
     rootMissionId: context?.rootMissionId ?? id,
@@ -341,6 +349,7 @@ if (code === 0 && kind === "kujo") {
       directory: dir,
       artifact: resolve(dir, checkedArtifact),
       project: workcellProject,
+      projectExports,
       producer,
       run: dispatch.run_id,
       spool: resolve(

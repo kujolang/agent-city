@@ -59,3 +59,33 @@ export function functionalSummary(
       .join("\n")
   );
 }
+
+export function projectBundleDownload(id: string, workcell: any) {
+  if (
+    !/^[a-zA-Z0-9_-]+$/.test(id) ||
+    workcell?.status !== "completed" ||
+    workcell.codeExecuted !== true ||
+    workcell.projectExportsStatus !== "complete" ||
+    !/^wc-[a-f0-9]{32}$/.test(workcell.evidence?.runId || "") ||
+    !Array.isArray(workcell.projectOutputs) ||
+    !workcell.projectOutputs.length
+  )
+    return null;
+  return {
+    filename: `${id}-project-files.json`,
+    mime: "application/json;charset=utf-8",
+    content:
+      JSON.stringify(
+        {
+          schema: "agent-city.project-output-bundle.v1",
+          mission: id,
+          workcellRef: workcell.evidence.runId,
+          scope:
+            "Observed exported files; not applied to host project. Correctness and review remain separate.",
+          files: workcell.projectOutputs,
+        },
+        null,
+        2,
+      ) + "\n",
+  };
+}

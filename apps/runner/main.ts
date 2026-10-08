@@ -1,3 +1,4 @@
+import { validateProjectExports } from "./project-exports";
 import { admitWorkcellProject } from "./workcell-project";
 import { projectContext } from "./project-context";
 import { validateExpectedOutput } from "./output-check";
@@ -494,8 +495,13 @@ const server = createServer(async (req, res) => {
       }
       let executeWorkcell = false;
       let expectedOutput: string | null = null;
+      let projectExports: string[] = [];
       try {
         executeWorkcell = admitWorkcell(data.executeWorkcell, data.kind);
+        projectExports = validateProjectExports(
+          data.exportProjectFiles,
+          executeWorkcell,
+        );
         expectedOutput = validateExpectedOutput(
           data.expectedOutput,
           data.kind,
@@ -611,6 +617,13 @@ const server = createServer(async (req, res) => {
           mode: 0o600,
         });
       }
+      const projectExportsFile = projectExports.length
+        ? resolve(dir, id + ".exports.json")
+        : "";
+      if (projectExportsFile)
+        await writeFile(projectExportsFile, JSON.stringify(projectExports), {
+          mode: 0o600,
+        });
       const outputContractFile =
         expectedOutput === null ? "" : resolve(dir, id + ".output.json");
       if (outputContractFile)
@@ -655,6 +668,7 @@ const server = createServer(async (req, res) => {
             CITY_CHECKINS: data.allowCheckins === true ? "1" : "0",
             CITY_FUNCTION_CONTRACT_FILE: contractFile,
             CITY_OUTPUT_CONTRACT_FILE: outputContractFile,
+            CITY_PROJECT_EXPORTS_FILE: projectExportsFile,
             CITY_CONTEXT_FILE: contextFile,
             CITY_PROJECT_CONTEXT_FILE: projectFile,
             CITY_PROFILE_FILE: profileFile,

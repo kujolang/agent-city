@@ -1,3 +1,4 @@
+import { validateProjectExports } from "../../apps/runner/project-exports";
 import { stageWorkcellProject } from "../../apps/runner/workcell-project";
 import { verifyWorkcellEvidence } from "../../apps/runner/workcell-evidence";
 import { reportedWorkcellFailure } from "./observation-status";
@@ -182,6 +183,25 @@ if (process.env.CITY_WORKCELL_KUJO_FILE) {
   definition.artifacts.export = ["city-result.txt", "runtime-version.txt"];
 }
 
+const projectExports = validateProjectExports(
+  process.env.CITY_PROJECT_EXPORTS_FILE
+    ? JSON.parse(await readFile(process.env.CITY_PROJECT_EXPORTS_FILE, "utf8"))
+    : undefined,
+  !!process.env.CITY_WORKCELL_KUJO_FILE,
+);
+definition.artifacts.export.push(
+  ...projectExports.map((path) => "project/" + path),
+);
+if (projectExports.length) {
+  definition.artifacts.limits = Object.fromEntries(
+    projectExports.map((path) => [
+      "project/" + path,
+      { max_bytes: 16384, max_files: 1, max_depth: 0 },
+    ]),
+  );
+  definition.artifacts.max_files = projectExports.length + 2;
+  definition.artifacts.max_bytes = 4_000_000 + 200 + 32768;
+}
 definition.resources.timeout_ms = 30000;
 const file = resolve(runtime, "workcell-definition.json");
 await writeFile(file, JSON.stringify(definition));

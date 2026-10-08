@@ -8,6 +8,7 @@ import { importCatalog, saveCatalog } from "../apps/runner/agent-catalog";
 import { portAvailable } from "./startup-checks";
 const root = resolve(import.meta.dirname, "..");
 const real = process.env.CITY_PROFILE_PROOF_REAL === "1";
+const projectExport = process.env.CITY_PROFILE_PROOF_PROJECT_EXPORTS === "1";
 const projectExecution =
   process.env.CITY_PROFILE_PROOF_PROJECT_EXECUTION === "1";
 if (
@@ -24,6 +25,10 @@ const projectText = projectExecution
   : real
     ? "Project requirement: export function add(a,b). Return a+b+7, where7 is our fixed processing surcharge. No I/O or other side effects. Preserve the named export."
     : "PROJECT-CONTEXT-ACCEPTANCE-41: supplied source text, never telemetry";
+const projectExpected =
+  projectText + (projectExport ? " / reviewed edit" : "") + "\n";
+if (projectExport && !projectExecution)
+  throw Error("Project export proof requires project execution mode");
 const projectReads: string[] = [];
 const kujo = process.env.CITY_PROFILE_PROOF_LANGUAGE === "kujo";
 const workcell = kujo && process.env.CITY_PROFILE_PROOF_WORKCELL === "1";
@@ -179,7 +184,13 @@ try {
         kind: kujo ? "kujo" : "code",
         executeWorkcell: workcell,
         ...(projectExecution
-          ? { includeProjectFiles: true, expectedOutput: projectText + "\n" }
+          ? {
+              includeProjectFiles: true,
+              expectedOutput: projectExpected,
+              ...(projectExport
+                ? { exportProjectFiles: ["src/requirements.txt"] }
+                : {}),
+            }
           : {}),
         ...(projectProof && !attempt
           ? {
@@ -197,17 +208,19 @@ try {
               ...(attempt ? { parentMissionId: attempts[0].mission } : {}),
             }
           : {}),
-        prompt: projectExecution
-          ? "Read the enabled Kujo MCP catalog. Create raw Kujo that reads the actual copied file project/src/requirements.txt with read_file and prints its entire content exactly once using print. Do not hardcode the known file contents: this tests real copied project input access. The platform will separately execute the reviewed program in Workcell and compare stdout. Return raw corrected Kujo source in cityArtifact, with separate honest review in cityReview. Do not claim execution or test results before they exist."
-          : projectProof && real
-            ? "Implement a small raw JavaScript ES module according to the attached project requirements. Follow the exact named export and arithmetic rule in that file. Reviewer must return corrected raw module in cityArtifact and review notes in cityReview. Do not claim checks passed before the platform runs them."
-            : outputCheck
-              ? attempt === 0
-                ? "We are testing real failure detection and repair. Read the Kujo MCP catalog. Produce raw Kujo defining func add(a,b) that deliberately returns a-b, and print(add(2,3)). This intentional subtraction defect must remain in this first regression fixture; do not fix it yet. Reviewer: preserve this explicitly requested defect, explain it honestly in cityReview, and return the raw program in cityArtifact. Do not claim any test passed. The external expected-output check will run afterward."
-                : "Repair the prior program using the actual failed output check in context. func add(a,b) must return a+b, and print(add(2,3)) must print 5. Return raw Kujo in cityArtifact, with separate honest review in cityReview. Read the requested Kujo documentation. Do not claim tests passed before the external checker runs."
-              : kujo
-                ? "Read the Kujo catalog using the requested MCP step. Write raw Kujo code defining func add(a,b) returning a+b and print(add(2,3)). Reviewer must return corrected raw Kujo code in cityArtifact and grade/review in cityReview. Do not claim execution; the platform will only syntax-check the final code."
-                : "Write a raw JavaScript ES module exporting add(a,b), returning a+b. Reviewer must preserve the named export and return corrected code in cityArtifact. Do not claim tests passed; the platform will run the explicit cases after review.",
+        prompt: projectExport
+          ? 'Read the enabled Kujo MCP catalog. Create raw Kujo that reads project/src/requirements.txt from the copied project, appends the exact suffix " / reviewed edit" to that content, writes it back to the same copied file, then prints the resulting file content once. Use verified builtins read_file(path), write_file(path, text, true), and print(text). Do not hardcode the input file content. Return corrected raw Kujo in cityArtifact and a separate honest cityReview. The platform will execute and export the named file with real hashes; do not claim tests or execution beforehand.'
+          : projectExecution
+            ? "Read the enabled Kujo MCP catalog. Create raw Kujo that reads the actual copied file project/src/requirements.txt with read_file and prints its entire content exactly once using print. Do not hardcode the known file contents: this tests real copied project input access. The platform will separately execute the reviewed program in Workcell and compare stdout. Return raw corrected Kujo source in cityArtifact, with separate honest review in cityReview. Do not claim execution or test results before they exist."
+            : projectProof && real
+              ? "Implement a small raw JavaScript ES module according to the attached project requirements. Follow the exact named export and arithmetic rule in that file. Reviewer must return corrected raw module in cityArtifact and review notes in cityReview. Do not claim checks passed before the platform runs them."
+              : outputCheck
+                ? attempt === 0
+                  ? "We are testing real failure detection and repair. Read the Kujo MCP catalog. Produce raw Kujo defining func add(a,b) that deliberately returns a-b, and print(add(2,3)). This intentional subtraction defect must remain in this first regression fixture; do not fix it yet. Reviewer: preserve this explicitly requested defect, explain it honestly in cityReview, and return the raw program in cityArtifact. Do not claim any test passed. The external expected-output check will run afterward."
+                  : "Repair the prior program using the actual failed output check in context. func add(a,b) must return a+b, and print(add(2,3)) must print 5. Return raw Kujo in cityArtifact, with separate honest review in cityReview. Read the requested Kujo documentation. Do not claim tests passed before the external checker runs."
+                : kujo
+                  ? "Read the Kujo catalog using the requested MCP step. Write raw Kujo code defining func add(a,b) returning a+b and print(add(2,3)). Reviewer must return corrected raw Kujo code in cityArtifact and grade/review in cityReview. Do not claim execution; the platform will only syntax-check the final code."
+                  : "Write a raw JavaScript ES module exporting add(a,b), returning a+b. Reviewer must preserve the named export and return corrected code in cityArtifact. Do not claim tests passed; the platform will run the explicit cases after review.",
         profiles: {
           authorId,
           reviewerId: "kujolang/kujo-agents:chain.code-reviewer",
@@ -290,7 +303,7 @@ try {
         assert.equal(
           api.workcell.output,
           projectExecution
-            ? projectText + "\n"
+            ? projectExpected
             : outputCheck && !repaired
               ? "-1\n"
               : "5\n",
@@ -303,6 +316,18 @@ try {
           );
           assert(artifact.includes("read_file"));
           assert(!artifact.includes(projectText));
+          if (projectExport) {
+            assert.equal(api.workcell.projectExportsStatus, "complete");
+            assert.equal(
+              api.workcell.projectOutputs[0].content,
+              projectExpected.slice(0, -1),
+            );
+            assert.equal(api.workcell.projectOutputs[0].change, "modified");
+            assert.equal(
+              api.workcell.projectOutputs[0].beforeSha256,
+              api.workcell.projectInputs[0].sha256,
+            );
+          }
         }
         if (outputCheck) {
           assert.equal(
@@ -413,19 +438,21 @@ try {
       : kujo
         ? "evidence/profile-kujo"
         : "evidence/profile-code",
-    projectExecution
-      ? "project-execution-real"
-      : projectProof
-        ? real
-          ? "project-context-real"
-          : "project-context"
-        : outputCheck
+    projectExport
+      ? "project-exports-real"
+      : projectExecution
+        ? "project-execution-real"
+        : projectProof
           ? real
-            ? "output-check-real"
-            : "output-check"
-          : real
-            ? "real"
-            : "fixture",
+            ? "project-context-real"
+            : "project-context"
+          : outputCheck
+            ? real
+              ? "output-check-real"
+              : "output-check"
+            : real
+              ? "real"
+              : "fixture",
   );
   await mkdir(out, { recursive: true });
   if (projectProof && !real) assert.equal(projectReads.length, 4);

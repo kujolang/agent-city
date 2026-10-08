@@ -53,6 +53,28 @@ test("Workcell success requires matching completion evidence and real exports", 
           "f0b5c2c2211c8d67ed15e75e656c7862d086e9245420892a7de62cd9ec582a06",
       },
     ]);
+    await mkdir(resolve(dir, "artifacts/project/src"), { recursive: true });
+    await writeFile(
+      resolve(dir, "artifacts/project/src/main.kujo"),
+      "print(5)\n",
+    );
+    await save({ ...receipt, exported_artifacts: ["project/src/main.kujo"] });
+    const nested = await verifyWorkcellEvidence(source, summary, [
+      "project/src/main.kujo",
+    ]);
+    expect(nested.artifacts[0].bytes).toBe(9);
+    await rm(resolve(dir, "artifacts/project/src"), { recursive: true });
+    await symlink(
+      resolve(dir, "artifacts"),
+      resolve(dir, "artifacts/project/src"),
+    );
+    await save({
+      ...receipt,
+      exported_artifacts: ["project/src/city-result.txt"],
+    });
+    await expect(
+      verifyWorkcellEvidence(source, summary, ["project/src/city-result.txt"]),
+    ).rejects.toThrow();
     for (const change of [
       { run_id: "different" },
       { exit_code: 1 },

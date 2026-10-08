@@ -1,3 +1,4 @@
+import { validWorkcellArtifactName } from "./project-exports";
 import { lstat, readFile, realpath } from "node:fs/promises";
 import { resolve, sep } from "node:path";
 import { createHash } from "node:crypto";
@@ -55,11 +56,14 @@ export async function verifyWorkcellEvidence(
   const artifacts = [];
   for (const name of expectedArtifacts) {
     if (
-      !/^[a-zA-Z0-9_-]+\.[a-zA-Z0-9]+$/.test(name) ||
+      !validWorkcellArtifactName(name) ||
       !receipt.exported_artifacts.includes(name)
     )
       throw Error("Expected Workcell artifact was not exported");
-    const bytes = await localFile("artifacts/" + name, 4_000_000);
+    const bytes = await localFile(
+      "artifacts/" + name,
+      name.startsWith("project/") ? 16384 : 4_000_000,
+    );
     artifacts.push({
       name,
       bytes: bytes.length,

@@ -1,4 +1,8 @@
-import { artifactDownload, functionalSummary } from "./mission-artifact";
+import {
+  artifactDownload,
+  functionalSummary,
+  projectBundleDownload,
+} from "./mission-artifact";
 import { mountAgentCatalog } from "./agent-catalog";
 export function mountMissions(
   host: HTMLElement,
@@ -36,13 +40,14 @@ export function mountMissions(
     <label>Task <textarea name="prompt" rows="3" maxlength="16384" required placeholder="Describe the small task you want the agents to complete."></textarea></label>
     <details><summary>Selected project files</summary><label>Text files <input type="file" name="projectFiles" multiple></label><p>Up to eight UTF-8 text files,16 KiB each and32 KiB total. Selected content is sent to your configured model for the author and reviewer, and retained privately with this mission. This does not grant host project access or editing. Follow-ups retain the prior snapshot unless new files are selected; start a new mission for a separate context.</p></details>
     <label><input type="checkbox" name="executeWorkcell"> Execute checked Kujo code in Workcell after review (requires operator setup; no network or host project access)</label>
-    <label><input type="checkbox" name="includeProjectFiles"> Copy selected project files into this Workcell run</label><p>Separate per-task permission. Files are copied under <code>project/</code> in the disposable workspace; generated code can read, import or change these copies. Host files are not mounted or modified. Changes to copied inputs are not exported. Re-enable this permission for each follow-up.</p>
+    <label><input type="checkbox" name="includeProjectFiles"> Copy selected project files into this Workcell run</label><p>Separate per-task permission. Files are copied under <code>project/</code> in the disposable workspace; generated code can read, import or change these copies. Host files are not mounted or modified. Only explicitly named output files are exported. Re-enable this permission for each follow-up.</p>
+    <details><summary>Project files to export</summary><label>Relative output file names (one per line)<textarea name="exportProjectFiles" rows="3" maxlength="1288" placeholder="src/main.kujo"></textarea></label><p>Requires Workcell execution. Only these files under <code>project/</code> are returned: at most eight UTF-8 text files,16 KiB each and32 KiB total. Inspect/download the output bundle; host files are never overwritten. Exporting a file does not mean it passed review or tests.</p></details>
     <details><summary>Optional Kujo output check</summary><label><input type="checkbox" name="checkOutput"> Check exact stdout after Workcell execution</label><label>Expected stdout <textarea name="expectedOutput" rows="3" maxlength="16384"></textarea></label><p>Requires the Workcell execution opt-in. Include the final newline if your program prints one. CRLF is normalized; all other whitespace is significant. A completed task can still fail this check.</p></details>
     <details><summary>Workcell execution setup</summary><p>Requires a running local Docker/Podman engine and a trusted local image containing Kujo. For Docker in a managed installation, run <code>../start.command setup:workcell --build</code> from the Agent City directory (source checkout: <code>npm run setup:workcell -- --build</code>) to build the supplied local image, then use its printed launch command. The operator sets <code>CITY_ENABLE_WORKCELL=1</code> and <code>CITY_WORKCELL_IMAGE</code> before starting Agent City. Select the intended engine context in the launcher environment.</p><button type="button" id="check-workcell">Check Workcell setup</button><p id="workcell-check-status" role="status" aria-live="polite">Not checked. This check does not install software, pull images, run code or enable execution.</p></details>
     <details><summary>Optional JavaScript function checks</summary><label>Function contract JSON <textarea name="functionContract" rows="4" placeholder='{"exportName":"sum","cases":[{"name":"empty","args":[[]],"equals":0}]}'></textarea></label><p class="muted">Explicitly runs the generated module in a disposable browser worker. JSON arguments/results only; no filesystem or network integrations. Requires installed Chromium. Each case gets 1.5 seconds.</p></details>
     <button type="submit" disabled>Start mission</button></form>
     <p class="muted">Sends your task to the configured model. The SDK hands the draft to a reviewer. JavaScript runs only with explicit function cases in an isolated browser. Kujo runs only with the separate Workcell opt-in and operator setup.</p>
-    <div id="mission-jobs" aria-label="Mission history"></div><pre id="mission-exchanges" tabindex="0" aria-label="Observed agent responses"></pre><pre id="provider-diagnostics" tabindex="0" aria-label="Provider response diagnostics" hidden></pre><button type="button" id="download-artifact" hidden>Save artifact</button><pre id="mission-artifact" tabindex="0" aria-label="Selected mission output"></pre>`;
+    <div id="mission-jobs" aria-label="Mission history"></div><pre id="mission-exchanges" tabindex="0" aria-label="Observed agent responses"></pre><pre id="provider-diagnostics" tabindex="0" aria-label="Provider response diagnostics" hidden></pre><button type="button" id="download-project-files" hidden>Save project file bundle</button><button type="button" id="download-artifact" hidden>Save artifact</button><pre id="mission-artifact" tabindex="0" aria-label="Selected mission output"></pre>`;
   panel.querySelector("#codex-setup-command")!.textContent =
     `CITY_APP_URL=${window.location.origin} ../start.command provider:codex`;
   host.querySelector(".world")!.after(panel);
@@ -163,6 +168,25 @@ export function mountMissions(
   const output = panel.querySelector<HTMLElement>("#mission-artifact")!;
   const download =
     panel.querySelector<HTMLButtonElement>("#download-artifact")!;
+  const projectDownload = panel.querySelector<HTMLButtonElement>(
+    "#download-project-files",
+  )!;
+  function saveDownload(saved: {
+    content: string;
+    mime: string;
+    filename: string;
+  }) {
+    const url = URL.createObjectURL(
+      new Blob([saved.content], { type: saved.mime }),
+    );
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = saved.filename;
+    document.body.append(link);
+    link.click();
+    link.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
   let artifactSelection = 0;
   const history = panel.querySelector<HTMLElement>("#mission-jobs")!;
   let token = "",
@@ -253,6 +277,8 @@ export function mountMissions(
             const selection = ++artifactSelection;
             download.hidden = true;
             download.onclick = null;
+            projectDownload.hidden = true;
+            projectDownload.onclick = null;
             output.textContent = "Reading selected mission…";
             if (!replay) {
               selectedMission = job.id;
@@ -337,6 +363,11 @@ export function mountMissions(
               /* The overall mission state remains independently authoritative. */
             }
             if (selection !== artifactSelection) return;
+            const bundle = projectBundleDownload(job.id, workcellEvidence);
+            if (bundle) {
+              projectDownload.hidden = false;
+              projectDownload.onclick = () => saveDownload(bundle);
+            }
             if (job.status !== "completed") {
               output.textContent =
                 `Mission ${job.status}; no completed mission artifact claimed.` +
@@ -357,18 +388,7 @@ export function mountMissions(
               if (saved) {
                 download.textContent = `Save ${saved.label}`;
                 download.hidden = false;
-                download.onclick = () => {
-                  const url = URL.createObjectURL(
-                    new Blob([saved.content], { type: saved.mime }),
-                  );
-                  const link = document.createElement("a");
-                  link.href = url;
-                  link.download = saved.filename;
-                  document.body.append(link);
-                  link.click();
-                  link.remove();
-                  setTimeout(() => URL.revokeObjectURL(url), 1000);
-                };
+                download.onclick = () => saveDownload(saved);
               }
               output.textContent =
                 (artifact.kind === "code"
@@ -566,6 +586,10 @@ export function mountMissions(
           useMcpDocs: fields.has("useMcpDocs"),
           executeWorkcell: fields.has("executeWorkcell"),
           includeProjectFiles: fields.has("includeProjectFiles"),
+          exportProjectFiles: String(fields.get("exportProjectFiles") || "")
+            .split("\n")
+            .map((name) => name.trim())
+            .filter(Boolean),
           ...(fields.has("checkOutput")
             ? { expectedOutput: fields.get("expectedOutput") }
             : {}),

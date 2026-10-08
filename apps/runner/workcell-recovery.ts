@@ -1,3 +1,4 @@
+import { validateProjectExports, readProjectOutputs } from "./project-exports";
 import { readFile, stat } from "node:fs/promises";
 import { resolve } from "node:path";
 import { verifyWorkcellEvidence } from "./workcell-evidence";
@@ -15,7 +16,7 @@ async function json(file: string, limit: number) {
 export async function readWorkcellRecord(directory: string) {
   let record;
   try {
-    record = await json(resolve(directory, "workcell.json"), 262144);
+    record = await json(resolve(directory, "workcell.json"), 1_048_576);
   } catch (error: any) {
     if (error.code === "ENOENT") return null;
     throw error;
@@ -44,10 +45,15 @@ export async function readWorkcellRecord(directory: string) {
       proof.evidenceError
     )
       return unknown;
+    const projectExports = validateProjectExports(record.projectExports, true);
     const evidence = await verifyWorkcellEvidence(
       resolve(runtime, "workcell-source"),
       proof.summary,
-      ["city-result.txt", "runtime-version.txt"],
+      [
+        "city-result.txt",
+        "runtime-version.txt",
+        ...projectExports.map((path) => "project/" + path),
+      ],
     );
     const artifacts = resolve(
       runtime,
@@ -55,6 +61,21 @@ export async function readWorkcellRecord(directory: string) {
       evidence.runId,
       "artifacts",
     );
+    let projectOutputs: Awaited<ReturnType<typeof readProjectOutputs>> = [];
+    let projectExportError: string | null = null;
+    try {
+      projectOutputs = await readProjectOutputs(
+        directory,
+        projectExports,
+        evidence,
+        record.projectInputs,
+      );
+    } catch (error) {
+      projectExportError =
+        error instanceof Error
+          ? error.message
+          : "Project output contents unavailable";
+    }
     return {
       ...record,
       status: "completed",
@@ -63,6 +84,13 @@ export async function readWorkcellRecord(directory: string) {
       recovered: true,
       recoverySource: "verified-local-receipt",
       evidence,
+      projectOutputs,
+      projectExportsStatus: !projectExports.length
+        ? "not-requested"
+        : projectExportError
+          ? "unavailable"
+          : "complete",
+      projectExportError,
       output: (
         await readFile(resolve(artifacts, "city-result.txt"), "utf8")
       ).slice(0, 65536),

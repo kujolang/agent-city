@@ -1,3 +1,4 @@
+import { validateProjectExports, readProjectOutputs } from "./project-exports";
 import { projectContext, projectReferences } from "./project-context";
 import { readFile, writeFile, rename } from "node:fs/promises";
 import { resolve } from "node:path";
@@ -28,9 +29,18 @@ export async function executeMissionWorkcell(options: {
   run: string;
   spool: string;
   project?: ReturnType<typeof projectContext>;
+  projectExports?: string[];
 }) {
   const runtime = resolve(options.directory, "workcell");
   const project = projectContext(options.project?.files);
+  const projectExports = validateProjectExports(options.projectExports, true);
+  const exportsFile = projectExports.length
+    ? resolve(options.directory, "project-exports.json")
+    : "";
+  if (exportsFile)
+    await writeFile(exportsFile, JSON.stringify(projectExports), {
+      mode: 0o600,
+    });
   const projectFile = project
     ? resolve(options.directory, "workcell-project-inputs.json")
     : "";
@@ -51,6 +61,8 @@ export async function executeMissionWorkcell(options: {
     codeExecuted: null,
     cleanup: "unknown",
     startedAt: new Date().toISOString(),
+    projectExports,
+    projectInputs: projectReferences(project),
   });
   const result = await boundedCommand(
     process.execPath,
@@ -63,6 +75,7 @@ export async function executeMissionWorkcell(options: {
         CITY_RUNTIME_DIR: runtime,
         CITY_WORKCELL_KUJO_FILE: options.artifact,
         CITY_WORKCELL_PROJECT_FILE: projectFile,
+        CITY_PROJECT_EXPORTS_FILE: exportsFile,
         CITY_RUN: options.run,
         CITY_PRODUCER: options.producer,
         CITY_SPOOL: options.spool,
@@ -80,7 +93,11 @@ export async function executeMissionWorkcell(options: {
       evidence = await verifyWorkcellEvidence(
         resolve(runtime, "workcell-source"),
         proof.summary,
-        ["city-result.txt", "runtime-version.txt"],
+        [
+          "city-result.txt",
+          "runtime-version.txt",
+          ...projectExports.map((path) => "project/" + path),
+        ],
       );
     } catch {
       /* No artifact or completion inferred from an incomplete receipt. */
@@ -102,6 +119,23 @@ export async function executeMissionWorkcell(options: {
       await readFile(resolve(artifacts, "runtime-version.txt"), "utf8")
     ).slice(0, 200);
   }
+  let projectOutputs: Awaited<ReturnType<typeof readProjectOutputs>> = [];
+  let projectExportError: string | null = null;
+  if (evidence) {
+    try {
+      projectOutputs = await readProjectOutputs(
+        options.directory,
+        projectExports,
+        evidence,
+        projectReferences(project),
+      );
+    } catch (error) {
+      projectExportError =
+        error instanceof Error
+          ? error.message
+          : "Project output contents unavailable";
+    }
+  }
   const record = {
     run: options.run,
     producer: options.producer,
@@ -115,6 +149,14 @@ export async function executeMissionWorkcell(options: {
     output,
     runtimeVersion,
     projectInputs: projectReferences(project),
+    projectExports,
+    projectOutputs,
+    projectExportsStatus: !projectExports.length
+      ? "not-requested"
+      : evidence && !projectExportError
+        ? "complete"
+        : "unavailable",
+    projectExportError,
     outputTruncated: evidence
       ? (evidence.artifacts.find((a) => a.name === "city-result.txt")?.bytes ??
           0) > 65536

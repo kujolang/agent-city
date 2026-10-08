@@ -7,15 +7,26 @@ import assert from "node:assert/strict";
 import { artifactDownload } from "../apps/web/mission-artifact";
 import { portAvailable } from "./startup-checks";
 const root = resolve(import.meta.dirname, "..");
+const exportProof = process.env.CITY_WORKCELL_BROWSER_EXPORTS === "1";
 const proof = JSON.parse(
   await readFile(
-    resolve(root, "evidence/mission-workcell/real/proof.json"),
+    resolve(
+      root,
+      exportProof
+        ? "evidence/mission-workcell/project-exports-real/proof.json"
+        : "evidence/mission-workcell/real/proof.json",
+    ),
     "utf8",
   ),
 );
 const source = resolve(root, proof.privateEvidence);
 const runtime = resolve(root, ".runtime/workcell-browser-" + Date.now());
-const out = resolve(root, "evidence/mission-workcell/browser");
+const out = resolve(
+  root,
+  exportProof
+    ? "evidence/mission-workcell/project-exports-browser"
+    : "evidence/mission-workcell/browser",
+);
 await mkdir(runtime, { recursive: true, mode: 0o700 });
 await mkdir(out, { recursive: true });
 await writeFile(
@@ -75,7 +86,10 @@ try {
     viewport: { width: 1280, height: 900 },
   });
   const errors: string[] = [];
-  page.on("pageerror", (e) => errors.push(e.message));
+  page.on("pageerror", (e) => {
+    errors.push(e.message);
+    console.error("Browser error:", e.message);
+  });
   await page.goto("http://127.0.0.1:18889");
   await page
     .locator("#mission-jobs button:not([data-continue])")
@@ -87,16 +101,38 @@ try {
       ?.textContent?.includes("EXECUTED IN WORKCELL"),
   );
   const text = await page.locator("#mission-artifact").textContent();
-  assert(text?.includes('"output": "5\\n"'));
+  assert(
+    text?.includes(
+      JSON.stringify(
+        proof.attempts[0].validation?.outputCheck?.actual || "5\n",
+      ),
+    ),
+  );
   assert(text?.includes('"cleanup": "complete"'));
   const artifactResponse = await page.request.get(
     "http://127.0.0.1:18889/control/artifact/" + proof.attempts[0].mission,
   );
   assert(artifactResponse.ok());
+  const artifactData = await artifactResponse.json();
   const expectedDownload = artifactDownload(
     proof.attempts[0].mission,
-    await artifactResponse.json(),
+    artifactData,
   );
+  if (exportProof) {
+    assert.equal(artifactData.workcell.projectExportsStatus, "complete");
+    const bundleReady = page.waitForEvent("download");
+    await page.locator("#download-project-files").click();
+    const bundle = await bundleReady;
+    assert.equal(
+      bundle.suggestedFilename(),
+      proof.attempts[0].mission + "-project-files.json",
+    );
+    const downloaded = JSON.parse(
+      await readFile((await bundle.path())!, "utf8"),
+    );
+    assert.deepEqual(downloaded.files, artifactData.workcell.projectOutputs);
+    assert.equal(downloaded.workcellRef, artifactData.workcell.evidence.runId);
+  }
   assert(expectedDownload);
   const downloaded = page.waitForEvent("download");
   await page.locator("#download-artifact").click();
@@ -155,6 +191,10 @@ try {
   });
   assert.equal(await projectConsent.isChecked(), false);
   await projectConsent.check();
+  await page.getByText("Project files to export", { exact: true }).click();
+  await page
+    .getByLabel("Relative output file names (one per line)")
+    .fill("src/main.kujo");
   const consent = page.getByRole("checkbox", { name: /Execute checked Kujo/ });
   assert.equal(await consent.isChecked(), false);
   // UI submission transport is intercepted: this section executes no task/model/container.
@@ -192,6 +232,7 @@ try {
   );
   assert.equal(posted.executeWorkcell, true);
   assert.equal(posted.includeProjectFiles, true);
+  assert.deepEqual(posted.exportProjectFiles, ["src/main.kujo"]);
   assert.equal(posted.expectedOutput, "5\n");
   assert.deepEqual(posted.projectFiles, [
     { path: "brief.md", content: "Selected task context only" },
@@ -212,6 +253,12 @@ try {
   );
   assert.equal(await consent.isChecked(), false);
   assert.equal(await projectConsent.isChecked(), false);
+  assert.equal(
+    await page
+      .getByLabel("Relative output file names (one per line)")
+      .inputValue(),
+    "",
+  );
   assert.deepEqual(errors, []);
   await writeFile(
     resolve(out, "proof.json"),
@@ -229,6 +276,8 @@ try {
         explicitOutputCheckPostedAndReset: true,
         selectedProjectFilesPostedAndReset: true,
         projectExecutionPermissionReset: true,
+        projectExportNamesPostedAndReset: true,
+        realProjectBundleDownloaded: exportProof,
         consentResetAfterSubmission: true,
         consentResetForContinuation: true,
         pageErrors: errors,

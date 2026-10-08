@@ -62,6 +62,7 @@ export async function missionDetails(
     functionContract: checks ? JSON.parse(checks) : null,
     projectFiles: request?.projectFiles ?? [],
     workcellProjectInputs: request?.workcellProjectInputs ?? [],
+    projectExports: request?.projectExports ?? [],
   };
 }
 
