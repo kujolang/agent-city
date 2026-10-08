@@ -1,6 +1,6 @@
 # Kujo Agent City
 
-**Working-experience expansion in progress:** [current capabilities and unfinished gates](WORKING-EXPERIENCE.md). Run `npm start` (Node 24+) or open `Start Agent City.command` on macOS. Model setup and explicit writing/code missions are now separate from the read-only Observer. Existing Observer notes below are historical where they say no task controls.
+**Working-experience expansion in progress:** [current capabilities and unfinished gates](WORKING-EXPERIENCE.md). Start with the [managed preview installation](installer/README.md) and [first-task guide](TRY-AGENT-CITY.md). Source checkouts use `npm start` (Node 24+). Model setup and explicit writing/code missions are now separate from the read-only Observer. Existing Observer notes below are historical where they say no task controls.
 
 Agent City observes real Kujo work in a small original pixel city. The Observer
 and replay gateway remain read-only; **Mission Command** is a separate local
@@ -26,16 +26,14 @@ the flags in `scripts/codex-provider.ts` (verified with 0.144.4).
 Terminal 1:
 
 ```sh
-cd "$HOME/.local/share/agent-city/agent-city"
-CITY_PORT_OFFSET=1000 npm start
+CITY_PORT_OFFSET=1000 "$HOME/.local/share/agent-city/start.command"
 ```
 
 Terminal 2, after the app is ready:
 
 ```sh
-cd "$HOME/.local/share/agent-city/agent-city"
 codex login status
-npm run provider:codex
+CITY_APP_URL=http://127.0.0.1:6178 "$HOME/.local/share/agent-city/start.command" provider:codex
 ```
 
 If needed, `codex login` opens the normal ChatGPT sign-in. The adapter listens on
@@ -60,17 +58,16 @@ Eligible profiles can now be selected for bounded PROPOSE writing/JavaScript dra
 
 ### Ollama or another chat-completions provider
 
-Requirements: Node 24+, installed npm dependencies, the Kujo repository
+Source-checkout requirements: Node 24+, installed npm dependencies, the Kujo repository
 binary (the pinned managed installer uses 1.7.0), and sibling `agents-sdk`, `dispatch`, `watchdog`, `rag`, `eval`, `mcp`
-repositories. This is a local development application, not a standalone public
-release.
+repositories. The managed preview supplies these dependencies privately; it does
+not supply a model account. Production qualification remains incomplete.
 
 ```sh
-cd "$HOME/.local/share/agent-city/agent-city"
-npm start
+"$HOME/.local/share/agent-city/start.command"
 ```
 
-Or double-click **Start Agent City.command**. Open **http://127.0.0.1:5178**.
+Open **http://127.0.0.1:5178**, or the URL printed by the launcher.
 If the launcher reports the port is occupied, stop your previous launcher with
 Ctrl+C first. It does not kill existing processes. Ctrl+C stops the new launcher.
 

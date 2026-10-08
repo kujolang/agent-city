@@ -8,11 +8,10 @@ it does not yet provide free-form agent chat or player-controlled characters.
 ## Start
 
 Install the public preview using [the bootstrap instructions](installer/README.md).
-Then open the installed `Start Agent City.command`, or run:
+Then run the managed launcher (it supplies its private Node/npm):
 
 ```sh
-cd "$HOME/.local/share/agent-city/agent-city"
-npm start
+"$HOME/.local/share/agent-city/start.command"
 ```
 
 Open http://127.0.0.1:5178 and keep the terminal open. Stop with Ctrl+C.
@@ -51,7 +50,7 @@ accuracy: the small local model has previously added unsupported claims.
 
 ## First coding task
 
-Choose **Code + review**, and submit:
+Choose **JavaScript + review**, and submit:
 
 > Return only an ES module exporting function sum(numbers). Return the sum of
 > an array of finite numbers; return 0 for an empty array. Throw TypeError for
