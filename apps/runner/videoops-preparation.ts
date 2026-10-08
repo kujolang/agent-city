@@ -42,6 +42,7 @@ export async function prepareVideoops(
     intake: { path: string; content: string }[];
     timing: VideoopsTiming;
     verifiedAssets: Record<string, VerifiedVideoopsAsset>;
+    requiredMedia?: { id: string; description: string; generate: boolean }[];
   },
   execute = runVideoopsStage,
 ) {
@@ -165,11 +166,24 @@ export async function prepareVideoops(
     "creative-director",
     options.planner,
     options.capabilities.planner,
-    "Write all five planning files. Preserve every intake requirement. Plan exact frame-aligned continuous coverage. Shot schema: " +
+    "Write exactly the five listed planning files and no extra files. Any requested HTML or mix-plan.json is later Editor work: describe its requirements in style-plan.md, never add planning/mix-plan.json or author Editor artifacts. Preserve every intake requirement. Plan exact frame-aligned continuous coverage. Shot schema: " +
       JSON.stringify(shotSchema) +
       '\nasset-requirements.json is {"requirements":[{"id":"...","type":"...","description":"...","required":true,"used_by":["shot-id"],"preferred_source":"...","acceptance":"..."}]}. Every requirement/shot reference must be reciprocal. Empty requirements are allowed only if no external production media is needed. Inline CSS geometry, inline SVG authored as composition code, colors, borders and generic system-font text are Editor implementation instructions, not acquired/generated media assets. Preserve those mandatory design requirements in creative-brief/style-plan/shot descriptions; for a composition needing only these primitives use empty asset requirements and empty per-shot asset_ids. Required raster images, footage, named font files, audio or externally generated media remain explicit asset requirements and must never be omitted. Do not invent acquired media, licenses, scores or completed checks.',
-    JSON.stringify({ intake: options.intake, timing: options.timing }),
-    (bundle) => validateVideoopsPlan(bundle, options.timing),
+    JSON.stringify({
+      intake: options.intake,
+      timing: options.timing,
+      acquired: options.verifiedAssets,
+      requiredMedia: options.requiredMedia,
+      mediaInstructions:
+        "Use each requiredMedia id EXACTLY as both asset ID and requirement ID. All requiredMedia items must be required and used in at least one shot. Preserve exact generation text; the model cannot authorize calls or change spending.",
+    }),
+    (bundle) => {
+      const plan = validateVideoopsPlan(bundle, options.timing);
+      for (const media of options.requiredMedia ?? [])
+        if (!plan.requirements.some((r) => r.id === media.id && r.required))
+          throw Error("Required operator media omitted: " + media.id);
+      return plan;
+    },
   );
   if (!plan)
     return {
@@ -257,6 +271,7 @@ export async function prepareVideoops(
       handoff,
       planning: plan.checked.bundle,
       acquired: options.verifiedAssets,
+      requiredMedia: options.requiredMedia,
     }),
     (bundle) =>
       validateVideoopsAssets(bundle, plan.checked, options.verifiedAssets),

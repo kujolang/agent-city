@@ -79,7 +79,10 @@ export function validateVideoopsArtifacts(
       (!required.includes(file.path) && !editorSource) ||
       paths.has(file.path)
     )
-      throw Error("Duplicate or non-owned VideoOps artifact path");
+      throw Error(
+        "Duplicate or non-owned VideoOps artifact path: " +
+          file.path.slice(0, 180),
+      );
     const size = Buffer.byteLength(file.content);
     bytes += size;
     if (size > 131072 || bytes > 524288)

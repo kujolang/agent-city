@@ -46,7 +46,9 @@
     "agents:import": "tsx scripts/import-agents.ts",
     "setup:workcell": "tsx scripts/setup-workcell.ts",
     "recover:workcell": "tsx scripts/recover-workcell.ts",
-    "setup:videoops": "tsx scripts/setup-videoops.ts"
+    "setup:videoops": "tsx scripts/setup-videoops.ts",
+    "setup:videoops-media": "tsx scripts/setup-videoops-media.ts",
+    "setup:videoops-provider": "tsx scripts/setup-videoops-provider.ts"
   },
   "dependencies": {
     "ajv": "8.20.0",

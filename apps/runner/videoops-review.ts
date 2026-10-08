@@ -3,6 +3,7 @@ import { lstat, mkdir, readFile, realpath, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import { boundedCommand } from "./bounded-command";
 import type { renderVideoopsAttempt } from "./videoops-render";
+import type { inspectVideoopsAudio } from "./videoops-audio-qa";
 
 /** Internal runtime handoff, not a browser/model supplied receipt. Only records
  * completed technical work. Perceptual approval requires a separate reviewer. */
@@ -11,6 +12,7 @@ export async function submitVideoopsReview(options: {
   workspace: string;
   candidate: Awaited<ReturnType<typeof renderVideoopsAttempt>>;
   mandatoryCapabilities: ("visual_playback" | "audio_listening")[];
+  audioQa?: Awaited<ReturnType<typeof inspectVideoopsAudio>>;
 }) {
   const candidate = options.candidate;
   const caps = options.mandatoryCapabilities;
@@ -69,11 +71,88 @@ export async function submitVideoopsReview(options: {
   )!;
   if (video.sha256 !== candidate.candidate.sha256)
     throw Error("Candidate identity mismatch");
+  const audioEvidence: { name: string; sha256: string; bytes: number }[] = [];
+  if (options.audioQa) {
+    const qa = options.audioQa;
+    if (
+      !qa.passed ||
+      qa.candidateSha256 !== video.sha256 ||
+      qa.perceptual !== "REVIEW_INCOMPLETE" ||
+      qa.listeningExercised !== false ||
+      !caps.includes("audio_listening")
+    )
+      throw Error(
+        "Exact passed audio QA and separate listening review required",
+      );
+    const directory = resolve(qa.workspace);
+    if ((await realpath(directory)) !== directory)
+      throw Error("Audio QA evidence redirected");
+    const names = [
+      "audio-report.json",
+      "mix-declarations.json",
+      "audio-input.json",
+    ];
+    if (
+      qa.evidence.length !== names.length ||
+      new Set(qa.evidence.map((r) => r.name)).size !== names.length
+    )
+      throw Error("Complete exact audio QA evidence required");
+    for (const name of names) {
+      const ref = qa.evidence.find((r) => r.name === name),
+        path = resolve(directory, name);
+      const info = await lstat(path);
+      if (
+        !ref ||
+        !/^[a-f0-9]{64}$/.test(ref.sha256) ||
+        !info.isFile() ||
+        info.size !== ref.bytes ||
+        info.size > 2097152 ||
+        (await realpath(path)) !== path
+      )
+        throw Error("Audio QA evidence changed or redirected");
+      const bytes = await readFile(path);
+      if (
+        bytes.length !== ref.bytes ||
+        createHash("sha256").update(bytes).digest("hex") !== ref.sha256
+      )
+        throw Error("Audio QA evidence checksum changed");
+      const content = JSON.parse(bytes.toString("utf8"));
+      if (
+        name === "audio-report.json" &&
+        (content.contract !== "kujo-videoops/media-qa/v1" ||
+          content.passed !== true ||
+          content.checks?.audio?.sha256 !== video.sha256 ||
+          content.perceptual_review !== "REVIEW_INCOMPLETE" ||
+          content.listening_exercised !== false)
+      )
+        throw Error("Audio QA evidence candidate or authority mismatch");
+      if (
+        name === "mix-declarations.json" &&
+        content.candidateSha256 !== video.sha256
+      )
+        throw Error("Audio mix evidence candidate mismatch");
+      files.push({ name: "audio-qa/" + name, bytes });
+      audioEvidence.push({ ...ref, name: "audio-qa/" + name });
+    }
+  }
   const workspace = resolve(options.workspace);
   await mkdir(workspace, { mode: 0o700 });
   if ((await realpath(workspace)) !== workspace)
     throw Error("Review workspace redirected");
   await mkdir(resolve(workspace, "output"), { mode: 0o700 });
+  if (audioEvidence.length) {
+    await mkdir(resolve(workspace, "audio-qa"), { mode: 0o700 });
+    await writeFile(
+      resolve(workspace, "audio-qa/evidence.json"),
+      JSON.stringify({
+        candidateSha256: video.sha256,
+        files: audioEvidence,
+        scope:
+          "Deterministic audio QA and declared mix provenance; human listening remains required",
+      }),
+      { mode: 0o600, flag: "wx" },
+    );
+  }
   for (const file of files)
     await writeFile(resolve(workspace, file.name), file.bytes, {
       mode: 0o600,
@@ -129,7 +208,13 @@ export async function submitVideoopsReview(options: {
       type: "technical_tool",
       capabilities_exercised: ["deterministic_validation"],
     },
-    evidence: ["output/metadata.json", "output/check.json", "lineage.json"],
+    evidence: [
+      "output/metadata.json",
+      "output/check.json",
+      "lineage.json",
+      ...audioEvidence.map((r) => r.name),
+      ...(audioEvidence.length ? ["audio-qa/evidence.json"] : []),
+    ],
     defects: [],
     reviewed_at: new Date().toISOString(),
   };

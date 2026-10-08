@@ -1,3 +1,5 @@
+import { registerVideoopsMediaPack } from "../apps/runner/videoops-media-pack";
+import { inspectVideoopsNative } from "../apps/runner/videoops-native";
 import { assertDockerWorkcellSecurity } from "../apps/runner/docker-security";
 import { readFile, mkdir, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
@@ -58,6 +60,20 @@ try {
     "Save a valid model connection in Mission Command before VideoOps setup. No credentials are printed.",
   );
 }
+const nativeWorkspace = resolve(runtime, "videoops-native");
+await mkdir(nativeWorkspace, { recursive: true, mode: 0o700 });
+const nativeDoctor = await inspectVideoopsNative({
+  agentsRepository: resolve(root, "../kujo-agents"),
+  workspace: nativeWorkspace,
+  operation: "media.doctor",
+});
+if (
+  nativeDoctor.status !== "observed" ||
+  nativeDoctor.native?.available !== true
+)
+  throw Error(
+    "VideoOps requires host Python >=3.10 with jsonschema plus ffmpeg/ffprobe for canonical media/review checks. See docs/videoops-media.md. No model task or image build started.",
+  );
 const definition = JSON.parse(
   await readFile(resolve(root, "../workcell/workcell.json"), "utf8"),
 );
@@ -193,6 +209,13 @@ await writeFile(
   await readFile(resolve(runtime, "videoops-setup-evidence.json")),
   { mode: 0o600, flag: "wx" },
 );
+await registerVideoopsMediaPack({
+  sourceRoot: resolve(root, "assets/videoops/pixel-v2"),
+  manifest: JSON.parse(
+    await readFile(resolve(root, "assets/videoops/pixel-v2/pack.json"), "utf8"),
+  ),
+  registryRoot: resolve(runtime, "videoops-media-packs"),
+});
 await saveVideoopsSettings(runtime, {
   image,
   dockerContext: context,

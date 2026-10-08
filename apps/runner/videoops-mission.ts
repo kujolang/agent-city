@@ -1,3 +1,8 @@
+import {
+  validateGenerationRequests,
+  validateMediaProvider,
+  type VideoopsMediaProvider,
+} from "./videoops-generation";
 import { lstat, readFile, realpath } from "node:fs/promises";
 import {
   admitVideoopsStage,
@@ -6,6 +11,7 @@ import {
 import type { ImportedProfile } from "./agent-catalog";
 export interface VideoopsLaunchConfig {
   image: string;
+  mediaProvider?: VideoopsMediaProvider;
   dockerContext?: string;
   modelBinding?: { endpoint: string; model: string };
   planner: ImportedProfile;
@@ -38,6 +44,7 @@ export async function readVideoopsLaunchConfig(file: string) {
       typeof value.modelBinding.model !== "string")
   )
     throw Error("Invalid VideoOps model binding");
+  if (value.mediaProvider) validateMediaProvider(value.mediaProvider);
   admitVideoopsStage(
     value.planner,
     "creative-director",
@@ -65,6 +72,9 @@ export function validateVideoopsMission(value: unknown) {
           "fps",
           "durationSeconds",
           "allowRender",
+          "mediaPack",
+          "generation",
+          "mediaProviderRevision",
         ].includes(k),
     ) ||
     v.workflow !== "videoops" ||
@@ -88,7 +98,35 @@ export function validateVideoopsMission(value: unknown) {
     throw Error(
       "Bounded video request and explicit isolated render consent required",
     );
+  if (
+    v.mediaPack !== undefined &&
+    (typeof v.mediaPack !== "string" ||
+      !/^pack-[a-f0-9]{64}$/.test(v.mediaPack))
+  )
+    throw Error("Select a registered immutable media pack");
+  const generation = validateGenerationRequests(v.generation);
+  if (generation.some((g) => g.durationSeconds > v.durationSeconds))
+    throw Error("Requested audio duration exceeds the video duration");
+  if (
+    generation.length &&
+    (typeof v.mediaProviderRevision !== "string" ||
+      !/^[a-f0-9]{64}$/.test(v.mediaProviderRevision))
+  )
+    throw Error(
+      "Review current provider/model/voice before authorizing generation",
+    );
+  if (
+    v.mediaProviderRevision !== undefined &&
+    (typeof v.mediaProviderRevision !== "string" ||
+      !/^[a-f0-9]{64}$/.test(v.mediaProviderRevision))
+  )
+    throw Error("Invalid provider revision");
   return {
+    ...(v.mediaPack ? { mediaPack: v.mediaPack as string } : {}),
+    generation,
+    ...(v.mediaProviderRevision
+      ? { mediaProviderRevision: v.mediaProviderRevision as string }
+      : {}),
     workflow: "videoops" as const,
     prompt: v.prompt as string,
     width: v.width as number,

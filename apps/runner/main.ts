@@ -1,3 +1,11 @@
+import { inspectVideoopsPackStreams } from "./videoops-media-inspection";
+import { inspectVideoopsNative } from "./videoops-native";
+import { registerUploadedVideoopsPack } from "./videoops-media-upload";
+import {
+  listVideoopsMediaPacks,
+  inspectVideoopsMediaPack,
+} from "./videoops-media-pack";
+import { admitGeneration, mediaProviderRevision } from "./videoops-generation";
 import {
   readVideoopsLaunchConfig,
   validateVideoopsMission,
@@ -71,6 +79,7 @@ type Job = {
   };
 };
 let jobs: Job[] = [];
+let mediaUploading = false;
 try {
   jobs = JSON.parse(await readFile(resolve(dir, "jobs.json"), "utf8"));
 } catch (e: any) {
@@ -229,6 +238,38 @@ const server = createServer(async (req, res) => {
       })
     )
       return;
+    if (req.method === "GET" && req.url === "/control/videoops-media") {
+      if (req.headers["x-city-command-token"] !== token)
+        return send(403, { error: "Local command token required" });
+      const packs = await listVideoopsMediaPacks(
+        resolve(
+          process.env.CITY_RUNTIME_DIR || resolve(root, ".runtime"),
+          "videoops-media-packs",
+        ),
+      );
+      const config = process.env.CITY_VIDEOOPS_CONFIG
+        ? await readVideoopsLaunchConfig(
+            resolve(process.env.CITY_VIDEOOPS_CONFIG),
+          )
+        : null;
+      const provider = config?.mediaProvider;
+      return send(200, {
+        packs,
+        provider: provider
+          ? {
+              revision: mediaProviderRevision(provider),
+              expiresAt: provider.expiresAt,
+              capabilities: Object.entries(provider.capabilities).map(
+                ([capability, v]) => ({
+                  capability,
+                  model: v.model,
+                  voice: v.voice,
+                }),
+              ),
+            }
+          : null,
+      });
+    }
     if (req.method === "GET" && req.url === "/control/agents") {
       try {
         return send(
@@ -411,6 +452,7 @@ const server = createServer(async (req, res) => {
       req.method !== "POST" ||
       ![
         "/control/missions",
+        "/control/videoops-media",
         "/control/config",
         "/control/reply",
         "/control/release-admission",
@@ -430,6 +472,38 @@ const server = createServer(async (req, res) => {
       return send(503, {
         error: "Mission history storage is unavailable; commands stopped",
       });
+    if (req.url === "/control/videoops-media") {
+      if (mediaUploading)
+        return send(409, { error: "A media upload is already being stored" });
+      mediaUploading = true;
+      try {
+        const chunks: Buffer[] = [];
+        let size = 0;
+        for await (const part of req) {
+          const b = Buffer.from(part);
+          size += b.length;
+          if (size > 17 * 1024 * 1024)
+            return send(413, { error: "Media upload too large" });
+          chunks.push(b);
+        }
+        const input = JSON.parse(Buffer.concat(chunks).toString("utf8"));
+        const result = await registerUploadedVideoopsPack({
+          registryRoot: resolve(
+            process.env.CITY_RUNTIME_DIR || resolve(root, ".runtime"),
+            "videoops-media-packs",
+          ),
+          input,
+        });
+        return send(201, { id: result.packId, name: result.manifest.name });
+      } catch {
+        return send(400, {
+          error:
+            "Invalid media pack. Supply bounded files, descriptions, rights and explicit audio roles/durations.",
+        });
+      } finally {
+        mediaUploading = false;
+      }
+    }
     await reconcile();
     if (req.url === "/control/release-admission") {
       if (active || submitting)
@@ -595,6 +669,44 @@ const server = createServer(async (req, res) => {
             throw Error(
               "Model changed since VideoOps setup; confirm the new model capabilities with setup:videoops",
             );
+          const nativeWorkspace = resolve(
+            process.env.CITY_RUNTIME_DIR || resolve(root, ".runtime"),
+            "videoops-native",
+          );
+          await mkdir(nativeWorkspace, { recursive: true, mode: 0o700 });
+          const doctor = await inspectVideoopsNative({
+            agentsRepository: resolve(root, "../kujo-agents"),
+            workspace: nativeWorkspace,
+            operation: "media.doctor",
+          });
+          if (doctor.status !== "observed" || doctor.native?.available !== true)
+            throw Error(
+              "Canonical VideoOps media/review tools unavailable. Install host Python/jsonschema and ffmpeg/ffprobe; see docs/videoops-media.md.",
+            );
+          admitGeneration(request.generation, setup.mediaProvider);
+          if (
+            request.generation.length &&
+            request.mediaProviderRevision !==
+              mediaProviderRevision(setup.mediaProvider!)
+          )
+            throw Error(
+              "Media provider configuration changed. Reload and review current model/voice before authorizing.",
+            );
+          if (request.mediaPack) {
+            const registryRoot = resolve(
+              process.env.CITY_RUNTIME_DIR || resolve(root, ".runtime"),
+              "videoops-media-packs",
+            );
+            const manifest = await inspectVideoopsMediaPack({
+              registryRoot,
+              packId: request.mediaPack,
+            });
+            await inspectVideoopsPackStreams(
+              resolve(registryRoot, request.mediaPack),
+              manifest,
+              request.durationSeconds,
+            );
+          }
           await assertWorkcellAvailable(root, {
             ...process.env,
             CITY_WORKCELL_IMAGE: setup.image,
