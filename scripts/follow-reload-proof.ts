@@ -53,7 +53,11 @@ try {
     ["active", active, event.instance],
     ["completed", completed, null],
     ["ambiguous", ambiguous, null],
+    ["completed-after-selection", active, null],
+    ["manual-unfollow", active, null],
+    ["missing-saved-instance", active, event.instance],
   ] as const) {
+    let snapshot = truth;
     const page = await browser.newPage({ reducedMotion: "reduce" });
     const writes: string[] = [],
       errors: string[] = [];
@@ -65,8 +69,8 @@ try {
       route.fulfill({
         json: {
           epoch: "reload-fixture",
-          truth,
-          order: truth.order,
+          truth: snapshot,
+          order: snapshot.order,
           recent: [],
           cursor: "reload-fixture:1",
           sourceHealth: { status: "LIVE" },
@@ -94,6 +98,22 @@ try {
       Boolean((window as any).agentCity?.truth?.order),
     );
     await page.waitForTimeout(250);
+    if (name === "completed-after-selection") {
+      await page.locator(`[data-instance="${event.instance}"]`).click();
+      snapshot = completed;
+    }
+    if (name === "manual-unfollow") {
+      await page.locator(`[data-instance="${event.instance}"]`).click();
+      await page.locator("#follow").click();
+    }
+    if (name === "missing-saved-instance") {
+      await page.evaluate(() =>
+        sessionStorage.setItem(
+          "agent-city-observer-view-v1",
+          JSON.stringify({ id: "missing:run:worker", follow: true }),
+        ),
+      );
+    }
     // A real page reload must restore the exact active instance from the snapshot.
     await page.reload();
     await page.waitForFunction(() =>
@@ -101,11 +121,14 @@ try {
     );
     await page.waitForTimeout(250);
     const state = await page.evaluate(() => ({
+      selected: (window as any).agentCity.selected,
       follow: (window as any).agentCity.follow,
       truth: (window as any).agentCity.truth,
     }));
     assert.equal(state.follow, expected, name);
-    assert.deepEqual(state.truth, truth);
+    if (name === "completed-after-selection" || name === "manual-unfollow")
+      assert.equal(state.selected, event.instance, "Saved completed selection");
+    assert.deepEqual(state.truth, snapshot);
     assert.deepEqual(writes, []);
     assert.deepEqual(errors, []);
     results.push({

@@ -12,3 +12,12 @@ DOM fallback too. This is a fixture, not new real-agent activity. The separate
 reviewed-tool video supplies real cross-portal Follow evidence. CI includes this
 regression. `proof.json` records the browser/results; source is
 `scripts/follow-reload-proof.ts`.
+
+2026-10-08 follow-through: a separate failing case showed that a manually selected
+execution disappeared on reload once it completed. Per-tab session storage now
+retains only its source-qualified ID and Follow preference. The authoritative
+snapshot must contain that exact ID; no role/name matching or persisted runtime
+truth is used. Completed executions remain inspectable and stop following. Manual
+unfollow survives reload, unavailable identities are ignored, and replay selection
+does not overwrite the live preference. Six controlled cases pass on Chromium153
+with unchanged truth, zero source writes and no page errors.

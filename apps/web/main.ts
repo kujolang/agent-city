@@ -40,8 +40,27 @@ rosterRail.append(rosterHeading, filterLabel, $("#roster"));
 $("main").prepend(rosterRail);
 $("main > section").classList.add("world-column");
 $("main > aside:last-child").classList.add("inspector-rail");
-const missions = mountMissions($(".world-column"), (id) => {
+// Presentation preference only; authoritative snapshots still own identity/truth.
+const viewKey = "agent-city-observer-view-v1";
+function readView(): { id: string; follow: boolean } | null {
+  try {
+    const value = JSON.parse(sessionStorage.getItem(viewKey) ?? "null");
+    return value &&
+      typeof value.id === "string" &&
+      value.id.length <= 512 &&
+      typeof value.follow === "boolean"
+      ? value
+      : null;
+  } catch {
+    return null;
+  }
+}
+let rememberedView = readView();
+const missions = mountMissions($(".world-column"), (id, reason) => {
+  if (reason === "restore" && selected) return;
   missionToFollow = id;
+  if (reason === "restore" && rememberedView) return;
+  rememberedView = null;
   maybeFollowMission();
 });
 let missionToFollow: string | null = null;
@@ -80,12 +99,26 @@ let truth = initialTruth(),
   inspectedBuilding: Scene | null = null,
   rosterFilter = "all";
 const renderer = new CityRenderer();
+function saveView() {
+  if (replayMode) return;
+  try {
+    if (selected)
+      sessionStorage.setItem(
+        viewKey,
+        JSON.stringify({ id: selected, follow: renderer.follow === selected }),
+      );
+    else sessionStorage.removeItem(viewKey);
+  } catch {
+    /* Storage unavailable: live truth remains usable. */
+  }
+}
 const choose = (id: string, automatic = false) => {
   if (!automatic) missionToFollow = null;
   selected = id;
   renderer.selected = id;
   renderer.follow = id;
   inspectedBuilding = null;
+  saveView();
   renderDOM();
 };
 function maybeFollowMission() {
@@ -108,6 +141,7 @@ function building(id: string) {
   renderer.follow = null;
   renderer.scene = id as Scene;
   inspectedBuilding = id === "city" ? null : (id as Scene);
+  saveView();
 
   renderDOM();
 }
@@ -398,6 +432,7 @@ $("#follow").onclick = () => {
   missionToFollow = null;
   if (selected) {
     renderer.follow = renderer.follow ? null : selected;
+    saveView();
     if (renderer.follow) {
       inspectedBuilding = null;
       // Following from Mission Command must reveal the world, including when
@@ -472,6 +507,21 @@ async function connect() {
   if (!current()) return;
   gatewayEpoch = typeof snap.epoch === "string" ? snap.epoch : null;
   truth = snap.truth;
+  if (rememberedView) {
+    const saved = rememberedView;
+    rememberedView = null;
+    if (Object.hasOwn(truth.agents, saved.id)) {
+      choose(saved.id);
+      renderer.follow =
+        saved.follow &&
+        !["completed", "failed", "canceled", "skipped"].includes(
+          truth.agents[saved.id].status,
+        )
+          ? saved.id
+          : null;
+      saveView();
+    } else saveView();
+  }
   lastStreamProgress = performance.now();
   maybeFollowMission();
   events = snap.recent ?? [];
@@ -604,8 +654,10 @@ setInterval(() => {
         !replayBundle ||
         replayCursor === replayBundle.events.length) &&
       followComplete(w, a)
-    )
+    ) {
       renderer.follow = null;
+      saveView();
+    }
   }
   if (rendererReady) {
     try {
@@ -658,6 +710,7 @@ archiveUI($("#archive-body"), startReplay, () => {
   selected = null;
   renderer.selected = null;
   presentation = initialPresentation();
+  rememberedView = readView();
   void connect().catch(() => {
     health = "STALE";
     renderDOM();

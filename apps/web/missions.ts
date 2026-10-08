@@ -6,7 +6,7 @@ import {
 import { mountAgentCatalog } from "./agent-catalog";
 export function mountMissions(
   host: HTMLElement,
-  onMission: (id: string) => void = () => {},
+  onMission: (id: string, reason?: "restore") => void = () => {},
 ) {
   const panel = document.createElement("section");
   panel.className = "mission-panel";
@@ -254,7 +254,7 @@ export function mountMissions(
         const running = data.jobs.find((j: any) => j.status === "running");
         if (running) {
           selectedMission = running.id;
-          onMission(running.id);
+          onMission(running.id, "restore");
           void refreshConversation();
         }
       }
