@@ -1,0 +1,220 @@
+{
+  "verifiedAt": "2026-10-08T19:18:48.074969+00:00",
+  "release": {
+    "releaseId": 407178361,
+    "url": "https://github.com/kujolang/agent-city/releases/tag/v0.2.0",
+    "tag": "v0.2.0",
+    "commit": "40cd162d20e6d29b2f210c75f379234bee51f5f2",
+    "publishedAt": "2026-10-08T19:18:13Z",
+    "prerelease": false,
+    "ciRun": 37830351419,
+    "jobs": [
+      {
+        "name": "install (macos-15)",
+        "conclusion": "success"
+      },
+      {
+        "name": "verify",
+        "conclusion": "success"
+      },
+      {
+        "name": "install (ubuntu-24.04-arm)",
+        "conclusion": "success"
+      },
+      {
+        "name": "install (ubuntu-24.04)",
+        "conclusion": "success"
+      },
+      {
+        "name": "install (macos-15-intel)",
+        "conclusion": "success"
+      }
+    ],
+    "assets": [
+      {
+        "name": "agent-city-0.2.0-source.tar.gz",
+        "sha256": "13bd64598e4d87bc6d96db59404e67771c302f72d5f00be613316ca4f0c0b5ca",
+        "bytes": 76510296,
+        "url": "https://github.com/kujolang/agent-city/releases/download/v0.2.0/agent-city-0.2.0-source.tar.gz"
+      },
+      {
+        "name": "install.sh",
+        "sha256": "f8e52911814ed75365c219ae9a42fc4692fdb3c6d4e4d5de935e29354c47be85",
+        "bytes": 831,
+        "url": "https://github.com/kujolang/agent-city/releases/download/v0.2.0/install.sh"
+      },
+      {
+        "name": "release-manifest.json",
+        "sha256": "df6aaf7e67b5cd0c4f7e7909be6d33fae9fb221968050e2ab5c03792407a38db",
+        "bytes": 1556,
+        "url": "https://github.com/kujolang/agent-city/releases/download/v0.2.0/release-manifest.json"
+      },
+      {
+        "name": "SHA256SUMS",
+        "sha256": "35d103a3ddc0bc884a75183af55c28636899736f36ba6bf4aed10e2e53d888a3",
+        "bytes": 262,
+        "url": "https://github.com/kujolang/agent-city/releases/download/v0.2.0/SHA256SUMS"
+      }
+    ]
+  },
+  "publicAssets": [
+    {
+      "name": "agent-city-0.2.0-source.tar.gz",
+      "sha256": "13bd64598e4d87bc6d96db59404e67771c302f72d5f00be613316ca4f0c0b5ca",
+      "bytes": 76510296,
+      "anonymousDownload": true
+    },
+    {
+      "name": "install.sh",
+      "sha256": "f8e52911814ed75365c219ae9a42fc4692fdb3c6d4e4d5de935e29354c47be85",
+      "bytes": 831,
+      "anonymousDownload": true
+    },
+    {
+      "name": "release-manifest.json",
+      "sha256": "df6aaf7e67b5cd0c4f7e7909be6d33fae9fb221968050e2ab5c03792407a38db",
+      "bytes": 1556,
+      "anonymousDownload": true
+    },
+    {
+      "name": "SHA256SUMS",
+      "sha256": "35d103a3ddc0bc884a75183af55c28636899736f36ba6bf4aed10e2e53d888a3",
+      "bytes": 262,
+      "anonymousDownload": true
+    }
+  ],
+  "checksumsMatch": true,
+  "manifestCommit": "40cd162d20e6d29b2f210c75f379234bee51f5f2",
+  "annotatedTagCommit": "40cd162d20e6d29b2f210c75f379234bee51f5f2",
+  "installerShellSyntax": true,
+  "authenticationUsedForDownloads": false,
+  "installationEvidence": "Four-platform exact-source CI; no additional local reinstall claimed",
+  "shipCheck": {
+    "checks": [
+      {
+        "detail": "",
+        "message": "Git repository detected",
+        "name": "git-repo",
+        "passed": 1,
+        "severity": "info"
+      },
+      {
+        "detail": "",
+        "message": "README found: README.md",
+        "name": "readme",
+        "passed": 1,
+        "severity": "info"
+      },
+      {
+        "detail": "",
+        "message": "LICENSE found: LICENSE",
+        "name": "license",
+        "passed": 1,
+        "severity": "info"
+      },
+      {
+        "detail": "",
+        "message": "Ignore files found: .gitignore",
+        "name": "ignore-files",
+        "passed": 1,
+        "severity": "info"
+      },
+      {
+        "detail": "",
+        "message": "Test directory found: tests/",
+        "name": "tests-exist",
+        "passed": 1,
+        "severity": "info"
+      },
+      {
+        "detail": "Add a lint script or Makefile target",
+        "message": "No lint command detected",
+        "name": "lint-command",
+        "passed": 0,
+        "severity": "warning"
+      },
+      {
+        "detail": "",
+        "message": "package.json scripts reference format",
+        "name": "format-command",
+        "passed": 1,
+        "severity": "info"
+      },
+      {
+        "detail": "",
+        "message": "CI configuration found: .github/workflows/",
+        "name": "ci-config",
+        "passed": 1,
+        "severity": "info"
+      },
+      {
+        "detail": "",
+        "message": "README has install/quickstart instructions",
+        "name": "readme-install",
+        "passed": 1,
+        "severity": "info"
+      },
+      {
+        "detail": "",
+        "message": "README has usage/examples",
+        "name": "readme-usage",
+        "passed": 1,
+        "severity": "info"
+      },
+      {
+        "detail": "",
+        "message": "Examples directory found with 1 entries",
+        "name": "examples",
+        "passed": 1,
+        "severity": "info"
+      },
+      {
+        "detail": "",
+        "message": "Documentation directory found with 5 entries",
+        "name": "docs",
+        "passed": 1,
+        "severity": "info"
+      },
+      {
+        "detail": "",
+        "message": "package.json found with version field",
+        "name": "version-metadata",
+        "passed": 1,
+        "severity": "info"
+      },
+      {
+        "detail": "",
+        "message": "Changelog found: CHANGELOG.md",
+        "name": "changelog",
+        "passed": 1,
+        "severity": "info"
+      },
+      {
+        "detail": "Add kennel.toml for Kujo package metadata (if this is a Kujo project)",
+        "message": "No kennel.toml found",
+        "name": "kennel-manifest",
+        "passed": 0,
+        "severity": "warning"
+      },
+      {
+        "detail": "Define 'entry' in kennel.toml [kujo] section or add a main .kujo script",
+        "message": "No clear entry point detected",
+        "name": "entry-point",
+        "passed": 0,
+        "severity": "warning"
+      }
+    ],
+    "dir": ".",
+    "project_type": "node",
+    "summary": {
+      "failed_errors": 0,
+      "gate_passed": 1,
+      "passed": 13,
+      "total_checks": 16,
+      "warnings": 3
+    },
+    "tool": "shipcheck",
+    "version": "1.0.0"
+  },
+  "eightHourSoak": "NOT_RUN_USER_EXCLUDED"
+}

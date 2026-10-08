@@ -334,3 +334,13 @@ not counted as passing; CaseFile2026-10-08-150221-rc3localinstallspace retained.
 Release remains a local preview with documented workflow/account/isolation limits,
 not unrestricted production certification. No eight-hour soak, new provider charge,
 or source task was run during finalization/publication.
+
+## 2026-10-08 — final version 0.2.0 released
+
+User authorized promotion of rc.3 to final0.2.0. Annotated tag v0.2.0 pins
+40cd162d20e6d29b2f210c75f379234bee51f5f2. GitHub release407178361 is public,
+non-prerelease and latest. Exact-source CI37830351419 passed all5jobs; anonymous
+downloads of all4assets match hashes/manifest/tag. See evidence/release-0.2.0.
+README/install instructions, changelog and release notes updated. No app runtime
+changes, new task/provider calls or eight-hour soak. Known qualification limits
+remain disclosed; this promotion does not certify untested long-term reliability.

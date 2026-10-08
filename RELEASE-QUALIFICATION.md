@@ -2,7 +2,7 @@
 
 **0.2.0 local-workflow release. Reliability assessment remains CONDITIONAL.**
 The repository is public and GitHub Actions executes successfully. Immutable
-local-preview [v0.2.0-rc.3](https://github.com/kujolang/agent-city/releases/tag/v0.2.0-rc.3) is published; rc.2 remains unchanged.
+[v0.2.0](https://github.com/kujolang/agent-city/releases/tag/v0.2.0) is published as the latest stable release; all earlier tags remain unchanged.
 No public service deployment, multi-tenant hosting or eight-hour soak is claimed.
 The long soak was explicitly cancelled; do not start or schedule it without renewed consent.
 
@@ -10,8 +10,9 @@ The long soak was explicitly cancelled; do not start or schedule it without rene
 
 0.2.0 promotes the same rc.3 runtime with version/distribution/documentation changes.
 The user authorized final release with the eight-hour soak excluded. No missing
-reliability evidence is marked passing. Final-source CI and distribution checks:
-[evidence/release-0.2.0](evidence/release-0.2.0/README.md).
+reliability evidence is marked passing. Final source `40cd162d20e6d29b2f210c75f379234bee51f5f2` passed all five jobs in
+CI `37830351419`. All four public downloads match their checksums, manifest and
+annotated tag. [Release evidence](evidence/release-0.2.0/README.md).
 
 ## Underlying rc.3 qualification
 

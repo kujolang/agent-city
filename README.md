@@ -1,6 +1,6 @@
 # Kujo Agent City
 
-**Version 0.2.0 — local application:** [current release qualification](RELEASE-QUALIFICATION.md) and [real reviewed Kujo tool/video](evidence/reviewed-release-tool/README.md). [current capabilities and unfinished gates](WORKING-EXPERIENCE.md). Start with the [managed preview installation](installer/README.md) and [first-task guide](TRY-AGENT-CITY.md). Source checkouts use `npm start` (Node 24+). Model setup and explicit writing/code missions are now separate from the read-only Observer. Existing Observer notes below are historical where they say no task controls.
+**[Version 0.2.0](https://github.com/kujolang/agent-city/releases/tag/v0.2.0) — local application:** [current release qualification](RELEASE-QUALIFICATION.md) and [real reviewed Kujo tool/video](evidence/reviewed-release-tool/README.md). [current capabilities and unfinished gates](WORKING-EXPERIENCE.md). Start with the [managed preview installation](installer/README.md) and [first-task guide](TRY-AGENT-CITY.md). Source checkouts use `npm start` (Node 24+). Model setup and explicit writing/code missions are now separate from the read-only Observer. Existing Observer notes below are historical where they say no task controls.
 
 Agent City observes real Kujo work in a small original pixel city. The Observer
 and replay gateway remain read-only; **Mission Command** is a separate local
@@ -14,6 +14,14 @@ reliability, public hosting and unrestricted workflow execution are not certifie
 See [supported executable workflows](docs/workflow-support.md) before choosing a team. Imported profiles do not automatically connect their tools.
 
 ## Start and try it
+
+Install and launch on macOS or Linux:
+
+```sh
+curl --proto '=https' --tlsv1.2 -fsSL https://github.com/kujolang/agent-city/releases/download/v0.2.0/install.sh | sh
+```
+
+Then configure your own Ollama or Codex connection. Installation does not submit tasks.
 
 ### Kujo author → senior review with your Codex subscription
 
