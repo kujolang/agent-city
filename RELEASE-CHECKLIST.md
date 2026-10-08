@@ -554,3 +554,17 @@ application remains incomplete at the broader workflow/visual/release scope.
 Current keyboard-proof checkpoint: CI37733927950 at549226e passes all5jobs;
 local real-bundle keyboard verification and all current source/installed gates
 remain green. This records feature qualification only, not complete release status.
+
+Provider tool-boundary checkpoint7e172af: PROPOSE rejects modern/legacy tool
+requests, mixed text/tool responses, malformed declarations and tool-call finish
+reasons before accepting an artifact. Actual controlled SDK/Dispatch runs cover
+five rejection cases, reviewer identity, zero ungranted MCP calls, no final artifact
+event and metadata-only public diagnostics. Existing empty/null declarations and
+normal draft/review continue to pass.108tests/types/boundaries/maps/build pass.
+Public Kujo catalog context now identifies get_catalog_item metadata correctly.
+This closes a truth-boundary bug; it does not implement broader approved tools or
+complete workflow/visual/release qualification. No long soak or final video ran.
+
+Tool-boundary CI37735018189 at7e172af passes all5jobs, including108tests and
+all4installed platforms with the five real-runtime controlled rejection cases.
+No full-product gate is completed by this narrower boundary qualification.
