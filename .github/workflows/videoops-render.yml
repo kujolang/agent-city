@@ -15,6 +15,20 @@ jobs:
         env:
           CITY_INSTALL_REF: ${{ github.sha }}
         run: sh install.sh --prefix "$RUNNER_TEMP/city" --no-start
+      - name: Saved VideoOps setup qualification (no model calls)
+        env:
+          CITY_VIDEOOPS_PROOF_OUTPUT: ${{ runner.temp }}/videoops-proof
+        run: |
+          cd "$RUNNER_TEMP/city/agent-city"
+          if [ -x ../.node/bin/node ]; then export PATH="$RUNNER_TEMP/city/.node/bin:$PATH"; fi
+          mkdir -p .runtime/control "$CITY_VIDEOOPS_PROOF_OUTPUT"
+          node --input-type=module -e 'import fs from "node:fs";fs.writeFileSync(".runtime/control/model.json",JSON.stringify({endpoint:"http://127.0.0.1:1/v1/chat/completions",model:"setup-fixture-not-invoked",apiKey:""}),{mode:384});'
+          image_id="$(docker image inspect agent-city-videoops:0.8.141 --format '{{.Id}}')"
+          npm run setup:videoops -- --image "$image_id" --enable --confirm-model-capabilities
+          cp .runtime/videoops-setup-evidence.json "$CITY_VIDEOOPS_PROOF_OUTPUT/setup.json"
+          node --import tsx --input-type=module -e 'import assert from "node:assert/strict";import {videoopsLaunchEnv} from "./apps/runner/videoops-settings.ts";const env=await videoopsLaunchEnv(process.cwd()+"/.runtime",{});assert(env.CITY_VIDEOOPS_CONFIG);'
+          npm run setup:videoops -- --disable
+          node --import tsx --input-type=module -e 'import assert from "node:assert/strict";import {videoopsLaunchEnv} from "./apps/runner/videoops-settings.ts";assert.equal((await videoopsLaunchEnv(process.cwd()+"/.runtime",{})).CITY_VIDEOOPS_CONFIG,undefined);'
       - name: Actual network-disabled Workcell render
         env:
           CITY_VIDEOOPS_PROOF_OUTPUT: ${{ runner.temp }}/videoops-proof

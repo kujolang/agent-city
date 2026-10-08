@@ -6,6 +6,8 @@ import {
 import type { ImportedProfile } from "./agent-catalog";
 export interface VideoopsLaunchConfig {
   image: string;
+  dockerContext?: string;
+  modelBinding?: { endpoint: string; model: string };
   planner: ImportedProfile;
   scout: ImportedProfile;
   editor: ImportedProfile;
@@ -25,6 +27,17 @@ export async function readVideoopsLaunchConfig(file: string) {
   ) as VideoopsLaunchConfig;
   if (!/^sha256:[a-f0-9]{64}$/.test(value.image))
     throw Error("VideoOps immutable image required");
+  if (
+    value.dockerContext !== undefined &&
+    !/^[a-zA-Z0-9][a-zA-Z0-9_.-]{0,127}$/.test(value.dockerContext)
+  )
+    throw Error("Invalid VideoOps Docker context");
+  if (
+    value.modelBinding &&
+    (typeof value.modelBinding.endpoint !== "string" ||
+      typeof value.modelBinding.model !== "string")
+  )
+    throw Error("Invalid VideoOps model binding");
   admitVideoopsStage(
     value.planner,
     "creative-director",

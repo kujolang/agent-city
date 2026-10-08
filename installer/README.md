@@ -175,3 +175,34 @@ stopped run's container/workspace and writes a separate `city-cleanup.json` next
 to its source receipt. UNKNOWN workload truth remains UNKNOWN; cleanup does not
 prove task completion or permit a source retry. Engine unavailability refuses
 cleanup. It does not clear an UNKNOWN mission's admission block automatically.
+
+### VideoOps production setup (development main)
+
+Save your model connection in Mission Command first. Start Docker and select the
+context you want for rendering. From the managed `agent-city` directory:
+
+```sh
+../start.command setup:videoops --build --enable --confirm-model-capabilities
+```
+
+For a source checkout, use `npm run setup:videoops -- --build --enable
+--confirm-model-capabilities`. This explicitly attests that the selected model
+supports coding, structured JSON output and the runtime's bounded long-context
+inputs. It is an operator declaration, not an automated model benchmark. The
+command makes no model call. It builds the pinned local image, verifies its worker,
+HyperFrames/Chromium/FFmpeg/FFprobe tools in an offline container, removes that
+container, and saves private role bindings, image ID and Docker context. Ensure
+adequate disk space for the image. It does not install or start Docker.
+
+Restart City normally. Changing the saved model endpoint or alias requires rerunning
+setup for that model. Each VideoOps task still needs render consent, independent
+review, and an explicit finalization action. Initial browser intake grants no
+external media acquisition or generation; requests requiring those inputs stop
+rather than substituting a different video. The runtime supports separately
+verified acquired media when explicitly supplied by an integration.
+
+Use `--image LOCAL_IMAGE --enable --confirm-model-capabilities` instead of `--build`
+to verify and save an existing compatible image. Use `setup:videoops --disable` to
+remove saved setup, then restart. An explicit `CITY_VIDEOOPS_CONFIG` environment
+variable overrides saved setup; unset it to disable that manual configuration.
+These additions are not included in the immutable `v0.2.0-rc.2` release.

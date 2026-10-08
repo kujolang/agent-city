@@ -1,3 +1,4 @@
+import { videoopsLaunchEnv } from "../apps/runner/videoops-settings";
 import { workcellLaunchEnv } from "../apps/runner/workcell-settings";
 import { localPorts, localRuntime } from "./local-ports";
 import { prepareMcpProof as prepareLocalMcp } from "./prepare-mcp-proof";
@@ -38,7 +39,7 @@ try {
   await writeFile(resolve(runtime, "token"), token, { mode: 0o600 });
 }
 const common = {
-  ...(await workcellLaunchEnv(runtime)),
+  ...(await videoopsLaunchEnv(runtime, await workcellLaunchEnv(runtime))),
   KUJO_BIN: kujo,
   CITY_RUNTIME_DIR: runtime,
   CITY_CONTROL_DIR: resolve(runtime, "control"),

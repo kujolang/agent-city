@@ -22,6 +22,7 @@ export async function renderVideoopsAttempt(
     media?: VerifiedVideoopsAsset[];
     runtime: string;
     image: string;
+    dockerContext?: string;
     producer: string;
     run: string;
     task: string;
@@ -89,6 +90,9 @@ export async function renderVideoopsAttempt(
         cwd: options.root,
         env: {
           ...process.env,
+          ...(options.dockerContext
+            ? { DOCKER_CONTEXT: options.dockerContext }
+            : {}),
           CITY_RUNTIME_DIR: runtime,
           CITY_WORKCELL_IMAGE: options.image,
           CITY_WORKCELL_VIDEOOPS_FILE: inputFile,

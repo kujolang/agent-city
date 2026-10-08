@@ -45,7 +45,8 @@
     "proof:checkin-live": "tsx scripts/checkin-live-proof.ts",
     "agents:import": "tsx scripts/import-agents.ts",
     "setup:workcell": "tsx scripts/setup-workcell.ts",
-    "recover:workcell": "tsx scripts/recover-workcell.ts"
+    "recover:workcell": "tsx scripts/recover-workcell.ts",
+    "setup:videoops": "tsx scripts/setup-videoops.ts"
   },
   "dependencies": {
     "ajv": "8.20.0",

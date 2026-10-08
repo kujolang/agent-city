@@ -21,6 +21,7 @@ export async function produceVideoops(
     editorCapabilities: Parameters<typeof runVideoopsStage>[0]["capabilities"];
     agentsRepository: string;
     image: string;
+    dockerContext?: string;
     width: number;
     height: number;
     mandatoryReview: ("visual_playback" | "audio_listening")[];
@@ -237,6 +238,7 @@ export async function produceVideoops(
       root: options.root,
       runtime: resolve(directory, "render-1"),
       image: options.image,
+      dockerContext: options.dockerContext,
       producer: options.producer,
       run: options.run + "-render",
       task: options.task,

@@ -198,3 +198,15 @@ build pass; controlled browser proof covers failed-review denial, explicit final
 and final download. These are contract fixtures, not actual perceptual acceptance.
 Operator setup, real model production/perceptual acceptance and new-release
 qualification remain open.
+
+Saved VideoOps operator setup implemented: setup:videoops explicitly builds/selects
+an immutable image, verifies worker hash and pinned local tools in an offline bounded
+container, cleans that container, and saves private role bindings and Docker context.
+Model coding/structured-output/long-context capabilities require explicit operator
+attestation, bound to the saved endpoint/model; no automatic model benchmark claim.
+Normal launches load saved setup, explicit environment configuration takes precedence,
+and disable removes only saved setup. Video render context is per-task and does not
+change ordinary Kujo Workcell context.147tests/types/boundaries/maps/build pass;
+actual Docker setup enable/load/disable qualification is added to the render CI and
+remains pending. Live model production, perceptual acceptance and new-release
+qualification remain required.

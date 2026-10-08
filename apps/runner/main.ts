@@ -587,9 +587,20 @@ const server = createServer(async (req, res) => {
           setup = await readVideoopsLaunchConfig(
             resolve(process.env.CITY_VIDEOOPS_CONFIG),
           );
+          if (
+            setup.modelBinding &&
+            (setup.modelBinding.endpoint !== config!.endpoint ||
+              setup.modelBinding.model !== config!.model)
+          )
+            throw Error(
+              "Model changed since VideoOps setup; confirm the new model capabilities with setup:videoops",
+            );
           await assertWorkcellAvailable(root, {
             ...process.env,
             CITY_WORKCELL_IMAGE: setup.image,
+            ...(setup.dockerContext
+              ? { DOCKER_CONTEXT: setup.dockerContext }
+              : {}),
           });
         } catch (error) {
           return send(400, {

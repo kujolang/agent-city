@@ -60,6 +60,7 @@ const result = await produceVideoops({
   },
   editorCapabilities: config.capabilities.editor,
   image: config.image,
+  dockerContext: config.dockerContext,
   width: request.width,
   height: request.height,
   timing: { fps: request.fps, durationSeconds: request.durationSeconds },

@@ -11,10 +11,10 @@ city_command="$1"
 shift
 case "$city_command" in
   start) exec npm start -- "$@" ;;
-  doctor|setup:workcell|provider:codex|agents:import|recover:workcell)
+  doctor|setup:workcell|setup:videoops|provider:codex|agents:import|recover:workcell)
     exec npm run "$city_command" -- "$@" ;;
   --help|-h)
-    printf '%s\\n' 'Agent City: start.command [start|doctor|setup:workcell|provider:codex|agents:import|recover:workcell] [arguments]' ;;
+    printf '%s\\n' 'Agent City: start.command [start|doctor|setup:workcell|setup:videoops|provider:codex|agents:import|recover:workcell] [arguments]' ;;
   *) printf '%s\\n' "Unknown Agent City command: $city_command" >&2; exit 2 ;;
 esac
 `;
