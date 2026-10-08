@@ -244,3 +244,13 @@ cleanup complete. The worker dropped structured check stdout; b649dbd preserves
 bounded stdout/stderr and the harness exports bounded Workcell logs. Diagnostic
 CI37801961320 is active on that commit. Model output is unchanged and no approval
 is claimed. The failure's precise technical cause awaits those retained logs.
+
+Diagnostic CI37801961320 confirmed the actual error: named sfmono-regular font
+without a supplied font declaration. Actual SDK Editor attempt2 applied the targeted
+generic-monospace repair; first attempt remains intact. CI37802468455 at1e9034a
+passes real generated-output check/render/ffprobe/full-decode and canonical technical
+review. Downloaded6second640×360/30fps video SHA57a15631247a505d9bd52e0ee3798f4022ad03cfb404cd47f4d8b8613f7c0e80
+verified. See evidence/videoops-render/37802468455. Perceptual review remains
+NOT_REVIEWED and no finalization/publication occurred. Combined Mission Command
+launch and new release qualification remain open; local Docker restart decision
+is pending because other containers may be interrupted.
