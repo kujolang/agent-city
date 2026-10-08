@@ -25,12 +25,29 @@ test("provider diagnostics retain length/empty-output evidence while excluding u
     };
     await writeFile(
       join(root, id, "provider-diagnostics.jsonl"),
-      JSON.stringify(row) + "\n",
+      [
+        row,
+        {
+          ...row,
+          toolRequested: true,
+          finishReason: "function_call",
+          tool_arguments: "private-tool-arguments",
+        },
+        { ...row, toolRequested: false },
+      ]
+        .map((value) => JSON.stringify(value))
+        .join("\n") + "\n",
     );
     const result = await providerDiagnostics(root, id);
     expect(result.complete).toBe(true);
     expect(result.records[0].finishReason).toBe("length");
     expect(result.records[0].contentCharacters).toBe(0);
+    expect(result.records.map((record) => record.toolRequested)).toEqual([
+      null,
+      true,
+      false,
+    ]);
+    expect(result.records[1].finishReason).toBe("function_call");
     expect(JSON.stringify(result)).not.toContain("private-");
     await writeFile(join(root, id, "provider-diagnostics.jsonl.gap"), "gap");
     expect((await providerDiagnostics(root, id)).complete).toBe(false);

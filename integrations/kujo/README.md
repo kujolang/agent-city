@@ -20,3 +20,24 @@ bytes but filesystem latency is not a hard real-time guarantee. Spool overflow
 creates `.gap`; business execution continues. Bridge disk retention is bounded
 by the local session quota; rotate into a new explicit session, never silently
 truncate a producer spool. Historical gaps remain partial on reconnect.
+
+## Mission tool permissions
+
+The current PROPOSE author/reviewer adapter does not grant model-selected tools.
+It can supply the separately requested read-only local `read_project_docs` result,
+or public Kujo `get_catalog_item` metadata for Kujo missions. Public catalog
+metadata is not a syntax manual or an authenticated privileged Ability gateway.
+
+A provider response requesting any additional tool/function call fails the model
+step explicitly, even when accompanied by plausible finished text. This covers
+modern tool calls, legacy function calls, terminal tool-call finish reasons and
+malformed call declarations. No requested tool is executed or presented
+as completed, and no final artifact is created from that response. Metadata-only
+provider diagnostics expose the refusal; older records retain UNKNOWN coverage.
+Tool arguments and response content are not added to diagnostics or telemetry.
+
+Broader tool support must add explicit grants, bounded arguments and results,
+source-qualified invocation/attempt evidence, and an actual SDK tool execution
+path before advertising a capability. Declaring a tool in an imported profile
+alone does not activate it. Separately authorized post-review Workcell execution
+and its named project exports remain independent platform operations.

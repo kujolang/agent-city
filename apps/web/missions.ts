@@ -308,7 +308,7 @@ export function mountMissions(
                     diagnostics.records
                       .map(
                         (record: any) =>
-                          `${record.agent}: HTTP ${record.httpStatus || "UNKNOWN"}; finish ${record.finishReason}; ${record.contentCharacters} content characters; requested token limit ${record.requestedMaxTokens}; reasoning_content present ${record.reasoningPresent ? "yes" : "no"}`,
+                          `${record.agent}: HTTP ${record.httpStatus || "UNKNOWN"}; finish ${record.finishReason}; ${record.contentCharacters} content characters; requested token limit ${record.requestedMaxTokens}; reasoning_content present ${record.reasoningPresent ? "yes" : "no"}; model-requested tool ${record.toolRequested === true ? "UNAVAILABLE — requested call not executed" : record.toolRequested === false ? "none" : "UNKNOWN (not recorded)"}`,
                       )
                       .join("\n");
                 })

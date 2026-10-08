@@ -18,6 +18,9 @@ const model = real
 const requests: any[] = [];
 const docCalls: any[] = [];
 let malformedReviewer = false;
+let unsolicited: Record<string, unknown> | undefined;
+let unsolicitedFinish: string | undefined;
+let unsolicitedRole: "author" | "reviewer" = "author";
 const provider = createServer((req, res) => {
   if (req.url === "/mcp/v1/health") {
     res.setHeader("Content-Type", "application/json");
@@ -49,10 +52,19 @@ const provider = createServer((req, res) => {
     }
     requests.push(JSON.parse(body));
     res.setHeader("Content-Type", "application/json");
+    const isReviewer = requests
+      .at(-1)
+      .messages.some(
+        (m: any) =>
+          m.role === "system" && m.content.includes("# Code Reviewer"),
+      );
+    const injectTool =
+      unsolicited && isReviewer === (unsolicitedRole === "reviewer");
     res.end(
       JSON.stringify({
         choices: [
           {
+            finish_reason: injectTool ? unsolicitedFinish : "stop",
             message: {
               content: !requests
                 .at(-1)
@@ -72,6 +84,9 @@ const provider = createServer((req, res) => {
                         "Controlled reviewer commentary; no execution claimed.",
                     }) +
                     "\n```",
+              ...(injectTool
+                ? unsolicited
+                : { tool_calls: [], function_call: null }),
             },
           },
         ],
@@ -329,6 +344,123 @@ try {
     assert(!failedSpool.includes('"capability":"artifact.created"'));
     malformedRejected = true;
   }
+  const unapprovedToolCases: { name: string; role: string; mission: string }[] =
+    [];
+  if (!real) {
+    malformedReviewer = false;
+    const cases = [
+      {
+        name: "mixed-text-tool",
+        role: "author",
+        message: {
+          tool_calls: [
+            {
+              id: "ungranted",
+              type: "function",
+              function: {
+                name: "write_safe_patch",
+                arguments: '{"content":"PRIVATE_TOOL_CANARY"}',
+              },
+            },
+          ],
+        },
+      },
+      {
+        name: "reviewer-tool-without-text",
+        role: "reviewer",
+        message: {
+          content: null,
+          tool_calls: [
+            {
+              id: "ungranted",
+              type: "function",
+              function: { name: "write_safe_patch", arguments: "{}" },
+            },
+          ],
+        },
+      },
+      {
+        name: "legacy-function",
+        role: "author",
+        message: {
+          function_call: { name: "write_safe_patch", arguments: "{}" },
+        },
+      },
+      {
+        name: "finish-reason-only",
+        role: "author",
+        message: {},
+        finish: "tool_calls",
+      },
+      {
+        name: "malformed-tool-list",
+        role: "author",
+        message: { tool_calls: { name: "write_safe_patch" } },
+      },
+    ] as const;
+    for (const scenario of cases) {
+      unsolicited = scenario.message;
+      unsolicitedRole = scenario.role;
+      unsolicitedFinish = "finish" in scenario ? scenario.finish : "stop";
+      const callsBefore = docCalls.length;
+      const response = await post({
+        kind: "writing",
+        prompt: "Write and review the short documentation.",
+        parentMissionId: job.id,
+      });
+      const accepted = await response.json();
+      assert.equal(response.status, 202, JSON.stringify(accepted));
+      const status = await until(
+        async () => (await fetch(base + "/control/status")).json(),
+        (s) =>
+          !s.busy &&
+          s.jobs.some(
+            (j: any) => j.id === accepted.id && j.status !== "running",
+          ),
+      );
+      assert.equal(
+        status.jobs.find((j: any) => j.id === accepted.id).status,
+        "failed",
+        scenario.name,
+      );
+      assert.equal(
+        docCalls.length,
+        callsBefore,
+        "No model-requested MCP call may execute",
+      );
+      const folder = resolve(runtime, "missions", accepted.id);
+      const diagnostic = await readFile(
+        resolve(folder, "provider-diagnostics.jsonl"),
+        "utf8",
+      );
+      assert(diagnostic.includes('"toolRequested":true'), scenario.name);
+      const publicDiagnostics = await (
+        await fetch(base + "/control/diagnostics/" + accepted.id)
+      ).json();
+      assert(
+        publicDiagnostics.records.some(
+          (record: any) => record.toolRequested === true,
+        ),
+      );
+      assert(
+        !JSON.stringify(publicDiagnostics).includes("PRIVATE_TOOL_CANARY"),
+      );
+      assert(!diagnostic.includes("PRIVATE_TOOL_CANARY"));
+      const failedSpool = await readFile(
+        resolve(runtime, `spool-profile-proof-${accepted.id}.jsonl`),
+        "utf8",
+      );
+      assert(!failedSpool.includes('"capability":"artifact.created"'));
+      assert(!failedSpool.includes('"capability":"mcp.call"'));
+      assert(!failedSpool.includes("PRIVATE_TOOL_CANARY"));
+      assert.equal(await readFile(resolve(folder, "reviewed.md"), "utf8"), "");
+      unapprovedToolCases.push({
+        name: scenario.name,
+        role: scenario.role,
+        mission: accepted.id,
+      });
+    }
+  }
   const output = resolve(
     root,
     "evidence/profile-missions",
@@ -369,6 +501,7 @@ try {
     continuationPreservedAfterCatalogRemoval: real
       ? "fixture-tested"
       : continuationPreserved,
+    unapprovedToolCases,
     reviewSeparated: true,
     fencedJsonEnvelopeAccepted: !real,
     malformedResponseRejected: real ? "fixture-tested" : malformedRejected,

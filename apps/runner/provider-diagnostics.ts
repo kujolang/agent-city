@@ -54,12 +54,15 @@ export async function providerDiagnostics(missionsRoot: string, id: string) {
           "stop",
           "length",
           "tool_calls",
+          "function_call",
           "content_filter",
         ].includes(row.finishReason)
           ? row.finishReason
           : "unknown",
         contentCharacters: row.contentCharacters,
         reasoningPresent: row.reasoningPresent === true,
+        toolRequested:
+          typeof row.toolRequested === "boolean" ? row.toolRequested : null,
         requestedMaxTokens: row.requestedMaxTokens,
         occurredAtMs: row.occurredAtMs,
       });
