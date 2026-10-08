@@ -25,7 +25,9 @@ const engine = await boundedCommand(
 );
 if (engine.code !== 0 || engine.timedOut)
   throw Error(
-    "Docker is unavailable. Start your engine and select its context before building the local image.",
+    engine.timedOut
+      ? "Docker did not answer within 5 seconds. Check the selected engine/context and system load, then retry. No image build was started."
+      : "Docker is unavailable. Start your engine and select its context before building the local image.",
   );
 const stage = await mkdtemp(join(tmpdir(), "city-workcell-image-"));
 try {

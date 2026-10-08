@@ -52,6 +52,11 @@ jobs:
           CITY_OWNED_TEST_INSTALL: ${{ runner.temp }}/city
           CITY_MAINTENANCE_PROOF: ${{ runner.temp }}/maintenance.json
         run: '"$RUNNER_TEMP/city/.node/bin/node" scripts/installed-maintenance-proof.mjs'
+      - name: Start and verify the owned CI sandbox engine
+        if: runner.os == 'Linux'
+        run: |
+          sudo systemctl start docker
+          timeout 30 docker info --format '{{json .ServerVersion}}' > "$RUNNER_TEMP/docker-readiness.log"
       - name: Build pinned local sandbox image and verify installed Workcell
         if: runner.os == 'Linux'
         env:
@@ -70,6 +75,7 @@ jobs:
             ${{ runner.temp }}/launcher-doctor.log
             ${{ runner.temp }}/launcher-help.log
             ${{ runner.temp }}/catalog-import.log
+            ${{ runner.temp }}/docker-readiness.log
             ${{ runner.temp }}/workcell-platform.json
             ${{ runner.temp }}/maintenance.json
             ${{ runner.temp }}/city/install-receipt.json
