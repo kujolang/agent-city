@@ -139,3 +139,15 @@ REVIEW_INCOMPLETE pending perceptual review. No automatic approval or promotion.
 137tests/types/boundaries/maps/build pass. Expanded native review CI remains pending;
 model Editor orchestration, independent perceptual review, UI/live proof and the
 new release remain required.
+
+Canonical exact-candidate review handoff qualifies in CI37791483497 at9ad0be4.
+The actual native ledger retains one render attempt, technical PASS and perceptual
+NOT_REVIEWED, with the downloaded video checksum independently matching review.
+Production coordination now connects validated preparation → actual SDK Editor →
+isolated render → canonical review. Three controlled coordinator tests cover
+review-pending output, unsupported acquired-media transport, uncertain model execution,
+source-qualified handoff attempt identity and invocation reuse denial.140tests plus
+types/boundaries/maps/build pass. This is integration code, not live model production
+acceptance. Acquired binary-media transport remains explicitly unavailable, never
+silently substituted. UI, independent perceptual review, real production proof and
+new release qualification remain open.
