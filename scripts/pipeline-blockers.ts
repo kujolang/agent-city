@@ -19,7 +19,9 @@ const children: ChildProcess[] = [];
 const port = 18991,
   base = "http://127.0.0.1:" + port,
   city = "http://127.0.0.1:18992";
-const kujo = resolve(root, "../kujo/target/release/kujo");
+const kujo = process.env.CITY_PIPELINE_KUJO
+  ? resolve(process.env.CITY_PIPELINE_KUJO)
+  : resolve(root, "../kujo/target/release/kujo");
 let log = "";
 const testToken = randomBytes(32).toString("hex"),
   proxyToken = randomBytes(32).toString("hex");
@@ -61,6 +63,8 @@ const installation = await readFile(
     throw error;
   });
 const result: any = {
+  runtimeCandidate: Boolean(process.env.CITY_PIPELINE_KUJO),
+  runtimeCandidateRef: process.env.CITY_PIPELINE_KUJO_REF || null,
   runtimeMode,
   runtimeVersion: spawnSync(kujo, ["--version"], {
     encoding: "utf8",

@@ -1,0 +1,70 @@
+name: Bounded runtime candidate check
+on:
+  workflow_dispatch:
+    inputs:
+      kujo_ref:
+        description: Immutable Kujo source commit to build (candidate only)
+        required: true
+permissions:
+  contents: read
+jobs:
+  candidate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - name: Require an immutable source reference
+        env:
+          KUJO_REF: ${{ inputs.kujo_ref }}
+        run: test "${#KUJO_REF}" = 40 && ! [[ "$KUJO_REF" =~ [^0-9a-f] ]]
+      - uses: actions/checkout@v4
+        with:
+          repository: kujolang/kujo
+          ref: ${{ inputs.kujo_ref }}
+          path: runtime-source
+      - name: Build the candidate runtime
+        working-directory: runtime-source
+        run: |
+          rustup update stable --no-self-update
+          cargo +stable build --release --locked --bin kujo
+          cargo +stable test --test http_pool_reservation --test http_route_concurrency
+      - name: Install pinned application without replacing its runtime
+        env:
+          CITY_INSTALL_REF: ${{ github.sha }}
+        run: sh install.sh --prefix "$RUNNER_TEMP/city" --no-start
+      - name: Install check browser
+        run: |
+          cd "$RUNNER_TEMP/city/agent-city"
+          if [ -x ../.node/bin/node ]; then export PATH="$RUNNER_TEMP/city/.node/bin:$PATH"; fi
+          npx playwright install --with-deps chromium
+      - name: Exercise the candidate (not a release qualification)
+        env:
+          PIPELINE_SECONDS: "60"
+          PIPELINE_RATE: "1100"
+          PIPELINE_CONCURRENCY: "4"
+          PIPELINE_SOAK: "1"
+          CITY_PIPELINE_KUJO: ${{ github.workspace }}/runtime-source/target/release/kujo
+          CITY_PIPELINE_KUJO_REF: ${{ inputs.kujo_ref }}
+          CITY_PIPELINE_OUTPUT: ${{ runner.temp }}/candidate.json
+        run: |
+          cd "$RUNNER_TEMP/city/agent-city"
+          if [ -x ../.node/bin/node ]; then export PATH="$RUNNER_TEMP/city/.node/bin:$PATH"; fi
+          npm run proof:pipeline
+      - name: Check candidate measurements without approving release
+        env:
+          CITY_PIPELINE_OUTPUT: ${{ runner.temp }}/candidate.json
+        run: |
+          cd "$RUNNER_TEMP/city/agent-city"
+          if [ -x ../.node/bin/node ]; then export PATH="$RUNNER_TEMP/city/.node/bin:$PATH"; fi
+          node --input-type=module <<'JS'
+          import {readFile} from 'node:fs/promises';
+          const p=JSON.parse(await readFile(process.env.CITY_PIPELINE_OUTPUT,'utf8'));
+          console.log(JSON.stringify({scope:'Unreleased runtime candidate; installed runtime pin unchanged',status:p.status,rate:p.visibleEventsPerSecond,reconnects:p.verifiedReconnects}));
+          const atLeast=(v,n)=>Number.isFinite(v)&&v>=n;
+          if(p.runtimeCandidate!==true||p.status!=='COMPLETED'||!atLeast(p.visibleEventsPerSecond,1000)||!atLeast(p.sendSeconds,60)||!atLeast(p.accepted,60000)||p.visible!==p.accepted||p.missing!==0||p.duplicates!==0||p.browserCaughtUp!==true||p.deliveryReconciled!==true||!(p.verifiedReconnects>=1))process.exitCode=1;
+          JS
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: runtime-candidate
+          path: ${{ runner.temp }}/candidate.json

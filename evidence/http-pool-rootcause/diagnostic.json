@@ -1,0 +1,337 @@
+{
+  "runtimeMode": "interpreter",
+  "runtimeVersion": "kujo 1.7.0",
+  "runtimeSha256": "daf2a3907bcf81289fc27ee6172bcbc6314f346c14ef852e52297d19eafcda66",
+  "processResourceColumns": [
+    "pid",
+    "cpuPercentSnapshot",
+    "rssKiB"
+  ],
+  "processResourceScope": "Direct process columns plus an observed descendant process tree; no command arguments captured",
+  "startedAt": "2026-10-08T01:24:36.485Z",
+  "cityCommit": "e8010d8355550ebd6094c08cd8ac8e19072e99bc",
+  "watchdogCommit": "f463ced16b6b0a670a417d29c3121bf495e303a1",
+  "pid": 3184,
+  "runtime": "/home/runner/work/_temp/city/agent-city/.runtime/pipeline-1791422676411",
+  "diagnostic": true,
+  "status": "FAILED",
+  "samples": [
+    {
+      "at": "2026-10-08T01:24:40.320Z",
+      "metrics": [
+        {
+          "name": "Documents",
+          "value": 4
+        },
+        {
+          "name": "Nodes",
+          "value": 503
+        },
+        {
+          "name": "TaskDuration",
+          "value": 0.001895
+        },
+        {
+          "name": "JSHeapUsedSize",
+          "value": 15978760
+        }
+      ],
+      "browser": null,
+      "journalBytes": 4096
+    },
+    {
+      "at": "2026-10-08T01:24:55.381Z",
+      "metrics": [
+        {
+          "name": "Documents",
+          "value": 1
+        },
+        {
+          "name": "Nodes",
+          "value": 1504
+        },
+        {
+          "name": "TaskDuration",
+          "value": 10.112376
+        },
+        {
+          "name": "JSHeapUsedSize",
+          "value": 93355728
+        }
+      ],
+      "browser": {
+        "order": 1200,
+        "health": "LIVE",
+        "instances": 25,
+        "queued": 0
+      },
+      "journalBytes": 4096
+    },
+    {
+      "at": "2026-10-08T01:25:10.339Z",
+      "metrics": [
+        {
+          "name": "Documents",
+          "value": 1
+        },
+        {
+          "name": "Nodes",
+          "value": 841
+        },
+        {
+          "name": "TaskDuration",
+          "value": 24.780976
+        },
+        {
+          "name": "JSHeapUsedSize",
+          "value": 56778200
+        }
+      ],
+      "browser": {
+        "order": 11415,
+        "health": "LIVE",
+        "instances": 25,
+        "queued": 50
+      },
+      "journalBytes": 17010688
+    }
+  ],
+  "kind": "SYNTHETIC canonical HTTP intake → real Watchdog export → real gateway → SSE; no source business execution",
+  "maxSampleGapMs": 15013.046783,
+  "concurrency": 4,
+  "processResources": [
+    {
+      "elapsedSeconds": 0.000289677999997366,
+      "processTree": [
+        {
+          "pid": 3184,
+          "ppid": 3165,
+          "cpuPercent": 9.2,
+          "rssKiB": 205480
+        },
+        {
+          "pid": 3196,
+          "ppid": 3184,
+          "cpuPercent": 0.1,
+          "rssKiB": 15752
+        },
+        {
+          "pid": 3212,
+          "ppid": 3184,
+          "cpuPercent": 5.1,
+          "rssKiB": 50492
+        },
+        {
+          "pid": 3225,
+          "ppid": 3184,
+          "cpuPercent": 6.8,
+          "rssKiB": 137720
+        },
+        {
+          "pid": 3237,
+          "ppid": 3225,
+          "cpuPercent": 0.3,
+          "rssKiB": 15940
+        },
+        {
+          "pid": 3246,
+          "ppid": 3184,
+          "cpuPercent": 11.1,
+          "rssKiB": 492996
+        },
+        {
+          "pid": 3270,
+          "ppid": 3184,
+          "cpuPercent": 5,
+          "rssKiB": 207080
+        },
+        {
+          "pid": 3278,
+          "ppid": 3270,
+          "cpuPercent": 0.1,
+          "rssKiB": 90924
+        },
+        {
+          "pid": 3279,
+          "ppid": 3270,
+          "cpuPercent": 0.2,
+          "rssKiB": 93064
+        },
+        {
+          "pid": 3299,
+          "ppid": 3278,
+          "cpuPercent": 174,
+          "rssKiB": 179940
+        },
+        {
+          "pid": 3318,
+          "ppid": 3270,
+          "cpuPercent": 1.5,
+          "rssKiB": 143792
+        },
+        {
+          "pid": 3324,
+          "ppid": 3279,
+          "cpuPercent": 0,
+          "rssKiB": 54216
+        },
+        {
+          "pid": 3346,
+          "ppid": 3279,
+          "cpuPercent": 2.6,
+          "rssKiB": 159180
+        },
+        {
+          "pid": 3355,
+          "ppid": 3279,
+          "cpuPercent": 0.1,
+          "rssKiB": 81328
+        },
+        {
+          "pid": 3357,
+          "ppid": 3279,
+          "cpuPercent": 19.4,
+          "rssKiB": 337472
+        },
+        {
+          "pid": 3439,
+          "ppid": 3184,
+          "cpuPercent": 0,
+          "rssKiB": 4240
+        }
+      ],
+      "processes": "3184  9.1 205488\n   3212  5.1 50492\n   3225  6.8 137720\n   3246 11.1 492996"
+    },
+    {
+      "elapsedSeconds": 30.073925472999996,
+      "processTree": [
+        {
+          "pid": 3184,
+          "ppid": 3165,
+          "cpuPercent": 9.9,
+          "rssKiB": 229880
+        },
+        {
+          "pid": 3196,
+          "ppid": 3184,
+          "cpuPercent": 0,
+          "rssKiB": 15756
+        },
+        {
+          "pid": 3212,
+          "ppid": 3184,
+          "cpuPercent": 123,
+          "rssKiB": 103180
+        },
+        {
+          "pid": 3225,
+          "ppid": 3184,
+          "cpuPercent": 27.5,
+          "rssKiB": 342964
+        },
+        {
+          "pid": 3237,
+          "ppid": 3225,
+          "cpuPercent": 0.1,
+          "rssKiB": 15940
+        },
+        {
+          "pid": 3246,
+          "ppid": 3184,
+          "cpuPercent": 5.1,
+          "rssKiB": 528904
+        },
+        {
+          "pid": 3270,
+          "ppid": 3184,
+          "cpuPercent": 3.3,
+          "rssKiB": 208444
+        },
+        {
+          "pid": 3278,
+          "ppid": 3270,
+          "cpuPercent": 0,
+          "rssKiB": 90924
+        },
+        {
+          "pid": 3279,
+          "ppid": 3270,
+          "cpuPercent": 0,
+          "rssKiB": 93064
+        },
+        {
+          "pid": 3299,
+          "ppid": 3278,
+          "cpuPercent": 76.1,
+          "rssKiB": 186048
+        },
+        {
+          "pid": 3318,
+          "ppid": 3270,
+          "cpuPercent": 6,
+          "rssKiB": 148724
+        },
+        {
+          "pid": 3324,
+          "ppid": 3279,
+          "cpuPercent": 0,
+          "rssKiB": 54216
+        },
+        {
+          "pid": 3346,
+          "ppid": 3279,
+          "cpuPercent": 0.9,
+          "rssKiB": 155944
+        },
+        {
+          "pid": 3355,
+          "ppid": 3279,
+          "cpuPercent": 0,
+          "rssKiB": 81328
+        },
+        {
+          "pid": 3357,
+          "ppid": 3279,
+          "cpuPercent": 54.3,
+          "rssKiB": 638288
+        },
+        {
+          "pid": 3799,
+          "ppid": 3184,
+          "cpuPercent": 0,
+          "rssKiB": 4220
+        }
+      ],
+      "processes": "3184  9.9 229880\n   3212  123 103180\n   3225 27.5 342964\n   3246  5.1 528904"
+    }
+  ],
+  "requestedDurationSeconds": 60,
+  "batchSize": 100,
+  "offeredRate": 1100,
+  "verifiedReconnects": 1,
+  "acknowledgedRecords": 21700,
+  "observedRecordsAtSenderStop": 21500,
+  "observedDuplicatesAtSenderStop": 0,
+  "uncertainBatches": [
+    {
+      "offset": 300,
+      "count": 100
+    },
+    {
+      "offset": 21800,
+      "count": 100
+    },
+    {
+      "offset": 21900,
+      "count": 100
+    },
+    {
+      "offset": 22000,
+      "count": 100
+    }
+  ],
+  "deliveryReconciled": false,
+  "error": "TimeoutError: The operation was aborted due to timeout",
+  "serverLog": "Type checking warnings:\n  [KUJORUN001] [runtime] Type Error: Comparison '==' between incompatible types: Int and Bool\n  --> 0:0\n   = help: Convert one value to match the type of the other\n   = note: Comparison operators require both operands to have compatible types\n\n\n=== Watchdog ===\n\nHost: 127.0.0.1\nPort: 18991\nDatabase: /home/runner/work/_temp/city/agent-city/.runtime/pipeline-1791422676411/watchdog.sqlite\nProxy config: watchdog_proxy_config.json\nSources config: watchdog_sources.json\nAPI auth mode: token\nProxy auth mode: token\nDeployment profile: local\nDashboard Dither Kit JavaScript: vendor/dither-charts.js\nDashboard Dither Kit CSS: vendor/dither-charts.css\nDashboard Departure Mono font: vendor/fonts/DepartureMono-Regular.woff2\nProxy timeout seconds: 120\nMax proxy body bytes: 1048576\nMax parse body bytes: 1048576\nTelemetry redaction mode: basic\nContent capture mode: off\nRate limit mode: off\nRate limit max requests: 60\nRate limit window seconds: 60\nRate limit max buckets: 5000\nRate limit bucket ttl seconds: 600\nIdentifier max length: 128\nExport max rows: 10000\nExporter profiles: 0\nExport queue max records per profile: 50000\nExport queue max bytes per profile: 67108864\nContext limit catalog: config/context_limit_catalog.json\nContext warning ratio: 0.8\nContext critical ratio: 0.95\nBackup default enabled: false\nBackup default interval minutes: 1440\nBackup default directory: data/backups\nBackup encryption key configured: false\n\nDatabase ready: /home/runner/work/_temp/city/agent-city/.runtime/pipeline-1791422676411/watchdog.sqlite\n\nWatchdog:        http://localhost:18991\nAPI stats:       http://localhost:18991/api/stats\nProxy config:    http://localhost:18991/api/proxy-config\nProxy endpoint:  http://localhost:18991/proxy/v1/chat/completions\n\nPress Ctrl+C to stop.\n\nStarting HTTP server on 127.0.0.1:18991...\nServer listening on http://127.0.0.1:18991\nPress Ctrl+C to stop\nAgent City gateway http://127.0.0.1:18992\n\n  \u001b[32m\u001b[1mVITE\u001b[22m v8.2.2\u001b[39m  \u001b[2mready in \u001b[0m\u001b[1m230\u001b[22m\u001b[2m\u001b[0m ms\u001b[22m\n\n  \u001b[32m➜\u001b[39m  \u001b[1mLocal\u001b[22m:   \u001b[36mhttp://127.0.0.1:\u001b[1m18888\u001b[22m/\u001b[39m\n\u001b[2m1:24:40 AM\u001b[22m \u001b[31m\u001b[1m[vite]\u001b[22m\u001b[39m \u001b[31mhttp proxy error: /control/status\u001b[39m\nError: connect ECONNREFUSED 127.0.0.1:7793\n    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:2021:16)\n\u001b[2m1:24:43 AM\u001b[22m \u001b[31m\u001b[1m[vite]\u001b[22m\u001b[39m \u001b[31mhttp proxy error: /control/status\u001b[39m\nError: connect ECONNREFUSED 127.0.0.1:7793\n    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:2021:16)\n\u001b[2m1:24:46 AM\u001b[22m \u001b[31m\u001b[1m[vite]\u001b[22m\u001b[39m \u001b[31mhttp proxy error: /control/status\u001b[39m\nError: connect ECONNREFUSED 127.0.0.1:7793\n    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:2021:16)\n\u001b[2m1:24:49 AM\u001b[22m \u001b[31m\u001b[1m[vite]\u001b[22m\u001b[39m \u001b[31mhttp proxy error: /control/status\u001b[39m\nError: connect ECONNREFUSED 127.0.0.1:7793\n    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:2021:16)\n\u001b[2m1:24:52 AM\u001b[22m \u001b[31m\u001b[1m[vite]\u001b[22m\u001b[39m \u001b[31mhttp proxy error: /control/status\u001b[39m\nError: connect ECONNREFUSED 127.0.0.1:7793\n    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:2021:16)\n{\"at\":0.00008900000000000001,\"batch\":\"synthetic-pipeline:batch:0\",\"diagnostic\":\"canonical-stage\",\"stage\":\"before-policy\"}\n{\"at\":4.048216,\"batch\":\"synthetic-pipeline:batch:200\",\"diagnostic\":\"canonical-stage\",\"stage\":\"before-policy\"}\n{\"at\":5.472782,\"batch\":\"synthetic-pipeline:batch:100\",\"diagnostic\":\"canonical-stage\",\"stage\":\"before-policy\"}\n{\"at\":106.31632400000001,\"batch\":\"synthetic-pipeline:batch:200\",\"diagnostic\":\"canonical-stage\",\"stage\":\"after-policy\"}\n{\"at\":108.626869,\"batch\":\"synthetic-pipeline:batch:200\",\"diagnostic\":\"canonical-stage\",\"stage\":\"validate\"}\n{\"at\":169.262487,\"batch\":\"synthetic-pipeline:batch:200\",\"diagnostic\":\"canonical-stage\",\"stage\":\"prepare\"}\n{\"at\":177.247986,\"batch\":\"synthetic-pipeline:batch:0\",\"diagnostic\":\"canonical-stage\",\"stage\":\"after-policy\"}\n{\"at\":179.07469500000002,\"batch\":\"synthetic-pipeline:batch:0\",\"diagnostic\":\"canonical-stage\",\"stage\":\"validate\"}\n{\"at\":184.31315700000002,\"batch\":\"synthetic-pipeline:batch:100\",\"diagnostic\":\"canonical-stage\",\"stage\":\"after-policy\"}\n{\"at\":187.732751,\"batch\":\"synthetic-pipeline:batch:100\",\"diagnostic\":\"canonical-stage\",\"stage\":\"validate\"}\n{\"at\":235.290261,\"batch\":\"synthetic-pipeline:batch:200\",\"diagnostic\":\"canonical-stage\",\"stage\":\"begin\"}\n{\"at\":235.615975,\"batch\":\"synthetic-pipeline:batch:200\",\"diagnostic\":\"canonical-stage\",\"stage\":\"acquired\"}\n{\"at\":238.00843899999998,\"batch\":\"synthetic-pipeline:batch:200\",\"diagnostic\":\"canonical-stage\",\"stage\":\"rows\"}\n{\"at\":296.714835,\"batch\":\"synthetic-pipeline:batch:200\",\"diagnostic\":\"canonical-stage\",\"stage\":\"rows-done\"}\n{\"at\":297.844071,\"batch\":\"synthetic-pipeline:batch:200\",\"diagnostic\":\"canonical-stage\",\"stage\":\"committed\"}\n{\"at\":299.692187,\"batch\":\"synthetic-pipeline:batch:200\",\"diagnostic\":\"canonical-stage\",\"stage\":\"persisted\"}\n{\"at\":300.471006,\"batch\":\"synthetic-pipeline:batch:200\",\"diagnostic\":\"canonical-stage\",\"stage\":\"after-audit\"}\n{\"at\":304.999252,\"batch\":\"synthetic-pipeline:batch:0\",\"diagnostic\":\"canonical-stage\",\"stage\":\"prepare\"}\n{\"at\":329.505983,\"batch\":\"synthetic-pipeline:batch:100\",\"diagnostic\":\"canonical-stage\",\"stage\":\"prepare\"}\n{\"at\":401.75131200000004,\"batch\":\"synthetic-pipeline:batch:0\",\"diagnostic\":\"canonical-stage\",\"stage\":\"begin\"}\n{\"at\":401.851389,\"batch\":\"synthetic-pipeline:batch:0\",\"diagnostic\":\"canonical-stage\",\"stage\":\"acquired\"}\n{\"at\":405.114715,\"batch\":\"synthetic-pipeline:batch:0\",\"diagnostic\":\"canonical-stage\",\"stage\":\"rows\"}\n{\"at\":449.697408,\"batch\":\"synthetic-pipeline:batch:0\",\"diagnostic\":\"canonical-stage\",\"stage\":\"rows-done\"}\n{\"at\":453.959052,\"batch\":\"synthetic-pipeline:batch:0\",\"diagnostic\":\"canonical-stage\",\"stage\":\"committed\"}\n{\"at\":455.437156,\"batch\":\"synthetic-pipeline:batch:100\",\"diagnostic\":\"canonical-stage\",\"stage\":\"begin\"}\n{\"at\":455.570239,\"batch\":\"synthetic-pipeline:batch:100\",\"diagnostic\":\"canonical-stage\",\"stage\":\"acquired\"}\n{\"at\":457.679553,\"batch\":\"synthetic-pipeline:batch:100\",\"diagnostic\":\"canonical-stage\",\"stage\":\"rows\"}\n{\"at\":459.045883,\"batch\":\"synthetic-pipeline:batch:0\",\"diagnostic\":\"canonical-stage\",\"stage\":\"persisted\"}\n{\"at\":504.89917699999995,\"batch\":\"synthetic-pipeline:batch:100\",\"diagnostic\":\"canonical-stage\",\"stage\":\"rows-done\"}\n{\"at\":509.145799,\"batch\":\"synthetic-pipeline:batch:100\",\"diagnostic\":\"canonical-stage\",\"stage\":\"committed\"}\n{\"at\":512.005469,\"batch\":\"synthetic-pipeline:batch:100\",\"diagnostic\":\"canonical-stage\",\"stage\":\"persisted\"}\n{\"at\":517.400269,\"batch\":\"synthetic-pipeline:batch:0\",\"diagnostic\":\"canonical-stage\",\"stage\":\"after-audit\"}\n{\"at\":517.571324,\"batch\":\"synthetic-pipeline:batch:100\",\"diagnostic\":\"canonical-stage\",\"stage\":\"after-audit\"}\n\u001b[2m1:24:55 AM\u001b[22m \u001b[31m\u001b[1m[vite]\u001b[22m\u001b[39m \u001b[31mhttp proxy error: /control/status\u001b[39m\nError: connect ECONNREFUSED 127.0.0.1:7793\n    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:2021:16)\n\u001b[2m1:24:58 AM\u001b[22m \u001b[31m\u001b[1m[vite]\u001b[22m\u001b[39m \u001b[31mhttp proxy error: /control/status\u001b[39m\nError: connect ECONNREFUSED 127.0.0.1:7793\n    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:2021:16)\n\u001b[2m1:25:01 AM\u001b[22m \u001b[31m\u001b[1m[vite]\u001b[22m\u001b[39m \u001b[31mhttp proxy error: /control/status\u001b[39m\nError: connect ECONNREFUSED 127.0.0.1:7793\n    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:2021:16)\n\u001b[2m1:25:04 AM\u001b[22m \u001b[31m\u001b[1m[vite]\u001b[22m\u001b[39m \u001b[31mhttp proxy error: /control/status\u001b[39m\nError: connect ECONNREFUSED 127.0.0.1:7793\n    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:2021:16)\n\u001b[2m1:25:09 AM\u001b[22m \u001b[31m\u001b[1m[vite]\u001b[22m\u001b[39m \u001b[31mhttp proxy error: /control/status\u001b[39m\nError: connect ECONNREFUSED 127.0.0.1:7793\n    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:2021:16)\n\u001b[2m1:25:16 AM\u001b[22m \u001b[31m\u001b[1m[vite]\u001b[22m\u001b[39m \u001b[31mhttp proxy error: /control/status\u001b[39m\nError: connect ECONNREFUSED 127.0.0.1:7793\n    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:2021:16)\n\u001b[2m1:25:21 AM\u001b[22m \u001b[31m\u001b[1m[vite]\u001b[22m\u001b[39m \u001b[31mhttp proxy error: /control/status\u001b[39m\nError: connect ECONNREFUSED 127.0.0.1:7793\n    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:2021:16)\n{\"at\":29992.477827,\"batch\":\"synthetic-pipeline:batch:300\",\"diagnostic\":\"canonical-stage\",\"stage\":\"before-policy\"}\n{\"at\":30111.225411,\"batch\":\"synthetic-pipeline:batch:300\",\"diagnostic\":\"canonical-stage\",\"stage\":\"after-policy\"}\n{\"at\":30112.807327,\"batch\":\"synthetic-pipeline:batch:300\",\"diagnostic\":\"canonical-stage\",\"stage\":\"validate\"}\n{\"at\":30177.561150999998,\"batch\":\"synthetic-pipeline:batch:300\",\"diagnostic\":\"canonical-stage\",\"stage\":\"prepare\"}\n{\"at\":30221.202437,\"batch\":\"synthetic-pipeline:batch:300\",\"diagnostic\":\"canonical-stage\",\"stage\":\"begin\"}\n{\"at\":30222.355846,\"batch\":\"synthetic-pipeline:batch:300\",\"diagnostic\":\"canonical-stage\",\"stage\":\"acquired\"}\n{\"at\":30223.547581,\"batch\":\"synthetic-pipeline:batch:300\",\"diagnostic\":\"canonical-stage\",\"stage\":\"rows\"}\n{\"at\":30242.588705,\"batch\":\"synthetic-pipeline:batch:300\",\"diagnostic\":\"canonical-stage\",\"stage\":\"rows-done\"}\n{\"at\":30244.594114000003,\"batch\":\"synthetic-pipeline:batch:300\",\"diagnostic\":\"canonical-stage\",\"stage\":\"committed\"}\n{\"at\":30245.787616,\"batch\":\"synthetic-pipeline:batch:300\",\"diagnostic\":\"canonical-stage\",\"stage\":\"persisted\"}\n{\"at\":30257.228541,\"batch\":\"synthetic-pipeline:batch:300\",\"diagnostic\":\"canonical-stage\",\"stage\":\"after-audit\"}\n",
+  "forcedCleanup": []
+}

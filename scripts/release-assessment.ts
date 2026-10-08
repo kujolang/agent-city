@@ -39,6 +39,7 @@ export function assessRelease(input: {
       p,
       p?.status === "COMPLETED" &&
         p?.diagnostic !== true &&
+        p?.runtimeCandidate !== true &&
         p?.deliveryReconciled === true &&
         p?.browserCaughtUp === true &&
         !p?.sampleError &&
@@ -54,6 +55,7 @@ export function assessRelease(input: {
       input.reconnect,
       input.reconnect?.status === "COMPLETED" &&
         input.reconnect?.diagnostic !== true &&
+        input.reconnect?.runtimeCandidate !== true &&
         input.reconnect?.deliveryReconciled === true &&
         input.reconnect?.browserCaughtUp === true &&
         !input.reconnect?.sampleError &&

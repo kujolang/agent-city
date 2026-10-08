@@ -1,0 +1,18 @@
+
+running 1 test
+test tests::queued_connections_reserve_idle_workers ... FAILED
+
+failures:
+
+---- tests::queued_connections_reserve_idle_workers stdout ----
+
+thread 'tests::queued_connections_reserve_idle_workers' (20795178) panicked at vendor/tiny_http-0.12.0/src/util/task_pool.rs:182:9:
+a new connection waited behind occupied workers
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    tests::queued_connections_reserve_idle_workers
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.00s
+
