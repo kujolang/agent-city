@@ -28,10 +28,16 @@ jobs:
           test -x "$RUNNER_TEMP/city/.node/bin/node"
       - name: Verify actual installed SDK, Dispatch, RAG and MCP contracts
         run: cd "$RUNNER_TEMP/city/agent-city" && "$RUNNER_TEMP/city/.node/bin/node" --import tsx scripts/mission-contract.ts
+      - name: Verify real installed update, refusal and archive lifecycle
+        env:
+          CITY_OWNED_TEST_INSTALL: ${{ runner.temp }}/city
+          CITY_MAINTENANCE_PROOF: ${{ runner.temp }}/maintenance.json
+        run: '"$RUNNER_TEMP/city/.node/bin/node" scripts/installed-maintenance-proof.mjs'
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: installation-${{ matrix.os }}
           path: |
+            ${{ runner.temp }}/maintenance.json
             ${{ runner.temp }}/city/install-receipt.json
             ${{ runner.temp }}/city/agent-city/evidence/missions/contract.json

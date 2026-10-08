@@ -4,7 +4,7 @@
   "repositories": {
     "agents-sdk": "5a9d5525e511a293b743b1c44d9ef270fd491f9f",
     "dispatch": "e1bbc21166022b00fb21ed000cc4f3cbb26e7e07",
-    "watchdog": "2066fd8e81a3cb4214d22829757c86f410d4f7db",
+    "watchdog": "8893dcc9b48fd665bafaf60652cedbc4f3fc7706",
     "rag": "85743f88c152d7c65f59d4697111faf85e36d8eb",
     "eval": "6a5ab09e5c24cc1a842b374afccb64da40db2874",
     "mcp": "e02905d4d587a099529b4f4e1ade61060a0c7f94",
