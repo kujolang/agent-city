@@ -1,0 +1,160 @@
+{
+  "scope": "Bounded synthetic local diagnostic, four 100-record batches at concurrency1; busy workstation, not release qualification",
+  "result": "No demonstrated improvement from caching record attributes; candidate reverted. All measured stages changed with host load.",
+  "runs": [
+    {
+      "candidate": "current",
+      "status": "COMPLETED",
+      "accepted": 400,
+      "missing": 0,
+      "duplicates": 0,
+      "host": {
+        "availableParallelism": 12,
+        "cpuModel": "Intel(R) Core(TM) i7-9750H CPU @ 2.60GHz",
+        "totalMemoryBytes": 17179869184
+      },
+      "runtimeVersion": "kujo 1.7.0",
+      "cityCommit": "270d291d7e899943dd12bb634df54f25205944ba",
+      "watchdogCommit": "f463ced16b6b0a670a417d29c3121bf495e303a1",
+      "dirtyWatchdogCandidate": false,
+      "stages": {
+        "synthetic-pipeline:batch:0": {
+          "before-policy": 0.000101,
+          "after-policy": 180.533141,
+          "validate": 186.040772,
+          "prepare": 316.10060699999997,
+          "begin": 439.543095,
+          "acquired": 439.627991,
+          "rows": 443.797618,
+          "rows-done": 515.2650530000001,
+          "committed": 525.300857,
+          "persisted": 528.01684,
+          "after-audit": 531.264253
+        },
+        "synthetic-pipeline:batch:100": {
+          "before-policy": 559.799682,
+          "after-policy": 740.499932,
+          "validate": 742.843583,
+          "prepare": 872.925359,
+          "begin": 996.119435,
+          "acquired": 996.205671,
+          "rows": 1000.334276,
+          "rows-done": 1065.9559279999999,
+          "committed": 1077.0118850000001,
+          "persisted": 1079.5619530000001,
+          "after-audit": 1081.4825759999999
+        },
+        "synthetic-pipeline:batch:200": {
+          "before-policy": 1104.355937,
+          "after-policy": 1267.211361,
+          "validate": 1269.283455,
+          "prepare": 1395.905637,
+          "begin": 1522.769828,
+          "acquired": 1522.849344,
+          "rows": 1526.988816,
+          "rows-done": 1595.264906,
+          "committed": 1606.0743469999998,
+          "persisted": 1608.525236,
+          "after-audit": 1609.80319
+        },
+        "synthetic-pipeline:batch:300": {
+          "before-policy": 1630.299325,
+          "after-policy": 1799.663696,
+          "validate": 1801.744716,
+          "prepare": 1930.327233,
+          "begin": 2051.595975,
+          "acquired": 2051.703887,
+          "rows": 2056.5180100000002,
+          "rows-done": 2125.719828,
+          "committed": 2138.8456659999997,
+          "persisted": 2141.493504,
+          "after-audit": 2142.859803
+        }
+      },
+      "medianMilliseconds": {
+        "policy": 174.94870550000007,
+        "validation": 129.321176,
+        "prepare": 123.31828200000001,
+        "writerWait": 0.08556600000005687,
+        "rows": 68.73895399999981
+      }
+    },
+    {
+      "candidate": "attributes",
+      "status": "COMPLETED",
+      "accepted": 400,
+      "missing": 0,
+      "duplicates": 0,
+      "host": {
+        "availableParallelism": 12,
+        "cpuModel": "Intel(R) Core(TM) i7-9750H CPU @ 2.60GHz",
+        "totalMemoryBytes": 17179869184
+      },
+      "runtimeVersion": "kujo 1.7.0",
+      "cityCommit": "270d291d7e899943dd12bb634df54f25205944ba",
+      "watchdogCommit": "f463ced16b6b0a670a417d29c3121bf495e303a1",
+      "dirtyWatchdogCandidate": true,
+      "stages": {
+        "synthetic-pipeline:batch:0": {
+          "before-policy": 8.8e-05,
+          "after-policy": 118.29839,
+          "validate": 122.5955,
+          "prepare": 221.533017,
+          "begin": 305.15712299999996,
+          "acquired": 305.21810100000005,
+          "rows": 308.222856,
+          "rows-done": 362.290421,
+          "committed": 368.50387,
+          "persisted": 370.08779400000003,
+          "after-audit": 371.818935
+        },
+        "synthetic-pipeline:batch:100": {
+          "before-policy": 394.28318099999996,
+          "after-policy": 516.1856369999999,
+          "validate": 517.512208,
+          "prepare": 606.248772,
+          "begin": 690.738961,
+          "acquired": 690.908275,
+          "rows": 694.168161,
+          "rows-done": 744.580613,
+          "committed": 752.615017,
+          "persisted": 754.521437,
+          "after-audit": 755.6188940000001
+        },
+        "synthetic-pipeline:batch:200": {
+          "before-policy": 775.108195,
+          "after-policy": 890.7325099999999,
+          "validate": 892.194635,
+          "prepare": 981.357079,
+          "begin": 1057.319535,
+          "acquired": 1057.380757,
+          "rows": 1060.365136,
+          "rows-done": 1110.6949880000002,
+          "committed": 1120.385017,
+          "persisted": 1122.670782,
+          "after-audit": 1124.478282
+        },
+        "synthetic-pipeline:batch:300": {
+          "before-policy": 1144.503889,
+          "after-policy": 1284.181741,
+          "validate": 1285.8564470000001,
+          "prepare": 1396.334054,
+          "begin": 1490.668051,
+          "acquired": 1490.740288,
+          "rows": 1495.619028,
+          "rows-done": 1544.6467739999998,
+          "committed": 1555.986436,
+          "persisted": 1560.749234,
+          "after-audit": 1561.968497
+        }
+      },
+      "medianMilliseconds": {
+        "policy": 120.10037899999998,
+        "validation": 94.04998050000003,
+        "prepare": 84.05714749999997,
+        "writerWait": 0.06672949999983757,
+        "rows": 50.37115200000011
+      }
+    }
+  ]
+}
