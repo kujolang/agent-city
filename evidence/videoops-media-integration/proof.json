@@ -1,0 +1,20 @@
+{
+  "schema": "agent-city.videoops-media-proof.v1",
+  "mission": "mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98",
+  "model": "codex-cli-default",
+  "underlyingModel": "UNKNOWN",
+  "status": "review-pending",
+  "workcell": "wc-6668093699674787876f78ddb8bdac52",
+  "candidate": {
+    "name": "output/draft.mp4",
+    "bytes": 309517,
+    "sha256": "98e5bd3a8d6ab5c08f01daeb489507ef290015aa7f17cc4b22c53e44c51146ce"
+  },
+  "audioPassed": true,
+  "visualApproval": "NOT_REVIEWED",
+  "listeningApproval": "NOT_REVIEWED",
+  "publication": "NOT_PERFORMED",
+  "newProviderRequests": 0,
+  "audioProvenance": "Reused approved ElevenLabs v4 Siren narration; original local chiptune is not ElevenLabs music",
+  "casefileFailureRetained": "2026-10-08-141619-videoopsmediarendercontract"
+}

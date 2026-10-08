@@ -1,0 +1,10 @@
+{
+  "mission": "mission-349b33ff-f934-4e79-a293-c393caf95e13",
+  "workcell": "wc-b78985f181254567b154452331fcc050",
+  "failure": "HyperFrames rejected GSAP autoAlpha on timed clip elements",
+  "sourceExitCode": 1,
+  "timedOut": false,
+  "cleanup": "complete",
+  "casefile": "2026-10-08-141619-videoopsmediarendercontract",
+  "action": "Tighten role ownership and clip animation guidance; retain failed attempt and run new production"
+}

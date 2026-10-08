@@ -1,0 +1,25 @@
+{
+  "requirements": {
+    "duration_seconds": 6,
+    "duration_tolerance_seconds": 0.1,
+    "maximum_clipped_samples": 0,
+    "maximum_true_peak_dbtp": -1,
+    "stems_required": true
+  },
+  "stems": [
+    {
+      "role": "voice",
+      "path": "sources/0.mp3",
+      "sha256": "f1fd8514ef475c3d120531791db1aa78947b9a70e00eb4625723293116918866",
+      "receipt": "sources/0-receipt.json",
+      "included": true
+    },
+    {
+      "role": "music",
+      "path": "sources/1.wav",
+      "sha256": "69d076ed0c224456b7b815d5c7024b787ba8da9ce8b24cff07889a2d18e0db88",
+      "receipt": "sources/1-receipt.json",
+      "included": true
+    }
+  ]
+}

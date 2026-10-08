@@ -333,3 +333,5 @@ review verdict. Unavailable output content is shown separately from verified
 execution. Stdout remains in inspection evidence; **Save reviewed artifact**
 downloads the generated program itself.
 Each continuation requires fresh execution and project-input consent.
+
+VideoOps media integration on development main: [Pixel v2 presets, your own product media, and optional ElevenLabs audio](docs/videoops-media.md). New provider calls require explicit scoped consent; every new video requires its own review. This is not yet included in the published rc.2.

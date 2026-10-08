@@ -41,20 +41,26 @@ do not paste credentials into arguments or remove credential configuration.
 ## Submit and review
 
 Open **VideoOps production**, enter the full request, set dimensions/FPS/duration,
-check the isolated-render consent, and choose **Start video production**. This
-launch surface supports original silent typography/vector work. It supplies no
-external media, speech, music or generation grants; required unavailable assets
-block the task rather than being silently replaced.
+choose a verified media/style pack, check isolated-render consent, and choose
+**Start video production**. The Pixel v2 preset uses actual game captures and a
+licensed pixel font. Add your own product imagery/recordings and approved audio
+through **Add your own product media** or the local registration command.
+Optional ElevenLabs speech, music and SFX require separate private provider setup,
+capability evidence and exact per-request consent/budgets. Nothing generates by
+default; unavailable requirements block instead of being replaced.
+See [media, pixel presets and optional audio](videoops-media.md).
 
 Follow actual observed execution and inspect the mission history. Once rendered,
 open **Video production review**. Watch the entire exact candidate, record your
 own outcome and notes, and attest only to checks you actually performed. Technical
-PASS is separate from visual approval. Failure and earlier attempts remain retained.
+PASS is separate from visual/listening approval. Failure and earlier attempts remain retained.
 After approval, choose **Finalize approved video**, then download the final file.
 Finalization verifies the same candidate checksum; it does not publish anything.
 
-The separately approved pixel/Siren promo is an assistant-authored creative
-revision, not evidence that this launcher supplies audio generation.
+The earlier approved pixel/Siren promo remains a separate assistant-authored
+reference. Reusing its assets does not transfer its approval to a new VideoOps
+candidate. The new integration uses the canonical VideoOps media runtime; live
+provider capability claims are limited to actual retained receipts.
 
 ## Recovery and limits
 

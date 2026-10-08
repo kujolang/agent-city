@@ -184,3 +184,7 @@ human review and finalization, then qualification/publication of a new immutable
 version. Local Docker recovery is pending operator coordination because a restart
 can interrupt other workloads. No approval, source completion or release readiness
 is inferred from the green technical checks. No eight-hour soak is required now.
+
+## VideoOps media integration — pending exact-candidate review
+
+Development main now includes immutable product-media packs/uploads, the original Pixel v2 capture/font preset, optional scoped canonical ElevenLabs audio generation and exact-candidate audio QA. [Real media production evidence](evidence/videoops-media-integration/README.md) records the successful SDK/Workcell run and retained initial failure. Local verification passes 173 tests in 67 files plus type, map, boundary and build checks. Fresh music/SFX generation was not exercised; missing entitlement remains a visible block. The richer video is REVIEW_INCOMPLETE until the user watches and listens. The old promo approval does not approve it. Published rc.2 is unchanged.

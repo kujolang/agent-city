@@ -1,0 +1,48 @@
+{
+  "sourceCommit": "7e023d601fcd878e40b1c70887e6d9c8707f3e6d",
+  "localVerify": {
+    "exitCode": 0,
+    "testFiles": 67,
+    "tests": 173,
+    "typecheck": "PASS",
+    "boundaries": "PASS",
+    "maps": "PASS (7 maps)",
+    "build": "PASS"
+  },
+  "shipcheck": {
+    "command": "kujo run shipcheck.kujo gate --dir agent-city --format json",
+    "target": "agent-city",
+    "exitCode": 0,
+    "highestSeverity": "warning",
+    "summary": {
+      "failed_errors": 0,
+      "gate_passed": 1,
+      "passed": 13,
+      "total_checks": 16,
+      "warnings": 3
+    },
+    "warnings": [
+      "lint-command",
+      "kennel-manifest",
+      "entry-point"
+    ]
+  },
+  "additionalRegressionTests": {
+    "files": 1,
+    "tests": 2,
+    "passed": true,
+    "scope": "Unapproved embedded soundtracks and measured narration bounds"
+  },
+  "ci": {
+    "run": 37824308063,
+    "commit": "7e023d601fcd878e40b1c70887e6d9c8707f3e6d",
+    "conclusion": "success",
+    "jobs": 5,
+    "platforms": [
+      "macos-15",
+      "macos-15-intel",
+      "ubuntu-24.04",
+      "ubuntu-24.04-arm"
+    ]
+  }
+}

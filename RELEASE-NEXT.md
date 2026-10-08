@@ -312,3 +312,5 @@ exact candidate19b3070be2e88f7ddf6ada19aec7fb919d94b6b87ed3f6bbb6d06271c989c0ca.
 Next: record the actual user's whole-video review, exercise finalization/download
 for that same hash, update draft evidence/notes, publish immutable rc.3 and verify
 public assets. The separate pixel promo approval does not close this gate.
+
+2026-10-08 media integration: verified media packs/uploads, Pixel v2 preset, optional scoped ElevenLabs generation, mix and measured-duration gates, canonical audio QA and hash-bound review evidence implemented in Agent City without sibling changes. Real mission `mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98` reaches REVIEW_INCOMPLETE / technical PASS with real backgrounds, font and reused approved audio; 27 normal scoped observations. No new paid audio call. First failed GSAP clip-visibility attempt retained; corrected Editor guidance verified by subsequent run. See evidence/videoops-media-integration. Next user action is exact new video playback/listening review, not approval inferred from the old promo. Then finalize matching bytes and publish the qualified prerelease. No long soak authorized.

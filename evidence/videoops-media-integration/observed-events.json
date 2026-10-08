@@ -1,0 +1,1074 @@
+{
+  "mission": "mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98",
+  "count": 27,
+  "events": [
+    {
+      "schema": "agent-city.event.v1",
+      "eventId": "9f3a758daeca17ca749fb8518e4de3a6aaef16a1dd31cc15060bd547fa1de119",
+      "workspace": "local-agent-city",
+      "source": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98",
+      "order": 149,
+      "occurredAt": 1791483575334,
+      "observedAt": 1791483575873,
+      "completeness": "complete",
+      "type": "operation.started",
+      "instance": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98:mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98-creative-director:creative-director",
+      "profile": "kujolang/kujo-agents:videoops.creative-director",
+      "run": {
+        "namespace": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98",
+        "id": "mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98-creative-director"
+      },
+      "task": {
+        "namespace": "dispatch",
+        "id": "mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98:task"
+      },
+      "operation": {
+        "id": "run",
+        "attempt": 1,
+        "capability": "agent.run",
+        "collection": "unknown",
+        "relatedAgent": "",
+        "outcome": "unset",
+        "metadata": {}
+      },
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:34595370ae014abf6bd7335201dbfe651044b3f5a195008ea20e1b0073ff7bf6",
+          "hash": "0a1d3a32acb963fc0ee6f092feaca9e8b4ebb94d2432d8b82a65b1cfe56bd6aa",
+          "sourceSequence": 147
+        }
+      ]
+    },
+    {
+      "schema": "agent-city.event.v1",
+      "eventId": "68ecd5c206dbe189ae8f71d6b407dc6c697f13c9bd266ba85830a4423762906e",
+      "workspace": "local-agent-city",
+      "source": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98",
+      "order": 150,
+      "occurredAt": 1791483645014,
+      "observedAt": 1791483645760,
+      "completeness": "complete",
+      "type": "operation.finished",
+      "instance": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98:mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98-creative-director:creative-director",
+      "profile": "kujolang/kujo-agents:videoops.creative-director",
+      "run": {
+        "namespace": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98",
+        "id": "mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98-creative-director"
+      },
+      "task": {
+        "namespace": "dispatch",
+        "id": "mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98:task"
+      },
+      "operation": {
+        "id": "run",
+        "attempt": 1,
+        "capability": "agent.run",
+        "collection": "unknown",
+        "relatedAgent": "",
+        "outcome": "succeeded",
+        "metadata": {}
+      },
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:49e85f40dd03eb83fa8de101e6e793b69b5b7f678226077e46fa85723b87f770",
+          "hash": "b24ccd0ddd3c37c10d1ea18283c7fedc5e14ed9a956c4a80c99a6521f56b5ad9",
+          "sourceSequence": 148
+        }
+      ]
+    },
+    {
+      "schema": "agent-city.event.v1",
+      "eventId": "aee038fea58f1e064b01e431caec6be59acce3a0fb25e28015aa46e5c4e60d5e",
+      "workspace": "local-agent-city",
+      "source": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98",
+      "order": 151,
+      "occurredAt": 1791483645038,
+      "observedAt": 1791483645760,
+      "completeness": "complete",
+      "type": "operation.started",
+      "instance": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98:mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98-creative-director:videoops-checker",
+      "profile": "city-videoops-checker",
+      "run": {
+        "namespace": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98",
+        "id": "mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98-creative-director"
+      },
+      "task": {
+        "namespace": "dispatch",
+        "id": "mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98:task"
+      },
+      "operation": {
+        "id": "creative-director-artifact-contract-1",
+        "attempt": 1,
+        "capability": "evaluation.run",
+        "collection": "unknown",
+        "relatedAgent": "",
+        "outcome": "unset",
+        "metadata": {
+          "tool": "city.videoops-artifact-contract"
+        }
+      },
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:6e61de25c40225dbbc1a9447d062286af9973a8ddd9ab18d8b0f206ece7f9060",
+          "hash": "27cfbc66f3a3be56874b43daf7529bb3134c9fdece95a30d5140dacfb0cf9210",
+          "sourceSequence": 149
+        }
+      ]
+    },
+    {
+      "schema": "agent-city.event.v1",
+      "eventId": "a731da00b5e0c596947d834b26609846ea9909a901b42be944d6b10fe7542827",
+      "workspace": "local-agent-city",
+      "source": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98",
+      "order": 152,
+      "occurredAt": 1791483645051,
+      "observedAt": 1791483645760,
+      "completeness": "complete",
+      "type": "operation.finished",
+      "instance": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98:mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98-creative-director:videoops-checker",
+      "profile": "city-videoops-checker",
+      "run": {
+        "namespace": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98",
+        "id": "mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98-creative-director"
+      },
+      "task": {
+        "namespace": "dispatch",
+        "id": "mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98:task"
+      },
+      "operation": {
+        "id": "creative-director-artifact-contract-1",
+        "attempt": 1,
+        "capability": "evaluation.run",
+        "collection": "unknown",
+        "relatedAgent": "",
+        "outcome": "succeeded",
+        "metadata": {
+          "tool": "city.videoops-artifact-contract"
+        }
+      },
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:ec653f04c9a377b39f1500c241b8c581956d852fc5e9aca01457883d71466792",
+          "hash": "1832dce5403b401b6d3ddf73fc35e2d812509d293f008be353f50f5ab4474b0b",
+          "sourceSequence": 150
+        }
+      ]
+    },
+    {
+      "schema": "agent-city.event.v1",
+      "eventId": "5a1d70b3570a5eb025ff7a09073db05e0bbc6a0febb385f8d7bbb546972147b8",
+      "workspace": "local-agent-city",
+      "source": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98",
+      "order": 153,
+      "occurredAt": 1791483645052,
+      "observedAt": 1791483645760,
+      "completeness": "complete",
+      "type": "operation.started",
+      "instance": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98:mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98:videoops-gate",
+      "profile": "city-videoops-checker",
+      "run": {
+        "namespace": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98",
+        "id": "mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98"
+      },
+      "task": {
+        "namespace": "dispatch",
+        "id": "mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98:task"
+      },
+      "operation": {
+        "id": "creative-director-handoff-gate-1",
+        "attempt": 1,
+        "capability": "evaluation.run",
+        "collection": "unknown",
+        "relatedAgent": "",
+        "outcome": "unset",
+        "metadata": {
+          "tool": "city.videoops-stage-gate"
+        }
+      },
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:3bec48563a06b9125abefcd73b31107bd8afcb802d784be90e9bb0415581001d",
+          "hash": "44d86d95f3483965e72a32d51be1eb5985ca913333ff831a0d675f943a7ba944",
+          "sourceSequence": 151
+        }
+      ]
+    },
+    {
+      "schema": "agent-city.event.v1",
+      "eventId": "fecd5c363f15a3b31d2450aa0b358a83030fd416aef39347365e2fd44fd9db52",
+      "workspace": "local-agent-city",
+      "source": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98",
+      "order": 154,
+      "occurredAt": 1791483645064,
+      "observedAt": 1791483645761,
+      "completeness": "complete",
+      "type": "operation.finished",
+      "instance": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98:mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98:videoops-gate",
+      "profile": "city-videoops-checker",
+      "run": {
+        "namespace": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98",
+        "id": "mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98"
+      },
+      "task": {
+        "namespace": "dispatch",
+        "id": "mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98:task"
+      },
+      "operation": {
+        "id": "creative-director-handoff-gate-1",
+        "attempt": 1,
+        "capability": "evaluation.run",
+        "collection": "unknown",
+        "relatedAgent": "",
+        "outcome": "succeeded",
+        "metadata": {
+          "tool": "city.videoops-stage-gate"
+        }
+      },
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:49f5989c8583fd9543d33f071db15ea129dae147040641834daec564270b1cac",
+          "hash": "eb18cf7a0c82212b40ea39fd0d544fd56a7e056fa99dfce273b2bb265403ab0a",
+          "sourceSequence": 152
+        }
+      ]
+    },
+    {
+      "schema": "agent-city.event.v1",
+      "eventId": "3dd2069127fc80b6acbd7d80c30c1bb5a7f834892ddf41b01b225aa5d7334e60",
+      "workspace": "local-agent-city",
+      "source": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98",
+      "order": 155,
+      "occurredAt": 1791483645066,
+      "observedAt": 1791483645761,
+      "completeness": "complete",
+      "type": "operation.started",
+      "instance": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98:mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98-creative-director:creative-director",
+      "profile": "kujolang/kujo-agents:videoops.creative-director",
+      "run": {
+        "namespace": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98",
+        "id": "mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98-creative-director"
+      },
+      "task": {
+        "namespace": "dispatch",
+        "id": "mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98:task"
+      },
+      "operation": {
+        "id": "handoff-asset-scout",
+        "attempt": 1,
+        "capability": "agent.handoff",
+        "collection": "unknown",
+        "relatedAgent": "",
+        "outcome": "unset",
+        "metadata": {
+          "relatedInstance": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98:mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98-asset-scout:asset-scout"
+        }
+      },
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:253eeda5e597a26e921e8324cd16c24b469b3cb5324db5f2e8edc0a5d365814d",
+          "hash": "71b9f79ab26ca9d1ca4b745ec0587bbefcba519c209b08f0235959630a390d0d",
+          "sourceSequence": 153
+        }
+      ]
+    },
+    {
+      "schema": "agent-city.event.v1",
+      "eventId": "062186913cc15e9c478603450180131f5768e302413bf42a8ce30775a607c689",
+      "workspace": "local-agent-city",
+      "source": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98",
+      "order": 156,
+      "occurredAt": 1791483645528,
+      "observedAt": 1791483646317,
+      "completeness": "complete",
+      "type": "operation.started",
+      "instance": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98:mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98-asset-scout:asset-scout",
+      "profile": "kujolang/kujo-agents:videoops.asset-scout",
+      "run": {
+        "namespace": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98",
+        "id": "mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98-asset-scout"
+      },
+      "task": {
+        "namespace": "dispatch",
+        "id": "mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98:task"
+      },
+      "operation": {
+        "id": "run",
+        "attempt": 1,
+        "capability": "agent.run",
+        "collection": "unknown",
+        "relatedAgent": "",
+        "outcome": "unset",
+        "metadata": {}
+      },
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:4ba40b4c98cea85957e7fbce4813e139cda0962ec443ff9451406f3bf2f177c7",
+          "hash": "e0d4187f74aa406d571f25372ea98183fcb6fb0d7728ef608c09fb48a79530bd",
+          "sourceSequence": 154
+        }
+      ]
+    },
+    {
+      "schema": "agent-city.event.v1",
+      "eventId": "1955a159f372befd5818aeb54a0438ab6ac9225651cdcff98c15a01470b2d6f5",
+      "workspace": "local-agent-city",
+      "source": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98",
+      "order": 157,
+      "occurredAt": 1791483677979,
+      "observedAt": 1791483678401,
+      "completeness": "complete",
+      "type": "operation.finished",
+      "instance": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98:mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98-asset-scout:asset-scout",
+      "profile": "kujolang/kujo-agents:videoops.asset-scout",
+      "run": {
+        "namespace": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98",
+        "id": "mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98-asset-scout"
+      },
+      "task": {
+        "namespace": "dispatch",
+        "id": "mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98:task"
+      },
+      "operation": {
+        "id": "run",
+        "attempt": 1,
+        "capability": "agent.run",
+        "collection": "unknown",
+        "relatedAgent": "",
+        "outcome": "succeeded",
+        "metadata": {}
+      },
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:1eafebf8d53d0d87642fc3d187249175243f7f1ba39c9c19f450edd533f213d7",
+          "hash": "087b4bf0d91813d4e6fb0330928807a067e306f7c84f3026359e7c5f50b397ed",
+          "sourceSequence": 155
+        }
+      ]
+    },
+    {
+      "schema": "agent-city.event.v1",
+      "eventId": "2d1bb026f269068d6ff7d4b78f91426fe6889dcb4e9936c97476f6b84fd1888c",
+      "workspace": "local-agent-city",
+      "source": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98",
+      "order": 158,
+      "occurredAt": 1791483678027,
+      "observedAt": 1791483678402,
+      "completeness": "complete",
+      "type": "operation.started",
+      "instance": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98:mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98-asset-scout:videoops-checker",
+      "profile": "city-videoops-checker",
+      "run": {
+        "namespace": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98",
+        "id": "mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98-asset-scout"
+      },
+      "task": {
+        "namespace": "dispatch",
+        "id": "mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98:task"
+      },
+      "operation": {
+        "id": "asset-scout-artifact-contract-1",
+        "attempt": 1,
+        "capability": "evaluation.run",
+        "collection": "unknown",
+        "relatedAgent": "",
+        "outcome": "unset",
+        "metadata": {
+          "tool": "city.videoops-artifact-contract"
+        }
+      },
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:20d8605a9e81688499c22abe29d23a05e5dea049f8eaca926a732f2f8d0e3889",
+          "hash": "9a76100e5ff1734bf6666d14766e29a28cfd15c0c1dceec2c240ab3438570d30",
+          "sourceSequence": 156
+        }
+      ]
+    },
+    {
+      "schema": "agent-city.event.v1",
+      "eventId": "e2a9bd48f6891b02ecc192ecb48328e1846aa6c5de304804980c876d88a58c97",
+      "workspace": "local-agent-city",
+      "source": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98",
+      "order": 159,
+      "occurredAt": 1791483678037,
+      "observedAt": 1791483678402,
+      "completeness": "complete",
+      "type": "operation.finished",
+      "instance": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98:mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98-asset-scout:videoops-checker",
+      "profile": "city-videoops-checker",
+      "run": {
+        "namespace": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98",
+        "id": "mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98-asset-scout"
+      },
+      "task": {
+        "namespace": "dispatch",
+        "id": "mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98:task"
+      },
+      "operation": {
+        "id": "asset-scout-artifact-contract-1",
+        "attempt": 1,
+        "capability": "evaluation.run",
+        "collection": "unknown",
+        "relatedAgent": "",
+        "outcome": "succeeded",
+        "metadata": {
+          "tool": "city.videoops-artifact-contract"
+        }
+      },
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:1512ae636d2b267e6c352bf726007b3ec2a1a4aaea67c8ecbcb08a6e1fcdbb8b",
+          "hash": "746da6ba76357dfe8efcb491f176a3190ff49867e8460b426509184ae13a19c9",
+          "sourceSequence": 157
+        }
+      ]
+    },
+    {
+      "schema": "agent-city.event.v1",
+      "eventId": "2ef89253dd17cf0d63ba216f22294fa3e875230e6710dc0b7d4c7450e8cfc9b4",
+      "workspace": "local-agent-city",
+      "source": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98",
+      "order": 160,
+      "occurredAt": 1791483678039,
+      "observedAt": 1791483678669,
+      "completeness": "complete",
+      "type": "operation.started",
+      "instance": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98:mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98:videoops-gate",
+      "profile": "city-videoops-checker",
+      "run": {
+        "namespace": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98",
+        "id": "mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98"
+      },
+      "task": {
+        "namespace": "dispatch",
+        "id": "mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98:task"
+      },
+      "operation": {
+        "id": "asset-scout-handoff-gate-1",
+        "attempt": 1,
+        "capability": "evaluation.run",
+        "collection": "unknown",
+        "relatedAgent": "",
+        "outcome": "unset",
+        "metadata": {
+          "tool": "city.videoops-stage-gate"
+        }
+      },
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:93bec9d07ee8afd396fb8fd0d4cb00ced4d71fa85aa1ed80f30d6b6cf785a511",
+          "hash": "640f5eca0db6ab601d0c073c784967271d663ef4647378c63fc63310c281e168",
+          "sourceSequence": 158
+        }
+      ]
+    },
+    {
+      "schema": "agent-city.event.v1",
+      "eventId": "407c7aa4f0144194fa15d4d1eddc4386869d5f437c5db73e9e520b4c14978497",
+      "workspace": "local-agent-city",
+      "source": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98",
+      "order": 161,
+      "occurredAt": 1791483678046,
+      "observedAt": 1791483678936,
+      "completeness": "complete",
+      "type": "operation.finished",
+      "instance": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98:mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98:videoops-gate",
+      "profile": "city-videoops-checker",
+      "run": {
+        "namespace": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98",
+        "id": "mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98"
+      },
+      "task": {
+        "namespace": "dispatch",
+        "id": "mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98:task"
+      },
+      "operation": {
+        "id": "asset-scout-handoff-gate-1",
+        "attempt": 1,
+        "capability": "evaluation.run",
+        "collection": "unknown",
+        "relatedAgent": "",
+        "outcome": "succeeded",
+        "metadata": {
+          "tool": "city.videoops-stage-gate"
+        }
+      },
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:40064f88734fb4baca2df0ae793f4440181840c07570d08c843ecc09fb2b1def",
+          "hash": "80884ac817b26c385c12309267f578c2081d0d0a5e518c23626f9f96919e7f52",
+          "sourceSequence": 159
+        }
+      ]
+    },
+    {
+      "schema": "agent-city.event.v1",
+      "eventId": "7f33db46fa7905f1693af16cba37336ecafdfa5e5d353d934706f08f3bcda03e",
+      "workspace": "local-agent-city",
+      "source": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98",
+      "order": 162,
+      "occurredAt": 1791483678047,
+      "observedAt": 1791483678937,
+      "completeness": "complete",
+      "type": "operation.finished",
+      "instance": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98:mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98-creative-director:creative-director",
+      "profile": "kujolang/kujo-agents:videoops.creative-director",
+      "run": {
+        "namespace": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98",
+        "id": "mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98-creative-director"
+      },
+      "task": {
+        "namespace": "dispatch",
+        "id": "mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98:task"
+      },
+      "operation": {
+        "id": "handoff-asset-scout",
+        "attempt": 1,
+        "capability": "agent.handoff",
+        "collection": "unknown",
+        "relatedAgent": "",
+        "outcome": "succeeded",
+        "metadata": {
+          "relatedInstance": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98:mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98-asset-scout:asset-scout"
+        }
+      },
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:5ae7b5ed3564e0ca800976d4126126aa6b9919bd2db4178e0659302e350c4df3",
+          "hash": "959dbe0bdc9d67c15cb511a510278c7aa53b0736c79408936f44c69edb9731ee",
+          "sourceSequence": 160
+        }
+      ]
+    },
+    {
+      "schema": "agent-city.event.v1",
+      "eventId": "fef9cb35f8a7e612b9b903afa9586f2a759df1aee92ddfc4059dc3bea9701eb1",
+      "workspace": "local-agent-city",
+      "source": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98",
+      "order": 163,
+      "occurredAt": 1791483678811,
+      "observedAt": 1791483679486,
+      "completeness": "complete",
+      "type": "operation.started",
+      "instance": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98:mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98-asset-scout:asset-scout",
+      "profile": "kujolang/kujo-agents:videoops.asset-scout",
+      "run": {
+        "namespace": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98",
+        "id": "mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98-asset-scout"
+      },
+      "task": {
+        "namespace": "dispatch",
+        "id": "mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98:task"
+      },
+      "operation": {
+        "id": "handoff-hyperframes-editor",
+        "attempt": 1,
+        "capability": "agent.handoff",
+        "collection": "unknown",
+        "relatedAgent": "",
+        "outcome": "unset",
+        "metadata": {
+          "relatedInstance": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98:mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98-hyperframes-editor:hyperframes-editor"
+        }
+      },
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:f44c601128fd4b3e0f2328ee471305c1f463bab61b87a1b42a86293cb2dfbd24",
+          "hash": "9ccd765c49d47f346565d0816731064c590453cd9fa1e11bb3ea5ab6ab1ea38b",
+          "sourceSequence": 161
+        }
+      ]
+    },
+    {
+      "schema": "agent-city.event.v1",
+      "eventId": "af3e6053bdc5f54d7c1c56001205adc53521b09558c26a13c88ccb81956b0255",
+      "workspace": "local-agent-city",
+      "source": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98",
+      "order": 164,
+      "occurredAt": 1791483679242,
+      "observedAt": 1791483679487,
+      "completeness": "complete",
+      "type": "operation.started",
+      "instance": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98:mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98-hyperframes-editor:hyperframes-editor",
+      "profile": "kujolang/kujo-agents:videoops.hyperframes-editor",
+      "run": {
+        "namespace": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98",
+        "id": "mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98-hyperframes-editor"
+      },
+      "task": {
+        "namespace": "dispatch",
+        "id": "mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98:task"
+      },
+      "operation": {
+        "id": "run",
+        "attempt": 1,
+        "capability": "agent.run",
+        "collection": "unknown",
+        "relatedAgent": "",
+        "outcome": "unset",
+        "metadata": {}
+      },
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:4a4333712c931b81969146a13a98f4ea26d20a73807ad3ce17f6a90ac5a7b7dc",
+          "hash": "49fa6ee8f39d0c4fdda9686e3cf9f68fb380441b70d7f8a61c7a0c7ff09d9694",
+          "sourceSequence": 162
+        }
+      ]
+    },
+    {
+      "schema": "agent-city.event.v1",
+      "eventId": "abae3fa7a25e58e40d48d18b7d354f34dce005aef201bd3a8647cf096059bf15",
+      "workspace": "local-agent-city",
+      "source": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98",
+      "order": 165,
+      "occurredAt": 1791483721676,
+      "observedAt": 1791483721896,
+      "completeness": "complete",
+      "type": "operation.finished",
+      "instance": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98:mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98-hyperframes-editor:hyperframes-editor",
+      "profile": "kujolang/kujo-agents:videoops.hyperframes-editor",
+      "run": {
+        "namespace": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98",
+        "id": "mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98-hyperframes-editor"
+      },
+      "task": {
+        "namespace": "dispatch",
+        "id": "mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98:task"
+      },
+      "operation": {
+        "id": "run",
+        "attempt": 1,
+        "capability": "agent.run",
+        "collection": "unknown",
+        "relatedAgent": "",
+        "outcome": "succeeded",
+        "metadata": {}
+      },
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:c44441c0414af964c8f04206cfbca5a60fe8a8947f860ab1ed40e083ec66c14a",
+          "hash": "ac7b7637046120468287263fd001535b135554b46631117b22656e359d2132b5",
+          "sourceSequence": 163
+        }
+      ]
+    },
+    {
+      "schema": "agent-city.event.v1",
+      "eventId": "c492277adcdd071051c8d543678aa03f12acaea8e218628f12844703cfecb90f",
+      "workspace": "local-agent-city",
+      "source": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98",
+      "order": 166,
+      "occurredAt": 1791483721735,
+      "observedAt": 1791483722421,
+      "completeness": "complete",
+      "type": "operation.started",
+      "instance": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98:mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98-hyperframes-editor:videoops-checker",
+      "profile": "city-videoops-checker",
+      "run": {
+        "namespace": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98",
+        "id": "mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98-hyperframes-editor"
+      },
+      "task": {
+        "namespace": "dispatch",
+        "id": "mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98:task"
+      },
+      "operation": {
+        "id": "hyperframes-editor-artifact-contract-1",
+        "attempt": 1,
+        "capability": "evaluation.run",
+        "collection": "unknown",
+        "relatedAgent": "",
+        "outcome": "unset",
+        "metadata": {
+          "tool": "city.videoops-artifact-contract"
+        }
+      },
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:7027ed2fa91e97b5bd35f23dc308b0087d7717c16a987c77d00d2ed7d3609832",
+          "hash": "1545bb5ab7778b8ba88ad8ef0957849533f6913ab20b34bbf3a2a238a13ea701",
+          "sourceSequence": 164
+        }
+      ]
+    },
+    {
+      "schema": "agent-city.event.v1",
+      "eventId": "530be940d6fc11cc98a352f79b71275327da1943258b7a93bd5be478c9a29546",
+      "workspace": "local-agent-city",
+      "source": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98",
+      "order": 167,
+      "occurredAt": 1791483721748,
+      "observedAt": 1791483722422,
+      "completeness": "complete",
+      "type": "operation.finished",
+      "instance": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98:mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98-hyperframes-editor:videoops-checker",
+      "profile": "city-videoops-checker",
+      "run": {
+        "namespace": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98",
+        "id": "mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98-hyperframes-editor"
+      },
+      "task": {
+        "namespace": "dispatch",
+        "id": "mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98:task"
+      },
+      "operation": {
+        "id": "hyperframes-editor-artifact-contract-1",
+        "attempt": 1,
+        "capability": "evaluation.run",
+        "collection": "unknown",
+        "relatedAgent": "",
+        "outcome": "succeeded",
+        "metadata": {
+          "tool": "city.videoops-artifact-contract"
+        }
+      },
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:18310be0dedbe1716fcffeb9d28717402346f27e81436fe9c3bb4d7f4389d3e3",
+          "hash": "5deaa737f37ec1336e08a91ba7b0ffa97e31aa8e1fc4f921fab03a942aea3879",
+          "sourceSequence": 165
+        }
+      ]
+    },
+    {
+      "schema": "agent-city.event.v1",
+      "eventId": "a3916a567fb1faee91bb1e58763b58370c2c9932abf93ad26d191081538ee641",
+      "workspace": "local-agent-city",
+      "source": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98",
+      "order": 168,
+      "occurredAt": 1791483721754,
+      "observedAt": 1791483722422,
+      "completeness": "complete",
+      "type": "operation.finished",
+      "instance": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98:mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98-asset-scout:asset-scout",
+      "profile": "kujolang/kujo-agents:videoops.asset-scout",
+      "run": {
+        "namespace": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98",
+        "id": "mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98-asset-scout"
+      },
+      "task": {
+        "namespace": "dispatch",
+        "id": "mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98:task"
+      },
+      "operation": {
+        "id": "handoff-hyperframes-editor",
+        "attempt": 1,
+        "capability": "agent.handoff",
+        "collection": "unknown",
+        "relatedAgent": "",
+        "outcome": "succeeded",
+        "metadata": {
+          "relatedInstance": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98:mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98-hyperframes-editor:hyperframes-editor"
+        }
+      },
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:556feb19d0e8c297b11fa8338ed50fd25bcb3d79b8183f3388b3f8ee12b5b7ff",
+          "hash": "317531270d21897a26eebdc8b7f7aa5728eb5e3422fdade551d11040d6d2a7da",
+          "sourceSequence": 166
+        }
+      ]
+    },
+    {
+      "schema": "agent-city.event.v1",
+      "eventId": "bcaa79434900e4ff11dc169eaf8166e5462e6a44f6df08b069e15ab6bf68801b",
+      "workspace": "local-agent-city",
+      "source": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98",
+      "order": 169,
+      "occurredAt": 1791483722771,
+      "observedAt": 1791483723199,
+      "completeness": "complete",
+      "type": "operation.started",
+      "instance": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98:mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98-render:workcell-host",
+      "profile": "local-workcell-invocation",
+      "run": {
+        "namespace": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98",
+        "id": "mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98-render"
+      },
+      "task": {
+        "namespace": "dispatch",
+        "id": "mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98:task"
+      },
+      "operation": {
+        "id": "invocation",
+        "attempt": 1,
+        "capability": "execution.run",
+        "collection": "unknown",
+        "relatedAgent": "",
+        "outcome": "unset",
+        "metadata": {}
+      },
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:284caa4aa753fcf9f20c8e4aba72b2bdba545cc2bac3638b9bea96ef3dafbc6f",
+          "hash": "d3d101fc01d54d62e9c92cdf6fa01c32dcd32fbae0dc26b15391574c083f5277",
+          "sourceSequence": 167
+        }
+      ]
+    },
+    {
+      "schema": "agent-city.event.v1",
+      "eventId": "7a73af3e28612fb53fcd38038960043e7b879fc1a7d4920338b1db73dc9c1b95",
+      "workspace": "local-agent-city",
+      "source": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98",
+      "order": 170,
+      "occurredAt": 1791483722772,
+      "observedAt": 1791483723199,
+      "completeness": "complete",
+      "type": "operation.started",
+      "instance": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98:mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98-render:workcell-host",
+      "profile": "local-workcell-invocation",
+      "run": {
+        "namespace": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98",
+        "id": "mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98-render"
+      },
+      "task": {
+        "namespace": "dispatch",
+        "id": "mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98:task"
+      },
+      "operation": {
+        "id": "workload",
+        "attempt": 1,
+        "capability": "workcell.execute",
+        "collection": "unknown",
+        "relatedAgent": "",
+        "outcome": "unset",
+        "metadata": {
+          "resultCode": "invoked"
+        }
+      },
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:f17a30dabaec4409eda11bdf564bf2ef6db787892e17f8a3e377312f8471ca79",
+          "hash": "d306f3b622c521316b4d641c0bc6925e4718772263096aecff7df45a0983f005",
+          "sourceSequence": 168
+        }
+      ]
+    },
+    {
+      "schema": "agent-city.event.v1",
+      "eventId": "108317da5c66f9a76e34bfc2aa312cb1dee76573a9ec9303a90ca9e90c7e3fc9",
+      "workspace": "local-agent-city",
+      "source": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98",
+      "order": 171,
+      "occurredAt": 1791483805886,
+      "observedAt": 1791483806529,
+      "completeness": "complete",
+      "type": "operation.finished",
+      "instance": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98:mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98-render:workcell-host",
+      "profile": "local-workcell-invocation",
+      "run": {
+        "namespace": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98",
+        "id": "mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98-render"
+      },
+      "task": {
+        "namespace": "dispatch",
+        "id": "mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98:task"
+      },
+      "operation": {
+        "id": "workload",
+        "attempt": 1,
+        "capability": "workcell.execute",
+        "collection": "unknown",
+        "relatedAgent": "",
+        "outcome": "succeeded",
+        "metadata": {
+          "resultCode": "completed:exit-0",
+          "workcellRef": "wc-6668093699674787876f78ddb8bdac52"
+        }
+      },
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:4d8de5690655a259c9a6a7235b494665ebac4fb6aaaa66b114130b230cb90f7c",
+          "hash": "730026f957f6b4525fecf61c5db9c2630301885a7f397f0ccb73a2cf42e4286b",
+          "sourceSequence": 169
+        }
+      ]
+    },
+    {
+      "schema": "agent-city.event.v1",
+      "eventId": "dd0f09b9a46969114b50e59bb1885b0740ce0037d8427940a70a11535aea4589",
+      "workspace": "local-agent-city",
+      "source": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98",
+      "order": 172,
+      "occurredAt": 1791483805887,
+      "observedAt": 1791483806529,
+      "completeness": "complete",
+      "type": "operation.finished",
+      "instance": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98:mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98-render:workcell-host",
+      "profile": "local-workcell-invocation",
+      "run": {
+        "namespace": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98",
+        "id": "mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98-render"
+      },
+      "task": {
+        "namespace": "dispatch",
+        "id": "mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98:task"
+      },
+      "operation": {
+        "id": "container-artifact:output/draft.mp4",
+        "attempt": 1,
+        "capability": "artifact.created",
+        "collection": "unknown",
+        "relatedAgent": "",
+        "outcome": "succeeded",
+        "metadata": {
+          "artifactRef": "workcell:wc-6668093699674787876f78ddb8bdac52:output/draft.mp4",
+          "workcellRef": "wc-6668093699674787876f78ddb8bdac52"
+        }
+      },
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:5b3cbc8c15faab78ebf9f1d629244e1fa6a59631c94005478e0ca3a1bcaafa1d",
+          "hash": "67beea27f1fd095e2ab4159c985bf33a85d2cbcb6896e530d94349b1875d50a5",
+          "sourceSequence": 170
+        }
+      ]
+    },
+    {
+      "schema": "agent-city.event.v1",
+      "eventId": "69c0087725ef054e8a4f997f91e9b44dccb4c0a8a138a05f2e2d51b3f4879970",
+      "workspace": "local-agent-city",
+      "source": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98",
+      "order": 173,
+      "occurredAt": 1791483805888,
+      "observedAt": 1791483806529,
+      "completeness": "complete",
+      "type": "operation.finished",
+      "instance": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98:mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98-render:workcell-host",
+      "profile": "local-workcell-invocation",
+      "run": {
+        "namespace": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98",
+        "id": "mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98-render"
+      },
+      "task": {
+        "namespace": "dispatch",
+        "id": "mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98:task"
+      },
+      "operation": {
+        "id": "container-artifact:output/metadata.json",
+        "attempt": 1,
+        "capability": "artifact.created",
+        "collection": "unknown",
+        "relatedAgent": "",
+        "outcome": "succeeded",
+        "metadata": {
+          "artifactRef": "workcell:wc-6668093699674787876f78ddb8bdac52:output/metadata.json",
+          "workcellRef": "wc-6668093699674787876f78ddb8bdac52"
+        }
+      },
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:47b9f20f1f720ebf53ffb2a0644d36ba3b08c5fcf29f979fab0e13254b852bc7",
+          "hash": "f4b255dc22ebc82f1a6a3b61eade20db7d8f33385c9435cbcd0725d3e8e8894a",
+          "sourceSequence": 171
+        }
+      ]
+    },
+    {
+      "schema": "agent-city.event.v1",
+      "eventId": "82c4e564457eea5c68a18d63ae3152562f0f89c0a69938557c5a9579406d1bc9",
+      "workspace": "local-agent-city",
+      "source": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98",
+      "order": 174,
+      "occurredAt": 1791483805888,
+      "observedAt": 1791483806529,
+      "completeness": "complete",
+      "type": "operation.finished",
+      "instance": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98:mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98-render:workcell-host",
+      "profile": "local-workcell-invocation",
+      "run": {
+        "namespace": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98",
+        "id": "mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98-render"
+      },
+      "task": {
+        "namespace": "dispatch",
+        "id": "mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98:task"
+      },
+      "operation": {
+        "id": "container-artifact:output/check.json",
+        "attempt": 1,
+        "capability": "artifact.created",
+        "collection": "unknown",
+        "relatedAgent": "",
+        "outcome": "succeeded",
+        "metadata": {
+          "artifactRef": "workcell:wc-6668093699674787876f78ddb8bdac52:output/check.json",
+          "workcellRef": "wc-6668093699674787876f78ddb8bdac52"
+        }
+      },
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:38c7ec9c56441ac0d2288df46a435b1b58c491ca50573a131d609139adf7bd23",
+          "hash": "b71660df594729ff79fd708b36a43a90542932b73a92e972477df10382530036",
+          "sourceSequence": 172
+        }
+      ]
+    },
+    {
+      "schema": "agent-city.event.v1",
+      "eventId": "933c4bed904de5c68b72c77840e6f0b00809e5c2ff51c1828e38fcbc7eeb7cff",
+      "workspace": "local-agent-city",
+      "source": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98",
+      "order": 175,
+      "occurredAt": 1791483805889,
+      "observedAt": 1791483806530,
+      "completeness": "complete",
+      "type": "operation.finished",
+      "instance": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98:mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98-render:workcell-host",
+      "profile": "local-workcell-invocation",
+      "run": {
+        "namespace": "rc3-mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98",
+        "id": "mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98-render"
+      },
+      "task": {
+        "namespace": "dispatch",
+        "id": "mission-d674d36a-bbcf-42c1-a1cd-36fde8e82a98:task"
+      },
+      "operation": {
+        "id": "invocation",
+        "attempt": 1,
+        "capability": "execution.run",
+        "collection": "unknown",
+        "relatedAgent": "",
+        "outcome": "succeeded",
+        "metadata": {}
+      },
+      "evidence": [
+        {
+          "origin": "canonical",
+          "recordId": "native:agent-city-sdk:63f311b0a6ca9b397dcbb89887049f8cf08690d789aa1ba79d3c3272c6cc840d",
+          "hash": "4c6ace2b138226ad80c4bbfb5b9e5b5d4fabf60a7645d3900fc1ce8ae15ec87c",
+          "sourceSequence": 173
+        }
+      ]
+    }
+  ]
+}

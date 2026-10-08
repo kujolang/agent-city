@@ -4,7 +4,9 @@
 
 - WebOps supplied-evidence Reporter → Copy Chief workflow with deterministic report checks.
 - Saved VideoOps image/model setup, bounded Planner/Scout/Editor coordination, isolated rendering, exact-candidate human review and explicit finalization.
-- Verified acquired-media transport with hashes and rights evidence; the initial launch UI remains limited to silent original typography/vector work.
+- Immutable product media packs and bounded uploads, a default Pixel v2 preset with actual game captures and licensed pixel font.
+- Optional separately authorized ElevenLabs speech/music/SFX through the canonical media runtime; secret references remain private, consent is bound to current model/voice, and unknown outcomes never retry automatically.
+- Declared audio mixing, measured source durations, full-narration checks and canonical audio QA linked to exact-candidate visual/listening review.
 - Clarified composition-code versus acquired/generated-media planning, retaining the original failed real attempt.
 - Reject incompatible Docker security profiles during setup/admission, before spending model calls.
 - Updated setup, workflow limits and historical/current evidence documentation.

@@ -1,0 +1,230 @@
+{
+  "schema": "agent-city.videoops-render-receipt.v1",
+  "status": "passed",
+  "hyperframesVersion": "0.8.141",
+  "request": {
+    "schema": "agent-city.videoops-render.v1",
+    "media": [
+      {
+        "path": "assets/source/workshop.png",
+        "sha256": "4f250150cf7015b0a19a1e3c1ac5cfb5da53a0f95ca1e15f4336715dcefe863c",
+        "rightsEvidence": "Original Kujo Agent City application capture; provenance videos/pixel-title-card-v2/asset-ledger.json",
+        "bytes": 11082
+      },
+      {
+        "path": "assets/source/library.png",
+        "sha256": "800e79ccc04f578c25b512a77f736199362cc801b7ab6fc489576acb2b64ad1b",
+        "rightsEvidence": "Original Kujo Agent City application capture; provenance videos/pixel-title-card-v2/asset-ledger.json",
+        "bytes": 13932
+      },
+      {
+        "path": "assets/source/city.png",
+        "sha256": "9fbff121768fc1b544edebe091b4d5c2c8cbab61fdacf6c414e025c505e3d84e",
+        "rightsEvidence": "Original Kujo Agent City application capture; provenance videos/pixel-title-card-v2/asset-ledger.json",
+        "bytes": 18644
+      },
+      {
+        "path": "assets/fonts/pixel.ttf",
+        "sha256": "034c77f1f05ec89421e4a63f0e3a4ca1ecf852cc6d2bf611f126f275728e017d",
+        "rightsEvidence": "SIL Open Font License 1.1; licenses/OFL.txt",
+        "bytes": 118204
+      },
+      {
+        "path": "assets/audio/voice.mp3",
+        "sha256": "f1fd8514ef475c3d120531791db1aa78947b9a70e00eb4625723293116918866",
+        "rightsEvidence": "Reused approved Pixel v2 media; videos/pixel-title-card-v2/asset-ledger.json and evidence/user-approval; no new generation or charge",
+        "bytes": 57304
+      },
+      {
+        "path": "assets/audio/music.wav",
+        "sha256": "69d076ed0c224456b7b815d5c7024b787ba8da9ce8b24cff07889a2d18e0db88",
+        "rightsEvidence": "Reused approved Pixel v2 media; videos/pixel-title-card-v2/asset-ledger.json and evidence/user-approval; no new generation or charge",
+        "bytes": 1152044
+      }
+    ],
+    "width": 640,
+    "height": 360,
+    "fps": 30,
+    "durationSeconds": 6
+  },
+  "probe": {
+    "streams": [
+      {
+        "index": 0,
+        "codec_name": "h264",
+        "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+        "profile": "Constrained Baseline",
+        "codec_type": "video",
+        "codec_tag_string": "avc1",
+        "codec_tag": "0x31637661",
+        "width": 640,
+        "height": 360,
+        "coded_width": 640,
+        "coded_height": 360,
+        "closed_captions": 0,
+        "film_grain": 0,
+        "has_b_frames": 0,
+        "sample_aspect_ratio": "1:1",
+        "display_aspect_ratio": "16:9",
+        "pix_fmt": "yuv420p",
+        "level": 30,
+        "color_range": "tv",
+        "color_space": "bt709",
+        "color_transfer": "bt709",
+        "color_primaries": "bt709",
+        "chroma_location": "center",
+        "field_order": "progressive",
+        "refs": 1,
+        "is_avc": "true",
+        "nal_length_size": "4",
+        "id": "0x1",
+        "r_frame_rate": "30/1",
+        "avg_frame_rate": "30/1",
+        "time_base": "1/15360",
+        "start_pts": 0,
+        "start_time": "0.000000",
+        "duration_ts": 92160,
+        "duration": "6.000000",
+        "bit_rate": "206710",
+        "bits_per_raw_sample": "8",
+        "nb_frames": "180",
+        "extradata_size": 43,
+        "disposition": {
+          "default": 1,
+          "dub": 0,
+          "original": 0,
+          "comment": 0,
+          "lyrics": 0,
+          "karaoke": 0,
+          "forced": 0,
+          "hearing_impaired": 0,
+          "visual_impaired": 0,
+          "clean_effects": 0,
+          "attached_pic": 0,
+          "timed_thumbnails": 0,
+          "non_diegetic": 0,
+          "captions": 0,
+          "descriptions": 0,
+          "metadata": 0,
+          "dependent": 0,
+          "still_image": 0,
+          "multilayer": 0
+        },
+        "tags": {
+          "language": "und",
+          "handler_name": "VideoHandler",
+          "vendor_id": "[0][0][0][0]",
+          "encoder": "Lavc61.19.101 libx264"
+        }
+      },
+      {
+        "index": 1,
+        "codec_name": "aac",
+        "codec_long_name": "AAC (Advanced Audio Coding)",
+        "profile": "LC",
+        "codec_type": "audio",
+        "codec_tag_string": "mp4a",
+        "codec_tag": "0x6134706d",
+        "sample_fmt": "fltp",
+        "sample_rate": "48000",
+        "channels": 2,
+        "channel_layout": "stereo",
+        "bits_per_sample": 0,
+        "initial_padding": 0,
+        "id": "0x2",
+        "r_frame_rate": "0/0",
+        "avg_frame_rate": "0/0",
+        "time_base": "1/48000",
+        "start_pts": 0,
+        "start_time": "0.000000",
+        "duration_ts": 288000,
+        "duration": "6.000000",
+        "bit_rate": "196045",
+        "nb_frames": "283",
+        "extradata_size": 5,
+        "disposition": {
+          "default": 1,
+          "dub": 0,
+          "original": 0,
+          "comment": 0,
+          "lyrics": 0,
+          "karaoke": 0,
+          "forced": 0,
+          "hearing_impaired": 0,
+          "visual_impaired": 0,
+          "clean_effects": 0,
+          "attached_pic": 0,
+          "timed_thumbnails": 0,
+          "non_diegetic": 0,
+          "captions": 0,
+          "descriptions": 0,
+          "metadata": 0,
+          "dependent": 0,
+          "still_image": 0,
+          "multilayer": 0
+        },
+        "tags": {
+          "language": "und",
+          "handler_name": "SoundHandler",
+          "vendor_id": "[0][0][0][0]"
+        }
+      }
+    ],
+    "format": {
+      "filename": "/workspace/output/draft.mp4",
+      "nb_streams": 2,
+      "nb_programs": 0,
+      "nb_stream_groups": 0,
+      "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+      "format_long_name": "QuickTime / MOV",
+      "start_time": "0.000000",
+      "duration": "6.000000",
+      "size": "309517",
+      "bit_rate": "412689",
+      "probe_score": 100,
+      "tags": {
+        "minor_version": "512",
+        "major_brand": "isom",
+        "compatible_brands": "isomiso2avc1mp41",
+        "hyperframes_version": "0.8.141",
+        "hyperframes_renderer": "hyperframes",
+        "encoder": "Lavf61.7.103"
+      }
+    }
+  },
+  "steps": [
+    {
+      "name": "version",
+      "status": "passed",
+      "durationMs": 246
+    },
+    {
+      "name": "check",
+      "status": "passed",
+      "durationMs": 30109
+    },
+    {
+      "name": "render",
+      "status": "passed",
+      "durationMs": 43478
+    },
+    {
+      "name": "probe",
+      "status": "passed",
+      "durationMs": 248
+    },
+    {
+      "name": "decode",
+      "status": "passed",
+      "durationMs": 400
+    }
+  ],
+  "artifact": {
+    "path": "output/draft.mp4",
+    "bytes": 309517,
+    "sha256": "98e5bd3a8d6ab5c08f01daeb489507ef290015aa7f17cc4b22c53e44c51146ce"
+  },
+  "technical": "passed",
+  "perceptual": "NOT_REVIEWED",
+  "publication": "NOT_PERFORMED"
+}

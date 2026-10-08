@@ -1,0 +1,76 @@
+{
+  "contract": "kujo-videoops/media-qa/v1",
+  "passed": true,
+  "video": "candidate.mp4",
+  "checks": {
+    "audio": {
+      "contract": "kujo-videoops/audio-qa/v1",
+      "asset": "candidate.mp4",
+      "deterministic": {
+        "status": "PASS",
+        "failures": []
+      },
+      "heuristic_findings": [],
+      "perceptual": {
+        "status": "REVIEW_INCOMPLETE",
+        "listening_exercised": false,
+        "required": [
+          "pronunciation",
+          "speech completeness",
+          "audible cuts",
+          "mix comfort"
+        ]
+      },
+      "checks": {
+        "stream": {
+          "sample_rate": 48000,
+          "channels": 2,
+          "codec": "aac",
+          "duration_seconds": 6.016,
+          "channel_samples": 577536,
+          "bits_per_raw_sample": 0,
+          "audio_stream_count": 1
+        },
+        "levels": {
+          "peak": 0.4193180203437805,
+          "peak_dbfs": -7.549129464654705,
+          "rms": 0.03467300510385318,
+          "rms_dbfs": -29.20017032957011,
+          "clipped_channel_samples": 0
+        },
+        "integer_pcm_rail_hits": {
+          "available": false,
+          "positive": null,
+          "negative": null,
+          "total": null,
+          "classification": "integer quantization rails unavailable for this codec"
+        },
+        "integrated_loudness_lufs": -26.96,
+        "true_peak_dbtp": -7.55,
+        "true_peak_method": "FFmpeg loudnorm input_tp (oversampled measurement)",
+        "alignment": "unavailable",
+        "stems": [
+          {
+            "role": "voice",
+            "path": "sources/0.mp3",
+            "sha256": "f1fd8514ef475c3d120531791db1aa78947b9a70e00eb4625723293116918866",
+            "included": true
+          },
+          {
+            "role": "music",
+            "path": "sources/1.wav",
+            "sha256": "69d076ed0c224456b7b815d5c7024b787ba8da9ce8b24cff07889a2d18e0db88",
+            "included": true
+          }
+        ],
+        "stem_provenance_scope": "declared traceability only; cannot prove a mixed waveform excludes undeclared sources",
+        "cues": []
+      },
+      "sha256": "98e5bd3a8d6ab5c08f01daeb489507ef290015aa7f17cc4b22c53e44c51146ce",
+      "passed": true
+    }
+  },
+  "failures": [],
+  "perceptual_review": "REVIEW_INCOMPLETE",
+  "listening_exercised": false
+}
