@@ -10,6 +10,8 @@
   "keyboardEnterAndExit": true,
   "denialPreservesInspector": true,
   "narrowOverflow": false,
+  "compactTaskHeight": 291.375,
+  "advancedOptionsClosed": true,
   "truthUnchanged": true,
   "noCommandWrites": true,
   "errors": []

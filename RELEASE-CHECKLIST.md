@@ -604,3 +604,16 @@ Framing CI37737469181 atc2aad74 passes all5jobs and four installed platforms.
 Current whole-page empty-state capture confirms the world/roster/inspector layout
 but exposes the long task form below the game. A compact task/onboarding surface
 and real selected-execution/motion comparison remain required for visual acceptance.
+
+Compact composer checkpointaf34958: default task entry now measures291px; optional
+source files/tools/Workcell/checks are grouped with a visible selection count.
+Explicit grants survive disclosure closure for submission and reset on new work;
+retained function contracts are shown on follow-up. Local110tests and keyboard/
+consent/setup/layout/fallback checks pass. CI37739021708 passes all5jobs/four
+installed platforms. This closes the long-form UI gap; real selected-execution
+visual comparison, broader workflow and final release acceptance remain open.
+
+Continuation follow-up8484169 refreshes the old browser locator/keyboard fixture
+and adds it to CI. CI37739543368 passes all5jobs, including the retained-contract,
+keyboard,320px and DOM-only task checks alongside current onboarding/fullscreen
+proofs. App behavior is unchanged fromaf34958. No live model or long soak ran.
