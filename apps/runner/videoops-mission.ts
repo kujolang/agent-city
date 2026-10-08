@@ -90,13 +90,40 @@ export function videoopsMissionOutcome(value: unknown, id: string) {
   const v = value as any;
   if (
     !v ||
-    v.schema !== "agent-city.videoops-mission.v1" ||
+    ![
+      "agent-city.videoops-mission.v1",
+      "agent-city.videoops-finalization.v1",
+    ].includes(v.schema) ||
     v.id !== id ||
     v.kind !== "videoops" ||
     !Number.isFinite(Date.parse(v.finishedAt)) ||
     !Number.isFinite(Date.parse(v.startedAt))
   )
     return null;
+  if (v.schema === "agent-city.videoops-finalization.v1") {
+    if (
+      v.status === "completed" &&
+      v.code === 0 &&
+      v.productionStatus === "approved" &&
+      /^[a-f0-9]{64}$/.test(v.candidateSha256) &&
+      v.native?.state === "APPROVED" &&
+      v.native?.technical === "PASS" &&
+      v.native?.perceptual === "PASS" &&
+      v.native?.candidate?.sha256 === v.candidateSha256 &&
+      v.final?.path === "output/final.mp4" &&
+      v.final?.sha256 === v.candidateSha256 &&
+      v.native?.final?.path === "output/final.mp4" &&
+      v.native?.final?.sha256 === v.candidateSha256 &&
+      Number.isSafeInteger(v.final.bytes) &&
+      v.final.bytes > 0 &&
+      v.final.bytes <= 33554432
+    )
+      return {
+        status: "completed" as const,
+        finishedAt: v.finishedAt as string,
+      };
+    return null;
+  }
   if (
     v.status === "review-pending" &&
     v.code === 0 &&

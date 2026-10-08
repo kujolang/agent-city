@@ -12,3 +12,9 @@ The controlled proof also mounts the production launch form: disabled without
 operator setup, enabled by the fixture readiness callback, keyboard submission,
 explicit per-task render consent and intact prompt/geometry in the outgoing request.
 No real production task is submitted by this browser contract test.
+
+Finalization coverage uses explicitly mocked review/approval responses. It verifies
+that failed review hides the finalize action, mocked approval enables it, an explicit
+keyboard action submits the exact candidate checksum, and the confirmed final download
+appears. This is not evidence of a real human review, real native promotion, or a
+completed live production.

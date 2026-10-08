@@ -1,3 +1,4 @@
+import { finalizeVideoops } from "./videoops-finalize";
 import type { IncomingMessage, ServerResponse } from "node:http";
 import { lstat, readFile, realpath } from "node:fs/promises";
 import { createHash } from "node:crypto";
@@ -19,7 +20,7 @@ export async function handleVideoopsReview(
   },
 ) {
   const match =
-    /^\/control\/videoops\/(review|video)\/([a-zA-Z0-9-]{1,100})$/.exec(
+    /^\/control\/videoops\/(review|video|finalize|final)\/([a-zA-Z0-9-]{1,100})$/.exec(
       req.url || "",
     );
   if (!match) return false;
@@ -32,8 +33,8 @@ export async function handleVideoopsReview(
     return true;
   }
   if (
-    req.method !== "GET" &&
-    !(req.method === "POST" && match[1] === "review")
+    (req.method !== "GET" || match[1] === "finalize") &&
+    !(req.method === "POST" && ["review", "finalize"].includes(match[1]))
   ) {
     send(405, { error: "Unsupported method" });
     return true;
@@ -78,6 +79,22 @@ export async function handleVideoopsReview(
           return true;
         }
       }
+      if (match[1] === "finalize") {
+        const result = await finalizeVideoops({
+          agentsRepository: options.agentsRepository,
+          missionDirectory: resolve(root, match[2]),
+          id: match[2],
+          decision: JSON.parse(body),
+        });
+        send(200, {
+          id: match[2],
+          status: result.status,
+          final: result.final,
+          downloadUrl: "/control/videoops/final/" + match[2],
+          publication: "NOT_PERFORMED",
+        });
+        return true;
+      }
       const result = await recordVideoopsHumanReview({
         agentsRepository: options.agentsRepository,
         workspace,
@@ -91,10 +108,26 @@ export async function handleVideoopsReview(
         id: match[2],
         status,
         videoUrl: "/control/videoops/video/" + match[2],
+        finalUrl:
+          status.state === "APPROVED" &&
+          status.candidate?.promotion?.sha256 === status.candidate.sha256
+            ? "/control/videoops/final/" + match[2]
+            : null,
       });
       return true;
     }
-    const file = resolve(workspace, "output/draft.mp4");
+    const final = match[1] === "final";
+    if (
+      final &&
+      (status.state !== "APPROVED" ||
+        status.candidate?.promotion?.path !== "output/final.mp4" ||
+        status.candidate.promotion.sha256 !== status.candidate.sha256)
+    )
+      throw Error("Approved final artifact unavailable");
+    const file = resolve(
+      workspace,
+      final ? "output/final.mp4" : "output/draft.mp4",
+    );
     const info = await lstat(file);
     if (
       !info.isFile() ||
@@ -112,7 +145,9 @@ export async function handleVideoopsReview(
     res.writeHead(200, {
       "Content-Type": "video/mp4",
       "Content-Length": bytes.length,
-      "Content-Disposition": "inline; filename=draft.mp4",
+      "Content-Disposition": final
+        ? "attachment; filename=final.mp4"
+        : "inline; filename=draft.mp4",
     });
     res.end(bytes);
   } catch (error) {

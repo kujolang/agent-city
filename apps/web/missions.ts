@@ -369,9 +369,11 @@ export function mountMissions(
             }
             if (job.kind === "videoops") {
               output.textContent =
-                job.status === "review-pending"
-                  ? "Draft rendered. Independent review is pending; inspect the exact candidate below."
-                  : `Video production: ${job.status}. Inspect observed stages and retained production evidence; no final approval is inferred.`;
+                job.status === "completed"
+                  ? "Approved final video saved locally. Download the exact artifact below."
+                  : job.status === "review-pending"
+                    ? "Draft rendered. Independent review is pending; inspect the exact candidate below."
+                    : `Video production: ${job.status}. Inspect observed stages and retained production evidence; no final approval is inferred.`;
               return;
             }
             const diagnosticPanel = panel.querySelector<HTMLElement>(

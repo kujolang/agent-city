@@ -40,6 +40,52 @@ export async function showVideoopsReview(
   }
   const form = section.querySelector("form")!,
     button = form.querySelector("button")!;
+  const finalButton = document.createElement("button");
+  finalButton.type = "button";
+  finalButton.textContent = "Finalize approved video";
+  const download = document.createElement("a");
+  download.textContent = "Download approved final video";
+  download.href = "/control/videoops/final/" + encodeURIComponent(id);
+  download.hidden = true;
+  section.append(finalButton, download);
+  function finalState(status: any) {
+    const promoted = !!status.candidate?.promotion;
+    finalButton.hidden = status.state !== "APPROVED" || promoted;
+    download.hidden = status.state !== "APPROVED" || !promoted;
+    form.hidden = promoted;
+  }
+  finalState(data.status);
+  finalButton.onclick = async () => {
+    if (!isCurrent()) return;
+    finalButton.disabled = true;
+    try {
+      const response = await fetch(
+        "/control/videoops/finalize/" + encodeURIComponent(id),
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-City-Command-Token": token,
+          },
+          body: JSON.stringify({ candidateSha256: sha, confirmed: true }),
+        },
+      );
+      const result = await response.json();
+      if (!response.ok) throw Error(result.error || "Finalization unavailable");
+      if (result.status !== "completed" || result.final?.sha256 !== sha)
+        throw Error("Final artifact confirmation unavailable");
+      finalButton.hidden = true;
+      form.hidden = true;
+      download.hidden = false;
+      state.textContent =
+        "Completed · Exact approved final video saved locally · Not published";
+    } catch (error) {
+      state.textContent =
+        error instanceof Error ? error.message : "Finalization unavailable";
+    } finally {
+      finalButton.disabled = false;
+    }
+  };
   form.onsubmit = async (event) => {
     event.preventDefault();
     if (!isCurrent()) return;
@@ -72,6 +118,7 @@ export async function showVideoopsReview(
       );
       const result = await reply.json();
       if (!reply.ok) throw Error(result.error || "Review not recorded");
+      finalState(result.status);
       state.textContent = `${result.status.state} · Technical: ${result.status.technical} · Perceptual: ${result.status.perceptual}`;
     } catch (error) {
       state.textContent =

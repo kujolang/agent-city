@@ -105,6 +105,10 @@ export async function recordVideoopsHumanReview(
   const before = await native(["status"]);
   if (before.candidate?.sha256 !== decision.candidateSha256)
     throw Error("Candidate changed; review the current video");
+  if (before.candidate.promotion)
+    throw Error(
+      "Finalized candidate review is immutable; start a revised production",
+    );
   const mandatory = before.candidate.mandatory_capabilities;
   if (!Array.isArray(mandatory) || !mandatory.length)
     throw Error("Native perceptual gates unavailable");

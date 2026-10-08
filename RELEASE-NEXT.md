@@ -186,3 +186,15 @@ uncertain preparation/Editor outcomes preserve UNKNOWN admission holds.145tests 
 types/boundaries/maps/build pass, WebOps browser regression passes, and controlled
 VideoOps keyboard-launch/review proof passes. Operator setup UX, actual model video
 production, perceptual acceptance and final-output/release qualification remain open.
+
+Final-output implementation: an explicit authenticated finalize action checks native
+APPROVED/technical PASS/perceptual PASS for the exact candidate, calls canonical
+promotion only to output/final.mp4, rehashes actual final bytes and saves a separate
+completion receipt. Original review-pending receipt and attempt history remain intact.
+Mission reconciliation accepts completion only from that finalization evidence;
+final downloads recheck native approval and actual bytes. Finalized reviews are
+immutable in City; revisions require a new production.146tests/types/boundaries/maps/
+build pass; controlled browser proof covers failed-review denial, explicit finalize
+and final download. These are contract fixtures, not actual perceptual acceptance.
+Operator setup, real model production/perceptual acceptance and new-release
+qualification remain open.

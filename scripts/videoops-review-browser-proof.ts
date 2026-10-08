@@ -49,6 +49,16 @@ try {
       });
       return;
     }
+    if (r.request().url().includes("/finalize/")) {
+      const data = r.request().postDataJSON();
+      assert.equal(data.candidateSha256, sha);
+      assert.equal(data.confirmed, true);
+      await r.fulfill({
+        contentType: "application/json",
+        body: JSON.stringify({ status: "completed", final: { sha256: sha } }),
+      });
+      return;
+    }
     if (r.request().method() === "POST") {
       const data = r.request().postDataJSON();
       requests.push(data);
@@ -56,9 +66,9 @@ try {
         contentType: "application/json",
         body: JSON.stringify({
           status: {
-            state: "REVISION_REQUIRED",
+            state: data.outcome === "PASS" ? "APPROVED" : "REVISION_REQUIRED",
             technical: "PASS",
-            perceptual: "FAIL",
+            perceptual: data.outcome,
           },
         }),
       });
@@ -111,6 +121,21 @@ try {
   assert.equal(requests.length, 1);
   assert.equal(requests[0].candidateSha256, sha);
   assert.equal(requests[0].confirmed, true);
+  assert(
+    await page
+      .getByRole("button", { name: "Finalize approved video" })
+      .isHidden(),
+  );
+  await page.getByLabel("Outcome").selectOption("PASS");
+  await page.getByLabel("Defects, one per line").fill("");
+  await page.getByRole("button", { name: "Record review" }).click();
+  await page.getByRole("button", { name: "Finalize approved video" }).waitFor();
+  await page.getByRole("button", { name: "Finalize approved video" }).focus();
+  await page.keyboard.press("Enter");
+  await page
+    .getByRole("link", { name: "Download approved final video" })
+    .waitFor();
+  assert(await page.getByRole("button", { name: "Record review" }).isHidden());
   await page.getByText("VideoOps production", { exact: true }).click();
   assert(
     await page
@@ -147,6 +172,8 @@ try {
           "keyboard-submit",
           "explicit-human-attestation",
           "failed-review-displayed",
+          "approval-required-before-finalize",
+          "explicit-finalization-and-download",
           "operator-setup-required-for-launch",
           "explicit-render-consent",
           "keyboard-video-task-submission",

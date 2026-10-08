@@ -95,6 +95,14 @@ function save() {
 async function readJobOutcome(job: Job) {
   if (job.kind === "videoops") {
     try {
+      const finalized = resolve(missionsRoot, job.id, "finalization.json");
+      if ((await stat(finalized).catch(() => null))?.isFile()) {
+        if ((await stat(finalized)).size > 65536) return null;
+        return videoopsMissionOutcome(
+          JSON.parse(await readFile(finalized, "utf8")),
+          job.id,
+        );
+      }
       const file = resolve(missionsRoot, job.id, "receipt.json");
       if ((await stat(file)).size > 65536) return null;
       return videoopsMissionOutcome(
@@ -122,12 +130,21 @@ async function readJobOutcome(job: Job) {
 }
 async function reconcile() {
   let changed = false;
-  for (const job of jobs.filter((j) => j.status === "unknown")) {
+  for (const job of jobs.filter(
+    (j) =>
+      j.status === "unknown" ||
+      (j.kind === "videoops" && j.status === "review-pending"),
+  )) {
     const outcome = await readJobOutcome(job);
     if (!outcome) continue;
-    job.status = outcome.status;
-    job.finishedAt = outcome.finishedAt;
-    changed = true;
+    if (
+      job.status !== outcome.status ||
+      job.finishedAt !== outcome.finishedAt
+    ) {
+      job.status = outcome.status;
+      job.finishedAt = outcome.finishedAt;
+      changed = true;
+    }
   }
   if (changed) await save();
 }
