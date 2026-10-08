@@ -175,6 +175,7 @@ export async function install({ prefix, start }) {
       "scripts",
       "integrations",
       "installer",
+      "docs",
       "package.json",
       "package-lock.json",
       "tsconfig.json",
@@ -183,6 +184,9 @@ export async function install({ prefix, start }) {
       "TRY-AGENT-CITY.md",
       "WORKING-EXPERIENCE.md",
       "RELEASE-CHECKLIST.md",
+      "RELEASE-QUALIFICATION.md",
+      "RELEASE-NEXT.md",
+      "CHANGELOG.md",
       "Start Agent City.command",
     ])
       await cp(join(source, item), join(app, item), { recursive: true });

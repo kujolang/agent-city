@@ -87,6 +87,10 @@ jobs:
           test -s "$RUNNER_TEMP/city/agent-city/TRY-AGENT-CITY.md"
           test -s "$RUNNER_TEMP/city/agent-city/WORKING-EXPERIENCE.md"
           test -s "$RUNNER_TEMP/city/agent-city/RELEASE-CHECKLIST.md"
+          test -s "$RUNNER_TEMP/city/agent-city/RELEASE-QUALIFICATION.md"
+          test -s "$RUNNER_TEMP/city/agent-city/docs/videoops.md"
+          test -s "$RUNNER_TEMP/city/agent-city/docs/videoops-media.md"
+          test -s "$RUNNER_TEMP/city/agent-city/docs/workflow-support.md"
       - name: Verify managed setup without system Node or npm
         run: |
           printf '#!/bin/sh\nexit 73\n' > "$RUNNER_TEMP/no-system-node/npm"
