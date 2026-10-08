@@ -15,6 +15,21 @@ model credentials or start agent tasks. Ctrl+C stops the application. To install
 without launching, append `-s -- --no-start` to `sh`. The default launcher is
 `~/.local/share/agent-city/start.command`.
 
+The launcher also runs setup commands with the installed private Node/npm, even
+when no system-wide Node is installed:
+
+```sh
+"$HOME/.local/share/agent-city/start.command" doctor --json
+"$HOME/.local/share/agent-city/start.command" --help
+```
+
+After `codex login`, start the Codex adapter in another terminal with
+`"$HOME/.local/share/agent-city/start.command" provider:codex`. Set `CITY_APP_URL`
+to the displayed app URL if it uses a non-default port. This does not install
+Codex or sign in for you. For Ollama, use **Detect local Ollama** in Mission
+Command, choose an installed model, then save the connection. Local Ollama does
+not require a City API key; remote/cloud authentication remains provider-owned.
+
 From a trusted source checkout with Node 24+, the equivalent explicit install is:
 
 ```sh
@@ -92,7 +107,7 @@ To build the supplied local Kujo image after starting Docker, run from the Agent
 City directory:
 
 ```sh
-npm run setup:workcell -- --build
+../start.command setup:workcell --build
 ```
 
 This explicit build downloads a digest-pinned Node/Debian base and installs Kujo
@@ -113,7 +128,7 @@ For a stopped supervisor with an interrupted local Workcell run, use the exact
 source repository, temporary root and run ID from that run's receipt:
 
 ```sh
-npm run recover:workcell -- /absolute/workcell-source /absolute/temporary-root wc-RUNID --apply
+../start.command recover:workcell /absolute/workcell-source /absolute/temporary-root wc-RUNID --apply
 ```
 
 This refuses active containers and mismatched ownership. It removes only that

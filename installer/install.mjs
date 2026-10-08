@@ -1,3 +1,4 @@
+import { managedLauncher } from "./launcher.mjs";
 import { maintain } from "./lifecycle.mjs";
 import {
   mkdir,
@@ -220,11 +221,9 @@ export async function install({ prefix, start }) {
       await cp(process.env.CITY_BOOTSTRAP_NODE_DIR, join(stage, ".node"), {
         recursive: true,
       });
-    await writeFile(
-      join(stage, "start.command"),
-      '#!/bin/sh\nset -eu\ncd "$(dirname "$0")"\nif [ -x .node/bin/node ]; then PATH="$PWD/.node/bin:$PATH"; export PATH; fi\ncd agent-city\nexec npm start\n',
-      { mode: 0o755 },
-    );
+    await writeFile(join(stage, "start.command"), managedLauncher, {
+      mode: 0o755,
+    });
     await writeFile(
       join(stage, "install-receipt.json"),
       JSON.stringify(

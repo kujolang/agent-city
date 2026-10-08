@@ -90,8 +90,12 @@ try {
     ) + "\n",
     { mode: 0o600 },
   );
+  const launcher = process.env.CITY_MANAGED_LAUNCHER;
+  const launchCommand = launcher
+    ? "'" + launcher.replaceAll("'", "'\\''") + "'"
+    : "npm start";
   console.log(
-    `Local image built: ${id}\nTo explicitly enable Workcell for your next launch:\nCITY_ENABLE_WORKCELL=1 CITY_WORKCELL_IMAGE=${id} npm start\nKeep the same Docker context. Each mission still requires its own execution opt-in.`,
+    `Local image built: ${id}\nTo explicitly enable Workcell for your next launch:\nCITY_ENABLE_WORKCELL=1 CITY_WORKCELL_IMAGE=${id} ${launchCommand}\nKeep the same Docker context. Each mission still requires its own execution opt-in.`,
   );
 } finally {
   await rm(stage, { recursive: true, force: true });

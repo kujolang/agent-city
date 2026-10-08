@@ -324,3 +324,11 @@ x64 browser recovery passed once, but an early canonical request timed out and
 four batches remain uncertain; overall reliability/release remains FAIL. All
 four installer jobs passed in37711883473. See evidence/reconnect-load and
 planner-copy. No core Kujo runtime changes or long soak were made.
+
+Managed setup checkpoint: the installed launcher now runs doctor, provider setup,
+Workcell image setup, catalog import and owned recovery with its private Node/npm.
+No global Node installation is required for these commands. Unknown commands fail
+closed; shell arguments remain literal. UI and managed instructions use the wrapper,
+and Workcell setup prints its managed launch path. Local91tests/build pass;
+four-platform CI now explicitly masks system Node/npm for the launcher doctor.
+This closes the command-path gap, not fresh provider authentication or all onboarding.

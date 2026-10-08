@@ -17,7 +17,7 @@ export function mountMissions(
     <label id="local-model-label" hidden>Available Ollama models <select id="local-models"><option value="">Choose a model</option></select></label>
     <button type="button" id="check-model">Check model listing</button>
     <p id="model-check-status" role="status" aria-live="polite"></p>
-    <p class="muted">Codex subscription: sign in with <code>codex login</code>, then run <code id="codex-setup-command"></code> from the Agent City directory in another terminal. Keep it running. The adapter configures the connection; do not paste your subscription password or OAuth token here.</p>
+    <p class="muted">Codex subscription: sign in with <code>codex login</code>, then run <code id="codex-setup-command"></code> from the managed Agent City directory in another terminal. For a source checkout, use <code>npm run provider:codex</code> with the same CITY_APP_URL instead. Keep it running. The adapter configures the connection; do not paste your subscription password or OAuth token here.</p>
     </form></details>
     <p id="continuation-status" role="status">New mission</p><button id="clear-continuation" type="button" hidden>Cancel follow-up</button>
     <form id="mission-form"><label>Task type <select name="kind"><option value="writing">Writing + review</option><option value="code">JavaScript + review</option><option value="kujo">Kujo + senior review (real MCP)</option></select></label>
@@ -27,13 +27,13 @@ export function mountMissions(
     <label><input type="checkbox" name="useMcpDocs"> Read local MCP demo README</label>
     <label>Task <textarea name="prompt" rows="3" maxlength="16384" required placeholder="Describe the small task you want the agents to complete."></textarea></label>
     <label><input type="checkbox" name="executeWorkcell"> Execute checked Kujo code in Workcell after review (requires operator setup; no network or project access)</label>
-    <details><summary>Workcell execution setup</summary><p>Requires a running local Docker/Podman engine and a trusted local image containing Kujo. For Docker, run <code>npm run setup:workcell -- --build</code> from the Agent City directory to build the supplied local image, then use its printed launch command. The operator sets <code>CITY_ENABLE_WORKCELL=1</code> and <code>CITY_WORKCELL_IMAGE</code> before starting Agent City. Select the intended engine context in the launcher environment.</p><button type="button" id="check-workcell">Check Workcell setup</button><p id="workcell-check-status" role="status" aria-live="polite">Not checked. This check does not install software, pull images, run code or enable execution.</p></details>
+    <details><summary>Workcell execution setup</summary><p>Requires a running local Docker/Podman engine and a trusted local image containing Kujo. For Docker in a managed installation, run <code>../start.command setup:workcell --build</code> from the Agent City directory (source checkout: <code>npm run setup:workcell -- --build</code>) to build the supplied local image, then use its printed launch command. The operator sets <code>CITY_ENABLE_WORKCELL=1</code> and <code>CITY_WORKCELL_IMAGE</code> before starting Agent City. Select the intended engine context in the launcher environment.</p><button type="button" id="check-workcell">Check Workcell setup</button><p id="workcell-check-status" role="status" aria-live="polite">Not checked. This check does not install software, pull images, run code or enable execution.</p></details>
     <details><summary>Optional JavaScript function checks</summary><label>Function contract JSON <textarea name="functionContract" rows="4" placeholder='{"exportName":"sum","cases":[{"name":"empty","args":[[]],"equals":0}]}'></textarea></label><p class="muted">Explicitly runs the generated module in a disposable browser worker. JSON arguments/results only; no filesystem or network integrations. Requires installed Chromium. Each case gets 1.5 seconds.</p></details>
     <button type="submit" disabled>Start mission</button></form>
     <p class="muted">Sends your task to the configured model. The SDK hands the draft to a reviewer. JavaScript runs only with explicit function cases in an isolated browser. Kujo runs only with the separate Workcell opt-in and operator setup.</p>
     <div id="mission-jobs" aria-label="Mission history"></div><pre id="mission-exchanges" tabindex="0" aria-label="Observed agent responses"></pre><pre id="provider-diagnostics" tabindex="0" aria-label="Provider response diagnostics" hidden></pre><pre id="mission-artifact" tabindex="0" aria-label="Selected mission output"></pre>`;
   panel.querySelector("#codex-setup-command")!.textContent =
-    `CITY_APP_URL=${window.location.origin} npm run provider:codex`;
+    `CITY_APP_URL=${window.location.origin} ../start.command provider:codex`;
   host.querySelector(".world")!.after(panel);
   mountAgentCatalog(panel);
   const chat = document.createElement("section");

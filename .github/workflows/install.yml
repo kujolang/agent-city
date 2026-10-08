@@ -26,6 +26,12 @@ jobs:
           chmod +x "$RUNNER_TEMP/no-system-node/node"
           PATH="$RUNNER_TEMP/no-system-node:$PATH" sh install.sh --prefix "$RUNNER_TEMP/city" --no-start
           test -x "$RUNNER_TEMP/city/.node/bin/node"
+      - name: Verify managed setup without system Node or npm
+        run: |
+          printf '#!/bin/sh\nexit 73\n' > "$RUNNER_TEMP/no-system-node/npm"
+          chmod +x "$RUNNER_TEMP/no-system-node/npm"
+          PATH="$RUNNER_TEMP/no-system-node:/usr/bin:/bin" "$RUNNER_TEMP/city/start.command" doctor --json > "$RUNNER_TEMP/launcher-doctor.log"
+          PATH="$RUNNER_TEMP/no-system-node:/usr/bin:/bin" "$RUNNER_TEMP/city/start.command" --help > "$RUNNER_TEMP/launcher-help.log"
       - name: Verify actual installed SDK, Dispatch, RAG and MCP contracts
         run: cd "$RUNNER_TEMP/city/agent-city" && "$RUNNER_TEMP/city/.node/bin/node" --import tsx scripts/mission-contract.ts
       - name: Verify real installed update, refusal and archive lifecycle
@@ -41,13 +47,15 @@ jobs:
         run: |
           export PATH="$RUNNER_TEMP/city/.node/bin:$PATH"
           cd "$RUNNER_TEMP/city/agent-city"
-          npm run setup:workcell -- --build
+          "$RUNNER_TEMP/city/start.command" setup:workcell --build
           node --import tsx scripts/installed-workcell-proof.ts
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: installation-${{ matrix.os }}
           path: |
+            ${{ runner.temp }}/launcher-doctor.log
+            ${{ runner.temp }}/launcher-help.log
             ${{ runner.temp }}/workcell-platform.json
             ${{ runner.temp }}/maintenance.json
             ${{ runner.temp }}/city/install-receipt.json
