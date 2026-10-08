@@ -113,6 +113,7 @@ if (!config && process.env.CITY_MODEL_ENDPOINT && process.env.CITY_MODEL)
     model: process.env.CITY_MODEL,
     apiKey: process.env.CITY_MODEL_API_KEY || "",
     maxOutputTokens: Number(process.env.CITY_MAX_OUTPUT_TOKENS || 2048),
+    requestTimeoutSeconds: Number(process.env.CITY_MODEL_TIMEOUT_SECONDS || 90),
   });
 const configured = () => Boolean(config);
 const server = createServer(async (req, res) => {
@@ -150,6 +151,7 @@ const server = createServer(async (req, res) => {
         endpoint: config?.endpoint || "",
         hasCredential: Boolean(config?.apiKey),
         maxOutputTokens: config?.maxOutputTokens ?? 2048,
+        requestTimeoutSeconds: config?.requestTimeoutSeconds ?? 90,
         token,
         storageHealthy,
         busy:
@@ -384,7 +386,7 @@ const server = createServer(async (req, res) => {
         } catch {
           return send(400, {
             error:
-              "Provide a valid model endpoint and model. Use HTTPS or local HTTP; no credentials in the URL. Output token limit must be 256–16384.",
+              "Provide a valid model endpoint and model. Use HTTPS or local HTTP; no credentials in the URL. Output token limit must be 256–16384 and provider timeout 10–300 seconds.",
           });
         }
         if (req.url === "/control/check-model") {
@@ -563,6 +565,9 @@ const server = createServer(async (req, res) => {
             CITY_MODEL: config!.model,
             CITY_MODEL_API_KEY: config!.apiKey,
             CITY_MAX_OUTPUT_TOKENS: String(config!.maxOutputTokens ?? 2048),
+            CITY_MODEL_TIMEOUT_SECONDS: String(
+              config!.requestTimeoutSeconds ?? 90,
+            ),
           },
           stdio: "ignore",
         },

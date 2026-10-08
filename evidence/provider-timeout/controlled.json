@@ -1,0 +1,20 @@
+{
+  "status": "PASS",
+  "scope": "Controlled 12-second provider response; actual SDK/Dispatch; not real model product proof",
+  "results": [
+    {
+      "id": "mission-11111111-1111-4111-8111-111111111111",
+      "requestTimeoutSeconds": 10,
+      "status": "failed",
+      "calls": 1,
+      "elapsedMs": 14029
+    },
+    {
+      "id": "mission-11111111-1111-4111-8111-111111111112",
+      "requestTimeoutSeconds": 20,
+      "status": "completed",
+      "calls": 2,
+      "elapsedMs": 16601
+    }
+  ]
+}

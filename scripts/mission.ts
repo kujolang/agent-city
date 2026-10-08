@@ -32,6 +32,7 @@ const modelConfig = validateModelConfig({
   model: process.env.CITY_MODEL || "",
   apiKey: process.env.CITY_MODEL_API_KEY || "",
   maxOutputTokens: Number(process.env.CITY_MAX_OUTPUT_TOKENS || 2048),
+  requestTimeoutSeconds: Number(process.env.CITY_MODEL_TIMEOUT_SECONDS || 90),
 });
 const prompt = await readFile(resolve(promptFile), "utf8");
 if (!prompt.trim() || Buffer.byteLength(prompt) > 16_384)
@@ -139,6 +140,9 @@ const child = spawn(
         process.env.KUJO_BIN || resolve(root, "../kujo/target/release/kujo"),
       CITY_MISSION_ID: id,
       CITY_MAX_OUTPUT_TOKENS: String(modelConfig.maxOutputTokens ?? 2048),
+      CITY_MODEL_TIMEOUT_SECONDS: String(
+        modelConfig.requestTimeoutSeconds ?? 90,
+      ),
       CITY_PROFILE_FILE: profiles ? resolve(dir, "profiles.json") : "",
       CITY_AUTHOR_PROFILE:
         profiles?.author.id ||

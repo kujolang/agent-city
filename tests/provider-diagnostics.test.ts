@@ -53,3 +53,20 @@ test("output budget is explicit, bounded and backwards compatible", () => {
       "limit",
     );
 });
+
+test("provider wait is bounded without changing the existing default", () => {
+  const base = {
+    endpoint: "http://127.0.0.1:11434/v1/chat/completions",
+    model: "test",
+    apiKey: "",
+  };
+  expect(validateModelConfig(base).requestTimeoutSeconds).toBe(90);
+  expect(
+    validateModelConfig({ ...base, requestTimeoutSeconds: 180 })
+      .requestTimeoutSeconds,
+  ).toBe(180);
+  for (const requestTimeoutSeconds of [0, 9, 301, 1.5, "180", NaN, Infinity])
+    expect(() =>
+      validateModelConfig({ ...base, requestTimeoutSeconds }),
+    ).toThrow("timeout");
+});

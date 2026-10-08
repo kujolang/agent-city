@@ -3,6 +3,7 @@ export interface ModelConfig {
   model: string;
   apiKey: string;
   maxOutputTokens?: number;
+  requestTimeoutSeconds?: number;
 }
 export function validateModelConfig(value: unknown): ModelConfig {
   if (!value || typeof value !== "object")
@@ -42,7 +43,16 @@ export function validateModelConfig(value: unknown): ModelConfig {
     maxOutputTokens > 16384
   )
     throw Error("Output token limit must be an integer from 256 to 16384");
+  const requestTimeoutSeconds = data.requestTimeoutSeconds ?? 90;
+  if (
+    typeof requestTimeoutSeconds !== "number" ||
+    !Number.isInteger(requestTimeoutSeconds) ||
+    requestTimeoutSeconds < 10 ||
+    requestTimeoutSeconds > 300
+  )
+    throw Error("Provider timeout must be an integer from 10 to 300 seconds");
   return {
+    requestTimeoutSeconds,
     endpoint: url.href,
     model: data.model.trim(),
     apiKey: data.apiKey,

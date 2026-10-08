@@ -15,6 +15,7 @@ export function mountMissions(
     </details>
     <label>Chat completions endpoint <input name="endpoint" type="url" required placeholder="Full HTTPS or local HTTP endpoint"></label>
     <label>Model <input name="model" required autocomplete="off"></label>
+    <label>Provider timeout (seconds) <input name="requestTimeoutSeconds" type="number" min="10" max="300" step="1" value="90" required></label><p class="muted">Maximum wait for each model response. Increase explicitly for slower models; a timeout never means the provider completed the work.</p>
     <label>Output token limit <input name="maxOutputTokens" type="number" min="256" max="16384" step="1" value="2048" required></label><p class="muted">Higher limits may use more time and provider credits. If a failed attempt reports finish reason length, choose a higher limit explicitly before retrying.</p>
     <label>API key <input name="apiKey" type="password" autocomplete="off" placeholder="Leave blank for local Ollama"></label>
     <p class="muted">Local Ollama needs no API key. Remote providers may require one. This form alone does not sign in to Codex; the local Codex adapter uses your CLI login. Saved only in a private local configuration file. A blank key keeps the saved key only for the same endpoint.</p>
@@ -223,6 +224,11 @@ export function mountMissions(
         (
           modelForm.elements.namedItem("maxOutputTokens") as HTMLInputElement
         ).value = String(data.maxOutputTokens ?? 2048);
+        (
+          modelForm.elements.namedItem(
+            "requestTimeoutSeconds",
+          ) as HTMLInputElement
+        ).value = String(data.requestTimeoutSeconds ?? 90);
         configLoaded = true;
       }
       const key = JSON.stringify(data.jobs);
@@ -500,6 +506,7 @@ export function mountMissions(
           model: fields.get("model"),
           apiKey: fields.get("apiKey"),
           maxOutputTokens: Number(fields.get("maxOutputTokens")),
+          requestTimeoutSeconds: Number(fields.get("requestTimeoutSeconds")),
         }),
       });
       const result = await response.json();
@@ -617,6 +624,9 @@ export function mountMissions(
                   model: fields.get("model"),
                   apiKey: fields.get("apiKey"),
                   maxOutputTokens: Number(fields.get("maxOutputTokens")),
+                  requestTimeoutSeconds: Number(
+                    fields.get("requestTimeoutSeconds"),
+                  ),
                 },
           ),
         });
