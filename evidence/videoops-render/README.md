@@ -44,3 +44,11 @@ Editor artifacts and `renderVideoopsAttempt`. The exported video independently
 hash-matches `candidate.json`; Workcell `wc-0ce04e1fe8114732ae0ba9321c0e6986`
 completed. This remains the original controlled fixture, not a model-authored
 production or perceptual approval. Receipts/video are in `37790787619/`.
+
+Canonical review connection qualifies in CI [37791483497](https://github.com/kujolang/agent-city/actions/runs/37791483497)
+at `9ad0be448f247292aabfe3fde2cea5c8d22419e6`. Actual native review records one
+successful render and one technical-tool review. State is `REVIEW_INCOMPLETE`,
+technical `PASS`, perceptual `NOT_REVIEWED`; no approval or promotion occurs.
+Downloaded video, candidate and review all bind the same checksum. See
+`37791483497/review.json`. This proves the technical handoff using the controlled
+fixture; a real model production and independent perceptual review remain required.
