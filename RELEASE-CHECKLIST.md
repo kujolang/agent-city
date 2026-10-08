@@ -405,3 +405,15 @@ in CaseFile2026-10-07-223523-catalogcidockerreadiness and initial proof metadata
 No change starts Docker on user machines. Evidence: evidence/bundled-catalog/
 requalification.json. Custom external workflow execution and full provider/visual
 acceptance remain unfinished.
+
+Presentation/CI checkpoint: CI37722261766 at4b2e44c passes complete source
+verification, controlled Chromium onboarding/fullscreen checks and all four
+installation platforms. Previous CI only proved installation/SDK contracts; it did
+not cover source proof-script type errors. The workflow now checks types, boundaries,
+maps, unit tests and build, and triggers on tests/assets/config changes. Fullscreen
+keeps integer scaling and source truth unchanged; successful model setup returns
+keyboard focus to the task. Seven actual empty-world captures and reference comparison
+are in evidence/game-view. Native artwork remains simpler than the supplied concepts.
+Exact imported-profile appearance bindings atd4ec00f cover the five profiles from
+real proofs; unknown sources keep the fallback. Local96tests/build pass. Full visual
+acceptance and broader workflow/release gates remain open; no long soak ran.
