@@ -10,6 +10,9 @@ import { validateVideoopsHandoff } from "./videoops-gates";
 import { validateVideoopsRenderInput } from "./videoops-render-input";
 import type { ImportedProfile } from "./agent-catalog";
 
+export const videoopsEditorInstructions =
+  "Author the required HTML composition and production notes from the supplied exact plan. Do not alter transcript or shot timing. Runtime supplies ./gsap.min.js (GSAP 3.13.0) and HyperFrames 0.8.141. Use only supplied acquired assets at ./assets/... paths matching the manifest. No remote URLs, unprovided media, packages or network access. Use a root with data-composition-id, data-width, data-height, data-duration. Timed .clip elements require data-start, data-duration, data-track-index. Set window.__timelines[id] to a paused GSAP timeline; no wall-clock timers or CSS animations. Animate content inside clips, not clip timing. Do not claim rendering, approval or final.mp4. Runtime handles technical checks and exact-candidate independent review separately.";
+
 type PreparationOptions = Parameters<typeof prepareVideoops>[0];
 /** Preparation → real SDK Editor → offline renderer → native review ledger.
  * Acquired media must match trusted runtime hashes and rights references.
@@ -190,8 +193,7 @@ export async function produceVideoops(
         profile: options.editor,
         capabilities: options.editorCapabilities,
         run: options.run + "-hyperframes-editor",
-        instructions:
-          "Author the required HTML composition and production notes from the supplied exact plan. Do not alter transcript or shot timing. Runtime supplies ./gsap.min.js (GSAP 3.13.0) and HyperFrames 0.8.141. Use only supplied acquired assets at ./assets/... paths matching the manifest. No remote URLs, unprovided media, packages or network access. Use a root with data-composition-id, data-width, data-height, data-duration. Timed .clip elements require data-start, data-duration, data-track-index. Set window.__timelines[id] to a paused GSAP timeline; no wall-clock timers or CSS animations. Animate content inside clips, not clip timing. Do not claim rendering, approval or final.mp4. Runtime handles technical checks and exact-candidate independent review separately.",
+        instructions: videoopsEditorInstructions,
         input: JSON.stringify({
           handoff,
           intake: options.intake,
