@@ -180,6 +180,9 @@ export async function install({ prefix, start }) {
       "tsconfig.json",
       "LICENSE",
       "README.md",
+      "TRY-AGENT-CITY.md",
+      "WORKING-EXPERIENCE.md",
+      "RELEASE-CHECKLIST.md",
       "Start Agent City.command",
     ])
       await cp(join(source, item), join(app, item), { recursive: true });

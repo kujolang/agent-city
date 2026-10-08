@@ -26,6 +26,9 @@ jobs:
           chmod +x "$RUNNER_TEMP/no-system-node/node"
           PATH="$RUNNER_TEMP/no-system-node:$PATH" sh install.sh --prefix "$RUNNER_TEMP/city" --no-start
           test -x "$RUNNER_TEMP/city/.node/bin/node"
+          test -s "$RUNNER_TEMP/city/agent-city/TRY-AGENT-CITY.md"
+          test -s "$RUNNER_TEMP/city/agent-city/WORKING-EXPERIENCE.md"
+          test -s "$RUNNER_TEMP/city/agent-city/RELEASE-CHECKLIST.md"
       - name: Verify managed setup without system Node or npm
         run: |
           printf '#!/bin/sh\nexit 73\n' > "$RUNNER_TEMP/no-system-node/npm"
