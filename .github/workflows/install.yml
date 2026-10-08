@@ -30,6 +30,7 @@ jobs:
           node --import tsx scripts/game-view-proof.ts
           node --import tsx scripts/mission-browser.ts
           node --import tsx scripts/follow-reload-proof.ts
+          xvfb-run -a node --import tsx scripts/browser-discard-proof.ts
       - name: Measure bounded renderer scale and minimal WebGL baseline
         run: |
           CITY_BASELINE_LABEL=ci node --import tsx scripts/webgl-baseline-proof.ts
@@ -43,6 +44,7 @@ jobs:
             evidence/game-view
             evidence/visual-revision
             evidence/follow-reload
+            evidence/browser-discard
             dependency-audit.json
             evidence/renderer-scale/ci.json
             evidence/performance-current/webgl-ci.json

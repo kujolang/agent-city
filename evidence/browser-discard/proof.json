@@ -1,0 +1,215 @@
+{
+  "scope": "Synthetic truth transport; native headed Chromium hidden/discard/resume, no debugger attached to the source page; extension worker controlled over private pipe; no source execution or OS sleep",
+  "softwareRendering": true,
+  "complete": true,
+  "status": "PASS",
+  "before": {
+    "browser": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+    "follow": "synthetic-mission-discard:run:worker",
+    "inspector": "RUNNING",
+    "order": 1,
+    "rendererReady": true,
+    "selected": "synthetic-mission-discard:run:worker",
+    "truth": {
+      "agents": {
+        "synthetic-mission-discard:run:worker": {
+          "completeness": "complete",
+          "id": "synthetic-mission-discard:run:worker",
+          "lastObserved": 1788849305029,
+          "operations": {
+            "synthetic-mission-discard:run:run:1": {
+              "attempt": 1,
+              "capability": "agent.run",
+              "collection": "unknown",
+              "eventIds": [
+                "discard-start"
+              ],
+              "evidence": [
+                {
+                  "hash": "a7022f81a10a9c0f4dc5850f66fef5c28c6c6c79f94b6719b3c6f3bd5a41d566",
+                  "origin": "canonical",
+                  "recordId": "native:agent-city-sdk:6da841621ce141bff4e76d1ec60ea095838fe8e780cde2567bf8dcac87469ef4",
+                  "sourceSequence": 183
+                }
+              ],
+              "finished": null,
+              "key": "synthetic-mission-discard:run:run:1",
+              "metadata": {
+                "relatedInstance": ""
+              },
+              "observedAt": 1788849305029,
+              "operationId": "run",
+              "partial": false,
+              "relatedAgent": "",
+              "started": 1788849304510,
+              "status": "active"
+            }
+          },
+          "profile": "local-mcp-worker",
+          "run": {
+            "id": "run",
+            "namespace": "synthetic-mission-discard"
+          },
+          "runAttempt": 1,
+          "status": "running",
+          "task": {
+            "id": "run-1788849303229-8516:retrieve-docs",
+            "namespace": "dispatch"
+          }
+        }
+      },
+      "gap": false,
+      "health": "LIVE",
+      "order": 1,
+      "seen": [
+        "discard-start"
+      ]
+    },
+    "visibility": "visible",
+    "wasDiscarded": false
+  },
+  "hidden": {
+    "browser": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+    "follow": "synthetic-mission-discard:run:worker",
+    "inspector": "RUNNING",
+    "order": 1,
+    "rendererReady": true,
+    "selected": "synthetic-mission-discard:run:worker",
+    "truth": {
+      "agents": {
+        "synthetic-mission-discard:run:worker": {
+          "completeness": "complete",
+          "id": "synthetic-mission-discard:run:worker",
+          "lastObserved": 1788849305029,
+          "operations": {
+            "synthetic-mission-discard:run:run:1": {
+              "attempt": 1,
+              "capability": "agent.run",
+              "collection": "unknown",
+              "eventIds": [
+                "discard-start"
+              ],
+              "evidence": [
+                {
+                  "hash": "a7022f81a10a9c0f4dc5850f66fef5c28c6c6c79f94b6719b3c6f3bd5a41d566",
+                  "origin": "canonical",
+                  "recordId": "native:agent-city-sdk:6da841621ce141bff4e76d1ec60ea095838fe8e780cde2567bf8dcac87469ef4",
+                  "sourceSequence": 183
+                }
+              ],
+              "finished": null,
+              "key": "synthetic-mission-discard:run:run:1",
+              "metadata": {
+                "relatedInstance": ""
+              },
+              "observedAt": 1788849305029,
+              "operationId": "run",
+              "partial": false,
+              "relatedAgent": "",
+              "started": 1788849304510,
+              "status": "active"
+            }
+          },
+          "profile": "local-mcp-worker",
+          "run": {
+            "id": "run",
+            "namespace": "synthetic-mission-discard"
+          },
+          "runAttempt": 1,
+          "status": "running",
+          "task": {
+            "id": "run-1788849303229-8516:retrieve-docs",
+            "namespace": "dispatch"
+          }
+        }
+      },
+      "gap": false,
+      "health": "LIVE",
+      "order": 1,
+      "seen": [
+        "discard-start"
+      ]
+    },
+    "visibility": "hidden",
+    "wasDiscarded": false
+  },
+  "after": {
+    "browser": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+    "follow": null,
+    "inspector": "FAILED",
+    "order": 2,
+    "rendererReady": true,
+    "selected": "synthetic-mission-discard:run:worker",
+    "truth": {
+      "agents": {
+        "synthetic-mission-discard:run:worker": {
+          "completeness": "complete",
+          "id": "synthetic-mission-discard:run:worker",
+          "lastObserved": 1788849305029,
+          "operations": {
+            "synthetic-mission-discard:run:run:1": {
+              "attempt": 1,
+              "capability": "agent.run",
+              "collection": "unknown",
+              "eventIds": [
+                "discard-start",
+                "discard-failed"
+              ],
+              "evidence": [
+                {
+                  "hash": "a7022f81a10a9c0f4dc5850f66fef5c28c6c6c79f94b6719b3c6f3bd5a41d566",
+                  "origin": "canonical",
+                  "recordId": "native:agent-city-sdk:6da841621ce141bff4e76d1ec60ea095838fe8e780cde2567bf8dcac87469ef4",
+                  "sourceSequence": 183
+                },
+                {
+                  "hash": "a7022f81a10a9c0f4dc5850f66fef5c28c6c6c79f94b6719b3c6f3bd5a41d566",
+                  "origin": "canonical",
+                  "recordId": "native:agent-city-sdk:6da841621ce141bff4e76d1ec60ea095838fe8e780cde2567bf8dcac87469ef4",
+                  "sourceSequence": 183
+                }
+              ],
+              "finished": 1788849304510,
+              "key": "synthetic-mission-discard:run:run:1",
+              "metadata": {
+                "relatedInstance": ""
+              },
+              "observedAt": 1788849305029,
+              "operationId": "run",
+              "partial": false,
+              "relatedAgent": "",
+              "started": 1788849304510,
+              "status": "failed"
+            }
+          },
+          "profile": "local-mcp-worker",
+          "run": {
+            "id": "run",
+            "namespace": "synthetic-mission-discard"
+          },
+          "runAttempt": 1,
+          "status": "failed",
+          "task": {
+            "id": "run-1788849303229-8516:retrieve-docs",
+            "namespace": "dispatch"
+          }
+        }
+      },
+      "gap": false,
+      "health": "LIVE",
+      "order": 2,
+      "seen": [
+        "discard-start",
+        "discard-failed"
+      ]
+    },
+    "visibility": "visible",
+    "wasDiscarded": true
+  },
+  "discarded": {
+    "discarded": true,
+    "active": false
+  },
+  "snapshots": 2,
+  "sourceWrites": 0
+}

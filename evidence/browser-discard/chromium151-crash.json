@@ -1,0 +1,12 @@
+{
+  "scope": "SYNTHETIC snapshot transport, actual native Chrome discard and activation; no source execution or OS sleep",
+  "browser": "151.0.7922.34",
+  "stage": "resume",
+  "visibilityBeforeDiscard": "visible",
+  "discarded": {
+    "discarded": true,
+    "active": false
+  },
+  "status": "FAILED",
+  "error": "Error: worker.evaluate: Target page, context or browser has been closed\nBrowser logs:\n\n<launching> /Users/robertdevore/Library/Caches/ms-playwright/chromium-1234/chrome-mac-x64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing --disable-field-trial-config --disable-background-networking --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-edgeupdater --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,BlockOriginHeaderModificationOnRedirect,Translate,AutoDeElevate,OptimizationHints,msForceBrowserSignIn,msEdgeUpdateLaunchServicesPreferredVersion --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-updater-scheduler --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --disable-infobars --disable-search-engine-choice-screen --disable-sync --enable-unsafe-swiftshader --no-sandbox --disable-extensions-except=/Users/robertdevore/2026/Kujolang/kujo-repos/agent-city/.runtime/discard-browser-AcmPyM/extension --load-extension=/Users/robertdevore/2026/Kujolang/kujo-repos/agent-city/.runtime/discard-browser-AcmPyM/extension --user-data-dir=/Users/robertdevore/2026/Kujolang/kujo-repos/agent-city/.runtime/discard-browser-AcmPyM --remote-debugging-pipe about:blank\n<launched> pid=15065\n[pid=15065][err] Received signal 11 SEGV_MAPERR 000000000000\n[pid=15065][err]  [0x000128d9afe7]\n[pid=15065][err]  [0x00012dba5f03]\n[pid=15065][err]  [0x7ff8077923bd]\n[pid=15065][err] [end of stack trace]"
+}
