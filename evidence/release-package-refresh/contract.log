@@ -1,0 +1,37 @@
+npm warn Unknown user config "python". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+
+> kujo-agent-city@0.2.0-rc.1 proof:mission-contract
+> tsx scripts/mission-contract.ts
+
+(node:43712) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+{
+  kind: 'SYNTHETIC PROVIDER CONTRACT; not live AI product proof',
+  passed: true,
+  calls: 8,
+  observedRows: 16,
+  startedBeforeControlledCompletion: true,
+  reviewerHandoff: true,
+  originalTaskReachesReviewer: true,
+  dispatchOwnedTaskState: true,
+  realLocalRag: true,
+  realLocalMcp: true,
+  mcpContextReachesBothModels: true,
+  sourceContextPrecedesCurrentConversation: true,
+  currentRequestRemainsLast: true,
+  combinedContinuationAndExplicitMcpContext: true,
+  redirectsRejected: true,
+  privateArtifact: true,
+  sourceQualifiedDraftAndReview: true,
+  serviceCrashDoesNotStopSource: true,
+  persistedReceiptRecovery: true,
+  metadataOnlySpool: true,
+  providerFailureRetained: true,
+  unauthorizedRequestsRejected: true,
+  continuationContextReachesBothModels: true,
+  continuationRetainsParentAndOriginalTask: true,
+  continuationDoesNotRepeatPriorToolRequests: true,
+  requestedCheckContractReachesModel: true,
+  failedProviderRetainsRequestedCheckContract: true,
+  at: '2026-10-08T07:15:49.045Z'
+}

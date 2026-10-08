@@ -24,9 +24,14 @@ The user cancelled the eight-hour soak; do not run or schedule it without renewe
       evidence/profile-code and evidence/profile-kujo. Imported workflow references
       remain contract guidance; execution is the explicit bounded PROPOSE adapter,
       not arbitrary external workflow/tool activation.
-- [ ] Broader real work: approved MCP/Ability and isolated project/Workcell execution;
+- [x] Broader real work within the explicit adapters: approved MCP reads and isolated project/Workcell execution;
       actual artifacts and checks, permission scope, interruption/resume/recovery, handoff,
       task-aware review, retained failed/repaired attempts, no business behavior in rendering.
+      Evidence: [real MCP source reads](evidence/profile-missions/source-reads-real/README.md),
+      [real project exports](evidence/mission-workcell/project-exports-real/proof.json),
+      [failed/repaired output checks and real Dojo transition](evidence/mission-workcell/output-check-real/world/proof.json).
+      Permissions remain explicit and bounded; arbitrary Ability gateway calls and
+      imported workflow references are not automatically executable.
 - [ ] Reliability qualification: complete canonical→Watchdog→gateway→browser stress target;
       native hidden-tab resume; fresh bounded recovery/security/browser evidence;
       long-duration reliability remains unqualified until evidence/approved scope is resolved.
@@ -617,3 +622,15 @@ Continuation follow-up8484169 refreshes the old browser locator/keyboard fixture
 and adds it to CI. CI37739543368 passes all5jobs, including the retained-contract,
 keyboard,320px and DOM-only task checks alongside current onboarding/fullscreen
 proofs. App behavior is unchanged fromaf34958. No live model or long soak ran.
+
+Current qualification checkpoint (2026-10-08): CI37741814069 qualifies bounded
+5/25/100/500 renderer behavior;25-agent p95 frame16.7ms, draw1.7ms on Ubuntu
+Chromium/SwiftShader. The local Intel/Metal backend is slow even for a bare WebGL
+clear; documented as an environment-specific unresolved limitation rather than
+an inferred universal City performance failure. Payload targets pass. See
+[evidence/performance-current](evidence/performance-current/README.md).
+Fresh local macOS x64 archive39ee285 verifies3307files, included docs, pinned
+producer bytes, preflight and packaged contract proof; CI37742020495 passes all
+four installer platforms. See [package refresh](evidence/release-package-refresh/README.md).
+Final populated visual/motion acceptance and useful-tool canvas recording remain
+open. The cancelled soak remains unqualified; no eight-hour test is scheduled.
