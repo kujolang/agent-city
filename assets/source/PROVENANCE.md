@@ -58,3 +58,12 @@ recorded code/Kujo/Publishing House proofs to existing original writer/coder/rev
 palettes. No display-name matching, permission grants or role/activity inference
 occurs. Unlisted profiles retain the explicit unknown fallback. Execution identity
 and per-instance badges remain separate. This is presentation metadata only.
+
+## Evaluation and tool-room fixtures — 2026-10-08
+
+Original integer-coordinate Dojo instrument benches replace tall flat cards with
+riveted bezels, timber ribs, wiring, drawers and woven floor borders. MCP equipment
+uses six authored cabinet heights and wall ducts. These are passive fixtures;
+existing observed outcome text is projected separately. No map, portal, station,
+identity, runtime state or semantic scheduling changed. No reference-image pixels
+were copied, and no decorative status/progress indicators were introduced.

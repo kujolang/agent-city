@@ -1,5 +1,6 @@
 import { Application, Container, Graphics, Rectangle, Sprite } from "pixi.js";
 import {
+  dojoFixtures,
   facade,
   cityGround,
   consoleDesk,
@@ -443,12 +444,9 @@ export class CityRenderer {
       );
     } else if (dojo) {
       serviceFloor(g, true);
+      dojoFixtures(g);
       ["schema", "content", "policy", "skipped"].forEach((name, i) => {
         const x = 22 + i * 56;
-        box(g, x, 62, 46, 90, C.black);
-        box(g, x - 2, 60, 50, 2, 0x9d6443);
-        box(g, x - 2, 60, 2, 94, 0x9d6443);
-        box(g, x + 46, 60, 2, 94, 0x6d412e);
         text(g, name, x + 4, 48, C.gold);
         const ops = Object.values(truth.agents)
           .flatMap((a) => Object.values(a.operations))
@@ -475,9 +473,9 @@ export class CityRenderer {
           102,
           passed ? C.mint : C.teal,
         );
-        box(g, x + 4, 135, 38, 6, C.teal);
+
         if (ops.some((o) => o.status === "skipped"))
-          text(g, "SKIP", x + 14, 120, C.gold);
+          text(g, "SKIP", x + 14, 64, C.gold);
       });
       box(g, 44, 163, 168, 9, C.black);
       text(g, "ACTUAL CHECK OUTCOMES", 48, 165, C.white);
@@ -501,7 +499,7 @@ export class CityRenderer {
       mezzanine(g);
     } else if (mcp) {
       serviceFloor(g);
-      for (let x = 24; x < 240; x += 40) terminalRack(g, x);
+      for (let i = 0; i < 6; i++) terminalRack(g, 24 + i * 40, i);
       cableTray(g);
       const calls = Object.values(truth.agents)
         .flatMap((a) => Object.values(a.operations))

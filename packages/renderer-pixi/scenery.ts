@@ -400,28 +400,40 @@ export function dispatchFixtures(g: Graphics) {
   }
 }
 
-export function terminalRack(g: Graphics, x: number) {
-  // Original bolted chassis with vents, cable sockets and a recessed console.
-  rect(g, x - 2, 46, 26, 91, P.ink);
-  rect(g, x - 1, 47, 25, 88, P.stone);
-  rect(g, x, 48, 1, 86, P.light);
-  rect(g, x + 2, 49, 21, 83, P.ink);
-  for (let y = 51; y < 125; y += 15) {
-    rect(g, x + 3, y, 20, 13, P.mortar);
+export function terminalRack(g: Graphics, x: number, variant = 0) {
+  // Authored equipment silhouettes: tall server racks, lower cabinets and
+  // operator consoles. Their size and blank screens are not runtime status.
+  const top = [46, 64, 83, 57, 77, 51][variant % 6];
+  rect(g, x - 2, top, 26, 137 - top, P.ink);
+  rect(g, x - 1, top + 1, 25, 135 - top, P.stone);
+  rect(g, x, top + 2, 1, 134 - top, P.light);
+  rect(g, x + 2, top + 3, 21, 129 - top, P.ink);
+  for (let y = top + 5; y < 125; y += 15) {
+    rect(g, x + 3, y, 20, Math.min(13, 132 - y), P.mortar);
     rect(g, x + 3, y, 20, 1, P.light);
     for (let dx = 5; dx < 15; dx += 3) rect(g, x + dx, y + 3, 1, 5, P.ink);
     rect(g, x + 17, y + 3, 5, 4, P.ink);
     rect(g, x + 18, y + 4, 3, 1, P.blue);
-    rect(g, x + 5, y + 10, 16, 1, P.stone);
     for (const dx of [0, 23]) rect(g, x + dx, y + 2, 1, 1, P.ink);
   }
-  rect(g, x + 5, 84, 17, 11, P.ink);
-  rect(g, x + 7, 86, 13, 7, P.blue);
-  rect(g, x + 8, 86, 1, 6, P.glass);
-  rect(g, x + 8, 97, 12, 2, P.light);
+  const screen = Math.max(top + 5, 84);
+  rect(g, x + 5, screen, 17, 11, P.ink);
+  rect(g, x + 7, screen + 2, 13, 7, P.blue);
+  rect(g, x + 8, screen + 2, 1, 6, P.glass);
+  rect(g, x + 8, screen + 13, 12, 2, P.light);
   for (const dx of [5, 21]) {
     rect(g, x + dx, 137, 3, 6, P.stone);
     rect(g, x + dx, 142, 6, 2, P.ink);
+  }
+  if (top > 60) {
+    // A wall duct and elbow feed each lower console, clear of its display.
+    rect(g, x + 7, 49, 6, top - 48, P.ink);
+    rect(g, x + 8, 49, 3, top - 48, P.stone);
+    rect(g, x + 8, 49, 1, top - 48, P.light);
+    for (const y of [52, top - 5]) rect(g, x + 6, y, 7, 2, P.mortar);
+    rect(g, x + 15, 51, 13, 10, P.ink);
+    rect(g, x + 16, 52, 11, 1, P.light);
+    for (let y = 54; y < 60; y += 2) rect(g, x + 17, y, 9, 1, P.stone);
   }
 }
 
@@ -691,5 +703,56 @@ export function workshopFixtures(g: Graphics) {
   for (const x of [188, 207]) {
     rect(g, x, 171, 3, 4, P.ink);
     rect(g, x + 1, 172, 1, 2, P.stone);
+  }
+}
+
+/** Original evaluation room fixtures; screens receive observed outcomes separately. */
+export function dojoFixtures(g: Graphics) {
+  // Dark plaster, timber ribs and copper pipework keep the room spatial rather
+  // than turning the four semantic stations into full-height dashboard cards.
+  for (let y = 58; y < 145; y += 4)
+    for (let x = 18; x < 240; x += 7)
+      rect(g, x + ((y / 4) % 2), y, 2, 1, 0x254050);
+  for (const y of [58, 124]) {
+    rect(g, 16, y, 224, 4, 0x402d29);
+    rect(g, 16, y, 224, 1, 0xa17650);
+    for (let x = 20; x < 240; x += 12) rect(g, x, y + 2, 5, 1, 0x6d4933);
+  }
+  for (let i = 0; i < 4; i++) {
+    const x = 22 + i * 56;
+    // Recessed compact instrument, with a thick riveted metal bezel.
+    rect(g, x + 5, 74, 39, 49, P.ink);
+    rect(g, x + 3, 72, 39, 49, P.stone);
+    rect(g, x + 4, 73, 37, 1, P.light);
+    rect(g, x + 5, 75, 35, 43, P.ink);
+    rect(g, x + 7, 76, 31, 41, 0x0b1727);
+    rect(g, x + 7, 95, 31, 1, P.mortar);
+    for (const dx of [4, 40])
+      for (const y of [74, 119]) rect(g, x + dx, y, 1, 1, P.ink);
+    // Station wiring connects to a shared passive utility conduit.
+    rect(g, x + 20, 62, 3, 10, P.ink);
+    rect(g, x + 20, 62, 1, 10, P.stone);
+    rect(g, x + 20, 121, 3, 9, P.ink);
+    rect(g, x + 21, 121, 1, 9, P.light);
+    // Sloped control deck, drawers and feet. No decorative progress lamps.
+    rect(g, x + 2, 132, 44, 3, P.light);
+    rect(g, x + 4, 129, 40, 3, P.stone);
+    for (let dx = 7; dx < 39; dx += 4) rect(g, x + dx, 130, 2, 1, P.ink);
+    rect(g, x + 5, 135, 38, 15, 0x6d4933);
+    rect(g, x + 6, 136, 36, 1, 0xa17650);
+    rect(g, x + 6, 143, 36, 1, 0x402d29);
+    for (const y of [139, 146]) rect(g, x + 19, y, 10, 1, P.ink);
+    rect(g, x + 6, 150, 3, 4, P.mortar);
+    rect(g, x + 39, 150, 3, 4, P.mortar);
+    // Station mat with woven borders sits behind the authored walking plane.
+    rect(g, x, 154, 48, 5, 0x4d563d);
+    rect(g, x + 1, 154, 46, 1, 0xa8a17a);
+    for (let dx = 2; dx < 47; dx += 3) rect(g, x + dx, 156, 1, 2, 0x78815b);
+  }
+  // Corner storage and wall-mounted scrolls are scenery, not artifacts or agents.
+  for (const x of [16, 235]) {
+    rect(g, x, 78, 4, 37, 0x402d29);
+    rect(g, x + 1, 79, 2, 35, 0xa17650);
+    rect(g, x - 1, 90, 6, 2, P.ink);
   }
 }
