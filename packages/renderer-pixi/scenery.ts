@@ -184,6 +184,17 @@ export function facade(g: Graphics, x: number, y: number, id: string) {
   rect(g, door + 2, y + 45, 12, 18, P.mortar);
   rect(g, door + 4, y + 47, 8, 16, P.ink);
   for (const dy of [59, 61, 63]) rect(g, door, y + dy, 16, 1, P.light);
+  // Narrow evergreens sit within the planted plot margins.
+  for (const dx of [0, 58]) {
+    rect(g, x + dx + 2, y + 28, 2, 13, 0x62432e);
+    rect(g, x + dx + 1, y + 10, 4, 23, P.ink);
+    rect(g, x + dx, y + 14, 6, 15, P.ink);
+    rect(g, x + dx + 2, y + 11, 2, 21, P.leaf);
+    rect(g, x + dx + 1, y + 15, 4, 13, P.leaf);
+    for (const dy of [13, 18, 24, 29])
+      rect(g, x + dx + 2, y + dy, 2, 2, P.green);
+    rect(g, x + dx + 1, y + 40, 5, 1, P.ink);
+  }
   plant(g, x, y + 48);
   plant(g, x + 53, y + 48);
   rect(g, x + 4, y + 25, 56, 9, P.ink);
@@ -232,12 +243,49 @@ export function cityGround(g: Graphics, cells: number[]) {
           rect(g, px + dx, py + 14, 1, 2, P.mortar);
       }
     }
+  // Side streets retain the authored navigation cells and threshold access.
+  for (const x of [7, 247])
+    for (let y = 7; y < 203; y += 16) {
+      rect(g, x, y, 1, 6, 0xc3c3ae);
+      rect(g, x - 3, y + 8, 1, 1, 0x454b58);
+    }
   // Road paint and manhole covers are passive infrastructure, not activity claims.
   for (let x = 16; x < 240; x += 24) rect(g, x, 111, 10, 1, 0xc3c3ae);
   for (const x of [20, 148, 228]) {
     rect(g, x, 117, 9, 6, P.ink);
     rect(g, x + 1, 118, 7, 4, P.stone);
     for (let dx = 2; dx < 8; dx += 2) rect(g, x + dx, 118, 1, 3, P.mortar);
+  }
+}
+
+/** Bolted architectural frame, authored at native pixel resolution. */
+function steelBeam(
+  g: Graphics,
+  x: number,
+  y: number,
+  length: number,
+  vertical = false,
+) {
+  const tile = (
+    along: number,
+    across: number,
+    w: number,
+    h: number,
+    color: number,
+  ) =>
+    vertical
+      ? rect(g, x + across, y + along, h, w, color)
+      : rect(g, x + along, y + across, w, h, color);
+  tile(0, 0, length, 7, P.ink);
+  for (let offset = 1; offset < length - 1; offset += 24) {
+    const span = Math.min(22, length - offset - 1);
+    tile(offset, 1, span, 5, P.stone);
+    tile(offset, 1, span, 1, P.light);
+    tile(offset, 5, span, 1, P.mortar);
+    for (const rivet of [offset + 2, offset + span - 3]) {
+      tile(rivet, 2, 2, 2, P.ink);
+      tile(rivet, 2, 1, 1, P.light);
+    }
   }
 }
 
@@ -250,9 +298,12 @@ export function roomShell(g: Graphics) {
       rect(g, x + 2, y + 3, 1, 1, P.stone);
     }
   }
-  masonry(g, 8, 24, 240, 8, true);
+  steelBeam(g, 8, 24, 240);
+  rect(g, 14, 31, 228, 2, P.ink);
   masonry(g, 8, 32, 6, 146, true);
   masonry(g, 242, 32, 6, 146, true);
+  steelBeam(g, 7, 32, 146, true);
+  steelBeam(g, 242, 32, 146, true);
   for (const x of [20, 94, 166, 234]) {
     rect(g, x, 33, 1, 7, P.stone);
     rect(g, x - 4, 40, 9, 3, P.ink);
@@ -320,6 +371,20 @@ export function briefingRoom(g: Graphics) {
   for (const x of [56, 174]) {
     rect(g, x, 142, 11, 5, 0xe2dfc9);
     rect(g, x + 3, 143, 6, 1, P.stone);
+  }
+  // A printed architectural plan, not an observed run, live map or task status.
+  rect(g, 85, 148, 73, 6, 0xc3c9c7);
+  rect(g, 87, 148, 69, 5, P.blue);
+  for (const x of [90, 109, 128, 147]) {
+    rect(g, x, 149, 10, 1, P.light);
+    rect(g, x, 149, 1, 3, P.light);
+    rect(g, x + 9, 150, 1, 2, P.glass);
+  }
+  rect(g, 87, 151, 69, 1, P.glass);
+  for (const x of [64, 180]) {
+    rect(g, x, 148, 6, 4, P.mortar);
+    rect(g, x + 1, 149, 4, 1, P.light);
+    rect(g, x + 1, 150, 1, 1, P.stone);
   }
   // Structural utility pipes and lockers frame the shared work table.
   rect(g, 16, 51, 223, 5, P.mortar);

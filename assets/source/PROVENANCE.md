@@ -67,3 +67,14 @@ uses six authored cabinet heights and wall ducts. These are passive fixtures;
 existing observed outcome text is projected separately. No map, portal, station,
 identity, runtime state or semantic scheduling changed. No reference-image pixels
 were copied, and no decorative status/progress indicators were introduced.
+
+## Architectural frame revision — 2026-10-08
+
+All six interiors now share original riveted steel beam segments. The Meeting
+Hall table carries a static printed architectural plan, not a live run/map or
+invented communication. City plots have narrow evergreen margins and side-road
+markings within existing authored geometry. A blue-framed area title and actual
+execution count replace the loose title and fictional P1 HUD slot. These are
+integer-coordinate instructions authored in scenery.ts/index.ts; no reference
+pixels were sampled, copied or traced. Empty-world screenshots qualify layout
+and style only, not source activity or user acceptance.

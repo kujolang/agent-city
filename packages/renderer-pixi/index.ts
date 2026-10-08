@@ -79,6 +79,7 @@ const glyphs: Record<string, string> = {
   "7": "111001010010010",
   "8": "111101111101111",
   "9": "111101111001110",
+  "+": "000010111010000",
   "-": "000000111000000",
   "/": "001001010100100",
   ":": "000010000010000",
@@ -361,7 +362,15 @@ export class CityRenderer {
       227,
       C.white,
     );
-    text(g, "P1", 236, 227, C.gold);
+    // Count actual execution identities; the observer has no fictional player slot.
+    const executionCount = Object.keys(truth.agents).length;
+    text(
+      g,
+      "AG " + (executionCount > 999 ? "999+" : executionCount),
+      220,
+      227,
+      C.gold,
+    );
     this.app.render();
   }
   private city(g: Graphics, tick: number) {
@@ -382,7 +391,12 @@ export class CityRenderer {
               : o.id.toUpperCase();
       text(g, label, x + 5, y + 27, C.white);
     }
-    text(g, "AGENT CITY", 80, 3, C.white);
+    box(g, 78, 0, 101, 12, C.black);
+    box(g, 78, 0, 101, 1, C.teal);
+    box(g, 78, 0, 1, 12, C.blue);
+    box(g, 178, 0, 1, 12, C.teal);
+    box(g, 78, 11, 101, 1, C.teal);
+    text(g, "AGENT CITY / AREA 1", 83, 4, C.white);
     box(g, 245, 91, 3, 8, Math.floor(tick / 15) % 2 ? C.mint : C.teal);
   }
   private room(g: Graphics, tick: number, truth: Truth) {
