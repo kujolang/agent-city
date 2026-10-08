@@ -1,6 +1,15 @@
 # Changelog
 
-## Unreleased
+## 0.2.0-rc.2 — Local preview
+
+- Saved immutable Workcell image/context setup with explicit per-task consent.
+- Codex CLI readiness checks, authenticated model-alias listing and launcher-port alignment.
+- Exact execution selection and Follow preference survive reload; completed truth remains inspectable.
+- Native hidden/discard/resume qualification on Chromium/macOS and Linux, plus measured real lifecycle visibility latency.
+- Explicit executable-versus-imported workflow support table. WebOps/VideoOps team adapters remain unfinished.
+- Pinned public installer, source archive, source manifest and SHA-256 integrity records.
+
+## Earlier preview work
 
 - Public managed installation with private Node, pinned producer repositories,
   four-platform installation/maintenance checks and bundled profile contracts.
