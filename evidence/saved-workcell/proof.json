@@ -1,0 +1,20 @@
+{
+  "scope": "Real Docker image inspection through normal City launcher, saved enable/disable with no environment grants, no provider/task execution",
+  "imageId": "sha256:c3f6024bf37e79e0d56ed95befac2cdec7c39d133748d4c7d00fd00c939d73fe",
+  "context": "colima-kujo-workcell",
+  "runtime": "/Users/robertdevore/2026/Kujolang/kujo-repos/agent-city/.runtime/saved-workcell-1791460266024",
+  "rows": [
+    {
+      "savedEnabled": true,
+      "available": true,
+      "jobs": 0,
+      "setupCommandTargetsSameRuntime": true
+    },
+    {
+      "savedEnabled": false,
+      "available": false,
+      "jobs": 0,
+      "setupCommandTargetsSameRuntime": true
+    }
+  ]
+}

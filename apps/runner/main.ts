@@ -1,3 +1,4 @@
+import { workcellSetupCommand } from "./workcell-settings";
 import { validateMcpReads, localMcpReadEndpoint } from "./mcp-reads";
 import { validateProjectExports } from "./project-exports";
 import { admitWorkcellProject } from "./workcell-project";
@@ -162,6 +163,9 @@ const server = createServer(async (req, res) => {
       await reconcile();
       return send(200, {
         configured: configured(),
+        workcellSetupCommand: workcellSetupCommand(
+          resolve(process.env.CITY_RUNTIME_DIR || resolve(root, ".runtime")),
+        ),
         model: config?.model || null,
         endpoint: config?.endpoint || "",
         hasCredential: Boolean(config?.apiKey),

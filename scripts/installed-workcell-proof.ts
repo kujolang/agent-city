@@ -1,3 +1,4 @@
+import { workcellLaunchEnv } from "../apps/runner/workcell-settings";
 /** Explicit CI qualification of the installed local sandbox, without a model. */
 import { readFile, writeFile, mkdir } from "node:fs/promises";
 import { resolve } from "node:path";
@@ -22,6 +23,11 @@ const proof: any = {
   startedAt: new Date().toISOString(),
 };
 try {
+  const savedEnv = await workcellLaunchEnv(resolve(root, ".runtime"));
+  assert.equal(savedEnv.CITY_ENABLE_WORKCELL, "1");
+  assert.match(savedEnv.CITY_WORKCELL_IMAGE || "", /^sha256:[a-f0-9]{64}$/);
+  assert(savedEnv.DOCKER_CONTEXT);
+  proof.savedSetupApplied = true;
   const startup = await startupChecks(
     root,
     process.env,
@@ -44,10 +50,10 @@ try {
     {
       cwd: root,
       env: {
-        ...process.env,
+        ...savedEnv,
         KUJO_BIN: startup.kujo,
         CITY_RUNTIME_DIR: runtime,
-        CITY_WORKCELL_IMAGE: image.imageId,
+
         CITY_WORKCELL_KUJO_FILE: input,
       },
       timeoutMs: 90000,
@@ -106,10 +112,10 @@ try {
       cwd: root,
       timeoutMs: 300000,
       env: {
-        ...process.env,
+        ...savedEnv,
         KUJO_BIN: startup.kujo,
         CITY_ENABLE_WORKCELL: "1",
-        CITY_WORKCELL_IMAGE: image.imageId,
+
         CITY_PROFILE_PROOF_REAL: "0",
         CITY_PROFILE_PROOF_LANGUAGE: "kujo",
         CITY_PROFILE_PROOF_WORKCELL: "1",

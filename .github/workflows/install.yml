@@ -137,7 +137,7 @@ jobs:
         run: |
           export PATH="$RUNNER_TEMP/city/.node/bin:$PATH"
           cd "$RUNNER_TEMP/city/agent-city"
-          "$RUNNER_TEMP/city/start.command" setup:workcell --build
+          "$RUNNER_TEMP/city/start.command" setup:workcell --build --enable
           node --import tsx scripts/installed-workcell-proof.ts
           CITY_ENABLE_WORKCELL=1 CITY_WORKCELL_IMAGE=agent-city-kujo:1.7.0 node --import tsx scripts/workcell-project-proof.ts
           cp evidence/mission-workcell/project-inputs/proof.json "$RUNNER_TEMP/workcell-project-inputs.json"

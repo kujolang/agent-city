@@ -57,8 +57,10 @@ producers. Existing managed installations need an update to receive it. This
 does not install a container engine, pull an image, install optional cloud-adapter
 dependencies, or enable code execution. To use isolated Kujo execution, first
 configure a supported local container backend and a trusted, already-local image
-with Kujo. Set `CITY_ENABLE_WORKCELL=1` and `CITY_WORKCELL_IMAGE` before launching;
-set `DOCKER_CONTEXT` and `CITY_WORKCELL_TMPDIR` when required by that backend.
+with Kujo. For Docker, the saved setup command below builds/selects the image and
+remembers its immutable ID and context. Restart normally afterward. Podman remains
+manually configured with `CITY_ENABLE_WORKCELL=1` and `CITY_WORKCELL_IMAGE`;
+set its backend connection and `CITY_WORKCELL_TMPDIR` when required.
 Each mission still requires explicit execution consent in Mission Command.
 Missing backend/image configuration must be resolved before attempting execution.
 
@@ -122,7 +124,7 @@ To build the supplied local Kujo image after starting Docker, run from the Agent
 City directory:
 
 ```sh
-../start.command setup:workcell --build
+../start.command setup:workcell --build --enable
 ```
 
 This explicit build downloads a digest-pinned Node/Debian base and installs Kujo
@@ -131,9 +133,31 @@ Only the Dockerfile and two runtime manifests enter its temporary build context.
 No project files, credentials or agent tasks are copied into the image. The build
 runs Kujo's version check and records image identity/input hashes privately in
 `.runtime/workcell-image.json`. It does not start/install Docker, change context,
-publish the image or enable mission execution. Registry/engine failures leave
-execution disabled. The command prints a launch command using the immutable local
-image ID; retain the same selected Docker context when launching Agent City.
+publish the image or submit a task. With `--enable`, it saves the immutable image ID
+and selected named Docker context privately for this City instance. Restart with
+`../start.command` normally, then use **Check Workcell setup** in Mission Command.
+Every task still needs its own execution checkbox. Failed checks never replace
+saved setup. A previous valid setup remains unchanged on failure.
+
+Use the command shown inside your app to target its exact runtime directory. If
+using `CITY_PORT_OFFSET` or `CITY_RUNTIME_DIR` manually, pass the same setting to
+setup and start. Saved settings stay inside that runtime and survive managed updates.
+An existing trusted local image can be selected without rebuilding:
+
+```sh
+../start.command setup:workcell --image agent-city-kujo:1.7.0 --enable
+```
+
+To remove the saved execution grant, run `../start.command setup:workcell --disable`
+and restart City. This does not interrupt current work. An explicit launch setting
+`CITY_ENABLE_WORKCELL=0` overrides saved enablement; remove an existing
+`CITY_ENABLE_WORKCELL=1` override when using saved disable. Explicit image/context
+launch overrides also remain authoritative. Raw `DOCKER_HOST` is not saved: use a
+named context for persistent setup. The global Docker context is never changed.
+
+Omit `--enable` when you only want to build an image. Build receipts alone never
+activate code execution. Invalid, symlinked or non-private saved settings fail closed;
+`--disable` writes a fresh disabled configuration without contacting Docker.
 
 Image creation alone does not qualify host isolation/security policy. Use the
 setup check and an explicitly consented test mission to inspect actual results.

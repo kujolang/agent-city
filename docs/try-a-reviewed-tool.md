@@ -62,3 +62,8 @@ shared with your selected Docker Desktop or Colima VM (normally your home).
 If you deliberately store runtime data elsewhere, set `CITY_WORKCELL_TMPDIR`
 to an owner-controlled shared directory before launching City. The container
 receives only the disposable clone, not a mount of the host project.
+
+Saved Docker setup is now available: use the command under **Workcell execution
+setup** (`setup:workcell --build --enable`), then restart City normally. It saves
+an immutable local image ID and selected context for this instance. Keep the
+per-task execution checkbox explicit. See [setup and disable instructions](../installer/README.md).
