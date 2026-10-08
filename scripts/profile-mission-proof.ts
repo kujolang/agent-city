@@ -64,12 +64,14 @@ const provider = createServer((req, res) => {
                 ? "Draft: add returns the sum of two numbers."
                 : malformedReviewer
                   ? "Malformed reviewer response retained"
-                  : JSON.stringify({
+                  : "```json\n" +
+                    JSON.stringify({
                       cityArtifact:
                         "Reviewed: add returns the sum of two numbers.",
                       cityReview:
                         "Controlled reviewer commentary; no execution claimed.",
-                    }),
+                    }) +
+                    "\n```",
             },
           },
         ],
@@ -287,6 +289,7 @@ try {
   if (!real) {
     assert.equal(artifact, "Reviewed: add returns the sum of two numbers.");
     assert(!artifact.includes(reviewRecord.commentary));
+    assert.equal(reviewRecord.envelopeFenceRemoved, true);
     malformedReviewer = true;
     const rejectedResponse = await post({
       kind: "writing",
@@ -364,6 +367,7 @@ try {
       ? "fixture-tested"
       : continuationPreserved,
     reviewSeparated: true,
+    fencedJsonEnvelopeAccepted: !real,
     malformedResponseRejected: real ? "fixture-tested" : malformedRejected,
     artifactSha256: createHash("sha256").update(artifact).digest("hex"),
     artifactQuality: "NOT_GRADED: runtime completion is not task acceptance",

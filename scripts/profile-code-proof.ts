@@ -221,7 +221,7 @@ try {
       async () => (await fetch(base + "/control/status")).json(),
       (v) =>
         v.jobs.some((j: any) => j.id === accepted.id && j.status !== "running"),
-      outputCheck && real ? 480000 : 240000,
+      (outputCheck || projectExecution) && real ? 480000 : 240000,
     );
     const job = final.jobs.find((j: any) => j.id === accepted.id);
     assert.equal(job.status, "completed", JSON.stringify(job));
