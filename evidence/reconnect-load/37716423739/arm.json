@@ -1,0 +1,435 @@
+{
+  "platform": "linux",
+  "arch": "arm64",
+  "host": {
+    "availableParallelism": 4,
+    "cpuModel": "unknown",
+    "totalMemoryBytes": 16722046976
+  },
+  "runtimeCandidate": false,
+  "runtimeCandidateRef": null,
+  "runtimeMode": "interpreter",
+  "runtimeVersion": "kujo 1.7.0",
+  "runtimeSha256": "84fed5f6fd0d67e9aabe1dc3fdc95334a14291c2228e1f68f5b2cdbba4881335",
+  "processResourceColumns": [
+    "pid",
+    "cpuPercentSnapshot",
+    "rssKiB"
+  ],
+  "processResourceScope": "Direct process columns plus an observed descendant process tree; no command arguments captured",
+  "startedAt": "2026-10-08T02:09:39.243Z",
+  "cityCommit": "6aff4e76a9d92453d7a039e12c82b229bd14d666",
+  "watchdogCommit": "f463ced16b6b0a670a417d29c3121bf495e303a1",
+  "pid": 3259,
+  "runtime": "/home/runner/work/_temp/city/agent-city/.runtime/pipeline-1791425379122",
+  "diagnostic": false,
+  "status": "COMPLETED",
+  "samples": [
+    {
+      "at": "2026-10-08T02:09:43.190Z",
+      "metrics": [
+        {
+          "name": "Documents",
+          "value": 4
+        },
+        {
+          "name": "Nodes",
+          "value": 509
+        },
+        {
+          "name": "TaskDuration",
+          "value": 0.001262
+        },
+        {
+          "name": "JSHeapUsedSize",
+          "value": 16025552
+        }
+      ],
+      "browser": null,
+      "journalBytes": 4096
+    },
+    {
+      "at": "2026-10-08T02:09:58.200Z",
+      "metrics": [
+        {
+          "name": "Documents",
+          "value": 1
+        },
+        {
+          "name": "Nodes",
+          "value": 1381
+        },
+        {
+          "name": "TaskDuration",
+          "value": 5.986814
+        },
+        {
+          "name": "JSHeapUsedSize",
+          "value": 62611516
+        }
+      ],
+      "browser": {
+        "order": 2700,
+        "health": "LIVE",
+        "instances": 25,
+        "queued": 0
+      },
+      "journalBytes": 2723840
+    },
+    {
+      "at": "2026-10-08T02:10:13.201Z",
+      "metrics": [
+        {
+          "name": "Documents",
+          "value": 1
+        },
+        {
+          "name": "Nodes",
+          "value": 729
+        },
+        {
+          "name": "TaskDuration",
+          "value": 20.053018
+        },
+        {
+          "name": "JSHeapUsedSize",
+          "value": 77311940
+        }
+      ],
+      "browser": {
+        "order": 17700,
+        "health": "LIVE",
+        "instances": 25,
+        "queued": 100
+      },
+      "journalBytes": 25976832
+    },
+    {
+      "at": "2026-10-08T02:10:28.201Z",
+      "metrics": [
+        {
+          "name": "Documents",
+          "value": 1
+        },
+        {
+          "name": "Nodes",
+          "value": 778
+        },
+        {
+          "name": "TaskDuration",
+          "value": 34.895171
+        },
+        {
+          "name": "JSHeapUsedSize",
+          "value": 53199892
+        }
+      ],
+      "browser": {
+        "order": 34200,
+        "health": "LIVE",
+        "instances": 25,
+        "queued": 150
+      },
+      "journalBytes": 44888064
+    },
+    {
+      "at": "2026-10-08T02:10:43.201Z",
+      "metrics": [
+        {
+          "name": "Documents",
+          "value": 1
+        },
+        {
+          "name": "Nodes",
+          "value": 1057
+        },
+        {
+          "name": "TaskDuration",
+          "value": 49.753308
+        },
+        {
+          "name": "JSHeapUsedSize",
+          "value": 76508384
+        }
+      ],
+      "browser": {
+        "order": 51400,
+        "health": "LIVE",
+        "instances": 25,
+        "queued": 150
+      },
+      "journalBytes": 61440000
+    },
+    {
+      "at": "2026-10-08T02:10:58.201Z",
+      "metrics": [
+        {
+          "name": "Documents",
+          "value": 1
+        },
+        {
+          "name": "Nodes",
+          "value": 778
+        },
+        {
+          "name": "TaskDuration",
+          "value": 64.582812
+        },
+        {
+          "name": "JSHeapUsedSize",
+          "value": 71975168
+        }
+      ],
+      "browser": {
+        "order": 65801,
+        "health": "LIVE",
+        "instances": 25,
+        "queued": 150
+      },
+      "journalBytes": 77004800
+    }
+  ],
+  "kind": "SYNTHETIC canonical HTTP intake → real Watchdog export → real gateway → SSE; no source business execution",
+  "maxSampleGapMs": 15009.429053000002,
+  "concurrency": 4,
+  "processResources": [
+    {
+      "elapsedSeconds": 0.0001674779999993916,
+      "processTree": [
+        {
+          "pid": 3259,
+          "ppid": 3248,
+          "cpuPercent": 7.5,
+          "rssKiB": 237064
+        },
+        {
+          "pid": 3271,
+          "ppid": 3259,
+          "cpuPercent": 0,
+          "rssKiB": 14228
+        },
+        {
+          "pid": 3287,
+          "ppid": 3259,
+          "cpuPercent": 4.1,
+          "rssKiB": 48404
+        },
+        {
+          "pid": 3300,
+          "ppid": 3259,
+          "cpuPercent": 5.5,
+          "rssKiB": 136232
+        },
+        {
+          "pid": 3312,
+          "ppid": 3300,
+          "cpuPercent": 0.1,
+          "rssKiB": 15372
+        },
+        {
+          "pid": 3321,
+          "ppid": 3259,
+          "cpuPercent": 6.6,
+          "rssKiB": 491172
+        },
+        {
+          "pid": 3348,
+          "ppid": 3259,
+          "cpuPercent": 4.2,
+          "rssKiB": 217068
+        },
+        {
+          "pid": 3356,
+          "ppid": 3348,
+          "cpuPercent": 0,
+          "rssKiB": 79488
+        },
+        {
+          "pid": 3357,
+          "ppid": 3348,
+          "cpuPercent": 0,
+          "rssKiB": 79544
+        },
+        {
+          "pid": 3377,
+          "ppid": 3356,
+          "cpuPercent": 63.4,
+          "rssKiB": 133132
+        },
+        {
+          "pid": 3395,
+          "ppid": 3348,
+          "cpuPercent": 1.2,
+          "rssKiB": 137376
+        },
+        {
+          "pid": 3408,
+          "ppid": 3357,
+          "cpuPercent": 0,
+          "rssKiB": 51328
+        },
+        {
+          "pid": 3424,
+          "ppid": 3357,
+          "cpuPercent": 1.9,
+          "rssKiB": 150576
+        },
+        {
+          "pid": 3433,
+          "ppid": 3357,
+          "cpuPercent": 0,
+          "rssKiB": 81652
+        },
+        {
+          "pid": 3435,
+          "ppid": 3357,
+          "cpuPercent": 14.9,
+          "rssKiB": 285180
+        },
+        {
+          "pid": 3516,
+          "ppid": 3259,
+          "cpuPercent": 0,
+          "rssKiB": 3776
+        }
+      ],
+      "processes": "3259  7.5 237080\n   3287  4.1 48404\n   3300  5.5 136232\n   3321  6.6 491172"
+    },
+    {
+      "elapsedSeconds": 60.00033929199999,
+      "processTree": [
+        {
+          "pid": 3259,
+          "ppid": 3248,
+          "cpuPercent": 9.1,
+          "rssKiB": 234992
+        },
+        {
+          "pid": 3271,
+          "ppid": 3259,
+          "cpuPercent": 0,
+          "rssKiB": 14236
+        },
+        {
+          "pid": 3287,
+          "ppid": 3259,
+          "cpuPercent": 121,
+          "rssKiB": 110856
+        },
+        {
+          "pid": 3300,
+          "ppid": 3259,
+          "cpuPercent": 28,
+          "rssKiB": 428116
+        },
+        {
+          "pid": 3312,
+          "ppid": 3300,
+          "cpuPercent": 0,
+          "rssKiB": 15372
+        },
+        {
+          "pid": 3321,
+          "ppid": 3259,
+          "cpuPercent": 2.1,
+          "rssKiB": 568424
+        },
+        {
+          "pid": 3348,
+          "ppid": 3259,
+          "cpuPercent": 3.9,
+          "rssKiB": 218288
+        },
+        {
+          "pid": 3356,
+          "ppid": 3348,
+          "cpuPercent": 0,
+          "rssKiB": 79488
+        },
+        {
+          "pid": 3357,
+          "ppid": 3348,
+          "cpuPercent": 0,
+          "rssKiB": 79544
+        },
+        {
+          "pid": 3377,
+          "ppid": 3356,
+          "cpuPercent": 19.8,
+          "rssKiB": 139184
+        },
+        {
+          "pid": 3395,
+          "ppid": 3348,
+          "cpuPercent": 2.7,
+          "rssKiB": 139792
+        },
+        {
+          "pid": 3408,
+          "ppid": 3357,
+          "cpuPercent": 0,
+          "rssKiB": 51528
+        },
+        {
+          "pid": 3424,
+          "ppid": 3357,
+          "cpuPercent": 0.3,
+          "rssKiB": 143172
+        },
+        {
+          "pid": 3433,
+          "ppid": 3357,
+          "cpuPercent": 0,
+          "rssKiB": 81652
+        },
+        {
+          "pid": 3435,
+          "ppid": 3357,
+          "cpuPercent": 82.2,
+          "rssKiB": 718928
+        },
+        {
+          "pid": 4587,
+          "ppid": 3259,
+          "cpuPercent": 0,
+          "rssKiB": 3744
+        }
+      ],
+      "processes": "3259  9.1 234992\n   3287  121 110856\n   3300 28.0 428116\n   3321  2.1 568424"
+    }
+  ],
+  "requestedDurationSeconds": 60,
+  "batchSize": 100,
+  "offeredRate": 1100,
+  "verifiedReconnects": 2,
+  "acknowledgedRecords": 66000,
+  "observedRecordsAtSenderStop": 65900,
+  "observedDuplicatesAtSenderStop": 0,
+  "uncertainBatches": [],
+  "deliveryReconciled": true,
+  "accepted": 66000,
+  "visible": 66000,
+  "duplicates": 0,
+  "missing": 0,
+  "sendSeconds": 60.018266659999995,
+  "totalSeconds": 60.21913510699999,
+  "visibleEventsPerSecond": 1095.9971424818425,
+  "intakeMs": {
+    "p50": 153.82423100000597,
+    "p95": 225.13475200000175
+  },
+  "sourceHealth": {
+    "status": "LIVE",
+    "gap": false,
+    "lastSuccess": 1791425455926,
+    "lastError": "",
+    "coverage": "SDK run/retrieval/tool/handoff and Eval invocation/check results; retained local journal; reconnect history partial"
+  },
+  "browserFinal": {
+    "order": 66000,
+    "health": "LIVE",
+    "instances": 25
+  },
+  "browserCaughtUp": true,
+  "forcedCleanup": []
+}

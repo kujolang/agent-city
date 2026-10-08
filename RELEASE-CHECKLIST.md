@@ -358,3 +358,13 @@ receipt for throughput and recovery rather than combining older runs. All four
 installation jobs passed CI37715883928. No long soak was run. Canvas building
 health now uses a small semantic summary rather than constructing full station/
 evidence inspector data every frame; equivalence tests cover freshness/outcomes.
+
+SSE progression checkpoint: CI37716663418 (0b05986) completes66,000/66,000 on both
+architectures with0missing/duplicates,2verified reconnects and final browserLIVE.
+x64=899.833events/sec (FAIL); ARM64=1097.876(PASS). Neither renderer summary nor
+progress-aware recovery establishes a throughput improvement; earlier measurements
+remain in evidence/reconnect-load. Current gate uses this newest matching receipt.
+Controlled browser proof confirms advancing streams are retained, stalled streams
+recover, epoch changes recover and replay remains isolated.94tests pass. Managed
+first-task instructions no longer depend on global npm. Full product scope remains
+unfinished; no long soak was run and no public release readiness is claimed.
