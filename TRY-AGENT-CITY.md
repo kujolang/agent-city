@@ -214,3 +214,11 @@ checks. Your original files are not edited or mounted into Workcell. Follow-ups
 retain the prior snapshot unless you choose replacements. Start a new mission to
 begin with separate context. Attaching files does not fabricate retrieval activity;
 use the explicit documentation options for connected documentation operations.
+
+JavaScript checking requires a working Chromium sandbox. If its private diagnostic
+reports **No usable sandbox** on Ubuntu24.04+, configure a per-executable AppArmor
+profile for your installed browser or select a supported system browser through
+`CHROMIUM_PATH`. Agent City does not disable the browser sandbox or alter your OS
+policy automatically. See [Ubuntu's documented per-application user namespace
+policy](https://discourse.ubuntu.com/t/ubuntu-24-04-lts-noble-numbat-release-notes/39890/1).
+An unavailable checker is recorded as UNKNOWN execution, not a failed test.

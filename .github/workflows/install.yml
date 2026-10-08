@@ -92,7 +92,9 @@ jobs:
         run: |
           export PATH="$RUNNER_TEMP/city/.node/bin:$PATH"
           cd "$RUNNER_TEMP/city/agent-city"
+          node scripts/ci-browser-policy.mjs
           CITY_PROFILE_PROOF_PROJECT=1 node --import tsx scripts/profile-code-proof.ts
+          node --import tsx scripts/checker-unavailable-proof.ts
       - name: Verify real installed update, refusal and archive lifecycle
         env:
           CITY_OWNED_TEST_INSTALL: ${{ runner.temp }}/city
@@ -129,3 +131,4 @@ jobs:
             ${{ runner.temp }}/city/agent-city/evidence/supervisor-loss/proof.json
             ${{ runner.temp }}/city/agent-city/evidence/admission-release
             ${{ runner.temp }}/city/agent-city/evidence/profile-code/project-context
+            ${{ runner.temp }}/city/agent-city/evidence/checker-unavailable

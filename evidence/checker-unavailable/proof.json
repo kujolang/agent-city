@@ -1,0 +1,15 @@
+{
+  "scope": "Controlled missing browser, real SDK/Dispatch; no generated code executed",
+  "mission": "mission-8768a6f9-54e6-405a-98c0-2b6b514d4c75",
+  "sourceStatus": "completed",
+  "functional": {
+    "schema": "agent-city.function-check.v1",
+    "status": "unavailable",
+    "codeExecuted": null,
+    "cases": [],
+    "reason": "Isolated function checker did not return verified results",
+    "diagnostic": "ENOENT: no such file or directory, access '/Users/robertdevore/2026/Kujolang/kujo-repos/agent-city/.runtime/checker-unavailable-7d07ecdf-efa9-4741-848b-c92107255cdd/missing-browser'"
+  },
+  "unknownEvaluationObserved": true,
+  "privateEvidence": "/Users/robertdevore/2026/Kujolang/kujo-repos/agent-city/.runtime/checker-unavailable-7d07ecdf-efa9-4741-848b-c92107255cdd"
+}
