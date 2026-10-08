@@ -349,12 +349,20 @@ try {
               e.capability === "workcell.execute" && e.outcome === "succeeded",
           ),
         );
-        assert(
-          events.filter(
-            (e) =>
-              e.capability === "artifact.created" &&
-              e.agent_id === "workcell-host",
-          ).length === 2,
+        assert.deepEqual(
+          events
+            .filter(
+              (e) =>
+                e.capability === "artifact.created" &&
+                e.agent_id === "workcell-host",
+            )
+            .map((e) => e.metadata.artifactRef)
+            .sort(),
+          api.workcell.evidence.artifacts
+            .map(
+              (a: any) => `workcell:${api.workcell.evidence.runId}:${a.name}`,
+            )
+            .sort(),
         );
       }
       assert(
