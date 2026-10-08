@@ -1,3 +1,4 @@
+import { localChromiumPath } from "../apps/runner/browser-path";
 import { chromium } from "@playwright/test";
 import { spawn, type ChildProcess } from "node:child_process";
 import { mkdir, writeFile } from "node:fs/promises";
@@ -51,7 +52,7 @@ try {
   );
   browser = await chromium.launch({
     headless: true,
-    executablePath: process.env.CHROMIUM_PATH,
+    executablePath: await localChromiumPath(),
   });
   const page = await browser.newPage({
     viewport: { width: 1360, height: 1100 },
@@ -152,6 +153,13 @@ try {
     fixtureId,
   );
   assert(await page.getByLabel("Task type").isDisabled());
+  assert(await page.getByLabel("Function contract JSON").isVisible());
+  assert.equal(
+    await page
+      .locator("#mission-options")
+      .evaluate((e: HTMLDetailsElement) => e.open),
+    true,
+  );
   assert.deepEqual(
     JSON.parse(await page.getByLabel("Function contract JSON").inputValue()),
     fixtureChecks,
@@ -193,11 +201,17 @@ try {
     ),
     "model",
   );
-  await page.keyboard.press("Tab");
+  for (const name of ["requestTimeoutSeconds", "maxOutputTokens", "apiKey"]) {
+    await page.keyboard.press("Tab");
+    assert.equal(
+      await page.evaluate(
+        () => (document.activeElement as HTMLInputElement).name,
+      ),
+      name,
+    );
+  }
   assert.equal(
-    await page.evaluate(
-      () => (document.activeElement as HTMLInputElement).type,
-    ),
+    await page.getByLabel("API key", { exact: true }).getAttribute("type"),
     "password",
   );
   await page.setViewportSize({ width: 320, height: 740 });

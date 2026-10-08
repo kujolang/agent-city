@@ -24,10 +24,11 @@ jobs:
         run: npm run verify
       - name: Install controlled browser
         run: npx playwright install --with-deps chromium
-      - name: Verify onboarding faults and fullscreen presentation without model calls
+      - name: Verify onboarding, continuation and presentation without model calls
         run: |
           node --import tsx scripts/provider-setup-proof.ts
           node --import tsx scripts/game-view-proof.ts
+          node --import tsx scripts/mission-browser.ts
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -35,6 +36,7 @@ jobs:
           path: |
             evidence/provider-setup-faults
             evidence/game-view
+            evidence/visual-revision
             dependency-audit.json
   install:
     strategy:
