@@ -1,3 +1,11 @@
+> Historical checkpoint. Public distribution, four-platform installation,
+> first-user onboarding and canonical throughput have newer passing evidence.
+> Current recorded hardening status is **CONDITIONAL**, with the user-cancelled
+> soak unqualified: [assessment](../blockers/release-gates.json).
+> See [current checklist](../../RELEASE-CHECKLIST.md) and
+> [current bounded performance](../performance-current/README.md).
+> The unchecked items below describe the older checkpoint, not current blockers.
+
 # Release work checkpoint — incomplete
 
 Release status: FAIL. The five requested items are not all complete; no production release or final tool-building video has been published or claimed.

@@ -1,0 +1,168 @@
+{
+  "at": "2026-10-08T07:01:31.930Z",
+  "sourceRevision": "c60e5a1a3544e6bca83f4c43c2345ab278636a6f",
+  "sourceDirty": false,
+  "scope": "Fresh production build. Every emitted JS chunk is counted, including lazy renderer fallbacks; upper bound rather than actual initial network transfer. PNG RGBA payload excludes browser surfaces, graphics buffers, driver overhead and mipmaps; not total texture memory or a soak.",
+  "jsGzipBytes": 240603,
+  "visualGzipBytes": 15137,
+  "pngDecodedRgbaBytes": 1720320,
+  "targets": {
+    "allJsWithin500KiB": true,
+    "visualWithin2MiB": true
+  },
+  "files": [
+    {
+      "name": "BitmapFont-CjWaf8D-.js",
+      "bytes": 69,
+      "gzipBytes": 76,
+      "sha256": "55b0c4052f8331f4aabe0ff4d902e4094e56b53bca4b85825bedb38041759faf"
+    },
+    {
+      "name": "BitmapFont-vjp8ZqH4.js",
+      "bytes": 33403,
+      "gzipBytes": 11071,
+      "sha256": "49f94f4229d938959446c9c559db4ab95eb55550f3fa6bb7daeaf26192dc230e"
+    },
+    {
+      "name": "BufferResource--GbODnRS.js",
+      "bytes": 11082,
+      "gzipBytes": 2844,
+      "sha256": "659d6517c12020e363031ea14d5be622c37e631b9eae4c81481bcb6a6b3664ed"
+    },
+    {
+      "name": "Cache-BuXNhdx8.js",
+      "bytes": 1098,
+      "gzipBytes": 550,
+      "sha256": "666ceac0b71273a655d4ceea5e28c9dfc92100b1959137d9387cc1de65cd374e"
+    },
+    {
+      "name": "CanvasPool-COiMhYSa.js",
+      "bytes": 756,
+      "gzipBytes": 421,
+      "sha256": "b2fdc5e7435ac00d2fdd487225eaf005dd9e7cd4104b859e97283370390bc594"
+    },
+    {
+      "name": "CanvasRenderer-BOM-_cZI.js",
+      "bytes": 77,
+      "gzipBytes": 80,
+      "sha256": "a2add263f30e631d043a56b2c9a54c314a82cf61f32140c20993d03d5583c6c2"
+    },
+    {
+      "name": "CanvasRenderer-e_BaLxZ1.js",
+      "bytes": 27023,
+      "gzipBytes": 7873,
+      "sha256": "66cbeef9bf720d8865acb2090495cbb57e3b58f5e09f1cea75dfe715bc81087d"
+    },
+    {
+      "name": "Filter-BLHU92UO.js",
+      "bytes": 38919,
+      "gzipBytes": 11011,
+      "sha256": "695348769847c5114d7f333f9e4cde80429e2ef7fa8c5d10d97551da5f3650ad"
+    },
+    {
+      "name": "GCManagedHash-B-DCdSrZ.js",
+      "bytes": 19309,
+      "gzipBytes": 6246,
+      "sha256": "843c39aa57741ad51862a75ed6ad1fd18e3f22fea6df2696db7638830b292d67"
+    },
+    {
+      "name": "Geometry-BbhY1dpZ.js",
+      "bytes": 65662,
+      "gzipBytes": 21256,
+      "sha256": "5c044fe1689d3d8e150a9f0280649517c885cb8f0c41a4e2cc47432dd781490c"
+    },
+    {
+      "name": "GraphicsContext-BFD8ojP-.js",
+      "bytes": 61268,
+      "gzipBytes": 20278,
+      "sha256": "6f8bc8b9c9fa0690c693e03342ddae8b4affd0c29f36f6f9e09e601de1a0af4c"
+    },
+    {
+      "name": "RenderTargetSystem-DL3L-0J3.js",
+      "bytes": 57418,
+      "gzipBytes": 16003,
+      "sha256": "af76dc4822b789387c1c9f0c10ab22440ea846098edf9131de64f2d2411d9663"
+    },
+    {
+      "name": "WebGLRenderer-B6rm0Bss.js",
+      "bytes": 75,
+      "gzipBytes": 79,
+      "sha256": "d4c915b0b083c3262a03d966feb1d0afe3d678335adc8116496ec35a02dbb02c"
+    },
+    {
+      "name": "WebGLRenderer-CFFzMqGJ.js",
+      "bytes": 71386,
+      "gzipBytes": 19240,
+      "sha256": "4fda9b2f2382b7d99e436c0617207124fab5afffafc7b86117f5739a511bb2cc"
+    },
+    {
+      "name": "WebGPURenderer-D5MSx_X2.js",
+      "bytes": 45538,
+      "gzipBytes": 12944,
+      "sha256": "8cdc35bee04780e5c12306dff52eb5d808067d67ff16bcd9adce7e4b9aa6549f"
+    },
+    {
+      "name": "WebGPURenderer-Dg3o1MrD.js",
+      "bytes": 77,
+      "gzipBytes": 80,
+      "sha256": "52bb6f3c825b1c28460515f246f7c14f55e68fc35123d23efaeef4f61a324687"
+    },
+    {
+      "name": "browserAll-9E9Wi4bX.js",
+      "bytes": 42673,
+      "gzipBytes": 11041,
+      "sha256": "f21dc80efa633ca87930e8210030662e3490851eb04598fdbace9068fa7d16dd"
+    },
+    {
+      "name": "canvasUtils-DAljshvP.js",
+      "bytes": 6020,
+      "gzipBytes": 2017,
+      "sha256": "0b52c36499ed2762390d27fc53662b9fbf0d756e0e8085b721604907422ce7c6"
+    },
+    {
+      "name": "characters-DtsoaROJ.png",
+      "bytes": 25411,
+      "gzipBytes": 15137,
+      "sha256": "ef8005e2f8e31733a2abbfc643416dea2c1161ebd3ea72be28058105cfe0714a",
+      "width": 280,
+      "height": 1536,
+      "rgbaBytes": 1720320
+    },
+    {
+      "name": "getTextureBatchBindGroup-CsmyrjAD.js",
+      "bytes": 342,
+      "gzipBytes": 266,
+      "sha256": "b2ac72f21b20d0631374fc50ba521afb9a97f501d858bb5e62af89267178b074"
+    },
+    {
+      "name": "index-CJt7fcVW.js",
+      "bytes": 280858,
+      "gzipBytes": 84143,
+      "sha256": "cff1491a3fe86be1d2d50d69e7c8adff9a6b3254c32d09504bb7c156f7a89e1a"
+    },
+    {
+      "name": "index-DE86xex0.css",
+      "bytes": 9376,
+      "gzipBytes": 2745,
+      "sha256": "88f59670df1a8f9cbc864276405c043eb01d09d3fb2ef91d6f95b0bf20ae2316"
+    },
+    {
+      "name": "init-BEoeNh5U.js",
+      "bytes": 23786,
+      "gzipBytes": 8147,
+      "sha256": "b1ca7d2faea79dd14f53a65a68459be5247c617250a794e00557998f8145f2f2"
+    },
+    {
+      "name": "init-BoRArt3y.js",
+      "bytes": 15619,
+      "gzipBytes": 4878,
+      "sha256": "0bfb7578e24f35c4589460767800007317e560700c9a02b37842e13ab726fb30"
+    },
+    {
+      "name": "webworkerAll-CNdRe5Ui.js",
+      "bytes": 54,
+      "gzipBytes": 59,
+      "sha256": "cfaccd922acf53534e6b5f92bab6681800409657c091ecb1b896dd9193457100"
+    }
+  ]
+}

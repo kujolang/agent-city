@@ -1,0 +1,211 @@
+{
+  "kind": "SYNTHETIC renderer-only bounded profile; no source task or ingestion proof",
+  "at": "2026-10-08T07:04:38.403Z",
+  "sourceRevision": "c60e5a1a3544e6bca83f4c43c2345ab278636a6f",
+  "sourceDirty": true,
+  "browser": "151.0.7922.34",
+  "framesPerProfile": 120,
+  "warmupFramesPerProfile": 20,
+  "timingScope": "Synthetic headless Chromium, one scene per count. Draw includes synchronous app.render submission; rAF intervals include browser/host scheduling. Neither measures GPU completion or upstream-to-visible latency.",
+  "timingQualification": "BOUNDED_SAMPLE_NOT_RELEASE_CERTIFICATION",
+  "host": {
+    "platform": "darwin",
+    "arch": "x64",
+    "node": "v26.7.0",
+    "availableParallelism": 12,
+    "loadAverageBefore": [
+      7.23583984375,
+      6.87646484375,
+      6.26953125
+    ],
+    "loadAverageAfter": [
+      5.96435546875,
+      6.5859375,
+      6.1943359375
+    ],
+    "note": "Shared busy user system; load averages describe host pressure, not causal attribution."
+  },
+  "profiles": [
+    {
+      "count": 5,
+      "emptyPageFrameMs": {
+        "p50": 16.700000000000045,
+        "p95": 16.800000000000182,
+        "measuredFrames": 60
+      },
+      "measuredFrames": 120,
+      "rendered": 5,
+      "changedFrames": 0,
+      "pixels": "1e5385fe45adc11f433765a7223ffb0804e99ac4c05ffe017b9c056ff794278e",
+      "drawMs": {
+        "p50": 2.5,
+        "p95": 3.299999952316284
+      },
+      "frameMs": {
+        "p50": 66.60000000000036,
+        "p95": 66.70000000000073
+      },
+      "stable": {
+        "objects": 28,
+        "actors": 5,
+        "actorsCreated": 5,
+        "actorsDestroyed": 0,
+        "buildingHits": 6,
+        "backgrounds": 1
+      },
+      "after": {
+        "objects": 14,
+        "actors": 0,
+        "actorsCreated": 10,
+        "actorsDestroyed": 10,
+        "buildingHits": 6,
+        "backgrounds": 2
+      },
+      "selectionWorked": true,
+      "offscreenActors": 0,
+      "removedActors": 0,
+      "immutable": true,
+      "transitions": {
+        "retained": true,
+        "stableHits": true,
+        "buildingCallback": true
+      }
+    },
+    {
+      "count": 25,
+      "emptyPageFrameMs": {
+        "p50": 16.699999999999932,
+        "p95": 16.700000000000045,
+        "measuredFrames": 60
+      },
+      "measuredFrames": 120,
+      "rendered": 25,
+      "changedFrames": 0,
+      "pixels": "26a0ffd401fadda25f532fa313de7cc193c059d9fc7c8175555f58c11a390d5b",
+      "drawMs": {
+        "p50": 2.799999952316284,
+        "p95": 3.700000047683716
+      },
+      "frameMs": {
+        "p50": 66.60000000000036,
+        "p95": 66.70000000000073
+      },
+      "stable": {
+        "objects": 88,
+        "actors": 25,
+        "actorsCreated": 25,
+        "actorsDestroyed": 0,
+        "buildingHits": 6,
+        "backgrounds": 1
+      },
+      "after": {
+        "objects": 14,
+        "actors": 0,
+        "actorsCreated": 50,
+        "actorsDestroyed": 50,
+        "buildingHits": 6,
+        "backgrounds": 2
+      },
+      "selectionWorked": true,
+      "offscreenActors": 0,
+      "removedActors": 0,
+      "immutable": true,
+      "transitions": {
+        "retained": true,
+        "stableHits": true,
+        "buildingCallback": true
+      }
+    },
+    {
+      "count": 100,
+      "emptyPageFrameMs": {
+        "p50": 16.700000000000045,
+        "p95": 16.800000000000068,
+        "measuredFrames": 60
+      },
+      "measuredFrames": 120,
+      "rendered": 2,
+      "changedFrames": 0,
+      "pixels": "b57fcd3b034b07d5c4fe9a02415c4f603712635daad78517e74dce8e874490eb",
+      "drawMs": {
+        "p50": 2.8000000715255737,
+        "p95": 4
+      },
+      "frameMs": {
+        "p50": 50,
+        "p95": 66.70000000000073
+      },
+      "stable": {
+        "objects": 19,
+        "actors": 2,
+        "actorsCreated": 2,
+        "actorsDestroyed": 0,
+        "buildingHits": 6,
+        "backgrounds": 1
+      },
+      "after": {
+        "objects": 14,
+        "actors": 0,
+        "actorsCreated": 4,
+        "actorsDestroyed": 4,
+        "buildingHits": 6,
+        "backgrounds": 2
+      },
+      "selectionWorked": true,
+      "offscreenActors": 0,
+      "removedActors": 0,
+      "immutable": true,
+      "transitions": {
+        "retained": true,
+        "stableHits": true,
+        "buildingCallback": true
+      }
+    },
+    {
+      "count": 500,
+      "emptyPageFrameMs": {
+        "p50": 16.699999999999932,
+        "p95": 16.700000000000045,
+        "measuredFrames": 60
+      },
+      "measuredFrames": 120,
+      "rendered": 2,
+      "changedFrames": 0,
+      "pixels": "d61a18cb0ca9985564bfdc918d0464e98731af4062b6b8e339372807bd93b047",
+      "drawMs": {
+        "p50": 3.0999999046325684,
+        "p95": 4
+      },
+      "frameMs": {
+        "p50": 50,
+        "p95": 66.69999999999982
+      },
+      "stable": {
+        "objects": 19,
+        "actors": 2,
+        "actorsCreated": 2,
+        "actorsDestroyed": 0,
+        "buildingHits": 6,
+        "backgrounds": 1
+      },
+      "after": {
+        "objects": 14,
+        "actors": 0,
+        "actorsCreated": 4,
+        "actorsDestroyed": 4,
+        "buildingHits": 6,
+        "backgrounds": 2
+      },
+      "selectionWorked": true,
+      "offscreenActors": 0,
+      "removedActors": 0,
+      "immutable": true,
+      "transitions": {
+        "retained": true,
+        "stableHits": true,
+        "buildingCallback": true
+      }
+    }
+  ],
+  "errors": []
+}
