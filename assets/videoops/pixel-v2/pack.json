@@ -1,0 +1,50 @@
+{
+  "schema": "agent-city.videoops-media-pack.v1",
+  "name": "Agent City Pixel v2",
+  "styleIntake": "Reuse supplied actual game captures as backgrounds with nearest-neighbor scaling and the supplied pixel font. Preserve original game imagery rather than recreating a generic city. Black/navy negative space, blue framing, compact NES-like typography. Historical imagery must not imply current live operations. No voice, music or sound effects are included or authorized by this preset.",
+  "assets": [
+    {
+      "id": "pixel-city",
+      "path": "assets/source/city.png",
+      "sha256": "9fbff121768fc1b544edebe091b4d5c2c8cbab61fdacf6c414e025c505e3d84e",
+      "bytes": 18644,
+      "rightsEvidence": "Original Kujo Agent City application capture; provenance videos/pixel-title-card-v2/asset-ledger.json",
+      "description": "Actual Agent City city screenshot; historical product imagery, not proof of current run",
+      "sourceType": "product-capture"
+    },
+    {
+      "id": "pixel-library",
+      "path": "assets/source/library.png",
+      "sha256": "800e79ccc04f578c25b512a77f736199362cc801b7ab6fc489576acb2b64ad1b",
+      "bytes": 13932,
+      "rightsEvidence": "Original Kujo Agent City application capture; provenance videos/pixel-title-card-v2/asset-ledger.json",
+      "description": "Actual Agent City library screenshot; historical product imagery, not proof of current run",
+      "sourceType": "product-capture"
+    },
+    {
+      "id": "pixel-workshop",
+      "path": "assets/source/workshop.png",
+      "sha256": "4f250150cf7015b0a19a1e3c1ac5cfb5da53a0f95ca1e15f4336715dcefe863c",
+      "bytes": 11082,
+      "rightsEvidence": "Original Kujo Agent City application capture; provenance videos/pixel-title-card-v2/asset-ledger.json",
+      "description": "Actual Agent City workshop screenshot; historical product imagery, not proof of current run",
+      "sourceType": "product-capture"
+    },
+    {
+      "id": "pixel-font",
+      "path": "assets/fonts/pixel.ttf",
+      "sha256": "034c77f1f05ec89421e4a63f0e3a4ca1ecf852cc6d2bf611f126f275728e017d",
+      "bytes": 118204,
+      "rightsEvidence": "SIL Open Font License 1.1; licenses/OFL.txt",
+      "description": "Press Start 2P pixel font; use via local @font-face",
+      "sourceType": "font"
+    }
+  ],
+  "licenses": [
+    {
+      "path": "licenses/OFL.txt",
+      "sha256": "705960c3281a5765ecc0b59bd4ed7ca59eed165748076bc2fc3e8fdbfeb944b0",
+      "bytes": 4413
+    }
+  ]
+}
