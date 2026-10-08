@@ -34,6 +34,11 @@ jobs:
           node --import tsx --input-type=module -e 'import assert from "node:assert/strict";import {videoopsLaunchEnv} from "./apps/runner/videoops-settings.ts";const env=await videoopsLaunchEnv(process.cwd()+"/.runtime",{});assert(env.CITY_VIDEOOPS_CONFIG);'
           npm run setup:videoops -- --disable
           node --import tsx --input-type=module -e 'import assert from "node:assert/strict";import {videoopsLaunchEnv} from "./apps/runner/videoops-settings.ts";assert.equal((await videoopsLaunchEnv(process.cwd()+"/.runtime",{})).CITY_VIDEOOPS_CONFIG,undefined);'
+      - name: Supply exact checked-out model evidence to installed proof
+        if: inputs.model_editor
+        run: |
+          mkdir -p "$RUNNER_TEMP/city/agent-city/evidence/videoops-model-editor"
+          cp evidence/videoops-model-editor/proof.json evidence/videoops-model-editor/render-input.json "$RUNNER_TEMP/city/agent-city/evidence/videoops-model-editor/"
       - name: Actual network-disabled Workcell render
         env:
           CITY_VIDEOOPS_MODEL_PROOF: ${{ inputs.model_editor && '1' || '0' }}
