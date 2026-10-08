@@ -38,6 +38,14 @@ const model = validateModelConfig({
   maxOutputTokens: Number(process.env.CITY_MAX_OUTPUT_TOKENS || 8192),
   requestTimeoutSeconds: Number(process.env.CITY_MODEL_TIMEOUT_SECONDS || 90),
 });
+if (
+  config.modelBinding &&
+  (config.modelBinding.endpoint !== model.endpoint ||
+    config.modelBinding.model !== model.model)
+)
+  throw Error(
+    "Model changed since VideoOps setup; confirm the new model capabilities with setup:videoops",
+  );
 const producer = "videoops-" + id;
 const result = await produceVideoops({
   root,
