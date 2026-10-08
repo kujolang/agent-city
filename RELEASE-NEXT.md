@@ -82,3 +82,11 @@ and exposes failed report artifacts and JSON downloads. Controlled browser submi
 invalid-JSON rejection and failed-report inspection pass; 120 unit tests plus
 types/boundaries/maps/build pass. This is not real provider acceptance: WebOps live
 author/reviewer/check proof and selected VideoOps integration remain required.
+
+WebOps selected acceptance now passes on development main: missionfaa7442d uses
+the actual WebOps Reporter and separate Copy Chief via Codex, then a deterministic
+report check. Fourteen canonical/normalized events reach the gateway, including
+handoff and check start/finish across three execution instances. See
+evidence/webops-live. This qualifies supplied-evidence reporting only, not site
+crawling or every WebOps profile. Selected VideoOps integration/acceptance and
+release qualification of these additions remain open.

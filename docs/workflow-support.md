@@ -11,14 +11,14 @@ Command performs supported work; the city observes the real lifecycle.
 | Kujo tool → review → check | Real catalog/docs/source reads, syntax check, optional isolated execution and output checks | Explicit MCP/context permission; saved Workcell image plus per-task consent for execution |
 | Project inputs / named output files | Selected copied input files, isolated artifact execution and named export | Explicit file selection/consent; no unrestricted host-project mutation |
 | Publishing House | Technical writer → copy-chief draft/review demonstrated | Local saved draft only; no CMS publication, account access or distribution |
-| WebOps | Profiles/catalog references are inspectable; current28 profiles require capabilities not connected here | No automatic website crawl, repository edit, deployment or recurring site management; executable team adapter remains open |
+| WebOps supplied-evidence report | WebOps Reporter → Copy Chief → deterministic report contract check demonstrated on development main | Choose the explicit workflow and supply bounded timestamped site evidence; no crawl, analytics, repository edit, deployment or recurring management. Other WebOps profiles remain unavailable. Not included in immutable rc.2 |
 | VideoOps | Profiles/catalog references are inspectable | Required production capabilities are not connected; no advertised end-to-end HyperFrames render workflow |
 | Archive / replay | Read-only timeline, evidence, comparison and semantic playback | Replays do not invoke models, tools or source operations |
 
 The existing release-notes tool recording proves the Kujo row, not every row in
 the ecosystem. See [its source, exact model provenance and execution receipt](../evidence/reviewed-release-tool/README.md).
 The [Publishing House proof](../evidence/publishing-house/README.md) qualifies the
-named draft/review task only. Selected WebOps/VideoOps acceptance and any adapters
+named draft/review task only. The [WebOps reporting proof](../evidence/webops-live/README.md) qualifies supplied-evidence reporting only. Selected VideoOps acceptance and adapters
 needed for advertised production workflows remain open in [RELEASE-NEXT](../RELEASE-NEXT.md).
 
 Profiles with required capabilities the runtime cannot supply are unavailable.
