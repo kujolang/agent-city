@@ -1,0 +1,13 @@
+{
+  "recordedAt": "2026-10-08T16:55:06.067848+00:00",
+  "exitCode": 0,
+  "durationSeconds": 210.72,
+  "initialFreeBytes": 7226540032,
+  "minimumFreeBytes": 6060621824,
+  "finalFreeBytes": 9068982272,
+  "stopReason": null,
+  "environmentFix": "Docker bundled credential helper directory added to build process PATH; no credential changes",
+  "imageId": "sha256:a6102b230cf203b348a58efb2fd7cbcc5bb5abe083166fb427a77b51faf55198",
+  "imageSizeBytes": 1260560574,
+  "toolchainSmoke": "PASS: network-disabled, read-only, 512 MiB / 1 CPU container; auto-removed"
+}

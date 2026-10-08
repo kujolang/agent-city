@@ -283,3 +283,12 @@ are resolved. The local VideoOps image is absent; only about7.3GiB was free afte
 recovery. Defer the large local image build while the user's other agent completes
 storage cleanup. Combined production acceptance and exact-candidate review remain
 open; this recovery does not qualify the release.
+
+Local VideoOps image built successfully after explicit user instruction to try.
+Docker reports1,260,560,574bytes (1.26GB / 1.17GiB), build210.72seconds, minimum
+observed host free space6,060,621,824bytes. Node/Chromium/FFmpeg/FFprobe/HyperFrames
+smoke checks pass in a read-only network-disabled container, removed on exit.
+See evidence/videoops-local-build. The initial missing Docker credential-helper
+PATH failure is retained; adding Docker's bundled helper directory to the build
+process PATH resolved it without changing credentials. This supersedes the
+missing-image/storage-build hold. Combined production acceptance is still open.
