@@ -1,0 +1,57 @@
+{
+  "id": "mission-fcb60407-155b-4f4d-942f-f754ec925ba0",
+  "draft": "{\"cityArtifact\":\"let input := read_file(\\\"project/changes.txt\\\")\\nlet lines := split(input, \\\"\\\\n\\\")\\nmut bullets := []\\n\\nfor line in lines {\\n    let cleaned := trim(line)\\n    if len(cleaned) > 0 {\\n        bullets = push(bullets, \\\"- \\\" + cleaned)\\n    }\\n}\\n\\nlet document := \\\"# Release notes\\\\n\\\\n\\\" + join(bullets, \\\"\\\\n\\\")\\nwrite_file(\\\"project/RELEASE-NOTES.md\\\", document, true)\\nprint(document)\",\"cityReview\":\"Grade: A. The script reads project/changes.txt at execution time, splits it by newline, trims every line, excludes empty or whitespace-only lines, and preserves the order of all remaining entries. It constructs Markdown bullets, joins them without a trailing newline, writes the exact document to the requested exported path with overwrite enabled, and prints the document exactly once. The supplied source example is neither imported nor executed. Execution and platform checks remain pending.\"}",
+  "kind": "kujo",
+  "content": "let input := read_file(\"project/changes.txt\")\nlet lines := split(input, \"\\n\")\nmut bullets := []\n\nfor line in lines {\n    let cleaned := trim(line)\n    if len(cleaned) > 0 {\n        bullets = push(bullets, \"- \" + cleaned)\n    }\n}\n\nlet document := \"# Release notes\\n\\n\" + join(bullets, \"\\n\")\nwrite_file(\"project/RELEASE-NOTES.md\", document, true)\nprint(document)",
+  "validation": {
+    "schema": "agent-city.code-check.v1",
+    "syntax": "valid",
+    "fenceRemoved": false,
+    "checkedArtifact": "reviewed.kujo",
+    "functionalTests": "unavailable",
+    "outputCheck": {
+      "schema": "agent-city.output-check.v1",
+      "status": "unavailable",
+      "comparison": "exact stdout; CRLF normalized to LF; whitespace retained",
+      "expected": "# Release notes\n\n- Improve first-run setup\n- Preserve failed attempts\n- Export reviewed artifacts\n",
+      "actual": null
+    },
+    "codeExecuted": null,
+    "checkedAt": "2026-10-08T07:41:31.185Z"
+  },
+  "functional": null,
+  "workcell": {
+    "run": "run-1791445260378-4106",
+    "producer": "useful-tool-mission-fcb60407-155b-4f4d-942f-f754ec925ba0",
+    "schema": "agent-city.mission-workcell.v1",
+    "status": "unverified",
+    "codeExecuted": null,
+    "cleanup": "unknown",
+    "timedOut": false,
+    "exitCode": 1,
+    "evidence": null,
+    "output": null,
+    "runtimeVersion": null,
+    "projectInputs": [
+      {
+        "path": "changes.txt",
+        "bytes": 80,
+        "sha256": "791188f1d91433806b887c3dcbea7574decfbea5718607662e48cc98bdf8440a"
+      },
+      {
+        "path": "source-guide.kujo",
+        "bytes": 1454,
+        "sha256": "2b0a46be456e49334a9d921494428d1e7f051d1ae778e37faed4e6bbd32d59ad"
+      }
+    ],
+    "projectExports": [
+      "RELEASE-NOTES.md"
+    ],
+    "projectOutputs": [],
+    "projectExportsStatus": "unavailable",
+    "projectExportError": null,
+    "outputTruncated": false,
+    "checkedAt": "2026-10-08T07:41:38.812Z"
+  },
+  "codeExecuted": null
+}

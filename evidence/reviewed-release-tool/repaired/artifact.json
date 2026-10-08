@@ -1,0 +1,85 @@
+{
+  "id": "mission-4696d158-a5e5-48e4-9572-4e56b75186b2",
+  "draft": "{\"cityArtifact\":\"let release_source := read_file(\\\"project/changes.txt\\\")\\nlet release_lines := split(release_source, \\\"\\\\n\\\")\\nmut release_bullets := []\\n\\nfor release_line in release_lines {\\n    let release_cleaned := trim(release_line)\\n    if len(release_cleaned) > 0 {\\n        release_bullets = push(release_bullets, \\\"- \\\" + release_cleaned)\\n    }\\n}\\n\\nlet release_document := \\\"# Release notes\\\\n\\\\n\\\" + join(release_bullets, \\\"\\\\n\\\")\\nwrite_file(\\\"project/RELEASE-NOTES.md\\\", release_document, true)\\nprint(release_document)\",\"cityReview\":\"Grade: A. The repaired source prefixes every variable, including the loop variable, with release_ to avoid the reported built-in collision. It reads project/changes.txt at runtime, splits on newlines, trims each line, skips blanks, preserves source order, and creates Markdown bullets. join inserts newlines only between bullets, so the generated document has no trailing newline. write_file targets the explicitly exportable path with overwrite enabled, and print is called exactly once. The prior failed/unverified attempt remains represented in the supplied mission history. Static execution and output checks remain pending; this review does not claim they passed.\"}",
+  "kind": "kujo",
+  "content": "let release_source := read_file(\"project/changes.txt\")\nlet release_lines := split(release_source, \"\\n\")\nmut release_bullets := []\n\nfor release_line in release_lines {\n    let release_cleaned := trim(release_line)\n    if len(release_cleaned) > 0 {\n        release_bullets = push(release_bullets, \"- \" + release_cleaned)\n    }\n}\n\nlet release_document := \"# Release notes\\n\\n\" + join(release_bullets, \"\\n\")\nwrite_file(\"project/RELEASE-NOTES.md\", release_document, true)\nprint(release_document)",
+  "validation": {
+    "schema": "agent-city.code-check.v1",
+    "syntax": "valid",
+    "fenceRemoved": false,
+    "checkedArtifact": "reviewed.kujo",
+    "functionalTests": "passed",
+    "outputCheck": {
+      "schema": "agent-city.output-check.v1",
+      "status": "passed",
+      "comparison": "exact stdout; CRLF normalized to LF; whitespace retained",
+      "expected": "# Release notes\n\n- Improve first-run setup\n- Preserve failed attempts\n- Export reviewed artifacts\n",
+      "actual": "# Release notes\n\n- Improve first-run setup\n- Preserve failed attempts\n- Export reviewed artifacts\n"
+    },
+    "codeExecuted": true,
+    "checkedAt": "2026-10-08T07:50:42.645Z"
+  },
+  "functional": null,
+  "workcell": {
+    "run": "run-1791445815364-7374",
+    "producer": "useful-tool-mission-4696d158-a5e5-48e4-9572-4e56b75186b2",
+    "schema": "agent-city.mission-workcell.v1",
+    "status": "completed",
+    "codeExecuted": true,
+    "cleanup": "complete",
+    "timedOut": false,
+    "exitCode": 0,
+    "evidence": {
+      "runId": "wc-ea686aa1187c4840a3a36ee3cb5ae031",
+      "artifacts": [
+        {
+          "name": "city-result.txt",
+          "bytes": 98,
+          "sha256": "306fc6471140f1922f56148b18c01b7d54396961ee5cda313d532c3f9c6f1086"
+        },
+        {
+          "name": "runtime-version.txt",
+          "bytes": 11,
+          "sha256": "de3e64cdc4bb5196cdb7ab26ea04056cb75fe6f8deaa8945c9791af34036b7d9"
+        },
+        {
+          "name": "project/RELEASE-NOTES.md",
+          "bytes": 97,
+          "sha256": "10c193d87399bf99e8364d9d0f7eb44669c370be0072b00d32c75d9dd2d317b9"
+        }
+      ]
+    },
+    "output": "# Release notes\n\n- Improve first-run setup\n- Preserve failed attempts\n- Export reviewed artifacts\n",
+    "runtimeVersion": "kujo 1.7.0\n",
+    "projectInputs": [
+      {
+        "path": "changes.txt",
+        "bytes": 80,
+        "sha256": "791188f1d91433806b887c3dcbea7574decfbea5718607662e48cc98bdf8440a"
+      },
+      {
+        "path": "source-guide.kujo",
+        "bytes": 1454,
+        "sha256": "2b0a46be456e49334a9d921494428d1e7f051d1ae778e37faed4e6bbd32d59ad"
+      }
+    ],
+    "projectExports": [
+      "RELEASE-NOTES.md"
+    ],
+    "projectOutputs": [
+      {
+        "path": "RELEASE-NOTES.md",
+        "content": "# Release notes\n\n- Improve first-run setup\n- Preserve failed attempts\n- Export reviewed artifacts",
+        "bytes": 97,
+        "sha256": "10c193d87399bf99e8364d9d0f7eb44669c370be0072b00d32c75d9dd2d317b9",
+        "beforeSha256": null,
+        "change": "created"
+      }
+    ],
+    "projectExportsStatus": "complete",
+    "projectExportError": null,
+    "outputTruncated": false,
+    "checkedAt": "2026-10-08T07:50:50.961Z"
+  },
+  "codeExecuted": true
+}

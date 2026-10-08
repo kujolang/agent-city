@@ -64,3 +64,8 @@ Linux result, not a blanket guarantee for every GPU, mobile device or busy host.
 The local Intel/Metal limitation remains documented; no speculative runtime
 renderer optimization was retained. CI timing is recorded rather than used as a
 flaky wall-clock assertion, and semantic invariants remain hard assertions.
+
+Final bounded tool proof and populated-world assessment are now in
+[reviewed-release-tool](../reviewed-release-tool/README.md). Actual four-instance
+inspector p50/p95 is17.6/70.5ms over24selections in the software-recording browser.
+This supersedes the earlier note that the tool recording was still pending.

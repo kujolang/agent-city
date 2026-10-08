@@ -1,0 +1,14 @@
+let release_source := read_file("project/changes.txt")
+let release_lines := split(release_source, "\n")
+mut release_bullets := []
+
+for release_line in release_lines {
+    let release_cleaned := trim(release_line)
+    if len(release_cleaned) > 0 {
+        release_bullets = push(release_bullets, "- " + release_cleaned)
+    }
+}
+
+let release_document := "# Release notes\n\n" + join(release_bullets, "\n")
+write_file("project/RELEASE-NOTES.md", release_document, true)
+print(release_document)

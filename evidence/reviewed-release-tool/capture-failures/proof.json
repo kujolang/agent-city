@@ -1,0 +1,13 @@
+{
+  "mission": "",
+  "model": "glm-5.3:cloud",
+  "prompt": "Build a small usable Kujo release-notes generator. Read project/changes.txt at execution time; never hardcode its contents. Split on newline, trim each line, ignore blank lines, and turn each remaining line into a Markdown bullet. Produce '# Release notes' followed by one blank line then the bullets in their original order. The generated document has NO trailing newline. Write it to project/RELEASE-NOTES.md and print it exactly once (print supplies the final newline). Use read_file(path), split(text, \"\\n\"), trim(text), len, for-in, join and write_file(path, text, true), as needed. The attached source-guide.kujo is a real Kujo repository example for language syntax; do not execute or import that example. No network, external dependencies or host access. Use the enabled documentation/MCP reads. Senior reviewer: correct the code if needed, verify file input and blank-line handling, and grade the code in under150words. Return raw final Kujo in cityArtifact and separate honest review in cityReview using the required JSON envelope. The platform executes and checks output AFTER your review; do not claim those checks already passed.",
+  "scope": "Real configured model task, local RAG/MCP, reviewer and isolated Workcell execution. Live canvas only; camera selections explicit, no replay or invented operations.",
+  "recordingBeginsAtFirstWorkshopObservation": true,
+  "scenes": [],
+  "shown": [],
+  "timeline": [],
+  "agents": [],
+  "errors": [],
+  "failure": "locator.waitFor: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('select[name=authorProfile] option[value=\"kujolang/kujo-agents:chain.frontend-developer\"]')\u001b[22m\n"
+}

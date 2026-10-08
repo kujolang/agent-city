@@ -1,0 +1,12 @@
+{
+  "id": "mission-44a5ebe1-49ff-475b-8dc0-9eb1602ef789",
+  "producer": "useful-tool-mission-44a5ebe1-49ff-475b-8dc0-9eb1602ef789",
+  "kind": "kujo",
+  "status": "failed",
+  "validation": null,
+  "code": 4,
+  "startedAt": "2026-10-08T07:26:47.243Z",
+  "finishedAt": "2026-10-08T07:29:20.491Z",
+  "output": null,
+  "execution": "Dispatch workflow, SDK model request and reviewer handoff; optional explicit browser checks recorded in validation"
+}

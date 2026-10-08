@@ -40,6 +40,7 @@ const sourcePaths = [
   "installer",
   "docs",
   "RELEASE-CHECKLIST.md",
+  "RELEASE-QUALIFICATION.md",
   "package.json",
   "package-lock.json",
   "tsconfig.json",

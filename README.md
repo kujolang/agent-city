@@ -1,6 +1,6 @@
 # Kujo Agent City
 
-**Working-experience expansion in progress:** [current capabilities and unfinished gates](WORKING-EXPERIENCE.md). Start with the [managed preview installation](installer/README.md) and [first-task guide](TRY-AGENT-CITY.md). Source checkouts use `npm start` (Node 24+). Model setup and explicit writing/code missions are now separate from the read-only Observer. Existing Observer notes below are historical where they say no task controls.
+**Public local preview — CONDITIONAL:** [current release qualification](RELEASE-QUALIFICATION.md) and [real reviewed Kujo tool/video](evidence/reviewed-release-tool/README.md). [current capabilities and unfinished gates](WORKING-EXPERIENCE.md). Start with the [managed preview installation](installer/README.md) and [first-task guide](TRY-AGENT-CITY.md). Source checkouts use `npm start` (Node 24+). Model setup and explicit writing/code missions are now separate from the read-only Observer. Existing Observer notes below are historical where they say no task controls.
 
 Agent City observes real Kujo work in a small original pixel city. The Observer
 and replay gateway remain read-only; **Mission Command** is a separate local

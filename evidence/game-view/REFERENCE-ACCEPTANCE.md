@@ -56,3 +56,22 @@ continuation browser harness to use the existing browser locator and current
 keyboard field order, explicitly checks visibility of the retained contract,
 and adds that proof to CI. CI37739543368 passes all5jobs including that expanded
 browser gate. Local source-grant/Workcell-consent and setup proofs also pass.
+
+## Populated world and motion assessment — 2026-10-08
+
+The [real reviewed-tool capture](../reviewed-release-tool/README.md) now supplies
+actual selected-execution, communication and cross-portal motion evidence.
+Its [reviewer screenshot](../reviewed-release-tool/repaired/actual-reviewer-inspector.png)
+shows the dominant central world, blue/black framed surfaces, real recorded responses,
+source-qualified roster and COMPLETED/RECENT inspector. The canvas-only53.05second
+video shows original sprites moving through Library, MCP, Workshop and Dojo, with
+four mission instances and retained prior attempts. Inspector clicks preserve truth.
+
+This closes the missing populated/motion comparison, not an assertion of pixel-for-
+pixel reference replication or user approval. The256×240 city remains more regular
+and less densely textured than Photo1; small original canine sprites differ from the
+reference characters, and readable DOM text deliberately differs from image lettering.
+The references' fake dialogue, score/health bars and unobserved crowds are not copied.
+These are disclosed visual differences, not hidden unfinished runtime connections.
+Release evidence now has both static seven-scene and real-motion coverage. A future
+art-density pass requires visual review; it is not silently included in this release.

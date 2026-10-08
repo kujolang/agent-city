@@ -1,0 +1,407 @@
+{
+  "mission": "mission-a1daf1fe-d001-45bd-b186-1ec7db15c281",
+  "softwareRecordingBrowser": true,
+  "model": "qwen2.5-coder:1.5b-instruct",
+  "prompt": "Build a small usable Kujo release-notes generator. Read project/changes.txt at execution time; never hardcode its contents. Split on newline, trim each line, ignore blank lines, and turn each remaining line into a Markdown bullet. Produce '# Release notes' followed by one blank line then the bullets in their original order. The generated document has NO trailing newline. Write it to project/RELEASE-NOTES.md and print it exactly once (print supplies the final newline). Use read_file(path), split(text, \"\\n\"), trim(text), len, for-in, join and write_file(path, text, true), as needed. The attached source-guide.kujo is a real Kujo repository example for language syntax; do not execute or import that example. No network, external dependencies or host access. Use the enabled documentation/MCP reads. Senior reviewer: correct the code if needed, verify file input and blank-line handling, and grade the code in under150words. Return raw final Kujo in cityArtifact and separate honest review in cityReview using the required JSON envelope. The platform executes and checks output AFTER your review; do not claim those checks already passed.",
+  "status": "failed",
+  "scope": "Real configured model task, local RAG/MCP, reviewer and isolated Workcell execution. Live canvas only; camera selections explicit, no replay or invented operations.",
+  "recordingBeginsAtFirstWorkshopObservation": true,
+  "scenes": [
+    "workshop",
+    "city",
+    "library",
+    "mcp"
+  ],
+  "shown": [
+    "useful-tool-mission-a1daf1fe-d001-45bd-b186-1ec7db15c281:run-1791444819745-3340:coder",
+    "useful-tool-mission-a1daf1fe-d001-45bd-b186-1ec7db15c281:run-1791444819745-3340-handoff-reviewer:reviewer"
+  ],
+  "timeline": [
+    {
+      "elapsedMs": 6085,
+      "scene": "workshop",
+      "selected": "useful-tool-mission-a1daf1fe-d001-45bd-b186-1ec7db15c281:run-1791444819745-3340:coder",
+      "follow": "useful-tool-mission-a1daf1fe-d001-45bd-b186-1ec7db15c281:run-1791444819745-3340:coder"
+    },
+    {
+      "elapsedMs": 6429,
+      "scene": "city",
+      "selected": "useful-tool-mission-a1daf1fe-d001-45bd-b186-1ec7db15c281:run-1791444819745-3340:coder",
+      "follow": "useful-tool-mission-a1daf1fe-d001-45bd-b186-1ec7db15c281:run-1791444819745-3340:coder"
+    },
+    {
+      "elapsedMs": 8021,
+      "scene": "library",
+      "selected": "useful-tool-mission-a1daf1fe-d001-45bd-b186-1ec7db15c281:run-1791444819745-3340:coder",
+      "follow": "useful-tool-mission-a1daf1fe-d001-45bd-b186-1ec7db15c281:run-1791444819745-3340:coder"
+    },
+    {
+      "elapsedMs": 21828,
+      "scene": "city",
+      "selected": "useful-tool-mission-a1daf1fe-d001-45bd-b186-1ec7db15c281:run-1791444819745-3340:coder",
+      "follow": "useful-tool-mission-a1daf1fe-d001-45bd-b186-1ec7db15c281:run-1791444819745-3340:coder"
+    },
+    {
+      "elapsedMs": 26631,
+      "scene": "workshop",
+      "selected": "useful-tool-mission-a1daf1fe-d001-45bd-b186-1ec7db15c281:run-1791444819745-3340:coder",
+      "follow": "useful-tool-mission-a1daf1fe-d001-45bd-b186-1ec7db15c281:run-1791444819745-3340:coder"
+    },
+    {
+      "elapsedMs": 26814,
+      "scene": "city",
+      "selected": "useful-tool-mission-a1daf1fe-d001-45bd-b186-1ec7db15c281:run-1791444819745-3340:coder",
+      "follow": "useful-tool-mission-a1daf1fe-d001-45bd-b186-1ec7db15c281:run-1791444819745-3340:coder"
+    },
+    {
+      "elapsedMs": 35366,
+      "scene": "mcp",
+      "selected": "useful-tool-mission-a1daf1fe-d001-45bd-b186-1ec7db15c281:run-1791444819745-3340:coder",
+      "follow": "useful-tool-mission-a1daf1fe-d001-45bd-b186-1ec7db15c281:run-1791444819745-3340:coder"
+    },
+    {
+      "elapsedMs": 40872,
+      "scene": "city",
+      "selected": "useful-tool-mission-a1daf1fe-d001-45bd-b186-1ec7db15c281:run-1791444819745-3340:coder",
+      "follow": "useful-tool-mission-a1daf1fe-d001-45bd-b186-1ec7db15c281:run-1791444819745-3340:coder"
+    },
+    {
+      "elapsedMs": 46638,
+      "scene": "workshop",
+      "selected": "useful-tool-mission-a1daf1fe-d001-45bd-b186-1ec7db15c281:run-1791444819745-3340:coder",
+      "follow": "useful-tool-mission-a1daf1fe-d001-45bd-b186-1ec7db15c281:run-1791444819745-3340:coder"
+    },
+    {
+      "elapsedMs": 117901,
+      "scene": "workshop",
+      "selected": "useful-tool-mission-a1daf1fe-d001-45bd-b186-1ec7db15c281:run-1791444819745-3340-handoff-reviewer:reviewer",
+      "follow": "useful-tool-mission-a1daf1fe-d001-45bd-b186-1ec7db15c281:run-1791444819745-3340-handoff-reviewer:reviewer"
+    }
+  ],
+  "agents": [
+    {
+      "id": "useful-tool-mission-a1daf1fe-d001-45bd-b186-1ec7db15c281:run-1791444819745-3340:coder",
+      "profile": "kujolang/kujo-agents:chain.frontend-developer",
+      "run": {
+        "namespace": "useful-tool-mission-a1daf1fe-d001-45bd-b186-1ec7db15c281",
+        "id": "run-1791444819745-3340"
+      },
+      "task": {
+        "namespace": "dispatch",
+        "id": "run-1791444819745-3340:produce-artifact"
+      },
+      "status": "failed",
+      "lastObserved": 1791445028669,
+      "completeness": "partial",
+      "operations": {
+        "useful-tool-mission-a1daf1fe-d001-45bd-b186-1ec7db15c281:run-1791444819745-3340:intake:1": {
+          "key": "useful-tool-mission-a1daf1fe-d001-45bd-b186-1ec7db15c281:run-1791444819745-3340:intake:1",
+          "capability": "dispatch.task",
+          "collection": "unknown",
+          "status": "succeeded",
+          "started": null,
+          "finished": 1791444819992,
+          "evidence": [
+            {
+              "origin": "canonical",
+              "recordId": "native:agent-city-sdk:e2bfdeae0ce8e13fe701a9b371eeb787593dfb95029acf9608b1861c89aa1cd3",
+              "hash": "08738ac171ae06eb488e7ec4a5579575cab1e63cc348b15b91385a4bdcf4da1c",
+              "sourceSequence": 12
+            }
+          ],
+          "partial": true,
+          "relatedAgent": "",
+          "metadata": {
+            "taskState": "queued"
+          },
+          "attempt": 1,
+          "operationId": "intake",
+          "observedAt": 1791444820266,
+          "eventIds": [
+            "5e4a0d4df8f3715a171c0c29a765198e81fe6112ec3b66c112de544df4c3beac"
+          ]
+        },
+        "useful-tool-mission-a1daf1fe-d001-45bd-b186-1ec7db15c281:run-1791444819745-3340:assignment:1": {
+          "key": "useful-tool-mission-a1daf1fe-d001-45bd-b186-1ec7db15c281:run-1791444819745-3340:assignment:1",
+          "capability": "dispatch.task",
+          "collection": "unknown",
+          "status": "succeeded",
+          "started": null,
+          "finished": 1791444819993,
+          "evidence": [
+            {
+              "origin": "canonical",
+              "recordId": "native:agent-city-sdk:8178329a8871e8713f0749c6b36350366000fca1d87d25f4b2e164a90c223476",
+              "hash": "a1cd834936ef3cb497a65b9115dc99d5613b8f26dc7974ea2e8a44e6fbdaf5df",
+              "sourceSequence": 13
+            }
+          ],
+          "partial": true,
+          "relatedAgent": "",
+          "metadata": {
+            "taskState": "assigned"
+          },
+          "attempt": 1,
+          "operationId": "assignment",
+          "observedAt": 1791444820267,
+          "eventIds": [
+            "1f34cfd44946d85416218b914b0bdfc9d9c95794c951f4113b7d7c101c08951d"
+          ]
+        },
+        "useful-tool-mission-a1daf1fe-d001-45bd-b186-1ec7db15c281:run-1791444819745-3340:task:1": {
+          "key": "useful-tool-mission-a1daf1fe-d001-45bd-b186-1ec7db15c281:run-1791444819745-3340:task:1",
+          "capability": "dispatch.task",
+          "collection": "unknown",
+          "status": "failed",
+          "started": 1791444820121,
+          "finished": 1791445027392,
+          "evidence": [
+            {
+              "origin": "canonical",
+              "recordId": "native:agent-city-sdk:3ddff10dd80ec309ca91babf6a5bde52c4fdc5f82feb579905305b732565405b",
+              "hash": "114779d4b324cacd239f46ff325da6200e99d94cfc968b3661031d4db6f6f847",
+              "sourceSequence": 14
+            },
+            {
+              "origin": "canonical",
+              "recordId": "native:agent-city-sdk:346207bbef2233d3ff8e64cfa4be0fa4e696fa2d66e0e2ef1cb450493f57a5b5",
+              "hash": "03c00072828db05193c404c5972d6d94cabf145defcda2a0e6210d0b4748084e",
+              "sourceSequence": 25
+            }
+          ],
+          "partial": false,
+          "relatedAgent": "",
+          "metadata": {
+            "taskState": "failed"
+          },
+          "attempt": 1,
+          "operationId": "task",
+          "observedAt": 1791445028405,
+          "eventIds": [
+            "98c0ea2700052013908f6b9b28338ad334880b2abac0fd6b29a643ba817a95ef",
+            "84068c63da052f594c756514c6a930c280856a687996b8e3d0c713e283688b72"
+          ]
+        },
+        "useful-tool-mission-a1daf1fe-d001-45bd-b186-1ec7db15c281:run-1791444819745-3340:run:1": {
+          "key": "useful-tool-mission-a1daf1fe-d001-45bd-b186-1ec7db15c281:run-1791444819745-3340:run:1",
+          "capability": "agent.run",
+          "collection": "kujo-docs",
+          "status": "failed",
+          "started": 1791444821247,
+          "finished": 1791445026877,
+          "evidence": [
+            {
+              "origin": "canonical",
+              "recordId": "native:agent-city-sdk:9074fd5cd0b5f6368337875fb7522a9125e019501ccbab5848707e4f94b5bcd0",
+              "hash": "c682cf9653482da29f55c05034909020577f97f32982fab62586a8a0fe89ed73",
+              "sourceSequence": 15
+            },
+            {
+              "origin": "canonical",
+              "recordId": "native:agent-city-sdk:8d9959889b1c4d07ad5a4f77320e1e54ac8671243e576132d9954a1199ee03a4",
+              "hash": "d861cacd9988b0ff81ac19a7e20c09deffcc2688e28c2c9521efdf0efd081765",
+              "sourceSequence": 24
+            }
+          ],
+          "partial": false,
+          "relatedAgent": "",
+          "metadata": {},
+          "attempt": 1,
+          "operationId": "run",
+          "observedAt": 1791445027329,
+          "eventIds": [
+            "0a77560639379c9956f7f89ff4621db91c45def0353789945e9286a9c887f0b8",
+            "a20ede70e69a5f326ff360c4c811e233642c8606f7a2923652d78ee079ddf4bb"
+          ]
+        },
+        "useful-tool-mission-a1daf1fe-d001-45bd-b186-1ec7db15c281:run-1791444819745-3340:retrieval:1": {
+          "key": "useful-tool-mission-a1daf1fe-d001-45bd-b186-1ec7db15c281:run-1791444819745-3340:retrieval:1",
+          "capability": "rag.query",
+          "collection": "kujo-docs",
+          "status": "succeeded",
+          "started": 1791444821320,
+          "finished": 1791444821841,
+          "evidence": [
+            {
+              "origin": "canonical",
+              "recordId": "native:agent-city-sdk:e0f368c7806c9e037309dde4a58cc96e278d21bf8645bad1ab5994869d581826",
+              "hash": "ac9817eae748f3117e87ed2e20266d6638ff983c9ee5af6c8bb7a1aa9d64d333",
+              "sourceSequence": 16
+            },
+            {
+              "origin": "canonical",
+              "recordId": "native:agent-city-sdk:d305fee6768dbca863f3097e1343de7fc70cc9d31e682bff68ba5990e030b479",
+              "hash": "b431a6c554b67ca1b3f7506693f62e60c522d1932295d113f19c1da6a18710a8",
+              "sourceSequence": 17
+            }
+          ],
+          "partial": false,
+          "relatedAgent": "",
+          "metadata": {},
+          "attempt": 1,
+          "operationId": "retrieval",
+          "observedAt": 1791444822107,
+          "eventIds": [
+            "06d0a0eac9b15e423c997cbdffd4d5d584331a2abf26e7f303c7dcb4bc25c5e9",
+            "ec15192b1034c8394661776cd66be2fb9f084fffce05f2dcf313773abfb24def"
+          ]
+        },
+        "useful-tool-mission-a1daf1fe-d001-45bd-b186-1ec7db15c281:run-1791444819745-3340:mcp-docs:1": {
+          "key": "useful-tool-mission-a1daf1fe-d001-45bd-b186-1ec7db15c281:run-1791444819745-3340:mcp-docs:1",
+          "capability": "mcp.call",
+          "collection": "unknown",
+          "status": "succeeded",
+          "started": 1791444822288,
+          "finished": 1791444822626,
+          "evidence": [
+            {
+              "origin": "canonical",
+              "recordId": "native:agent-city-sdk:3f719a0e53d5580456bb34bc3d1aa88bc93607e89592c6ec9536c92492fb86a1",
+              "hash": "23312850fb1ae8e853f5eb5f632836f184114374e8a7a0ea88391a8a55e4bd30",
+              "sourceSequence": 18
+            },
+            {
+              "origin": "canonical",
+              "recordId": "native:agent-city-sdk:34c5f5f84578861eacf4f458f1e4f20709ce00abee2044b599106e9fe3b5c460",
+              "hash": "a68f80435b6ed1c92afcd0c614748c4ce582e2abe146f25103a92576a876d0d7",
+              "sourceSequence": 19
+            }
+          ],
+          "partial": false,
+          "relatedAgent": "",
+          "metadata": {
+            "approval": "not-required",
+            "invocation": "run-1791444819745-3340:mcp-docs",
+            "server": "kujolang-mcp",
+            "station": "tool-active",
+            "tool": "get_catalog_item",
+            "resultCode": "result-returned"
+          },
+          "attempt": 1,
+          "operationId": "mcp-docs",
+          "observedAt": 1791444823168,
+          "eventIds": [
+            "86d1f2eb424b3f1ad2e5d600a3c01147d37f4f852e434c3df0bcb599e70c8a6b",
+            "08a27f31643c1b375ccc2348482af3ef5c28e04bb8c2701a6ac1dabe9e98e397"
+          ]
+        },
+        "useful-tool-mission-a1daf1fe-d001-45bd-b186-1ec7db15c281:run-1791444819745-3340:reviewer:1": {
+          "key": "useful-tool-mission-a1daf1fe-d001-45bd-b186-1ec7db15c281:run-1791444819745-3340:reviewer:1",
+          "capability": "agent.handoff",
+          "collection": "unknown",
+          "status": "failed",
+          "started": 1791444932496,
+          "finished": 1791445026850,
+          "evidence": [
+            {
+              "origin": "canonical",
+              "recordId": "native:agent-city-sdk:0623f9ba2e2acc598d9096bfdcb3bf0b31d19260e8c47d9ebb9bff555596d5aa",
+              "hash": "8ff84c82fa5422791758cbb654ceed5cc353dbcf8aa636cb0830193c8517c42d",
+              "sourceSequence": 20
+            },
+            {
+              "origin": "canonical",
+              "recordId": "native:agent-city-sdk:2de4bb8700e1be7d3c0ac9c8ef34560f66b2f62a4b3eb4c138919754ad0fe161",
+              "hash": "60619fdcdd52c6a83324ea53ba798a35cdde5787a88846a73246f34a804d061e",
+              "sourceSequence": 23
+            }
+          ],
+          "partial": false,
+          "relatedAgent": "reviewer",
+          "metadata": {
+            "relatedInstance": "useful-tool-mission-a1daf1fe-d001-45bd-b186-1ec7db15c281:run-1791444819745-3340-handoff-reviewer:reviewer"
+          },
+          "attempt": 1,
+          "operationId": "reviewer",
+          "observedAt": 1791445027328,
+          "eventIds": [
+            "2f3b85fa00c86146f8414df7b910945226572daf07c735d408499891e2f220b4",
+            "aa9bd95ec8d908699cfe508195e6ed34adcaedac7f3dd38d1dbd1336c22c2c53"
+          ]
+        },
+        "useful-tool-mission-a1daf1fe-d001-45bd-b186-1ec7db15c281:run-1791444819745-3340:workflow-state:1": {
+          "key": "useful-tool-mission-a1daf1fe-d001-45bd-b186-1ec7db15c281:run-1791444819745-3340:workflow-state:1",
+          "capability": "dispatch.workflow",
+          "collection": "unknown",
+          "status": "unknown",
+          "started": null,
+          "finished": 1791445028306,
+          "evidence": [
+            {
+              "origin": "canonical",
+              "recordId": "native:agent-city-sdk:68e16079001a6e8318ed568bc08323b668d909f151d91f460e7ed2b321b40b78",
+              "hash": "b02c5320d9a1d2e397babf1fbb298e51e54d7c48630b81d152a3b8c3c9a0c5f9",
+              "sourceSequence": 26
+            }
+          ],
+          "partial": true,
+          "relatedAgent": "",
+          "metadata": {
+            "workflowState": "failed"
+          },
+          "attempt": 1,
+          "operationId": "workflow-state",
+          "observedAt": 1791445028669,
+          "eventIds": [
+            "8879f839b2b93c5aaa0faaf557152624f0bc8d3b5773264e81c3c03804028463"
+          ]
+        }
+      },
+      "taskState": "failed",
+      "runAttempt": 1,
+      "workflowState": "failed"
+    },
+    {
+      "id": "useful-tool-mission-a1daf1fe-d001-45bd-b186-1ec7db15c281:run-1791444819745-3340-handoff-reviewer:reviewer",
+      "profile": "kujolang/kujo-agents:chain.code-reviewer",
+      "run": {
+        "namespace": "useful-tool-mission-a1daf1fe-d001-45bd-b186-1ec7db15c281",
+        "id": "run-1791444819745-3340-handoff-reviewer"
+      },
+      "task": {
+        "namespace": "dispatch",
+        "id": "run-1791444819745-3340:produce-artifact"
+      },
+      "status": "failed",
+      "lastObserved": 1791445027328,
+      "completeness": "complete",
+      "operations": {
+        "useful-tool-mission-a1daf1fe-d001-45bd-b186-1ec7db15c281:run-1791444819745-3340-handoff-reviewer:run:1": {
+          "key": "useful-tool-mission-a1daf1fe-d001-45bd-b186-1ec7db15c281:run-1791444819745-3340-handoff-reviewer:run:1",
+          "capability": "agent.run",
+          "collection": "unknown",
+          "status": "failed",
+          "started": 1791444932499,
+          "finished": 1791445026848,
+          "evidence": [
+            {
+              "origin": "canonical",
+              "recordId": "native:agent-city-sdk:d58faf065147a5febebbe7c608c0d6e292aa9dc7e435465409c30defced24e23",
+              "hash": "9845f59ed3f9116bfe2d3932b563146c382b2d0dc653f0ebc7ae4484cccd39cb",
+              "sourceSequence": 21
+            },
+            {
+              "origin": "canonical",
+              "recordId": "native:agent-city-sdk:923decc556ee7759187413f38222caad9dccc5708af194929d1c5b19e19f95d6",
+              "hash": "613cb5003ed089d2a1c54020efdc93f04c0d547480fc274ad3421841862b275b",
+              "sourceSequence": 22
+            }
+          ],
+          "partial": false,
+          "relatedAgent": "",
+          "metadata": {},
+          "attempt": 1,
+          "operationId": "run",
+          "observedAt": 1791445027328,
+          "eventIds": [
+            "e83b91a9973ca3474e2435d4239baf378fba472e8de8d0367ca2a1e29202044c",
+            "b0929746307a711436603868beafa1ffc257bc78f466b96cbd1b5cceab60682b"
+          ]
+        }
+      },
+      "runAttempt": 1
+    }
+  ],
+  "errors": [],
+  "failure": "Source task failed; retain actual attempt"
+}

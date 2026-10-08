@@ -1,0 +1,24 @@
+{
+  "scope": "Controlled reload snapshots; DOM fallback, no source execution",
+  "browser": "151.0.7922.34",
+  "results": [
+    {
+      "name": "active",
+      "follow": "reload-mission-follow-fixture:run:worker",
+      "unchangedTruth": true,
+      "sourceWrites": 0
+    },
+    {
+      "name": "completed",
+      "follow": null,
+      "unchangedTruth": true,
+      "sourceWrites": 0
+    },
+    {
+      "name": "ambiguous",
+      "follow": null,
+      "unchangedTruth": true,
+      "sourceWrites": 0
+    }
+  ]
+}

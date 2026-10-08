@@ -634,3 +634,13 @@ producer bytes, preflight and packaged contract proof; CI37742020495 passes all
 four installer platforms. See [package refresh](evidence/release-package-refresh/README.md).
 Final populated visual/motion acceptance and useful-tool canvas recording remain
 open. The cancelled soak remains unqualified; no eight-hour test is scheduled.
+
+Final bounded qualification (2026-10-08): the five implementation workstreams now
+have evidence in [RELEASE-QUALIFICATION.md](RELEASE-QUALIFICATION.md), including
+actual four-instance Codex/RAG/MCP/reviewer/Workcell/output-check tool creation and
+a53.05second native-canvas recording. Final source verification passes112tests.
+Nested export metadata and reload Follow regressions were fixed; historical gap/
+failed-attempt evidence stays unchanged. The two broad release boxes above remain
+unchecked because long-duration qualification was cancelled, GPU/latency coverage
+is bounded, and signed production distribution/final user art approval are not
+claimed. This is an explicit CONDITIONAL local preview, not a full production PASS.

@@ -1,0 +1,647 @@
+{
+  "mission": "mission-fcb60407-155b-4f4d-942f-f754ec925ba0",
+  "softwareRecordingBrowser": true,
+  "model": "codex-cli-default",
+  "prompt": "Build a small usable Kujo release-notes generator. Read project/changes.txt at execution time; never hardcode its contents. Split on newline, trim each line, ignore blank lines, and turn each remaining line into a Markdown bullet. Produce '# Release notes' followed by one blank line then the bullets in their original order. The generated document has NO trailing newline. Write it to project/RELEASE-NOTES.md and print it exactly once (print supplies the final newline). Use read_file(path), split(text, \"\\n\"), trim(text), len, for-in, join and write_file(path, text, true), as needed. The attached source-guide.kujo is a real Kujo repository example for language syntax; do not execute or import that example. No network, external dependencies or host access. Use the enabled documentation/MCP reads. Senior reviewer: correct the code if needed, verify file input and blank-line handling, and grade the code in under150words. Return raw final Kujo in cityArtifact and separate honest review in cityReview using the required JSON envelope. The platform executes and checks output AFTER your review; do not claim those checks already passed.",
+  "status": "completed",
+  "scope": "Real configured model task, local RAG/MCP, reviewer and isolated Workcell execution. Live canvas only; camera selections explicit, no replay or invented operations.",
+  "recordingBeginsAtFirstWorkshopObservation": true,
+  "scenes": [
+    "workshop",
+    "city",
+    "library",
+    "mcp",
+    "dojo"
+  ],
+  "shown": [
+    "useful-tool-mission-fcb60407-155b-4f4d-942f-f754ec925ba0:run-1791445260378-4106:coder",
+    "useful-tool-mission-fcb60407-155b-4f4d-942f-f754ec925ba0:run-1791445260378-4106:kujo-checker"
+  ],
+  "timeline": [
+    {
+      "elapsedMs": 5789,
+      "scene": "workshop",
+      "selected": "useful-tool-mission-fcb60407-155b-4f4d-942f-f754ec925ba0:run-1791445260378-4106:coder",
+      "follow": "useful-tool-mission-fcb60407-155b-4f4d-942f-f754ec925ba0:run-1791445260378-4106:coder"
+    },
+    {
+      "elapsedMs": 5959,
+      "scene": "city",
+      "selected": "useful-tool-mission-fcb60407-155b-4f4d-942f-f754ec925ba0:run-1791445260378-4106:coder",
+      "follow": "useful-tool-mission-fcb60407-155b-4f4d-942f-f754ec925ba0:run-1791445260378-4106:coder"
+    },
+    {
+      "elapsedMs": 7349,
+      "scene": "library",
+      "selected": "useful-tool-mission-fcb60407-155b-4f4d-942f-f754ec925ba0:run-1791445260378-4106:coder",
+      "follow": "useful-tool-mission-fcb60407-155b-4f4d-942f-f754ec925ba0:run-1791445260378-4106:coder"
+    },
+    {
+      "elapsedMs": 20746,
+      "scene": "city",
+      "selected": "useful-tool-mission-fcb60407-155b-4f4d-942f-f754ec925ba0:run-1791445260378-4106:coder",
+      "follow": "useful-tool-mission-fcb60407-155b-4f4d-942f-f754ec925ba0:run-1791445260378-4106:coder"
+    },
+    {
+      "elapsedMs": 22175,
+      "scene": "workshop",
+      "selected": "useful-tool-mission-fcb60407-155b-4f4d-942f-f754ec925ba0:run-1791445260378-4106:coder",
+      "follow": "useful-tool-mission-fcb60407-155b-4f4d-942f-f754ec925ba0:run-1791445260378-4106:coder"
+    },
+    {
+      "elapsedMs": 22334,
+      "scene": "city",
+      "selected": "useful-tool-mission-fcb60407-155b-4f4d-942f-f754ec925ba0:run-1791445260378-4106:coder",
+      "follow": "useful-tool-mission-fcb60407-155b-4f4d-942f-f754ec925ba0:run-1791445260378-4106:coder"
+    },
+    {
+      "elapsedMs": 26080,
+      "scene": "mcp",
+      "selected": "useful-tool-mission-fcb60407-155b-4f4d-942f-f754ec925ba0:run-1791445260378-4106:coder",
+      "follow": "useful-tool-mission-fcb60407-155b-4f4d-942f-f754ec925ba0:run-1791445260378-4106:coder"
+    },
+    {
+      "elapsedMs": 31227,
+      "scene": "city",
+      "selected": "useful-tool-mission-fcb60407-155b-4f4d-942f-f754ec925ba0:run-1791445260378-4106:coder",
+      "follow": "useful-tool-mission-fcb60407-155b-4f4d-942f-f754ec925ba0:run-1791445260378-4106:coder"
+    },
+    {
+      "elapsedMs": 34829,
+      "scene": "workshop",
+      "selected": "useful-tool-mission-fcb60407-155b-4f4d-942f-f754ec925ba0:run-1791445260378-4106:coder",
+      "follow": "useful-tool-mission-fcb60407-155b-4f4d-942f-f754ec925ba0:run-1791445260378-4106:coder"
+    },
+    {
+      "elapsedMs": 47215,
+      "scene": "city",
+      "selected": "useful-tool-mission-fcb60407-155b-4f4d-942f-f754ec925ba0:run-1791445260378-4106:coder",
+      "follow": "useful-tool-mission-fcb60407-155b-4f4d-942f-f754ec925ba0:run-1791445260378-4106:coder"
+    },
+    {
+      "elapsedMs": 47381,
+      "scene": "workshop",
+      "selected": "useful-tool-mission-fcb60407-155b-4f4d-942f-f754ec925ba0:run-1791445260378-4106:coder",
+      "follow": "useful-tool-mission-fcb60407-155b-4f4d-942f-f754ec925ba0:run-1791445260378-4106:coder"
+    },
+    {
+      "elapsedMs": 47643,
+      "scene": "city",
+      "selected": "useful-tool-mission-fcb60407-155b-4f4d-942f-f754ec925ba0:run-1791445260378-4106:kujo-checker",
+      "follow": "useful-tool-mission-fcb60407-155b-4f4d-942f-f754ec925ba0:run-1791445260378-4106:kujo-checker"
+    },
+    {
+      "elapsedMs": 48671,
+      "scene": "workshop",
+      "selected": "useful-tool-mission-fcb60407-155b-4f4d-942f-f754ec925ba0:run-1791445260378-4106:kujo-checker",
+      "follow": "useful-tool-mission-fcb60407-155b-4f4d-942f-f754ec925ba0:run-1791445260378-4106:kujo-checker"
+    },
+    {
+      "elapsedMs": 49002,
+      "scene": "city",
+      "selected": "useful-tool-mission-fcb60407-155b-4f4d-942f-f754ec925ba0:run-1791445260378-4106:kujo-checker",
+      "follow": "useful-tool-mission-fcb60407-155b-4f4d-942f-f754ec925ba0:run-1791445260378-4106:kujo-checker"
+    },
+    {
+      "elapsedMs": 53228,
+      "scene": "dojo",
+      "selected": "useful-tool-mission-fcb60407-155b-4f4d-942f-f754ec925ba0:run-1791445260378-4106:kujo-checker",
+      "follow": "useful-tool-mission-fcb60407-155b-4f4d-942f-f754ec925ba0:run-1791445260378-4106:kujo-checker"
+    },
+    {
+      "elapsedMs": 56296,
+      "scene": "city",
+      "selected": "useful-tool-mission-fcb60407-155b-4f4d-942f-f754ec925ba0:run-1791445260378-4106:kujo-checker",
+      "follow": "useful-tool-mission-fcb60407-155b-4f4d-942f-f754ec925ba0:run-1791445260378-4106:kujo-checker"
+    },
+    {
+      "elapsedMs": 60446,
+      "scene": "workshop",
+      "selected": "useful-tool-mission-fcb60407-155b-4f4d-942f-f754ec925ba0:run-1791445260378-4106:kujo-checker",
+      "follow": "useful-tool-mission-fcb60407-155b-4f4d-942f-f754ec925ba0:run-1791445260378-4106:kujo-checker"
+    }
+  ],
+  "agents": [
+    {
+      "id": "useful-tool-mission-fcb60407-155b-4f4d-942f-f754ec925ba0:run-1791445260378-4106:coder",
+      "profile": "kujolang/kujo-agents:chain.frontend-developer",
+      "run": {
+        "namespace": "useful-tool-mission-fcb60407-155b-4f4d-942f-f754ec925ba0",
+        "id": "run-1791445260378-4106"
+      },
+      "task": {
+        "namespace": "dispatch",
+        "id": "run-1791445260378-4106:produce-artifact"
+      },
+      "status": "completed",
+      "lastObserved": 1791445291334,
+      "completeness": "partial",
+      "operations": {
+        "useful-tool-mission-fcb60407-155b-4f4d-942f-f754ec925ba0:run-1791445260378-4106:intake:1": {
+          "key": "useful-tool-mission-fcb60407-155b-4f4d-942f-f754ec925ba0:run-1791445260378-4106:intake:1",
+          "capability": "dispatch.task",
+          "collection": "unknown",
+          "status": "succeeded",
+          "started": null,
+          "finished": 1791445260614,
+          "evidence": [
+            {
+              "origin": "canonical",
+              "recordId": "native:agent-city-sdk:3859879a3e2d829ee07807a3f41ece9ac1d1686f7c1d6018c7a7d09ec2942f5e",
+              "hash": "f0691220e7235803f405d58c570474ca46bd98c3822f97c4c330e0d74a29761c",
+              "sourceSequence": 27
+            }
+          ],
+          "partial": true,
+          "relatedAgent": "",
+          "metadata": {
+            "taskState": "queued"
+          },
+          "attempt": 1,
+          "operationId": "intake",
+          "observedAt": 1791445260877,
+          "eventIds": [
+            "eb3abd57d63d1377af81b74e81152346d0623f652a82eb3e59a9e7e9f80eb72f"
+          ]
+        },
+        "useful-tool-mission-fcb60407-155b-4f4d-942f-f754ec925ba0:run-1791445260378-4106:assignment:1": {
+          "key": "useful-tool-mission-fcb60407-155b-4f4d-942f-f754ec925ba0:run-1791445260378-4106:assignment:1",
+          "capability": "dispatch.task",
+          "collection": "unknown",
+          "status": "succeeded",
+          "started": null,
+          "finished": 1791445260615,
+          "evidence": [
+            {
+              "origin": "canonical",
+              "recordId": "native:agent-city-sdk:145bfc55a743412814a23a1ce312b7ade76aef8671a0c1be69274d276520c554",
+              "hash": "5a1d2a2647af2add1bd726e869d1ff5ed93aebaaf221bcaa287a6b07c1f12740",
+              "sourceSequence": 28
+            }
+          ],
+          "partial": true,
+          "relatedAgent": "",
+          "metadata": {
+            "taskState": "assigned"
+          },
+          "attempt": 1,
+          "operationId": "assignment",
+          "observedAt": 1791445260877,
+          "eventIds": [
+            "7a126fb80efa039e16cd9426d75a87d0f2bfa77a927e53455007fed9bbc12ff6"
+          ]
+        },
+        "useful-tool-mission-fcb60407-155b-4f4d-942f-f754ec925ba0:run-1791445260378-4106:task:1": {
+          "key": "useful-tool-mission-fcb60407-155b-4f4d-942f-f754ec925ba0:run-1791445260378-4106:task:1",
+          "capability": "dispatch.task",
+          "collection": "unknown",
+          "status": "succeeded",
+          "started": 1791445260748,
+          "finished": 1791445290445,
+          "evidence": [
+            {
+              "origin": "canonical",
+              "recordId": "native:agent-city-sdk:13191714cc496f1a254feb26e165462170978ef4653c3e0f775c9f1deb0b1bbc",
+              "hash": "a2712b6437620052ba135b2b20b2055587a256fb9701a9fc62736a99d1de62d3",
+              "sourceSequence": 29
+            },
+            {
+              "origin": "canonical",
+              "recordId": "native:agent-city-sdk:f1447b541a6c3b1ad9544ecd0da03df728b96f094bb6c7d8da4e2a72d9944f59",
+              "hash": "8bb997e85a85c238b591a3b5a657f40ced78ad5b6989c9bcc917eceb228e99f2",
+              "sourceSequence": 41
+            }
+          ],
+          "partial": false,
+          "relatedAgent": "",
+          "metadata": {
+            "taskState": "completed"
+          },
+          "attempt": 1,
+          "operationId": "task",
+          "observedAt": 1791445291071,
+          "eventIds": [
+            "d48ad041d2c53b9c94542f192e6d8cca0b74dc86afa9d36463829890e7435dfa",
+            "05ee0a4b8cbc2bca2bcb16e6dc27163ad997f3fd358978e4d8fd6a45d60d02c2"
+          ]
+        },
+        "useful-tool-mission-fcb60407-155b-4f4d-942f-f754ec925ba0:run-1791445260378-4106:run:1": {
+          "key": "useful-tool-mission-fcb60407-155b-4f4d-942f-f754ec925ba0:run-1791445260378-4106:run:1",
+          "capability": "agent.run",
+          "collection": "kujo-docs",
+          "status": "succeeded",
+          "started": 1791445261979,
+          "finished": 1791445290024,
+          "evidence": [
+            {
+              "origin": "canonical",
+              "recordId": "native:agent-city-sdk:3b9675e5cc117c17f396ea89ccb5ff0103894801fe6db29d83d9c2f0b04fb476",
+              "hash": "7f131e105b61bccf71ff8ab6d96f712d50c6c2914b2224dedc05ad12b4587888",
+              "sourceSequence": 30
+            },
+            {
+              "origin": "canonical",
+              "recordId": "native:agent-city-sdk:2810fa1529e00e7338f71033c28075df5f0314ce6a1e6145b1dae915690de23a",
+              "hash": "a7cb1013f59a3e3490ec68005daa62f1ac2c4cdb912ac5d5a1bf087e26fccee4",
+              "sourceSequence": 39
+            }
+          ],
+          "partial": false,
+          "relatedAgent": "",
+          "metadata": {},
+          "attempt": 1,
+          "operationId": "run",
+          "observedAt": 1791445290547,
+          "eventIds": [
+            "6bf5f391ce31580285dbaae66ac41680e64ec1d952785f96ee8a60faf15b5558",
+            "d4ab19c635bdd3907300f5863ae1747a7fd41171b7331d7399374b6d467666a2"
+          ]
+        },
+        "useful-tool-mission-fcb60407-155b-4f4d-942f-f754ec925ba0:run-1791445260378-4106:retrieval:1": {
+          "key": "useful-tool-mission-fcb60407-155b-4f4d-942f-f754ec925ba0:run-1791445260378-4106:retrieval:1",
+          "capability": "rag.query",
+          "collection": "kujo-docs",
+          "status": "succeeded",
+          "started": 1791445262048,
+          "finished": 1791445262518,
+          "evidence": [
+            {
+              "origin": "canonical",
+              "recordId": "native:agent-city-sdk:1dd548f92045a35ab08472bf17dd0cc93e23a6663ffc9021013f9959e5846928",
+              "hash": "721027c191288cff05052975ffac23525b9e0393476e4e1231c8dcbfa63b3fa7",
+              "sourceSequence": 31
+            },
+            {
+              "origin": "canonical",
+              "recordId": "native:agent-city-sdk:eabbb8c37b420ea4e78013bd6566f38c0586164310a13fb93d19dcde286cee50",
+              "hash": "8669fa2eb395d6cb852d24ed08112c64e04739aae1472e8dc8aa75f814ecb436",
+              "sourceSequence": 32
+            }
+          ],
+          "partial": false,
+          "relatedAgent": "",
+          "metadata": {},
+          "attempt": 1,
+          "operationId": "retrieval",
+          "observedAt": 1791445262767,
+          "eventIds": [
+            "7f0da0de7c5db7fecda6b4caa0386609450a75d8b63d9b812045ffdd42a07138",
+            "e8630149b282f6224bba50a36e07bb58a5f3f3ff393f088089c9a8d7b59f68d0"
+          ]
+        },
+        "useful-tool-mission-fcb60407-155b-4f4d-942f-f754ec925ba0:run-1791445260378-4106:mcp-docs:1": {
+          "key": "useful-tool-mission-fcb60407-155b-4f4d-942f-f754ec925ba0:run-1791445260378-4106:mcp-docs:1",
+          "capability": "mcp.call",
+          "collection": "unknown",
+          "status": "succeeded",
+          "started": 1791445263045,
+          "finished": 1791445263246,
+          "evidence": [
+            {
+              "origin": "canonical",
+              "recordId": "native:agent-city-sdk:e1c1c887b790c800bf277c1671c7131bb8556e9ad0f95f0b1946a1f2659b0871",
+              "hash": "4b8a905068e7e3db14cf1132763f5ec49a0e7cb6819a9f292cfc735336b45860",
+              "sourceSequence": 33
+            },
+            {
+              "origin": "canonical",
+              "recordId": "native:agent-city-sdk:3d06ed4fd533953f7095754f85a08423ddfbade3115257e94bc1d093b50da447",
+              "hash": "b9e48db35c0c4ff8b467ac51ed5c0568f05d92275efaacc0cea458e979de79a2",
+              "sourceSequence": 34
+            }
+          ],
+          "partial": false,
+          "relatedAgent": "",
+          "metadata": {
+            "approval": "not-required",
+            "invocation": "run-1791445260378-4106:mcp-docs",
+            "server": "kujolang-mcp",
+            "station": "tool-active",
+            "tool": "get_catalog_item",
+            "resultCode": "result-returned"
+          },
+          "attempt": 1,
+          "operationId": "mcp-docs",
+          "observedAt": 1791445263553,
+          "eventIds": [
+            "75fe717c5bfc5aaf6471a885a7c84453bb402f998fe8707bf47c7b44e5f023d1",
+            "4fc0123fe2f095957a4d5f8bb9ce3fc5c2d4370ff7698850f5cad228f0544bc2"
+          ]
+        },
+        "useful-tool-mission-fcb60407-155b-4f4d-942f-f754ec925ba0:run-1791445260378-4106:reviewer:1": {
+          "key": "useful-tool-mission-fcb60407-155b-4f4d-942f-f754ec925ba0:run-1791445260378-4106:reviewer:1",
+          "capability": "agent.handoff",
+          "collection": "unknown",
+          "status": "succeeded",
+          "started": 1791445279195,
+          "finished": 1791445289861,
+          "evidence": [
+            {
+              "origin": "canonical",
+              "recordId": "native:agent-city-sdk:ed3daa53efdf0cbd88e2d38835afb6d2854bc1a85231a91a07b912cad30e1ab9",
+              "hash": "2068aae18f6167e7d7afcfc3c67b176e1b22d86badddcaa394641ab0f97cecf5",
+              "sourceSequence": 35
+            },
+            {
+              "origin": "canonical",
+              "recordId": "native:agent-city-sdk:54817658c06de74caee04284aead91e1faf6fb8d8c1a8544f8fb244525daf743",
+              "hash": "0c35d677c516a473657560b54e32f2b51a7a488103e416ece467b4d89acedb0d",
+              "sourceSequence": 38
+            }
+          ],
+          "partial": false,
+          "relatedAgent": "reviewer",
+          "metadata": {
+            "relatedInstance": "useful-tool-mission-fcb60407-155b-4f4d-942f-f754ec925ba0:run-1791445260378-4106-handoff-reviewer:reviewer"
+          },
+          "attempt": 1,
+          "operationId": "reviewer",
+          "observedAt": 1791445290284,
+          "eventIds": [
+            "1fba3e3006845313976aebd58df84c8e5d52d9ce7e855dee01d73dcac086fa86",
+            "dc45d29514215139d89719a1b50a9bc263eee805de19bbff23ef8a3a5805fa29"
+          ]
+        },
+        "useful-tool-mission-fcb60407-155b-4f4d-942f-f754ec925ba0:run-1791445260378-4106:save-reviewed-output:1": {
+          "key": "useful-tool-mission-fcb60407-155b-4f4d-942f-f754ec925ba0:run-1791445260378-4106:save-reviewed-output:1",
+          "capability": "artifact.created",
+          "collection": "unknown",
+          "status": "succeeded",
+          "started": null,
+          "finished": 1791445290026,
+          "evidence": [
+            {
+              "origin": "canonical",
+              "recordId": "native:agent-city-sdk:66978fedad89f9c01b87feaa360ef82ada085b0624f85d90a3cd0c326fb23b87",
+              "hash": "f517b7f1bf3165e6eeacf6baa1e9dc382d2a263d8dd712cdca187299be48d346",
+              "sourceSequence": 40
+            }
+          ],
+          "partial": true,
+          "relatedAgent": "",
+          "metadata": {
+            "artifactRef": "mission:run-1791445260378-4106:output"
+          },
+          "attempt": 1,
+          "operationId": "save-reviewed-output",
+          "observedAt": 1791445290810,
+          "eventIds": [
+            "b791173e0d91dab02375e62efea90c3b629f1134119dad9c75299e5544bbd2ea"
+          ]
+        },
+        "useful-tool-mission-fcb60407-155b-4f4d-942f-f754ec925ba0:run-1791445260378-4106:workflow-state:1": {
+          "key": "useful-tool-mission-fcb60407-155b-4f4d-942f-f754ec925ba0:run-1791445260378-4106:workflow-state:1",
+          "capability": "dispatch.workflow",
+          "collection": "unknown",
+          "status": "unknown",
+          "started": null,
+          "finished": 1791445291068,
+          "evidence": [
+            {
+              "origin": "canonical",
+              "recordId": "native:agent-city-sdk:b23fe311c6cea5a9e3e4cf574e507716a476cd7e48e5e24b70e6004d896ae4bb",
+              "hash": "15768b938a73a46a2bdaa8716d12418f4294baf5e3370ef81b6cb09d658eb448",
+              "sourceSequence": 42
+            }
+          ],
+          "partial": true,
+          "relatedAgent": "",
+          "metadata": {
+            "workflowState": "completed"
+          },
+          "attempt": 1,
+          "operationId": "workflow-state",
+          "observedAt": 1791445291334,
+          "eventIds": [
+            "277e48358aefe02b29a93436dc1c4a279d51ea265c604b0d9e7c7c112840435e"
+          ]
+        }
+      },
+      "taskState": "completed",
+      "runAttempt": 1,
+      "workflowState": "completed"
+    },
+    {
+      "id": "useful-tool-mission-fcb60407-155b-4f4d-942f-f754ec925ba0:run-1791445260378-4106-handoff-reviewer:reviewer",
+      "profile": "kujolang/kujo-agents:chain.code-reviewer",
+      "run": {
+        "namespace": "useful-tool-mission-fcb60407-155b-4f4d-942f-f754ec925ba0",
+        "id": "run-1791445260378-4106-handoff-reviewer"
+      },
+      "task": {
+        "namespace": "dispatch",
+        "id": "run-1791445260378-4106:produce-artifact"
+      },
+      "status": "completed",
+      "lastObserved": 1791445290283,
+      "completeness": "complete",
+      "operations": {
+        "useful-tool-mission-fcb60407-155b-4f4d-942f-f754ec925ba0:run-1791445260378-4106-handoff-reviewer:run:1": {
+          "key": "useful-tool-mission-fcb60407-155b-4f4d-942f-f754ec925ba0:run-1791445260378-4106-handoff-reviewer:run:1",
+          "capability": "agent.run",
+          "collection": "unknown",
+          "status": "succeeded",
+          "started": 1791445279196,
+          "finished": 1791445289859,
+          "evidence": [
+            {
+              "origin": "canonical",
+              "recordId": "native:agent-city-sdk:ed238c4a44d37393c7f419adb2147fe327c785e98805e427e0bb87f6735369cf",
+              "hash": "bf7f30f74066e1dadd10aa3457d410e1a19f7f19564b328217bdc17673f9af39",
+              "sourceSequence": 36
+            },
+            {
+              "origin": "canonical",
+              "recordId": "native:agent-city-sdk:07996713f258282cf2d05d192dd0d945b906ae6cc650e5f6a3d059f2631c45b5",
+              "hash": "964bd2fdb6f78386ea29edd22cda416791011d81a963b8dc2fc38d7fd21bbd9b",
+              "sourceSequence": 37
+            }
+          ],
+          "partial": false,
+          "relatedAgent": "",
+          "metadata": {},
+          "attempt": 1,
+          "operationId": "run",
+          "observedAt": 1791445290283,
+          "eventIds": [
+            "8179ec7de1028c087a990122974398bebd6b1eaf1d7f4eb9521cbcf1a022e424",
+            "2d40e5c87bfe01184d971ba70343ae5a0c5c4bd77454d4307564d5bc004721fa"
+          ]
+        }
+      },
+      "runAttempt": 1
+    },
+    {
+      "id": "useful-tool-mission-fcb60407-155b-4f4d-942f-f754ec925ba0:run-1791445260378-4106:kujo-checker",
+      "profile": "city-kujo-checker",
+      "run": {
+        "namespace": "useful-tool-mission-fcb60407-155b-4f4d-942f-f754ec925ba0",
+        "id": "run-1791445260378-4106"
+      },
+      "task": {
+        "namespace": "dispatch",
+        "id": "run-1791445260378-4106:produce-artifact"
+      },
+      "status": "unknown",
+      "lastObserved": 1791445299235,
+      "completeness": "complete",
+      "operations": {
+        "useful-tool-mission-fcb60407-155b-4f4d-942f-f754ec925ba0:run-1791445260378-4106:kujo-static-check:1": {
+          "key": "useful-tool-mission-fcb60407-155b-4f4d-942f-f754ec925ba0:run-1791445260378-4106:kujo-static-check:1",
+          "capability": "evaluation.run",
+          "collection": "unknown",
+          "status": "succeeded",
+          "started": 1791445291142,
+          "finished": 1791445291185,
+          "evidence": [
+            {
+              "origin": "canonical",
+              "recordId": "native:agent-city-sdk:9bce64d18bd5313af24897301ee2407ab6cc14eb5cf820a526ac8b790d093fa6",
+              "hash": "4b1c745f6616af754c4c497fdc53e4aad198b011e96b675bcc3d4bf6b0738e45",
+              "sourceSequence": 43
+            },
+            {
+              "origin": "canonical",
+              "recordId": "native:agent-city-sdk:ba80a5469ddee829270f6aae15a209c002200a53be78770d8b44c33541392038",
+              "hash": "685689a273597855558697bad898e3e51a8dd9e3bb15252330e9f50ba932a60c",
+              "sourceSequence": 44
+            }
+          ],
+          "partial": false,
+          "relatedAgent": "",
+          "metadata": {
+            "tool": "kujo.check"
+          },
+          "attempt": 1,
+          "operationId": "kujo-static-check",
+          "observedAt": 1791445291596,
+          "eventIds": [
+            "f5724046d43ecd3130a2bbe7b35683339698acc7ae97e850b972b53c44051fe1",
+            "c5548372cf6da733c950c85bae77b8d659b7f5857c0dc05cfcd98daeac6188ea"
+          ]
+        },
+        "useful-tool-mission-fcb60407-155b-4f4d-942f-f754ec925ba0:run-1791445260378-4106:kujo-output-check:1": {
+          "key": "useful-tool-mission-fcb60407-155b-4f4d-942f-f754ec925ba0:run-1791445260378-4106:kujo-output-check:1",
+          "capability": "evaluation.run",
+          "collection": "unknown",
+          "status": "unknown",
+          "started": 1791445298815,
+          "finished": 1791445298817,
+          "evidence": [
+            {
+              "origin": "canonical",
+              "recordId": "native:agent-city-sdk:3a305cf0fe546bcad2b00a64e59f842b0ff76966587f14595add13c3e91d2c82",
+              "hash": "77643a733c08f9fa4b7a6858299455642162c31439ee68d9f172250db5d75f25",
+              "sourceSequence": 49
+            },
+            {
+              "origin": "canonical",
+              "recordId": "native:agent-city-sdk:8de9e950014ff96b2e0c84968d9fa10bea5d8c86534c57d84fc59e04db6a1cce",
+              "hash": "6797907b7a1599684f01bb64d455ecbb5aac5ff28d91925a6495eae263c54702",
+              "sourceSequence": 50
+            }
+          ],
+          "partial": false,
+          "relatedAgent": "",
+          "metadata": {
+            "tool": "city.output-check"
+          },
+          "attempt": 1,
+          "operationId": "kujo-output-check",
+          "observedAt": 1791445299235,
+          "eventIds": [
+            "5cdf54ba8dd9c2b3828ceae41e35e9217f3825e1765a920c5e4f9b3d7108cde4",
+            "fe25826de9faf5355808525aed6ff214d39c3b8d4a2936cc0f0b0b16f1c1e69b"
+          ]
+        }
+      }
+    },
+    {
+      "id": "useful-tool-mission-fcb60407-155b-4f4d-942f-f754ec925ba0:run-1791445260378-4106:workcell-host",
+      "profile": "local-workcell-invocation",
+      "run": {
+        "namespace": "useful-tool-mission-fcb60407-155b-4f4d-942f-f754ec925ba0",
+        "id": "run-1791445260378-4106"
+      },
+      "task": {
+        "namespace": "dispatch",
+        "id": "run-1791445260378-4106:produce-artifact"
+      },
+      "status": "failed",
+      "lastObserved": 1791445299234,
+      "completeness": "complete",
+      "operations": {
+        "useful-tool-mission-fcb60407-155b-4f4d-942f-f754ec925ba0:run-1791445260378-4106:invocation:1": {
+          "key": "useful-tool-mission-fcb60407-155b-4f4d-942f-f754ec925ba0:run-1791445260378-4106:invocation:1",
+          "capability": "execution.run",
+          "collection": "unknown",
+          "status": "failed",
+          "started": 1791445292374,
+          "finished": 1791445298788,
+          "evidence": [
+            {
+              "origin": "canonical",
+              "recordId": "native:agent-city-sdk:14de472c01602cf18c1c4702a564a63a78dabf4893d9b78425bf3497fe27074d",
+              "hash": "49ece7ddd19645f1541367d48adc2b64e2a49b87d777a565cd59cebf7c0f1789",
+              "sourceSequence": 45
+            },
+            {
+              "origin": "canonical",
+              "recordId": "native:agent-city-sdk:ff30e9d03fec1245239408f02a23bec91077eb9adb3b9fc80984e08464174e40",
+              "hash": "c9198efb32910710602227ad0955060e63560d02f2bbdcca51831580fde7636c",
+              "sourceSequence": 48
+            }
+          ],
+          "partial": false,
+          "relatedAgent": "",
+          "metadata": {},
+          "attempt": 1,
+          "operationId": "invocation",
+          "observedAt": 1791445299234,
+          "eventIds": [
+            "17794de5f97fb50307d6965d88f2a51137c1b8409b016a1cf7dda0a1f31ea9bd",
+            "8d9ef3140d8149b64b41a1d31f4f0cbf21281c6af02b3a0723e71224f6663068"
+          ]
+        },
+        "useful-tool-mission-fcb60407-155b-4f4d-942f-f754ec925ba0:run-1791445260378-4106:workload:1": {
+          "key": "useful-tool-mission-fcb60407-155b-4f4d-942f-f754ec925ba0:run-1791445260378-4106:workload:1",
+          "capability": "workcell.execute",
+          "collection": "unknown",
+          "status": "failed",
+          "started": 1791445292375,
+          "finished": 1791445298787,
+          "evidence": [
+            {
+              "origin": "canonical",
+              "recordId": "native:agent-city-sdk:4812340bb7af60354c34518a6c268d4a652bf226a73250c5f2541daece2aa204",
+              "hash": "5e48720132a1a30037bd5801ae4fb5f9c53de277481e0a1476b7ca40a8b09e80",
+              "sourceSequence": 46
+            },
+            {
+              "origin": "canonical",
+              "recordId": "native:agent-city-sdk:5f645f814e8c9fabdac246e797b842bd23a39f56ae297078ab17d83d40acfd60",
+              "hash": "72221e4dc5c3b7d7c7e044b01c1edf354d19bb4eb7fa5398bac29993de462861",
+              "sourceSequence": 47
+            }
+          ],
+          "partial": false,
+          "relatedAgent": "",
+          "metadata": {
+            "resultCode": "workload-failed:exit-7",
+            "workcellRef": "wc-dc09ede0971a4d64bf1ece2f02be2484"
+          },
+          "attempt": 1,
+          "operationId": "workload",
+          "observedAt": 1791445299234,
+          "eventIds": [
+            "f0fc5628044d037ef8c0d45f9ec820fc33ae2acf22af5c52b5e8256b54d84226",
+            "d5cab101e1d9dbf57eebd39416ae2c3c7b7b71b7adb22d19e92253221a6418d9"
+          ]
+        }
+      },
+      "runAttempt": 1
+    }
+  ],
+  "errors": [],
+  "failure": "Expected values to be strictly equal:\n+ actual - expected\n\n+ 'unavailable'\n- 'passed'\n"
+}
