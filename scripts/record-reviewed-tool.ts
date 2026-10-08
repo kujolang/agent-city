@@ -245,7 +245,18 @@ try {
     resolve(out, "release-notes.kujo"),
   );
   await writeFile(resolve(out, "changes.txt"), input);
-  await writeFile(resolve(out, "senior-review.md"), artifact.content);
+  const review = JSON.parse(
+    await readFile(
+      resolve(runtime, "missions", mission, "reviewed.md.review.json"),
+      "utf8",
+    ),
+  );
+  assert.equal(typeof review.commentary, "string");
+  await writeFile(resolve(out, "senior-review.md"), review.commentary + "\n");
+  await writeFile(
+    resolve(out, "review.json"),
+    JSON.stringify(review, null, 2) + "\n",
+  );
   for (const scene of ["workshop", "city", "library", "mcp", "dojo"])
     assert(scenes.has(scene), "Missing recorded " + scene);
   assert.equal(errors.length, 0);
@@ -293,8 +304,8 @@ try {
         prompt,
         status: terminal?.status,
         scope:
-          "Real configured model task, local RAG/MCP, reviewer and isolated Workcell execution. Live canvas only; camera selections explicit, no replay or invented operations.",
-        recordingBeginsAtFirstWorkshopObservation: true,
+          "Real task attempt; actual operations and outcomes are recorded below and in the artifact receipt. Live canvas only; camera selections explicit, no replay or invented operations.",
+        recordingBeginsAtFirstWorkshopObservation: recording,
         scenes: [...scenes],
         shown: [...shown],
         timeline,
