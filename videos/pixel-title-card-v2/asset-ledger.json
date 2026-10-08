@@ -1,0 +1,56 @@
+{
+  "schema": "agent-city.video-assets.v1",
+  "assets": [
+    {
+      "origin": "../../evidence/game-view/city.png",
+      "rights": "Original Kujo Agent City artwork; actual application capture",
+      "path": "assets/city.png",
+      "bytes": 18644,
+      "sha256": "9fbff121768fc1b544edebe091b4d5c2c8cbab61fdacf6c414e025c505e3d84e"
+    },
+    {
+      "origin": "../../evidence/game-view/library.png",
+      "rights": "Original Kujo Agent City artwork; actual application capture",
+      "path": "assets/library.png",
+      "bytes": 13932,
+      "sha256": "800e79ccc04f578c25b512a77f736199362cc801b7ab6fc489576acb2b64ad1b"
+    },
+    {
+      "origin": "../../evidence/game-view/workshop.png",
+      "rights": "Original Kujo Agent City artwork; actual application capture",
+      "path": "assets/workshop.png",
+      "bytes": 11082,
+      "sha256": "4f250150cf7015b0a19a1e3c1ac5cfb5da53a0f95ca1e15f4336715dcefe863c"
+    },
+    {
+      "origin": "https://github.com/google/fonts/tree/main/ofl/pressstart2p",
+      "rights": "SIL Open Font License 1.1; bundled OFL.txt",
+      "path": "assets/pixel.ttf",
+      "bytes": 118204,
+      "sha256": "034c77f1f05ec89421e4a63f0e3a4ca1ecf852cc6d2bf611f126f275728e017d"
+    },
+    {
+      "origin": "https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js",
+      "rights": "GSAP 3.13.0 standard license; original license banner retained",
+      "path": "assets/gsap.min.js",
+      "bytes": 72435,
+      "sha256": "96c01b81f44a3290e2b4532f55e2c9534b2adc43273a19f3756b2cb41f0fd0b6"
+    },
+    {
+      "origin": "ElevenLabs eleven_v4 / eXpIbVcVbLo8ZJQDlDnl (Siren)",
+      "rights": "Generated under existing Creator account at explicit user request; provider terms apply",
+      "receipt": "evidence/voice-result.json",
+      "path": "assets/voice.mp3",
+      "bytes": 57304,
+      "sha256": "f1fd8514ef475c3d120531791db1aa78947b9a70e00eb4625723293116918866"
+    },
+    {
+      "origin": "compose-music.py",
+      "rights": "Original authored synthesized score, no third-party samples",
+      "note": "ElevenLabs generation denied missing music_generation; not attributed to ElevenLabs",
+      "path": "assets/music.wav",
+      "bytes": 1152044,
+      "sha256": "69d076ed0c224456b7b815d5c7024b787ba8da9ce8b24cff07889a2d18e0db88"
+    }
+  ]
+}

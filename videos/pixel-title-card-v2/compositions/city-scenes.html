@@ -1,0 +1,12 @@
+<!DOCTYPE html><html><head></head><body><template><style>
+#city-scenes{position:absolute;inset:0;overflow:hidden;background:#080d24}
+.city-capture{position:absolute;width:768px;height:720px;left:-64px;top:-90px;image-rendering:pixelated;max-width:none}
+#capture-library,#capture-workshop{opacity:0;top:-126px}
+#city-shade{position:absolute;inset:0;background:rgba(3,8,25,.18)}
+</style><div data-hf-id="hf-4w1t" id="city-scenes" data-composition-id="city-scenes" data-width="640" data-height="360" data-duration="6">
+<img data-hf-id="hf-cmuc" id="capture-city" class="city-capture" data-layout-allow-overflow="true" src="assets/city.png" alt="Actual Agent City overworld capture">
+<img data-hf-id="hf-xhg7" id="capture-library" class="city-capture" data-layout-allow-overflow="true" src="assets/library.png" alt="Actual Library interior capture">
+<img data-hf-id="hf-3akb" id="capture-workshop" class="city-capture" data-layout-allow-overflow="true" src="assets/workshop.png" alt="Actual Workshop interior capture">
+<div data-hf-id="hf-xroc" id="city-shade"></div></div><script>
+window.__timelines['city-scenes']=gsap.timeline({paused:true}).set('#capture-library',{opacity:1},2).set('#capture-workshop',{opacity:1},4).to({}, {duration:2});
+</script></template></body></html>

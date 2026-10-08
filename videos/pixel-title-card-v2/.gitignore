@@ -1,0 +1,6 @@
+.hyperframes/
+.hyperframes-*
+.hyperframes_history/
+node_modules/
+.waveform-cache/
+.thumbnails/

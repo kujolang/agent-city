@@ -1,0 +1,9 @@
+{
+  "name": "agent-city-pixel-ident-v2",
+  "private": true,
+  "scripts": {
+    "check": "npx hyperframes@0.8.141 check .",
+    "render": "npx hyperframes@0.8.141 render . --fps 30 --quality looks --output agent-city-pixel-v2.mp4",
+    "export:720p": "ffmpeg -y -i agent-city-pixel-v2.mp4 -vf scale=1280:720:flags=neighbor -c:v libx264 -preset medium -crf 16 -pix_fmt yuv420p -c:a copy -movflags +faststart agent-city-pixel-v2-720p.mp4"
+  }
+}

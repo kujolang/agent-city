@@ -1,0 +1,14 @@
+<!DOCTYPE html><html><head></head><body><template><style>
+@font-face{font-family:CityPixel;src:url('assets/pixel.ttf') format('truetype');font-weight:400;font-display:block}
+#pixel-titles{position:absolute;inset:0;color:#f4f8f1;font-family:CityPixel,monospace}
+#frame-outer{position:absolute;inset:12px;border:4px solid #071329;box-shadow:0 0 0 4px #071329,inset 0 0 0 3px #3f8dff}
+#topline{position:absolute;left:32px;top:30px;padding:9px 10px;background:#050a19;border-left:8px solid #3686ff;font-size:8px;line-height:14px}
+#title-panel{position:absolute;left:56px;top:116px;width:528px;height:136px;box-sizing:border-box;background:rgba(3,8,21,.94);border:4px solid #438fff;box-shadow:4px 4px 0 #02050d,inset 0 0 0 4px #152b50;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px}
+#hero-title{margin:0;font-size:32px;line-height:44px;font-weight:400;text-shadow:4px 4px 0 #143b83;white-space:nowrap}
+#hero-line{margin:0;font-size:16px;line-height:18px;color:#cde5ff;white-space:nowrap;opacity:0}
+#scene-tag{position:absolute;bottom:30px;right:32px;padding:10px;background:#050a19;border-right:8px solid #55d9ae;font-size:8px;line-height:12px}
+</style><div data-hf-id="hf-06g9" id="pixel-titles" data-composition-id="pixel-titles" data-width="640" data-height="360" data-duration="6">
+<div data-hf-id="hf-1aci" id="frame-outer"></div><div data-hf-id="hf-zckl" id="topline">KUJO // AGENT CITY</div><div data-hf-id="hf-aejg" id="title-panel"><h1 data-hf-id="hf-w936" id="hero-title">AGENT CITY</h1><p data-hf-id="hf-9ark" id="hero-line">REAL AGENTS. VISIBLE WORK.</p></div><div data-hf-id="hf-qlkq" id="scene-tag">WORK / KNOW / ACT</div>
+</div><script>
+window.__timelines['pixel-titles']=gsap.timeline({paused:true}).fromTo('#hero-title',{x:-4},{x:0,duration:.2,ease:'steps(2)'},0).set('#hero-line',{opacity:1},2).to({}, {duration:4});
+</script></template></body></html>
