@@ -10,6 +10,8 @@ const root = resolve(import.meta.dirname, "..");
 const real = process.env.CITY_PROFILE_PROOF_REAL === "1";
 const kujo = process.env.CITY_PROFILE_PROOF_LANGUAGE === "kujo";
 const workcell = kujo && process.env.CITY_PROFILE_PROOF_WORKCELL === "1";
+const outputCheck =
+  workcell && process.env.CITY_PROFILE_PROOF_OUTPUT_CHECK === "1";
 const authorId = kujo
   ? "kujolang/kujo-agents:chain.frontend-developer"
   : "kujolang/kujo-agents:chain.integration-engineer";
@@ -32,11 +34,13 @@ const provider = createServer((req, res) => {
     const reviewer = data.messages.some(
       (m: any) => m.role === "system" && m.content.includes("# Code Reviewer"),
     );
-    const code = kujo
-      ? repaired || !reviewer
-        ? "func add(a, b) { return a + b }\nprint(add(2, 3))\n"
-        : "func broken( { invalid $$$"
-      : `export function add(a, b) { return a ${repaired ? "+" : "-"} b; }`;
+    const code = outputCheck
+      ? `func add(a, b) { return a ${repaired ? "+" : "-"} b }\nprint(add(2, 3))\n`
+      : kujo
+        ? repaired || !reviewer
+          ? "func add(a, b) { return a + b }\nprint(add(2, 3))\n"
+          : "func broken( { invalid $$$"
+        : `export function add(a, b) { return a ${repaired ? "+" : "-"} b; }`;
     res.setHeader("Content-Type", "application/json");
     res.end(
       JSON.stringify({
@@ -123,6 +127,12 @@ try {
       body: JSON.stringify({
         kind: kujo ? "kujo" : "code",
         executeWorkcell: workcell,
+        ...(outputCheck
+          ? {
+              expectedOutput: "5\n",
+              ...(attempt ? { parentMissionId: attempts[0].mission } : {}),
+            }
+          : {}),
         prompt: kujo
           ? "Read the Kujo catalog using the requested MCP step. Write raw Kujo code defining func add(a,b) returning a+b and print(add(2,3)). Reviewer must return corrected raw Kujo code in cityArtifact and grade/review in cityReview. Do not claim execution; the platform will only syntax-check the final code."
           : "Write a raw JavaScript ES module exporting add(a,b), returning a+b. Reviewer must preserve the named export and return corrected code in cityArtifact. Do not claim tests passed; the platform will run the explicit cases after review.",
@@ -144,6 +154,14 @@ try {
     const job = final.jobs.find((j: any) => j.id === accepted.id);
     assert.equal(job.status, "completed", JSON.stringify(job));
     const dir = resolve(runtime, "missions", job.id);
+    if (outputCheck && attempt) {
+      const context = JSON.parse(
+        await readFile(resolve(dir, "context.json"), "utf8"),
+      );
+      assert.equal(context.parentMissionId, attempts[0].mission);
+      assert.equal(context.previousValidation.outputCheck.status, "failed");
+      assert.equal(context.previousValidation.outputCheck.actual, "-1\n");
+    }
     const checks = kujo
       ? null
       : JSON.parse(await readFile(resolve(dir, "functional.json"), "utf8"));
@@ -165,9 +183,15 @@ try {
       .map((l) => JSON.parse(l));
     const expected = real || repaired ? "passed" : "failed";
     if (kujo) {
-      assert.equal(validation.syntax, real || repaired ? "valid" : "invalid");
+      assert.equal(
+        validation.syntax,
+        outputCheck || real || repaired ? "valid" : "invalid",
+      );
       assert.equal(validation.checkedArtifact, "reviewed.kujo");
-      assert.equal(validation.codeExecuted, workcell && (real || repaired));
+      assert.equal(
+        validation.codeExecuted,
+        workcell && (outputCheck || real || repaired),
+      );
       assert.equal(
         await readFile(resolve(dir, "reviewed.md"), "utf8"),
         artifact,
@@ -177,9 +201,26 @@ try {
       ).json();
       assert.equal(api.validation.checkedArtifact, "reviewed.kujo");
       assert.equal(api.content, artifact);
-      if (workcell && (real || repaired)) {
+      if (workcell && (outputCheck || real || repaired)) {
         assert.equal(api.workcell.status, "completed");
-        assert.equal(api.workcell.output, "5\n");
+        assert.equal(
+          api.workcell.output,
+          outputCheck && !repaired ? "-1\n" : "5\n",
+        );
+        if (outputCheck) {
+          assert.equal(
+            api.validation.outputCheck.status,
+            repaired ? "passed" : "failed",
+          );
+          assert(
+            events.some(
+              (e) =>
+                e.operation_id === "kujo-output-check" &&
+                e.phase === "finished" &&
+                e.outcome === (repaired ? "succeeded" : "failed"),
+            ),
+          );
+        }
         assert(
           events.some(
             (e) =>
@@ -260,8 +301,12 @@ try {
       ),
     );
     assert.equal(
-      kujo ? first.syntax : first.status,
-      kujo ? "invalid" : "failed",
+      outputCheck
+        ? first.outputCheck.status
+        : kujo
+          ? first.syntax
+          : first.status,
+      outputCheck ? "failed" : kujo ? "invalid" : "failed",
     );
   }
   const out = resolve(
@@ -271,7 +316,7 @@ try {
       : kujo
         ? "evidence/profile-kujo"
         : "evidence/profile-code",
-    real ? "real" : "fixture",
+    outputCheck ? "output-check" : real ? "real" : "fixture",
   );
   await mkdir(out, { recursive: true });
   const proof = {

@@ -97,6 +97,34 @@ try {
   proof.result = result.trim();
   proof.runtimeVersion = version.trim();
   proof.containerAbsent = true;
+  // Exercise the actual mission API, SDK handoff, output failure and explicit repair.
+  // Provider responses are controlled; both generated programs really run in Workcell.
+  const outputCheck = await boundedCommand(
+    process.execPath,
+    ["--import", "tsx", "scripts/profile-code-proof.ts"],
+    {
+      cwd: root,
+      timeoutMs: 300000,
+      env: {
+        ...process.env,
+        KUJO_BIN: startup.kujo,
+        CITY_ENABLE_WORKCELL: "1",
+        CITY_WORKCELL_IMAGE: image.imageId,
+        CITY_PROFILE_PROOF_REAL: "0",
+        CITY_PROFILE_PROOF_LANGUAGE: "kujo",
+        CITY_PROFILE_PROOF_WORKCELL: "1",
+        CITY_PROFILE_PROOF_OUTPUT_CHECK: "1",
+      },
+    },
+  );
+  assert.equal(outputCheck.timedOut, false);
+  assert.equal(outputCheck.code, 0, outputCheck.output);
+  proof.outputCheck = JSON.parse(
+    await readFile(
+      resolve(root, "evidence/mission-workcell/output-check/proof.json"),
+      "utf8",
+    ),
+  );
   proof.status = "PASS";
 } catch (error) {
   proof.status = "FAIL";

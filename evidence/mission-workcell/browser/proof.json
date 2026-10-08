@@ -1,10 +1,11 @@
 {
   "scope": "Real retained mission evidence served by local runner; intercepted submission only, no new runtime execution or visual travel claim",
   "mission": "mission-e58374b0-73ce-41b2-aab7-a46b9575081b",
-  "browserVersion": "154.0.8037.98",
+  "browserVersion": "151.0.7922.34",
   "realOutputVisible": true,
   "cleanupVisible": true,
   "keyboardConsent": true,
+  "explicitOutputCheckPostedAndReset": true,
   "consentResetAfterSubmission": true,
   "consentResetForContinuation": true,
   "pageErrors": []

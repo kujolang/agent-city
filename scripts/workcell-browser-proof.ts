@@ -112,6 +112,13 @@ try {
   await consent.focus();
   await page.keyboard.press("Space");
   assert(await consent.isChecked());
+  await page.getByText("Optional Kujo output check", { exact: true }).click();
+  const outputCheck = page.getByRole("checkbox", {
+    name: "Check exact stdout after Workcell execution",
+  });
+  await outputCheck.focus();
+  await page.keyboard.press("Space");
+  await page.getByLabel("Expected stdout", { exact: true }).fill("5\n");
   await page
     .getByRole("button", { name: "Start mission", exact: true })
     .click();
@@ -121,6 +128,8 @@ try {
         .checked,
   );
   assert.equal(posted.executeWorkcell, true);
+  assert.equal(posted.expectedOutput, "5\n");
+  assert.equal(await outputCheck.isChecked(), false);
   await consent.check();
   await page.locator("[data-continue]").first().click();
   await page.waitForFunction(
@@ -141,6 +150,7 @@ try {
         realOutputVisible: true,
         cleanupVisible: true,
         keyboardConsent: true,
+        explicitOutputCheckPostedAndReset: true,
         consentResetAfterSubmission: true,
         consentResetForContinuation: true,
         pageErrors: errors,
