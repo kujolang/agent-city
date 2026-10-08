@@ -1,0 +1,31 @@
+name: Bounded VideoOps render qualification
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  render:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build pinned local render image
+        run: docker build --tag agent-city-videoops:0.8.141 installer/videoops
+      - name: Install pinned application and producer dependencies
+        env:
+          CITY_INSTALL_REF: ${{ github.sha }}
+        run: sh install.sh --prefix "$RUNNER_TEMP/city" --no-start
+      - name: Actual network-disabled Workcell render
+        env:
+          CITY_VIDEOOPS_PROOF_OUTPUT: ${{ runner.temp }}/videoops-proof
+        run: |
+          cd "$RUNNER_TEMP/city/agent-city"
+          if [ -x ../.node/bin/node ]; then export PATH="$RUNNER_TEMP/city/.node/bin:$PATH"; fi
+          export CITY_VIDEOOPS_IMAGE="$(docker image inspect agent-city-videoops:0.8.141 --format '{{.Id}}')"
+          npx tsx scripts/videoops-render-proof.ts
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: videoops-render-proof
+          path: ${{ runner.temp }}/videoops-proof
+          if-no-files-found: warn
