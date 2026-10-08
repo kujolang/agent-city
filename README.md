@@ -238,11 +238,15 @@ and `evidence/live-checkin` respectively.
 
 ## Import agent profiles and inspect teams
 
-From a trusted local `kujo-agents` checkout:
+Managed installations include a pinned `kujo-agents` catalog. Import it explicitly:
 
 ```sh
-npm run agents:import -- ../kujo-agents
+"$HOME/.local/share/agent-city/start.command" agents:import
 ```
+
+No separate checkout or global npm is needed. Existing managed installations need
+an update to receive the bundled catalog. Source checkouts can use
+`npm run agents:import -- /path/to/kujo-agents` to import a trusted local catalog.
 
 Use the same `CITY_PORT_OFFSET`/`CITY_RUNTIME_DIR` as the app you intend to configure.
 Open **Mission Command → Agent profiles / teams**, refresh, filter a team, and

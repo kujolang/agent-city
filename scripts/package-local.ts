@@ -29,6 +29,7 @@ const names = [
   "eval",
   "mcp",
   "workcell",
+  "kujo-agents",
 ];
 const sourcePaths = [
   "apps",

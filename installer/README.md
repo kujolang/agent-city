@@ -30,6 +30,21 @@ Codex or sign in for you. For Ollama, use **Detect local Ollama** in Mission
 Command, choose an installed model, then save the connection. Local Ollama does
 not require a City API key; remote/cloud authentication remains provider-owned.
 
+The pinned agent catalog is included as data. To make its profiles available in
+Mission Command, import it explicitly with the same `CITY_PORT_OFFSET` or
+`CITY_RUNTIME_DIR` as your app:
+
+```sh
+"$HOME/.local/share/agent-city/start.command" agents:import
+```
+
+Then refresh **Agent profiles / teams** and **Custom author / reviewer**. Import
+preserves contract identities, capabilities, workflow references and hashes; it
+runs no model or tools and creates no city citizens. Only eligible PROPOSE
+profiles can be selected for the existing draft/review adapter. Other declared
+workflows and tool permissions are not enabled by importing them. You can keep
+using the built-in author/reviewer without importing a catalog.
+
 From a trusted source checkout with Node 24+, the equivalent explicit install is:
 
 ```sh

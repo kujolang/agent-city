@@ -29,6 +29,7 @@ export function validateSources(lock) {
     "eval",
     "mcp",
     "workcell",
+    "kujo-agents",
   ];
   if (
     lock?.schema !== "agent-city.install-sources.v1" ||

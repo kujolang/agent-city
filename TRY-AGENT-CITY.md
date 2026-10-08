@@ -34,6 +34,17 @@ Writer/coder and reviewer profiles are built in. Their execution instances appea
 when actual work is observed. You do not need to create them manually, and the
 roster does not imply a team is running continuously. One mission runs at a time.
 
+For optional custom teams, the managed preview includes the pinned Kujo catalog:
+
+```sh
+"$HOME/.local/share/agent-city/start.command" agents:import
+```
+
+Use the same instance environment as your launcher. Refresh **Agent profiles /
+teams**, then **Custom author / reviewer**. Choose eligible author/reviewer roles;
+unsupported capabilities remain disabled. Importing profiles does not run agents,
+install their external tools, or grant their declared permissions.
+
 ## First writing task
 
 Choose **Writing + review**, leave retrieval options unchecked, and submit:

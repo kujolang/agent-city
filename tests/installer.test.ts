@@ -15,6 +15,9 @@ test("source lock rejects missing or substituted producers before installation",
     ),
   );
   expect(() => validateSources(lock)).not.toThrow();
+  const catalogMissing = structuredClone(lock);
+  delete catalogMissing.repositories["kujo-agents"];
+  expect(() => validateSources(catalogMissing)).toThrow("Invalid source lock");
   const missing = structuredClone(lock);
   delete missing.repositories.workcell;
   expect(() => validateSources(missing)).toThrow("Invalid source lock");

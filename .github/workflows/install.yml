@@ -32,6 +32,19 @@ jobs:
           chmod +x "$RUNNER_TEMP/no-system-node/npm"
           PATH="$RUNNER_TEMP/no-system-node:/usr/bin:/bin" "$RUNNER_TEMP/city/start.command" doctor --json > "$RUNNER_TEMP/launcher-doctor.log"
           PATH="$RUNNER_TEMP/no-system-node:/usr/bin:/bin" "$RUNNER_TEMP/city/start.command" --help > "$RUNNER_TEMP/launcher-help.log"
+      - name: Import pinned profiles without another checkout or system npm
+        run: |
+          PATH="$RUNNER_TEMP/no-system-node:/usr/bin:/bin" "$RUNNER_TEMP/city/start.command" agents:import > "$RUNNER_TEMP/catalog-import.log"
+          cd "$RUNNER_TEMP/city/agent-city"
+          "$RUNNER_TEMP/city/.node/bin/node" --input-type=module <<'JS'
+          import {readFile} from 'node:fs/promises';
+          import assert from 'node:assert/strict';
+          const registry=JSON.parse(await readFile('../kujo-agents/agent-registry.json','utf8'));
+          const catalog=JSON.parse(await readFile('.runtime/control/agent-catalog.json','utf8'));
+          assert.equal(catalog.profiles.length, registry.agents.length);
+          assert(catalog.profiles.length > 0);
+          console.log(JSON.stringify({profiles:catalog.profiles.length,scope:'Pinned contract import only; no model, grants, or executions'}));
+          JS
       - name: Verify actual installed SDK, Dispatch, RAG and MCP contracts
         run: cd "$RUNNER_TEMP/city/agent-city" && "$RUNNER_TEMP/city/.node/bin/node" --import tsx scripts/mission-contract.ts
       - name: Verify real installed update, refusal and archive lifecycle
@@ -56,6 +69,7 @@ jobs:
           path: |
             ${{ runner.temp }}/launcher-doctor.log
             ${{ runner.temp }}/launcher-help.log
+            ${{ runner.temp }}/catalog-import.log
             ${{ runner.temp }}/workcell-platform.json
             ${{ runner.temp }}/maintenance.json
             ${{ runner.temp }}/city/install-receipt.json
