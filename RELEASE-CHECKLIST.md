@@ -417,3 +417,12 @@ are in evidence/game-view. Native artwork remains simpler than the supplied conc
 Exact imported-profile appearance bindings atd4ec00f cover the five profiles from
 real proofs; unknown sources keep the fallback. Local96tests/build pass. Full visual
 acceptance and broader workflow/release gates remain open; no long soak ran.
+
+Supervisor-loss recovery checkpoint:51cea57 corrects an outcome-authority bug where
+the controller treated supervisor exit as mission failure even while its descendant
+continued. Missing terminal evidence now preserves UNKNOWN, holds admission, and
+reconciles the eventual source receipt without a rerun. The controlled-provider real
+SDK/Dispatch proof passes locally and on all4installed platforms in CI37723229769;
+full source/browser verification passes too. See evidence/supervisor-loss. Loss of
+both evidence owners, automatic orphan cleanup and broader project/tool scope remain
+separate unqualified cases; this does not close the entire broader-work checklist.

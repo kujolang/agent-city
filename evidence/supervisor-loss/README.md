@@ -20,3 +20,7 @@ its refreshed receipt remains in ../mission-supervisor. Full local96tests, types
 boundaries, maps and build pass. The installed proof is now part of all four platform
 CI jobs. Missing evidence from both supervisor and source still remains UNKNOWN;
 this change does not claim automatic orphan cleanup or general project execution.
+
+CI37723229769 at51cea57 PASS: all four installed-platform supervisor-loss steps
+(Linux x64/ARM64 and macOS Intel/ARM64), full source verification, controlled browser
+proofs and installation lifecycle. Step-level results are retained in ci.json.
