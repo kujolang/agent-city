@@ -8,6 +8,8 @@ const root = resolve(import.meta.dirname, "..");
 const runtime = await mkdtemp(resolve(root, ".runtime/provider-timeout-"));
 const task = resolve(runtime, "task.txt");
 await writeFile(task, "Return a short fixture draft.");
+const sdkDeadline = process.env.CITY_PROOF_SDK_DEADLINE === "1";
+let currentLimit = 10;
 let calls = 0;
 let attemptCalls = 0;
 const timers = new Set<ReturnType<typeof setTimeout>>();
@@ -33,7 +35,13 @@ const server = createServer((req, res) => {
           );
         }
       },
-      attemptCalls === 1 ? 12000 : 0,
+      sdkDeadline && currentLimit === 150
+        ? attemptCalls === 2
+          ? 125000
+          : 0
+        : attemptCalls === 1
+          ? 12000
+          : 0,
     );
     timers.add(timer);
   });
@@ -44,8 +52,9 @@ const results = [];
 try {
   for (const [limit, suffix, expected] of [
     [10, "1", "failed"],
-    [20, "2", "completed"],
+    [sdkDeadline ? 150 : 20, "2", "completed"],
   ] as const) {
+    currentLimit = limit;
     attemptCalls = 0;
     const id = `mission-11111111-1111-4111-8111-11111111111${suffix}`;
     const started = Date.now();
@@ -95,12 +104,13 @@ try {
   assert.equal(calls, 3);
   await mkdir("evidence/provider-timeout", { recursive: true });
   await writeFile(
-    "evidence/provider-timeout/controlled.json",
+    `evidence/provider-timeout/${sdkDeadline ? "sdk-deadline" : "controlled"}.json`,
     JSON.stringify(
       {
         status: "PASS",
-        scope:
-          "Controlled 12-second provider response; actual SDK/Dispatch; not real model product proof",
+        scope: sdkDeadline
+          ? "Controlled 125-second reviewer response exceeds former SDK deadline; actual SDK/Dispatch; not real model product proof"
+          : "Controlled 12-second provider response; actual SDK/Dispatch; not real model product proof",
         results,
       },
       null,
@@ -108,7 +118,7 @@ try {
     ) + "\n",
   );
   console.log(
-    "PASS: 10-second timeout fails; explicit 20-second wait completes author and reviewer; both retained",
+    "PASS: short timeout fails; explicit longer wait completes author and reviewer; both retained",
   );
 } finally {
   for (const timer of timers) clearTimeout(timer);

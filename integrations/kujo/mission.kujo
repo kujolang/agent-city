@@ -247,9 +247,13 @@ return {"ok": false, "error": {"code": "provider_unavailable", "message": "Model
 use_docs := env_or("CITY_USE_RAG", "0") == "1"
 retrieval := {}
 if use_docs { retrieval = create_kujo_rag_provider({"namespace":"agent-city", "transport":create_kujo_rag_http_transport(env_or("RAG_URL", "http://127.0.0.1:8791"), {})}) }
-reviewer := create_agent({"id": "reviewer", "instructions": review+"\nThe original user task follows. Check every explicit requirement against the draft; do not replace the task with a different one.\n<original_task>\n"+task_text+"\n</original_task>", "model_policy":{"city_author":"reviewer", "city_author_run":run_id+"-handoff-reviewer"}})
+# SDK deadlines include the explicitly bounded provider calls and user check-ins.
+# The author waits for the nested reviewer, so its budget includes both roles.
+role_timeout_ms := (request_timeout + 60) * 1000
+if env_or("CITY_CHECKINS", "0") == "1" { role_timeout_ms = (request_timeout * 3 + 360 + 60) * 1000 }
+reviewer := create_agent({"id": "reviewer", "timeout_ms": role_timeout_ms, "instructions": review+"\nThe original user task follows. Check every explicit requirement against the draft; do not replace the task with a different one.\n<original_task>\n"+task_text+"\n</original_task>", "model_policy":{"city_author":"reviewer", "city_author_run":run_id+"-handoff-reviewer"}})
 runner := create_agent_runner({"ai_adapter": adapter, "handoff_registry": {"reviewer": reviewer}})
-agent := create_agent({"id": actor, "instructions": instructions, "model_policy":{"city_author":actor, "city_author_run":run_id}, "policy": {"handoff": {"target_agent_id": "reviewer"}, "retrieval":{"enabled":use_docs}}})
+agent := create_agent({"id": actor, "timeout_ms": role_timeout_ms * 2, "instructions": instructions, "model_policy":{"city_author":actor, "city_author_run":run_id}, "policy": {"handoff": {"target_agent_id": "reviewer"}, "retrieval":{"enabled":use_docs}}})
 result := run_agent(runner, agent, create_agent_run_request(task_text, {"run_id": run_id}), {
     "producer_instance": env_or("CITY_PRODUCER", ""), "observation_profile": author_profile,
     "observation_task_id": task_id, "on_lifecycle": sink, "max_iterations": 8,
