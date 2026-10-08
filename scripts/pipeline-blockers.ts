@@ -4,6 +4,7 @@ import { spawn, spawnSync, type ChildProcess } from "node:child_process";
 import { mkdir, writeFile, readFile, stat, rename } from "node:fs/promises";
 import { resolve } from "node:path";
 import { performance } from "node:perf_hooks";
+import { availableParallelism, cpus, totalmem } from "node:os";
 import { batch } from "./pipeline-fixture";
 import { portAvailable } from "./startup-checks";
 import { localChromiumPath } from "../apps/runner/browser-path";
@@ -71,6 +72,13 @@ const installation = await readFile(
     throw error;
   });
 const result: any = {
+  platform: process.platform,
+  arch: process.arch,
+  host: {
+    availableParallelism: availableParallelism(),
+    cpuModel: cpus()[0]?.model || "UNKNOWN",
+    totalMemoryBytes: totalmem(),
+  },
   runtimeCandidate: Boolean(process.env.CITY_PIPELINE_KUJO),
   runtimeCandidateRef: process.env.CITY_PIPELINE_KUJO_REF || null,
   runtimeMode,

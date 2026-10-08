@@ -134,8 +134,9 @@ try {
   await page.route("**/api/**", async (route) => {
     const path = new URL(route.request().url()).pathname;
     const data =
-      path === "/api/world/snapshot"
+      path === "/api/world/snapshot" || path === "/api/world/status"
         ? {
+            order: 0,
             truth: initialTruth(),
             recent: [],
             sourceHealth: { status: "UNKNOWN" },

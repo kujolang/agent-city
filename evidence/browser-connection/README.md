@@ -39,3 +39,12 @@ buttons. Every event still reduces truth and plans semantic activity synchronous
 A100-event controlled browser burst proves immediate truth, zero synchronous log
 rebuilds, retained roster nodes and eventual visible timeline. This optimizes
 presentation only and does not claim the load/reconnect gate has passed.
+
+Health polling now reads /api/world/status (epoch, order and source freshness),
+not the entire accumulated agent/operation snapshot each second. Initial connection
+and recovery still use the authoritative full snapshot. Shared gateway health
+calculation prevents endpoint drift. Epoch changes trigger recovery even when a
+replacement journal has a lower order. Controlled Chromium regression covers the
+new metadata route, lower-order replacement, stale callbacks, hanging status reads,
+replay isolation and100-event burst truth.93tests and build pass. Throughput impact
+requires the separate live gateway/browser measurement.

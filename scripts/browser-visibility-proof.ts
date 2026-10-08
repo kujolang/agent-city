@@ -139,6 +139,10 @@ try {
   let snapshots = 0;
   await page.route("**/api/**", (route) => {
     assert.equal(route.request().method(), "GET");
+    if (new URL(route.request().url()).pathname === "/api/world/status")
+      return route.fulfill({
+        json: { order: truth.order, sourceHealth: { status: "LIVE" } },
+      });
     if (new URL(route.request().url()).pathname === "/api/world/snapshot") {
       snapshots++;
       return route.fulfill({

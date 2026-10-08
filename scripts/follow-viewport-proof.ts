@@ -38,7 +38,7 @@ try {
         json:
           new URL(r.request().url()).pathname === "/api/world/snapshot"
             ? { truth: retained, recent: [], sourceHealth: { status: "STALE" } }
-            : { status: "STALE" },
+            : { order: retained.order, sourceHealth: { status: "STALE" } },
       }),
     );
     await page.route("**/control/**", (r) =>

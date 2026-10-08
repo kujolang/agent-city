@@ -48,6 +48,7 @@ try {
   let hold = false;
   const held: Route[] = [];
   const snapshot = {
+    epoch: "controlled-epoch",
     truth: bundle.snapshot,
     recent: [],
     sourceHealth: { status: "LIVE" },
@@ -56,12 +57,20 @@ try {
   await page.route("**/api/**", async (route) => {
     const path = new URL(route.request().url()).pathname;
     if (route.request().method() !== "GET") writes.push(path);
-    if (path === "/api/world/snapshot") {
+    if (path === "/api/world/snapshot" || path === "/api/world/status") {
       if (hold) {
         held.push(route);
         return;
       }
-      await route.fulfill({ json: snapshot });
+      await route.fulfill({
+        json: path.endsWith("/status")
+          ? {
+              epoch: snapshot.epoch,
+              order: snapshot.truth.order,
+              sourceHealth: snapshot.sourceHealth,
+            }
+          : snapshot,
+      });
     } else if (path === "/api/archive/runs")
       await route.fulfill({
         json: { runs: [{ id: "retained-real-run" }], ledger: [] },
@@ -231,6 +240,18 @@ try {
     "Expected the held request to reach its cancellation deadline",
   );
   for (const route of held.splice(0)) await route.abort().catch(() => {});
+  // A replacement journal may have a lower order while a stale stream looks OPEN.
+  snapshot.epoch = "replacement-epoch";
+  snapshot.truth = bundle.snapshot;
+  await page.waitForFunction(
+    (order) => (window as any).agentCity.truth.order === order,
+    bundle.snapshot.order,
+    { timeout: 5000 },
+  );
+  assert.equal(
+    await page.evaluate(() => (window as any).agentCity.health),
+    "LIVE",
+  );
   // A metadata burst updates truth synchronously, but paints once per frame.
   const burst = await page.evaluate(
     (template) => {
@@ -282,6 +303,8 @@ try {
         controlledBundleChecksum: bundle.checksum,
         controlledBundleMapHash: bundle.versions.mapHash,
         browserOfflineImmediatelyStale: true,
+        lightweightHealthPolling: true,
+        lowerOrderJournalEpochRecovered: true,
         offlinePreservesTruth: true,
         onlineSnapshotRestoresLive: true,
         staleHealthCannotReplaceReplay: true,

@@ -418,6 +418,7 @@ document.querySelectorAll<HTMLButtonElement>("[data-scene]").forEach(
     }),
 );
 let connectionEpoch = 0;
+let gatewayEpoch: string | null = null;
 let snapshotAbort: AbortController | null = null;
 let healthAbort: AbortController | null = null;
 function disconnect() {
@@ -466,6 +467,7 @@ async function connect() {
   }
   // A delayed response must never replace a newer connection or pinned replay.
   if (!current()) return;
+  gatewayEpoch = typeof snap.epoch === "string" ? snap.epoch : null;
   truth = snap.truth;
   maybeFollowMission();
   events = snap.recent ?? [];
@@ -542,7 +544,7 @@ setInterval(async () => {
   healthAbort = controller;
   const deadline = setTimeout(() => controller.abort(), 5000);
   try {
-    const r = await fetch("/api/world/snapshot", { signal: controller.signal });
+    const r = await fetch("/api/world/status", { signal: controller.signal });
     if (!r.ok) throw Error();
     const s = await r.json();
     if (replayMode || epoch !== connectionEpoch) return;
@@ -553,7 +555,8 @@ setInterval(async () => {
     if (
       !stream ||
       stream.readyState === EventSource.CLOSED ||
-      s.truth.order > truth.order
+      (typeof s.epoch === "string" && s.epoch !== gatewayEpoch) ||
+      s.order > truth.order
     )
       await connect();
   } catch {

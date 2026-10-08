@@ -50,6 +50,16 @@ let sourceCursor = get("sourceCursor") || "",
   lastError = "",
   gap = false;
 const clients = new Set<ServerResponse>();
+function sourceHealth() {
+  return {
+    status: Date.now() - lastSuccess > 10000 ? "STALE" : gap ? "STALE" : "LIVE",
+    gap: state.gap,
+    lastSuccess,
+    lastError,
+    coverage:
+      "SDK run/retrieval/tool/handoff and Eval invocation/check results; retained local journal; reconnect history partial",
+  };
+}
 const cursor = (n: number) => epoch + ":" + n;
 function publish(e: CityEvent) {
   for (const res of clients) {
@@ -316,6 +326,13 @@ const server = createServer(async (req, res) => {
       coverage:
         "Only observed failures, gaps, recovery and explicit approval metadata; other alert/policy sources UNKNOWN",
     });
+  if (url.pathname === "/api/world/status")
+    return send({
+      schema: "agent-city.status.v1",
+      epoch,
+      order: state.order,
+      sourceHealth: sourceHealth(),
+    });
   if (url.pathname === "/api/world/snapshot")
     return send({
       schema: "agent-city.snapshot.v1",
@@ -329,15 +346,7 @@ const server = createServer(async (req, res) => {
       )
         .reverse()
         .map((r) => JSON.parse(r.body)),
-      sourceHealth: {
-        status:
-          Date.now() - lastSuccess > 10000 ? "STALE" : gap ? "STALE" : "LIVE",
-        gap: state.gap,
-        lastSuccess,
-        lastError,
-        coverage:
-          "SDK run/retrieval/tool/handoff and Eval invocation/check results; retained local journal; reconnect history partial",
-      },
+      sourceHealth: sourceHealth(),
       versions,
     });
   if (
