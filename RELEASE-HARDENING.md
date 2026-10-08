@@ -1,8 +1,12 @@
 # Agent City hardening candidate — 2026-09-08
 
-Historical measurements: see [bounded blocker fixes](RELEASE-BLOCKERS.md) for the current journal/continuity status and running soak.
+**Archived baseline report.** The failures and measurements below describe the
+September 8 candidate, not the current release status. See the
+[current checklist](RELEASE-CHECKLIST.md) and [bounded gate assessment](RELEASE-BLOCKERS.md)
+for subsequent fixes and qualification. The user cancelled the eight-hour soak;
+none is running or scheduled, and it must not be restarted without a new request.
 
-## RELEASE STATUS: FAIL
+## HISTORICAL RELEASE STATUS: FAIL
 
 The local Observer remains functional. This candidate is **not release-qualified**. The mandatory 1,000 events/second gate failed, end-to-end transport stress is unverified, Watchdog store replacement continuity is incomplete, and the eight-hour soak was not completed. `npm run gate` and the Kujo Eval release suite deliberately fail for these reasons.
 
@@ -93,7 +97,11 @@ Not proven: signed Watchdog store replacement/retention epoch recovery; stale ow
 
 ## RECOMMENDED NEXT PHASE
 
-Continue **Phase 1 release hardening**, then Phase 3 replay/debugging polish. Do not advance to Phase 2 expansion or Director Mode. The next implementation task is a measured full-path ingestion/reconnect harness with producer store-epoch continuity, followed by an eight-hour live-like soak on a pinned build. Keep the release gate failing until those claims have evidence.
+The original recommendation was further Phase 1 hardening. Subsequent full-path
+ingestion/reconnect and store-continuity evidence supersede the blockers listed
+here. The proposed eight-hour soak was cancelled by the user. Use the current
+release checklist for remaining work; this historical report does not authorize
+a soak, Phase 2 expansion or Director Mode.
 
 ## SOURCE / CHANGE BREAKDOWN
 

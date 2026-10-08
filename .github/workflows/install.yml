@@ -75,6 +75,8 @@ jobs:
           JS
       - name: Verify actual installed SDK, Dispatch, RAG and MCP contracts
         run: cd "$RUNNER_TEMP/city/agent-city" && "$RUNNER_TEMP/city/.node/bin/node" --import tsx scripts/mission-contract.ts
+      - name: Verify supervisor loss preserves the actual mission outcome
+        run: cd "$RUNNER_TEMP/city/agent-city" && "$RUNNER_TEMP/city/.node/bin/node" --import tsx scripts/supervisor-loss-proof.ts
       - name: Verify real installed update, refusal and archive lifecycle
         env:
           CITY_OWNED_TEST_INSTALL: ${{ runner.temp }}/city
@@ -108,3 +110,4 @@ jobs:
             ${{ runner.temp }}/maintenance.json
             ${{ runner.temp }}/city/install-receipt.json
             ${{ runner.temp }}/city/agent-city/evidence/missions/contract.json
+            ${{ runner.temp }}/city/agent-city/evidence/supervisor-loss/proof.json

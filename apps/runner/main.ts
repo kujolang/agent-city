@@ -73,22 +73,26 @@ function save() {
     });
   return persistence;
 }
+async function readJobOutcome(job: Job) {
+  return (
+    (await readMissionOutcome(
+      resolve(missionsRoot, job.id, "receipt.json"),
+      job,
+    )) ??
+    (await readMissionOutcome(
+      resolve(missionsRoot, job.id, "process-receipt.json"),
+      {
+        ...job,
+        schema: "agent-city.mission-process.v1",
+        scope: "mission-process-only",
+      },
+    ))
+  );
+}
 async function reconcile() {
   let changed = false;
   for (const job of jobs.filter((j) => j.status === "unknown")) {
-    const outcome =
-      (await readMissionOutcome(
-        resolve(missionsRoot, job.id, "receipt.json"),
-        job,
-      )) ??
-      (await readMissionOutcome(
-        resolve(missionsRoot, job.id, "process-receipt.json"),
-        {
-          ...job,
-          schema: "agent-city.mission-process.v1",
-          scope: "mission-process-only",
-        },
-      ));
+    const outcome = await readJobOutcome(job);
     if (!outcome) continue;
     job.status = outcome.status;
     job.finishedAt = outcome.finishedAt;
@@ -574,11 +578,18 @@ const server = createServer(async (req, res) => {
       );
       active = child;
       let finalized = false;
-      const finish = async (status: Job["status"]) => {
+      const finish = async (spawnFailed = false) => {
         if (finalized) return;
         finalized = true;
-        job.status = status;
-        job.finishedAt = new Date().toISOString();
+        // A supervisor exit is not proof that its descendant finished or failed.
+        // Fail closed even if the evidence read itself fails.
+        job.status = "unknown";
+        delete job.finishedAt;
+        const outcome = await readJobOutcome(job);
+        job.status = outcome?.status ?? (spawnFailed ? "failed" : "unknown");
+        if (outcome) job.finishedAt = outcome.finishedAt;
+        else if (spawnFailed) job.finishedAt = new Date().toISOString();
+        else delete job.finishedAt;
         await save();
         active = null;
       };
@@ -588,13 +599,13 @@ const server = createServer(async (req, res) => {
           kind: "spawn-error",
           code: /^[A-Z0-9_]{1,32}$/.test(error.code || "") ? error.code! : null,
         };
-        void finish("failed").catch(() => {
+        void finish(true).catch(() => {
           active = null;
         });
       });
       child.once("exit", (code, signal) => {
         if (!finalized) job.processOutcome = { kind: "exit", code, signal };
-        void finish(code === 0 ? "completed" : "failed").catch(() => {
+        void finish().catch(() => {
           active = null;
         });
       });

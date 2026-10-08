@@ -1,0 +1,57 @@
+{
+  "status": "PASS",
+  "scope": "Controlled provider, actual SDK/Dispatch; owned supervisor SIGKILL while author response held; no real model product claim",
+  "mission": "mission-fb6ee039-ca56-4e80-a8dd-665105acd4da",
+  "states": [
+    "running",
+    "unknown",
+    "completed"
+  ],
+  "unknownJob": {
+    "id": "mission-fb6ee039-ca56-4e80-a8dd-665105acd4da",
+    "kind": "writing",
+    "executeWorkcell": false,
+    "useLocalDocs": false,
+    "useMcpDocs": false,
+    "status": "unknown",
+    "startedAt": "2026-10-08T03:29:58.197Z",
+    "processOutcome": {
+      "kind": "exit",
+      "code": null,
+      "signal": "SIGKILL"
+    }
+  },
+  "terminalJob": {
+    "id": "mission-fb6ee039-ca56-4e80-a8dd-665105acd4da",
+    "kind": "writing",
+    "executeWorkcell": false,
+    "useLocalDocs": false,
+    "useMcpDocs": false,
+    "status": "completed",
+    "startedAt": "2026-10-08T03:29:58.197Z",
+    "processOutcome": {
+      "kind": "exit",
+      "code": null,
+      "signal": "SIGKILL"
+    },
+    "finishedAt": "2026-10-08T03:30:04.134Z"
+  },
+  "queueHeldWhileUnknown": true,
+  "queueReleasedOnReceipt": true,
+  "providerCalls": 2,
+  "missionCount": 1,
+  "sourceRerun": false,
+  "receipt": {
+    "id": "mission-fb6ee039-ca56-4e80-a8dd-665105acd4da",
+    "producer": "review-mission-fb6ee039-ca56-4e80-a8dd-665105acd4da",
+    "kind": "writing",
+    "status": "completed",
+    "validation": null,
+    "code": 0,
+    "startedAt": "2026-10-08T03:30:00.163Z",
+    "finishedAt": "2026-10-08T03:30:04.134Z",
+    "output": "/Users/robertdevore/2026/Kujolang/kujo-repos/agent-city/.runtime/supervisor-loss-4eadf660-85ab-45bd-8a61-35327af9607a/missions/mission-fb6ee039-ca56-4e80-a8dd-665105acd4da/reviewed.md",
+    "execution": "Dispatch workflow, SDK model request and reviewer handoff; optional explicit browser checks recorded in validation"
+  },
+  "privateEvidence": "/Users/robertdevore/2026/Kujolang/kujo-repos/agent-city/.runtime/supervisor-loss-4eadf660-85ab-45bd-8a61-35327af9607a"
+}
