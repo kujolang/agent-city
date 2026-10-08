@@ -22,3 +22,10 @@ Reference comparison (research/visual-reference-manifest.json):
 
 This closes the optional world-filling presentation gap, not final reference-fidelity
 approval. Source truth and replay behavior remain independent of fullscreen.
+
+Dojo/MCP scenery revision (2026-10-08): compact evaluation instruments and desks
+replace full-height black panels; varied network cabinet heights and ducts replace
+six repeated rack silhouettes. Authored portals/stations and actual outcome/source
+labels remain in place. Current captures are still empty-world fixtures with no
+invented operations. This is a visual improvement, not approval of full-reference
+fidelity or new live-product evidence.
