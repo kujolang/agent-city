@@ -102,6 +102,12 @@ test("output bundle uses verified bytes and before hashes; tampering and unsuppo
     await expect(
       readProjectOutputs(directory, ["src/main.kujo"], evidence),
     ).rejects.toThrow(/UTF-8/);
+    await expect(
+      readProjectOutputs(directory, ["src/main.kujo"], {
+        ...evidence,
+        artifacts: [{ ...evidence.artifacts[0], bytes: 16385 }],
+      }),
+    ).rejects.toThrow(/16 KiB/);
   } finally {
     await rm(directory, { recursive: true, force: true });
   }

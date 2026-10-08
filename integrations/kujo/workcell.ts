@@ -196,7 +196,7 @@ if (projectExports.length) {
   definition.artifacts.limits = Object.fromEntries(
     projectExports.map((path) => [
       "project/" + path,
-      { max_bytes: 16384, max_files: 1, max_depth: 0 },
+      { max_bytes: 16384, max_files: 1, max_depth: 1 },
     ]),
   );
   definition.artifacts.max_files = projectExports.length + 2;
