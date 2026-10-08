@@ -33,11 +33,22 @@ jobs:
           CITY_OWNED_TEST_INSTALL: ${{ runner.temp }}/city
           CITY_MAINTENANCE_PROOF: ${{ runner.temp }}/maintenance.json
         run: '"$RUNNER_TEMP/city/.node/bin/node" scripts/installed-maintenance-proof.mjs'
+      - name: Build pinned local sandbox image and verify installed Workcell
+        if: runner.os == 'Linux'
+        env:
+          CITY_CI_WORKCELL_PROOF: "1"
+          CITY_WORKCELL_PROOF_OUTPUT: ${{ runner.temp }}/workcell-platform.json
+        run: |
+          export PATH="$RUNNER_TEMP/city/.node/bin:$PATH"
+          cd "$RUNNER_TEMP/city/agent-city"
+          npm run setup:workcell -- --build
+          node --import tsx scripts/installed-workcell-proof.ts
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: installation-${{ matrix.os }}
           path: |
+            ${{ runner.temp }}/workcell-platform.json
             ${{ runner.temp }}/maintenance.json
             ${{ runner.temp }}/city/install-receipt.json
             ${{ runner.temp }}/city/agent-city/evidence/missions/contract.json
