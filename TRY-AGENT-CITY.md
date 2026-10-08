@@ -51,6 +51,14 @@ compatible remote provider, enter its full chat-completions endpoint, model and
 required key. **Check model listing** checks discovery; an actual mission checks
 generation. Codex CLI login uses the separate adapter documented in README.md.
 
+For a failed model call, inspect **Provider response diagnostics** in its mission
+history. `finish length` means the output budget was exhausted; choose a larger
+**Output token limit** explicitly before retrying. A slower model may need a larger
+**Provider timeout (seconds)**, bounded10–300seconds per response (default90).
+These settings do not guarantee a valid result. HTTP errors may require checking
+provider access or selecting another model; being listed by Ollama is insufficient.
+Failed attempts remain in history, and Agent City never switches models automatically.
+
 Writer/coder and reviewer profiles are built in. Their execution instances appear
 when actual work is observed. You do not need to create them manually, and the
 roster does not imply a team is running continuously. One mission runs at a time.
