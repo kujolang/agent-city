@@ -312,7 +312,7 @@ try {
         ),
       );
     } else {
-      assert.equal(checks.status, expected);
+      assert.equal(checks.status, expected, JSON.stringify(checks));
       assert.equal(validation.functionalTests, expected);
       assert.equal(validation.codeExecuted, true);
     }

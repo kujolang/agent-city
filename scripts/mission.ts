@@ -430,13 +430,28 @@ if (code === 0 && kind === "code") {
         functional.status === "passed" ? "succeeded" : "failed",
       );
       await observe("run", "execution", "finished", "succeeded");
-    } catch {
+    } catch (error) {
+      await writeFile(
+        resolve(dir, "functional.json"),
+        JSON.stringify({
+          schema: "agent-city.function-check.v1",
+          status: "unavailable",
+          codeExecuted: null,
+          cases: [],
+          reason: "Isolated function checker did not return verified results",
+          diagnostic: (error instanceof Error
+            ? error.message
+            : String(error)
+          ).slice(0, 4096),
+        }),
+        { mode: 0o600 },
+      );
       validation = {
         ...validation,
         functionalTests: "unavailable",
         codeExecuted: null,
       };
-      await observe("function-suite", "evaluation", "finished", "failed");
+      await observe("function-suite", "evaluation", "finished", "unknown");
       await observe("run", "execution", "finished", "failed");
     }
   }
