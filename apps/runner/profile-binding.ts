@@ -1,8 +1,12 @@
 import { readFile, stat } from "node:fs/promises";
 import { createHash } from "node:crypto";
 import type { ImportedProfile, AgentCatalog } from "./agent-catalog";
+import { validateWebopsInput, type WebopsInput } from "./webops-report";
 const hash = (text: string) => createHash("sha256").update(text).digest("hex");
-export function profileAvailability(profile: ImportedProfile) {
+export function profileAvailability(
+  profile: ImportedProfile,
+  webops?: WebopsInput,
+) {
   const modes = ["OBSERVE", "PROPOSE", "ACT"];
   if (
     !modes.includes(profile.permissions.minimum) ||
@@ -14,7 +18,14 @@ export function profileAvailability(profile: ImportedProfile) {
       available: false,
       reason: "This profile does not permit a PROPOSE draft/review run.",
     };
-  if (profile.capabilities.required.length)
+  const suppliedWebsite =
+    webops && profile.sourceId === "webops.webops-reporter";
+  if (suppliedWebsite) validateWebopsInput(webops);
+  if (
+    profile.capabilities.required.some(
+      (cap) => !(suppliedWebsite && cap === "website"),
+    )
+  )
     return {
       available: false,
       reason: `Required capabilities not connected: ${profile.capabilities.required.join(", ")}`,
@@ -29,6 +40,7 @@ export interface ProfileBinding {
   schema: "agent-city.profile-binding.v1";
   adapter: "draft-review/v1";
   mode: "PROPOSE";
+  webops?: WebopsInput;
   author: ImportedProfile;
   reviewer: ImportedProfile;
 }
@@ -41,12 +53,20 @@ export function validateBinding(value: unknown): ProfileBinding {
     binding.mode !== "PROPOSE"
   )
     throw Error("Invalid profile binding");
+  if (binding.webops) {
+    validateWebopsInput(binding.webops);
+    if (binding.author?.sourceId !== "webops.webops-reporter")
+      throw Error("WebOps workflow requires its exact reporter profile");
+  }
   for (const profile of [binding.author, binding.reviewer]) {
     if (
       !profile ||
       !profile.id?.startsWith("kujolang/kujo-agents:") ||
       profile.id !== `kujolang/kujo-agents:${profile.sourceId}` ||
-      !profileAvailability(profile).available
+      !profileAvailability(
+        profile,
+        profile === binding.author ? binding.webops : undefined,
+      ).available
     )
       throw Error("Profile permission or required capability is unavailable");
     if (
@@ -61,7 +81,11 @@ export function validateBinding(value: unknown): ProfileBinding {
     throw Error("Selected contracts exceed mission context limit");
   return binding;
 }
-export async function selectProfiles(file: string, selection: unknown) {
+export async function selectProfiles(
+  file: string,
+  selection: unknown,
+  webops?: WebopsInput,
+) {
   const picked = selection as { authorId?: string; reviewerId?: string };
   if (
     !picked ||
@@ -78,6 +102,7 @@ export async function selectProfiles(file: string, selection: unknown) {
     schema: "agent-city.profile-binding.v1",
     adapter: "draft-review/v1",
     mode: "PROPOSE",
+    ...(webops ? { webops: validateWebopsInput(webops) } : {}),
     author: catalog.profiles.find((p) => p.id === picked.authorId),
     reviewer: catalog.profiles.find((p) => p.id === picked.reviewerId),
   });
@@ -91,6 +116,7 @@ export function bindingMetadata(binding: ProfileBinding) {
   return {
     adapter: binding.adapter,
     mode: binding.mode,
+    ...(binding.webops ? { workflow: "webops-report" } : {}),
     author: {
       id: binding.author.id,
       name: binding.author.name,
@@ -116,6 +142,17 @@ export function validateProfileMission(
   },
 ) {
   validateBinding(binding);
+  if (
+    binding.webops &&
+    (request.kind !== "writing" ||
+      request.useLocalDocs ||
+      request.useMcpDocs ||
+      request.mcpReadFiles?.length ||
+      request.functionContract !== undefined)
+  )
+    throw Error(
+      "WebOps reporting accepts supplied evidence only; no documentation/tool execution grants",
+    );
   // These are user-authorized platform checks of the saved artifact, not a tool
   // granted to either PROPOSE profile. The checker has its own observed identity.
   if (request.functionContract !== undefined && request.kind !== "code")

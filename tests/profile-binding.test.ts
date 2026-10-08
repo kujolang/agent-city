@@ -93,3 +93,32 @@ test("documentation needs author permission; platform checks require explicit co
     validateProfileMission(value, { kind: "writing", functionContract: {} }),
   ).toThrow("code mission");
 });
+
+test("WebOps capability admission is exact-profile and supplied-evidence only", () => {
+  const webops = {
+    schema: "agent-city.webops-evidence.v1" as const,
+    site: { id: "site", url: "https://example.com" },
+    records: [
+      {
+        id: "f1",
+        source: "audit",
+        observedAt: "2026-10-08T00:00:00Z",
+        kind: "finding" as const,
+        summary: "Supplied finding",
+      },
+    ],
+    unavailable: ["analytics"],
+  };
+  const value = { ...binding(), webops };
+  value.author = profile("webops.webops-reporter");
+  value.author.capabilities.required = ["website"];
+  expect(profileAvailability(value.author).available).toBe(false);
+  expect(validateBinding(value).webops).toEqual(webops);
+  expect(() =>
+    validateProfileMission(value as any, { kind: "writing", useMcpDocs: true }),
+  ).toThrow("supplied evidence");
+  value.author.capabilities.required.push("crawler");
+  expect(() => validateBinding(value)).toThrow("unavailable");
+  value.author = profile("impostor");
+  expect(() => validateBinding(value)).toThrow("exact reporter");
+});
