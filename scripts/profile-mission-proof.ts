@@ -173,6 +173,7 @@ try {
   const final = await until(
     async () => (await fetch(base + "/control/status")).json(),
     (s) =>
+      !s.busy &&
       s.jobs.some((j: any) => j.id === accepted.id && j.status !== "running"),
     240000,
   );
@@ -257,6 +258,7 @@ try {
     const resumedStatus = await until(
       async () => (await fetch(base + "/control/status")).json(),
       (s) =>
+        !s.busy &&
         s.jobs.some((j: any) => j.id === resumed.id && j.status !== "running"),
     );
     assert.equal(
@@ -297,10 +299,11 @@ try {
       parentMissionId: job.id,
     });
     const rejected = await rejectedResponse.json();
-    assert.equal(rejectedResponse.status, 202);
+    assert.equal(rejectedResponse.status, 202, JSON.stringify(rejected));
     const rejectedStatus = await until(
       async () => (await fetch(base + "/control/status")).json(),
       (s) =>
+        !s.busy &&
         s.jobs.some((j: any) => j.id === rejected.id && j.status !== "running"),
     );
     assert.equal(
