@@ -1,0 +1,70 @@
+{
+  "scope": "Actual SDK Editor consuming verified real preparation; rendering and review not established",
+  "upstreamRun": "videoops-preparation-1791472748655",
+  "model": "codex-cli-default",
+  "underlyingModel": "UNKNOWN",
+  "result": {
+    "directory": "/Users/robertdevore/2026/Kujolang/kujo-repos/agent-city/.runtime/videoops-model-1791472740930/production/.city-hyperframes-editor-2",
+    "artifact": {
+      "directory": "/Users/robertdevore/2026/Kujolang/kujo-repos/agent-city/.runtime/videoops-model-1791472740930/production/.videoops/attempts/hyperframes-editor/2/artifacts",
+      "receipt": {
+        "schema": "agent-city.videoops-artifact-receipt.v1",
+        "stage": "hyperframes-editor",
+        "attempt": 2,
+        "execution": "videoops-model-1791472748655:videoops-preparation-1791472748655-hyperframes-editor:hyperframes-editor",
+        "status": "stored",
+        "validation": "paths-bytes-json-only",
+        "productionApproval": "NOT_ESTABLISHED",
+        "artifacts": [
+          {
+            "path": "production/hyperframes/index.html",
+            "bytes": 3365,
+            "sha256": "2c7dbeddd11ce950696955b92b891fba6b2db3d0e5971d74c3f81ad6f7734022"
+          },
+          {
+            "path": "production/production-notes.md",
+            "bytes": 2554,
+            "sha256": "f35218ac6ee1676acab06dd968972f97996d0e05a61399b2a65c1a9ff2906614"
+          }
+        ]
+      }
+    },
+    "receipt": {
+      "schema": "agent-city.videoops-stage-receipt.v1",
+      "stage": "hyperframes-editor",
+      "attempt": 2,
+      "profile": "kujolang/kujo-agents:videoops.hyperframes-editor",
+      "run": "videoops-preparation-1791472748655-hyperframes-editor",
+      "task": "videoops-title-card",
+      "status": "artifacts-stored",
+      "reason": null,
+      "model": "codex-cli-default",
+      "underlyingModel": "UNKNOWN",
+      "code": 0,
+      "timedOut": false,
+      "artifact": {
+        "schema": "agent-city.videoops-artifact-receipt.v1",
+        "stage": "hyperframes-editor",
+        "attempt": 2,
+        "execution": "videoops-model-1791472748655:videoops-preparation-1791472748655-hyperframes-editor:hyperframes-editor",
+        "status": "stored",
+        "validation": "paths-bytes-json-only",
+        "productionApproval": "NOT_ESTABLISHED",
+        "artifacts": [
+          {
+            "path": "production/hyperframes/index.html",
+            "bytes": 3365,
+            "sha256": "2c7dbeddd11ce950696955b92b891fba6b2db3d0e5971d74c3f81ad6f7734022"
+          },
+          {
+            "path": "production/production-notes.md",
+            "bytes": 2554,
+            "sha256": "f35218ac6ee1676acab06dd968972f97996d0e05a61399b2a65c1a9ff2906614"
+          }
+        ]
+      },
+      "productionApproval": "NOT_ESTABLISHED"
+    }
+  },
+  "servicesRetained": false
+}

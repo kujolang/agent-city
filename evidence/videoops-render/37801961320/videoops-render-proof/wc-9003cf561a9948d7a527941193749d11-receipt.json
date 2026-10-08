@@ -1,0 +1,307 @@
+{
+  "artifact_bytes": 0,
+  "artifact_files": 0,
+  "cancelled": false,
+  "change_report_path": "/home/runner/work/_temp/city/agent-city/.runtime/videoops-render-1791473768092/render-1/workcell-source/.workcell/runs/wc-9003cf561a9948d7a527941193749d11/changes.json",
+  "changed_files": [
+    "output/render-failure.json",
+    "production/hyperframes/gsap.min.js"
+  ],
+  "cleanup_status": "complete",
+  "command": [
+    "node",
+    "/opt/agent-city-videoops/render.mjs"
+  ],
+  "container_image": "sha256:5026e0c67d2bd0dd46b3a4ca3bdfadcd0d0091096fdf5a821400dd2aad7b41cb",
+  "container_image_digest": "sha256:5026e0c67d2bd0dd46b3a4ca3bdfadcd0d0091096fdf5a821400dd2aad7b41cb",
+  "container_image_digest_source": "image_id",
+  "container_image_id": "sha256:5026e0c67d2bd0dd46b3a4ca3bdfadcd0d0091096fdf5a821400dd2aad7b41cb",
+  "container_image_labels": {},
+  "container_image_platform": "linux/amd64",
+  "container_name": "kujo-workcell-wc-9003cf561a9948d7a527941193749d11",
+  "definition_version": 1,
+  "effective_security_policy": {
+    "artifact_export_boundary": "host output directory only",
+    "capabilities_dropped": "ALL",
+    "devices": false,
+    "docker_socket": false,
+    "host_home_mount": false,
+    "host_ipc": false,
+    "host_pid": false,
+    "host_root_mount": false,
+    "host_user_namespace": false,
+    "network_mode": "none",
+    "network_policy": {
+      "configured_egress": {
+        "dns": "blocked",
+        "enforcement_profile": "none",
+        "policy": "deny-by-default",
+        "proxy": "none"
+      },
+      "egress": {
+        "dns": "blocked",
+        "enforcement_profile": "none",
+        "policy": "deny-by-default",
+        "proxy": "none"
+      },
+      "enforcement_profile": "none",
+      "mode": "none",
+      "name": "",
+      "warnings": []
+    },
+    "no_new_privileges": true,
+    "non_root_user": "1001:1001",
+    "privileged": false,
+    "read_only_root": true,
+    "workspace_identity": "host",
+    "workspace_mount": "/workspace:rw"
+  },
+  "elapsed": 1076,
+  "elapsed_ms": 1076,
+  "end_time": "2026-10-08T15:36:09Z",
+  "errors": [
+    {
+      "message": "container exited with code 1",
+      "stage": "running"
+    },
+    {
+      "message": "verification checks skipped because the workload failed",
+      "stage": "verifying"
+    },
+    {
+      "message": "declared artifact does not exist: output/draft.mp4",
+      "stage": "exporting"
+    }
+  ],
+  "execution_result": {
+    "attempt": 1,
+    "classification": "execution_failure",
+    "effects": [
+      {
+        "class": "local_reversible",
+        "effect_id": "effect_594f6fb63fa6b8b16b498b1f",
+        "enforced_by": null,
+        "idempotency_key": null,
+        "state": "committed"
+      }
+    ],
+    "evidence": [
+      {
+        "$ref": "receipt.json"
+      },
+      {
+        "$ref": "stdout.log"
+      },
+      {
+        "$ref": "stderr.log"
+      },
+      {
+        "$ref": "changes.patch"
+      },
+      {
+        "$ref": "changes.json"
+      },
+      {
+        "$ref": "preservation.json"
+      }
+    ],
+    "finished_at": "2026-10-08T15:36:09Z",
+    "producer": {
+      "name": "workcell",
+      "version": "1.2.0"
+    },
+    "reexecution_descriptor_ref": "reexecution.json",
+    "result_id": "xr_e2934eff6d68abae31f0be62",
+    "retry": {
+      "disposition": "automatic",
+      "reason": "Execution was restricted to the disposable local workspace."
+    },
+    "schema": "kujo.execution-result/v1",
+    "started_at": "2026-10-08T15:36:08Z",
+    "status": "failure",
+    "subject": {
+      "attempt_id": "attempt-1",
+      "run_id": "wc-9003cf561a9948d7a527941193749d11",
+      "step_id": "workflow"
+    },
+    "warnings": [
+      "Workcell controls execution admission and evidence; it does not roll back external effects."
+    ]
+  },
+  "execution_result_path": "execution-result.json",
+  "exit_code": 1,
+  "exported_artifacts": [],
+  "final_status": "workload-failed",
+  "image_provenance_policy": {
+    "registry_allowlist": [],
+    "require_digest": false,
+    "require_signature": false
+  },
+  "integration_status": "passed",
+  "integrations": [
+    {
+      "enabled": false,
+      "name": "runledger",
+      "ok": true,
+      "report_path": null,
+      "schema_version": "workcell-integration/v1",
+      "status": "disabled"
+    },
+    {
+      "enabled": false,
+      "name": "changebucket",
+      "ok": true,
+      "report_path": null,
+      "schema_version": "workcell-integration/v1",
+      "status": "disabled"
+    },
+    {
+      "enabled": false,
+      "name": "shipcheck",
+      "ok": true,
+      "report_path": null,
+      "schema_version": "workcell-integration/v1",
+      "status": "disabled"
+    },
+    {
+      "enabled": false,
+      "name": "fence",
+      "ok": true,
+      "report_path": null,
+      "schema_version": "workcell-integration/v1",
+      "status": "disabled"
+    },
+    {
+      "enabled": false,
+      "name": "packwrite",
+      "ok": true,
+      "report_path": null,
+      "schema_version": "workcell-integration/v1",
+      "status": "disabled"
+    },
+    {
+      "enabled": false,
+      "name": "muzzle",
+      "ok": true,
+      "report_path": null,
+      "schema_version": "workcell-integration/v1",
+      "status": "disabled"
+    }
+  ],
+  "lifecycle": [
+    "created",
+    "validated",
+    "preparing",
+    "prepared",
+    "starting",
+    "running",
+    "collecting",
+    "verifying",
+    "exporting",
+    "failed",
+    "cleaning",
+    "cleaned"
+  ],
+  "logs_path": "/home/runner/work/_temp/city/agent-city/.runtime/videoops-render-1791473768092/render-1/workcell-source/.workcell/runs/wc-9003cf561a9948d7a527941193749d11",
+  "manifest_path": "manifest.json",
+  "manifest_schema_version": "workcell-manifest/v1",
+  "mounts": [
+    "/home/runner/work/_temp/city/agent-city/.runtime/videoops-render-1791473768092/render-1/scratch/kujo-workcell-wc-9003cf561a9948d7a527941193749d11:/workspace:rw"
+  ],
+  "network_mode": "none",
+  "network_policy": {
+    "configured_egress": {
+      "dns": "blocked",
+      "enforcement_profile": "none",
+      "policy": "deny-by-default",
+      "proxy": "none"
+    },
+    "egress": {
+      "dns": "blocked",
+      "enforcement_profile": "none",
+      "policy": "deny-by-default",
+      "proxy": "none"
+    },
+    "enforcement_profile": "none",
+    "mode": "none",
+    "name": "",
+    "warnings": []
+  },
+  "patch_bytes": 78527,
+  "patch_path": "/home/runner/work/_temp/city/agent-city/.runtime/videoops-render-1791473768092/render-1/workcell-source/.workcell/runs/wc-9003cf561a9948d7a527941193749d11/changes.patch",
+  "preservation": {
+    "actual_mode": "none",
+    "cleanup": {
+      "handle": "/home/runner/work/_temp/city/agent-city/.runtime/videoops-render-1791473768092/render-1/scratch/kujo-workcell-wc-9003cf561a9948d7a527941193749d11",
+      "owner": "workcell-clean",
+      "source_root": "/home/runner/work/_temp/city/agent-city/.runtime/videoops-render-1791473768092/render-1/workcell-source",
+      "strategy": "git-worktree"
+    },
+    "created_at": "2026-10-08T15:36:09Z",
+    "evidence": [
+      {
+        "$ref": "receipt.json"
+      },
+      {
+        "$ref": "stdout.log"
+      },
+      {
+        "$ref": "stderr.log"
+      },
+      {
+        "$ref": "changes.patch"
+      },
+      {
+        "$ref": "changes.json"
+      }
+    ],
+    "limitations": [],
+    "provider": {
+      "name": "docker",
+      "workspace_id": "/home/runner/work/_temp/city/agent-city/.runtime/videoops-render-1791473768092/render-1/scratch/kujo-workcell-wc-9003cf561a9948d7a527941193749d11"
+    },
+    "reconstructability": "none",
+    "requested_mode": "none",
+    "result_id": "po_16cbfb8de4de05140566f89d",
+    "schema": "kujo.preservation-outcome/v1",
+    "status": "satisfied",
+    "subject": {
+      "attempt_id": "attempt-1",
+      "run_id": "wc-9003cf561a9948d7a527941193749d11",
+      "step_id": "workflow"
+    }
+  },
+  "preservation_path": "preservation.json",
+  "reexecution_descriptor_path": "reexecution.json",
+  "resource_limits": {
+    "cpus": 2,
+    "max_output_bytes": 4000000,
+    "memory": "4g",
+    "pids": 512,
+    "timeout_ms": 300000
+  },
+  "run_id": "wc-9003cf561a9948d7a527941193749d11",
+  "runtime_backend": "docker",
+  "schema_version": "workcell-receipt/v1",
+  "secret_names": [],
+  "source_commit": "d5eca8f890ba78aca39d99f5c1f619227f1e5ff4",
+  "source_repository": "/home/runner/work/_temp/city/agent-city/.runtime/videoops-render-1791473768092/render-1/workcell-source",
+  "start_time": "2026-10-08T15:36:08Z",
+  "stderr_truncated": false,
+  "stdout_truncated": false,
+  "timeout": false,
+  "verification": {
+    "artifacts_exported": false,
+    "checks": [],
+    "cleanup_succeeded": true,
+    "execution_succeeded": false,
+    "verification_succeeded": false
+  },
+  "warnings": [],
+  "workcell_definition_hash": "a12e3b16100a546e51f7bc21ad6fed19fe8aa71341b9b21188a76410d9721273",
+  "workcell_definition_path": "/home/runner/work/_temp/city/agent-city/.runtime/videoops-render-1791473768092/render-1/workcell-definition.json",
+  "workcell_name": "agent-city-workcell",
+  "workcell_version": "1.2.0",
+  "workspace_path": "/home/runner/work/_temp/city/agent-city/.runtime/videoops-render-1791473768092/render-1/scratch/kujo-workcell-wc-9003cf561a9948d7a527941193749d11",
+  "workspace_strategy": "git-worktree"
+}

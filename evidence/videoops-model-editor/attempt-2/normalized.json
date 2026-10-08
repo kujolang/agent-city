@@ -1,0 +1,866 @@
+[
+  {
+    "schema": "agent-city.event.v1",
+    "eventId": "bab4e0859bfc0619c227dbb27206aec4fcf90c217e6e8ee8f4422aec7fb690de",
+    "workspace": "local-agent-city",
+    "source": "videoops-model-1791472748655",
+    "order": 1,
+    "occurredAt": 1791472748932,
+    "observedAt": 1791472749341,
+    "completeness": "complete",
+    "type": "operation.started",
+    "instance": "videoops-model-1791472748655:videoops-preparation-1791472748655-creative-director:creative-director",
+    "profile": "kujolang/kujo-agents:videoops.creative-director",
+    "run": {
+      "namespace": "videoops-model-1791472748655",
+      "id": "videoops-preparation-1791472748655-creative-director"
+    },
+    "task": {
+      "namespace": "dispatch",
+      "id": "videoops-title-card"
+    },
+    "operation": {
+      "id": "run",
+      "attempt": 1,
+      "capability": "agent.run",
+      "collection": "unknown",
+      "relatedAgent": "",
+      "outcome": "unset",
+      "metadata": {}
+    },
+    "evidence": [
+      {
+        "origin": "canonical",
+        "recordId": "native:agent-city-sdk:006d488137f7a6243618fc516b08059de7b7915223d562f9ff43d55d0401a578",
+        "hash": "179c12c48aca98581595754f2e1856fc83ecac033d86e2cbba40e3e538e213ab",
+        "sourceSequence": 1
+      }
+    ]
+  },
+  {
+    "schema": "agent-city.event.v1",
+    "eventId": "0947bc9806bee0abf86ae3ae559522e595ce147e81a73aab8342e4f2e7fbca92",
+    "workspace": "local-agent-city",
+    "source": "videoops-model-1791472748655",
+    "order": 2,
+    "occurredAt": 1791472780552,
+    "observedAt": 1791472780750,
+    "completeness": "complete",
+    "type": "operation.finished",
+    "instance": "videoops-model-1791472748655:videoops-preparation-1791472748655-creative-director:creative-director",
+    "profile": "kujolang/kujo-agents:videoops.creative-director",
+    "run": {
+      "namespace": "videoops-model-1791472748655",
+      "id": "videoops-preparation-1791472748655-creative-director"
+    },
+    "task": {
+      "namespace": "dispatch",
+      "id": "videoops-title-card"
+    },
+    "operation": {
+      "id": "run",
+      "attempt": 1,
+      "capability": "agent.run",
+      "collection": "unknown",
+      "relatedAgent": "",
+      "outcome": "succeeded",
+      "metadata": {}
+    },
+    "evidence": [
+      {
+        "origin": "canonical",
+        "recordId": "native:agent-city-sdk:f9c2cb7a48c8c07355431e9b48bfacde33679a4ee2b707fa2b2cdf4887e4ed4a",
+        "hash": "d1d6e4c26a8e7d0796c4cbbf5079065625929ed4c55a0e90c6c61652a29122ac",
+        "sourceSequence": 2
+      }
+    ]
+  },
+  {
+    "schema": "agent-city.event.v1",
+    "eventId": "b55932133f1c11372b8c055fc72b77e97d40c5c2ae50cce42af027bdac48b248",
+    "workspace": "local-agent-city",
+    "source": "videoops-model-1791472748655",
+    "order": 3,
+    "occurredAt": 1791472780569,
+    "observedAt": 1791472780751,
+    "completeness": "complete",
+    "type": "operation.started",
+    "instance": "videoops-model-1791472748655:videoops-preparation-1791472748655-creative-director:videoops-checker",
+    "profile": "city-videoops-checker",
+    "run": {
+      "namespace": "videoops-model-1791472748655",
+      "id": "videoops-preparation-1791472748655-creative-director"
+    },
+    "task": {
+      "namespace": "dispatch",
+      "id": "videoops-title-card"
+    },
+    "operation": {
+      "id": "creative-director-artifact-contract-1",
+      "attempt": 1,
+      "capability": "evaluation.run",
+      "collection": "unknown",
+      "relatedAgent": "",
+      "outcome": "unset",
+      "metadata": {
+        "tool": "city.videoops-artifact-contract"
+      }
+    },
+    "evidence": [
+      {
+        "origin": "canonical",
+        "recordId": "native:agent-city-sdk:9fab98c6a179aa6daf224bee589ef47c2e8fcc12857a4851f08f264738656b1c",
+        "hash": "bb05ed3d5e8e014e66e38ebe1bb695ae0e3bb636f2d4ef8e4054cdefd2cb67fb",
+        "sourceSequence": 3
+      }
+    ]
+  },
+  {
+    "schema": "agent-city.event.v1",
+    "eventId": "8bd332b70e39bc3f0f95eca50004ce34997d936ec2619dc3073036c3a8dd96f1",
+    "workspace": "local-agent-city",
+    "source": "videoops-model-1791472748655",
+    "order": 4,
+    "occurredAt": 1791472780578,
+    "observedAt": 1791472781016,
+    "completeness": "complete",
+    "type": "operation.finished",
+    "instance": "videoops-model-1791472748655:videoops-preparation-1791472748655-creative-director:videoops-checker",
+    "profile": "city-videoops-checker",
+    "run": {
+      "namespace": "videoops-model-1791472748655",
+      "id": "videoops-preparation-1791472748655-creative-director"
+    },
+    "task": {
+      "namespace": "dispatch",
+      "id": "videoops-title-card"
+    },
+    "operation": {
+      "id": "creative-director-artifact-contract-1",
+      "attempt": 1,
+      "capability": "evaluation.run",
+      "collection": "unknown",
+      "relatedAgent": "",
+      "outcome": "succeeded",
+      "metadata": {
+        "tool": "city.videoops-artifact-contract"
+      }
+    },
+    "evidence": [
+      {
+        "origin": "canonical",
+        "recordId": "native:agent-city-sdk:07e0ca0a8b4271ad8f6f97497c6bd5f53635aaafad414c76f5fba329898e742e",
+        "hash": "3ef6f1afbf4223261828b676227bcb1f37007798a679a215571aac7449331977",
+        "sourceSequence": 4
+      }
+    ]
+  },
+  {
+    "schema": "agent-city.event.v1",
+    "eventId": "f6607c106638aae51fedf98c2fe116b3d4b25aba781b41f00e00d38ba92974bf",
+    "workspace": "local-agent-city",
+    "source": "videoops-model-1791472748655",
+    "order": 5,
+    "occurredAt": 1791472780579,
+    "observedAt": 1791472781016,
+    "completeness": "complete",
+    "type": "operation.started",
+    "instance": "videoops-model-1791472748655:videoops-preparation-1791472748655:videoops-gate",
+    "profile": "city-videoops-checker",
+    "run": {
+      "namespace": "videoops-model-1791472748655",
+      "id": "videoops-preparation-1791472748655"
+    },
+    "task": {
+      "namespace": "dispatch",
+      "id": "videoops-title-card"
+    },
+    "operation": {
+      "id": "creative-director-handoff-gate-1",
+      "attempt": 1,
+      "capability": "evaluation.run",
+      "collection": "unknown",
+      "relatedAgent": "",
+      "outcome": "unset",
+      "metadata": {
+        "tool": "city.videoops-stage-gate"
+      }
+    },
+    "evidence": [
+      {
+        "origin": "canonical",
+        "recordId": "native:agent-city-sdk:f41a3c1f8638dc9c33239df90d7f3f1cfc599b3d273874c32c2575b3a4213de2",
+        "hash": "385735e5d43c18756088fcd0dd6c130b155f7d11b213927df08052d7321168e2",
+        "sourceSequence": 5
+      }
+    ]
+  },
+  {
+    "schema": "agent-city.event.v1",
+    "eventId": "258284de231b07bd13f4cf6d2aeaff7918c97a6f91b3268d2565a8362eb5851d",
+    "workspace": "local-agent-city",
+    "source": "videoops-model-1791472748655",
+    "order": 6,
+    "occurredAt": 1791472780584,
+    "observedAt": 1791472781016,
+    "completeness": "complete",
+    "type": "operation.finished",
+    "instance": "videoops-model-1791472748655:videoops-preparation-1791472748655:videoops-gate",
+    "profile": "city-videoops-checker",
+    "run": {
+      "namespace": "videoops-model-1791472748655",
+      "id": "videoops-preparation-1791472748655"
+    },
+    "task": {
+      "namespace": "dispatch",
+      "id": "videoops-title-card"
+    },
+    "operation": {
+      "id": "creative-director-handoff-gate-1",
+      "attempt": 1,
+      "capability": "evaluation.run",
+      "collection": "unknown",
+      "relatedAgent": "",
+      "outcome": "succeeded",
+      "metadata": {
+        "tool": "city.videoops-stage-gate"
+      }
+    },
+    "evidence": [
+      {
+        "origin": "canonical",
+        "recordId": "native:agent-city-sdk:c9b27823aaa7cfb8cd1adba2439004546013d6bfd2e015dc751a908b9afcb7a4",
+        "hash": "46bc6c5a81134ad9c36f36c6b241be7988a7b19600de03c0cee1ae3c7a4ab377",
+        "sourceSequence": 6
+      }
+    ]
+  },
+  {
+    "schema": "agent-city.event.v1",
+    "eventId": "6aa9791304961fecf902d38700c2a2e6898a1db25740656f0d897970ea88cf1f",
+    "workspace": "local-agent-city",
+    "source": "videoops-model-1791472748655",
+    "order": 7,
+    "occurredAt": 1791472780586,
+    "observedAt": 1791472781344,
+    "completeness": "complete",
+    "type": "operation.started",
+    "instance": "videoops-model-1791472748655:videoops-preparation-1791472748655-creative-director:creative-director",
+    "profile": "kujolang/kujo-agents:videoops.creative-director",
+    "run": {
+      "namespace": "videoops-model-1791472748655",
+      "id": "videoops-preparation-1791472748655-creative-director"
+    },
+    "task": {
+      "namespace": "dispatch",
+      "id": "videoops-title-card"
+    },
+    "operation": {
+      "id": "handoff-asset-scout",
+      "attempt": 1,
+      "capability": "agent.handoff",
+      "collection": "unknown",
+      "relatedAgent": "",
+      "outcome": "unset",
+      "metadata": {
+        "relatedInstance": "videoops-model-1791472748655:videoops-preparation-1791472748655-asset-scout:asset-scout"
+      }
+    },
+    "evidence": [
+      {
+        "origin": "canonical",
+        "recordId": "native:agent-city-sdk:750d9dbaa57c005a0fc4845906868cf32682f2b53d45357eb5388bbe69199cf0",
+        "hash": "041628aa90134f3eb59dde9245e4bc9d1f4830a6af77c57b2615d0ca8023dfde",
+        "sourceSequence": 7
+      }
+    ]
+  },
+  {
+    "schema": "agent-city.event.v1",
+    "eventId": "11d147047552fb43e7c91de2294c6233a89aba62e6c1eb55aaedb7d28fdcf3d6",
+    "workspace": "local-agent-city",
+    "source": "videoops-model-1791472748655",
+    "order": 8,
+    "occurredAt": 1791472780819,
+    "observedAt": 1791472781344,
+    "completeness": "complete",
+    "type": "operation.started",
+    "instance": "videoops-model-1791472748655:videoops-preparation-1791472748655-asset-scout:asset-scout",
+    "profile": "kujolang/kujo-agents:videoops.asset-scout",
+    "run": {
+      "namespace": "videoops-model-1791472748655",
+      "id": "videoops-preparation-1791472748655-asset-scout"
+    },
+    "task": {
+      "namespace": "dispatch",
+      "id": "videoops-title-card"
+    },
+    "operation": {
+      "id": "run",
+      "attempt": 1,
+      "capability": "agent.run",
+      "collection": "unknown",
+      "relatedAgent": "",
+      "outcome": "unset",
+      "metadata": {}
+    },
+    "evidence": [
+      {
+        "origin": "canonical",
+        "recordId": "native:agent-city-sdk:27c2ae26e5fe11abc2b0285966261cd4e85d21606363ae29c0b549352b33d2fb",
+        "hash": "1f322d0299d9cd12cee867c4131f6b34e8234e1a52ddec7a3786c7eee85252cf",
+        "sourceSequence": 8
+      }
+    ]
+  },
+  {
+    "schema": "agent-city.event.v1",
+    "eventId": "96680ce33b9ff5611cbbfd20c3e88526e14acd87fe8b4e6280bfb41219974c1f",
+    "workspace": "local-agent-city",
+    "source": "videoops-model-1791472748655",
+    "order": 11,
+    "occurredAt": 1791472793402,
+    "observedAt": 1791473089903,
+    "completeness": "complete",
+    "type": "operation.finished",
+    "instance": "videoops-model-1791472748655:videoops-preparation-1791472748655-asset-scout:asset-scout",
+    "profile": "kujolang/kujo-agents:videoops.asset-scout",
+    "run": {
+      "namespace": "videoops-model-1791472748655",
+      "id": "videoops-preparation-1791472748655-asset-scout"
+    },
+    "task": {
+      "namespace": "dispatch",
+      "id": "videoops-title-card"
+    },
+    "operation": {
+      "id": "run",
+      "attempt": 1,
+      "capability": "agent.run",
+      "collection": "unknown",
+      "relatedAgent": "",
+      "outcome": "succeeded",
+      "metadata": {}
+    },
+    "evidence": [
+      {
+        "origin": "canonical",
+        "recordId": "native:agent-city-sdk:6f5f31e72b66b7f0e9bf874b879cc290917c6e64230e1e8a162440abf63e4312",
+        "hash": "eedf71f3c5f2fe0060add0cda69149be5c7cc3f296e59311805863120f32d169",
+        "sourceSequence": 9
+      }
+    ]
+  },
+  {
+    "schema": "agent-city.event.v1",
+    "eventId": "0a7f8e356dd1e19d6989483d7c612acdc14bc93c65bb75dc076cdff3e420a363",
+    "workspace": "local-agent-city",
+    "source": "videoops-model-1791472748655",
+    "order": 12,
+    "occurredAt": 1791472793425,
+    "observedAt": 1791473089920,
+    "completeness": "complete",
+    "type": "operation.started",
+    "instance": "videoops-model-1791472748655:videoops-preparation-1791472748655-asset-scout:videoops-checker",
+    "profile": "city-videoops-checker",
+    "run": {
+      "namespace": "videoops-model-1791472748655",
+      "id": "videoops-preparation-1791472748655-asset-scout"
+    },
+    "task": {
+      "namespace": "dispatch",
+      "id": "videoops-title-card"
+    },
+    "operation": {
+      "id": "asset-scout-artifact-contract-1",
+      "attempt": 1,
+      "capability": "evaluation.run",
+      "collection": "unknown",
+      "relatedAgent": "",
+      "outcome": "unset",
+      "metadata": {
+        "tool": "city.videoops-artifact-contract"
+      }
+    },
+    "evidence": [
+      {
+        "origin": "canonical",
+        "recordId": "native:agent-city-sdk:b1c746ee78342acde1b4158915156518e7229335f152c21fd80aad23f0e8e508",
+        "hash": "b6d8b899c364e7768e14ce29c71bc4f5104097895f9fc89b9ccc501319ada644",
+        "sourceSequence": 10
+      }
+    ]
+  },
+  {
+    "schema": "agent-city.event.v1",
+    "eventId": "1dff398ef98b12a98df6b48dd0191ca41080ab1ce24cd7b56fb553199fb27db4",
+    "workspace": "local-agent-city",
+    "source": "videoops-model-1791472748655",
+    "order": 13,
+    "occurredAt": 1791472793430,
+    "observedAt": 1791473089923,
+    "completeness": "complete",
+    "type": "operation.finished",
+    "instance": "videoops-model-1791472748655:videoops-preparation-1791472748655-asset-scout:videoops-checker",
+    "profile": "city-videoops-checker",
+    "run": {
+      "namespace": "videoops-model-1791472748655",
+      "id": "videoops-preparation-1791472748655-asset-scout"
+    },
+    "task": {
+      "namespace": "dispatch",
+      "id": "videoops-title-card"
+    },
+    "operation": {
+      "id": "asset-scout-artifact-contract-1",
+      "attempt": 1,
+      "capability": "evaluation.run",
+      "collection": "unknown",
+      "relatedAgent": "",
+      "outcome": "succeeded",
+      "metadata": {
+        "tool": "city.videoops-artifact-contract"
+      }
+    },
+    "evidence": [
+      {
+        "origin": "canonical",
+        "recordId": "native:agent-city-sdk:532fe294a2ee796f3d52b7787d4e856837f772e88a68cc90366918026d053248",
+        "hash": "81b4b816fc44815351c3e6178be29e1dbc58f980949092350ed00b3174a38b1f",
+        "sourceSequence": 11
+      }
+    ]
+  },
+  {
+    "schema": "agent-city.event.v1",
+    "eventId": "a1f923cd815fc235f27f9f127b306c5969071cfd322bccc53fcb3a70df3e59e1",
+    "workspace": "local-agent-city",
+    "source": "videoops-model-1791472748655",
+    "order": 14,
+    "occurredAt": 1791472793431,
+    "observedAt": 1791473089923,
+    "completeness": "complete",
+    "type": "operation.started",
+    "instance": "videoops-model-1791472748655:videoops-preparation-1791472748655:videoops-gate",
+    "profile": "city-videoops-checker",
+    "run": {
+      "namespace": "videoops-model-1791472748655",
+      "id": "videoops-preparation-1791472748655"
+    },
+    "task": {
+      "namespace": "dispatch",
+      "id": "videoops-title-card"
+    },
+    "operation": {
+      "id": "asset-scout-handoff-gate-1",
+      "attempt": 1,
+      "capability": "evaluation.run",
+      "collection": "unknown",
+      "relatedAgent": "",
+      "outcome": "unset",
+      "metadata": {
+        "tool": "city.videoops-stage-gate"
+      }
+    },
+    "evidence": [
+      {
+        "origin": "canonical",
+        "recordId": "native:agent-city-sdk:7d30fbad7a2f310931ab86670be732878a0b21825a57e6bdd92ae3230910f700",
+        "hash": "60a4ebc627142e19bd03022cedc3b615bd14ba3c7448e5ecf8345ec4cb672392",
+        "sourceSequence": 12
+      }
+    ]
+  },
+  {
+    "schema": "agent-city.event.v1",
+    "eventId": "bf25ca0973fb69e705d4dcec9943ff9b8ecbe29a1d82d08080e8408c91ebff99",
+    "workspace": "local-agent-city",
+    "source": "videoops-model-1791472748655",
+    "order": 15,
+    "occurredAt": 1791472793434,
+    "observedAt": 1791473089924,
+    "completeness": "complete",
+    "type": "operation.finished",
+    "instance": "videoops-model-1791472748655:videoops-preparation-1791472748655:videoops-gate",
+    "profile": "city-videoops-checker",
+    "run": {
+      "namespace": "videoops-model-1791472748655",
+      "id": "videoops-preparation-1791472748655"
+    },
+    "task": {
+      "namespace": "dispatch",
+      "id": "videoops-title-card"
+    },
+    "operation": {
+      "id": "asset-scout-handoff-gate-1",
+      "attempt": 1,
+      "capability": "evaluation.run",
+      "collection": "unknown",
+      "relatedAgent": "",
+      "outcome": "succeeded",
+      "metadata": {
+        "tool": "city.videoops-stage-gate"
+      }
+    },
+    "evidence": [
+      {
+        "origin": "canonical",
+        "recordId": "native:agent-city-sdk:d087a6bde6ff9d745d43b16a036174f9c52460a80238176cb359b8207207e783",
+        "hash": "97da2a038caa89af7d1c21ed2513ed3650fe98733dbf936f327dcb1820657f2d",
+        "sourceSequence": 13
+      }
+    ]
+  },
+  {
+    "schema": "agent-city.event.v1",
+    "eventId": "89722e05c7fa7b75639ef9cf0cba396377511e662a08efa2c76f05db539853ff",
+    "workspace": "local-agent-city",
+    "source": "videoops-model-1791472748655",
+    "order": 16,
+    "occurredAt": 1791472793435,
+    "observedAt": 1791473089925,
+    "completeness": "complete",
+    "type": "operation.finished",
+    "instance": "videoops-model-1791472748655:videoops-preparation-1791472748655-creative-director:creative-director",
+    "profile": "kujolang/kujo-agents:videoops.creative-director",
+    "run": {
+      "namespace": "videoops-model-1791472748655",
+      "id": "videoops-preparation-1791472748655-creative-director"
+    },
+    "task": {
+      "namespace": "dispatch",
+      "id": "videoops-title-card"
+    },
+    "operation": {
+      "id": "handoff-asset-scout",
+      "attempt": 1,
+      "capability": "agent.handoff",
+      "collection": "unknown",
+      "relatedAgent": "",
+      "outcome": "succeeded",
+      "metadata": {
+        "relatedInstance": "videoops-model-1791472748655:videoops-preparation-1791472748655-asset-scout:asset-scout"
+      }
+    },
+    "evidence": [
+      {
+        "origin": "canonical",
+        "recordId": "native:agent-city-sdk:ae33382fbd1adf21c6a24a37c1a8d64f3471500b7ab5398b1f3014c632e3fab7",
+        "hash": "4d0f28722e356ca65a6fdcd96f9b00f2159a9db0be4959ff33e7e7ab85664c2b",
+        "sourceSequence": 14
+      }
+    ]
+  },
+  {
+    "schema": "agent-city.event.v1",
+    "eventId": "6ba0bdf2a74b05f652c58e76efda20ae0594440396ce7e9b79ae42a8ba972276",
+    "workspace": "local-agent-city",
+    "source": "videoops-model-1791472748655",
+    "order": 19,
+    "occurredAt": 1791473287375,
+    "observedAt": 1791473287658,
+    "completeness": "complete",
+    "type": "operation.started",
+    "instance": "videoops-model-1791472748655:videoops-preparation-1791472748655-hyperframes-editor:hyperframes-editor",
+    "profile": "kujolang/kujo-agents:videoops.hyperframes-editor",
+    "run": {
+      "namespace": "videoops-model-1791472748655",
+      "id": "videoops-preparation-1791472748655-hyperframes-editor"
+    },
+    "task": {
+      "namespace": "dispatch",
+      "id": "videoops-title-card"
+    },
+    "operation": {
+      "id": "run",
+      "attempt": 1,
+      "capability": "agent.run",
+      "collection": "unknown",
+      "relatedAgent": "",
+      "outcome": "unset",
+      "metadata": {}
+    },
+    "evidence": [
+      {
+        "origin": "canonical",
+        "recordId": "native:agent-city-sdk:b49e9d18b3e966dc3cdb797c0ddf2506e5ba74f29934f7b31dc891fee30ffa8a",
+        "hash": "8db62c340efb468cf5a00ea97e0d638785145ada98346a4f08ca16fbf66b9648",
+        "sourceSequence": 15
+      }
+    ]
+  },
+  {
+    "schema": "agent-city.event.v1",
+    "eventId": "86890e17603e2d3a98fd57251c527b6080db77242fb8c82678da76580fc543aa",
+    "workspace": "local-agent-city",
+    "source": "videoops-model-1791472748655",
+    "order": 20,
+    "occurredAt": 1791473319706,
+    "observedAt": 1791473320207,
+    "completeness": "complete",
+    "type": "operation.finished",
+    "instance": "videoops-model-1791472748655:videoops-preparation-1791472748655-hyperframes-editor:hyperframes-editor",
+    "profile": "kujolang/kujo-agents:videoops.hyperframes-editor",
+    "run": {
+      "namespace": "videoops-model-1791472748655",
+      "id": "videoops-preparation-1791472748655-hyperframes-editor"
+    },
+    "task": {
+      "namespace": "dispatch",
+      "id": "videoops-title-card"
+    },
+    "operation": {
+      "id": "run",
+      "attempt": 1,
+      "capability": "agent.run",
+      "collection": "unknown",
+      "relatedAgent": "",
+      "outcome": "succeeded",
+      "metadata": {}
+    },
+    "evidence": [
+      {
+        "origin": "canonical",
+        "recordId": "native:agent-city-sdk:cdb16679c5cc27da12b2f41e50b61983ea93cde2692700251b023abe34d0ce8a",
+        "hash": "aee952c474885f7745ecd7c2885fec62c668e35635114793c2a763978b080191",
+        "sourceSequence": 16
+      }
+    ]
+  },
+  {
+    "schema": "agent-city.event.v1",
+    "eventId": "a9e5fdb9efc56e1a9d323463bde279a241562a8f6ee16810782af92580062927",
+    "workspace": "local-agent-city",
+    "source": "videoops-model-1791472748655",
+    "order": 21,
+    "occurredAt": 1791473319938,
+    "observedAt": 1791473320210,
+    "completeness": "complete",
+    "type": "operation.started",
+    "instance": "videoops-model-1791472748655:videoops-preparation-1791472748655-hyperframes-editor:videoops-checker",
+    "profile": "city-videoops-checker",
+    "run": {
+      "namespace": "videoops-model-1791472748655",
+      "id": "videoops-preparation-1791472748655-hyperframes-editor"
+    },
+    "task": {
+      "namespace": "dispatch",
+      "id": "videoops-title-card"
+    },
+    "operation": {
+      "id": "hyperframes-editor-artifact-contract-1",
+      "attempt": 1,
+      "capability": "evaluation.run",
+      "collection": "unknown",
+      "relatedAgent": "",
+      "outcome": "unset",
+      "metadata": {
+        "tool": "city.videoops-artifact-contract"
+      }
+    },
+    "evidence": [
+      {
+        "origin": "canonical",
+        "recordId": "native:agent-city-sdk:c75efd5fb5ba7506ba4362974408b79f4edc9c59a288ee1c9dfcb6820e6d8297",
+        "hash": "b6a894d9b78449bc0d0f632f468f933172d096db2e4a38b872be49e4270aeebf",
+        "sourceSequence": 17
+      }
+    ]
+  },
+  {
+    "schema": "agent-city.event.v1",
+    "eventId": "5a825f74ebbcfddbb196136237834d0c8600316ff8cfc7f6a9f9acbe170ad44f",
+    "workspace": "local-agent-city",
+    "source": "videoops-model-1791472748655",
+    "order": 22,
+    "occurredAt": 1791473319969,
+    "observedAt": 1791473320805,
+    "completeness": "complete",
+    "type": "operation.finished",
+    "instance": "videoops-model-1791472748655:videoops-preparation-1791472748655-hyperframes-editor:videoops-checker",
+    "profile": "city-videoops-checker",
+    "run": {
+      "namespace": "videoops-model-1791472748655",
+      "id": "videoops-preparation-1791472748655-hyperframes-editor"
+    },
+    "task": {
+      "namespace": "dispatch",
+      "id": "videoops-title-card"
+    },
+    "operation": {
+      "id": "hyperframes-editor-artifact-contract-1",
+      "attempt": 1,
+      "capability": "evaluation.run",
+      "collection": "unknown",
+      "relatedAgent": "",
+      "outcome": "succeeded",
+      "metadata": {
+        "tool": "city.videoops-artifact-contract"
+      }
+    },
+    "evidence": [
+      {
+        "origin": "canonical",
+        "recordId": "native:agent-city-sdk:bd75dc70a551849659451fb1132fe278bfa0c34276dc34aaab669841ce878741",
+        "hash": "7fdcee981d99a00d7b4fb48af532a65714ace04ce81e315d60064cc8ea41562c",
+        "sourceSequence": 18
+      }
+    ]
+  },
+  {
+    "schema": "agent-city.event.v1",
+    "eventId": "88bbcdfde3ecfc815ca5a669dfa405a109bba65cf95e55e5d7b59c86f88d04de",
+    "workspace": "local-agent-city",
+    "source": "videoops-model-1791472748655",
+    "order": 25,
+    "occurredAt": 1791473866593,
+    "observedAt": 1791473866938,
+    "completeness": "complete",
+    "type": "operation.started",
+    "instance": "videoops-model-1791472748655:videoops-preparation-1791472748655-hyperframes-editor:hyperframes-editor",
+    "profile": "kujolang/kujo-agents:videoops.hyperframes-editor",
+    "run": {
+      "namespace": "videoops-model-1791472748655",
+      "id": "videoops-preparation-1791472748655-hyperframes-editor"
+    },
+    "task": {
+      "namespace": "dispatch",
+      "id": "videoops-title-card"
+    },
+    "operation": {
+      "id": "run",
+      "attempt": 2,
+      "capability": "agent.run",
+      "collection": "unknown",
+      "relatedAgent": "",
+      "outcome": "unset",
+      "metadata": {}
+    },
+    "evidence": [
+      {
+        "origin": "canonical",
+        "recordId": "native:agent-city-sdk:4834d9278025cd08aebf30415cb3f0dc7ec4841b5d7c55bf7825df0e4215f700",
+        "hash": "b14e92a03fc3f18c3bebc9ce89b6db6b86dafeb70960543d52fb585a7d99d3db",
+        "sourceSequence": 19
+      }
+    ]
+  },
+  {
+    "schema": "agent-city.event.v1",
+    "eventId": "df95c812bdf0c6dba45f82c538080aa7cf1f940867c88406d0c6507933a492f2",
+    "workspace": "local-agent-city",
+    "source": "videoops-model-1791472748655",
+    "order": 26,
+    "occurredAt": 1791473889236,
+    "observedAt": 1791473889766,
+    "completeness": "complete",
+    "type": "operation.finished",
+    "instance": "videoops-model-1791472748655:videoops-preparation-1791472748655-hyperframes-editor:hyperframes-editor",
+    "profile": "kujolang/kujo-agents:videoops.hyperframes-editor",
+    "run": {
+      "namespace": "videoops-model-1791472748655",
+      "id": "videoops-preparation-1791472748655-hyperframes-editor"
+    },
+    "task": {
+      "namespace": "dispatch",
+      "id": "videoops-title-card"
+    },
+    "operation": {
+      "id": "run",
+      "attempt": 2,
+      "capability": "agent.run",
+      "collection": "unknown",
+      "relatedAgent": "",
+      "outcome": "succeeded",
+      "metadata": {}
+    },
+    "evidence": [
+      {
+        "origin": "canonical",
+        "recordId": "native:agent-city-sdk:244b1d0abda5fd8d464c0fec97fc271d194b21e4412e5c2ca9a28ea6d5da903f",
+        "hash": "49b54f60cbce7fa4abb310c838df93a4d9cabf498b27e003dc3c9cdfcd8ebf78",
+        "sourceSequence": 20
+      }
+    ]
+  },
+  {
+    "schema": "agent-city.event.v1",
+    "eventId": "4c93252a7bab84ca261ca485f99ed6eb081aeb4f11bc96214c685c409d684d11",
+    "workspace": "local-agent-city",
+    "source": "videoops-model-1791472748655",
+    "order": 27,
+    "occurredAt": 1791473889287,
+    "observedAt": 1791473889767,
+    "completeness": "complete",
+    "type": "operation.started",
+    "instance": "videoops-model-1791472748655:videoops-preparation-1791472748655-hyperframes-editor:videoops-checker",
+    "profile": "city-videoops-checker",
+    "run": {
+      "namespace": "videoops-model-1791472748655",
+      "id": "videoops-preparation-1791472748655-hyperframes-editor"
+    },
+    "task": {
+      "namespace": "dispatch",
+      "id": "videoops-title-card"
+    },
+    "operation": {
+      "id": "hyperframes-editor-artifact-contract-2",
+      "attempt": 1,
+      "capability": "evaluation.run",
+      "collection": "unknown",
+      "relatedAgent": "",
+      "outcome": "unset",
+      "metadata": {
+        "tool": "city.videoops-artifact-contract"
+      }
+    },
+    "evidence": [
+      {
+        "origin": "canonical",
+        "recordId": "native:agent-city-sdk:9017d170dee3cb8015dfffa750333f67e362eee4c67466386e189c8b75b48805",
+        "hash": "4070f8c751fc628dfc2178080ac2c8f63632ff1bec1c83097c574df1bcd12bfc",
+        "sourceSequence": 21
+      }
+    ]
+  },
+  {
+    "schema": "agent-city.event.v1",
+    "eventId": "784d5e0d9f33e6b819d28db71ce73f1f9ee5192026191c32c6f2bf090868f39e",
+    "workspace": "local-agent-city",
+    "source": "videoops-model-1791472748655",
+    "order": 28,
+    "occurredAt": 1791473889295,
+    "observedAt": 1791473889767,
+    "completeness": "complete",
+    "type": "operation.finished",
+    "instance": "videoops-model-1791472748655:videoops-preparation-1791472748655-hyperframes-editor:videoops-checker",
+    "profile": "city-videoops-checker",
+    "run": {
+      "namespace": "videoops-model-1791472748655",
+      "id": "videoops-preparation-1791472748655-hyperframes-editor"
+    },
+    "task": {
+      "namespace": "dispatch",
+      "id": "videoops-title-card"
+    },
+    "operation": {
+      "id": "hyperframes-editor-artifact-contract-2",
+      "attempt": 1,
+      "capability": "evaluation.run",
+      "collection": "unknown",
+      "relatedAgent": "",
+      "outcome": "succeeded",
+      "metadata": {
+        "tool": "city.videoops-artifact-contract"
+      }
+    },
+    "evidence": [
+      {
+        "origin": "canonical",
+        "recordId": "native:agent-city-sdk:5159d00bea19556f40410c3b2d6a4ac1b735e3423b43237a7f2d6ff9307c8769",
+        "hash": "cdd5067e0b30c613999f35f28ebfd2d3ab317a35235b2a8758f52cc290196fe0",
+        "sourceSequence": 22
+      }
+    ]
+  }
+]

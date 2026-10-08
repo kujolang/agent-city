@@ -6,6 +6,11 @@ on:
         description: Render the checked-in real SDK Editor output instead of the controlled fixture
         type: boolean
         default: false
+      editor_attempt:
+        description: Immutable real Editor attempt to qualify
+        type: choice
+        options: ["1", "2"]
+        default: "1"
 permissions:
   contents: read
 jobs:
@@ -38,9 +43,10 @@ jobs:
         if: inputs.model_editor
         run: |
           mkdir -p "$RUNNER_TEMP/city/agent-city/evidence/videoops-model-editor"
-          cp evidence/videoops-model-editor/proof.json evidence/videoops-model-editor/render-input.json "$RUNNER_TEMP/city/agent-city/evidence/videoops-model-editor/"
+          cp -R evidence/videoops-model-editor/. "$RUNNER_TEMP/city/agent-city/evidence/videoops-model-editor/"
       - name: Actual network-disabled Workcell render
         env:
+          CITY_VIDEOOPS_EDITOR_ATTEMPT: ${{ inputs.editor_attempt }}
           CITY_VIDEOOPS_MODEL_PROOF: ${{ inputs.model_editor && '1' || '0' }}
           CITY_VIDEOOPS_PROOF_OUTPUT: ${{ runner.temp }}/videoops-proof
         run: |

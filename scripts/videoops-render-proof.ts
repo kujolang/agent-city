@@ -62,20 +62,19 @@ const fixtureRequest = {
   },
 };
 const modelProof = process.env.CITY_VIDEOOPS_MODEL_PROOF === "1";
+const modelAttempt = process.env.CITY_VIDEOOPS_EDITOR_ATTEMPT || "1";
+assert(["1", "2"].includes(modelAttempt));
+const modelDirectory = resolve(
+  root,
+  "evidence/videoops-model-editor",
+  modelAttempt === "1" ? "." : "attempt-2",
+);
 const modelEvidence = modelProof
-  ? JSON.parse(
-      await readFile(
-        resolve(root, "evidence/videoops-model-editor/proof.json"),
-        "utf8",
-      ),
-    )
+  ? JSON.parse(await readFile(resolve(modelDirectory, "proof.json"), "utf8"))
   : null;
 const request = modelProof
   ? JSON.parse(
-      await readFile(
-        resolve(root, "evidence/videoops-model-editor/render-input.json"),
-        "utf8",
-      ),
+      await readFile(resolve(modelDirectory, "render-input.json"), "utf8"),
     )
   : fixtureRequest;
 const media = modelProof ? [] : fixtureMedia;

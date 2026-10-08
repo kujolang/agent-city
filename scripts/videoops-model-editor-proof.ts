@@ -15,7 +15,15 @@ const upstream = JSON.parse(
 assert.equal(upstream.status, "ready-for-editor");
 const runtime = upstream.runtime;
 const workspace = resolve(runtime, "production");
-const out = resolve("evidence/videoops-model-editor");
+const attempt = Number(process.env.CITY_EDITOR_ATTEMPT || "1");
+assert([1, 2].includes(attempt));
+const repair =
+  attempt === 2 ? await readFile(process.env.CITY_EDITOR_REPAIR!, "utf8") : "";
+assert(repair.length < 16000);
+const out = resolve(
+  "evidence/videoops-model-editor",
+  attempt === 1 ? "." : "attempt-2",
+);
 await mkdir(out, { recursive: true });
 async function stored(stage: string) {
   const directory = resolve(
@@ -96,7 +104,7 @@ try {
     root: resolve("."),
     workspace,
     stage: "hyperframes-editor",
-    attempt: 1,
+    attempt,
     producer,
     run: run + "-hyperframes-editor",
     task,
@@ -119,7 +127,16 @@ try {
       width: 640,
       height: 360,
       timing: { fps: 30, durationSeconds: 6 },
-      repair: "",
+      repair,
+      previousComposition:
+        attempt === 2
+          ? JSON.parse(
+              await readFile(
+                "evidence/videoops-model-editor/render-input.json",
+                "utf8",
+              ),
+            ).composition
+          : null,
       handoff: {
         scope:
           "Author stage-owned composition from exact verified upstream bundles; do not claim rendering or approval.",
