@@ -168,7 +168,7 @@ try {
   proof.status = "PASS";
   await page.waitForFunction(
     (id) =>
-      [...document.querySelectorAll("#mission-jobs button")].some(
+      Array.from(document.querySelectorAll("#mission-jobs button")).some(
         (button) =>
           button.textContent?.includes(id.slice(-8)) &&
           button.textContent?.includes("completed"),

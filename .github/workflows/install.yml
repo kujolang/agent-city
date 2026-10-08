@@ -2,12 +2,37 @@ name: Isolated installation
 on:
   push:
     branches: [main]
-    paths: ["installer/**", "install.sh", "apps/**", "packages/**", "integrations/**", "scripts/**", "package*.json", ".github/workflows/install.yml"]
+    paths: ["installer/**", "install.sh", "apps/**", "packages/**", "assets/**", "integrations/**", "scripts/**", "tests/**", "tsconfig.json", "vitest.config.ts", "package*.json", ".github/workflows/install.yml"]
   pull_request:
   workflow_dispatch:
 permissions:
   contents: read
 jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24.21.0"
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - name: Verify source types, package boundaries, maps, tests and build
+        run: npm run verify
+      - name: Install controlled browser
+        run: npx playwright install --with-deps chromium
+      - name: Verify onboarding faults and fullscreen presentation without model calls
+        run: |
+          node --import tsx scripts/provider-setup-proof.ts
+          node --import tsx scripts/game-view-proof.ts
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: controlled-browser-acceptance
+          path: |
+            evidence/provider-setup-faults
+            evidence/game-view
   install:
     strategy:
       fail-fast: false
