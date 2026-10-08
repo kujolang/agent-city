@@ -368,3 +368,13 @@ Controlled browser proof confirms advancing streams are retained, stalled stream
 recover, epoch changes recover and replay remains isolated.94tests pass. Managed
 first-task instructions no longer depend on global npm. Full product scope remains
 unfinished; no long soak was run and no public release readiness is claimed.
+
+Throughput qualification: CI37717824495 at City0422379 / Watchdog4ceb203 passes
+unchanged60-second/1,000events/sec gates on both architectures. x64 gateway1023.257,
+browser-visible1017.514events/sec; ARM64 gateway1099.705, browser-visible1004.695.
+Both66,000/66,000,0missing/duplicates,2verified reconnects, final browserLIVE.
+x64 catch-up322.5ms; ARM645633.7ms. InstallerCI37717811455 passes all4platforms.
+This closes the bounded throughput blocker, not long-duration reliability or full
+product acceptance. The x64 margin is modest; browser catch-up remains measurable.
+Eight-hour soak stays cancelled/unqualified. Current receipts are retained in
+evidence/reconnect-load/37717824495 alongside every preceding failure.

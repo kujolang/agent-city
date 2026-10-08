@@ -1,5 +1,5 @@
 {
-  "status": "FAIL",
+  "status": "CONDITIONAL",
   "scope": "Assessment of recorded hardening evidence, not current-build or complete product certification",
   "gates": {
     "journalThroughput": {
@@ -7,7 +7,7 @@
       "reason": "Direct journal only: >=1,000 events/s for >=60 seconds, complete count, zero drops."
     },
     "endToEndStress": {
-      "status": "FAIL",
+      "status": "PASS",
       "reason": "Canonical Watchdog intake through gateway/SSE; short bursts cannot qualify the 60-second gate."
     },
     "reconnectUnderLoad": {
@@ -55,8 +55,8 @@
     "zoom": "evidence/browser-zoom/proof.json",
     "visibility": "evidence/browser-visibility/proof.json",
     "recovery": "evidence/hardening/recovery.json",
-    "pipeline": "evidence/reconnect-load/37716663418/x64.json",
-    "reconnect": "evidence/reconnect-load/37716663418/x64.json",
+    "pipeline": "evidence/reconnect-load/37717824495/x64.json",
+    "reconnect": "evidence/reconnect-load/37717824495/x64.json",
     "continuity": "evidence/blockers/watchdog-continuity.log"
   },
   "evidenceErrors": {}
