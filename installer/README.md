@@ -206,3 +206,21 @@ to verify and save an existing compatible image. Use `setup:videoops --disable` 
 remove saved setup, then restart. An explicit `CITY_VIDEOOPS_CONFIG` environment
 variable overrides saved setup; unset it to disable that manual configuration.
 These additions are not included in the immutable `v0.2.0-rc.2` release.
+
+### Engine security requirements
+
+The City Workcell adapter uses contained-standard isolation and host workspace
+identity. Docker must report **seccomp and AppArmor**. Docker Desktop engines
+without AppArmor cannot run these workloads, even when the image builds and its
+tools run. Setup/admission rejects them before model work; do not disable policy.
+A configured Linux Docker engine or a dedicated compatible Colima VM may qualify.
+The verified local context is `colima-kujo-workcell`; it is an operator-owned VM,
+not something the installer silently creates. Select a named context explicitly:
+
+```sh
+DOCKER_CONTEXT=colima-kujo-workcell npm run setup:videoops -- --image agent-city-videoops:0.8.141 --enable --confirm-model-capabilities
+```
+
+The image must exist in that context. Keep the default Docker context unchanged
+when other workloads use it. Rootless Docker needs a separately configured
+workspace identity; this City adapter does not qualify it.

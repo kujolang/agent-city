@@ -91,13 +91,13 @@ A successful listing check does not guarantee generation access or task quality.
 If Ollama is unavailable, start it first; no provider is silently substituted.
 
 For manual setup, use a compatible chat-completions
-endpoint/model/key. For the local Ollama model installed on this machine:
+endpoint/model/key. For local Ollama, use an explicitly installed model:
 
 - Endpoint: `http://127.0.0.1:11434/v1/chat/completions`
-- Model: `qwen2.5-coder:1.5b-instruct`
+- Model: your installed model’s exact name (shown by `ollama list`).
 - API key: leave blank.
 
-Ollama must be running. This small model is suitable for trying the workflow;
+Ollama must be running. Choose a model capable of the requested task;
 model output still needs review. No quality guarantee follows from a successful
 runtime receipt.
 
@@ -172,49 +172,35 @@ See [current unfinished requirements](WORKING-EXPERIENCE.md),
 The five supplied visual references are the target. Current original artwork is
 still an early approximation, not an approved visual match.
 
-## Phase 1 Observer expansion
+## Replay and source health
 
-The current release/evidence index is [RELEASE-PHASE-1.md](RELEASE-PHASE-1.md).
-It supersedes the original slice's current-state/next-step section while retaining
-that report as historical evidence. All six rooms are inspectable; actual MCP,
-Dispatch task, SDK/RAG/handoff, Eval failure/repair and guarded Workcell invocation
-observations use the existing Watchdog seam.
+Open **Archive / Replay / Incidents** to inspect runs, evidence and retained failure/pass
+attempts, compare runs, or replay a pinned normalized journal. Replay never invokes
+models or tools. Return to Live explicitly before submitting another mission.
+`?renderer=off` keeps the DOM truth interface available without Pixi rendering.
+The gateway stops ingestion at its journal quota rather than deleting evidence silently.
 
-For a fresh local review:
+## Team workflows
 
-```sh
-CITY_SOURCE_PREFIX=phase1- CITY_DB="$PWD/.runtime/observer-phase1.sqlite" npm run local
-CHROMIUM_PATH=/absolute/path/to/chromium npm run proof:phase1
-```
+- **Publishing House:** technical writer → separate copy chief; saved local draft/review.
+- **WebOps:** supplied-evidence Reporter → Copy Chief → deterministic report check.
+  Supply timestamped evidence; this does not crawl or deploy a website.
+- **VideoOps (development main):** Creative Director → Asset Scout → HyperFrames
+  Editor → isolated render → exact-candidate human review → explicit finalization.
+  Combined live acceptance is being qualified for the next preview release.
+  See [VideoOps setup and review](docs/videoops.md).
 
-The launcher also starts the local Kujo MCP demo server when no server is already
-listening at its health endpoint. The proof invokes actual local work, including
-an intentionally failing Eval check and a subsequent correction. The UI remains
-read-only. `npm run workcell` uses a dedicated generated fixture repository and
-preserves the host's Workcell guardrails. A dedicated Colima backend has now
-executed an actual generated Kujo script and exported its result. This is a CLI
-proof. Mission Command also supports [explicit checked-Kujo execution](evidence/mission-workcell/README.md); general project execution remains unavailable. See the
-[setup, receipts and limits](evidence/workcell-live/README.md).
+These additions are not all included in the published `v0.2.0-rc.2` installer.
+The [workflow matrix](docs/workflow-support.md) records the executable scope and limits.
+The [release follow-through](RELEASE-NEXT.md) retains unfinished acceptance gates.
 
-The retained release cohort uses `CITY_SOURCE_PREFIX=phase1-release-` and
-`.runtime/phase1-final.sqlite`. No historical travel is fabricated on a page
-reload. Follow a newly invoked execution to watch live/RECENT portal travel;
-retained truth and all operation evidence remain inspectable after it ends.
+## Historical evidence
 
-Original appearance definitions are in `packages/renderer-pixi/appearance.ts`.
-Maps have unbound authored capabilities; runtime station health is derived from
-observations. Reference images and protected game sprites are not embedded.
-
-### Hardening candidate (0.2.0-rc.1)
-
-Release qualification currently **FAILS**. See [bounded blocker update](RELEASE-BLOCKERS.md) and [measured hardening report](RELEASE-HARDENING.md) before treating this as a release-ready application.
-
-- Open **Archive / Replay / Incidents**, browse a run, inspect its attempts or replay its pinned journal. Return to Live explicitly.
-- `npm run replay -- evidence/world-levels/replay.json` verifies a pinned redacted bundle offline without source execution.
-- `npm run stress`, `npm run proof:hardening`, and `npm run soak` write bounded synthetic/browser evidence. The default soak is only 180 seconds; `SOAK_SECONDS=28800 npm run soak` requests eight hours, but its current stationary workload is not a substitute for a live ingestion soak.
-- `npm run gate` intentionally exits nonzero while mandatory release gates remain incomplete.
-- `?renderer=off` selects DOM-only presentation. `CITY_LEDGER_DIR` selects an explicit local RunLedger directory; raw receipt prompts/notes/output are excluded.
-- The gateway now retains event identities and stops ingestion at `CITY_JOURNAL_LIMIT` (default 1,000,000 events). It does not delete evidence to make room. Back up/review the local journal before changing that limit.
+[Phase 1](RELEASE-PHASE-1.md), [initial hardening](RELEASE-HARDENING.md), and
+[earlier blockers](RELEASE-BLOCKERS.md) describe their dated checkpoints.
+Use [current release qualification](RELEASE-QUALIFICATION.md) for the current evidence
+index. A passing metadata check does not establish production readiness.
+No eight-hour soak is required, running or claimed.
 
 ### In-game conversations, Follow and replay
 

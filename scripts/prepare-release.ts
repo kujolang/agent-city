@@ -72,7 +72,7 @@ const manifest = {
   files,
   limits: [
     "Local preview, not public multi-tenant hosting",
-    "WebOps/VideoOps executable team adapters remain incomplete",
+    "Only the documented bounded team workflows are supported; imported profiles do not enable arbitrary tools",
     "No eight-hour soak or OS sleep qualification",
     "Checksums establish integrity, not publisher signing",
   ],

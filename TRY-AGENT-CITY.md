@@ -222,3 +222,11 @@ profile for your installed browser or select a supported system browser through
 policy automatically. See [Ubuntu's documented per-application user namespace
 policy](https://discourse.ubuntu.com/t/ubuntu-24-04-lts-noble-numbat-release-notes/39890/1).
 An unavailable checker is recorded as UNKNOWN execution, not a failed test.
+
+## Selected team workflows
+
+Development main adds supplied-evidence WebOps reporting and VideoOps production;
+these are not included in the published rc.2 installer. See the
+[workflow matrix](docs/workflow-support.md) and [VideoOps setup/review guide](docs/videoops.md).
+VideoOps requires its separately built Docker image and explicit render consent.
+No external audio/media generation is supplied by the initial launch form.
