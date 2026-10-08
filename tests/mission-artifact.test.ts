@@ -54,3 +54,18 @@ describe("saved mission deliverables", () => {
     expect(text).not.toContain("FAIL");
   });
 });
+
+it("downloads WebOps report bytes with honest check status and JSON extension", () => {
+  for (const status of ["passed", "failed"]) {
+    const saved = artifactDownload("mission-webops", {
+      kind: "writing",
+      content: '{"actual":"bytes"}',
+      workflowValidation: { workflow: "webops-report", status },
+    });
+    expect(saved?.content).toBe('{"actual":"bytes"}');
+    expect(saved?.filename).toBe(
+      `mission-webops-${status === "passed" ? "checked" : "failed"}-report.json`,
+    );
+    expect(saved?.mime).toBe("application/json;charset=utf-8");
+  }
+});

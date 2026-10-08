@@ -74,3 +74,11 @@ and through anonymous public download. Exact pinned installer passed fresh local
 installation/doctor; CI37780321588 all5jobs/four platforms PASS. Evidence is under
 evidence/public-release/rc2. This does not close selected team adapters or make
 a blanket production-readiness claim.
+
+WebOps implementation checkpoint: supplied-evidence Reporter → Copy Chief adapter,
+strict report-reference checks and observed check lifecycle are implemented. Mission
+Command now has an explicit evidence form, disables unrelated tool/profile controls,
+and exposes failed report artifacts and JSON downloads. Controlled browser submission,
+invalid-JSON rejection and failed-report inspection pass; 120 unit tests plus
+types/boundaries/maps/build pass. This is not real provider acceptance: WebOps live
+author/reviewer/check proof and selected VideoOps integration remain required.

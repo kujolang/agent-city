@@ -6,6 +6,7 @@ export function artifactDownload(
     content?: unknown;
     draft?: unknown;
     validation?: { checkedArtifact?: string };
+    workflowValidation?: { workflow?: string; status?: string };
   },
 ) {
   if (!/^[a-zA-Z0-9_-]+$/.test(id)) return null;
@@ -13,8 +14,12 @@ export function artifactDownload(
   const content =
     artifact.kind === "kujo" && !reviewed ? artifact.draft : artifact.content;
   if (typeof content !== "string") return null;
-  const extension =
-    artifact.kind === "kujo"
+  const webops =
+    artifact.kind === "writing" &&
+    artifact.workflowValidation?.workflow === "webops-report";
+  const extension = webops
+    ? "json"
+    : artifact.kind === "kujo"
       ? "kujo"
       : artifact.kind === "code"
         ? "mjs"
@@ -22,15 +27,20 @@ export function artifactDownload(
           ? "md"
           : null;
   if (!extension) return null;
-  const label =
-    artifact.kind === "kujo" && !reviewed
+  const label = webops
+    ? artifact.workflowValidation?.status === "passed"
+      ? "checked report"
+      : "failed report"
+    : artifact.kind === "kujo" && !reviewed
       ? "author draft"
       : "reviewed artifact";
   return {
     content,
     filename: `${id}-${label.replaceAll(" ", "-")}.${extension}`,
     label,
-    mime: "text/plain;charset=utf-8",
+    mime: webops
+      ? "application/json;charset=utf-8"
+      : "text/plain;charset=utf-8",
   };
 }
 

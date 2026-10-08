@@ -32,11 +32,14 @@ export function mountMissions(
     <p class="muted">Codex subscription: sign in with <code>codex login</code>, then run <code id="codex-setup-command"></code> from the managed Agent City directory in another terminal. For a source checkout, use <code>npm run provider:codex</code> with the same CITY_APP_URL instead. Keep it running. The adapter configures the connection; do not paste your subscription password or OAuth token here.</p>
     </form></details>
     <p id="continuation-status" role="status">New mission</p><button id="clear-continuation" type="button" hidden>Cancel follow-up</button>
-    <form id="mission-form"><label>Task type <select name="kind"><option value="writing">Writing + review</option><option value="code">JavaScript + review</option><option value="kujo">Kujo + senior review (real MCP)</option></select></label>
-    <details><summary>Custom author / reviewer</summary><p>Optional imported profiles. PROPOSE drafts with optional documentation context when the author allows Kujo Docs. Explicit code test cases run separately in the isolated checker. Other tool/workflow execution is not connected. Leave both fields blank for built-in agents. Continuations retain their original contracts.</p><label>Author profile <select name="authorProfile"><option value="">Built-in author</option></select></label><label>Reviewer profile <select name="reviewerProfile"><option value="">Built-in reviewer</option></select></label><button type="button" id="refresh-team-options">Refresh imported profiles</button><p id="team-options-status" role="status"></p></details>
+    <form id="mission-form">
+    <label>Workflow <select name="workflow"><option value="">General draft + review</option><option value="webops-report">WebOps supplied-evidence report</option></select></label>
+    <div id="webops-input" hidden><p>WebOps Reporter → Copy Chief → report contract check. Paste your actual site evidence below. This workflow does not crawl your website, access analytics or publish changes. Evidence is sent to your configured model and retained privately with this mission.</p><label>Site evidence JSON <textarea name="workflowInput" rows="8" maxlength="16384" placeholder='{"schema":"agent-city.webops-evidence.v1","site":{"id":"your-site","url":"https://example.com"},"records":[{"id":"finding-1","source":"your-audit-reference","observedAt":"2026-10-08T00:00:00Z","kind":"finding","summary":"Replace with an actual observed finding"}],"unavailable":["analytics","crawl","historical comparison"]}'></textarea></label><p>Each record needs a unique ID, source reference, occurrence timestamp, kind (finding, action or measurement), and summary. List evidence families you do not have. The check validates structure and references; it cannot independently establish whether your supplied facts are true.</p></div>
+    <label>Task type <select name="kind"><option value="writing">Writing + review</option><option value="code">JavaScript + review</option><option value="kujo">Kujo + senior review (real MCP)</option></select></label>
+    <fieldset id="profile-options"><details><summary>Custom author / reviewer</summary><p>Optional imported profiles. PROPOSE drafts with optional documentation context when the author allows Kujo Docs. Explicit code test cases run separately in the isolated checker. Other tool/workflow execution is not connected. Leave both fields blank for built-in agents. Continuations retain their original contracts.</p><label>Author profile <select name="authorProfile"><option value="">Built-in author</option></select></label><label>Reviewer profile <select name="reviewerProfile"><option value="">Built-in reviewer</option></select></label><button type="button" id="refresh-team-options">Refresh imported profiles</button><p id="team-options-status" role="status"></p></details></fieldset>
     <label>Task <textarea name="prompt" rows="3" maxlength="16384" required placeholder="Describe the small task you want the agents to complete."></textarea></label>
     <label><input type="checkbox" name="allowCheckins" checked> Allow agent questions (reply within 3 minutes)</label>
-    <details id="mission-options"><summary>Tools, files and checks <span id="mission-options-count">(none selected)</span></summary>
+    <fieldset id="tool-options"><details id="mission-options"><summary>Tools, files and checks <span id="mission-options-count">(none selected)</span></summary>
     <label><input type="checkbox" name="useLocalDocs"> Use indexed local Kujo docs</label>
     <label><input type="checkbox" name="useMcpDocs"> Read local MCP demo README</label>
     <details><summary>Approved MCP source reads</summary><label>Local server file names (one per line)<textarea name="mcpReadFiles" rows="3" maxlength="482" placeholder="src/main.kujo"></textarea></label><p>Read the first 200 lines of up to three named files using the operator-enabled local MCP server. Server workspace restrictions still apply. Contents are shared privately with the author and reviewer. This grants no writes or model-selected tools.</p></details>
@@ -48,7 +51,7 @@ export function mountMissions(
     <details><summary>Workcell execution setup</summary><p>Start your local Docker engine, then run this command from the Agent City directory:</p><code id="workcell-setup-command">npm run setup:workcell -- --build --enable</code><p>This builds the pinned Kujo image and saves its ID and selected Docker context for this City instance. Restart City normally, then check setup below. Each task still needs the execution checkbox. To disable saved setup, use <code>setup:workcell --disable</code> and restart. Existing trusted images can use <code>--image LOCAL_IMAGE --enable</code>. The command does not install or start Docker. Podman remains manually configured.</p><button type="button" id="check-workcell">Check Workcell setup</button><p id="workcell-check-status" role="status" aria-live="polite">Not checked. This check does not install software, pull images, run code or enable execution.</p></details>
     <details><summary>Optional JavaScript function checks</summary><label>Function contract JSON <textarea name="functionContract" rows="4" placeholder='{"exportName":"sum","cases":[{"name":"empty","args":[[]],"equals":0}]}'></textarea></label><p class="muted">Explicitly runs the generated module in a disposable browser worker. JSON arguments/results only; no filesystem or network integrations. Requires installed Chromium. Each case gets 1.5 seconds.</p></details>
     </details>
-    <button type="submit" disabled>Start mission</button></form>
+    </fieldset><button type="submit" disabled>Start mission</button></form>
     <p class="muted">Your configured model drafts the task and hands it to a separate reviewer. Execution needs the explicit checks or Workcell permissions above.</p>
     <div id="mission-jobs" aria-label="Mission history"></div><pre id="mission-exchanges" tabindex="0" aria-label="Observed agent responses"></pre><pre id="provider-diagnostics" tabindex="0" aria-label="Provider response diagnostics" hidden></pre><button type="button" id="download-project-files" hidden>Save project file bundle</button><button type="button" id="download-artifact" hidden>Save artifact</button><pre id="mission-artifact" tabindex="0" aria-label="Selected mission output"></pre>`;
   panel.querySelector("#codex-setup-command")!.textContent =
@@ -229,6 +232,27 @@ export function mountMissions(
     "#clear-continuation",
   )!;
   const kindField = form.elements.namedItem("kind") as HTMLSelectElement;
+  const workflowField = form.elements.namedItem(
+    "workflow",
+  ) as HTMLSelectElement;
+  function refreshWorkflow() {
+    const webops = workflowField.value === "webops-report";
+    panel.querySelector<HTMLElement>("#webops-input")!.hidden = !webops;
+    const evidence = form.elements.namedItem(
+      "workflowInput",
+    ) as HTMLTextAreaElement;
+    evidence.disabled = !webops;
+    evidence.required = webops;
+    panel.querySelector<HTMLFieldSetElement>("#profile-options")!.disabled =
+      webops;
+    panel.querySelector<HTMLFieldSetElement>("#tool-options")!.disabled =
+      webops;
+    if (webops) kindField.value = "writing";
+    kindField.disabled = webops || !!parent;
+    workflowField.disabled = !!parent;
+  }
+  workflowField.onchange = refreshWorkflow;
+  refreshWorkflow();
   function clearParent() {
     parent = null;
     (form.elements.namedItem("executeWorkcell") as HTMLInputElement).checked =
@@ -237,6 +261,7 @@ export function mountMissions(
     clearContinuation.hidden = true;
     continuation.textContent = "New mission";
     form.reset();
+    refreshWorkflow();
     options.open = false;
     refreshOptions();
   }
@@ -400,7 +425,7 @@ export function mountMissions(
               projectDownload.hidden = false;
               projectDownload.onclick = () => saveDownload(bundle);
             }
-            if (job.status !== "completed") {
+            if (job.status !== "completed" && job.status !== "failed") {
               output.textContent =
                 `Mission ${job.status}; no completed mission artifact claimed.` +
                 (workcellEvidence
@@ -423,6 +448,9 @@ export function mountMissions(
                 download.onclick = () => saveDownload(saved);
               }
               output.textContent =
+                (artifact.workflowValidation
+                  ? `WEBOPS REPORT CONTRACT: ${artifact.workflowValidation.status?.toUpperCase() || "UNKNOWN"}\n${artifact.workflowValidation.scope || artifact.workflowValidation.reason || ""}\nSupplied evidence only; factual accuracy not independently verified.\n\n`
+                  : "") +
                 (artifact.kind === "code"
                   ? `SYNTAX: ${artifact.validation?.syntax?.toUpperCase() || "UNKNOWN"} · FUNCTIONAL TESTS: ${(artifact.validation?.functionalTests || "not-run").toUpperCase()} · ${artifact.codeExecuted === null ? "EXECUTION COVERAGE UNKNOWN" : artifact.codeExecuted ? "EXECUTED IN ISOLATED BROWSER" : "CODE NOT EXECUTED"}\n${artifact.validation?.fenceRemoved ? "Outer Markdown fence removed; original response retained above.\n" : ""}\n`
                   : artifact.kind === "kujo"
@@ -507,6 +535,8 @@ export function mountMissions(
                 if (replay) return;
                 clearParent();
                 parent = { id: job.id, kind: job.kind };
+                workflowField.value = "";
+                refreshWorkflow();
                 kindField.value = job.kind;
                 kindField.disabled = true;
                 clearContinuation.hidden = false;
@@ -567,7 +597,17 @@ export function mountMissions(
     pending = true;
     submit.disabled = true;
     const fields = new FormData(form);
+    let submitted = false;
     try {
+      const workflow = fields.get("workflow");
+      let workflowInput;
+      if (workflow === "webops-report") {
+        try {
+          workflowInput = JSON.parse(String(fields.get("workflowInput") || ""));
+        } catch {
+          throw Error("Invalid site evidence JSON. No mission submitted.");
+        }
+      }
       const contract = String(fields.get("functionContract") || "").trim();
       let functionContract;
       if (contract) {
@@ -597,6 +637,7 @@ export function mountMissions(
         );
         projectFiles.push({ path: file.name, content });
       }
+      submitted = true;
       const response = await fetch("/control/missions", {
         method: "POST",
         headers: {
@@ -604,7 +645,11 @@ export function mountMissions(
           "X-City-Command-Token": token,
         },
         body: JSON.stringify({
-          kind: parent?.kind || fields.get("kind"),
+          kind:
+            workflow === "webops-report"
+              ? "writing"
+              : parent?.kind || fields.get("kind"),
+          ...(workflow === "webops-report" ? { workflow, workflowInput } : {}),
           prompt: fields.get("prompt"),
           ...(projectFiles.length ? { projectFiles } : {}),
           ...(fields.get("authorProfile") || fields.get("reviewerProfile")
@@ -649,9 +694,12 @@ export function mountMissions(
           .querySelector(".world")!
           .scrollIntoView({ block: "start", behavior: "instant" });
       }
-    } catch {
-      status.textContent =
-        "Submission response unavailable. Check mission history before retrying.";
+    } catch (error) {
+      status.textContent = submitted
+        ? "Submission response unavailable. Check mission history before retrying."
+        : error instanceof Error
+          ? error.message
+          : "Invalid mission input. No mission submitted.";
     } finally {
       pending = false;
     }
