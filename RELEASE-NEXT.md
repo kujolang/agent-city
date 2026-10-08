@@ -3,7 +3,7 @@
 Scope from the user's “do those things now” request, 2026-10-08. Keep all five
 workstreams open until their actual evidence exists. No eight-hour soak is authorized.
 
-- [ ] Versioned public release: immutable tag/release notes, supported platforms,
+- [x] Versioned public release: immutable tag/release notes, supported platforms,
       pinned installation and verified release artifacts. Publish only after the
       changes are concrete and verified; no claim of universal workflow support.
 - [x] Easier Workcell setup: explicit one-command image setup, persisted immutable
@@ -67,3 +67,10 @@ exact selected identity, reconstructed renderer, zero source writes. See
 evidence/browser-discard/37778943244/linux.json. This closes the bounded gate;
 no OS sleep, long soak or universal GPU guarantee is claimed. Versioned release
 and selected team workflow adapters/acceptance remain open.
+
+Versioned distribution closed for the explicit local-preview scope: public immutable
+v0.2.0-rc.2 at6d550705, release406832650. All4assets hash-match before publication
+and through anonymous public download. Exact pinned installer passed fresh local
+installation/doctor; CI37780321588 all5jobs/four platforms PASS. Evidence is under
+evidence/public-release/rc2. This does not close selected team adapters or make
+a blanket production-readiness claim.

@@ -1,0 +1,30 @@
+[
+  {
+    "name": "agent-city-0.2.0-rc.2-source.tar.gz",
+    "bytes": 65819320,
+    "sha256": "d7f2a81aab03b4eeb96c833112be4fd34525753c98fe4374045f661ed3d70693",
+    "anonymousDownload": true,
+    "matchesUploadedDigest": true
+  },
+  {
+    "name": "install.sh",
+    "bytes": 836,
+    "sha256": "3bbfe49db1973df3d00ec0c469c8e18c632ffc5962977364eded32572eb58494",
+    "anonymousDownload": true,
+    "matchesUploadedDigest": true
+  },
+  {
+    "name": "release-manifest.json",
+    "bytes": 1524,
+    "sha256": "ec79d05bb372b445638f4f8e4f5aba41e9fba656ebeb7d100c1ff8a13fa6dc49",
+    "anonymousDownload": true,
+    "matchesUploadedDigest": true
+  },
+  {
+    "name": "SHA256SUMS",
+    "bytes": 267,
+    "sha256": "85ddb22c6c01ede0298beddf26d846c22b402a79792069f9d3190ec76b9c391c",
+    "anonymousDownload": true,
+    "matchesUploadedDigest": true
+  }
+]

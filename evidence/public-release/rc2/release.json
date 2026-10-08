@@ -1,0 +1,43 @@
+{
+  "id": 406832650,
+  "html_url": "https://github.com/kujolang/agent-city/releases/tag/v0.2.0-rc.2",
+  "tag_name": "v0.2.0-rc.2",
+  "draft": false,
+  "prerelease": true,
+  "immutable": true,
+  "published_at": "2026-10-08T13:01:31Z",
+  "assets": [
+    {
+      "id": 621847045,
+      "name": "agent-city-0.2.0-rc.2-source.tar.gz",
+      "state": "uploaded",
+      "size": 65819320,
+      "digest": "sha256:d7f2a81aab03b4eeb96c833112be4fd34525753c98fe4374045f661ed3d70693",
+      "browser_download_url": "https://github.com/kujolang/agent-city/releases/download/v0.2.0-rc.2/agent-city-0.2.0-rc.2-source.tar.gz"
+    },
+    {
+      "id": 621847048,
+      "name": "install.sh",
+      "state": "uploaded",
+      "size": 836,
+      "digest": "sha256:3bbfe49db1973df3d00ec0c469c8e18c632ffc5962977364eded32572eb58494",
+      "browser_download_url": "https://github.com/kujolang/agent-city/releases/download/v0.2.0-rc.2/install.sh"
+    },
+    {
+      "id": 621847044,
+      "name": "release-manifest.json",
+      "state": "uploaded",
+      "size": 1524,
+      "digest": "sha256:ec79d05bb372b445638f4f8e4f5aba41e9fba656ebeb7d100c1ff8a13fa6dc49",
+      "browser_download_url": "https://github.com/kujolang/agent-city/releases/download/v0.2.0-rc.2/release-manifest.json"
+    },
+    {
+      "id": 621847046,
+      "name": "SHA256SUMS",
+      "state": "uploaded",
+      "size": 267,
+      "digest": "sha256:85ddb22c6c01ede0298beddf26d846c22b402a79792069f9d3190ec76b9c391c",
+      "browser_download_url": "https://github.com/kujolang/agent-city/releases/download/v0.2.0-rc.2/SHA256SUMS"
+    }
+  ]
+}

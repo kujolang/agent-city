@@ -147,3 +147,9 @@ Independent follow-through CI37778943244 atc98277c now passes all5jobs and inclu
 native Linux hidden/discard/resume evidence, alongside the local pass. The bounded
 recovery/performance workstream is closed within that measured scope. The versioned
 public release and selected executable team adapters remain open.
+
+Public distribution follow-through: v0.2.0-rc.2 is now published as an immutable
+local preview, source6d550705. Exact installer and anonymous asset hashes pass;
+CI37780321588 all5jobs PASS. See evidence/public-release/rc2. Earlier statements
+that no release/tag exists describe the previous milestone and are superseded
+by this release receipt. Executable WebOps/VideoOps team adapters remain open.
