@@ -1,0 +1,274 @@
+{
+  "schema": "agent-city.videoops-stage-proof.v1",
+  "scope": "Actual SDK, synthetic provider; not real model production proof",
+  "startBeforeControlledCompletion": true,
+  "duplicateProviderCalls": 0,
+  "providerCalls": 3,
+  "valid": {
+    "schema": "agent-city.videoops-stage-receipt.v1",
+    "stage": "creative-director",
+    "attempt": 1,
+    "profile": "kujolang/kujo-agents:videoops.creative-director",
+    "run": "fixture-run",
+    "task": "fixture-task",
+    "status": "artifacts-stored",
+    "reason": null,
+    "model": "explicit-fixture",
+    "underlyingModel": "UNKNOWN",
+    "code": 0,
+    "timedOut": false,
+    "artifact": {
+      "schema": "agent-city.videoops-artifact-receipt.v1",
+      "stage": "creative-director",
+      "attempt": 1,
+      "execution": "videoops-fixture:fixture-run:creative-director",
+      "status": "stored",
+      "validation": "paths-bytes-json-only",
+      "productionApproval": "NOT_ESTABLISHED",
+      "artifacts": [
+        {
+          "path": "planning/creative-brief.md",
+          "bytes": 39,
+          "sha256": "07b587a6d4159a863604a1161f4b98b4b9643adb870c0d3d0441ac508808888e"
+        },
+        {
+          "path": "planning/transcript.md",
+          "bytes": 39,
+          "sha256": "07b587a6d4159a863604a1161f4b98b4b9643adb870c0d3d0441ac508808888e"
+        },
+        {
+          "path": "planning/shot-list.json",
+          "bytes": 2,
+          "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+        },
+        {
+          "path": "planning/style-plan.md",
+          "bytes": 39,
+          "sha256": "07b587a6d4159a863604a1161f4b98b4b9643adb870c0d3d0441ac508808888e"
+        },
+        {
+          "path": "planning/asset-requirements.json",
+          "bytes": 2,
+          "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+        }
+      ]
+    },
+    "productionApproval": "NOT_ESTABLISHED"
+  },
+  "invalid": {
+    "schema": "agent-city.videoops-stage-receipt.v1",
+    "stage": "creative-director",
+    "attempt": 2,
+    "profile": "kujolang/kujo-agents:videoops.creative-director",
+    "run": "fixture-run",
+    "task": "fixture-task",
+    "status": "failed",
+    "reason": "Unexpected token 'i', \"invalid ar\"... is not valid JSON",
+    "model": "explicit-fixture",
+    "underlyingModel": "UNKNOWN",
+    "code": 0,
+    "timedOut": false,
+    "artifact": null,
+    "productionApproval": "NOT_ESTABLISHED"
+  },
+  "ungrantedTool": {
+    "schema": "agent-city.videoops-stage-receipt.v1",
+    "stage": "creative-director",
+    "attempt": 3,
+    "profile": "kujolang/kujo-agents:videoops.creative-director",
+    "run": "fixture-run",
+    "task": "fixture-task",
+    "status": "failed",
+    "reason": "SDK stage did not complete",
+    "model": "explicit-fixture",
+    "underlyingModel": "UNKNOWN",
+    "code": 4,
+    "timedOut": false,
+    "artifact": null,
+    "productionApproval": "NOT_ESTABLISHED"
+  },
+  "lifecycleRows": [
+    {
+      "agent_id": "creative-director",
+      "attempt": 1,
+      "collection": "unknown",
+      "kind": "agent",
+      "metadata": {
+        "relatedInstance": ""
+      },
+      "occurred_at_ms": 1791466670235,
+      "operation_id": "run",
+      "outcome": "unset",
+      "phase": "started",
+      "producer_instance": "videoops-fixture",
+      "profile": "kujolang/kujo-agents:videoops.creative-director",
+      "related_agent_id": "",
+      "run_id": "fixture-run",
+      "schema": "kujo.lifecycle.v1",
+      "task_id": "fixture-task"
+    },
+    {
+      "agent_id": "creative-director",
+      "attempt": 1,
+      "collection": "unknown",
+      "kind": "agent",
+      "metadata": {
+        "relatedInstance": ""
+      },
+      "occurred_at_ms": 1791466670377,
+      "operation_id": "run",
+      "outcome": "succeeded",
+      "phase": "finished",
+      "producer_instance": "videoops-fixture",
+      "profile": "kujolang/kujo-agents:videoops.creative-director",
+      "related_agent_id": "",
+      "run_id": "fixture-run",
+      "schema": "kujo.lifecycle.v1",
+      "task_id": "fixture-task"
+    },
+    {
+      "schema": "kujo.lifecycle.v1",
+      "producer_instance": "videoops-fixture",
+      "profile": "city-videoops-checker",
+      "run_id": "fixture-run",
+      "agent_id": "videoops-checker",
+      "task_id": "fixture-task",
+      "operation_id": "creative-director-artifact-contract-1",
+      "attempt": 1,
+      "kind": "evaluation",
+      "phase": "started",
+      "outcome": "unset",
+      "occurred_at_ms": 1791466670393,
+      "metadata": {
+        "tool": "city.videoops-artifact-contract"
+      }
+    },
+    {
+      "schema": "kujo.lifecycle.v1",
+      "producer_instance": "videoops-fixture",
+      "profile": "city-videoops-checker",
+      "run_id": "fixture-run",
+      "agent_id": "videoops-checker",
+      "task_id": "fixture-task",
+      "operation_id": "creative-director-artifact-contract-1",
+      "attempt": 1,
+      "kind": "evaluation",
+      "phase": "finished",
+      "outcome": "succeeded",
+      "occurred_at_ms": 1791466670401,
+      "metadata": {
+        "tool": "city.videoops-artifact-contract"
+      }
+    },
+    {
+      "agent_id": "creative-director",
+      "attempt": 2,
+      "collection": "unknown",
+      "kind": "agent",
+      "metadata": {
+        "relatedInstance": ""
+      },
+      "occurred_at_ms": 1791466670609,
+      "operation_id": "run",
+      "outcome": "unset",
+      "phase": "started",
+      "producer_instance": "videoops-fixture",
+      "profile": "kujolang/kujo-agents:videoops.creative-director",
+      "related_agent_id": "",
+      "run_id": "fixture-run",
+      "schema": "kujo.lifecycle.v1",
+      "task_id": "fixture-task"
+    },
+    {
+      "agent_id": "creative-director",
+      "attempt": 2,
+      "collection": "unknown",
+      "kind": "agent",
+      "metadata": {
+        "relatedInstance": ""
+      },
+      "occurred_at_ms": 1791466670725,
+      "operation_id": "run",
+      "outcome": "succeeded",
+      "phase": "finished",
+      "producer_instance": "videoops-fixture",
+      "profile": "kujolang/kujo-agents:videoops.creative-director",
+      "related_agent_id": "",
+      "run_id": "fixture-run",
+      "schema": "kujo.lifecycle.v1",
+      "task_id": "fixture-task"
+    },
+    {
+      "schema": "kujo.lifecycle.v1",
+      "producer_instance": "videoops-fixture",
+      "profile": "city-videoops-checker",
+      "run_id": "fixture-run",
+      "agent_id": "videoops-checker",
+      "task_id": "fixture-task",
+      "operation_id": "creative-director-artifact-contract-2",
+      "attempt": 1,
+      "kind": "evaluation",
+      "phase": "started",
+      "outcome": "unset",
+      "occurred_at_ms": 1791466670740,
+      "metadata": {
+        "tool": "city.videoops-artifact-contract"
+      }
+    },
+    {
+      "schema": "kujo.lifecycle.v1",
+      "producer_instance": "videoops-fixture",
+      "profile": "city-videoops-checker",
+      "run_id": "fixture-run",
+      "agent_id": "videoops-checker",
+      "task_id": "fixture-task",
+      "operation_id": "creative-director-artifact-contract-2",
+      "attempt": 1,
+      "kind": "evaluation",
+      "phase": "finished",
+      "outcome": "failed",
+      "occurred_at_ms": 1791466670741,
+      "metadata": {
+        "tool": "city.videoops-artifact-contract"
+      }
+    },
+    {
+      "agent_id": "creative-director",
+      "attempt": 3,
+      "collection": "unknown",
+      "kind": "agent",
+      "metadata": {
+        "relatedInstance": ""
+      },
+      "occurred_at_ms": 1791466670954,
+      "operation_id": "run",
+      "outcome": "unset",
+      "phase": "started",
+      "producer_instance": "videoops-fixture",
+      "profile": "kujolang/kujo-agents:videoops.creative-director",
+      "related_agent_id": "",
+      "run_id": "fixture-run",
+      "schema": "kujo.lifecycle.v1",
+      "task_id": "fixture-task"
+    },
+    {
+      "agent_id": "creative-director",
+      "attempt": 3,
+      "collection": "unknown",
+      "kind": "agent",
+      "metadata": {
+        "relatedInstance": ""
+      },
+      "occurred_at_ms": 1791466671040,
+      "operation_id": "run",
+      "outcome": "failed",
+      "phase": "finished",
+      "producer_instance": "videoops-fixture",
+      "profile": "kujolang/kujo-agents:videoops.creative-director",
+      "related_agent_id": "",
+      "run_id": "fixture-run",
+      "schema": "kujo.lifecycle.v1",
+      "task_id": "fixture-task"
+    }
+  ]
+}

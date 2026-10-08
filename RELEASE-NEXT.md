@@ -97,3 +97,10 @@ native doctor finds FFmpeg/ffprobe; no candidate means review unavailable, not P
 124 tests/types/boundaries/maps/build pass. See evidence/videoops-foundation.
 Stage orchestration, isolated render, exact-candidate independent review, UI and
 real production acceptance remain open; these foundations do not close item5.
+
+VideoOps SDK checkpoint: bounded single-stage execution now uses the actual Kujo
+SDK lifecycle seam with exact role/capability admission and immutable attempt
+storage. Controlled provider proof observes start before completion, rejects
+duplicate attempts before another model call, and preserves malformed/tool-request
+failures. Full stage handoff validation, production orchestration/render/review,
+UI and real production acceptance remain open. See evidence/videoops-stage-contract.
