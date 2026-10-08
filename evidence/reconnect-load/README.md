@@ -26,3 +26,10 @@ request remaining unresolved while later requests complete suggests starvation,
 but the blocked source stage has not been proven. Do not convert it into a
 SQLite-lock diagnosis without stage evidence. Four-platform installation CI
 37711883473 at the same City revision passed separately.
+
+Diagnostic reproduction is separate: `scripts/intake-stage-diagnostic.ts` creates
+uniquely named temporary Watchdog modules, logs only stage/clock/ID for the first
+four synthetic batches and removes those modules on completion. It marks receipts
+`diagnostic:true`, which release assessment rejects. The manual x64 diagnostic
+workflow is bounded to60seconds of offered load and a10minute job cap. Local
+400record smoke completed through all stages; no producer source file changed.

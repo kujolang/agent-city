@@ -1,0 +1,36 @@
+name: Bounded canonical intake diagnostic
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  stages:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install pinned local application
+        env:
+          CITY_INSTALL_REF: ${{ github.sha }}
+        run: sh install.sh --prefix "$RUNNER_TEMP/city" --no-start
+      - name: Install diagnostic browser
+        run: |
+          cd "$RUNNER_TEMP/city/agent-city"
+          if [ -x ../.node/bin/node ]; then export PATH="$RUNNER_TEMP/city/.node/bin:$PATH"; fi
+          npx playwright install --with-deps chromium
+      - name: Observe initial batch stages under bounded load
+        env:
+          PIPELINE_SECONDS: "60"
+          PIPELINE_RATE: "1100"
+          PIPELINE_CONCURRENCY: "4"
+          PIPELINE_SOAK: "1"
+          CITY_PIPELINE_OUTPUT: ${{ runner.temp }}/diagnostic.json
+        run: |
+          cd "$RUNNER_TEMP/city/agent-city"
+          if [ -x ../.node/bin/node ]; then export PATH="$RUNNER_TEMP/city/.node/bin:$PATH"; fi
+          node --import tsx scripts/intake-stage-diagnostic.ts
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: canonical-stage-diagnostic
+          path: ${{ runner.temp }}/diagnostic.json

@@ -23,6 +23,7 @@ const kujo = resolve(root, "../kujo/target/release/kujo");
 let log = "";
 const testToken = randomBytes(32).toString("hex"),
   proxyToken = randomBytes(32).toString("hex");
+const logLimit = process.env.CITY_PIPELINE_DIAGNOSTIC_ENTRY ? 65536 : 6000;
 const launch = (cmd: string, args: string[], cwd: string, env: any) => {
   const c = spawn(cmd, args, {
     cwd,
@@ -30,8 +31,8 @@ const launch = (cmd: string, args: string[], cwd: string, env: any) => {
     stdio: ["ignore", "pipe", "pipe"],
   });
   children.push(c);
-  c.stdout?.on("data", (d) => (log = (log + d).slice(-6000)));
-  c.stderr?.on("data", (d) => (log = (log + d).slice(-6000)));
+  c.stdout?.on("data", (d) => (log = (log + d).slice(-logLimit)));
+  c.stderr?.on("data", (d) => (log = (log + d).slice(-logLimit)));
   return c;
 };
 async function ready(url: string) {
@@ -87,6 +88,7 @@ const result: any = {
     "UNKNOWN",
   pid: process.pid,
   runtime,
+  diagnostic: Boolean(process.env.CITY_PIPELINE_DIAGNOSTIC_ENTRY),
   status: "RUNNING",
   samples: [],
   kind: "SYNTHETIC canonical HTTP intake → real Watchdog export → real gateway → SSE; no source business execution",
@@ -109,7 +111,7 @@ try {
       ...(runtimeMode === "interpreter"
         ? ["--interpreter"]
         : ["--scheduler-no-timeout"]),
-      "dashboard_server.kujo",
+      process.env.CITY_PIPELINE_DIAGNOSTIC_ENTRY || "dashboard_server.kujo",
     ],
     resolve(root, "../watchdog"),
     {
@@ -487,6 +489,7 @@ try {
       });
     }),
   );
+  if (result.diagnostic) result.serverLog = log;
   await writeFile(evidencePath, JSON.stringify(result, null, 2));
 }
 console.log(

@@ -132,6 +132,7 @@ describe("release evidence cannot overclaim qualification", () => {
   });
   it("rejects a fast short burst, missing deliveries and duplicated deliveries", () => {
     for (const delta of [
+      { diagnostic: true },
       { status: "FAILED" },
       { deliveryReconciled: false },
       { browserCaughtUp: false },
@@ -154,6 +155,7 @@ describe("release evidence cannot overclaim qualification", () => {
     );
     for (const delta of [
       { verifiedReconnects: 0 },
+      { diagnostic: true },
       { status: "FAILED" },
       { sampleError: "timeout" },
       { browserCaughtUp: false },

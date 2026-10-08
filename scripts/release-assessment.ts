@@ -38,6 +38,7 @@ export function assessRelease(input: {
     endToEndStress: measured(
       p,
       p?.status === "COMPLETED" &&
+        p?.diagnostic !== true &&
         p?.deliveryReconciled === true &&
         p?.browserCaughtUp === true &&
         !p?.sampleError &&
@@ -52,6 +53,7 @@ export function assessRelease(input: {
     reconnectUnderLoad: measured(
       input.reconnect,
       input.reconnect?.status === "COMPLETED" &&
+        input.reconnect?.diagnostic !== true &&
         input.reconnect?.deliveryReconciled === true &&
         input.reconnect?.browserCaughtUp === true &&
         !input.reconnect?.sampleError &&
