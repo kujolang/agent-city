@@ -297,3 +297,21 @@ uninstall/restoration, and private Node retention on Linuxx64/ARM64 and
 macOSIntel/ARM64. Local actual model-installation maintenance preserved106files.
 Evidence: evidence/installed-maintenance. This closes cross-platform maintenance
 qualification; provider/sandbox setup and remaining release categories stay open.
+
+
+Clean-runner qualification checkpoint: CI37709566358 at efa529d with Watchdog
+f463ced passed the unchanged canonical60second throughput target on Linux x64
+and ARM64:66,000/66,000 visible observations, zero missing/duplicates, both real
+browsers caught up. This is synthetic stress, not model product proof. Installed
+Docker/Kujo sandbox execution also passed on both Linux architectures in
+CI37708874433. See evidence/clean-throughput and evidence/workcell-platforms.
+Automatic engine/provider installation and full fresh-machine onboarding remain
+open. No eight-hour soak was started.
+
+Reconnect qualification checkpoint: CI37710144786 failed the browser STALE wait
+on both architectures; x64 also timed out canonical intake. The browser now
+handles native offline events immediately and reconnects from a gateway snapshot.
+Controlled Chromium transport/replay regression and88unit tests pass at73d0498.
+This does not supersede the failed load run; its replacement remains separately
+qualified. Historical replay input is preserved, with explicit current-map test
+repackaging recorded in evidence/browser-connection.

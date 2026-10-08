@@ -7,6 +7,7 @@ type RecordData = Record<string, any>;
 export function assessRelease(input: {
   stress?: RecordData;
   pipeline?: RecordData;
+  reconnect?: RecordData;
   browser?: RecordData;
   renderer?: RecordData;
   zoom?: RecordData;
@@ -36,13 +37,31 @@ export function assessRelease(input: {
     ),
     endToEndStress: measured(
       p,
-      atLeast(p?.visibleEventsPerSecond, 1000) &&
+      p?.status === "COMPLETED" &&
+        p?.deliveryReconciled === true &&
+        p?.browserCaughtUp === true &&
+        !p?.sampleError &&
+        atLeast(p?.visibleEventsPerSecond, 1000) &&
         atLeast(p?.sendSeconds, 60) &&
         atLeast(p?.accepted, 60000) &&
         p?.visible === p?.accepted &&
         p?.missing === 0 &&
         p?.duplicates === 0,
       "Canonical Watchdog intake through gateway/SSE; short bursts cannot qualify the 60-second gate.",
+    ),
+    reconnectUnderLoad: measured(
+      input.reconnect,
+      input.reconnect?.status === "COMPLETED" &&
+        input.reconnect?.deliveryReconciled === true &&
+        input.reconnect?.browserCaughtUp === true &&
+        !input.reconnect?.sampleError &&
+        atLeast(input.reconnect?.verifiedReconnects, 1) &&
+        atLeast(input.reconnect?.sendSeconds, 60) &&
+        atLeast(input.reconnect?.accepted, 60000) &&
+        input.reconnect?.visible === input.reconnect?.accepted &&
+        input.reconnect?.missing === 0 &&
+        input.reconnect?.duplicates === 0,
+      "Forced browser offline/online during bounded canonical load; recovered truth, reconciled delivery and no sample failures.",
     ),
     eightHourSoak: {
       status: "NOT_QUALIFIED",

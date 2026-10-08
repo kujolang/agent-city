@@ -17,14 +17,17 @@ real writing continuations completed runtime execution but failed the requested
 three-sentence constraint. Historical context now precedes the current reviewer
 draft; the writing UI explicitly says factual accuracy and task constraints are
 unverified. The existing local 1.5B model is not a demonstrated reliable writing
-configuration. No stronger model has been downloaded or selected on the user's
-behalf. See repository evidence under `evidence/writing-context-order`.
+configuration. Later explicit8192-token glm-5.3:cloud missions produced reviewed
+writing and Kujo code; see evidence/first-user-installed and evidence/profile-kujo.
+Earlier failed attempts remain in evidence/writing-context-order.
 
-Overall release remains FAIL for full-path throughput. Native hidden-tab recovery
-remains unqualified on this automation host; multiple distinct controls failed to
-produce a native hidden state, so the unchanged setup should not be retried.
-The eight-hour soak remains explicitly cancelled. Preview packaging and startup
-verification do not turn these open gates into a production-readiness claim.
+Current qualification supersedes those early blockers: clean Linux x64/ARM64
+CI delivered66,000/66,000 canonical observations at about1,100events/sec for60s
+(see evidence/clean-throughput). A short native hidden-tab cycle now passes
+(evidence/browser-visibility). Reconnect-under-load remains a separate gate;
+CI37710144786 failed and the browser offline fix is under renewed qualification.
+The eight-hour soak remains explicitly cancelled. These bounded results do not
+establish complete product acceptance or long-duration production readiness.
 
 ## Current implementation
 

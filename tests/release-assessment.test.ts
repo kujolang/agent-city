@@ -8,6 +8,9 @@ const stress = {
   dropped: 0,
 };
 const pipeline = {
+  status: "COMPLETED",
+  deliveryReconciled: true,
+  browserCaughtUp: true,
   visibleEventsPerSecond: 1000,
   sendSeconds: 60,
   accepted: 60000,
@@ -129,6 +132,10 @@ describe("release evidence cannot overclaim qualification", () => {
   });
   it("rejects a fast short burst, missing deliveries and duplicated deliveries", () => {
     for (const delta of [
+      { status: "FAILED" },
+      { deliveryReconciled: false },
+      { browserCaughtUp: false },
+      { sampleError: "offline timeout" },
       { sendSeconds: 2 },
       { visible: 59999 },
       { duplicates: 1 },
@@ -139,6 +146,27 @@ describe("release evidence cannot overclaim qualification", () => {
           .endToEndStress.status,
       ).toBe("FAIL");
     }
+  });
+  it("requires a successful reconnect independently from passing throughput", () => {
+    const reconnect = { ...pipeline, verifiedReconnects: 1 };
+    expect(assessRelease({ reconnect }).gates.reconnectUnderLoad.status).toBe(
+      "PASS",
+    );
+    for (const delta of [
+      { verifiedReconnects: 0 },
+      { status: "FAILED" },
+      { sampleError: "timeout" },
+      { browserCaughtUp: false },
+      { missing: 1 },
+    ]) {
+      expect(
+        assessRelease({ pipeline, reconnect: { ...reconnect, ...delta } }).gates
+          .reconnectUnderLoad.status,
+      ).toBe("FAIL");
+    }
+    expect(assessRelease({ pipeline }).gates.reconnectUnderLoad.status).toBe(
+      "NOT_QUALIFIED",
+    );
   });
   it("rejects journal counts that disagree or omit the duration", () => {
     for (const delta of [{ count: 59999 }, { durationSeconds: undefined }])
