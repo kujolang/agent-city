@@ -126,6 +126,8 @@ jobs:
           cd "$RUNNER_TEMP/city/agent-city"
           "$RUNNER_TEMP/city/start.command" setup:workcell --build
           node --import tsx scripts/installed-workcell-proof.ts
+          CITY_ENABLE_WORKCELL=1 CITY_WORKCELL_IMAGE=agent-city-kujo:1.7.0 node --import tsx scripts/workcell-project-proof.ts
+          cp evidence/mission-workcell/project-inputs/proof.json "$RUNNER_TEMP/workcell-project-inputs.json"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -136,6 +138,7 @@ jobs:
             ${{ runner.temp }}/catalog-import.log
             ${{ runner.temp }}/docker-readiness.log
             ${{ runner.temp }}/workcell-platform.json
+            ${{ runner.temp }}/workcell-project-inputs.json
             ${{ runner.temp }}/maintenance.json
             ${{ runner.temp }}/city/install-receipt.json
             ${{ runner.temp }}/installed-acceptance

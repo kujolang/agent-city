@@ -9,6 +9,7 @@
   "keyboardConsent": true,
   "explicitOutputCheckPostedAndReset": true,
   "selectedProjectFilesPostedAndReset": true,
+  "projectExecutionPermissionReset": true,
   "consentResetAfterSubmission": true,
   "consentResetForContinuation": true,
   "pageErrors": []

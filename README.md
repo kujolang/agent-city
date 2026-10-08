@@ -313,3 +313,17 @@ include prompt text, reasoning text, response content or credentials. Missing da
 is UNKNOWN. A `length` finish reason fails the mission; partial final content is
 retained privately in its recorded exchanges. Previous attempts are never replaced.
 See [real recovery evidence](evidence/provider-limits/README.md).
+
+### Execute selected project inputs
+
+Selected project snapshots are model context by default. To let generated Kujo
+read them during actual execution, explicitly enable **Copy selected project files
+into this Workcell run** as well as **Execute checked Kujo code in Workcell**.
+The copied files live under `project/<selected relative name>` next to `input.kujo`.
+For example, a selected `prices.txt` is available as `project/prices.txt`.
+This copies up to eight bounded text files; it does not mount your host project,
+activate its workflows or grant network access. Repository internals and Git
+control files are rejected. The inspector's Workcell evidence retains input
+name/size/hash references. Changes to copied inputs are not exported back to the
+host; stdout and the generated reviewed artifact remain separately downloadable.
+Each continuation requires fresh execution and project-input consent.
