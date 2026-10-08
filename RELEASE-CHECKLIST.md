@@ -476,3 +476,16 @@ integer scale, fallback and320px layout;99tests/build pass. CI37727111536 at74a4
 passes all5jobs. See evidence/game-view/{dojo.png,mcp.png,rooms-ci.json}.
 This improves two sparse rooms; final reference fidelity and broader workflow/
 release qualification remain open. No new live execution or final video claimed.
+
+Selected-project context checkpoint059c899: users attach bounded text snapshots
+for author/reviewer and explicit follow-ups, with private contents and inspectable
+name/size/hash references. No host path/mount/edit permission or semantic retrieval
+is inferred. Controlled SDK and browser proofs cover delivery, continuity, rejection
+and telemetry privacy. Real glm-5.3:cloud mission3c296e80-8ab3-49f2-843a-10821c040750
+implements the attachment-only7-unit surcharge; all3actual JS function checks pass.
+Initial Linux checker unavailability now retains diagnostics and UNKNOWN evaluation;
+scoped CI AppArmor policy preserves required Chromium sandboxing. CI37728551353
+atfd65455 passes101tests/source/browser/all4platforms, with fresh receipt artifacts
+preserved outside installer maintenance. See evidence/profile-code/project-context
+and project-context-real. Arbitrary project edits/tools/workflows and final visual/
+release qualification remain open. No long soak or final tool/video ran.

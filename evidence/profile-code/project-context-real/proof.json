@@ -1,0 +1,71 @@
+{
+  "source": "d50204a8d60fae13f4d8a998cc8c102ef1f88699",
+  "scope": "Real Ollama cloud author/reviewer and actual sandboxed browser function execution",
+  "attempts": [
+    {
+      "mission": "mission-3c296e80-8ab3-49f2-843a-10821c040750",
+      "model": "glm-5.3:cloud",
+      "checks": {
+        "schema": "agent-city.function-check.v1",
+        "status": "passed",
+        "environment": "disposable-chromium-module-worker",
+        "browserSandboxRequested": true,
+        "browser": "151.0.7922.34",
+        "codeExecuted": true,
+        "scope": "explicit JSON function cases only; no filesystem or network integrations",
+        "blockedRequests": 0,
+        "cases": [
+          {
+            "name": "positive",
+            "status": "passed",
+            "reason": "expectation-met",
+            "occurredAt": 1791433937175
+          },
+          {
+            "name": "negative",
+            "status": "passed",
+            "reason": "expectation-met",
+            "occurredAt": 1791433937185
+          },
+          {
+            "name": "zero",
+            "status": "passed",
+            "reason": "expectation-met",
+            "occurredAt": 1791433937197
+          }
+        ],
+        "checkedAt": "2026-10-08T04:32:17.197Z"
+      },
+      "validation": {
+        "schema": "agent-city.code-check.v1",
+        "syntax": "valid",
+        "fenceRemoved": false,
+        "functionalTests": "passed",
+        "codeExecuted": true,
+        "checkedAt": "2026-10-08T04:32:15.212Z"
+      },
+      "artifactSha256": "3179f63a5ae8feddc691a24b68b1afff7306bfab1082451cb8377c09fa31bd5b",
+      "checkerIdentityDistinct": true,
+      "individualOutcomes": [
+        {
+          "operation": "check-0",
+          "outcome": "succeeded"
+        },
+        {
+          "operation": "check-1",
+          "outcome": "succeeded"
+        },
+        {
+          "operation": "check-2",
+          "outcome": "succeeded"
+        }
+      ],
+      "handoffObserved": true
+    }
+  ],
+  "priorFailureRetained": "fixture-tested",
+  "privateEvidence": "/Users/robertdevore/2026/Kujolang/kujo-repos/agent-city/.runtime/profile-code-6882bd70-9bdd-4544-875d-f47a4b6750d6",
+  "projectReadCount": "not intercepted; controlled proof verifies both adapter requests",
+  "privateSnapshotsPreserved": true,
+  "noProjectContentInTelemetry": true
+}

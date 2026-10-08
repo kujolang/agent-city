@@ -1,0 +1,1 @@
+{"schema":"agent-city.project-context.v1","files":[{"path":"src/requirements.txt","content":"Project requirement: export function add(a,b). Return a+b+7, where7 is our fixed processing surcharge. No I/O or other side effects. Preserve the named export.","bytes":159,"sha256":"6ae752763ab5d56a73629b35c33dcdc7c3b4b7b3fe3e626d16603051bb2f6b02"}]}
