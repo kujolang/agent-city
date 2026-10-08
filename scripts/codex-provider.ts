@@ -8,6 +8,12 @@ import { randomBytes } from "node:crypto";
 import { mkdtemp, readFile, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
+import { codexReadiness } from "../apps/runner/codex-readiness";
+const readiness = await codexReadiness();
+console.log(JSON.stringify(readiness));
+if (process.argv.includes("--check"))
+  process.exit(readiness.usable && readiness.auth === "CHATGPT" ? 0 : 1);
+if (!readiness.usable) process.exit(1);
 const port = Number(process.env.CITY_CODEX_PORT || 6179);
 const origin = process.env.CITY_APP_URL || "http://127.0.0.1:6178";
 const appUrl = new URL(origin);
@@ -41,10 +47,22 @@ const server = createServer(async (req, res) => {
   };
   if (req.headers.host !== `127.0.0.1:${port}` || req.headers.origin)
     return send(403, { error: "Local server requests only" });
-  if (req.method !== "POST" || req.url !== "/v1/chat/completions")
-    return send(404, { error: "Unknown endpoint" });
   if (req.headers.authorization !== "Bearer " + token)
     return send(401, { error: "Provider credential required" });
+  if (req.method === "GET" && req.url === "/v1/models")
+    return send(200, {
+      object: "list",
+      data: [
+        {
+          id: "codex-cli-default",
+          object: "model",
+          owned_by: "local-codex-connector",
+        },
+      ],
+      note: "Connector alias only. Underlying model identity and generation availability are not established by this listing.",
+    });
+  if (req.method !== "POST" || req.url !== "/v1/chat/completions")
+    return send(404, { error: "Unknown endpoint" });
   if (busy) return send(409, { error: "Codex provider busy" });
   busy = true;
   let dir = "";
@@ -140,9 +158,16 @@ const server = createServer(async (req, res) => {
 });
 server.listen(port, "127.0.0.1", async () => {
   try {
-    const status = await (await fetch(origin + "/control/status")).json();
+    const status = await (
+      await fetch(origin + "/control/status", {
+        signal: AbortSignal.timeout(5000),
+        redirect: "error",
+      })
+    ).json();
     const saved = await fetch(origin + "/control/config", {
       method: "POST",
+      signal: AbortSignal.timeout(5000),
+      redirect: "error",
       headers: {
         Origin: origin,
         "Content-Type": "application/json",

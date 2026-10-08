@@ -32,15 +32,26 @@ CITY_PORT_OFFSET=1000 "$HOME/.local/share/agent-city/start.command"
 Terminal 2, after the app is ready:
 
 ```sh
-codex login status
+"$HOME/.local/share/agent-city/start.command" provider:codex --check
 CITY_APP_URL=http://127.0.0.1:6178 "$HOME/.local/share/agent-city/start.command" provider:codex
 ```
+
+The read-only `--check` command checks installed CLI options and login status; it
+sends no prompt and changes no City configuration. Missing/outdated CLI or a known
+signed-out/API-key login gets recovery guidance. UNKNOWN login status (for example
+a local Codex config error) is not a successful authentication check: inspect
+`codex login status`; the normal connector may still work because execution ignores
+user config. Neither check proves remaining usage quota or model access.
 
 If needed, `codex login` opens the normal ChatGPT sign-in. The adapter listens on
 loopback port 6179 and configures the app at http://127.0.0.1:6178 automatically,
 using a generated private local bridge credential. Do not enter a subscription
 password or copy a Codex token into the model form. Restart the adapter after
 restarting the app; it refreshes its local credential. Ctrl+C stops each terminal.
+The model-list check recognizes `codex-cli-default` as a connector alias, not a
+reported underlying model ID. Only an actual task tests generation.
+[Codex authentication](https://learn.chatgpt.com/docs/auth) remains owned by Codex;
+Agent City never signs you out or copies its authentication files.
 
 Choose **Kujo + senior review (real MCP)** and submit a small script request.
 This mode always reads the actual public `kujolang-mcp` catalog with

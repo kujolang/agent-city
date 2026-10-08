@@ -1,0 +1,15 @@
+{
+  "scope": "Actual installed CLI/connector with controlled fresh City config endpoint; no generation or account signup",
+  "readiness": {
+    "usable": true,
+    "version": "0.144.4",
+    "auth": "UNKNOWN",
+    "message": "CLI execution options are available, but login status could not be verified. Run codex login status for local diagnostics. The connector ignores user config for execution; authentication remains unverified until a request succeeds."
+  },
+  "alias": "codex-cli-default",
+  "authenticatedListing": true,
+  "unauthenticatedRejected": true,
+  "browserOriginRejected": true,
+  "configurationWrites": 1,
+  "modelCalls": 0
+}
