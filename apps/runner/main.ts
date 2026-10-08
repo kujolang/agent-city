@@ -1,3 +1,4 @@
+import { validateExpectedOutput } from "./output-check";
 import {
   admissionHeld,
   releaseAdmission,
@@ -481,8 +482,14 @@ const server = createServer(async (req, res) => {
           error: "Choose writing/code and provide a task up to 16 KiB",
         });
       let executeWorkcell = false;
+      let expectedOutput: string | null = null;
       try {
         executeWorkcell = admitWorkcell(data.executeWorkcell, data.kind);
+        expectedOutput = validateExpectedOutput(
+          data.expectedOutput,
+          data.kind,
+          executeWorkcell,
+        );
         if (executeWorkcell) await assertWorkcellAvailable(root);
       } catch (error) {
         return send(400, {
@@ -578,6 +585,12 @@ const server = createServer(async (req, res) => {
           mode: 0o600,
         });
       }
+      const outputContractFile =
+        expectedOutput === null ? "" : resolve(dir, id + ".output.json");
+      if (outputContractFile)
+        await writeFile(outputContractFile, JSON.stringify(expectedOutput), {
+          mode: 0o600,
+        });
       const prompt = resolve(dir, id + ".txt");
       if (context)
         await writeFile(contextFile, JSON.stringify(context), { mode: 0o600 });
@@ -611,6 +624,7 @@ const server = createServer(async (req, res) => {
             CITY_EXECUTE_WORKCELL: executeWorkcell ? "1" : "0",
             CITY_CHECKINS: data.allowCheckins === true ? "1" : "0",
             CITY_FUNCTION_CONTRACT_FILE: contractFile,
+            CITY_OUTPUT_CONTRACT_FILE: outputContractFile,
             CITY_CONTEXT_FILE: contextFile,
             CITY_PROFILE_FILE: profileFile,
             CITY_USE_RAG: data.useLocalDocs === true ? "1" : "0",

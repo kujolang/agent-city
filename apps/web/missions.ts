@@ -34,6 +34,7 @@ export function mountMissions(
     <label><input type="checkbox" name="useMcpDocs"> Read local MCP demo README</label>
     <label>Task <textarea name="prompt" rows="3" maxlength="16384" required placeholder="Describe the small task you want the agents to complete."></textarea></label>
     <label><input type="checkbox" name="executeWorkcell"> Execute checked Kujo code in Workcell after review (requires operator setup; no network or project access)</label>
+    <details><summary>Optional Kujo output check</summary><label><input type="checkbox" name="checkOutput"> Check exact stdout after Workcell execution</label><label>Expected stdout <textarea name="expectedOutput" rows="3" maxlength="16384"></textarea></label><p>Requires the Workcell execution opt-in. Include the final newline if your program prints one. CRLF is normalized; all other whitespace is significant. A completed task can still fail this check.</p></details>
     <details><summary>Workcell execution setup</summary><p>Requires a running local Docker/Podman engine and a trusted local image containing Kujo. For Docker in a managed installation, run <code>../start.command setup:workcell --build</code> from the Agent City directory (source checkout: <code>npm run setup:workcell -- --build</code>) to build the supplied local image, then use its printed launch command. The operator sets <code>CITY_ENABLE_WORKCELL=1</code> and <code>CITY_WORKCELL_IMAGE</code> before starting Agent City. Select the intended engine context in the launcher environment.</p><button type="button" id="check-workcell">Check Workcell setup</button><p id="workcell-check-status" role="status" aria-live="polite">Not checked. This check does not install software, pull images, run code or enable execution.</p></details>
     <details><summary>Optional JavaScript function checks</summary><label>Function contract JSON <textarea name="functionContract" rows="4" placeholder='{"exportName":"sum","cases":[{"name":"empty","args":[[]],"equals":0}]}'></textarea></label><p class="muted">Explicitly runs the generated module in a disposable browser worker. JSON arguments/results only; no filesystem or network integrations. Requires installed Chromium. Each case gets 1.5 seconds.</p></details>
     <button type="submit" disabled>Start mission</button></form>
@@ -342,7 +343,7 @@ export function mountMissions(
                 (artifact.kind === "code"
                   ? `SYNTAX: ${artifact.validation?.syntax?.toUpperCase() || "UNKNOWN"} · FUNCTIONAL TESTS: ${(artifact.validation?.functionalTests || "not-run").toUpperCase()} · ${artifact.codeExecuted === null ? "EXECUTION COVERAGE UNKNOWN" : artifact.codeExecuted ? "EXECUTED IN ISOLATED BROWSER" : "CODE NOT EXECUTED"}\n${artifact.validation?.fenceRemoved ? "Outer Markdown fence removed; original response retained above.\n" : ""}\n`
                   : artifact.kind === "kujo"
-                    ? `KUJO STATIC CHECK: ${artifact.validation?.syntax?.toUpperCase() || "UNKNOWN"} · ${artifact.validation?.checkedArtifact === "reviewed.kujo" ? "REVIEWED CODE" : "AUTHOR DRAFT"} · ${artifact.codeExecuted === true ? "EXECUTED IN WORKCELL" : artifact.codeExecuted === null ? "EXECUTION UNKNOWN" : "CODE NOT EXECUTED"}\nREVIEW COMMENTARY IS MODEL OPINION, NOT A TEST RESULT\n\n`
+                    ? `KUJO OUTPUT CHECK: ${artifact.validation?.outputCheck?.status?.toUpperCase() || "NOT REQUESTED"}\n${artifact.validation?.outputCheck ? JSON.stringify(artifact.validation.outputCheck, null, 2) + "\n" : ""}KUJO STATIC CHECK: ${artifact.validation?.syntax?.toUpperCase() || "UNKNOWN"} · ${artifact.validation?.checkedArtifact === "reviewed.kujo" ? "REVIEWED CODE" : "AUTHOR DRAFT"} · ${artifact.codeExecuted === true ? "EXECUTED IN WORKCELL" : artifact.codeExecuted === null ? "EXECUTION UNKNOWN" : "CODE NOT EXECUTED"}\nREVIEW COMMENTARY IS MODEL OPINION, NOT A TEST RESULT\n\n`
                     : "MODEL-REVIEWED TEXT · FACTUAL ACCURACY AND TASK CONSTRAINTS NOT VERIFIED\n\n") +
                 (artifact.draft
                   ? "KUJO AUTHOR DRAFT\n" +
@@ -516,6 +517,9 @@ export function mountMissions(
           useLocalDocs: fields.has("useLocalDocs"),
           useMcpDocs: fields.has("useMcpDocs"),
           executeWorkcell: fields.has("executeWorkcell"),
+          ...(fields.has("checkOutput")
+            ? { expectedOutput: fields.get("expectedOutput") }
+            : {}),
           ...(contract ? { functionContract } : {}),
           ...(parent ? { parentMissionId: parent.id } : {}),
         }),

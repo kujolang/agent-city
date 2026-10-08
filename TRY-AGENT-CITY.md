@@ -185,3 +185,17 @@ to allow new tasks despite the unresolved earlier run; that work may still be ru
 The confirmation records your admission decision, leaves UNKNOWN intact, and neither
 stops nor reruns the old task. New work could overlap with it. A currently supervised
 mission cannot be bypassed. Workcell cleanup remains a separate recovery operation.
+
+### Check Kujo output and request a repair
+
+After enabling Workcell and opting into execution for a Kujo task, open **Optional
+Kujo output check**, enable **Check exact stdout**, and enter the output you expect.
+For a program that prints `5`, enter `5` followed by a newline. Matching is exact
+except that Windows CRLF line endings become LF. Blank expected output is allowed
+when the checkbox is enabled. No check runs unless execution is explicitly enabled.
+
+Open the finished artifact to see **KUJO OUTPUT CHECK: PASSED / FAILED / UNAVAILABLE**.
+Completion of the agent task or container does not imply the check passed. Missing
+or truncated output is unavailable, not a guessed result. Use Follow up to request
+a repair; the next agents receive the prior validation and output. Enable execution
+and the output check again for that request. Both attempts remain in history.

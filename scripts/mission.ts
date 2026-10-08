@@ -1,4 +1,8 @@
 import {
+  validateExpectedOutput,
+  checkExpectedOutput,
+} from "../apps/runner/output-check";
+import {
   admitWorkcell,
   executeMissionWorkcell,
 } from "../apps/runner/mission-workcell";
@@ -26,6 +30,13 @@ if (!["writing", "code", "kujo"].includes(kind) || !promptFile)
 const executeWorkcell = admitWorkcell(
   process.env.CITY_EXECUTE_WORKCELL === "1",
   kind,
+);
+const expectedOutput = validateExpectedOutput(
+  process.env.CITY_OUTPUT_CONTRACT_FILE
+    ? JSON.parse(await readFile(process.env.CITY_OUTPUT_CONTRACT_FILE, "utf8"))
+    : undefined,
+  kind,
+  executeWorkcell,
 );
 const modelConfig = validateModelConfig({
   endpoint: process.env.CITY_MODEL_ENDPOINT || "",
@@ -78,6 +89,7 @@ await writeFile(
   JSON.stringify({
     prompt,
     executeWorkcell,
+    expectedOutput,
     profiles: profiles ? bindingMetadata(profiles) : null,
     originalTask: context?.originalTask ?? prompt,
     rootMissionId: context?.rootMissionId ?? id,
@@ -214,6 +226,7 @@ let validation:
   | (Omit<Awaited<ReturnType<typeof checkCodeArtifact>>, "codeExecuted"> & {
       codeExecuted: boolean | null;
       checkedArtifact?: string;
+      outputCheck?: ReturnType<typeof checkExpectedOutput>;
     })
   | null = null;
 if (code === 0 && kind === "kujo") {
@@ -283,7 +296,17 @@ if (code === 0 && kind === "kujo") {
     syntax,
     fenceRemoved: profiles ? false : Boolean(fence),
     checkedArtifact,
-    functionalTests: "not-run",
+    functionalTests: expectedOutput === null ? "not-run" : "unavailable",
+    ...(expectedOutput === null
+      ? {}
+      : {
+          outputCheck: checkExpectedOutput(expectedOutput, {
+            status: "unverified",
+            codeExecuted: false,
+            output: null,
+            outputTruncated: false,
+          }),
+        }),
     codeExecuted: false,
     checkedAt: new Date().toISOString(),
   };
@@ -301,6 +324,41 @@ if (code === 0 && kind === "kujo") {
       ),
     });
     validation.codeExecuted = executed.codeExecuted;
+    if (expectedOutput !== null) {
+      const outputObserve = checkObserver(
+        resolve(
+          root,
+          process.env.CITY_RUNTIME_DIR || ".runtime",
+          `spool-${producer}.jsonl`,
+        ),
+        producer,
+        dispatch.run_id,
+        dispatch.run_id + ":produce-artifact",
+        {
+          profile: "city-kujo-checker",
+          agent: "kujo-checker",
+          tool: "city.output-check",
+        },
+      );
+      await outputObserve(
+        "kujo-output-check",
+        "evaluation",
+        "started",
+        "unset",
+      );
+      validation.outputCheck = checkExpectedOutput(expectedOutput, executed);
+      validation.functionalTests = validation.outputCheck.status;
+      await outputObserve(
+        "kujo-output-check",
+        "evaluation",
+        "finished",
+        validation.outputCheck.status === "passed"
+          ? "succeeded"
+          : validation.outputCheck.status === "failed"
+            ? "failed"
+            : "unknown",
+      );
+    }
   }
   await writeFile(resolve(dir, "validation.json"), JSON.stringify(validation), {
     mode: 0o600,
