@@ -274,3 +274,12 @@ Docker info check again timed out after12seconds on desktop-linux. No engine
 restart, model rerun, container cleanup or long soak was attempted. Next action:
 restore Docker with operator coordination, then run the real Mission Command
 production path and review its exact resulting candidate before finalization.
+
+Docker recovery update: explicit user restart authorization received. Normal restart
+failed after120seconds; terminating the stuck Docker application processes and
+relaunching restored engine29.6.2. Images remain available, no data deleted. See
+evidence/docker-recovery/receipt.json. Restart permission/engine unavailability
+are resolved. The local VideoOps image is absent; only about7.3GiB was free after
+recovery. Defer the large local image build while the user's other agent completes
+storage cleanup. Combined production acceptance and exact-candidate review remain
+open; this recovery does not qualify the release.

@@ -1,0 +1,14 @@
+{
+  "recordedAt": "2026-10-08T16:48:21.339118+00:00",
+  "authorization": "User: Restart it lol",
+  "status": "PASS",
+  "context": "desktop-linux",
+  "serverVersion": "29.6.2",
+  "normalRestart": "Failed after 120 seconds; Docker processes did not exit",
+  "recovery": "TERM Docker application processes, KILL two remaining unresponsive Docker application processes, relaunch Docker Desktop",
+  "dataDeletion": false,
+  "healthyEngineVerified": true,
+  "videoopsImagePresent": false,
+  "availableBytes": 7746838528,
+  "remainingGate": "Local VideoOps image build and combined Mission Command production acceptance; storage cleanup owned by another user-assigned agent."
+}
