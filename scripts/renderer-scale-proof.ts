@@ -1,5 +1,5 @@
 import { chromium, type Browser } from "@playwright/test";
-import { spawn } from "node:child_process";
+import { spawn, execFileSync } from "node:child_process";
 import { readFile, mkdir, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import assert from "node:assert/strict";
@@ -9,6 +9,15 @@ import { localChromiumPath } from "../apps/runner/browser-path";
 const root = resolve(import.meta.dirname, "..");
 const label = process.env.CITY_RENDER_PROFILE || "current";
 const hostLoadBefore = loadavg();
+const sourceRevision = execFileSync("git", ["rev-parse", "HEAD"], {
+  cwd: root,
+  encoding: "utf8",
+}).trim();
+const sourceDirty =
+  execFileSync("git", ["status", "--porcelain", "--untracked-files=no"], {
+    cwd: root,
+    encoding: "utf8",
+  }).trim() !== "";
 assert(/^[a-z0-9-]+$/.test(label));
 const out = resolve(root, "evidence/renderer-scale");
 await mkdir(out, { recursive: true });
@@ -82,6 +91,18 @@ try {
     await page.goto("http://127.0.0.1:18886/scale-proof");
     const profile = await page.evaluate(
       async ({ count, base, root, framesToMeasure }) => {
+        // Control sample before Pixi initialization; records browser scheduling, not GPU work.
+        const baseline: number[] = [];
+        let baselinePrevious: number | undefined;
+        for (let i = -10; i < 60; i++) {
+          const now = await new Promise<number>((done) =>
+            requestAnimationFrame(done),
+          );
+          if (i >= 0 && baselinePrevious !== undefined)
+            baseline.push(now - baselinePrevious);
+          baselinePrevious = now;
+        }
+        baseline.sort((a, b) => a - b);
         const rendererPath = "/@fs" + root + "/packages/renderer-pixi/index.ts",
           corePath = "/@fs" + root + "/packages/world-core/index.ts";
         const { CityRenderer } = await import(/* @vite-ignore */ rendererPath);
@@ -203,6 +224,11 @@ try {
         frames.sort((a, b) => a - b);
         return {
           count,
+          emptyPageFrameMs: {
+            p50: baseline[30],
+            p95: baseline[57],
+            measuredFrames: baseline.length,
+          },
           measuredFrames: frames.length,
           rendered: initial.length,
           changedFrames,
@@ -261,6 +287,8 @@ try {
       {
         kind: "SYNTHETIC renderer-only bounded profile; no source task or ingestion proof",
         at: new Date().toISOString(),
+        sourceRevision,
+        sourceDirty,
         browser: browser.version(),
         framesPerProfile: framesToMeasure,
         warmupFramesPerProfile: 20,
