@@ -51,6 +51,27 @@ const event = (
   },
 });
 describe("truth and presentation boundary", () => {
+  it("does not mutate earlier plans or unrelated agents when visits coalesce", () => {
+    let before = plan(
+      initialPresentation(),
+      event(1, "operation.started", "first", "source:one"),
+    );
+    before = plan(
+      before,
+      event(2, "operation.started", "second", "source:two"),
+    );
+    const saved = structuredClone(before);
+    const after = plan(
+      before,
+      event(3, "operation.started", "third", "source:one"),
+    );
+    expect(before).toEqual(saved);
+    expect(after.walkers["source:two"]).toBe(before.walkers["source:two"]);
+    expect(after.walkers["source:one"].queued[0].keys).toHaveLength(2);
+    const advanced = advance(after);
+    expect(before).toEqual(saved);
+    expect(advanced).not.toBe(after);
+  });
   it("validates strict payloads, phases, versions, unknown fields and identity", () => {
     validateEvent(event(1));
     for (const bad of [

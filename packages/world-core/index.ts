@@ -221,8 +221,12 @@ export const initialPresentation = (): Presentation => ({
 });
 export function plan(p: Presentation, e: CityEvent): Presentation {
   if (p.seen.includes(e.eventId) || !e.type.startsWith("operation.")) return p;
-  const ev = e as OperationEvent,
-    s = structuredClone(p);
+  const ev = e as OperationEvent;
+  // An observation changes only its own walker's plan. Share untouched walkers
+  // while deeply copying the affected queue/visit to preserve reducer purity.
+  const s: Presentation = { ...p, walkers: { ...p.walkers } };
+  if (p.walkers[ev.instance])
+    s.walkers[ev.instance] = structuredClone(p.walkers[ev.instance]);
   s.seen = [...s.seen, e.eventId].slice(-2000);
   const w = (s.walkers[ev.instance] ??= {
     id: ev.instance,
