@@ -55,3 +55,10 @@ For canvas-only footage, use **Record game video**, then **Stop / save video**.
 Recording is a presentation action and does not delay work. Record during the
 real run, or explicitly label footage from replay as replay. Keep any edits to
 timing separate from the source execution evidence.
+
+Workcell creates its disposable scratch clones inside the mission's private
+runtime directory. On macOS, keep the installation/runtime under a directory
+shared with your selected Docker Desktop or Colima VM (normally your home).
+If you deliberately store runtime data elsewhere, set `CITY_WORKCELL_TMPDIR`
+to an owner-controlled shared directory before launching City. The container
+receives only the disposable clone, not a mount of the host project.

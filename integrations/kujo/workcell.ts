@@ -7,7 +7,12 @@ import { appendFile, readFile, writeFile, stat, mkdir } from "node:fs/promises";
 import { resolve } from "node:path";
 const root = resolve(import.meta.dirname, "../.."),
   runtime = resolve(root, process.env.CITY_RUNTIME_DIR || ".runtime"),
-  source = resolve(runtime, "workcell-source");
+  source = resolve(runtime, "workcell-source"),
+  // Keep disposable clones beside the private runtime by default. On macOS,
+  // /var/folders TMPDIR is often outside Docker/Colima file sharing.
+  scratch = resolve(
+    process.env.CITY_WORKCELL_TMPDIR || resolve(runtime, "scratch"),
+  );
 const run = process.env.CITY_RUN || "workcell-invocation-" + Date.now(),
   producer = process.env.CITY_PRODUCER || "review-workcell-" + Date.now();
 const spool =
@@ -54,14 +59,13 @@ async function command(cmd: string, args: string[], cwd: string) {
     cwd,
     env: {
       ...process.env,
-      ...(process.env.CITY_WORKCELL_TMPDIR
-        ? { TMPDIR: resolve(process.env.CITY_WORKCELL_TMPDIR) }
-        : {}),
+      TMPDIR: scratch,
       KUJO:
         process.env.KUJO_BIN || resolve(root, "../kujo/target/release/kujo"),
     },
   });
 }
+await mkdir(scratch, { recursive: true, mode: 0o700 });
 await mkdir(source, { recursive: true });
 if (!(await stat(resolve(source, ".git")).catch(() => null))) {
   await writeFile(
