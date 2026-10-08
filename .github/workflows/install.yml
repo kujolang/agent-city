@@ -29,6 +29,10 @@ jobs:
           node --import tsx scripts/provider-setup-proof.ts
           node --import tsx scripts/game-view-proof.ts
           node --import tsx scripts/mission-browser.ts
+      - name: Measure bounded renderer scale and minimal WebGL baseline
+        run: |
+          CITY_BASELINE_LABEL=ci node --import tsx scripts/webgl-baseline-proof.ts
+          CITY_RENDER_PROFILE=ci CITY_RENDER_FRAMES=120 node --import tsx scripts/renderer-scale-proof.ts
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -38,6 +42,8 @@ jobs:
             evidence/game-view
             evidence/visual-revision
             dependency-audit.json
+            evidence/renderer-scale/ci.json
+            evidence/performance-current/webgl-ci.json
   install:
     strategy:
       fail-fast: false

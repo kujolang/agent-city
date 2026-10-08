@@ -66,7 +66,7 @@ try {
     await new Promise((r) => setTimeout(r, 100));
   }
   browser = await chromium.launch({
-    headless: true,
+    headless: process.env.CITY_BROWSER_HEADED !== "1",
     executablePath: await localChromiumPath(),
   });
   const errors: string[] = [];
@@ -290,6 +290,7 @@ try {
         sourceRevision,
         sourceDirty,
         browser: browser.version(),
+        headless: process.env.CITY_BROWSER_HEADED !== "1",
         framesPerProfile: framesToMeasure,
         warmupFramesPerProfile: 20,
         timingScope:
