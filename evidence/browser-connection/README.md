@@ -16,3 +16,18 @@ its canonical journal held the terminal events; the original timeout's exact
 cause remains unproven. See ../packaged-repair for the real outcome evidence.
 
 Health and initial snapshot fetches now have five-second deadlines. Disconnecting cancels a pending health request, preventing the single-flight guard from remaining stuck across replay. The hanging-request regression passed in 6,087 ms; its pre-fix failure is retained in pending-health-before.log. Fresh unmocked source/transport verification is recorded in ../live-convergence.
+
+2026-10-07: native browser offline events now close the current stream, cancel
+pending observations and mark STALE immediately while retaining truth. Online
+recovery requires a successful gateway snapshot. Chromium's actual offline/online
+switch passed the bounded regression with replay isolation and one live stream.
+The controlled transport fixture now explicitly repackages retained observations
+against the current authored map; original historical replay bytes are unchanged.
+Both checksums and the test map hash are in proof.json. Reduced motion holds replay
+at its deterministic initial state during delayed-response assertions. This is not
+qualification of replaying an old map with the current renderer.
+
+CI37710144786's prior reconnect-under-load failure is retained privately in
+.runtime/ci-reconnect-37710144786; both platforms exceeded the STALE deadline,
+and x64 also encountered an intake timeout. These local checks do not supersede
+that separate load qualification failure.

@@ -416,6 +416,22 @@ function disconnect() {
   stream?.close();
   stream = null;
 }
+// An explicit browser transport loss invalidates in-flight observations at once.
+// A later successful gateway snapshot can restore LIVE, even if the OS's general
+// connectivity indicator is conservative about an available local gateway.
+window.addEventListener("offline", () => {
+  if (replayMode) return;
+  disconnect();
+  health = "STALE";
+  renderDOM();
+});
+window.addEventListener("online", () => {
+  if (replayMode) return;
+  void connect().catch(() => {
+    health = "STALE";
+    renderDOM();
+  });
+});
 async function connect() {
   if (replayMode) return;
   disconnect();

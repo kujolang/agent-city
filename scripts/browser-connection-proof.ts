@@ -2,6 +2,8 @@ import { chromium, type Browser, type Route } from "@playwright/test";
 import { createServer } from "vite";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
+import { canonical, verifyReplay } from "../packages/world-core/replay";
 import { localChromiumPath } from "../apps/runner/browser-path";
 
 const out = "evidence/browser-connection";
@@ -9,6 +11,20 @@ await mkdir(out, { recursive: true });
 const bundle = JSON.parse(
   await readFile("evidence/world-levels/replay.json", "utf8"),
 );
+// Repackage retained observations for this controlled transport regression only.
+// The original historical bundle stays pinned and unchanged.
+verifyReplay(bundle);
+const originalChecksum = bundle.checksum;
+bundle.versions.mapHash = createHash("sha256")
+  .update(
+    canonical(JSON.parse(await readFile("assets/compiled/world.json", "utf8"))),
+  )
+  .digest("hex");
+bundle.versions.coreHash = createHash("sha256")
+  .update(canonical(await readFile("packages/world-core/index.ts", "utf8")))
+  .digest("hex");
+const { checksum: ignoredChecksum, ...body } = bundle;
+bundle.checksum = createHash("sha256").update(canonical(body)).digest("hex");
 const server = await createServer({
   root: "apps/web",
   server: { host: "127.0.0.1", port: 18889, strictPort: true },
@@ -25,7 +41,7 @@ try {
     headless: true,
     executablePath: await localChromiumPath(),
   });
-  const page = await browser.newPage();
+  const page = await browser.newPage({ reducedMotion: "reduce" });
   const errors: string[] = [],
     writes: string[] = [];
   page.on("pageerror", (e) => errors.push(e.message));
@@ -73,12 +89,43 @@ try {
   `);
   await page.goto("http://127.0.0.1:18889/?renderer=off");
   await page.waitForFunction(() => (window as any).agentCity?.truth.order > 0);
+  // Real browser connectivity events must invalidate the current transport
+  // immediately, without changing retained truth or admitting stale callbacks.
+  const retainedOrder = await page.evaluate(
+    () => (window as any).agentCity.truth.order,
+  );
+  await page.context().setOffline(true);
+  await page.waitForFunction(
+    () => (window as any).agentCity.health === "STALE",
+    undefined,
+    { timeout: 2000 },
+  );
+  assert.equal(
+    await page.evaluate(() => (window as any).agentCity.truth.order),
+    retainedOrder,
+  );
+  assert(
+    await page.evaluate(
+      () => (window as any).proofSources.at(-1).readyState === 2,
+    ),
+  );
+  await page.context().setOffline(false);
+  await page.waitForFunction(() => (window as any).agentCity.health === "LIVE");
+  const connectedSourceCount = await page.evaluate(
+    () => (window as any).proofSources.length,
+  );
   await page.locator("#archive summary").click();
   await page.locator("#archive-refresh").click();
   await page.waitForSelector("#archive-run option", { state: "attached" });
   const replay = async () => {
     await page.locator("#archive-replay").click();
-    await page.waitForFunction(() => (window as any).agentCity.replayMode);
+    await page
+      .waitForFunction(() => (window as any).agentCity.replayMode)
+      .catch(async (error) => {
+        throw Error(
+          `${error.message}; archive: ${await page.locator("#archive-detail").textContent()}`,
+        );
+      });
   };
   const waitHeld = async (count: number) => {
     const until = Date.now() + 10000;
@@ -112,7 +159,7 @@ try {
   await page.waitForTimeout(100);
   assert.equal(
     await page.evaluate(() => (window as any).agentCity.truth.order),
-    bundle.snapshot.order,
+    0, // Paused replay starts at the empty semantic state.
   );
   assert.equal(
     await page.evaluate(() => (window as any).agentCity.health),
@@ -120,7 +167,7 @@ try {
   );
   assert.equal(
     await page.evaluate(() => (window as any).proofSources.length),
-    1,
+    connectedSourceCount,
   );
   // A callback already queued from the closed stream cannot leave replay.
   await page.evaluate(() => {
@@ -193,6 +240,12 @@ try {
       {
         kind: "Controlled browser transport regression using retained real replay data; no new source execution",
         browser: browser.version(),
+        originalChecksum,
+        controlledBundleChecksum: bundle.checksum,
+        controlledBundleMapHash: bundle.versions.mapHash,
+        browserOfflineImmediatelyStale: true,
+        offlinePreservesTruth: true,
+        onlineSnapshotRestoresLive: true,
         staleHealthCannotReplaceReplay: true,
         cancelledSnapshotCannotReplaceReplay: true,
         obsoleteCallbacksIgnored: true,
