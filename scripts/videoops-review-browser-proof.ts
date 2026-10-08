@@ -36,7 +36,7 @@ try {
   await page.route(origin + "/", (r) =>
     r.fulfill({
       contentType: "text/html",
-      body: '<main id="host"></main><script type="module">import {showVideoopsReview} from "/videoops-review.ts";showVideoopsReview(document.querySelector("#host"),"mission-fixture","fixture-token",()=>true);</script>',
+      body: '<main id="host"></main><script type="module">import {showVideoopsReview} from "/videoops-review.ts";import {mountVideoopsLaunch} from "/videoops-launch.ts";showVideoopsReview(document.querySelector("#host"),"mission-fixture","fixture-token",()=>true).then(()=>{window.enableVideoops=mountVideoopsLaunch(document.querySelector("#host"),()=>"fixture-token",id=>window.startedVideo=id);});</script>',
     }),
   );
   await page.route("**/control/videoops/**", async (r) => {
@@ -79,6 +79,15 @@ try {
       }),
     });
   });
+  const launches: any[] = [];
+  await page.route("**/control/missions", async (r) => {
+    launches.push(r.request().postDataJSON());
+    await r.fulfill({
+      status: 202,
+      contentType: "application/json",
+      body: JSON.stringify({ id: "mission-video-fixture", status: "running" }),
+    });
+  });
   await page.goto(origin);
   await page.getByRole("heading", { name: "VIDEO REVIEW" }).waitFor();
   assert(
@@ -102,6 +111,26 @@ try {
   assert.equal(requests.length, 1);
   assert.equal(requests[0].candidateSha256, sha);
   assert.equal(requests[0].confirmed, true);
+  await page.getByText("VideoOps production", { exact: true }).click();
+  assert(
+    await page
+      .getByRole("button", { name: "Start video production" })
+      .isDisabled(),
+  );
+  await page.evaluate(() => (window as any).enableVideoops(true));
+  await page
+    .getByLabel("Video production request")
+    .fill("Original silent title card fixture");
+  await page.getByLabel("Allow this task to render").check();
+  await page.getByRole("button", { name: "Start video production" }).focus();
+  await page.keyboard.press("Enter");
+  await page.waitForFunction(
+    () => (window as any).startedVideo === "mission-video-fixture",
+  );
+  assert.equal(launches.length, 1);
+  assert.equal(launches[0].allowRender, true);
+  assert.equal(launches[0].workflow, "videoops");
+  assert.equal(launches[0].prompt, "Original silent title card fixture");
   const out = resolve(root, "evidence/videoops-review-browser");
   await mkdir(out, { recursive: true });
   await page.screenshot({ path: resolve(out, "review.png"), fullPage: true });
@@ -118,6 +147,9 @@ try {
           "keyboard-submit",
           "explicit-human-attestation",
           "failed-review-displayed",
+          "operator-setup-required-for-launch",
+          "explicit-render-consent",
+          "keyboard-video-task-submission",
         ],
       },
       null,

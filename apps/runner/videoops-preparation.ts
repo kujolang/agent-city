@@ -95,6 +95,7 @@ export async function prepareVideoops(
     attempt: number;
     status: string;
     reason?: string;
+    uncertain?: boolean;
   }[] = [];
   async function stage<T>(
     name: "creative-director" | "asset-scout",
@@ -141,7 +142,13 @@ export async function prepareVideoops(
         const reason = (
           error instanceof Error ? error.message : "Stage gate failed"
         ).slice(0, 1024);
-        results.push({ stage: name, attempt, status: "failed", reason });
+        results.push({
+          stage: name,
+          attempt,
+          status: "failed",
+          reason,
+          uncertain: result.receipt.timedOut || result.receipt.code !== 0,
+        });
         await writeFile(
           resolve(receipts, name + "-" + attempt + ".json"),
           JSON.stringify(results.at(-1)),

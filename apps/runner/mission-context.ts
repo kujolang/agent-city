@@ -5,7 +5,7 @@ import { resolve } from "node:path";
 
 export interface MissionIdentity {
   id: string;
-  kind: "writing" | "code" | "kujo";
+  kind: "writing" | "code" | "kujo" | "videoops";
   status: string;
 }
 

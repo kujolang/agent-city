@@ -1,3 +1,8 @@
+import {
+  readVideoopsLaunchConfig,
+  validateVideoopsMission,
+  videoopsMissionOutcome,
+} from "./videoops-mission";
 import { handleVideoopsReview } from "./videoops-review-control";
 import { validateWebopsInput } from "./webops-report";
 import { workcellSetupCommand } from "./workcell-settings";
@@ -48,8 +53,8 @@ const origin = process.env.CITY_WEB_ORIGIN || "http://127.0.0.1:5178";
 const port = Number(process.env.CITY_CONTROL_PORT || 7793);
 type Job = {
   id: string;
-  kind: "writing" | "code" | "kujo";
-  status: "running" | "completed" | "failed" | "unknown";
+  kind: "writing" | "code" | "kujo" | "videoops";
+  status: "running" | "completed" | "failed" | "unknown" | "review-pending";
   startedAt: string;
   profiles?: ReturnType<typeof bindingMetadata>;
   useLocalDocs?: boolean;
@@ -88,6 +93,18 @@ function save() {
   return persistence;
 }
 async function readJobOutcome(job: Job) {
+  if (job.kind === "videoops") {
+    try {
+      const file = resolve(missionsRoot, job.id, "receipt.json");
+      if ((await stat(file)).size > 65536) return null;
+      return videoopsMissionOutcome(
+        JSON.parse(await readFile(file, "utf8")),
+        job.id,
+      );
+    } catch {
+      return null;
+    }
+  }
   return (
     (await readMissionOutcome(
       resolve(missionsRoot, job.id, "receipt.json"),
@@ -134,6 +151,41 @@ if (!config && process.env.CITY_MODEL_ENDPOINT && process.env.CITY_MODEL)
     requestTimeoutSeconds: Number(process.env.CITY_MODEL_TIMEOUT_SECONDS || 90),
   });
 const configured = () => Boolean(config);
+function trackChild(job: Job, child: ChildProcess) {
+  active = child;
+  let finalized = false;
+  const finish = async (spawnFailed = false) => {
+    if (finalized) return;
+    finalized = true;
+    // A supervisor exit is not proof that its descendant finished or failed.
+    // Fail closed even if the evidence read itself fails.
+    job.status = "unknown";
+    delete job.finishedAt;
+    const outcome = await readJobOutcome(job);
+    job.status = outcome?.status ?? (spawnFailed ? "failed" : "unknown");
+    if (outcome) job.finishedAt = outcome.finishedAt;
+    else if (spawnFailed) job.finishedAt = new Date().toISOString();
+    else delete job.finishedAt;
+    await save();
+    active = null;
+  };
+  child.once("error", (error: NodeJS.ErrnoException) => {
+    // Persist only bounded OS metadata, never command arguments or error text.
+    job.processOutcome = {
+      kind: "spawn-error",
+      code: /^[A-Z0-9_]{1,32}$/.test(error.code || "") ? error.code! : null,
+    };
+    void finish(true).catch(() => {
+      active = null;
+    });
+  });
+  child.once("exit", (code, signal) => {
+    if (!finalized) job.processOutcome = { kind: "exit", code, signal };
+    void finish().catch(() => {
+      active = null;
+    });
+  });
+}
 const server = createServer(async (req, res) => {
   res.setHeader("Cache-Control", "no-store");
   res.setHeader("X-Content-Type-Options", "nosniff");
@@ -176,6 +228,7 @@ const server = createServer(async (req, res) => {
       await reconcile();
       return send(200, {
         configured: configured(),
+        videoopsConfigured: Boolean(process.env.CITY_VIDEOOPS_CONFIG),
         workcellSetupCommand: workcellSetupCommand(
           resolve(process.env.CITY_RUNTIME_DIR || resolve(root, ".runtime")),
         ),
@@ -506,6 +559,77 @@ const server = createServer(async (req, res) => {
         return send(503, {
           error: "Configure a model before submitting a mission",
         });
+      if (data?.workflow === "videoops") {
+        let request, setup;
+        try {
+          request = validateVideoopsMission(data);
+          if (!process.env.CITY_VIDEOOPS_CONFIG)
+            throw Error(
+              "VideoOps operator setup is unavailable; configure its image and role capabilities first",
+            );
+          setup = await readVideoopsLaunchConfig(
+            resolve(process.env.CITY_VIDEOOPS_CONFIG),
+          );
+          await assertWorkcellAvailable(root, {
+            ...process.env,
+            CITY_WORKCELL_IMAGE: setup.image,
+          });
+        } catch (error) {
+          return send(400, {
+            error:
+              error instanceof Error ? error.message : "VideoOps unavailable",
+          });
+        }
+        const id = "mission-" + randomUUID();
+        const requestFile = resolve(dir, id + ".videoops.json"),
+          setupFile = resolve(dir, id + ".videoops-config.json");
+        await writeFile(requestFile, JSON.stringify(request), {
+          mode: 0o600,
+          flag: "wx",
+        });
+        await writeFile(setupFile, JSON.stringify(setup), {
+          mode: 0o600,
+          flag: "wx",
+        });
+        const job: Job = {
+          id,
+          kind: "videoops",
+          status: "running",
+          startedAt: new Date().toISOString(),
+          executeWorkcell: true,
+        };
+        jobs = [job, ...jobs].slice(0, 100);
+        await save();
+        const child = spawn(
+          process.execPath,
+          [
+            "--import",
+            "tsx",
+            "scripts/mission-supervisor.ts",
+            "videoops",
+            requestFile,
+          ],
+          {
+            cwd: root,
+            stdio: "ignore",
+            env: {
+              ...process.env,
+              CITY_MISSION_ID: id,
+              CITY_MISSIONS_DIR: missionsRoot,
+              CITY_VIDEOOPS_CONFIG: setupFile,
+              CITY_MODEL_ENDPOINT: config!.endpoint,
+              CITY_MODEL: config!.model,
+              CITY_MODEL_API_KEY: config!.apiKey,
+              CITY_MAX_OUTPUT_TOKENS: String(config!.maxOutputTokens ?? 8192),
+              CITY_MODEL_TIMEOUT_SECONDS: String(
+                config!.requestTimeoutSeconds ?? 90,
+              ),
+            },
+          },
+        );
+        trackChild(job, child);
+        return send(202, { id, status: job.status });
+      }
       if (
         !data ||
         typeof data !== "object" ||
@@ -769,39 +893,7 @@ const server = createServer(async (req, res) => {
           stdio: "ignore",
         },
       );
-      active = child;
-      let finalized = false;
-      const finish = async (spawnFailed = false) => {
-        if (finalized) return;
-        finalized = true;
-        // A supervisor exit is not proof that its descendant finished or failed.
-        // Fail closed even if the evidence read itself fails.
-        job.status = "unknown";
-        delete job.finishedAt;
-        const outcome = await readJobOutcome(job);
-        job.status = outcome?.status ?? (spawnFailed ? "failed" : "unknown");
-        if (outcome) job.finishedAt = outcome.finishedAt;
-        else if (spawnFailed) job.finishedAt = new Date().toISOString();
-        else delete job.finishedAt;
-        await save();
-        active = null;
-      };
-      child.once("error", (error: NodeJS.ErrnoException) => {
-        // Persist only bounded OS metadata, never command arguments or error text.
-        job.processOutcome = {
-          kind: "spawn-error",
-          code: /^[A-Z0-9_]{1,32}$/.test(error.code || "") ? error.code! : null,
-        };
-        void finish(true).catch(() => {
-          active = null;
-        });
-      });
-      child.once("exit", (code, signal) => {
-        if (!finalized) job.processOutcome = { kind: "exit", code, signal };
-        void finish().catch(() => {
-          active = null;
-        });
-      });
+      trackChild(job, child);
       return send(202, { id, status: job.status });
     } finally {
       submitting = false;

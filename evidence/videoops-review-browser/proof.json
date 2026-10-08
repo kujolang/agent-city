@@ -6,6 +6,9 @@
     "exact-sha-submission",
     "keyboard-submit",
     "explicit-human-attestation",
-    "failed-review-displayed"
+    "failed-review-displayed",
+    "operator-setup-required-for-launch",
+    "explicit-render-consent",
+    "keyboard-video-task-submission"
   ]
 }

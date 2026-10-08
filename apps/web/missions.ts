@@ -1,3 +1,4 @@
+import { mountVideoopsLaunch } from "./videoops-launch";
 import { showVideoopsReview } from "./videoops-review";
 import {
   artifactDownload,
@@ -227,6 +228,15 @@ export function mountMissions(
     historyKey = "",
     replay = false,
     configLoaded = false;
+  const videoopsAvailable = mountVideoopsLaunch(
+    panel,
+    () => token,
+    (id) => {
+      selectedMission = id;
+      onMission(id);
+      void refresh();
+    },
+  );
   let parent: { id: string; kind: string } | null = null;
   const continuation = panel.querySelector<HTMLElement>(
     "#continuation-status",
@@ -275,6 +285,9 @@ export function mountMissions(
       if (!response.ok) throw Error();
       const data = await response.json();
       token = data.token;
+      videoopsAvailable(
+        !replay && data.configured && data.videoopsConfigured && !data.busy,
+      );
       if (typeof data.workcellSetupCommand === "string")
         panel.querySelector("#workcell-setup-command")!.textContent =
           data.workcellSetupCommand;
@@ -353,6 +366,13 @@ export function mountMissions(
               conversationKey = "";
               void refreshConversation();
               onMission(job.id);
+            }
+            if (job.kind === "videoops") {
+              output.textContent =
+                job.status === "review-pending"
+                  ? "Draft rendered. Independent review is pending; inspect the exact candidate below."
+                  : `Video production: ${job.status}. Inspect observed stages and retained production evidence; no final approval is inferred.`;
+              return;
             }
             const diagnosticPanel = panel.querySelector<HTMLElement>(
               "#provider-diagnostics",
@@ -895,7 +915,10 @@ export function mountMissions(
   return {
     setReplay(value: boolean) {
       replay = value;
-      if (replay) videoReview.replaceChildren();
+      if (replay) {
+        videoReview.replaceChildren();
+        videoopsAvailable(false);
+      }
       replyForm.hidden = true;
       if (value) {
         bubbles.replaceChildren();

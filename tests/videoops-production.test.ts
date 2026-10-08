@@ -114,6 +114,7 @@ for (const mode of ["pending", "media", "uncertain"] as const)
         };
         const result = await produceVideoops(options, dependencies);
         expect(result.productionApproval).toBe("NOT_ESTABLISHED");
+        if (mode === "uncertain") expect(result.uncertain).toBe(true);
         expect(result.status).toBe(
           mode === "pending" ? "review-pending" : "blocked",
         );

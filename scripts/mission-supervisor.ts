@@ -5,7 +5,7 @@ const root = resolve(import.meta.dirname, ".."),
 const [kind, prompt] = process.argv.slice(2);
 if (
   !/^mission-[a-f0-9-]{36}$/.test(id) ||
-  !["code", "kujo", "writing"].includes(kind) ||
+  !["code", "kujo", "writing", "videoops"].includes(kind) ||
   !prompt
 )
   throw Error("Invalid supervised mission identity");
@@ -17,7 +17,15 @@ process.exitCode = await superviseMission({
   id,
   kind,
   executable: process.execPath,
-  args: ["--import", "tsx", resolve(root, "scripts/mission.ts"), kind, prompt],
+  args:
+    kind === "videoops"
+      ? [
+          "--import",
+          "tsx",
+          resolve(root, "scripts/videoops-mission.ts"),
+          prompt,
+        ]
+      : ["--import", "tsx", resolve(root, "scripts/mission.ts"), kind, prompt],
   cwd: root,
   env: process.env,
 });

@@ -70,7 +70,10 @@ export async function produceVideoops(
   const directory = resolve(options.workspace, ".city-production");
   await mkdir(directory, { mode: 0o700 });
   const save = async (result: Record<string, unknown> & { status: string }) => {
-    const receipt = { ...result, productionApproval: "NOT_ESTABLISHED" };
+    const receipt: Record<string, unknown> & {
+      status: string;
+      productionApproval: string;
+    } = { ...result, productionApproval: "NOT_ESTABLISHED" };
     await writeFile(
       resolve(directory, "result.json"),
       JSON.stringify(receipt, null, 2),
@@ -90,6 +93,7 @@ export async function produceVideoops(
         stage: prepared.stage,
         reason: "Preparation is not ready for Editor",
         preparation: prepared,
+        uncertain: prepared.attempts.some((a) => a.uncertain),
       });
     const media = prepared.assets.assets
       .filter((asset: any) => asset.status !== "NOT_REQUIRED")
@@ -226,6 +230,8 @@ export async function produceVideoops(
         status: "blocked",
         stage: "hyperframes-editor",
         attempts,
+        uncertain:
+          !!stage && (stage.receipt.timedOut || stage.receipt.code !== 0),
       });
     const candidate = await dependencies.render({
       root: options.root,
@@ -260,6 +266,7 @@ export async function produceVideoops(
       status: "blocked",
       stage: "production",
       reason: error instanceof Error ? error.message : "Production failed",
+      uncertain: true,
     });
   }
 }

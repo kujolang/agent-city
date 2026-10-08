@@ -174,3 +174,15 @@ A controlled browser fixture passes keyboard submission and failed-review displa
 143tests/types/boundaries/maps/build pass. This does not claim actual human approval.
 VideoOps task intake/launch in Mission Command, actual model production, perceptual
 acceptance and final output/release qualification remain open.
+
+VideoOps mission launch now uses the existing controller admission lock and shared
+supervisor lifecycle. A separate consent-bearing DOM form preserves the full request;
+private operator configuration binds immutable image and exact role/capability
+snapshots, never browser-provided profiles or paths. The initial launch surface
+provides no external media/audio grants and blocks unsatisfied requests; the runtime
+media adapter remains available for explicit acquired inputs. Provider/model setup
+is reused. A rendered candidate records review-pending, never completed production;
+uncertain preparation/Editor outcomes preserve UNKNOWN admission holds.145tests plus
+types/boundaries/maps/build pass, WebOps browser regression passes, and controlled
+VideoOps keyboard-launch/review proof passes. Operator setup UX, actual model video
+production, perceptual acceptance and final-output/release qualification remain open.

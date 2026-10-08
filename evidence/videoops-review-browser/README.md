@@ -7,3 +7,8 @@ submission, explicit human attestation, exact candidate checksum in the submitte
 request, and display of the mocked failed-review response. `proof.json` and
 `review.png` retain the bounded result. Actual native review/render qualification
 is separately recorded under `../videoops-render/37792840086`.
+
+The controlled proof also mounts the production launch form: disabled without
+operator setup, enabled by the fixture readiness callback, keyboard submission,
+explicit per-task render consent and intact prompt/geometry in the outgoing request.
+No real production task is submitted by this browser contract test.
