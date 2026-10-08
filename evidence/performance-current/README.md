@@ -44,3 +44,23 @@ no extra cache behavior or texture allocation is shipped. Its dirty-source flag
 is intentional. [release-before-cache.json](../renderer-scale/release-before-cache.json)
 preserves the comparison input. No semantic code changed. Local verification
 passed110tests, types, boundaries, maps and production build.
+
+## Independent backend comparison
+
+At35b2074, minimal WebGL (a single clear, no Pixi or City) on this Mac's
+Intel UHD630/ANGLE Metal backend also misses the target: see
+[headless Chromium151](webgl-local-headless.json) and
+[visible Chrome154](webgl-local-headed.json). Empty/idle rAF is near16.7ms,
+whereas bare WebGL clear reaches51.5ms p95 in visible Chrome. This controls for
+City complexity but does not identify the underlying OS/driver/host cause.
+
+CI37741814069 on Ubuntu24.04 / Chromium153 / SwiftShader independently measures
+[5/25/100/500 profiles](37741814069/renderer.json) and
+[minimal WebGL](37741814069/webgl.json). At25instances p50/p95 frame16.7/16.7ms
+and draw1.0/1.7ms meet the research desktop target at the timer's0.1ms precision.
+At100/500 the two detailed actors remain bounded; truth, scene selection,
+offscreen removal and actor reuse assertions pass. This is a qualified bounded
+Linux result, not a blanket guarantee for every GPU, mobile device or busy host.
+The local Intel/Metal limitation remains documented; no speculative runtime
+renderer optimization was retained. CI timing is recorded rather than used as a
+flaky wall-clock assertion, and semantic invariants remain hard assertions.

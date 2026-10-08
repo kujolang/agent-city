@@ -1,0 +1,24 @@
+{
+  "scope": "Bounded minimal WebGL clear versus idle canvas, no Pixi or source execution; not product certification",
+  "at": "2026-10-08T07:11:17.060Z",
+  "sourceRevision": "35b20744fb2e12e52565ba37b1e499aa26446185",
+  "browser": "151.0.7922.34",
+  "headless": true,
+  "framesPerCase": 60,
+  "info": {
+    "renderer": "ANGLE (Intel, ANGLE Metal Renderer: Intel(R) UHD Graphics 630, Unspecified Version)",
+    "vendor": "Google Inc. (Intel)"
+  },
+  "cases": [
+    {
+      "draw": false,
+      "p50": 16.700000000000045,
+      "p95": 16.700000000000045
+    },
+    {
+      "draw": true,
+      "p50": 33.30000000000018,
+      "p95": 66.69999999999982
+    }
+  ]
+}
