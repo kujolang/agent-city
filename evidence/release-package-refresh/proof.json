@@ -1,13 +1,13 @@
 {
   "scope": "Local macOS x64 preview, immutable producer archives, verified reused runtime; not published/signed or a live AI proof",
   "bundle": {
-    "directory": "/Users/robertdevore/2026/Kujolang/kujo-repos/agent-city/.runtime/bundles/agent-city-preview-darwin-x64-39ee285341d5",
-    "archive": "/Users/robertdevore/2026/Kujolang/kujo-repos/agent-city/.runtime/bundles/agent-city-preview-darwin-x64-39ee285341d5.tar.gz",
-    "sha256": "7603e35de93e69d448e24f5f222374f010bc5f87a306935ba94b47bf69b40a47",
-    "bytes": 25683283,
-    "files": 3307,
+    "directory": "/Users/robertdevore/2026/Kujolang/kujo-repos/agent-city/.runtime/bundles/agent-city-preview-darwin-x64-e4fc46bee66d",
+    "archive": "/Users/robertdevore/2026/Kujolang/kujo-repos/agent-city/.runtime/bundles/agent-city-preview-darwin-x64-e4fc46bee66d.tar.gz",
+    "sha256": "1c88d9594d235213ae4e6ead15ee93107f3dab365227456f7846c0264575c75a",
+    "bytes": 25689888,
+    "files": 3310,
     "sources": {
-      "agent-city": "39ee285341d5fee3eeb2fbd502f0ca57f6f38a25",
+      "agent-city": "e4fc46bee66d1320a00a407a10729fa5527960b7",
       "agents-sdk": "5a9d5525e511a293b743b1c44d9ef270fd491f9f",
       "dispatch": "e1bbc21166022b00fb21ed000cc4f3cbb26e7e07",
       "watchdog": "4ceb20317d3e50f6d63a6ed473a1ebc46311721d",
@@ -21,7 +21,7 @@
     "status": "PREVIEW / RELEASE GATES INCOMPLETE"
   },
   "integrity": {
-    "checked": 3307,
+    "checked": 3310,
     "platform": "darwin",
     "arch": "x64",
     "status": "PREVIEW / RELEASE GATES INCOMPLETE"
@@ -32,6 +32,6 @@
     "path": "dashboard_server.kujo",
     "sha256": "ef3a4ad3c09562cea183c43cfe4a66c32df6c909851fa90a7ab9ab2022691183"
   },
-  "controlledContractPassed": true,
-  "siblingWorkingTreeNotUsed": true
+  "unrelatedSiblingEditsPreserved": true,
+  "controlledContractPassed": true
 }

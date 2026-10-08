@@ -30,3 +30,8 @@ source execution, throughput targets or the browser's gateway SSE stream. The
 stress feeder uses the same request policy as the real bridge. This is being
 qualified against the existing1.7.0 pin; it does not require publishing the runtime
 source fix. The separate patched-runtime candidate remains independent.
+
+Released-runtime compatibility qualification subsequently passed CI37717824495:
+66,000events and two browser reconnects on Linuxx64. See ../reconnect-load/README.md.
+The public installer still uses released1.7.0 plus the scoped City connection
+policy; it does not silently substitute an unpublished Kujo runtime build.

@@ -3,11 +3,11 @@ npm warn Unknown user config "python". This will stop working in the next major 
 > kujo-agent-city@0.2.0-rc.1 doctor
 > tsx scripts/doctor.ts --json
 
-(node:43687) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(node:70346) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
 (Use `node --trace-deprecation ...` to show where the warning was created)
 {
   "ok": true,
-  "kujo": "/Users/robertdevore/2026/Kujolang/kujo-repos/agent-city/.runtime/bundles/agent-city-preview-darwin-x64-39ee285341d5/kujo/target/release/kujo",
+  "kujo": "/Users/robertdevore/2026/Kujolang/kujo-repos/agent-city/.runtime/bundles/agent-city-preview-darwin-x64-e4fc46bee66d/kujo/target/release/kujo",
   "checks": [
     {
       "id": "node",
@@ -17,7 +17,7 @@ npm warn Unknown user config "python". This will stop working in the next major 
     {
       "id": "kujo",
       "status": "PASS",
-      "message": "/Users/robertdevore/2026/Kujolang/kujo-repos/agent-city/.runtime/bundles/agent-city-preview-darwin-x64-39ee285341d5/kujo/target/release/kujo"
+      "message": "/Users/robertdevore/2026/Kujolang/kujo-repos/agent-city/.runtime/bundles/agent-city-preview-darwin-x64-e4fc46bee66d/kujo/target/release/kujo"
     },
     {
       "id": "node_modules/tsx/package.json",

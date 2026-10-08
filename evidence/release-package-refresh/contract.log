@@ -3,7 +3,7 @@ npm warn Unknown user config "python". This will stop working in the next major 
 > kujo-agent-city@0.2.0-rc.1 proof:mission-contract
 > tsx scripts/mission-contract.ts
 
-(node:43712) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(node:70365) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
 (Use `node --trace-deprecation ...` to show where the warning was created)
 {
   kind: 'SYNTHETIC PROVIDER CONTRACT; not live AI product proof',
@@ -33,5 +33,5 @@ npm warn Unknown user config "python". This will stop working in the next major 
   continuationDoesNotRepeatPriorToolRequests: true,
   requestedCheckContractReachesModel: true,
   failedProviderRetainsRequestedCheckContract: true,
-  at: '2026-10-08T07:15:49.045Z'
+  at: '2026-10-08T08:28:33.934Z'
 }

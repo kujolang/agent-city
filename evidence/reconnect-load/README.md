@@ -33,3 +33,10 @@ four synthetic batches and removes those modules on completion. It marks receipt
 `diagnostic:true`, which release assessment rejects. The manual x64 diagnostic
 workflow is bounded to60seconds of offered load and a10minute job cap. Local
 400record smoke completed through all stages; no producer source file changed.
+
+Superseding released-runtime result: CI37717824495 at0422379 with pinned Kujo1.7.0
+and scoped short-connection policy passes Linuxx64:66,000/66,000, zero missing/
+duplicates/uncertain batches,1,017.51events/sec visible to the browser, two verified
+reconnects and final order66,000. See37717824495/x64.json and current release-gates.
+The earlier failures above remain historical evidence; they are not the current
+release assessment. This remains bounded synthetic load, not long-duration proof.

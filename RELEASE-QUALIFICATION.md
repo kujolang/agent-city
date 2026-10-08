@@ -47,7 +47,7 @@ and missing lifecycle coverage remain UNKNOWN/partial. No inferred completion.
 | Gate | Evidence / result |
 | --- | --- |
 | Source build |112tests, TypeScript, pure-world boundaries, seven reciprocal maps and Vite build pass after final fixes |
-| Public installation |CI37745860221 atca86be9: all5jobs, including four installed platforms; final follow/reference fix CI is recorded in the package evidence |
+| Public installation |CI37745860221 atca86be9: all5jobs, including four installed platforms; final follow/reference fix CI37749479661 atdd42cc4 also passes all5jobs |
 | First-user live task |[Fresh managed install](evidence/first-user-current/README.md), existing authenticated Ollama reused; new provider-account signup not claimed |
 | Custom work |[Publishing House](evidence/publishing-house/README.md), [custom code](evidence/profile-code/README.md), [Kujo](evidence/profile-kujo/README.md), final real tool above |
 | Failure/pass history |[Real output check repair](evidence/mission-workcell/output-check-real/README.md), final tool's retained failed/unverified attempts |

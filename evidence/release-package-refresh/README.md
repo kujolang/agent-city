@@ -25,3 +25,21 @@ edit was correctly rejected by the clean-Agent-City check before archive creatio
 The successful archive was produced only after committing the documentation.
 No failed archive was distributed. Public installer CI37742020495 at5ded1a3
 passes all5jobs, including the four supported platform installs.
+
+## Final refresh
+
+The current `proof.json`, `doctor.log` and `contract.log` supersede the old archive
+receipt above: source **e4fc46bee66d1320a00a407a10729fa5527960b7**,3,310files,
+25,689,888bytes, SHA256
+`1c88d9594d235213ae4e6ead15ee93107f3dab365227456f7846c0264575c75a`.
+It includes the Workcell shared-scratch fix, nested export normalization, exact
+active Follow restoration, and RELEASE-QUALIFICATION.md. The source is immutable;
+subsequent evidence-only commits do not change its application code.
+
+All3,310manifest entries, included qualification document, excluded private
+Watchdog config and pinned Watchdog bytes verify. Fresh `npm ci`, `verify:bundle`,
+`doctor` and packaged controlled SDK/Dispatch/RAG/MCP mission contract pass again.
+This contract makes no paid model calls and does not replace the real tool proof.
+The local archive remains under `.runtime/bundles/`; it is not published or signed.
+CI37749479661 atdd42cc4 passes all5jobs, including112tests, reload/fallback browser
+checks and all4installed platforms. `final-code-ci*.json` retain the results.
