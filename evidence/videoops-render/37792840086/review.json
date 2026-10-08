@@ -1,0 +1,28 @@
+{
+  "workspace": "/home/runner/work/_temp/city/agent-city/.runtime/videoops-render-1791469815645/review-1",
+  "status": {
+    "candidate": {
+      "mandatory_capabilities": [
+        "visual_playback"
+      ],
+      "path": "output/draft.mp4",
+      "sha256": "fc03b16bbdec69a2ce888adb4c4e4d1d4f9d7d8186fc8e4eef23070c06428050",
+      "submitted_at": "2026-10-08T14:30:27.755703+00:00"
+    },
+    "counters": {
+      "critic_failures": 0,
+      "render_attempts": 1,
+      "review_attempts": 1,
+      "technical_repairs": 0,
+      "user_revisions": 0
+    },
+    "next_action": "review",
+    "perceptual": "NOT_REVIEWED",
+    "review_ids": [
+      "technical-wc-3c1f80e76b38440691ebdd940c1da101"
+    ],
+    "state": "REVIEW_INCOMPLETE",
+    "technical": "PASS"
+  },
+  "productionApproval": "NOT_ESTABLISHED"
+}

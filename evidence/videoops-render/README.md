@@ -52,3 +52,12 @@ technical `PASS`, perceptual `NOT_REVIEWED`; no approval or promotion occurs.
 Downloaded video, candidate and review all bind the same checksum. See
 `37791483497/review.json`. This proves the technical handoff using the controlled
 fixture; a real model production and independent perceptual review remain required.
+
+Acquired-media qualification: CI [37792840086](https://github.com/kujolang/agent-city/actions/runs/37792840086)
+at `e96f2d7662bce99ece7362b2d2efa68d845d57d7` passes. The original SVG is carried
+through verified media snapshots into the offline composition; the extracted
+one-second frame visibly includes the blue/white mark. Candidate metadata retains
+its exact source hash and explicit original-art rights reference. Downloaded MP4,
+candidate and native review checksums match. Review remains incomplete, not approved.
+See `37792840086/` for CI, frame, video and receipts. This is a controlled render
+fixture, not a model-authored production acceptance claim.
