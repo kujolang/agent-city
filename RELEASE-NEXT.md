@@ -236,3 +236,11 @@ instructions now serve production and qualification. TypeScript and three coordi
 regression tests pass. CI37801157457 at22b469b is rendering exact checksum-verified
 model output; result pending. Perceptual review/finalization, combined launch proof
 and new release qualification remain open. Local Docker still unresponsive.
+
+CI37801157457 failed before rendering because installed packages omit development
+evidence; qualification now copies exact checked-out inputs explicitly. CI37801442210
+then reached Workcell wc-9c236f4e738d4bef90378aac6ee690e5 and failed with exit1,
+cleanup complete. The worker dropped structured check stdout; b649dbd preserves
+bounded stdout/stderr and the harness exports bounded Workcell logs. Diagnostic
+CI37801961320 is active on that commit. Model output is unchanged and no approval
+is claimed. The failure's precise technical cause awaits those retained logs.
