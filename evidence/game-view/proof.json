@@ -1,0 +1,16 @@
+{
+  "status": "PASS",
+  "scope": "Controlled empty world; original actual Pixi scenes; no source/model/task activity",
+  "browser": "151.0.7922.34",
+  "dimensions": {
+    "width": 768,
+    "height": 720,
+    "top": 47.9375
+  },
+  "keyboardEnterAndExit": true,
+  "denialPreservesInspector": true,
+  "narrowOverflow": false,
+  "truthUnchanged": true,
+  "noCommandWrites": true,
+  "errors": []
+}

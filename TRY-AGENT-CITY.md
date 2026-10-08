@@ -169,3 +169,8 @@ Configure its model separately in Mission Command. Ctrl+C stops its launcher.
 The same offset must be used with `npm run doctor` when checking that instance.
 Offsets must be integers from 0 to 56604; no occupied process is killed or reused
 for an offset instance. Choose a free range; ports are checked before launch.
+
+For a larger game view, choose **Fullscreen game** below the canvas. Use **Exit
+fullscreen** or the browser's Escape control to return to the full inspector and
+mission setup. Navigation, observed conversation and recording remain with the
+world. The canvas recording still contains only game pixels, not the DOM panels.

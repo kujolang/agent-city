@@ -767,3 +767,16 @@ header h1:before {
   max-width: 100%;
   min-width: 0;
 }
+
+/* Explicit presentation choice: the world keeps its native pixel scale and controls. */
+.world:fullscreen {
+  box-sizing: border-box;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 12px;
+  overflow: auto;
+  background: #030709;
+}
+.world:fullscreen #canvas { min-height: 0; }
+#game-view-status { font-size: 11px; color: #9baecb; }
