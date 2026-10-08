@@ -378,3 +378,13 @@ This closes the bounded throughput blocker, not long-duration reliability or ful
 product acceptance. The x64 margin is modest; browser catch-up remains measurable.
 Eight-hour soak stays cancelled/unqualified. Current receipts are retained in
 evidence/reconnect-load/37717824495 alongside every preceding failure.
+
+Managed catalog checkpoint: Cityd33ee08 bundles immutable kujo-agentsbe22fda and
+supports start.command agents:import without a separate checkout/path. CI37718367389
+imports all85profiles from the same registry hash on four platforms with system
+Node/npm masked. No models/tools/permissions are activated.94tests/build pass.
+Custom workflow execution remains bounded by the existing adapter; importing
+workflow references does not connect external tools. That CI's later Linux x64
+sandbox step failed because Docker was unavailable; failure is retained, engine
+prerequisite is now explicit in CI, and whole installation requalification is
+pending. Evidence: evidence/bundled-catalog/proof.json.

@@ -1,0 +1,52 @@
+{
+  "cityCommit": "d33ee08",
+  "ciRun": 37718367389,
+  "scope": "Actual managed catalog import with system Node/npm masked; no model or tool execution",
+  "platforms": {
+    "x64": {
+      "imported": 85,
+      "teams": [
+        "chain-of-command",
+        "webops",
+        "publishing-house",
+        "videoops"
+      ],
+      "registryHash": "c159ecf101171e49a5cb79f5990808fdee955580877074972795779c894b221d",
+      "execution": "NOT_CONNECTED: contracts imported; no permissions or tools granted"
+    },
+    "arm": {
+      "imported": 85,
+      "teams": [
+        "chain-of-command",
+        "webops",
+        "publishing-house",
+        "videoops"
+      ],
+      "registryHash": "c159ecf101171e49a5cb79f5990808fdee955580877074972795779c894b221d",
+      "execution": "NOT_CONNECTED: contracts imported; no permissions or tools granted"
+    },
+    "mac-intel": {
+      "imported": 85,
+      "teams": [
+        "chain-of-command",
+        "webops",
+        "publishing-house",
+        "videoops"
+      ],
+      "registryHash": "c159ecf101171e49a5cb79f5990808fdee955580877074972795779c894b221d",
+      "execution": "NOT_CONNECTED: contracts imported; no permissions or tools granted"
+    },
+    "mac-arm": {
+      "imported": 85,
+      "teams": [
+        "chain-of-command",
+        "webops",
+        "publishing-house",
+        "videoops"
+      ],
+      "registryHash": "c159ecf101171e49a5cb79f5990808fdee955580877074972795779c894b221d",
+      "execution": "NOT_CONNECTED: contracts imported; no permissions or tools granted"
+    }
+  },
+  "limitation": "Whole CI failed on x64 because Docker was unavailable before the image build; catalog import passed independently on all four platforms."
+}
