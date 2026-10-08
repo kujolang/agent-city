@@ -1,0 +1,13 @@
+{
+  "at": "2026-10-08T15:47:12.669Z",
+  "browser": "153.0.8010.12",
+  "errors": [],
+  "rooms": 7,
+  "modelNotConfiguredHonest": true,
+  "keyboardSetup": true,
+  "mobile320NoOverflow": true,
+  "domOnlyTaskUI": true,
+  "continuationFormAndParentLink": "PASS / synthetic UI fixture; real runtime proof recorded separately",
+  "recordedUserRequestAndEscapedResponse": true,
+  "screenshots": "Current rendering; retained source truth may be STALE. No new live AI proof claimed."
+}

@@ -1,0 +1,131 @@
+{
+  "source": "289dd553804c7e5f5b368a0598c724fce2ed70f2",
+  "scope": "Synthetic model outputs with actual SDK handoff and sandboxed browser function execution",
+  "attempts": [
+    {
+      "mission": "mission-957be646-a631-450b-85e0-ae68f7811c82",
+      "model": "controlled",
+      "checks": {
+        "schema": "agent-city.function-check.v1",
+        "status": "failed",
+        "environment": "disposable-chromium-module-worker",
+        "browserSandboxRequested": true,
+        "browser": "153.0.8010.12",
+        "codeExecuted": true,
+        "scope": "explicit JSON function cases only; no filesystem or network integrations",
+        "blockedRequests": 0,
+        "cases": [
+          {
+            "name": "positive",
+            "status": "failed",
+            "reason": "returned",
+            "occurredAt": 1791474449345
+          },
+          {
+            "name": "negative",
+            "status": "failed",
+            "reason": "returned",
+            "occurredAt": 1791474449358
+          },
+          {
+            "name": "zero",
+            "status": "passed",
+            "reason": "expectation-met",
+            "occurredAt": 1791474449370
+          }
+        ],
+        "checkedAt": "2026-10-08T15:47:29.370Z"
+      },
+      "validation": {
+        "schema": "agent-city.code-check.v1",
+        "syntax": "valid",
+        "fenceRemoved": false,
+        "functionalTests": "failed",
+        "codeExecuted": true,
+        "checkedAt": "2026-10-08T15:47:29.020Z"
+      },
+      "artifactSha256": "5b01ee484093664f8263c230f9392950fa0df219c62e9a894d1affb45e1e8370",
+      "checkerIdentityDistinct": true,
+      "individualOutcomes": [
+        {
+          "operation": "check-0",
+          "outcome": "failed"
+        },
+        {
+          "operation": "check-1",
+          "outcome": "failed"
+        },
+        {
+          "operation": "check-2",
+          "outcome": "succeeded"
+        }
+      ],
+      "handoffObserved": true
+    },
+    {
+      "mission": "mission-026c4c64-add0-4ffa-9eae-28dc993614eb",
+      "model": "controlled",
+      "checks": {
+        "schema": "agent-city.function-check.v1",
+        "status": "passed",
+        "environment": "disposable-chromium-module-worker",
+        "browserSandboxRequested": true,
+        "browser": "153.0.8010.12",
+        "codeExecuted": true,
+        "scope": "explicit JSON function cases only; no filesystem or network integrations",
+        "blockedRequests": 0,
+        "cases": [
+          {
+            "name": "positive",
+            "status": "passed",
+            "reason": "expectation-met",
+            "occurredAt": 1791474450952
+          },
+          {
+            "name": "negative",
+            "status": "passed",
+            "reason": "expectation-met",
+            "occurredAt": 1791474450967
+          },
+          {
+            "name": "zero",
+            "status": "passed",
+            "reason": "expectation-met",
+            "occurredAt": 1791474450981
+          }
+        ],
+        "checkedAt": "2026-10-08T15:47:30.981Z"
+      },
+      "validation": {
+        "schema": "agent-city.code-check.v1",
+        "syntax": "valid",
+        "fenceRemoved": false,
+        "functionalTests": "passed",
+        "codeExecuted": true,
+        "checkedAt": "2026-10-08T15:47:30.615Z"
+      },
+      "artifactSha256": "c4b7a01cbde242bf0e133e7afefc62e73fffdac917b0efd9cb40f26ed25d26f0",
+      "checkerIdentityDistinct": true,
+      "individualOutcomes": [
+        {
+          "operation": "check-0",
+          "outcome": "succeeded"
+        },
+        {
+          "operation": "check-1",
+          "outcome": "succeeded"
+        },
+        {
+          "operation": "check-2",
+          "outcome": "succeeded"
+        }
+      ],
+      "handoffObserved": true
+    }
+  ],
+  "priorFailureRetained": true,
+  "privateEvidence": "/home/runner/work/_temp/city/agent-city/.runtime/profile-code-5e4fdf2e-88e1-4418-a460-6014f6dc1192",
+  "projectReadCount": 4,
+  "privateSnapshotsPreserved": true,
+  "noProjectContentInTelemetry": true
+}

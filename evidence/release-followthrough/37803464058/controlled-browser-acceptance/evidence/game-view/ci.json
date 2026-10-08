@@ -1,0 +1,42 @@
+{
+  "id": 37722261766,
+  "head_sha": "4b2e44c32455e0c1e7f88b4804ae92a27c174a51",
+  "html_url": "https://github.com/kujolang/agent-city/actions/runs/37722261766",
+  "status": "completed",
+  "conclusion": "success",
+  "created_at": "2026-10-08T03:20:36Z",
+  "updated_at": "2026-10-08T03:22:27Z",
+  "jobs": [
+    {
+      "name": "verify",
+      "conclusion": "success",
+      "started_at": "2026-10-08T03:20:39Z",
+      "completed_at": "2026-10-08T03:21:35Z"
+    },
+    {
+      "name": "install (ubuntu-24.04-arm)",
+      "conclusion": "success",
+      "started_at": "2026-10-08T03:20:41Z",
+      "completed_at": "2026-10-08T03:21:27Z"
+    },
+    {
+      "name": "install (macos-15-intel)",
+      "conclusion": "success",
+      "started_at": "2026-10-08T03:20:43Z",
+      "completed_at": "2026-10-08T03:22:26Z"
+    },
+    {
+      "name": "install (macos-15)",
+      "conclusion": "success",
+      "started_at": "2026-10-08T03:20:44Z",
+      "completed_at": "2026-10-08T03:21:40Z"
+    },
+    {
+      "name": "install (ubuntu-24.04)",
+      "conclusion": "success",
+      "started_at": "2026-10-08T03:21:06Z",
+      "completed_at": "2026-10-08T03:22:01Z"
+    }
+  ],
+  "scope": "Full source verify and controlled Chromium setup/fullscreen proof plus four-platform managed install; not live model proof or final release acceptance"
+}

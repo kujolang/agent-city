@@ -1,0 +1,5 @@
+
+> kujo-agent-city@0.2.0-rc.2 agents:import
+> tsx scripts/import-agents.ts
+
+{"imported":85,"teams":["chain-of-command","webops","publishing-house","videoops"],"registryHash":"c159ecf101171e49a5cb79f5990808fdee955580877074972795779c894b221d","execution":"NOT_CONNECTED: contracts imported; no permissions or tools granted"}

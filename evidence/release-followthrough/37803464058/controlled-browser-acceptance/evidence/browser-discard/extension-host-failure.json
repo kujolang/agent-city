@@ -1,0 +1,8 @@
+{
+  "scope": "Synthetic truth transport; native headed Chromium hidden/discard/resume, no attached debugger, no source execution or OS sleep",
+  "softwareRendering": true,
+  "status": "FAILED",
+  "error": "AssertionError [ERR_ASSERTION]: No completed native browser report at launch",
+  "stage": "launch",
+  "browserLog": "[21674:22639000:1008/082521.625327:WARNING:content/child/runtime_features.cc:520] AttributionReporting cannot be enabled in this configuration. Use --enable-features=ConversionMeasurement in addition.\n[21677:22639031:1008/082521.895006:WARNING:content/child/runtime_features.cc:520] AttributionReporting cannot be enabled in this configuration. Use --enable-features=ConversionMeasurement in addition.\n[21678:22639032:1008/082521.898561:WARNING:content/child/runtime_features.cc:520] AttributionReporting cannot be enabled in this configuration. Use --enable-features=ConversionMeasurement in addition.\n[21683:22639090:1008/082522.577233:WARNING:content/child/runtime_features.cc:520] AttributionReporting cannot be enabled in this configuration. Use --enable-features=ConversionMeasurement in addition.\n[21684:22639092:1008/082522.610303:WARNING:content/child/runtime_features.cc:520] AttributionReporting cannot be enabled in this configuration. Use --enable-features=ConversionMeasurement in addition.\n[21685:22639094:1008/082522.678219:WARNING:content/child/runtime_features.cc:520] AttributionReporting cannot be enabled in this configuration. Use --enable-features=ConversionMeasurement in addition.\n[21696:22639203:1008/082524.840966:WARNING:content/child/runtime_features.cc:520] AttributionReporting cannot be enabled in this configuration. Use --enable-features=ConversionMeasurement in addition.\n"
+}

@@ -1,0 +1,43 @@
+{
+  "scope": "Actual Workcell execution reads explicit snapshot; no model or browser claim",
+  "run": "project-input-a9b6fd01-adf6-4337-b4b9-b55801015b80",
+  "producer": "project-input-proof",
+  "schema": "agent-city.mission-workcell.v1",
+  "status": "completed",
+  "codeExecuted": true,
+  "cleanup": "complete",
+  "timedOut": false,
+  "exitCode": 0,
+  "evidence": {
+    "runId": "wc-af7a8a051cb649359fac15f0687a99ed",
+    "artifacts": [
+      {
+        "name": "city-result.txt",
+        "bytes": 30,
+        "sha256": "64ba0d6be054aa023f763c07da2b36a2d3897d7dbf1814f3f3811289a80f4d68"
+      },
+      {
+        "name": "runtime-version.txt",
+        "bytes": 11,
+        "sha256": "de3e64cdc4bb5196cdb7ab26ea04056cb75fe6f8deaa8945c9791af34036b7d9"
+      }
+    ]
+  },
+  "output": "actual selected project input\n",
+  "runtimeVersion": "kujo 1.7.0\n",
+  "projectInputs": [
+    {
+      "path": "inputs/message.txt",
+      "bytes": 29,
+      "sha256": "c2f97b22441b53d3998fff8eea02e0f9620d788f25f3ad5931f18a4fafaa65ef"
+    }
+  ],
+  "projectExports": [],
+  "projectOutputs": [],
+  "projectExportsStatus": "not-requested",
+  "projectExportError": null,
+  "outputTruncated": false,
+  "checkedAt": "2026-10-08T15:48:02.304Z",
+  "privateEvidence": ".runtime/project-execution-b16c8620-8d32-4457-9135-5ae982fa2b34",
+  "metadataOnlyLifecycle": true
+}

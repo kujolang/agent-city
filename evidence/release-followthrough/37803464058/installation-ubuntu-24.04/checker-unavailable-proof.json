@@ -1,0 +1,15 @@
+{
+  "scope": "Controlled missing browser, real SDK/Dispatch; no generated code executed",
+  "mission": "mission-26f241e9-dd42-4819-b891-c22a078eb0f3",
+  "sourceStatus": "completed",
+  "functional": {
+    "schema": "agent-city.function-check.v1",
+    "status": "unavailable",
+    "codeExecuted": null,
+    "cases": [],
+    "reason": "Isolated function checker did not return verified results",
+    "diagnostic": "ENOENT: no such file or directory, access '/home/runner/work/_temp/city/agent-city/.runtime/checker-unavailable-0f55f526-f84a-4e23-a867-fd7522ad39e6/missing-browser'"
+  },
+  "unknownEvaluationObserved": true,
+  "privateEvidence": "/home/runner/work/_temp/city/agent-city/.runtime/checker-unavailable-0f55f526-f84a-4e23-a867-fd7522ad39e6"
+}

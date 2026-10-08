@@ -254,3 +254,12 @@ verified. See evidence/videoops-render/37802468455. Perceptual review remains
 NOT_REVIEWED and no finalization/publication occurred. Combined Mission Command
 launch and new release qualification remain open; local Docker restart decision
 is pending because other containers may be interrupted.
+
+Fresh CI37803464058 at289dd553804c7e5f5b368a0598c724fce2ed70f2 passes all5jobs:
+147tests, source/browser checks, zero reported dependency vulnerabilities, four
+installed platforms and Linux Workcell acceptance. Downloaded receipts are in
+evidence/release-followthrough/37803464058. Prior CI selector ambiguity is resolved.
+No qualification process remains running. Remaining work depends on Docker restart
+coordination and actual candidate playback approval, then combined production launch,
+finalization and new release. Both user decisions are pending; do not infer approval
+or restart Docker while unrelated containers may be running.

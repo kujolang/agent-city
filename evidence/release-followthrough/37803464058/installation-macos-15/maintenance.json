@@ -1,0 +1,17 @@
+{
+  "schema": "agent-city.installed-maintenance-proof.v1",
+  "platform": "darwin",
+  "arch": "arm64",
+  "startedAt": "2026-10-08T15:47:21.124Z",
+  "checks": [
+    "repeat install refuses existing destination",
+    "active lease prevents maintenance",
+    "failed preparation preserves original runtime",
+    "real pinned update preserves all runtime bytes at original path and in archive",
+    "archive uninstall preserves all runtime bytes and can restore original path"
+  ],
+  "privateNodeRetained": true,
+  "runtimeFiles": 332,
+  "status": "PASS",
+  "finishedAt": "2026-10-08T15:47:33.483Z"
+}
