@@ -1,0 +1,159 @@
+{
+  "scope": "Synthetic canonical HTTP intake alone; no gateway/export/browser; not release throughput qualification",
+  "samples": [
+    {
+      "round": 0,
+      "count": 1,
+      "bytes": 1410,
+      "headersMs": 23.716975999999704,
+      "totalMs": 25.36111200000005,
+      "response": {
+        "data": {
+          "batch_dbid": 1,
+          "deduplicated": false,
+          "error": "",
+          "ok": true,
+          "records": 1
+        },
+        "ok": true
+      }
+    },
+    {
+      "round": 0,
+      "count": 10,
+      "bytes": 11598,
+      "headersMs": 53.93875900000012,
+      "totalMs": 54.31929100000025,
+      "response": {
+        "data": {
+          "batch_dbid": 2,
+          "deduplicated": false,
+          "error": "",
+          "ok": true,
+          "records": 10
+        },
+        "ok": true
+      }
+    },
+    {
+      "round": 0,
+      "count": 100,
+      "bytes": 113893,
+      "headersMs": 403.15378899999996,
+      "totalMs": 403.4247009999999,
+      "response": {
+        "data": {
+          "batch_dbid": 3,
+          "deduplicated": false,
+          "error": "",
+          "ok": true,
+          "records": 100
+        },
+        "ok": true
+      }
+    },
+    {
+      "round": 1,
+      "count": 1,
+      "bytes": 1424,
+      "headersMs": 17.228951999999936,
+      "totalMs": 17.746822000000066,
+      "response": {
+        "data": {
+          "batch_dbid": 4,
+          "deduplicated": false,
+          "error": "",
+          "ok": true,
+          "records": 1
+        },
+        "ok": true
+      }
+    },
+    {
+      "round": 1,
+      "count": 10,
+      "bytes": 11684,
+      "headersMs": 52.48675400000002,
+      "totalMs": 52.82683700000007,
+      "response": {
+        "data": {
+          "batch_dbid": 5,
+          "deduplicated": false,
+          "error": "",
+          "ok": true,
+          "records": 10
+        },
+        "ok": true
+      }
+    },
+    {
+      "round": 1,
+      "count": 100,
+      "bytes": 114161,
+      "headersMs": 397.4099769999998,
+      "totalMs": 397.68442400000004,
+      "response": {
+        "data": {
+          "batch_dbid": 6,
+          "deduplicated": false,
+          "error": "",
+          "ok": true,
+          "records": 100
+        },
+        "ok": true
+      }
+    },
+    {
+      "round": 2,
+      "count": 1,
+      "bytes": 1424,
+      "headersMs": 14.882076999999754,
+      "totalMs": 15.37991299999976,
+      "response": {
+        "data": {
+          "batch_dbid": 7,
+          "deduplicated": false,
+          "error": "",
+          "ok": true,
+          "records": 1
+        },
+        "ok": true
+      }
+    },
+    {
+      "round": 2,
+      "count": 10,
+      "bytes": 11660,
+      "headersMs": 53.277332000000115,
+      "totalMs": 53.53041399999984,
+      "response": {
+        "data": {
+          "batch_dbid": 8,
+          "deduplicated": false,
+          "error": "",
+          "ok": true,
+          "records": 10
+        },
+        "ok": true
+      }
+    },
+    {
+      "round": 2,
+      "count": 100,
+      "bytes": 114161,
+      "headersMs": 462.65696000000025,
+      "totalMs": 462.95049800000015,
+      "response": {
+        "data": {
+          "batch_dbid": 9,
+          "deduplicated": false,
+          "error": "",
+          "ok": true,
+          "records": 100
+        },
+        "ok": true
+      }
+    }
+  ],
+  "status": "PASS"
+}

@@ -6,6 +6,7 @@ import { resolve } from "node:path";
 import { performance } from "node:perf_hooks";
 import { batch } from "./pipeline-fixture";
 import { portAvailable } from "./startup-checks";
+import { localChromiumPath } from "../apps/runner/browser-path";
 const root = resolve(import.meta.dirname, ".."),
   runtime = resolve(root, ".runtime/pipeline-" + Date.now());
 await mkdir(runtime, { recursive: true });
@@ -150,9 +151,7 @@ try {
     await ready("http://127.0.0.1:18888");
     browser = await chromium.launch({
       headless: true,
-      executablePath:
-        process.env.CHROMIUM_PATH ||
-        "/Users/robertdevore/Library/Caches/ms-playwright/chromium_headless_shell-1234/chrome-headless-shell-mac-x64/chrome-headless-shell",
+      executablePath: await localChromiumPath(),
     });
     const page = await browser.newPage();
     await page.goto("http://127.0.0.1:18888");
@@ -310,42 +309,73 @@ try {
   let accepted = 0,
     nextOffset = 0,
     requestMs: number[] = [];
-  await Promise.all(
+  result.requestedDurationSeconds = duration;
+  result.batchSize = 100;
+  result.offeredRate = rate;
+  const intakeAbort = new AbortController();
+  const uncertain = new Set<number>();
+  const workers = await Promise.allSettled(
     Array.from({ length: concurrency }, async () => {
-      while (nextOffset < duration * rate) {
-        const i = nextOffset;
-        nextOffset += 100;
-        const count = Math.min(100, duration * rate - i);
-        const t = performance.now();
-        const r = await fetch(base + "/telemetry/v2/batches", {
-          method: "POST",
-          signal: AbortSignal.timeout(30000),
-          headers: {
-            authorization: "Bearer " + testToken,
-            "content-type": "application/json",
-          },
-          body: JSON.stringify(batch(i, count)),
-        });
-        if (!r.ok)
-          throw Error(
-            "Canonical intake " +
-              r.status +
-              " " +
-              (await r.text()).slice(0, 200),
+      try {
+        while (nextOffset < duration * rate) {
+          const i = nextOffset;
+          nextOffset += 100;
+          const count = Math.min(100, duration * rate - i);
+          const t = performance.now();
+          uncertain.add(i);
+          const r = await fetch(base + "/telemetry/v2/batches", {
+            method: "POST",
+            signal: AbortSignal.any([
+              intakeAbort.signal,
+              AbortSignal.timeout(30000),
+            ]),
+            headers: {
+              authorization: "Bearer " + testToken,
+              "content-type": "application/json",
+            },
+            body: JSON.stringify(batch(i, count)),
+          });
+          // Drain every body before reusing the connection; HTTP status alone is
+          // insufficient evidence that all records were accepted.
+          const response = await r.json();
+          if (
+            !r.ok ||
+            response.ok !== true ||
+            response.data?.ok !== true ||
+            response.data?.records !== count
+          )
+            throw Error("Canonical intake rejected or incomplete: " + r.status);
+          uncertain.delete(i);
+          accepted += count;
+          requestMs.push(performance.now() - t);
+          if (performance.now() - start > duration * 1000 + 30000) break;
+          await new Promise((r) =>
+            setTimeout(
+              r,
+              Math.max(0, start + (accepted / rate) * 1000 - performance.now()),
+            ),
           );
-        accepted += count;
-        requestMs.push(performance.now() - t);
-        if (performance.now() - start > duration * 1000 + 30000) break;
-        await new Promise((r) =>
-          setTimeout(
-            r,
-            Math.max(0, start + (accepted / rate) * 1000 - performance.now()),
-          ),
-        );
+        }
+      } catch (error) {
+        intakeAbort.abort(error);
+        throw error;
       }
     }),
   );
+  result.acknowledgedRecords = accepted;
+  result.observedRecordsAtSenderStop = seen.size;
+  result.observedDuplicatesAtSenderStop = duplicates;
+  result.uncertainBatches = [...uncertain]
+    .sort((a, b) => a - b)
+    .map((offset) => ({
+      offset,
+      count: Math.min(100, duration * rate - offset),
+    }));
+  result.deliveryReconciled = result.uncertainBatches.length === 0;
   result.processResources.push(resourceSample());
+  const failed = workers.find((worker) => worker.status === "rejected");
+  if (failed?.status === "rejected")
+    throw intakeAbort.signal.reason ?? failed.reason;
   const sentAt = performance.now();
   for (let i = 0; i < 300 && seen.size < accepted; i++)
     await new Promise((r) => setTimeout(r, 100));
