@@ -25,7 +25,8 @@ Current qualification supersedes those early blockers: clean Linux x64/ARM64
 CI delivered66,000/66,000 canonical observations at about1,100events/sec for60s
 (see evidence/clean-throughput). A short native hidden-tab cycle now passes
 (evidence/browser-visibility). Reconnect-under-load remains a separate gate;
-CI37710144786 failed and the browser offline fix is under renewed qualification.
+CI37711890418 now passes on ARM64; x64 recovers the browser but still times out
+canonical intake with uncertain batches. Overall release remains FAIL.
 The eight-hour soak remains explicitly cancelled. These bounded results do not
 establish complete product acceptance or long-duration production readiness.
 

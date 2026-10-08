@@ -315,3 +315,12 @@ Controlled Chromium transport/replay regression and88unit tests pass at73d0498.
 This does not supersede the failed load run; its replacement remains separately
 qualified. Historical replay input is preserved, with explicit current-map test
 repackaging recorded in evidence/browser-connection.
+
+
+Browser-load checkpoint497186c: pure planner copies only the affected execution,
+with identical deterministic comparison hash and90passing tests. CI37711890418
+passed canonical60second throughput plus two real browser reconnects on ARM64.
+x64 browser recovery passed once, but an early canonical request timed out and
+four batches remain uncertain; overall reliability/release remains FAIL. All
+four installer jobs passed in37711883473. See evidence/reconnect-load and
+planner-copy. No core Kujo runtime changes or long soak were made.
