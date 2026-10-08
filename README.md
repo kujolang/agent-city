@@ -1,5 +1,19 @@
 # Kujo Agent City
 
+<p align="center">
+  <a href="https://github.com/kujolang/agent-city/releases/tag/v0.2.0"><img src="https://img.shields.io/badge/version-0.2.0-black" alt="Version 0.2.0"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-lightgrey" alt="License: MIT"></a>
+  <a href="https://github.com/kujolang/kujo"><img src="https://img.shields.io/badge/built%20with-Kujo-white.svg" alt="Built with Kujo"></a>
+</p>
+
+<p align="center">
+  <a href="evidence/reviewed-release-tool/repaired/release-notes-live.mp4"><img src="assets/readme/agent-city-live-run.gif" alt="Full real Agent City run: agents move through Workshop, Library, MCP Center and Dojo while creating and checking a Kujo release-notes tool. Click to watch the original video." width="512"></a>
+  <br>
+  <a href="evidence/reviewed-release-tool/repaired/release-notes-live.mp4"><strong>Watch the full 53-second run</strong></a>
+  <br>
+  Real Kujo work · game-only recording · <a href="evidence/reviewed-release-tool/README.md">task and execution evidence</a>
+</p>
+
 **[Version 0.2.0](https://github.com/kujolang/agent-city/releases/tag/v0.2.0) — local application:** [current release qualification](RELEASE-QUALIFICATION.md) and [real reviewed Kujo tool/video](evidence/reviewed-release-tool/README.md). [current capabilities and unfinished gates](WORKING-EXPERIENCE.md). Start with the [managed preview installation](installer/README.md) and [first-task guide](TRY-AGENT-CITY.md). Source checkouts use `npm start` (Node 24+). Model setup and explicit writing/code missions are now separate from the read-only Observer. Existing Observer notes below are historical where they say no task controls.
 
 Agent City observes real Kujo work in a small original pixel city. The Observer

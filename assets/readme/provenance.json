@@ -1,0 +1,9 @@
+{
+  "source": "../../evidence/reviewed-release-tool/repaired/release-notes-live.mp4",
+  "sourceSha256": "f10700fd064771984f6255a4bb996d400da424440296de3176b78309226fb148",
+  "sourceSeconds": 53.05,
+  "preview": "agent-city-live-run.gif",
+  "previewSha256": "22f26ed7af77a4ed9a442db1d7b1c9699a1b80bdec7ddf9d8dfe65eb53b40641",
+  "previewSeconds": 53.1,
+  "conversion": "Full recording, 10 fps, 512x480 nearest-neighbor, palette dithering disabled; no cuts, retiming, generated scenes or new source operations. GIF loops; linked MP4 is unchanged."
+}
