@@ -90,3 +90,10 @@ handoff and check start/finish across three execution instances. See
 evidence/webops-live. This qualifies supplied-evidence reporting only, not site
 crawling or every WebOps profile. Selected VideoOps integration/acceptance and
 release qualification of these additions remain open.
+
+VideoOps foundation checkpoint: role-owned immutable artifact attempts and a bounded
+adapter to canonical offline media/review inspections are implemented. The actual
+native doctor finds FFmpeg/ffprobe; no candidate means review unavailable, not PASS.
+124 tests/types/boundaries/maps/build pass. See evidence/videoops-foundation.
+Stage orchestration, isolated render, exact-candidate independent review, UI and
+real production acceptance remain open; these foundations do not close item5.

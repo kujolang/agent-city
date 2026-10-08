@@ -1,0 +1,360 @@
+{
+  "schema": "agent-city.videoops-preflight.v1",
+  "inspectedAt": "2026-10-08T13:31:57.110Z",
+  "scope": "Actual local native-tool inspections, not rendering or production qualification",
+  "receipts": [
+    {
+      "schema": "agent-city.videoops-inspection.v1",
+      "operation": "media.doctor",
+      "status": "observed",
+      "exitCode": 0,
+      "timedOut": false,
+      "reason": null,
+      "native": {
+        "authentication": "not_checked",
+        "authorization": "not_checked",
+        "available": true,
+        "dependencies": {
+          "ffmpeg": true,
+          "ffprobe": true
+        },
+        "entitlement": "unknown",
+        "executable": false,
+        "offline": true,
+        "providers": [
+          {
+            "capabilities": [
+              {
+                "async_jobs": false,
+                "authentication": "not_checked",
+                "authorization": "not_checked",
+                "capability": "speech",
+                "entitlement": "unknown",
+                "implemented": true,
+                "live_tested": false,
+                "provider_idempotency": false
+              },
+              {
+                "async_jobs": false,
+                "authentication": "not_checked",
+                "authorization": "not_checked",
+                "capability": "sound_effects",
+                "entitlement": "unknown",
+                "implemented": true,
+                "live_tested": false,
+                "provider_idempotency": false
+              },
+              {
+                "async_jobs": false,
+                "authentication": "not_checked",
+                "authorization": "not_checked",
+                "capability": "music",
+                "entitlement": "unknown",
+                "implemented": true,
+                "live_tested": false,
+                "provider_idempotency": false
+              },
+              {
+                "async_jobs": false,
+                "authentication": "not_checked",
+                "authorization": "not_checked",
+                "capability": "transcription",
+                "entitlement": "unknown",
+                "implemented": false,
+                "live_tested": false,
+                "provider_idempotency": false
+              },
+              {
+                "async_jobs": false,
+                "authentication": "not_checked",
+                "authorization": "not_checked",
+                "capability": "alignment",
+                "entitlement": "unknown",
+                "implemented": false,
+                "live_tested": false,
+                "provider_idempotency": false
+              },
+              {
+                "async_jobs": false,
+                "authentication": "not_checked",
+                "authorization": "not_checked",
+                "capability": "catalog",
+                "entitlement": "unknown",
+                "implemented": false,
+                "live_tested": false,
+                "provider_idempotency": false
+              },
+              {
+                "async_jobs": false,
+                "authentication": "not_checked",
+                "authorization": "not_checked",
+                "capability": "local_import",
+                "entitlement": "unknown",
+                "implemented": false,
+                "live_tested": false,
+                "provider_idempotency": false
+              }
+            ],
+            "provider": "elevenlabs"
+          },
+          {
+            "capabilities": [
+              {
+                "async_jobs": false,
+                "authentication": "not_required",
+                "authorization": "not_checked",
+                "capability": "speech",
+                "entitlement": "not_required",
+                "implemented": false,
+                "live_tested": false,
+                "provider_idempotency": false
+              },
+              {
+                "async_jobs": false,
+                "authentication": "not_required",
+                "authorization": "not_checked",
+                "capability": "sound_effects",
+                "entitlement": "not_required",
+                "implemented": false,
+                "live_tested": false,
+                "provider_idempotency": false
+              },
+              {
+                "async_jobs": false,
+                "authentication": "not_required",
+                "authorization": "not_checked",
+                "capability": "music",
+                "entitlement": "not_required",
+                "implemented": false,
+                "live_tested": false,
+                "provider_idempotency": false
+              },
+              {
+                "async_jobs": false,
+                "authentication": "not_required",
+                "authorization": "not_checked",
+                "capability": "transcription",
+                "entitlement": "not_required",
+                "implemented": false,
+                "live_tested": false,
+                "provider_idempotency": false
+              },
+              {
+                "async_jobs": false,
+                "authentication": "not_required",
+                "authorization": "not_checked",
+                "capability": "alignment",
+                "entitlement": "not_required",
+                "implemented": false,
+                "live_tested": false,
+                "provider_idempotency": false
+              },
+              {
+                "async_jobs": false,
+                "authentication": "not_required",
+                "authorization": "not_checked",
+                "capability": "catalog",
+                "entitlement": "not_required",
+                "implemented": false,
+                "live_tested": false,
+                "provider_idempotency": false
+              },
+              {
+                "async_jobs": false,
+                "authentication": "not_required",
+                "authorization": "not_checked",
+                "capability": "local_import",
+                "entitlement": "not_required",
+                "implemented": true,
+                "live_tested": false,
+                "provider_idempotency": false
+              }
+            ],
+            "provider": "local"
+          }
+        ],
+        "schema": "videoops-media-doctor/v1",
+        "test_evidence": [],
+        "tested": "not_checked"
+      },
+      "productionReady": false,
+      "scope": "Offline tool inspection only; no model capability, render, account entitlement or perceptual approval established"
+    },
+    {
+      "schema": "agent-city.videoops-inspection.v1",
+      "operation": "media.providers",
+      "status": "observed",
+      "exitCode": 0,
+      "timedOut": false,
+      "reason": null,
+      "native": {
+        "providers": [
+          {
+            "capabilities": [
+              {
+                "async_jobs": false,
+                "authentication": "not_checked",
+                "authorization": "not_checked",
+                "capability": "speech",
+                "entitlement": "unknown",
+                "implemented": true,
+                "live_tested": false,
+                "provider_idempotency": false
+              },
+              {
+                "async_jobs": false,
+                "authentication": "not_checked",
+                "authorization": "not_checked",
+                "capability": "sound_effects",
+                "entitlement": "unknown",
+                "implemented": true,
+                "live_tested": false,
+                "provider_idempotency": false
+              },
+              {
+                "async_jobs": false,
+                "authentication": "not_checked",
+                "authorization": "not_checked",
+                "capability": "music",
+                "entitlement": "unknown",
+                "implemented": true,
+                "live_tested": false,
+                "provider_idempotency": false
+              },
+              {
+                "async_jobs": false,
+                "authentication": "not_checked",
+                "authorization": "not_checked",
+                "capability": "transcription",
+                "entitlement": "unknown",
+                "implemented": false,
+                "live_tested": false,
+                "provider_idempotency": false
+              },
+              {
+                "async_jobs": false,
+                "authentication": "not_checked",
+                "authorization": "not_checked",
+                "capability": "alignment",
+                "entitlement": "unknown",
+                "implemented": false,
+                "live_tested": false,
+                "provider_idempotency": false
+              },
+              {
+                "async_jobs": false,
+                "authentication": "not_checked",
+                "authorization": "not_checked",
+                "capability": "catalog",
+                "entitlement": "unknown",
+                "implemented": false,
+                "live_tested": false,
+                "provider_idempotency": false
+              },
+              {
+                "async_jobs": false,
+                "authentication": "not_checked",
+                "authorization": "not_checked",
+                "capability": "local_import",
+                "entitlement": "unknown",
+                "implemented": false,
+                "live_tested": false,
+                "provider_idempotency": false
+              }
+            ],
+            "provider": "elevenlabs"
+          },
+          {
+            "capabilities": [
+              {
+                "async_jobs": false,
+                "authentication": "not_required",
+                "authorization": "not_checked",
+                "capability": "speech",
+                "entitlement": "not_required",
+                "implemented": false,
+                "live_tested": false,
+                "provider_idempotency": false
+              },
+              {
+                "async_jobs": false,
+                "authentication": "not_required",
+                "authorization": "not_checked",
+                "capability": "sound_effects",
+                "entitlement": "not_required",
+                "implemented": false,
+                "live_tested": false,
+                "provider_idempotency": false
+              },
+              {
+                "async_jobs": false,
+                "authentication": "not_required",
+                "authorization": "not_checked",
+                "capability": "music",
+                "entitlement": "not_required",
+                "implemented": false,
+                "live_tested": false,
+                "provider_idempotency": false
+              },
+              {
+                "async_jobs": false,
+                "authentication": "not_required",
+                "authorization": "not_checked",
+                "capability": "transcription",
+                "entitlement": "not_required",
+                "implemented": false,
+                "live_tested": false,
+                "provider_idempotency": false
+              },
+              {
+                "async_jobs": false,
+                "authentication": "not_required",
+                "authorization": "not_checked",
+                "capability": "alignment",
+                "entitlement": "not_required",
+                "implemented": false,
+                "live_tested": false,
+                "provider_idempotency": false
+              },
+              {
+                "async_jobs": false,
+                "authentication": "not_required",
+                "authorization": "not_checked",
+                "capability": "catalog",
+                "entitlement": "not_required",
+                "implemented": false,
+                "live_tested": false,
+                "provider_idempotency": false
+              },
+              {
+                "async_jobs": false,
+                "authentication": "not_required",
+                "authorization": "not_checked",
+                "capability": "local_import",
+                "entitlement": "not_required",
+                "implemented": true,
+                "live_tested": false,
+                "provider_idempotency": false
+              }
+            ],
+            "provider": "local"
+          }
+        ],
+        "schema": "videoops-media-capabilities/v1"
+      },
+      "productionReady": false,
+      "scope": "Offline tool inspection only; no model capability, render, account entitlement or perceptual approval established"
+    },
+    {
+      "schema": "agent-city.videoops-inspection.v1",
+      "operation": "review.status",
+      "status": "unavailable",
+      "exitCode": 1,
+      "timedOut": false,
+      "reason": "Native tool did not complete successfully",
+      "native": null,
+      "productionReady": false,
+      "scope": "Offline tool inspection only; no model capability, render, account entitlement or perceptual approval established"
+    }
+  ]
+}
