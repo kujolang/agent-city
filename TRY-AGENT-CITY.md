@@ -199,3 +199,18 @@ Completion of the agent task or container does not imply the check passed. Missi
 or truncated output is unavailable, not a guessed result. Use Follow up to request
 a repair; the next agents receive the prior validation and output. Enable execution
 and the output check again for that request. Both attempts remain in history.
+
+### Give the agents selected project context
+
+Open **Selected project files** in Mission Command and choose the text files that
+explain your task: for example an existing function and its requirements. The
+selected content goes to the configured model for both author and reviewer. Limits
+are eight UTF-8 files,16 KiB per file and32 KiB total. Files are private mission
+snapshots with content hashes, not live links to your project. Mission inspection
+shows the names and hashes; raw file contents are excluded from telemetry.
+
+Ask for a corrected function or document, then review the saved output and explicit
+checks. Your original files are not edited or mounted into Workcell. Follow-ups
+retain the prior snapshot unless you choose replacements. Start a new mission to
+begin with separate context. Attaching files does not fabricate retrieval activity;
+use the explicit documentation options for connected documentation operations.

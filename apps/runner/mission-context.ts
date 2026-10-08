@@ -1,3 +1,4 @@
+import { projectContext } from "./project-context";
 import { readWorkcellRecord } from "./workcell-recovery";
 import { readFile, stat } from "node:fs/promises";
 import { resolve } from "node:path";
@@ -30,7 +31,11 @@ export async function missionDetails(
   if (!/^mission-[0-9a-f-]{36}$/.test(job.id))
     throw Error("Invalid recorded mission ID");
   const dir = resolve(missionsRoot, job.id);
-  const requestText = await bounded(resolve(dir, "request.json"), 50_000, true);
+  const requestText = await bounded(
+    resolve(dir, "request.json"),
+    131_072,
+    true,
+  );
   const request = requestText ? JSON.parse(requestText) : null;
   const prompt =
     request?.prompt ?? (await bounded(resolve(dir, "task.txt"), 16_384));
@@ -55,6 +60,7 @@ export async function missionDetails(
     rootMissionId: request?.rootMissionId ?? job.id,
     parentMissionId: request?.parentMissionId ?? null,
     functionContract: checks ? JSON.parse(checks) : null,
+    projectFiles: request?.projectFiles ?? [],
   };
 }
 
@@ -85,6 +91,14 @@ export async function continuationContext(
   );
   // Explicit follow-up sends prior results to its model, but never grants execution.
   const workcell = job.kind === "kujo" ? await readWorkcellRecord(dir) : null;
+  const projectText = await bounded(
+    resolve(dir, "project-context.json"),
+    100_000,
+    true,
+  );
+  const previousProject = projectText
+    ? projectContext(JSON.parse(projectText).files)
+    : null;
   const context = {
     schema: "agent-city.continuation.v1",
     parentMissionId: job.id,
@@ -94,6 +108,7 @@ export async function continuationContext(
     previousRuntimeStatus: job.status,
     previousArtifact: artifact,
     previousChecks: checkText ? JSON.parse(checkText) : null,
+    previousProject,
     previousValidation: validationText ? JSON.parse(validationText) : null,
     previousWorkcell: workcell
       ? {

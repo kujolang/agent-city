@@ -1,4 +1,8 @@
 import {
+  projectContext,
+  projectReferences,
+} from "../apps/runner/project-context";
+import {
   validateExpectedOutput,
   checkExpectedOutput,
 } from "../apps/runner/output-check";
@@ -84,12 +88,23 @@ if (process.env.CITY_CONTEXT_FILE) {
     throw Error("Invalid continuation context");
   await writeFile(resolve(dir, "context.json"), body, { mode: 0o600 });
 }
+const selectedProject = process.env.CITY_PROJECT_CONTEXT_FILE
+  ? JSON.parse(await readFile(process.env.CITY_PROJECT_CONTEXT_FILE, "utf8"))
+  : context?.previousProject;
+const project = projectContext(selectedProject?.files);
+if (project)
+  await writeFile(
+    resolve(dir, "project-context.json"),
+    JSON.stringify(project),
+    { mode: 0o600 },
+  );
 await writeFile(
   resolve(dir, "request.json"),
   JSON.stringify({
     prompt,
     executeWorkcell,
     expectedOutput,
+    projectFiles: projectReferences(project),
     profiles: profiles ? bindingMetadata(profiles) : null,
     originalTask: context?.originalTask ?? prompt,
     rootMissionId: context?.rootMissionId ?? id,
@@ -160,6 +175,9 @@ const child = spawn(
         profiles?.author.id ||
         (kind === "writing" ? "city-writer" : "city-coder"),
       CITY_CONTEXT_FILE: context ? resolve(dir, "context.json") : "",
+      CITY_PROJECT_CONTEXT_FILE: project
+        ? resolve(dir, "project-context.json")
+        : "",
       CITY_FUNCTION_CONTRACT_FILE: requestedContract
         ? resolve(dir, "function-contract.json")
         : "",

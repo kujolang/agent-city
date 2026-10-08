@@ -33,6 +33,7 @@ export function mountMissions(
     <label><input type="checkbox" name="useLocalDocs"> Use indexed local Kujo docs</label>
     <label><input type="checkbox" name="useMcpDocs"> Read local MCP demo README</label>
     <label>Task <textarea name="prompt" rows="3" maxlength="16384" required placeholder="Describe the small task you want the agents to complete."></textarea></label>
+    <details><summary>Selected project files</summary><label>Text files <input type="file" name="projectFiles" multiple></label><p>Up to eight UTF-8 text files,16 KiB each and32 KiB total. Selected content is sent to your configured model for the author and reviewer, and retained privately with this mission. This does not grant host project access or editing. Follow-ups retain the prior snapshot unless new files are selected; start a new mission for a separate context.</p></details>
     <label><input type="checkbox" name="executeWorkcell"> Execute checked Kujo code in Workcell after review (requires operator setup; no network or project access)</label>
     <details><summary>Optional Kujo output check</summary><label><input type="checkbox" name="checkOutput"> Check exact stdout after Workcell execution</label><label>Expected stdout <textarea name="expectedOutput" rows="3" maxlength="16384"></textarea></label><p>Requires the Workcell execution opt-in. Include the final newline if your program prints one. CRLF is normalized; all other whitespace is significant. A completed task can still fail this check.</p></details>
     <details><summary>Workcell execution setup</summary><p>Requires a running local Docker/Podman engine and a trusted local image containing Kujo. For Docker in a managed installation, run <code>../start.command setup:workcell --build</code> from the Agent City directory (source checkout: <code>npm run setup:workcell -- --build</code>) to build the supplied local image, then use its printed launch command. The operator sets <code>CITY_ENABLE_WORKCELL=1</code> and <code>CITY_WORKCELL_IMAGE</code> before starting Agent City. Select the intended engine context in the launcher environment.</p><button type="button" id="check-workcell">Check Workcell setup</button><p id="workcell-check-status" role="status" aria-live="polite">Not checked. This check does not install software, pull images, run code or enable execution.</p></details>
@@ -496,6 +497,24 @@ export function mountMissions(
           return;
         }
       }
+      const selectedFiles = (
+        form.elements.namedItem("projectFiles") as HTMLInputElement
+      ).files;
+      const projectFiles = [];
+      let totalFileBytes = 0;
+      if (selectedFiles && selectedFiles.length > 8)
+        throw Error("Select at most eight text files");
+      for (const file of Array.from(selectedFiles || [])) {
+        totalFileBytes += file.size;
+        if (file.size > 16384 || totalFileBytes > 32768)
+          throw Error(
+            "Project files exceed the16 KiB per-file or32 KiB total limit",
+          );
+        const content = new TextDecoder("utf-8", { fatal: true }).decode(
+          await file.arrayBuffer(),
+        );
+        projectFiles.push({ path: file.name, content });
+      }
       const response = await fetch("/control/missions", {
         method: "POST",
         headers: {
@@ -505,6 +524,7 @@ export function mountMissions(
         body: JSON.stringify({
           kind: parent?.kind || fields.get("kind"),
           prompt: fields.get("prompt"),
+          ...(projectFiles.length ? { projectFiles } : {}),
           ...(fields.get("authorProfile") || fields.get("reviewerProfile")
             ? {
                 profiles: {

@@ -1,3 +1,4 @@
+import { projectContext } from "./project-context";
 import { validateExpectedOutput } from "./output-check";
 import {
   admissionHeld,
@@ -400,7 +401,7 @@ const server = createServer(async (req, res) => {
     try {
       for await (const bytes of req) {
         body += bytes;
-        if (Buffer.byteLength(body) > 20_000)
+        if (Buffer.byteLength(body) > 131_072)
           return send(413, { error: "Task too large" });
       }
       let data;
@@ -481,6 +482,15 @@ const server = createServer(async (req, res) => {
         return send(400, {
           error: "Choose writing/code and provide a task up to 16 KiB",
         });
+      let project;
+      try {
+        project = projectContext(data.projectFiles);
+      } catch (error) {
+        return send(400, {
+          error:
+            error instanceof Error ? error.message : "Invalid project files",
+        });
+      }
       let executeWorkcell = false;
       let expectedOutput: string | null = null;
       try {
@@ -591,6 +601,9 @@ const server = createServer(async (req, res) => {
         await writeFile(outputContractFile, JSON.stringify(expectedOutput), {
           mode: 0o600,
         });
+      const projectFile = project ? resolve(dir, id + ".project.json") : "";
+      if (project)
+        await writeFile(projectFile, JSON.stringify(project), { mode: 0o600 });
       const prompt = resolve(dir, id + ".txt");
       if (context)
         await writeFile(contextFile, JSON.stringify(context), { mode: 0o600 });
@@ -626,6 +639,7 @@ const server = createServer(async (req, res) => {
             CITY_FUNCTION_CONTRACT_FILE: contractFile,
             CITY_OUTPUT_CONTRACT_FILE: outputContractFile,
             CITY_CONTEXT_FILE: contextFile,
+            CITY_PROJECT_CONTEXT_FILE: projectFile,
             CITY_PROFILE_FILE: profileFile,
             CITY_USE_RAG: data.useLocalDocs === true ? "1" : "0",
             CITY_USE_MCP:
