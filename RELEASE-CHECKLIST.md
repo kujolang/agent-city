@@ -550,3 +550,7 @@ Export follow-up qualification: CI37733314526 atafa793e passes all5jobs, includi
 108tests and four-platform installation. The real returned bundle also passes
 keyboard Enter download in Chromium with exact file/receipt comparison. The
 application remains incomplete at the broader workflow/visual/release scope.
+
+Current keyboard-proof checkpoint: CI37733927950 at549226e passes all5jobs;
+local real-bundle keyboard verification and all current source/installed gates
+remain green. This records feature qualification only, not complete release status.
