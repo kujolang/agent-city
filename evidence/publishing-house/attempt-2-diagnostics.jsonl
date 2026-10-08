@@ -1,0 +1,2 @@
+{"agent":"writer","contentCharacters":510,"finishReason":"stop","httpStatus":200,"occurredAtMs":1791428177520,"reasoningPresent":false,"requestedMaxTokens":16384,"run":"run-1791428137991-4378","schema":"agent-city.provider-diagnostic.v1"}
+{"agent":"reviewer","contentCharacters":0,"finishReason":"unknown","httpStatus":0,"occurredAtMs":1791428267639,"reasoningPresent":false,"requestedMaxTokens":16384,"run":"run-1791428137991-4378-handoff-reviewer","schema":"agent-city.provider-diagnostic.v1"}

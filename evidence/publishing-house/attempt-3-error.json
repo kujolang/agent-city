@@ -1,0 +1,1 @@
+{"code":"internal_error","details":{"provider":"","provider_error_code":"provider_http_error"},"kind":"internal_error","message":"Model provider rejected the request","retryable":false,"run_id":"","status_code":410,"step_id":"","tool_name":"","type":"AgentError"}

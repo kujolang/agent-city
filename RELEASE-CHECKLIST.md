@@ -17,9 +17,13 @@ The user cancelled the eight-hour soak; do not run or schedule it without renewe
       [controlled provider faults](evidence/provider-setup-faults/proof.json),
       four-platform installerCI37719438112. Fresh provider account authentication
       is user-owned; the live proof reused an authenticated Ollama daemon.
-- [ ] Custom agents and teams: import catalog profiles/skills/workflows, stable source identity,
+- [x] Custom agents and teams: import catalog profiles/skills/workflows, stable source identity,
       choose team/roles, preserve contracts and capability requirements, fail closed on missing
       permissions, prove at least code, content and one custom-team workflow.
+      Evidence: [Publishing House task and retained failures](evidence/publishing-house/README.md),
+      evidence/profile-code and evidence/profile-kujo. Imported workflow references
+      remain contract guidance; execution is the explicit bounded PROPOSE adapter,
+      not arbitrary external workflow/tool activation.
 - [ ] Broader real work: approved MCP/Ability and isolated project/Workcell execution;
       actual artifacts and checks, permission scope, interruption/resume/recovery, handoff,
       task-aware review, retained failed/repaired attempts, no business behavior in rendering.

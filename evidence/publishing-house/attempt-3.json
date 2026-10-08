@@ -1,0 +1,41 @@
+{
+  "scope": "Real installed Publishing House PROPOSE author/reviewer workflow; no publishing or external workflow engine",
+  "author": "kujolang/kujo-agents:publishing-house.technical-editor-writer",
+  "reviewer": "kujolang/kujo-agents:publishing-house.copy-chief",
+  "startedAt": "2026-10-08T02:58:32.173Z",
+  "model": "glm-5.1:cloud",
+  "requestedMaxTokens": 8192,
+  "jobId": "mission-3f4bbddc-37fd-4b9d-8e41-8013508d3b6a",
+  "job": {
+    "id": "mission-3f4bbddc-37fd-4b9d-8e41-8013508d3b6a",
+    "kind": "writing",
+    "profiles": {
+      "adapter": "draft-review/v1",
+      "mode": "PROPOSE",
+      "author": {
+        "id": "kujolang/kujo-agents:publishing-house.technical-editor-writer",
+        "name": "Technical Editor & Writer",
+        "contractHash": "a414e290af3c731b37f7c035edc8ae4252573fb2e6589e6f7e2455878e446497"
+      },
+      "reviewer": {
+        "id": "kujolang/kujo-agents:publishing-house.copy-chief",
+        "name": "Copy Chief",
+        "contractHash": "a8fe67e4fa48f75d9669028a4f1e5c8f527ca8b104e8491ee844de1044eb94df"
+      }
+    },
+    "executeWorkcell": false,
+    "useLocalDocs": false,
+    "useMcpDocs": false,
+    "status": "failed",
+    "startedAt": "2026-10-08T02:58:40.338Z",
+    "processOutcome": {
+      "kind": "exit",
+      "code": 1,
+      "signal": null
+    },
+    "finishedAt": "2026-10-08T02:58:44.804Z"
+  },
+  "status": "FAIL",
+  "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ 'failed'\n- 'completed'\n",
+  "finishedAt": "2026-10-08T02:58:45.494Z"
+}

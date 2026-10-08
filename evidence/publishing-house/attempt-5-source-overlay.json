@@ -1,0 +1,12 @@
+{
+  "baseInstallation": "315c4660fc6df287920580f4a3b97347943b1d11",
+  "candidateRevision": "441c6c89e316d8f143526a89180bcc1c1f9b20b1",
+  "scope": "Controlled local installed-source overlay for real timeout qualification; not a clean bootstrap proof",
+  "files": {
+    "apps/runner/config.ts": "5ee6fe9e3d2e816f313fa921ba862e2e9e3fc3ccdfe3f1c73637abd2a2dad498",
+    "apps/runner/main.ts": "7cfbc60d2f9ef0f57ff2854bb66d290cea34d191b784aa29f7175d4f08c64f94",
+    "apps/web/missions.ts": "e465631540f23591a259735d2970e5c2f92f4d4ea37ede836ec5cd20d8611d0d",
+    "integrations/kujo/mission.kujo": "e72674800ca34b7809d9b748b92e42cdcb57892caecb590bcdf83dc0d6543e46",
+    "scripts/mission.ts": "473b9a358f34bfa5186030595fb22b68e71219fae7c388ff5cdcac87e1de9c21"
+  }
+}

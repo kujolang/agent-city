@@ -1,0 +1,1 @@
+{"code":"handoff_failed","details":{"target_agent_id":"reviewer","target_status":"failed"},"kind":"handoff_failed","message":"Handoff target run failed to complete successfully.","retryable":false,"run_id":"","status_code":0,"step_id":"","tool_name":"","type":"AgentError"}
