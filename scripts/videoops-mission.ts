@@ -1,3 +1,4 @@
+import { missionSource } from "../apps/runner/mission-source";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import {
@@ -46,7 +47,7 @@ if (
   throw Error(
     "Model changed since VideoOps setup; confirm the new model capabilities with setup:videoops",
   );
-const producer = "videoops-" + id;
+const producer = missionSource(id, process.env.CITY_SOURCE_PREFIX);
 const result = await produceVideoops({
   root,
   workspace,

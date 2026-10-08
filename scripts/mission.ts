@@ -1,3 +1,4 @@
+import { missionSource } from "../apps/runner/mission-source";
 import {
   webopsInstructions,
   validateWebopsReport,
@@ -169,7 +170,7 @@ await writeFile(resolve(dir, "task.txt"), prompt, { mode: 0o600 });
 await writeFile(resolve(dir, "exchanges.jsonl"), "", { mode: 0o600 });
 const output = resolve(dir, kind === "code" ? "reviewed.mjs" : "reviewed.md");
 await writeFile(output, "", { mode: 0o600 });
-const producer = (process.env.CITY_SOURCE_PREFIX || "review-") + id;
+const producer = missionSource(id, process.env.CITY_SOURCE_PREFIX);
 if (producer.length > 80 || !/^[a-zA-Z0-9_.:-]+$/.test(producer))
   throw Error(
     "Source prefix must keep producer identity within 80 safe characters",
