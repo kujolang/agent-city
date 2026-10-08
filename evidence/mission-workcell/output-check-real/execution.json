@@ -1,0 +1,97 @@
+{
+  "scope": "Actual recorded model responses and verified Workcell results; prompts and model text omitted",
+  "records": [
+    {
+      "mission": "mission-49e3a0e2-3a3f-4709-9c25-7c1a32697d71",
+      "modelResponses": [
+        {
+          "agent": "coder",
+          "kind": "model.response",
+          "contentSha256": "40187c7d3f4ddedf8bfd3f8c036ec86468b0bb25d4a057808ae32f8f5fc4e4d6"
+        },
+        {
+          "agent": "reviewer",
+          "kind": "model.response",
+          "contentSha256": "8934e622527c2b4e5f9f79306cddc329f0b73a712cf470aa9a89087e27528712"
+        }
+      ],
+      "workcell": {
+        "run": "run-1791432624846-1371",
+        "producer": "profile-code-mission-49e3a0e2-3a3f-4709-9c25-7c1a32697d71",
+        "schema": "agent-city.mission-workcell.v1",
+        "status": "completed",
+        "codeExecuted": true,
+        "cleanup": "complete",
+        "timedOut": false,
+        "exitCode": 0,
+        "evidence": {
+          "runId": "wc-0a43d7e8e021447cb6ff79f3d7e6d070",
+          "artifacts": [
+            {
+              "name": "city-result.txt",
+              "bytes": 3,
+              "sha256": "ee3aa64bb94a50845d5024cd4bd20202a4567aed5cd5328c0d97e9920775fc28"
+            },
+            {
+              "name": "runtime-version.txt",
+              "bytes": 11,
+              "sha256": "de3e64cdc4bb5196cdb7ab26ea04056cb75fe6f8deaa8945c9791af34036b7d9"
+            }
+          ]
+        },
+        "output": "-1\n",
+        "runtimeVersion": "kujo 1.7.0\n",
+        "outputTruncated": false,
+        "checkedAt": "2026-10-08T04:11:05.404Z"
+      },
+      "codeSha256": "b4d623adb6a58a5865f9b5f96f45b46c90c192a7185ff48e90bf565ee835b99d"
+    },
+    {
+      "mission": "mission-37fc4cac-959a-4aab-8d39-a254f5c22e0b",
+      "modelResponses": [
+        {
+          "agent": "coder",
+          "kind": "model.response",
+          "contentSha256": "910c778db773c10900ecf5d8d201e3b385cf1de3e23dc789af3a495fb3fb96e5"
+        },
+        {
+          "agent": "reviewer",
+          "kind": "model.response",
+          "contentSha256": "2ee1a897a4145f1cbc254d8814d63ee317d981783ddef0d33d52e80e81567054"
+        }
+      ],
+      "workcell": {
+        "run": "run-1791432668670-9106",
+        "producer": "profile-code-mission-37fc4cac-959a-4aab-8d39-a254f5c22e0b",
+        "schema": "agent-city.mission-workcell.v1",
+        "status": "completed",
+        "codeExecuted": true,
+        "cleanup": "complete",
+        "timedOut": false,
+        "exitCode": 0,
+        "evidence": {
+          "runId": "wc-77dda3153eae465d8f2f047d0e7f2a46",
+          "artifacts": [
+            {
+              "name": "city-result.txt",
+              "bytes": 2,
+              "sha256": "f0b5c2c2211c8d67ed15e75e656c7862d086e9245420892a7de62cd9ec582a06"
+            },
+            {
+              "name": "runtime-version.txt",
+              "bytes": 11,
+              "sha256": "de3e64cdc4bb5196cdb7ab26ea04056cb75fe6f8deaa8945c9791af34036b7d9"
+            }
+          ]
+        },
+        "output": "5\n",
+        "runtimeVersion": "kujo 1.7.0\n",
+        "outputTruncated": false,
+        "checkedAt": "2026-10-08T04:12:05.862Z"
+      },
+      "codeSha256": "c28cc3c78176e7419b8a14d961a27016c7874f9976ea8110c9d25344baf5a06a"
+    }
+  ],
+  "ownedContainersAbsent": true,
+  "dedicatedVMStopped": true
+}

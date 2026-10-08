@@ -1,0 +1,68 @@
+{
+  "source": "6275f46a14e62116c97b4fc75779dcfa5b2eba84",
+  "scope": "Mission API author/reviewer, static check and explicit isolated Workcell execution; model mode recorded per attempt",
+  "attempts": [
+    {
+      "mission": "mission-49e3a0e2-3a3f-4709-9c25-7c1a32697d71",
+      "model": "glm-5.3:cloud",
+      "checks": null,
+      "validation": {
+        "schema": "agent-city.code-check.v1",
+        "syntax": "valid",
+        "fenceRemoved": false,
+        "checkedArtifact": "reviewed.kujo",
+        "functionalTests": "failed",
+        "outputCheck": {
+          "schema": "agent-city.output-check.v1",
+          "status": "failed",
+          "comparison": "exact stdout; CRLF normalized to LF; whitespace retained",
+          "expected": "5\n",
+          "actual": "-1\n"
+        },
+        "codeExecuted": true,
+        "checkedAt": "2026-10-08T04:10:59.461Z"
+      },
+      "artifactSha256": "b4d623adb6a58a5865f9b5f96f45b46c90c192a7185ff48e90bf565ee835b99d",
+      "checkerIdentityDistinct": true,
+      "individualOutcomes": [
+        {
+          "operation": "kujo-static-check",
+          "outcome": "succeeded"
+        }
+      ],
+      "handoffObserved": true
+    },
+    {
+      "mission": "mission-37fc4cac-959a-4aab-8d39-a254f5c22e0b",
+      "model": "glm-5.3:cloud",
+      "checks": null,
+      "validation": {
+        "schema": "agent-city.code-check.v1",
+        "syntax": "valid",
+        "fenceRemoved": false,
+        "checkedArtifact": "reviewed.kujo",
+        "functionalTests": "passed",
+        "outputCheck": {
+          "schema": "agent-city.output-check.v1",
+          "status": "passed",
+          "comparison": "exact stdout; CRLF normalized to LF; whitespace retained",
+          "expected": "5\n",
+          "actual": "5\n"
+        },
+        "codeExecuted": true,
+        "checkedAt": "2026-10-08T04:11:56.905Z"
+      },
+      "artifactSha256": "c28cc3c78176e7419b8a14d961a27016c7874f9976ea8110c9d25344baf5a06a",
+      "checkerIdentityDistinct": true,
+      "individualOutcomes": [
+        {
+          "operation": "kujo-static-check",
+          "outcome": "succeeded"
+        }
+      ],
+      "handoffObserved": true
+    }
+  ],
+  "priorFailureRetained": true,
+  "privateEvidence": "/Users/robertdevore/2026/Kujolang/kujo-repos/agent-city/.runtime/profile-code-88edd5b8-853f-4526-bc11-a49228d6053e"
+}

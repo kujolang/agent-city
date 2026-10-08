@@ -453,3 +453,16 @@ The explicit follow-up receives prior failure; original validation is retained.
 Keyboard check entry/submission/reset passes against retained real mission evidence.
 See evidence/mission-workcell/output-check. This does not qualify a fresh live-model
 repair, final video, arbitrary project/tool workflows or full release readiness.
+
+Live Kujo repair checkpoint: real Ollama glm-5.3:cloud custom author/reviewer,
+actual MCP read and Workcell execute an explicitly seeded subtraction defect;
+output-1 fails expected5. A real follow-up uses prior validation, repairs the code,
+and output5 passes. Both attempts and four model responses are retained. Attached
+Watchdog→gateway→Pixi retains both outcomes and exact checker Follow through
+Workshop→city→Dojo.48emitted records produce48normalized events; an813ms observer
+disconnect/reconciliation remains honestly visible as a historical coverage gap.
+Evidence: evidence/mission-workcell/output-check-real. No final tool/video claim.
+CI37726163114 exposed Git-only proof provenance in managed installations;7987091
+uses the installation receipt, and replacement37726493917 passes all5jobs.
+Dedicated VM/owned services stopped; no long soak. Broader project/workflow and
+final visual/release qualification remain open.

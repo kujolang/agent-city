@@ -1,0 +1,47 @@
+{
+  "spoolCount": 48,
+  "normalizedCount": 48,
+  "health": [
+    {
+      "schema": "agent-city.event.v1",
+      "workspace": "local-agent-city",
+      "eventId": "4b8cd256-8647-48ec-8900-1e54df23d914",
+      "source": "watchdog-local",
+      "order": 9,
+      "occurredAt": null,
+      "observedAt": 1791432714535,
+      "completeness": "partial",
+      "type": "source.gap",
+      "reason": "disconnect",
+      "evidence": [
+        {
+          "origin": "gateway-diagnostic",
+          "recordId": "4b8cd256-8647-48ec-8900-1e54df23d914",
+          "hash": "9a8554e50c4d1f56ad00a2643a32535db4503f8472b275a04fa1e470bada0f44",
+          "sourceSequence": 0
+        }
+      ]
+    },
+    {
+      "schema": "agent-city.event.v1",
+      "workspace": "local-agent-city",
+      "eventId": "9ed3acdb-c890-4c00-84ae-0bebc60fa286",
+      "source": "watchdog-local",
+      "order": 26,
+      "occurredAt": null,
+      "observedAt": 1791432715348,
+      "completeness": "partial",
+      "type": "source.reconciled",
+      "reason": "reconciled",
+      "evidence": [
+        {
+          "origin": "gateway-diagnostic",
+          "recordId": "9ed3acdb-c890-4c00-84ae-0bebc60fa286",
+          "hash": "3cead8fbaba734846dde51929fe48992ca476068ac05c8ceed1414aecf0f9587",
+          "sourceSequence": 0
+        }
+      ]
+    }
+  ],
+  "scope": "Recorded observer disconnect/reconciliation retained; counts do not prove complete producer instrumentation"
+}

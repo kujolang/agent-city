@@ -1,0 +1,28 @@
+{
+  "runId": 37726493917,
+  "source": "7987091",
+  "previousFailedRunId": 37726163114,
+  "scope": "Source/browser and four installed platforms, including controlled-provider Workcell checks; separate local evidence proves real model repair",
+  "jobs": [
+    {
+      "name": "verify",
+      "conclusion": "success"
+    },
+    {
+      "name": "install (macos-15-intel)",
+      "conclusion": "success"
+    },
+    {
+      "name": "install (macos-15)",
+      "conclusion": "success"
+    },
+    {
+      "name": "install (ubuntu-24.04-arm)",
+      "conclusion": "success"
+    },
+    {
+      "name": "install (ubuntu-24.04)",
+      "conclusion": "success"
+    }
+  ]
+}
