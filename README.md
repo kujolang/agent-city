@@ -325,5 +325,6 @@ This copies up to eight bounded text files; it does not mount your host project,
 activate its workflows or grant network access. Repository internals and Git
 control files are rejected. The inspector's Workcell evidence retains input
 name/size/hash references. Changes to copied inputs are not exported back to the
-host; stdout and the generated reviewed artifact remain separately downloadable.
+host. Stdout remains in the inspection evidence; the generated reviewed artifact
+can be downloaded with Save reviewed artifact.
 Each continuation requires fresh execution and project-input consent.
