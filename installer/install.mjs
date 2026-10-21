@@ -141,9 +141,11 @@ async function download(url, path) {
   return createHash("sha256").update(data).digest("hex");
 }
 export async function install({ prefix, start }) {
-  if (Number(process.versions.node.split(".")[0]) < 24)
+  const [major, minor, patch] = process.versions.node.split(".").map(Number);
+  if (!(major === 24 && (minor > 22 || minor === 22 && patch >= 1) ||
+        major === 26 && (minor > 12 || minor === 12 && patch >= 1) || major > 26))
     throw Error(
-      "Node 24+ required; use install.sh to prepare a private Node runtime",
+      "Patched Node 24.22.1+ or 26.12.1+ required; use install.sh to prepare a private Node runtime",
     );
   if (
     !["darwin", "linux"].includes(process.platform) ||

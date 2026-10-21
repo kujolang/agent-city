@@ -126,3 +126,12 @@ test("offset launchers isolate runtime data while keeping the default location c
     }),
   ).toBe("/chosen");
 });
+
+ test.each([
+  ["24.21.0", "FAIL"], ["24.22.0", "FAIL"], ["24.22.1", "PASS"],
+  ["24.23.0", "PASS"], ["25.9.0", "FAIL"], ["26.7.0", "FAIL"],
+  ["26.12.0", "FAIL"], ["26.12.1", "PASS"], ["26.13.0", "PASS"],
+])("checks the security patch floor for Node %s", async (version, status) => {
+  const result = await startupChecks("/missing-city-fixture", { PATH: "", KUJO_BIN: "missing" }, version, false);
+  expect(result.checks.find((c) => c.id === "node")?.status).toBe(status);
+});

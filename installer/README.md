@@ -45,7 +45,7 @@ profiles can be selected for the existing draft/review adapter. Other declared
 workflows and tool permissions are not enabled by importing them. You can keep
 using the built-in author/reviewer without importing a catalog.
 
-From a trusted source checkout with Node 24+, the equivalent explicit install is:
+From a trusted source checkout with patched Node 24.22.1+ or 26.12.1+, the equivalent explicit install is:
 
 ```sh
 node installer/install.mjs --prefix "$HOME/.local/share/agent-city" --no-start

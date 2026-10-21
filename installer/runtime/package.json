@@ -1,1 +1,5 @@
-{"name":"agent-city-runtime","private":true,"version":"1.0.0","dependencies":{"@kujolang/kujo-runtime":"1.7.0"}}
+{"name":"agent-city-runtime","private":true,"version":"1.0.0","dependencies":{"@kujolang/kujo-runtime":"1.7.0"},
+  "engines": {
+    "node": ">=22.23.4 <23 || >=24.22.1 <25 || >=26.12.1"
+  }
+}

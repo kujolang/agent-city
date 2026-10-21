@@ -50,10 +50,13 @@ export async function startupChecks(
   inspectPorts = true,
 ) {
   const checks: StartupCheck[] = [];
+  const [major, minor, patch] = nodeVersion.split(".").map(Number);
+  const patchedNode = major === 24 && (minor > 22 || minor === 22 && patch >= 1) ||
+    major === 26 && (minor > 12 || minor === 12 && patch >= 1) || major > 26;
   checks.push({
     id: "node",
-    status: Number(nodeVersion.split(".")[0]) >= 24 ? "PASS" : "FAIL",
-    message: `Node ${nodeVersion}; Node 24 or newer is required.`,
+    status: patchedNode ? "PASS" : "FAIL",
+    message: `Node ${nodeVersion}; Patched Node 24.22.1+ or 26.12.1+ is required.`,
   });
   let kujo = "";
   try {
