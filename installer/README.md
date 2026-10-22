@@ -7,7 +7,7 @@ Supported scope and reliability limits: [release qualification](../RELEASE-QUALI
 Install and launch Agent City 0.2 on macOS or Linux:
 
 ```sh
-curl --proto '=https' --tlsv1.2 -fsSL https://github.com/kujolang/agent-city/releases/download/v0.2.0/install.sh | sh
+curl --proto '=https' --tlsv1.2 -fsSL https://github.com/kujolang/agent-city/releases/download/v0.2.1/install.sh | sh
 ```
 
 The bootstrap supplies a private Node runtime when needed. It does not configure

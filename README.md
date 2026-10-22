@@ -1,7 +1,7 @@
 # Kujo Agent City
 
 <p align="center">
-  <a href="https://github.com/kujolang/agent-city/releases/tag/v0.2.0"><img src="https://img.shields.io/badge/version-0.2.0-black" alt="Version 0.2.0"></a>
+  <a href="https://github.com/kujolang/agent-city/releases/tag/v0.2.1"><img src="https://img.shields.io/badge/version-0.2.1-black" alt="Version 0.2.1"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-lightgrey" alt="License: MIT"></a>
   <a href="https://github.com/kujolang/kujo"><img src="https://img.shields.io/badge/built%20with-Kujo-white.svg" alt="Built with Kujo"></a>
 </p>
@@ -28,7 +28,7 @@ not control execution or decide whether a task succeeded.
 Supported platforms: macOS Intel and Apple Silicon, Linux x64 and ARM64.
 
 ```sh
-curl --proto '=https' --tlsv1.2 -fsSL https://github.com/kujolang/agent-city/releases/download/v0.2.0/install.sh | sh
+curl --proto '=https' --tlsv1.2 -fsSL https://github.com/kujolang/agent-city/releases/download/v0.2.1/install.sh | sh
 ```
 
 The installer provides Agent City, pinned Kujo dependencies, and a private Node
@@ -159,7 +159,7 @@ Workcell needs a compatible container engine with seccomp and AppArmor. Tasks
 receive only permitted inputs and return selected outputs; exporting a file
 does not apply it to your host project. See [container setup](installer/README.md#workcell-setup).
 
-Version 0.2.0 supports the local workflows above. Public multi-user hosting,
+Version 0.2.1 supports the local workflows above. Public multi-user hosting,
 arbitrary imported workflows, and long-duration reliability are not qualified.
 See [release qualification](RELEASE-QUALIFICATION.md) for test coverage and limits.
 
