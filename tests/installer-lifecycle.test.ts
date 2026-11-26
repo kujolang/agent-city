@@ -1,4 +1,5 @@
-import { expect, test } from "vitest";
+import { expect, test, vi } from "vitest";
+import { createHash } from "node:crypto";
 import {
   mkdtemp,
   mkdir,
@@ -12,6 +13,8 @@ import { join } from "node:path";
 import { tmpdir } from "node:os";
 // @ts-expect-error dependency-free bootstrap module
 import { maintain, acquireLease } from "../installer/lifecycle.mjs";
+// @ts-expect-error dependency-free bootstrap module
+import { downloadArchive } from "../installer/install.mjs";
 
 async function fixture() {
   const base = await mkdtemp(join(tmpdir(), "city-maintenance-"));
@@ -140,5 +143,45 @@ test("maintenance rejects symlinked installation roots", async () => {
     ).rejects.toThrow("real directory");
   } finally {
     await f.cleanup();
+  }
+});
+
+test("installer streams and hashes archives without retaining partial or replacing existing files", async () => {
+  const base = await mkdtemp(join(tmpdir(), "city-download-"));
+  const target = join(base, "source.tar.gz");
+  try {
+    const payload = Buffer.from("fixture archive café");
+    vi.stubGlobal(
+      "fetch",
+      async () =>
+        new Response(
+          new ReadableStream({
+            start(controller) {
+              controller.enqueue(payload.subarray(0, 4));
+              controller.enqueue(payload.subarray(4));
+              controller.close();
+            },
+          }),
+        ),
+    );
+    await expect(
+      downloadArchive(
+        "https://example.test/source",
+        target,
+        payload.length - 1,
+      ),
+    ).rejects.toThrow("exceeds install limit");
+    await expect(lstat(target)).rejects.toMatchObject({ code: "ENOENT" });
+    await expect(
+      downloadArchive("https://example.test/source", target, payload.length),
+    ).resolves.toBe(createHash("sha256").update(payload).digest("hex"));
+    expect(await readFile(target)).toEqual(payload);
+    await expect(
+      downloadArchive("https://example.test/source", target, payload.length),
+    ).rejects.toMatchObject({ code: "EEXIST" });
+    expect(await readFile(target)).toEqual(payload);
+  } finally {
+    vi.unstubAllGlobals();
+    await rm(base, { recursive: true, force: true });
   }
 });

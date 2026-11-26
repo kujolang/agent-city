@@ -11,6 +11,7 @@ import {
   rm,
   chmod,
   mkdtemp,
+  open,
   realpath,
 } from "node:fs/promises";
 import { resolve, dirname, join } from "node:path";
@@ -124,21 +125,39 @@ async function output(executable, args) {
     );
   });
 }
-async function download(url, path) {
+export async function downloadArchive(url, path, maxBytes = 128 * 1024 * 1024) {
   const response = await fetch(url, { signal: AbortSignal.timeout(180_000) });
-  if (!response.ok)
+  const body = response.body;
+  if (!response.ok || !body) {
+    await body?.cancel().catch(() => {});
     throw Error(`Source download failed: ${response.status} ${url}`);
-  const chunks = [];
-  let bytes = 0;
-  for await (const chunk of response.body) {
-    bytes += chunk.length;
-    if (bytes > 128 * 1024 * 1024)
-      throw Error("Source archive exceeds install limit");
-    chunks.push(chunk);
   }
-  const data = Buffer.concat(chunks);
-  await writeFile(path, data);
-  return createHash("sha256").update(data).digest("hex");
+  const file = await open(path, "wx", 0o600).catch(async (error) => {
+    await body.cancel().catch(() => {});
+    throw error;
+  });
+  const hash = createHash("sha256");
+  let complete = false;
+  async function* archiveChunks() {
+    let bytes = 0;
+    for await (const chunk of body) {
+      bytes += chunk.byteLength;
+      if (bytes > maxBytes) throw Error("Source archive exceeds install limit");
+      hash.update(chunk);
+      yield chunk;
+    }
+  }
+  try {
+    await file.writeFile(archiveChunks());
+    complete = true;
+  } finally {
+    try {
+      await file.close();
+    } finally {
+      if (!complete) await rm(path, { force: true });
+    }
+  }
+  return hash.digest("hex");
 }
 export async function install({ prefix, start }) {
   const [major, minor, patch] = process.versions.node.split(".").map(Number);
@@ -198,7 +217,7 @@ export async function install({ prefix, start }) {
         throw Error("Invalid repository pin");
       console.log(`Installing ${repo} @ ${sha.slice(0, 12)}`);
       const archive = join(stage, repo + ".tar.gz");
-      archives[repo] = await download(
+      archives[repo] = await downloadArchive(
         `https://codeload.github.com/kujolang/${repo}/tar.gz/${sha}`,
         archive,
       );
