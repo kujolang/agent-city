@@ -51,14 +51,17 @@ export function browserFileBoundary(
   ]
     .filter((p): p is string => !!p)
     .flatMap((p) => [resolve(root, p), resolve(p)]);
-  const privateFiles = env.CITY_DB
-    ? [resolve(root, env.CITY_DB), resolve(env.CITY_DB)].flatMap((p) => [
-        p,
-        `${p}-wal`,
-        `${p}-shm`,
-        `${p}-journal`,
-      ])
+  const databasePaths = env.CITY_DB
+    ? [resolve(root, env.CITY_DB), resolve(env.CITY_DB)]
     : [];
+  const sqliteFiles = (path: string) =>
+    ["", "-wal", "-shm", "-journal"].map((suffix) => path + suffix);
+  const privateFiles = [
+    ...databasePaths.flatMap(sqliteFiles),
+    ...[env.CITY_VIDEOOPS_CONFIG]
+      .filter((p): p is string => !!p)
+      .flatMap((p) => [resolve(root, p), resolve(p)]),
+  ];
   const privatePath = (p: string) =>
     (within(p, root) && relative(root, p).split(sep).includes(".runtime")) ||
     privateDirectories.some((d) => within(p, d)) ||
@@ -86,7 +89,14 @@ export function browserFileBoundary(
       const realPrivateDirectories = await Promise.all(
         privateDirectories.map(canonical),
       );
-      const realPrivateFiles = await Promise.all(privateFiles.map(canonical));
+      const realDatabases = await Promise.all(databasePaths.map(canonical));
+      const realPrivateFiles = new Set(
+        await Promise.all(
+          [...privateFiles, ...realDatabases.flatMap(sqliteFiles)].map(
+            canonical,
+          ),
+        ),
+      );
       const guard: Connect.NextHandleFunction = async (
         request,
         response,
@@ -98,11 +108,6 @@ export function browserFileBoundary(
         } catch {
           response.statusCode = 400;
           response.end("Invalid path");
-          return;
-        }
-        // These are API namespaces, not filesystem requests.
-        if (/^\/(api|control)(\/|$)/.test(path)) {
-          next();
           return;
         }
         const file = path.startsWith("/@fs/")
@@ -118,7 +123,7 @@ export function browserFileBoundary(
             (within(actual, realRoot) &&
               relative(realRoot, actual).split(sep).includes(".runtime")) ||
             realPrivateDirectories.some((d) => within(actual, d)) ||
-            realPrivateFiles.includes(actual) ||
+            realPrivateFiles.has(actual) ||
             !realAllow.some((d) => within(actual, d))
           ) {
             response.statusCode = 403;

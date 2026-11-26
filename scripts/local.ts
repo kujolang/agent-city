@@ -42,6 +42,7 @@ const common = {
   ...(await videoopsLaunchEnv(runtime, await workcellLaunchEnv(runtime))),
   KUJO_BIN: kujo,
   CITY_RUNTIME_DIR: runtime,
+  CITY_DB: process.env.CITY_DB || resolve(runtime, "review.sqlite"),
   CITY_CONTROL_DIR: resolve(runtime, "control"),
   CITY_MISSIONS_DIR: resolve(runtime, "missions"),
   CITY_SOURCE_PREFIX: process.env.CITY_SOURCE_PREFIX || "review-",
@@ -148,7 +149,6 @@ try {
     process.execPath,
     ["--import", "tsx", "apps/gateway/main.ts"],
     root,
-    { CITY_DB: process.env.CITY_DB || resolve(runtime, "review.sqlite") },
   );
   await launch(
     "bridge",

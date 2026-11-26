@@ -205,6 +205,9 @@ Use `--image LOCAL_IMAGE --enable --confirm-model-capabilities` instead of `--bu
 to verify and save an existing compatible image. Use `setup:videoops --disable` to
 remove saved setup, then restart. An explicit `CITY_VIDEOOPS_CONFIG` environment
 variable overrides saved setup; unset it to disable that manual configuration.
+The local web server blocks the configured VideoOps file, the observer database,
+and its SQLite sidecar files from static file requests, including through symbolic
+links known at startup. Keep model settings and mission data in the runtime directory.
 
 ### Engine security requirements
 
