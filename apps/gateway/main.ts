@@ -2,6 +2,7 @@ import { receipts } from "./receipts";
 import { Journal, sha } from "./journal";
 import { CORE_VERSION } from "../../packages/world-core/replay";
 import { boundedText, validatePage, continuity } from "./feed";
+import { reconnectFrames, SSE_PENDING_BYTES, worldFrame } from "./sse";
 import { createServer, type ServerResponse } from "node:http";
 import { DatabaseSync } from "node:sqlite";
 import { mkdir, readFile } from "node:fs/promises";
@@ -62,14 +63,14 @@ function sourceHealth() {
 }
 const cursor = (n: number) => epoch + ":" + n;
 function publish(e: CityEvent) {
+  if (clients.size === 0) return;
+  const frame = worldFrame(cursor(e.order), JSON.stringify(e));
+  const frameBytes = Buffer.byteLength(frame);
   for (const res of clients) {
-    if (res.writableLength > 1024 * 1024) {
+    if (res.writableLength + frameBytes > SSE_PENDING_BYTES) {
       res.end();
       clients.delete(res);
-    } else
-      res.write(
-        `id: ${cursor(e.order)}\nevent: world\ndata: ${JSON.stringify(e)}\n\n`,
-      );
+    } else res.write(frame);
   }
 }
 function store(
@@ -379,19 +380,14 @@ const server = createServer(async (req, res) => {
       res.end("event: reset\ndata: {}\n\n");
       return;
     }
-    const rows = db
-      .prepare("SELECT body FROM journal WHERE seq>? ORDER BY seq LIMIT 1001")
-      .all(after) as { body: string }[];
-    if (rows.length > 1000) {
+    const frames = reconnectFrames(db, after, cursor);
+    if (!frames) {
       res.end("event: reset\ndata: {}\n\n");
       return;
     }
-    for (const r of rows) {
-      const e = JSON.parse(r.body);
-      res.write(`id: ${cursor(e.order)}\nevent: world\ndata: ${r.body}\n\n`);
-    }
+    for (const frame of frames) res.write(frame);
     clients.add(res);
-    req.on("close", () => clients.delete(res));
+    res.on("close", () => clients.delete(res));
     return;
   }
   if (url.pathname.startsWith("/api/evidence/")) {
@@ -417,7 +413,7 @@ server.listen(Number(process.env.CITY_PORT || 7792), "127.0.0.1", () =>
 );
 setInterval(() => {
   for (const c of clients) {
-    if (c.writableLength > 1024 * 1024) {
+    if (c.writableLength > SSE_PENDING_BYTES) {
       c.end();
       clients.delete(c);
     } else c.write(": heartbeat\n\n");

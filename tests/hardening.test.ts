@@ -3,6 +3,7 @@ import { readFileSync, mkdtempSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { Journal, sha } from "../apps/gateway/journal";
+import { reconnectFrames, worldFrame } from "../apps/gateway/sse";
 import {
   replay,
   verifyReplay,
@@ -125,4 +126,31 @@ test("batched reduction matches individual events across gaps, duplicates and at
     expect(sha(state)).toBe(sha(individual));
   }
   expect(sha(initial)).toBe(before);
+});
+
+test("SSE reconnect resets before queuing an oversized history and preserves exact cursors", () => {
+  const journal = new Journal(":memory:");
+  try {
+    const insert = journal.db.prepare("INSERT INTO journal VALUES(?,?,?,?)");
+    const cursor = (sequence: number) => `fixture:${sequence}`;
+    const first = JSON.stringify({ text: "é".repeat(15) });
+    const second = JSON.stringify({ text: "雪".repeat(20) });
+    insert.run(1, "one", "", first);
+    insert.run(2, "two", "", second);
+    const frames = [
+      worldFrame(cursor(1), first),
+      worldFrame(cursor(2), second),
+    ];
+    const bytes = Buffer.byteLength(frames.join(""));
+    expect(reconnectFrames(journal.db, 0, cursor, bytes - 1)).toBeNull();
+    expect(reconnectFrames(journal.db, 0, cursor, bytes)).toEqual(frames);
+    expect(reconnectFrames(journal.db, 1, cursor, bytes)).toEqual([frames[1]]);
+    for (let index = 3; index <= 1001; index++) {
+      insert.run(index, `id-${index}`, "", "{}");
+    }
+    expect(reconnectFrames(journal.db, 0, cursor)).toBeNull();
+    expect(reconnectFrames(journal.db, 1, cursor)).toHaveLength(1000);
+  } finally {
+    journal.close();
+  }
 });
