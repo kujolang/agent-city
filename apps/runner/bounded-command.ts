@@ -18,11 +18,14 @@ export function boundedCommand(
 }> {
   const timeoutMs = options.timeoutMs ?? 90_000;
   const graceMs = options.graceMs ?? 5_000;
+  const maxTimerMs = 2_147_483_647;
   if (
     !Number.isFinite(timeoutMs) ||
     timeoutMs <= 0 ||
+    timeoutMs > maxTimerMs ||
     !Number.isFinite(graceMs) ||
-    graceMs < 0
+    graceMs < 0 ||
+    graceMs > maxTimerMs
   )
     throw Error("Invalid process time limit");
   return new Promise((done) => {
@@ -64,6 +67,9 @@ export function boundedCommand(
         finish(null);
       }, graceMs);
     }, timeoutMs);
+    // Each pipe's decoder retains UTF-8 fragments across read boundaries.
+    child.stdout.setEncoding("utf8");
+    child.stderr.setEncoding("utf8");
     child.stdout.on("data", (data) => {
       output = (output + data).slice(-131072);
     });
