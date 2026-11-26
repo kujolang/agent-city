@@ -51,6 +51,7 @@ let sourceCursor = get("sourceCursor") || "",
   lastError = "",
   gap = false;
 const clients = new Set<ServerResponse>();
+const maxEventStreams = 32;
 function sourceHealth() {
   return {
     status: Date.now() - lastSuccess > 10000 ? "STALE" : gap ? "STALE" : "LIVE",
@@ -62,16 +63,18 @@ function sourceHealth() {
   };
 }
 const cursor = (n: number) => epoch + ":" + n;
-function publish(e: CityEvent) {
-  if (clients.size === 0) return;
-  const frame = worldFrame(cursor(e.order), JSON.stringify(e));
+function broadcast(frame: string) {
   const frameBytes = Buffer.byteLength(frame);
   for (const res of clients) {
     if (res.writableLength + frameBytes > SSE_PENDING_BYTES) {
-      res.end();
       clients.delete(res);
+      res.destroy();
     } else res.write(frame);
   }
+}
+function publish(e: CityEvent) {
+  if (clients.size !== 0)
+    broadcast(worldFrame(cursor(e.order), JSON.stringify(e)));
 }
 function store(
   events: CityEvent[],
@@ -256,7 +259,6 @@ const parseCursor = (s: string | null) => {
   return n <= state.order && n >= min - 1 ? n : null;
 };
 const server = createServer(async (req, res) => {
-  const url = new URL(req.url || "/", "http://localhost");
   const send = (body: unknown, status = 200) => {
     res.writeHead(status, {
       "content-type": "application/json",
@@ -267,13 +269,14 @@ const server = createServer(async (req, res) => {
   };
   const origin = req.headers.origin;
   if (
-    origin &&
-    ![
-      "http://127.0.0.1:5178",
-      "http://localhost:5178",
-      process.env.CITY_WEB_ORIGIN || "http://127.0.0.1:5178",
-      "http://127.0.0.1:" + (process.env.CITY_PORT || "7792"),
-    ].includes(origin)
+    req.headers["sec-fetch-site"] === "cross-site" ||
+    (origin &&
+      ![
+        "http://127.0.0.1:5178",
+        "http://localhost:5178",
+        process.env.CITY_WEB_ORIGIN || "http://127.0.0.1:5178",
+        "http://127.0.0.1:" + (process.env.CITY_PORT || "7792"),
+      ].includes(origin))
   )
     return send({ error: "Origin denied" }, 403);
   if (
@@ -282,6 +285,15 @@ const server = createServer(async (req, res) => {
     return send({ error: "Host denied" }, 403);
   if (req.method !== "GET")
     return send({ error: "Observer Mode is read-only" }, 405);
+  const target = req.url || "/";
+  if (!target.startsWith("/") || /^\/[\\/]/.test(target))
+    return send({ error: "Invalid request target" }, 400);
+  let url: URL;
+  try {
+    url = new URL(target, "http://localhost");
+  } catch {
+    return send({ error: "Invalid request target" }, 400);
+  }
   if (url.pathname === "/api/archive/replay") {
     if (state.order > 100000)
       return send(
@@ -371,9 +383,12 @@ const server = createServer(async (req, res) => {
           : cursor(after),
       });
     }
+    if (clients.size >= maxEventStreams)
+      return send({ error: "Too many active event streams" }, 503);
     res.writeHead(200, {
       "content-type": "text/event-stream",
       "cache-control": "no-store",
+      "x-content-type-options": "nosniff",
       connection: "keep-alive",
     });
     if (after === null) {
@@ -385,9 +400,10 @@ const server = createServer(async (req, res) => {
       res.end("event: reset\ndata: {}\n\n");
       return;
     }
-    for (const frame of frames) res.write(frame);
     clients.add(res);
-    res.on("close", () => clients.delete(res));
+    res.once("close", () => clients.delete(res));
+    res.flushHeaders();
+    for (const frame of frames) res.write(frame);
     return;
   }
   if (url.pathname.startsWith("/api/evidence/")) {
@@ -411,14 +427,7 @@ server.listen(Number(process.env.CITY_PORT || 7792), "127.0.0.1", () =>
     "Agent City gateway http://127.0.0.1:" + (process.env.CITY_PORT || 7792),
   ),
 );
-setInterval(() => {
-  for (const c of clients) {
-    if (c.writableLength > SSE_PENDING_BYTES) {
-      c.end();
-      clients.delete(c);
-    } else c.write(": heartbeat\n\n");
-  }
-}, 15000).unref();
+setInterval(() => broadcast(": heartbeat\n\n"), 15000).unref();
 for (;;) {
   await poll();
   await new Promise((r) => setTimeout(r, backlog ? 0 : 250));

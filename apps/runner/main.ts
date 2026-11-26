@@ -220,6 +220,7 @@ const server = createServer(async (req, res) => {
     res.end(JSON.stringify(data));
   };
   if (
+    req.headers["sec-fetch-site"] === "cross-site" ||
     ![new URL(origin).host, `127.0.0.1:${port}`, `localhost:${port}`].includes(
       req.headers.host || "",
     ) ||
