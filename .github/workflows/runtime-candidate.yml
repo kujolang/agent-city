@@ -16,12 +16,12 @@ jobs:
         uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: "24.22.1"
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
       - name: Require an immutable source reference
         env:
           KUJO_REF: ${{ inputs.kujo_ref }}
         run: test "${#KUJO_REF}" = 40 && ! [[ "$KUJO_REF" =~ [^0-9a-f] ]]
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
         with:
           repository: kujolang/kujo
           ref: ${{ inputs.kujo_ref }}
@@ -67,7 +67,7 @@ jobs:
           const atLeast=(v,n)=>Number.isFinite(v)&&v>=n;
           if(p.runtimeCandidate!==true||p.status!=='COMPLETED'||!atLeast(p.visibleEventsPerSecond,1000)||!atLeast(p.sendSeconds,60)||!atLeast(p.accepted,60000)||p.visible!==p.accepted||p.missing!==0||p.duplicates!==0||p.browserCaughtUp!==true||p.deliveryReconciled!==true||!(p.verifiedReconnects>=1))process.exitCode=1;
           JS
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         if: always()
         with:
           name: runtime-candidate
