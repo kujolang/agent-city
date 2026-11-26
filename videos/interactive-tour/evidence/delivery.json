@@ -1,0 +1,28 @@
+{
+  "durationSeconds": 65.8,
+  "video": {
+    "codec": "H.264",
+    "width": 1920,
+    "height": 1080,
+    "fps": 30,
+    "frames": 1974
+  },
+  "audio": {
+    "codec": "AAC",
+    "channels": 2,
+    "integratedLufs": -18.2,
+    "truePeakDbfs": -1.5
+  },
+  "fullDecode": true,
+  "sha256": "8c171b0a0b1a493d9e0063b16c22b691104aaeb94fa4adcd357709c37e28f135",
+  "browser": "Chrome",
+  "player": {
+    "sevenStopsSeek": true,
+    "captions": 14,
+    "captionsDuringPlayback": true,
+    "keyboard": true,
+    "transcript": true,
+    "mobileOverflow": false,
+    "errors": []
+  }
+}
