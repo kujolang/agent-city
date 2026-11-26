@@ -10,6 +10,7 @@ import { randomUUID } from "node:crypto";
 import { resolve } from "node:path";
 import {
   readVideoopsLaunchConfig,
+  StaleVideoopsRuntime,
   type VideoopsLaunchConfig,
 } from "./videoops-mission";
 export async function saveVideoopsSettings(
@@ -55,6 +56,11 @@ export async function videoopsLaunchEnv(
     throw Error(
       "Saved VideoOps setup must be private and owned by the current user",
     );
-  await readVideoopsLaunchConfig(file);
+  try {
+    await readVideoopsLaunchConfig(file);
+  } catch (error) {
+    if (error instanceof StaleVideoopsRuntime) return { ...env };
+    throw error;
+  }
   return { ...env, CITY_VIDEOOPS_CONFIG: file };
 }

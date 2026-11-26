@@ -7,6 +7,7 @@ import { createHash, randomUUID } from "node:crypto";
 import { boundedCommand } from "../apps/runner/bounded-command";
 import { importCatalog } from "../apps/runner/agent-catalog";
 import { validateModelConfig } from "../apps/runner/config";
+import { videoopsRuntimeLockSha256 } from "../apps/runner/videoops-mission";
 import { saveVideoopsSettings } from "../apps/runner/videoops-settings";
 import { localRuntime } from "./local-ports";
 import type { VideoopsCapabilityEvidence } from "../apps/runner/videoops-stage";
@@ -111,7 +112,7 @@ const image = await run(["image", "inspect", "--format", "{{.Id}}", imageName]);
 if (!/^sha256:[a-f0-9]{64}$/.test(image))
   throw Error("Immutable local image identity unavailable");
 const name = "city-videoops-setup-" + randomUUID();
-const probeCode = `const c=require('node:child_process'),f=require('node:fs'),h=require('node:crypto');const run=(p,a)=>c.execFileSync(p,a,{encoding:'utf8',timeout:10000}).trim();console.log(JSON.stringify({node:process.version,hyperframes:run(process.execPath,['/opt/agent-city-videoops/node_modules/hyperframes/bin/hyperframes.mjs','--version']),ffmpeg:run('ffmpeg',['-version']).split('\\n')[0],ffprobe:run('ffprobe',['-version']).split('\\n')[0],chromium:run('chromium',['--version']),workerSha256:h.createHash('sha256').update(f.readFileSync('/opt/agent-city-videoops/render.mjs')).digest('hex')}));`;
+const probeCode = `const c=require('node:child_process'),f=require('node:fs'),h=require('node:crypto');const run=(p,a)=>c.execFileSync(p,a,{encoding:'utf8',timeout:10000}).trim();console.log(JSON.stringify({node:process.version,hyperframes:run(process.execPath,['/opt/agent-city-videoops/node_modules/hyperframes/bin/hyperframes.mjs','--version']),ffmpeg:run('ffmpeg',['-version']).split('\\n')[0],ffprobe:run('ffprobe',['-version']).split('\\n')[0],chromium:run('chromium',['--version']),workerSha256:h.createHash('sha256').update(f.readFileSync('/opt/agent-city-videoops/render.mjs')).digest('hex'),runtimeLockSha256:h.createHash('sha256').update(f.readFileSync('/opt/agent-city-videoops/package-lock.json')).digest('hex')}));`;
 let probe: any;
 try {
   probe = JSON.parse(
@@ -145,6 +146,7 @@ try {
 } finally {
   await run(["rm", "--force", name]);
 }
+const expectedLock = await videoopsRuntimeLockSha256();
 const expectedWorker = createHash("sha256")
   .update(await readFile(resolve(root, "installer/videoops/render.mjs")))
   .digest("hex");
@@ -152,11 +154,14 @@ if (
   !probe.node.startsWith("v24.") ||
   !probe.hyperframes.includes("0.8.141") ||
   probe.workerSha256 !== expectedWorker ||
+  probe.runtimeLockSha256 !== expectedLock ||
   !probe.ffprobe.startsWith("ffprobe version") ||
   !probe.ffmpeg.startsWith("ffmpeg version") ||
   !probe.chromium.startsWith("Chromium")
 )
-  throw Error("Selected image does not match the pinned VideoOps toolchain");
+  throw Error(
+    "Selected image does not match the pinned VideoOps toolchain. Rebuild it with setup:videoops --build.",
+  );
 const catalog = await importCatalog(resolve(root, "../kujo-agents"));
 const profile = (stage: string) => {
   const found = catalog.profiles.find(
@@ -218,6 +223,7 @@ await registerVideoopsMediaPack({
 });
 await saveVideoopsSettings(runtime, {
   image,
+  runtimeLockSha256: expectedLock,
   dockerContext: context,
   modelBinding: { endpoint: model.endpoint, model: model.model },
   planner: profile("creative-director"),

@@ -3,6 +3,7 @@ import {
   validateMediaProvider,
   type VideoopsMediaProvider,
 } from "./videoops-generation";
+import { createHash } from "node:crypto";
 import { lstat, readFile, realpath } from "node:fs/promises";
 import {
   admitVideoopsStage,
@@ -11,6 +12,7 @@ import {
 import type { ImportedProfile } from "./agent-catalog";
 export interface VideoopsLaunchConfig {
   image: string;
+  runtimeLockSha256: string;
   mediaProvider?: VideoopsMediaProvider;
   dockerContext?: string;
   modelBinding?: { endpoint: string; model: string };
@@ -23,6 +25,15 @@ export interface VideoopsLaunchConfig {
     editor: VideoopsCapabilityEvidence[];
   };
 }
+export class StaleVideoopsRuntime extends Error {}
+
+export async function videoopsRuntimeLockSha256() {
+  const lock = await readFile(
+    new URL("../../installer/videoops/package-lock.json", import.meta.url),
+  );
+  return createHash("sha256").update(lock).digest("hex");
+}
+
 /** This private operator configuration cannot be supplied by task/model JSON. */
 export async function readVideoopsLaunchConfig(file: string) {
   const info = await lstat(file);
@@ -33,6 +44,10 @@ export async function readVideoopsLaunchConfig(file: string) {
   ) as VideoopsLaunchConfig;
   if (!/^sha256:[a-f0-9]{64}$/.test(value.image))
     throw Error("VideoOps immutable image required");
+  if (value.runtimeLockSha256 !== (await videoopsRuntimeLockSha256()))
+    throw new StaleVideoopsRuntime(
+      "VideoOps image dependencies changed. Run setup:videoops --build to requalify the local image.",
+    );
   if (
     value.dockerContext !== undefined &&
     !/^[a-zA-Z0-9][a-zA-Z0-9_.-]{0,127}$/.test(value.dockerContext)

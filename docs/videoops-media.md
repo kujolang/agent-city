@@ -114,3 +114,9 @@ A practical first production is a six-second piece using Pixel v2, an explicitly
 Setup and mission admission check the canonical offline media runtime before model work. The host needs Python 3.10 or newer with `jsonschema`, plus `ffmpeg` and `ffprobe`; the Docker image alone does not supply host review tools. Use a Python environment containing the canonical `kujo-agents/videoops/tools` dependencies on your launcher PATH. Setup registers the Pixel v2 pack, which the form selects by default; choose another pack or no media explicitly when appropriate.
 
 Footage with embedded audio is currently rejected before model work. Supply silent product footage and separate voice/music/SFX stems with explicit roles and measured durations. Narration must fit in full. Provider configuration changes invalidate an old browser consent: reload and review the displayed model and voice again.
+
+
+A saved VideoOps image is qualified against the installer dependency lockfile.
+After a dependency update, rebuild and re-enable VideoOps using the setup command
+with `--build --enable --confirm-model-capabilities`. Other City workflows stay
+available, and the old VideoOps setup remains on disk until replacement.

@@ -1,5 +1,13 @@
 import { test, expect } from "vitest";
-import { mkdtemp, realpath, rm, stat, chmod } from "node:fs/promises";
+import {
+  mkdtemp,
+  readFile,
+  realpath,
+  rm,
+  stat,
+  chmod,
+  writeFile,
+} from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { createHash } from "node:crypto";
@@ -7,6 +15,10 @@ import {
   saveVideoopsSettings,
   videoopsLaunchEnv,
 } from "../apps/runner/videoops-settings";
+import {
+  readVideoopsLaunchConfig,
+  videoopsRuntimeLockSha256,
+} from "../apps/runner/videoops-mission";
 const hash = createHash("sha256").update("fixture").digest("hex");
 const profile = (stage: string): any => ({
   id: "kujolang/kujo-agents:videoops." + stage,
@@ -28,6 +40,7 @@ test("saved VideoOps setup loads privately without changing ordinary Workcell co
     expect(await videoopsLaunchEnv(runtime, before)).toEqual(before);
     await saveVideoopsSettings(runtime, {
       image: "sha256:" + "a".repeat(64),
+      runtimeLockSha256: await videoopsRuntimeLockSha256(),
       dockerContext: "video-context",
       modelBinding: {
         endpoint: "http://127.0.0.1:1/v1/chat/completions",
@@ -54,6 +67,15 @@ test("saved VideoOps setup loads privately without changing ordinary Workcell co
     await chmod(file, 0o644);
     await expect(videoopsLaunchEnv(runtime, before)).rejects.toThrow("private");
     await chmod(file, 0o600);
+    const current = JSON.parse(await readFile(file, "utf8"));
+    for (const runtimeLockSha256 of [undefined, "0".repeat(64)]) {
+      await writeFile(file, JSON.stringify({ ...current, runtimeLockSha256 }));
+      expect(await videoopsLaunchEnv(runtime, before)).toEqual(before);
+      await expect(readVideoopsLaunchConfig(file)).rejects.toThrow(
+        "setup:videoops --build",
+      );
+      expect((await stat(file)).isFile()).toBe(true);
+    }
     await saveVideoopsSettings(runtime, null);
     expect(await videoopsLaunchEnv(runtime, before)).toEqual(before);
   } finally {
