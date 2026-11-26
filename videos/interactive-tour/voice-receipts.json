@@ -1,0 +1,51 @@
+[
+  {
+    "chapter": "city",
+    "model": "eleven_v4",
+    "voice": "eXpIbVcVbLo8ZJQDlDnl",
+    "requestId": "sCVwBmTKYy3zBxJZPtyR",
+    "sha256": "a5dd4b310a03319135d407c7ea53227db52d38b2a414b7299e7f33dec8bc135d"
+  },
+  {
+    "chapter": "dispatch",
+    "model": "eleven_v4",
+    "voice": "eXpIbVcVbLo8ZJQDlDnl",
+    "requestId": "zDXz5GIIlroyts6cb3nD",
+    "sha256": "7d2d5922e9c29b973256950c6451065cdb67a909a1e04d0faefe9599d684daff"
+  },
+  {
+    "chapter": "library",
+    "model": "eleven_v4",
+    "voice": "eXpIbVcVbLo8ZJQDlDnl",
+    "requestId": "gT3ukzy4TmBVhMTK3Js6",
+    "sha256": "35ba7d6f088fa7e4822a98904684eb5566ce6adadd5720bf5a3f8913649d33d4"
+  },
+  {
+    "chapter": "mcp",
+    "model": "eleven_v4",
+    "voice": "eXpIbVcVbLo8ZJQDlDnl",
+    "requestId": "eP4KSo6azagWqL1DhBQo",
+    "sha256": "81ee18dab47bfc9d21a70edf0250f4b4545677c9e871b36afd33766b6faaec98"
+  },
+  {
+    "chapter": "workshop",
+    "model": "eleven_v4",
+    "voice": "eXpIbVcVbLo8ZJQDlDnl",
+    "requestId": "hc44GeQDpVbQRaD4MKZ2",
+    "sha256": "41f262dfa96ddea5c64dcb3a45b0ce88d4b2b130ed504c22315d92e214b7fd42"
+  },
+  {
+    "chapter": "dojo",
+    "model": "eleven_v4",
+    "voice": "eXpIbVcVbLo8ZJQDlDnl",
+    "requestId": "yJgQAZtpO5BN8DB7fyNp",
+    "sha256": "68f50ac378f3576d23e4361199eda7a33b47846741a9f109ddea101086ddef08"
+  },
+  {
+    "chapter": "archive",
+    "model": "eleven_v4",
+    "voice": "eXpIbVcVbLo8ZJQDlDnl",
+    "requestId": "ErTYTOCflPB25PyPpt81",
+    "sha256": "eb469d779eaff5db5b0000306e45012f62d7d03053aec7f6911ec51661966537"
+  }
+]

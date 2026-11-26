@@ -1,0 +1,19 @@
+<template>
+  <section id="root" class="tour-scene" data-composition-id="stop-mcp" data-width="1920"
+    data-height="1080" data-duration="9.7">
+    <div class="plate" data-layout-allow-overflow data-layout-allow-overlap>
+      <div id="stop-mcp-street" class="street" data-layout-allow-overlap>
+        <img src="assets/frames/city.webp" alt="">
+      </div>
+      <div id="stop-mcp-interior" class="interior" data-layout-allow-overlap><img src="assets/frames/mcp.webp" alt=""><video id="stop-mcp-footage" class="clip" data-start="0.63" data-duration="9.070" data-track-index="1" data-layout-allow-overlap muted playsinline src="assets/frames/mcp.mp4"></video></div>
+    </div>
+    <div id="stop-mcp-editorial" class="editorial">
+      <p class="stop-label">MCP Center</p>
+      <h1>Trace the tool calls</h1>
+      <p class="detail">Follow the call to its source evidence.</p>
+    </div>
+    <p class="wordmark">Agent City</p>
+    <div class="route" aria-hidden="true"><span class="visited"></span><span class="visited"></span><span class="visited"></span><span class="current"></span><span class=""></span><span class=""></span><span class=""></span></div>
+    <script>window.buildCityStop("stop-mcp", 9.7, 82, 76);</script>
+  </section>
+</template>

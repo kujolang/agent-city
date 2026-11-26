@@ -1,0 +1,9 @@
+[
+  {"duration":8.8,"lead":0.32,"break":3.88,"speech":7.36,"focus":[50,48]},
+  {"duration":9.3,"lead":0.92,"break":5.32,"speech":7.68,"focus":[16,25]},
+  {"duration":8.5,"lead":0.92,"break":4.42,"speech":6.88,"focus":[82,24],"videoDuration":8.4},
+  {"duration":9.7,"lead":0.92,"break":5.02,"speech":8.08,"focus":[82,76],"videoDuration":9.14},
+  {"duration":8.2,"lead":0.92,"break":3.20,"speech":6.72,"focus":[47,25],"videoDuration":8.3},
+  {"duration":10.9,"lead":0.92,"break":3.16,"speech":9.28,"focus":[47,76],"videoDuration":10.5},
+  {"duration":10.4,"lead":0.85,"break":4.98,"speech":8.56,"focus":[50,50]}
+]

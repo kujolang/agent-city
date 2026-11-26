@@ -1,0 +1,10 @@
+{
+  "name": "agent-city-interactive-tour",
+  "private": true,
+  "scripts": {
+    "check": "npx --yes hyperframes@0.8.27 check .",
+    "preview": "npx --yes hyperframes@0.8.27 preview .",
+    "render": "npx --yes hyperframes@0.8.27 render . --fps 30 --quality high --output agent-city-tour.mp4",
+    "player": "python3 -m http.server 8837 --bind 127.0.0.1"
+  }
+}

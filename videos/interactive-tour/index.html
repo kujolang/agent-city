@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Agent City · Interactive Tour</title>
+  <link rel="stylesheet" href="film.css">
+  <script src="assets/gsap.min.js"></script>
+  <script src="assets/motion.js"></script>
+  <script src="camera.js"></script>
+</head>
+<body>
+  <main id="tour" data-composition-id="agent-city-tour" data-width="1920" data-height="1080" data-duration="65.8">
+    <section id="stop-city" class="clip host" data-composition-id="stop-city" data-composition-src="compositions/stop-city.html" data-start="0.00" data-duration="8.8" data-track-index="0" data-track-kind="graphics" data-layout-allow-overlap></section>
+    <section id="stop-dispatch" class="clip host" data-composition-id="stop-dispatch" data-composition-src="compositions/stop-dispatch.html" data-start="8.80" data-duration="9.3" data-track-index="0" data-track-kind="graphics" data-layout-allow-overlap></section>
+    <section id="stop-library" class="clip host" data-composition-id="stop-library" data-composition-src="compositions/stop-library.html" data-start="18.10" data-duration="8.5" data-track-index="0" data-track-kind="graphics" data-layout-allow-overlap></section>
+    <section id="stop-mcp" class="clip host" data-composition-id="stop-mcp" data-composition-src="compositions/stop-mcp.html" data-start="26.60" data-duration="9.7" data-track-index="0" data-track-kind="graphics" data-layout-allow-overlap></section>
+    <section id="stop-workshop" class="clip host" data-composition-id="stop-workshop" data-composition-src="compositions/stop-workshop.html" data-start="36.30" data-duration="8.2" data-track-index="0" data-track-kind="graphics" data-layout-allow-overlap></section>
+    <section id="stop-dojo" class="clip host" data-composition-id="stop-dojo" data-composition-src="compositions/stop-dojo.html" data-start="44.50" data-duration="10.9" data-track-index="0" data-track-kind="graphics" data-layout-allow-overlap></section>
+    <section id="stop-archive" class="clip host" data-composition-id="stop-archive" data-composition-src="compositions/stop-archive.html" data-start="55.40" data-duration="10.4" data-track-index="0" data-track-kind="graphics" data-layout-allow-overlap></section>
+    <audio id="voice-city" class="clip" data-start="0.32" data-duration="7.36" data-track-index="2" src="assets/voice-city.mp3"></audio>
+    <audio id="voice-dispatch" class="clip" data-start="9.72" data-duration="7.68" data-track-index="2" src="assets/voice-dispatch.mp3"></audio>
+    <audio id="voice-library" class="clip" data-start="19.02" data-duration="6.88" data-track-index="2" src="assets/voice-library.mp3"></audio>
+    <audio id="voice-mcp" class="clip" data-start="27.52" data-duration="8.08" data-track-index="2" src="assets/voice-mcp.mp3"></audio>
+    <audio id="voice-workshop" class="clip" data-start="37.22" data-duration="6.72" data-track-index="2" src="assets/voice-workshop.mp3"></audio>
+    <audio id="voice-dojo" class="clip" data-start="45.42" data-duration="9.28" data-track-index="2" src="assets/voice-dojo.mp3"></audio>
+    <audio id="voice-archive" class="clip" data-start="56.25" data-duration="8.56" data-track-index="2" src="assets/voice-archive.mp3"></audio>
+    <audio id="score" class="clip" data-start="0" data-duration="65.8" data-track-index="3" src="assets/score.mp3"></audio>
+    <audio id="effects" class="clip" data-start="0" data-duration="65.8" data-track-index="4" src="assets/effects.mp3"></audio>
+  </main>
+  <script>
+    window.__timelines ??= {};
+    window.__timelines["agent-city-tour"] = gsap.timeline({ paused: true });
+  </script>
+</body>
+</html>

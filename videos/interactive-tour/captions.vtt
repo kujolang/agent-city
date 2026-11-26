@@ -1,0 +1,43 @@
+WEBVTT
+
+00:00:00.320 --> 00:00:04.200
+When an agent writes a release tool, how do you know it works?
+
+00:00:04.200 --> 00:00:07.680
+Agent City lets you follow the job and inspect the evidence.
+
+00:00:09.720 --> 00:00:15.040
+In Mission Command, ask for a tool that turns a list of changes into release notes.
+
+00:00:15.040 --> 00:00:17.400
+Choose a workflow with a separate reviewer.
+
+00:00:19.020 --> 00:00:23.440
+In the Library, you can see when the agent retrieves reference material.
+
+00:00:23.440 --> 00:00:25.900
+Open the linked evidence to see where it came from.
+
+00:00:27.520 --> 00:00:32.540
+At the MCP Center, you can follow the calls the agent makes to enabled tools.
+
+00:00:32.540 --> 00:00:35.600
+In this run, it read language documentation.
+
+00:00:37.220 --> 00:00:40.420
+The Workshop shows the agent at work on the draft.
+
+00:00:40.420 --> 00:00:43.940
+Open the mission to read the generated tool and the separate review.
+
+00:00:45.420 --> 00:00:48.580
+In the Dojo, you can see which checks ran.
+
+00:00:48.580 --> 00:00:54.700
+This tool passed its syntax check, ran in an isolated workspace, and printed the expected output.
+
+00:00:56.250 --> 00:01:01.230
+Open the saved mission to compare the tool, the review, and the check results.
+
+00:01:01.230 --> 00:01:04.810
+You can replay recorded activity without running the agent again.

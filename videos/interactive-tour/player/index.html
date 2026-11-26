@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Agent City · Interactive Tour</title>
+  <link rel="stylesheet" href="player.css">
+  <script src="../assets/motion.js" defer></script>
+  <script src="chapters.js" defer></script>
+  <script src="player.js" defer></script>
+</head>
+<body>
+  <main>
+    <header><h1>Agent City</h1><p>Interactive tour</p></header>
+    <div class="layout">
+      <div>
+        <div class="screen">
+          <video controls playsinline preload="metadata" poster="../assets/poster.webp" aria-label="Agent City narrated tour">
+            <source src="../agent-city-tour.mp4" type="video/mp4">
+            <a href="../agent-city-tour.mp4">Download the MP4</a>
+          </video>
+        </div>
+        <details>
+          <summary>Transcript</summary>
+          <ol id="transcript"></ol>
+        </details>
+      </div>
+      <nav aria-labelledby="chapters-heading">
+        <h2 id="chapters-heading">Tour stops</h2>
+        <ol id="stops"></ol>
+      </nav>
+    </div>
+  </main>
+</body>
+</html>

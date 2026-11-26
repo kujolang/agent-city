@@ -1,0 +1,96 @@
+@font-face {
+  font-family: Pixel;
+  src: url("assets/fonts/pixel.ttf") format("truetype");
+  font-display: block;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; width: 100%; height: 100%; }
+body { background: #eee9da; }
+#tour, .host, .tour-scene { width: 100%; height: 100%; position: relative; }
+.host { position: absolute; inset: 0; }
+.tour-scene {
+  position: relative;
+  overflow: hidden;
+  background: #eee9da;
+  color: #12222c;
+  font-family: system-ui, sans-serif;
+}
+
+.plate {
+  position: absolute;
+  top: 134px;
+  left: 96px;
+  width: 1008px;
+  height: 810px;
+  overflow: hidden;
+  background: #111c28;
+  border: 8px solid #12222c;
+  box-shadow: 14px 14px 0 #ccd1be;
+}
+
+.street, .interior { position: absolute; inset: 0; }
+.street img, .interior img, .interior video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  image-rendering: pixelated;
+}
+
+#stop-archive-interior img {
+  object-fit: contain;
+  image-rendering: auto;
+}
+
+.editorial {
+  position: absolute;
+  left: 1180px;
+  top: 227px;
+  width: 544px;
+}
+
+.stop-label {
+  margin: 0 0 42px;
+  color: #214753;
+  font: 30px/1.35 Pixel, monospace;
+}
+
+h1 {
+  margin: 0;
+  font-size: 74px;
+  font-weight: 780;
+  line-height: 1.04;
+  letter-spacing: -0.058em;
+  text-wrap: balance;
+}
+
+.detail {
+  margin: 38px 0 0;
+  padding-top: 26px;
+  border-top: 2px solid #a8afa5;
+  color: #34484a;
+  font-size: 34px;
+  line-height: 1.36;
+}
+
+.wordmark {
+  position: absolute;
+  right: 195px;
+  top: 100px;
+  margin: 0;
+  font: 28px/1.4 Pixel, monospace;
+}
+
+.route {
+  position: absolute;
+  left: 1180px;
+  top: 872px;
+  display: flex;
+  gap: 12px;
+}
+
+.route span { width: 60px; height: 9px; background: #c8cabb; }
+.route .visited { background: #7d9e90; }
+.route .current { background: #1f594c; }

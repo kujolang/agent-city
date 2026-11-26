@@ -1,0 +1,19 @@
+<template>
+  <section id="root" class="tour-scene" data-composition-id="stop-library" data-width="1920"
+    data-height="1080" data-duration="8.5">
+    <div class="plate" data-layout-allow-overflow data-layout-allow-overlap>
+      <div id="stop-library-street" class="street" data-layout-allow-overlap>
+        <img src="assets/frames/city.webp" alt="">
+      </div>
+      <div id="stop-library-interior" class="interior" data-layout-allow-overlap><img src="assets/frames/library.webp" alt=""><video id="stop-library-footage" class="clip" data-start="0.63" data-duration="7.870" data-track-index="1" data-layout-allow-overlap muted playsinline src="assets/frames/library.mp4"></video></div>
+    </div>
+    <div id="stop-library-editorial" class="editorial">
+      <p class="stop-label">Library</p>
+      <h1>See what the agent looked up</h1>
+      <p class="detail">Open the evidence for the source retrieval.</p>
+    </div>
+    <p class="wordmark">Agent City</p>
+    <div class="route" aria-hidden="true"><span class="visited"></span><span class="visited"></span><span class="current"></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span></div>
+    <script>window.buildCityStop("stop-library", 8.5, 82, 24);</script>
+  </section>
+</template>

@@ -1,0 +1,80 @@
+@font-face {
+  font-family: Pixel;
+  src: url("../assets/fonts/pixel.ttf") format("truetype");
+  font-display: swap;
+}
+:root {
+  font-family: system-ui, sans-serif;
+  background: #eee9da;
+  color: #12222c;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+body { margin: 0; }
+main { width: min(1440px, 100%); padding: clamp(20px, 4vw, 64px); margin: auto; }
+header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px 24px;
+  padding: 0 0 20px;
+  margin-bottom: 24px;
+  border-bottom: 2px solid #12222c;
+}
+h1 { margin: 0; font: clamp(18px, 3vw, 30px)/1.3 Pixel, monospace; }
+header p { margin: 0; color: #34484a; font-weight: 650; }
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(235px, 285px);
+  align-items: start;
+  gap: clamp(20px, 3vw, 48px);
+}
+.screen {
+  background: #111c28;
+  border: 3px solid #12222c;
+  box-shadow: 7px 7px #ccd1be;
+}
+video { display: block; width: 100%; aspect-ratio: 16 / 9; }
+video::cue { color: #fff; background: #101820; }
+h2 { font-size: 1rem; margin: 0 0 12px; }
+ol { margin: 0; padding: 0; list-style: none; }
+#stops { border-top: 1px solid #a8afa5; }
+#stops li { border-bottom: 1px solid #a8afa5; }
+button {
+  font: inherit;
+  text-align: left;
+  color: inherit;
+  cursor: pointer;
+}
+.stop {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 49px;
+  border: 0;
+  background: transparent;
+  padding: 10px 8px;
+}
+.stop:hover, .stop[aria-current] { background: #d8e3d1; }
+.stop[aria-current] { font-weight: 750; }
+.stop::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border: 1px solid #536b62;
+}
+.stop[aria-current]::before { background: #225e50; }
+time { font-size: .83rem; color: #34484a; font-variant-numeric: tabular-nums; }
+:focus-visible { outline: 2px solid #225e50; outline-offset: 2px; }
+details { margin-top: 25px; }
+summary { cursor: pointer; font-weight: 650; padding-block: 7px; }
+#transcript { border-top: 1px solid #a8afa5; margin-top: 8px; }
+#transcript li { border-bottom: 1px solid #a8afa5; padding-block: 10px; }
+#transcript button { padding: 6px 0; border: 0; background: transparent; font-weight: 750; }
+#transcript p { margin: 4px 0 8px; max-width: 66ch; line-height: 1.55; }
+@media (max-width: 760px) {
+  .layout { display: flex; flex-direction: column; }
+  .layout > div, nav { width: 100%; }
+}
