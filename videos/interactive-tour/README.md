@@ -10,9 +10,6 @@ move focus between stop buttons. The standalone
 [1080p MP4](agent-city-tour.mp4) and [English captions](captions.vtt) are also
 available.
 
-For a local player URL, run `npm run player` and open
-[localhost:8837/player](http://127.0.0.1:8837/player/).
-
 ## Edit and render
 
 - `chapters.json` holds the script and on-screen copy. `timings.json` holds the
