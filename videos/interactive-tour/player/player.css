@@ -68,7 +68,14 @@ button {
 .stop[aria-current]::before { background: #225e50; }
 time { font-size: .83rem; color: #34484a; font-variant-numeric: tabular-nums; }
 :focus-visible { outline: 2px solid #225e50; outline-offset: 2px; }
-details { margin-top: 25px; }
+.player-tools { display: flex; justify-content: flex-end; margin-top: 16px; }
+#captions {
+  background: transparent;
+  border: 1px solid #536b62;
+  min-height: 40px;
+  padding: 4px 12px;
+}
+#captions[aria-pressed="true"], #captions:hover { background: #d8e3d1; }
 summary { cursor: pointer; font-weight: 650; padding-block: 7px; }
 #transcript { border-top: 1px solid #a8afa5; margin-top: 8px; }
 #transcript li { border-bottom: 1px solid #a8afa5; padding-block: 10px; }

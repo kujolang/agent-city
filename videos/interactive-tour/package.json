@@ -4,7 +4,8 @@
   "scripts": {
     "check": "npx --yes hyperframes@0.8.27 check .",
     "preview": "npx --yes hyperframes@0.8.27 preview .",
-    "render": "npx --yes hyperframes@0.8.27 render . --fps 30 --quality high --output agent-city-tour.mp4",
-    "player": "python3 -m http.server 8837 --bind 127.0.0.1"
+    "render": "mkdir -p renders && npx --yes hyperframes@0.8.27 render . --fps 30 --quality high --output renders/raw.mp4 && npm run master",
+    "player": "python3 -m http.server 8837 --bind 127.0.0.1",
+    "master": "ffmpeg -nostdin -hide_banner -loglevel error -y -i renders/raw.mp4 -c:v copy -af loudnorm=I=-18:TP=-1.5:LRA=8 -ar 48000 -c:a aac -b:a 256k -movflags +faststart agent-city-tour.mp4"
   }
 }

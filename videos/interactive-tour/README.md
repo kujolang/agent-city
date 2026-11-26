@@ -4,8 +4,8 @@ Follow a real release-notes mission through the city. The seven-stop tour shows
 how to trace a source, inspect a tool and its review, and check the result.
 
 Open [the chapter player](player/index.html) in a browser. Choose a stop to jump
-to its zoom, or press Play to take the full tour. Use the video controls for
-English captions and open **Transcript** to read or jump to a section. Arrow keys
+to its zoom, or press Play to take the full tour. Use **Captions** for
+English subtitles and open **Transcript** to read or jump to a section. Arrow keys
 move focus between stop buttons. The standalone
 [1080p MP4](agent-city-tour.mp4) and [English captions](captions.vtt) are also
 available.

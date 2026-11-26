@@ -4,6 +4,13 @@ const transcript = document.querySelector("#transcript");
 const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
 const captionTrack = video.addTextTrack("captions", "English", "en");
 captionTrack.mode = "hidden";
+const captions = document.querySelector("#captions");
+captions.addEventListener("click", () => {
+  captionTrack.mode = captionTrack.mode === "showing" ? "hidden" : "showing";
+});
+video.textTracks.addEventListener("change", () => {
+  captions.setAttribute("aria-pressed", String(captionTrack.mode === "showing"));
+});
 const buttons = [];
 let active = -1;
 let animation;
